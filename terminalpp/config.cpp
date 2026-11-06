@@ -213,10 +213,19 @@ namespace tpp {
     void Config::win32AddPowershell(std::string & defaultSessionName, bool & updated) {
         defaultSessionName = "powershell";
         JSON session{JSON::Kind::Object};
-        session.setComment("Powershell - with the default blue background and white text");
+        session.setComment("PowerShell - with a black background and white text");
         session.add("name", JSON{defaultSessionName});
-        session.add("command", JSON::Parse(STR("[\"powershell.exe\"]")));
-        session.add("palette", JSON::Parse("{\"defaultForeground\" : \"ffffff\", \"defaultBackground\" : \"#0000ff\" }"));
+        std::string shell = "powershell.exe";
+        try {
+            ExitCode exitCode = EXIT_FAILURE;
+            Exec(Command("pwsh.exe", {"-NoLogo", "-NoProfile", "-Command", "exit 0"}), &exitCode);
+            if (exitCode == EXIT_SUCCESS)
+                shell = "pwsh.exe";
+        } catch (...) {
+            // PowerShell 7 is optional; fall back to Windows PowerShell.
+        }
+        session.add("command", JSON::Parse(STR("[\"" << shell << "\"]")));
+        session.add("palette", JSON::Parse("{\"defaultForeground\" : \"ffffff\", \"defaultBackground\" : \"#000000\" }"));
         session.add("workingDirectory", JSON{HomeDir()});
         updated = addSession(session) || updated;
     }
