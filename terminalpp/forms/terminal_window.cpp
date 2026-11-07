@@ -1,5 +1,38 @@
 #include "terminal_window.h"
 
+#if (ARCH_WINDOWS)
+#include <cctype>
+
+namespace {
+    class ScopedPowerShellUpdateCheck {
+    public:
+        ScopedPowerShellUpdateCheck() {
+            SetLastError(ERROR_SUCCESS);
+            DWORD const size = GetEnvironmentVariableW(L"POWERSHELL_UPDATECHECK", nullptr, 0);
+            DWORD const error = GetLastError();
+            if (size > 0) {
+                std::vector<wchar_t> value(size);
+                DWORD const length = GetEnvironmentVariableW(L"POWERSHELL_UPDATECHECK", value.data(), size);
+                if (length > 0 && length < size) {
+                    previous_.assign(value.data(), length);
+                    hadPrevious_ = true;
+                }
+            } else if (error != ERROR_ENVVAR_NOT_FOUND) {
+                hadPrevious_ = true;
+            }
+            SetEnvironmentVariableW(L"POWERSHELL_UPDATECHECK", L"Off");
+        }
+
+        ~ScopedPowerShellUpdateCheck() {
+            SetEnvironmentVariableW(L"POWERSHELL_UPDATECHECK", hadPrevious_ ? previous_.c_str() : nullptr);
+        }
+
+    private:
+        std::wstring previous_;
+        bool hadPrevious_ = false;
+    };
+}
+#endif
 
 namespace tpp {
 
@@ -14,10 +47,18 @@ namespace tpp {
         Command cmd = session.command();
         cmd.setWorkingDirectory(session.workingDirectory());
 #if (ARCH_WINDOWS)
+        std::string executable = cmd.command();
+        std::transform(executable.begin(), executable.end(), executable.begin(), [](unsigned char c) {
+            return static_cast<char>(std::tolower(c));
+        });
+        std::unique_ptr<ScopedPowerShellUpdateCheck> updateCheck;
+        if (executable.find("pwsh") != std::string::npos)
+            updateCheck.reset(new ScopedPowerShellUpdateCheck{});
         if (session.pty() != "bypass") 
             pty = new LocalPTYMaster(cmd);
         else
             pty = new BypassPTYMaster(cmd);
+        updateCheck.reset();
 #else
         pty = new LocalPTYMaster{cmd};
 #endif
