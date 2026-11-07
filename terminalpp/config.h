@@ -136,6 +136,19 @@ inline Command JSONConfig::FromJSON(JSON const & json) {
 }
 
 template<>
+inline std::vector<std::string> JSONConfig::FromJSON(JSON const & json) {
+    if (json.kind() != JSON::Kind::Array)
+        THROW(JSONError()) << "Expected array of SSH hosts, but " << json << " found";
+    std::vector<std::string> hosts;
+    for (JSON const & item : json) {
+        if (item.kind() != JSON::Kind::String)
+            THROW(JSONError()) << "Expected SSH host string, but " << item << " found";
+        hosts.push_back(item.toString());
+    }
+    return hosts;
+}
+
+template<>
 inline void JSONConfig::Property<Command>::cmdArgUpdate(char const * value, size_t index) {
     JSON x = (index == 0) ? JSON::Array() : toJSON(false);
     x.add(JSON{value});
@@ -564,6 +577,12 @@ namespace tpp {
             JSON{"default"},
             std::string
         );
+        CONFIG_PROPERTY(
+            sshHosts,
+            "SSH destinations that have been successfully connected to",
+            JSON::Array(),
+            std::vector<std::string>
+        );
         /* The list of sessings and their override settings.
          */
         CONFIG_ARRAY(
@@ -710,6 +729,9 @@ namespace tpp {
                     return sessions[i];
             THROW(Exception()) << "Session " << sessionName << " not found";
         }
+
+        void setSSHHosts(std::vector<std::string> const & hosts);
+        void save() const;
 
         std::string familyForFont(ui::Font font) const {
             if (font.doubleWidth()) {

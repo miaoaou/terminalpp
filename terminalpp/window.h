@@ -31,6 +31,13 @@ namespace tpp {
             std::function<void()> close;
         };
 
+        struct TabBarMenuItem {
+            std::string title;
+            std::function<void()> activate;
+            bool enabled = true;
+            std::vector<TabBarMenuItem> children;
+        };
+
         /** Determines the icon of the renderer's window where appropriate. 
          
             Instead of specifying the actual icon, which is left to the actual renderers being used, the icon specifies the meaning of the icon.
@@ -59,10 +66,11 @@ namespace tpp {
         virtual void startWindowDrag() {
         }
 
-        virtual void setTabBar(std::vector<TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu) {
+        virtual void setTabBar(std::vector<TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu, std::vector<TabBarMenuItem> dropDownItems) {
             MARK_AS_UNUSED(tabs);
             MARK_AS_UNUSED(addTab);
             MARK_AS_UNUSED(showMenu);
+            MARK_AS_UNUSED(dropDownItems);
         }
 
         Icon icon() const {

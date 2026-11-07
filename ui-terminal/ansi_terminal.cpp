@@ -121,11 +121,17 @@ namespace ui {
     void AnsiTerminal::pasteContents(std::string const & contents) {
         if (bracketedPaste_) {
             send("\033[200~", 6);
-            send(contents.c_str(), contents.size());
+            sendUserInput(contents.c_str(), contents.size());
             send("\033[201~", 6);
         } else {
-            send(contents.c_str(), contents.size());
+            sendUserInput(contents.c_str(), contents.size());
         }
+    }
+
+    void AnsiTerminal::sendUserInput(char const * buffer, size_t bufferSize) {
+        StringEvent::Payload input{std::string(buffer, bufferSize)};
+        onInput(input, this);
+        send(buffer, bufferSize);
     }
 
     void AnsiTerminal::keyDown(KeyEvent::Payload & e) {
@@ -153,9 +159,9 @@ namespace ui {
                     e->key() == Key::End)) {
                         std::string sa(*seq);
                         sa[1] = 'O';
-                        send(sa.c_str(), sa.size());
+                    sendUserInput(sa.c_str(), sa.size());
                 } else {
-                        send(seq->c_str(), seq->size());
+                    sendUserInput(seq->c_str(), seq->size());
                 }
             }
         }
@@ -171,7 +177,7 @@ namespace ui {
         onKeyChar(e, this);
         if (e.active()) {
             ASSERT(e->codepoint() >= 32);
-            send(e->toCharPtr(), e->size());
+            sendUserInput(e->toCharPtr(), e->size());
         }
         // don't propagate to parent as the terminal handles keyboard input itself
     }
@@ -640,6 +646,8 @@ namespace ui {
     // Input Processing
 
     size_t AnsiTerminal::received(char * buffer, char const * bufferEnd) {
+        StringEvent::Payload output{std::string(buffer, static_cast<size_t>(bufferEnd - buffer))};
+        onOutput(output, this);
         {
             std::lock_guard<PriorityLock> g(bufferLock_);
             // then process the input

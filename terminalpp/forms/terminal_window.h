@@ -150,6 +150,7 @@ namespace tpp {
             pager_->onPageChange.setHandler(&TerminalWindow::activeSessionChanged, this);
 
             window_->setRoot(this);
+            loadSSHHistory();
             versionChecker_ = std::thread{[this](){
                 std::string channel = Config::Instance().version.checkChannel();
                 if (channel.empty())
@@ -184,6 +185,11 @@ namespace tpp {
             std::string tabTitle;
             AnsiTerminal * terminal = nullptr;
             bool terminateOnKeyPress = false;
+            std::string inputLine;
+            std::string pendingSSHCommand;
+            std::string pendingSSHTarget;
+            std::string pendingSSHOutput;
+            bool pendingSSHWasAlreadySaved = false;
             /** If true, the current session has an active notification.
              */
             bool notification = false;
@@ -206,6 +212,16 @@ namespace tpp {
         void windowCloseRequest(tpp::Window::CloseEvent::Payload & e) {
             MARK_AS_UNUSED(e);
         }
+
+        static bool parseSSHCommand(std::string const & line, std::string & target);
+        static void eraseLastInputCharacter(std::string & line);
+        void submitInputLine(SessionInfo & session);
+        void observeTerminalInput(SessionInfo & session, std::string const & contents);
+        void processSSHOutput(SessionInfo * session, std::string const & output);
+        void discardPendingSSH(SessionInfo & session);
+        void loadSSHHistory();
+        void recordSSHHost(std::string const & host);
+        void launchSSHHost(std::string const & host);
 
         /** Global hotkeys handling.
          */
@@ -265,7 +281,82 @@ namespace tpp {
                 };
                 tabs.push_back(std::move(tab));
             }
-            window_->setTabBar(std::move(tabs), [this]() { createNewTab(); }, [this]() { createNewTab(); });
+            Config & config = Config::Instance();
+            auto findSession = [&config](std::function<bool(Config::sessions_entry const &)> matches) -> std::string {
+                for (size_t i = 0; i < config.sessions.size(); ++i) {
+                    Config::sessions_entry const & session = config.sessions[i];
+                    if (!session.hidden() && matches(session))
+                        return session.name();
+                }
+                return {};
+            };
+            auto executableIs = [](Config::sessions_entry const & session, char const * executable) {
+                std::string command = session.command().command();
+                std::transform(command.begin(), command.end(), command.begin(), [](unsigned char c) {
+                    return static_cast<char>(std::tolower(c));
+                });
+                return command.find(executable) != std::string::npos;
+            };
+            std::string powershell = findSession([&](Config::sessions_entry const & session) {
+                return executableIs(session, "pwsh") || executableIs(session, "powershell");
+            });
+            std::string commandPrompt = findSession([&](Config::sessions_entry const & session) {
+                return executableIs(session, "cmd.exe");
+            });
+            std::string wsl;
+            for (size_t i = 0; i < config.sessions.size(); ++i) {
+                Config::sessions_entry const & session = config.sessions[i];
+                if (session.name() == config.defaultSession() && executableIs(session, "wsl.exe")) {
+                    wsl = session.name();
+                    break;
+                }
+            }
+            if (wsl.empty()) {
+                for (size_t i = 0; i < config.sessions.size(); ++i) {
+                    Config::sessions_entry const & session = config.sessions[i];
+                    if (executableIs(session, "wsl.exe")) {
+                        wsl = session.name();
+                        break;
+                    }
+                }
+            }
+            if (wsl.empty()) {
+                // Keep the WSL menu option usable even when no WSL profile was
+                // discovered or configured. `wsl.exe` opens the default distro.
+                std::string generatedName = "__terminalpp_wsl_default";
+                for (size_t suffix = 1; ; ++suffix) {
+                    bool nameTaken = false;
+                    for (size_t i = 0; i < config.sessions.size(); ++i)
+                        nameTaken = nameTaken || config.sessions[i].name() == generatedName;
+                    if (!nameTaken)
+                        break;
+                    generatedName = STR("__terminalpp_wsl_default_" << suffix);
+                }
+                JSON wslSession = JSON::Object();
+                wslSession.add("name", JSON{generatedName});
+                wslSession.add("hidden", JSON{true});
+                wslSession.add("pty", JSON{"local"});
+                wslSession.add("command", JSON::Parse("[\"wsl.exe\"]"));
+                wslSession.add("workingDirectory", JSON{HomeDir()});
+                config.sessions.addElement(wslSession);
+                wsl = generatedName;
+            }
+            auto launchSession = [this](std::string name) {
+                if (!name.empty())
+                    newSession(Config::Instance().sessionByName(name));
+            };
+            std::vector<tpp::Window::TabBarMenuItem> sshItems;
+            for (std::string const & host : sshHosts_)
+                sshItems.push_back({host, [this, host]() { launchSSHHost(host); }, true});
+            if (sshItems.empty())
+                sshItems.push_back({"No saved SSH connections", {}, false});
+            std::vector<tpp::Window::TabBarMenuItem> dropDownItems{
+                {"Windows PowerShell", [launchSession, powershell]() { launchSession(powershell); }, !powershell.empty()},
+                {"Command Prompt", [launchSession, commandPrompt]() { launchSession(commandPrompt); }, !commandPrompt.empty()},
+                {"WSL", [launchSession, wsl]() { launchSession(wsl); }, true},
+                {"SSH", {}, true, std::move(sshItems)}
+            };
+            window_->setTabBar(std::move(tabs), [this]() { createNewTab(); }, [this]() { createNewTab(); }, std::move(dropDownItems));
 #endif
         }
 
@@ -435,8 +526,9 @@ namespace tpp {
                 si->pendingPaste->cancel();
             si->pendingPaste = new PasteDialog(*e);
             si->pendingPaste->onDismiss.setHandler([si](ui::Event<Widget*>::Payload & e) {
-                if (*e == si->pendingPaste->btnYes())
+                if (*e == si->pendingPaste->btnYes()) {
                     si->terminal->pasteContents(si->pendingPaste->contents());
+                }
                 si->pendingPaste = nullptr;
             });
             showModal(si->pendingPaste);
@@ -462,6 +554,23 @@ namespace tpp {
                 return;
             }
             e.stop();
+        }
+
+        void terminalInput(StringEvent::Payload & e) {
+            SessionInfo * si = sessionInfo(e.sender());
+            observeTerminalInput(*si, *e);
+        }
+
+        void terminalOutput(StringEvent::Payload & e) {
+            AnsiTerminal * terminal = dynamic_cast<AnsiTerminal*>(e.sender());
+            if (terminal == nullptr)
+                return;
+            std::string output = *e;
+            window_->schedule([this, terminal, output = std::move(output)]() {
+                auto found = sessions_.find(terminal);
+                if (found != sessions_.end())
+                    processSSHOutput(found->second, output);
+            }, terminal);
         }
 
         void terminalTppSequence(TppSequenceEvent::Payload & event) {
@@ -525,6 +634,8 @@ namespace tpp {
 
         std::unordered_map<AnsiTerminal *, SessionInfo *> sessions_;
         std::vector<AnsiTerminal *> sessionOrder_;
+        std::vector<std::string> sshHosts_;
+        unsigned nextSSHSessionId_ = 1;
 
         SessionInfo * activeSession_ = nullptr;
         unsigned activeNotifications_ = 0;

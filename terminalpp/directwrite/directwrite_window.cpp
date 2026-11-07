@@ -68,10 +68,59 @@ namespace tpp {
         return button;
     }
 
-    void DirectWriteWindow::setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu) {
+    void DirectWriteWindow::showDropDownMenu() {
+        if (dropDownItems_.empty() || dropDownButton_ == nullptr)
+            return;
+
+        HMENU menu = CreatePopupMenu();
+        if (menu == nullptr)
+            return;
+
+        std::vector<std::function<void()>> actions;
+        std::function<void(HMENU, std::vector<Window::TabBarMenuItem> const &)> appendItems;
+        appendItems = [&](HMENU parent, std::vector<Window::TabBarMenuItem> const & items) {
+            for (Window::TabBarMenuItem const & item : items) {
+                utf16_string title = UTF8toUTF16(item.title);
+                if (!item.children.empty()) {
+                    HMENU submenu = CreatePopupMenu();
+                    if (submenu == nullptr)
+                        continue;
+                    appendItems(submenu, item.children);
+                    AppendMenuW(parent, MF_POPUP | MF_STRING, reinterpret_cast<UINT_PTR>(submenu), title.c_str());
+                } else {
+                    UINT flags = MF_STRING;
+                    if (!item.enabled || !item.activate)
+                        flags |= MF_GRAYED;
+                    UINT const id = DropDownMenuItemId + static_cast<UINT>(actions.size());
+                    AppendMenuW(parent, flags, id, title.c_str());
+                    actions.push_back(item.activate);
+                }
+            }
+        };
+        appendItems(menu, dropDownItems_);
+
+        RECT buttonRect{};
+        GetWindowRect(dropDownButton_, &buttonRect);
+        SetForegroundWindow(hWnd_);
+        UINT const selected = TrackPopupMenu(
+            menu, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD,
+            buttonRect.left, buttonRect.bottom, 0, hWnd_, nullptr);
+        DestroyMenu(menu);
+        PostMessageW(hWnd_, WM_NULL, 0, 0);
+
+        if (selected >= DropDownMenuItemId) {
+            size_t const index = selected - DropDownMenuItemId;
+            if (index < actions.size() && actions[index])
+                actions[index]();
+        }
+        SetFocus(hWnd_);
+    }
+
+    void DirectWriteWindow::setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu, std::vector<Window::TabBarMenuItem> dropDownItems) {
         UI_THREAD_ONLY;
         addTabAction_ = std::move(addTab);
         showMenuAction_ = std::move(showMenu);
+        dropDownItems_ = std::move(dropDownItems);
 
         size_t const sharedCount = std::min(tabButtons_.size(), tabs.size());
         for (size_t i = 0; i < sharedCount; ++i)
@@ -620,7 +669,11 @@ namespace tpp {
 						if (window->addTabAction_) window->addTabAction_();
 						return 0;
 					}
-					if (id == DropDownButtonId || id == MenuButtonId) {
+					if (id == DropDownButtonId) {
+						window->showDropDownMenu();
+						return 0;
+					}
+					if (id == MenuButtonId) {
 						if (window->showMenuAction_) window->showMenuAction_();
 						return 0;
 					}

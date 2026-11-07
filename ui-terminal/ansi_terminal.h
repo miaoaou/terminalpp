@@ -192,6 +192,10 @@ namespace ui {
          */
         StringEvent onHyperlinkCopy;
         StringEvent onTitleChange;
+        /** Raw output received from the PTY, emitted before terminal parsing. */
+        StringEvent onOutput;
+        /** Bytes from user keyboard or paste input, before they are sent to the PTY. */
+        StringEvent onInput;
         StringEvent onClipboardSetRequest;
         TppSequenceEvent onTppSequence;
         ExitCodeEvent onPTYTerminated;
@@ -241,6 +245,8 @@ namespace ui {
     protected:
 
         void keyDown(KeyEvent::Payload & e) override ;
+
+        void sendUserInput(char const * buffer, size_t bufferSize);
 
         void keyUp(KeyEvent::Payload & e) override;
 

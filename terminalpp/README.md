@@ -8,7 +8,7 @@ The terminal settings can be specified in the settings JSON file (it is a pseudo
 
 The settings are stored under the following paths on different platforms:
 
-- Windows: `%APP_DATA%\\Local\\terminalpp\\settings.json`
+- Windows: `settings.json` beside the executable
 - Linux: `~/.config/terminalpp/settings.json`
 
 Upon first execution of `tpp`, default settings will be created, which can later be edited by hand. Use `Ctrl+F10` in the terminal to open the settings file in default `JSON` editor. 

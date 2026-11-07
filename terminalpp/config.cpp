@@ -7,16 +7,76 @@
 
 namespace tpp {
 
+    namespace {
+
+        std::filesystem::path nativePath(std::string const & path) {
+#if (defined ARCH_WINDOWS)
+            return std::filesystem::path{UTF8toUTF16(path)};
+#else
+            return std::filesystem::path{path};
+#endif
+        }
+
+        std::string pathToUTF8(std::filesystem::path const & path) {
+#if (defined ARCH_WINDOWS)
+            std::wstring const wide = path.wstring();
+            return UTF16toUTF8(wide.c_str());
+#else
+            return path.string();
+#endif
+        }
+
+        void moveLegacyFile(std::string const & source, std::string const & destination) {
+            std::filesystem::path const from = nativePath(source);
+            std::filesystem::path const to = nativePath(destination);
+            if (!std::filesystem::exists(from))
+                return;
+            if (std::filesystem::absolute(from).lexically_normal() == std::filesystem::absolute(to).lexically_normal())
+                return;
+
+            std::filesystem::path target = to;
+            if (std::filesystem::exists(target)) {
+                target += ".legacy.bak";
+                for (unsigned suffix = 1; std::filesystem::exists(target); ++suffix)
+                    target = to.wstring() + L".legacy." + std::to_wstring(suffix) + L".bak";
+            }
+            std::filesystem::copy_file(from, target, std::filesystem::copy_options::none);
+            std::filesystem::remove(from);
+        }
+
+        void migrateSettingsBesideExecutable() {
+#if (defined ARCH_WINDOWS)
+            std::vector<std::string> const legacyFolders{
+                pathToUTF8(std::filesystem::current_path()),
+                JoinPath(LocalSettingsFolder(), "terminalpp")
+            };
+            std::string const newFolder = Config::GetSettingsFolder();
+            for (std::string const & folder : legacyFolders) {
+                std::error_code error;
+                std::filesystem::directory_iterator entry{nativePath(folder), error};
+                std::filesystem::directory_iterator const end;
+                for (; !error && entry != end; entry.increment(error)) {
+                    if (!entry->is_regular_file(error) || error)
+                        continue;
+                    std::string const filename = pathToUTF8(entry->path().filename());
+                    bool const isSettingsFile = filename == "settings.json" || filename.rfind("settings.json.", 0) == 0;
+                    if (isSettingsFile || filename == "versions.json" || filename == "ssh-history.txt")
+                        moveLegacyFile(pathToUTF8(entry->path()), JoinPath(newFolder, filename));
+                }
+            }
+#endif
+        }
+
+    } // namespace
+
     Config & Config::Setup(int argc, char * argv[]) {
         MARK_AS_UNUSED(argc);
         MARK_AS_UNUSED(argv);
         Config & config = Instance();
         bool saveSettings = false;
         bool backupSettings = false;
-        std::string filename = []{
-            if (access ("settings.json", R_OK) == 0) return std::string("settings.json");
-            else return GetSettingsFile();
-        }();
+        migrateSettingsBesideExecutable();
+        std::string const filename = GetSettingsFile();
         {
             std::ifstream f{filename};
             if (f.good()) {
@@ -74,12 +134,49 @@ namespace tpp {
     }
 
 	std::string Config::GetSettingsFolder() {
+#if (defined ARCH_WINDOWS)
+        std::vector<wchar_t> executablePath(32768);
+        DWORD const length = GetModuleFileNameW(nullptr, executablePath.data(), static_cast<DWORD>(executablePath.size()));
+        OSCHECK(length > 0 && length < executablePath.size()) << "Unable to determine executable path";
+        executablePath.resize(length);
+        std::wstring const folder = std::filesystem::path{std::wstring{executablePath.begin(), executablePath.end()}}.parent_path().wstring();
+        return UTF16toUTF8(folder.c_str());
+#else
         return JoinPath(LocalSettingsFolder(), "terminalpp");
+#endif
 	}
 
 	std::string Config::GetSettingsFile() {
 		return JoinPath(GetSettingsFolder(), "settings.json");
 	}
+
+    void Config::setSSHHosts(std::vector<std::string> const & hosts) {
+        JSON value = JSON::Array();
+        for (std::string const & host : hosts)
+            value.add(JSON{host});
+        sshHosts.set(value);
+        save();
+    }
+
+    void Config::save() const {
+        CreatePath(GetSettingsFolder());
+        JSON settings = toJSON();
+        if (settings.hasKey("sessions")) {
+            JSON & profiles = settings["sessions"];
+            for (size_t i = profiles.numElements(); i > 0; --i) {
+                JSON const & profile = profiles[i - 1];
+                if (!profile.hasKey("name"))
+                    continue;
+                std::string const name = profile["name"].toString();
+                if (name.rfind("__terminalpp_wsl_default", 0) == 0 || name.rfind("__terminalpp_ssh_", 0) == 0)
+                    profiles.erase(i - 1);
+            }
+        }
+        std::ofstream f{GetSettingsFile()};
+        if (!f)
+            THROW(IOError()) << "Unable to write to the settings file " << GetSettingsFile();
+        f << settings;
+    }
 
 	JSON Config::TerminalVersion() {
 		return JSON{PROJECT_VERSION};

@@ -47,11 +47,15 @@ namespace tpp {
             } else {
                 ShowWindow(hWnd_, SW_MAXIMIZE);
             }
+            // The owner-drawn caption buttons are child HWNDs and take focus on
+            // click. Return focus to the renderer so terminal keyboard input
+            // keeps working after maximize/restore.
+            SetFocus(hWnd_);
         }
 
         void startWindowDrag() override;
 
-        void setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu) override;
+        void setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu, std::vector<Window::TabBarMenuItem> dropDownItems) override;
 
         void show(bool value = true) override {
             if (value)
@@ -293,6 +297,7 @@ namespace tpp {
         }
 
         HWND createTitleButton(int id);
+        void showDropDownMenu();
 
         void layoutCaptionControls(bool reflowTabs = true) {
             RECT client{};
@@ -379,6 +384,7 @@ namespace tpp {
         static constexpr int MenuButtonId = 0x5A20;
         static constexpr int AddTabButtonId = 0x5A21;
         static constexpr int DropDownButtonId = 0x5A22;
+        static constexpr int DropDownMenuItemId = 0x5A30;
         static constexpr int TabButtonId = 0x5B00;
         struct TabButton {
             HWND hWnd = nullptr;
@@ -389,6 +395,7 @@ namespace tpp {
         HWND addTabButton_ = nullptr;
         HWND dropDownButton_ = nullptr;
         std::vector<TabButton> tabButtons_;
+        std::vector<Window::TabBarMenuItem> dropDownItems_;
         std::function<void()> addTabAction_;
         std::function<void()> showMenuAction_;
         int hoveredButtonId_ = -1;
