@@ -302,6 +302,23 @@ namespace tpp {
             layoutCaptionControls();
         }
 
+        void setCaptionControlsRedraw(bool enabled) {
+            auto setRedraw = [enabled](HWND control) {
+                if (control != nullptr) {
+                    SendMessageW(control, WM_SETREDRAW, enabled, 0);
+                    if (enabled)
+                        RedrawWindow(control, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
+                }
+            };
+            for (HWND button : captionButtons_)
+                setRedraw(button);
+            setRedraw(menuButton_);
+            for (TabButton const & tab : tabButtons_)
+                setRedraw(tab.hWnd);
+            setRedraw(addTabButton_);
+            setRedraw(dropDownButton_);
+        }
+
         HWND createTitleButton(int id);
         void showDropDownMenu();
         void showDropDownSubmenu(size_t itemIndex);
@@ -335,7 +352,10 @@ namespace tpp {
                 }
                 includeDirty(RECT{x, 0, x + buttonWidth, height});
                 UINT const flags = SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | SWP_NOREDRAW;
-                changedButtons.push_back(button);
+                bool const sizeChanged = !hadPrevious || previous.right - previous.left != buttonWidth ||
+                    previous.bottom - previous.top != height;
+                if (sizeChanged)
+                    changedButtons.push_back(button);
                 if (batch != nullptr) {
                     HDWP next = DeferWindowPos(batch, button, nullptr, x, 0, buttonWidth, height, flags);
                     if (next != nullptr) {
@@ -384,8 +404,9 @@ namespace tpp {
 
             for (HWND button : changedButtons)
                 InvalidateRect(button, nullptr, FALSE);
-            for (RECT const & rect : dirtyRects)
-                InvalidateRect(hWnd_, &rect, FALSE);
+            if (!interactiveResize_)
+                for (RECT const & rect : dirtyRects)
+                    InvalidateRect(hWnd_, &rect, FALSE);
         }
 
         void invalidateTitleButton(int id);
@@ -416,6 +437,7 @@ namespace tpp {
         std::function<void()> addTabAction_;
         std::function<void()> showMenuAction_;
         bool dropDownMenuActive_ = false;
+        bool interactiveResize_ = false;
         bool suppressMenuDismissMouseUp_ = false;
         bool suppressNextMenuDismissClick_ = false;
         int hoveredButtonId_ = -1;

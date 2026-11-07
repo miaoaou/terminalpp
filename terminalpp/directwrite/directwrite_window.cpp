@@ -714,7 +714,7 @@ namespace tpp {
         utf16_string t = UTF8toUTF16(title);
         windowedStyle_ = WS_POPUP | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN;
         hWnd_ = CreateWindowExW(
-            WS_EX_LEFT, // the default
+			WS_EX_LEFT, // the default
             DirectWriteApplication::Instance()->WindowClassName_, // window class
             // ok, on windows wchar_t and char16_t are the same (see helpers/char.h)
             t.c_str(), // window name (all start as terminal++)
@@ -918,6 +918,19 @@ namespace tpp {
 				if (bottom) return HTBOTTOM;
 				break;
 			}
+			case WM_ENTERSIZEMOVE:
+				if (window != nullptr) {
+					window->interactiveResize_ = true;
+					window->setCaptionControlsRedraw(false);
+				}
+				break;
+			case WM_EXITSIZEMOVE:
+				if (window != nullptr) {
+					window->interactiveResize_ = false;
+					window->layoutCaptionControls(!IsZoomed(hWnd));
+					window->setCaptionControlsRedraw(true);
+				}
+				break;
 			/* Called when the window is resized interactively by the user. Makes sure that the window size snaps to discrete terminal sizes. 
             
             We must take into account the DPI current DPI system settings that may increase the real cell size. 
@@ -956,7 +969,8 @@ namespace tpp {
 				if (wParam == SIZE_MINIMIZED)
 					break;
 				if (window != nullptr) {
-					window->layoutCaptionControls(!IsZoomed(hWnd));
+					if (!window->interactiveResize_)
+						window->layoutCaptionControls(!IsZoomed(hWnd));
 					RECT rect;
 					GetClientRect(hWnd, &rect);
 					window->windowResized(rect.right, rect.bottom);

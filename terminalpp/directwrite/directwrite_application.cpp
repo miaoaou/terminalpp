@@ -241,7 +241,7 @@ namespace tpp {
 		WNDCLASSEXW wClass = { 0 };
 		wClass.cbSize = sizeof(WNDCLASSEX); // size of the class info
 		wClass.hInstance = hInstance_;
-		wClass.style = CS_HREDRAW | CS_VREDRAW;
+		wClass.style = 0;
 		wClass.lpfnWndProc = DirectWriteWindow::EventHandler; // event handler function for the window class
 		wClass.cbClsExtra = 0; // extra memory to be allocated for the class
 		wClass.cbWndExtra = 0; // extra memory to be allocated for each window
