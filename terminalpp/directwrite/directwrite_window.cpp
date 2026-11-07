@@ -264,6 +264,12 @@ namespace tpp {
         POINT point{};
         GetCursorPos(&point);
         SendMessageW(hWnd_, WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(point.x, point.y));
+        ReleaseCapture();
+        if (rendererMouseCaptured()) {
+            mouseLeaveTracked_ = false;
+            ui::Renderer::mouseOut();
+        }
+        mouseButtonsDown_ = 0;
     }
 
     void DirectWriteWindow::setFullscreen(bool value) {
