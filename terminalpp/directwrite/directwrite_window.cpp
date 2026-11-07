@@ -93,7 +93,7 @@ namespace tpp {
             tabButtons_.push_back(std::move(tab));
         }
 
-        layoutCaptionControls();
+        layoutCaptionControls(!IsZoomed(hWnd_));
         for (TabButton const & tab : tabButtons_) {
             if (tab.hWnd != nullptr)
                 InvalidateRect(tab.hWnd, nullptr, FALSE);
@@ -577,13 +577,17 @@ namespace tpp {
 				if (wParam == SIZE_MINIMIZED)
 					break;
 				if (window != nullptr) {
-					window->layoutCaptionControls();
+					window->layoutCaptionControls(!IsZoomed(hWnd));
 					RECT rect;
 					GetClientRect(hWnd, &rect);
 					window->windowResized(rect.right, rect.bottom);
 				}
 				break;
 			}
+			case WM_ERASEBKGND:
+				// Direct2D paints the full client area. Skipping the default erase avoids
+				// a blank frame while the target is resized during maximize/restore.
+				return 1;
 			/* Repaint of the window is requested. 
              */
 			case WM_PAINT: {

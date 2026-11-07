@@ -194,6 +194,15 @@ namespace ui {
             });
         }
 
+        /** Repaints and renders the full root immediately on the UI thread. */
+        void repaintImmediately() {
+            UI_THREAD_ONLY;
+            if (root_ == nullptr)
+                return;
+            renderWidget_ = root_;
+            paintAndRender();
+        }
+
     protected: 
         /** Actual rendering. 
          */

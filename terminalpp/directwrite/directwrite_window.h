@@ -3,6 +3,8 @@
 
 #include <algorithm>
 #include <unordered_map>
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
 
 #include "helpers/time.h"
 
@@ -38,7 +40,13 @@ namespace tpp {
         }
 
         void toggleMaximized() override {
-            ShowWindow(hWnd_, IsZoomed(hWnd_) ? SW_RESTORE : SW_MAXIMIZE);
+            if (IsZoomed(hWnd_)) {
+                BOOL disableTransitions = TRUE;
+                DwmSetWindowAttribute(hWnd_, DWMWA_TRANSITIONS_FORCEDISABLED, &disableTransitions, sizeof(disableTransitions));
+                ShowWindow(hWnd_, SW_RESTORE);
+            } else {
+                ShowWindow(hWnd_, SW_MAXIMIZE);
+            }
         }
 
         void startWindowDrag() override;
@@ -82,6 +90,7 @@ namespace tpp {
                 sizePx_ = Size{width, height};
                 // tell the renderer to resize 
                 resizePx(Size{width, height});
+                repaintImmediately();
             }
         }
  
@@ -285,17 +294,31 @@ namespace tpp {
 
         HWND createTitleButton(int id);
 
-        void layoutCaptionControls() {
+        void layoutCaptionControls(bool reflowTabs = true) {
             RECT client{};
             GetClientRect(hWnd_, &client);
             int const width = captionControlWidth();
             int const left = client.right - 3 * width;
             int const height = captionControlHeight();
             HDWP batch = BeginDeferWindowPos(static_cast<int>(6 + tabButtons_.size()));
-            auto place = [this, &batch, height](HWND button, int x, int buttonWidth) {
+            std::vector<HWND> changedButtons;
+            std::vector<RECT> dirtyRects;
+            auto includeDirty = [&dirtyRects](RECT const & rect) { dirtyRects.push_back(rect); };
+            auto place = [this, &batch, &changedButtons, &includeDirty, height](HWND button, int x, int buttonWidth) {
                 if (button == nullptr)
                     return;
+                RECT previous{};
+                bool const hadPrevious = GetWindowRect(button, &previous) != FALSE;
+                if (hadPrevious) {
+                    MapWindowPoints(nullptr, hWnd_, reinterpret_cast<POINT*>(&previous), 2);
+                    if (IsWindowVisible(button) && previous.left == x && previous.top == 0 &&
+                        previous.right - previous.left == buttonWidth && previous.bottom - previous.top == height)
+                        return;
+                    includeDirty(previous);
+                }
+                includeDirty(RECT{x, 0, x + buttonWidth, height});
                 UINT const flags = SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | SWP_NOREDRAW;
+                changedButtons.push_back(button);
                 if (batch != nullptr) {
                     HDWP next = DeferWindowPos(batch, button, nullptr, x, 0, buttonWidth, height, flags);
                     if (next != nullptr) {
@@ -318,10 +341,15 @@ namespace tpp {
                 place(menuButton_, x, menuWidth);
                 x += menuWidth;
             }
-            int const tabSpace = std::max(0, static_cast<int>(client.right) - (3 * width) - x - addWidth - dropDownWidth);
-            int const tabWidth = tabButtons_.empty() ? 0 : std::min(
-                static_cast<int>(200 * dpiFactor_),
-                std::max(static_cast<int>(96 * dpiFactor_), tabSpace / static_cast<int>(tabButtons_.size())));
+            if (tabButtons_.empty()) {
+                tabButtonWidth_ = 0;
+            } else if (reflowTabs || tabButtonWidth_ == 0) {
+                int const tabSpace = std::max(0, static_cast<int>(client.right) - (3 * width) - x - addWidth - dropDownWidth);
+                tabButtonWidth_ = std::min(
+                    static_cast<int>(200 * dpiFactor_),
+                    std::max(static_cast<int>(96 * dpiFactor_), tabSpace / static_cast<int>(tabButtons_.size())));
+            }
+            int const tabWidth = tabButtonWidth_;
             for (TabButton & tab : tabButtons_) {
                 if (tab.hWnd != nullptr)
                     place(tab.hWnd, x, tabWidth);
@@ -337,22 +365,10 @@ namespace tpp {
             if (batch != nullptr)
                 EndDeferWindowPos(batch);
 
-            for (HWND button : captionButtons_) {
-                if (button != nullptr)
-                    InvalidateRect(button, nullptr, FALSE);
-            }
-            if (menuButton_ != nullptr)
-                InvalidateRect(menuButton_, nullptr, FALSE);
-            for (TabButton const & tab : tabButtons_) {
-                if (tab.hWnd != nullptr)
-                    InvalidateRect(tab.hWnd, nullptr, FALSE);
-            }
-            if (addTabButton_ != nullptr)
-                InvalidateRect(addTabButton_, nullptr, FALSE);
-            if (dropDownButton_ != nullptr)
-                InvalidateRect(dropDownButton_, nullptr, FALSE);
-            RECT dirty{0, 0, x, height};
-            InvalidateRect(hWnd_, &dirty, FALSE);
+            for (HWND button : changedButtons)
+                InvalidateRect(button, nullptr, FALSE);
+            for (RECT const & rect : dirtyRects)
+                InvalidateRect(hWnd_, &rect, FALSE);
         }
 
         void invalidateTitleButton(int id);
@@ -377,6 +393,7 @@ namespace tpp {
         std::function<void()> showMenuAction_;
         int hoveredButtonId_ = -1;
         int hoveredCloseButtonId_ = -1;
+        int tabButtonWidth_ = 0;
 
         static LRESULT CALLBACK CaptionButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassId, DWORD_PTR refData);
 
