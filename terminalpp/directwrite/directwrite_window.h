@@ -172,6 +172,12 @@ namespace tpp {
             Starts mouse capture if no mouse button has been pressed previously, which allows the terminal window to track mouse movement outside of the window if at least one mouse button is pressed. 
          */ 
         void mouseDown(Point coords, MouseButton button) override {
+            if (suppressNextMenuDismissClick_ && button == MouseButton::Left) {
+                suppressNextMenuDismissClick_ = false;
+                KillTimer(hWnd_, MenuDismissClearTimerId);
+                suppressMenuDismissMouseUp_ = true;
+                return;
+            }
             RendererWindow::mouseDown(coords, button);
             if (mouseButtonsDown_ == 1)
                 SetCapture(hWnd_);
@@ -385,6 +391,7 @@ namespace tpp {
         static constexpr int AddTabButtonId = 0x5A21;
         static constexpr int DropDownButtonId = 0x5A22;
         static constexpr int DropDownMenuItemId = 0x5A30;
+        static constexpr UINT_PTR MenuDismissClearTimerId = 0x5A34;
         static constexpr int TabButtonId = 0x5B00;
         struct TabButton {
             HWND hWnd = nullptr;
@@ -398,6 +405,9 @@ namespace tpp {
         std::vector<Window::TabBarMenuItem> dropDownItems_;
         std::function<void()> addTabAction_;
         std::function<void()> showMenuAction_;
+        bool dropDownMenuActive_ = false;
+        bool suppressMenuDismissMouseUp_ = false;
+        bool suppressNextMenuDismissClick_ = false;
         int hoveredButtonId_ = -1;
         int hoveredCloseButtonId_ = -1;
         int tabButtonWidth_ = 0;

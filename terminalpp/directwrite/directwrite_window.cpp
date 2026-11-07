@@ -102,9 +102,18 @@ namespace tpp {
         RECT buttonRect{};
         GetWindowRect(dropDownButton_, &buttonRect);
         SetForegroundWindow(hWnd_);
+        dropDownMenuActive_ = true;
         UINT const selected = TrackPopupMenu(
             menu, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD,
             buttonRect.left, buttonRect.bottom, 0, hWnd_, nullptr);
+        dropDownMenuActive_ = false;
+        if (selected == 0) {
+            // Windows may deliver the outside click after TrackPopupMenu has
+            // returned. Keep the one-shot guard alive briefly so it can catch
+            // that delayed click; an immediate clear message can overtake it.
+            suppressNextMenuDismissClick_ = true;
+            SetTimer(hWnd_, MenuDismissClearTimerId, 750, nullptr);
+        }
         DestroyMenu(menu);
         PostMessageW(hWnd_, WM_NULL, 0, 0);
 
@@ -512,6 +521,38 @@ namespace tpp {
 
 	LRESULT CALLBACK DirectWriteWindow::EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         DirectWriteWindow * window = GetWindowForHandle(hWnd);
+        if (window != nullptr && msg == WM_MOUSEACTIVATE &&
+            (window->dropDownMenuActive_ || window->suppressNextMenuDismissClick_)) {
+            // A click on the owner while TrackPopupMenu is active can first
+            // arrive as WM_MOUSEACTIVATE. Eat it here so Windows does not
+            // queue a later WM_LBUTTONDOWN after the popup has returned.
+            window->suppressNextMenuDismissClick_ = false;
+            KillTimer(hWnd, MenuDismissClearTimerId);
+            window->suppressMenuDismissMouseUp_ = true;
+            return MA_ACTIVATEANDEAT;
+        }
+        if (window != nullptr && window->dropDownMenuActive_ && msg == WM_LBUTTONDOWN) {
+            // TrackPopupMenu runs a nested message loop. A click outside the
+            // popup can reach the owner window and otherwise starts terminal
+            // text selection underneath the dismissed menu.
+            window->suppressMenuDismissMouseUp_ = true;
+            return 0;
+        }
+        if (window != nullptr && msg == WM_TIMER && wParam == MenuDismissClearTimerId) {
+            KillTimer(hWnd, MenuDismissClearTimerId);
+            window->suppressNextMenuDismissClick_ = false;
+            return 0;
+        }
+        if (window != nullptr && window->suppressNextMenuDismissClick_ && msg == WM_LBUTTONDOWN) {
+            window->suppressNextMenuDismissClick_ = false;
+            KillTimer(hWnd, MenuDismissClearTimerId);
+            window->suppressMenuDismissMouseUp_ = true;
+            return 0;
+        }
+        if (window != nullptr && window->suppressMenuDismissMouseUp_ && msg == WM_LBUTTONUP) {
+            window->suppressMenuDismissMouseUp_ = false;
+            return 0;
+        }
         switch (msg) {
 			/* When the window is created, the border width and height of a terminal window is determined and the window's size is updated to adjust for it. */
 			case WM_CREATE: {
