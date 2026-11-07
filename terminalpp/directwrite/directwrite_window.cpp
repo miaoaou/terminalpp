@@ -10,6 +10,8 @@ namespace tpp {
     namespace {
 
         constexpr wchar_t DropDownPopupClassName[] = L"terminalpp.custom.dropdown.popup";
+        constexpr LONG MinimumWindowWidth = 600;
+        constexpr LONG MinimumWindowHeight = 400;
 
     } // namespace
 
@@ -821,6 +823,12 @@ namespace tpp {
             return 0;
         }
         switch (msg) {
+			case WM_GETMINMAXINFO: {
+				MINMAXINFO * const info = reinterpret_cast<MINMAXINFO *>(lParam);
+				info->ptMinTrackSize.x = std::max(info->ptMinTrackSize.x, MinimumWindowWidth);
+				info->ptMinTrackSize.y = std::max(info->ptMinTrackSize.y, MinimumWindowHeight);
+				return 0;
+			}
 			/* When the window is created, the border width and height of a terminal window is determined and the window's size is updated to adjust for it. */
 			case WM_CREATE: {
 				// now calculate the border and actually update the window size to account for it
@@ -920,6 +928,8 @@ namespace tpp {
             We must take into account the DPI current DPI system settings that may increase the real cell size. 
             */
 			case WM_SIZING: {
+				if (window == nullptr)
+					break;
 				RECT* winRect = reinterpret_cast<RECT*>(lParam);
 				switch (wParam) {
                     case WMSZ_BOTTOM:
@@ -940,6 +950,20 @@ namespace tpp {
                     default:
                         winRect->left += (winRect->right - winRect->left - window->frameWidth_) % static_cast<int>(window->cellSize_.width() * window->dpiFactor_);
                         break;
+				}
+				bool const resizingLeft = wParam == WMSZ_LEFT || wParam == WMSZ_TOPLEFT || wParam == WMSZ_BOTTOMLEFT;
+				bool const resizingTop = wParam == WMSZ_TOP || wParam == WMSZ_TOPLEFT || wParam == WMSZ_TOPRIGHT;
+				if (winRect->right - winRect->left < MinimumWindowWidth) {
+					if (resizingLeft)
+						winRect->left = winRect->right - MinimumWindowWidth;
+					else
+						winRect->right = winRect->left + MinimumWindowWidth;
+				}
+				if (winRect->bottom - winRect->top < MinimumWindowHeight) {
+					if (resizingTop)
+						winRect->top = winRect->bottom - MinimumWindowHeight;
+					else
+						winRect->bottom = winRect->top + MinimumWindowHeight;
 				}
 				break;
 			}
