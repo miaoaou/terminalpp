@@ -6,6 +6,7 @@
 #include <dwrite_2.h> 
 #include <d2d1_2.h>
 #include <wrl.h>
+#include <thread>
 
 #include "../application.h"
 #include "../font.h"
@@ -48,6 +49,7 @@ namespace tpp {
         /** Updates the jumplist of the application to include profiles specified in the settings. 
          */
         void updateProfilesJumplist();
+        void updateProfilesJumplistAsync();
 
     private:
 
@@ -78,6 +80,7 @@ namespace tpp {
         wchar_t localeName_[LOCALE_NAME_MAX_LENGTH];
 
         HINSTANCE hInstance_;
+        std::thread jumplistUpdateThread_;
 
 		/* Direct write factories that can be used by all windows, automatically deleted via the WRL pointers */
 		Microsoft::WRL::ComPtr<IDWriteFactory> dwFactory_;

@@ -109,6 +109,8 @@ namespace tpp {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
 		}
+        if (jumplistUpdateThread_.joinable())
+            jumplistUpdateThread_.join();
     }
 
     // https://github.com/microsoft/Windows-classic-samples/blob/master/Samples/Win7Samples/winui/shell/appshellintegration/CustomJumpList/CustomJumpListSample.cpp
@@ -158,6 +160,16 @@ namespace tpp {
         OSCHECK(SUCCEEDED(jumpList->BeginList(&visibleSlots, IID_PPV_ARGS(&old))));
         OSCHECK(SUCCEEDED(jumpList->AddUserTasks(tasksArray)));
         OSCHECK(SUCCEEDED(jumpList->CommitList()));
+    }
+
+    void DirectWriteApplication::updateProfilesJumplistAsync() {
+        jumplistUpdateThread_ = std::thread([this]() {
+            try {
+                updateProfilesJumplist();
+            } catch (...) {
+                // Jump list updates are optional and must not block terminal startup.
+            }
+        });
     }
 
     DirectWriteApplication::DirectWriteApplication(HINSTANCE hInstance):

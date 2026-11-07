@@ -133,10 +133,7 @@ int main(int argc, char* argv[]) {
         //new tpp::Session{w, config.sessionByName(config.defaultSession())};
         w->show();
 #if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
-        // TODO se how fast this is and perhaps execute in separate thread?
-        w->schedule([](){
-            tpp::DirectWriteApplication::Instance()->updateProfilesJumplist();
-        });
+        tpp::DirectWriteApplication::Instance()->updateProfilesJumplistAsync();
 #endif
         tpp::Application::Instance()->mainLoop();
         return EXIT_SUCCESS;
