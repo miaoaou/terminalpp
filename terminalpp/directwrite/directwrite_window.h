@@ -56,6 +56,10 @@ namespace tpp {
 
         void setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu, std::vector<Window::TabBarMenuItem> dropDownItems) override;
 
+        void setFileDropAction(std::function<void(std::vector<std::string> const &)> action) override {
+            fileDropAction_ = std::move(action);
+        }
+
         void show(bool value = true) override {
             if (value)
                 ShowWindow(hWnd_, SW_SHOWNORMAL);
@@ -376,6 +380,7 @@ namespace tpp {
         std::vector<RECT> tabButtonRects_;
         std::vector<TabButton> tabButtons_;
         std::vector<Window::TabBarMenuItem> dropDownItems_;
+        std::function<void(std::vector<std::string> const &)> fileDropAction_;
         HWND dropDownPopup_ = nullptr;
         HWND dropDownSubmenuPopup_ = nullptr;
         int hoveredDropDownRootItem_ = -1;

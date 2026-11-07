@@ -73,6 +73,10 @@ namespace tpp {
             MARK_AS_UNUSED(dropDownItems);
         }
 
+        virtual void setFileDropAction(std::function<void(std::vector<std::string> const &)> action) {
+            MARK_AS_UNUSED(action);
+        }
+
         Icon icon() const {
             return icon_;
         }

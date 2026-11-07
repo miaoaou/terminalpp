@@ -2,6 +2,8 @@
 #include "directwrite_window.h"
 
 #include "directwrite_font.h"
+#include <shellapi.h>
+#pragma comment(lib, "shell32.lib")
 
 namespace tpp {
 
@@ -827,6 +829,7 @@ namespace tpp {
 				ASSERT(window == nullptr);
 				window = reinterpret_cast<DirectWriteWindow*>(cs.lpCreateParams);
 				ASSERT(window != nullptr);
+				DragAcceptFiles(hWnd, TRUE);
 				RECT r;
 				r.left = cs.x;
 				r.right = cs.x + cs.cx;
@@ -956,6 +959,26 @@ namespace tpp {
 					window->windowResized(rect.right, rect.bottom);
 				}
 				break;
+			}
+			case WM_DROPFILES: {
+				HDROP const drop = reinterpret_cast<HDROP>(wParam);
+				POINT dropPoint{};
+				BOOL const droppedInClient = DragQueryPoint(drop, &dropPoint);
+				UINT const fileCount = DragQueryFileW(drop, 0xffffffff, nullptr, 0);
+				std::vector<std::string> paths;
+				paths.reserve(fileCount);
+				for (UINT i = 0; i < fileCount; ++i) {
+					UINT const pathLength = DragQueryFileW(drop, i, nullptr, 0);
+					std::vector<wchar_t> path(pathLength + 1);
+					if (DragQueryFileW(drop, i, path.data(), pathLength + 1) == pathLength)
+						paths.push_back(UTF16toUTF8(path.data()));
+				}
+				DragFinish(drop);
+				if (window != nullptr && droppedInClient &&
+					(window->fullscreen() || dropPoint.y >= window->captionControlHeight()) &&
+					window->fileDropAction_ && !paths.empty())
+					window->fileDropAction_(paths);
+				return 0;
 			}
 			case WM_ERASEBKGND:
 				// Direct2D paints the full client area. Skipping the default erase avoids

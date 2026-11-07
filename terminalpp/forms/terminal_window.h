@@ -16,6 +16,7 @@
 #include "about_box.h"
 
 #include <algorithm>
+#include <cctype>
 
 namespace tpp {
 
@@ -325,7 +326,64 @@ namespace tpp {
                 {"SSH", {}, true, std::move(sshItems)}
             };
             window_->setTabBar(std::move(tabs), [this]() { createNewTab(); }, [this]() { createNewTab(); }, std::move(dropDownItems));
+            window_->setFileDropAction([this](std::vector<std::string> const & paths) {
+                insertDroppedFiles(paths);
+            });
 #endif
+        }
+
+        void insertDroppedFiles(std::vector<std::string> const & paths) {
+            if (activeSession_ == nullptr || activeSession_->terminal == nullptr || paths.empty())
+                return;
+
+            std::string command = Config::Instance().sessionByName(activeSession_->name).command().command();
+            std::transform(command.begin(), command.end(), command.begin(), [](unsigned char c) {
+                return static_cast<char>(std::tolower(c));
+            });
+            bool const isPowerShell = command.find("pwsh") != std::string::npos || command.find("powershell") != std::string::npos;
+            bool const isWsl = command.find("wsl.exe") != std::string::npos || command == "wsl";
+
+            auto quotePath = [isPowerShell, isWsl](std::string path) {
+                if (isWsl && path.size() >= 3 && std::isalpha(static_cast<unsigned char>(path[0])) &&
+                    path[1] == ':' && (path[2] == '\\' || path[2] == '/')) {
+                    std::string linuxPath{"/mnt/"};
+                    linuxPath.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(path[0]))));
+                    linuxPath.push_back('/');
+                    for (size_t i = 3; i < path.size(); ++i)
+                        linuxPath.push_back(path[i] == '\\' ? '/' : path[i]);
+                    path = std::move(linuxPath);
+                }
+
+                std::string quoted{"'"};
+                if (isPowerShell) {
+                    for (char c : path) {
+                        quoted.push_back(c);
+                        if (c == '\'')
+                            quoted.push_back('\'');
+                    }
+                    quoted.push_back('\'');
+                    return quoted;
+                }
+                if (isWsl) {
+                    for (char c : path) {
+                        if (c == '\'')
+                            quoted += "'\\''";
+                        else
+                            quoted.push_back(c);
+                    }
+                    quoted.push_back('\'');
+                    return quoted;
+                }
+                return "\"" + path + "\"";
+            };
+
+            std::string contents;
+            for (std::string const & path : paths) {
+                if (!contents.empty())
+                    contents.push_back(' ');
+                contents += quotePath(path);
+            }
+            activeSession_->terminal->pasteContents(contents);
         }
 
         void createNewTab() {
