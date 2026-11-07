@@ -1,0 +1,15 @@
+name pspicture
+category Package
+revision 15878
+shortdesc PostScript picture support
+relocated 1
+longdesc A replacement for LaTeX's picture macros, that uses PostScript
+longdesc \special commands. The package is now largely superseded by
+longdesc pict2e.
+runfiles size=2
+ RELOC/dvips/pspicture/pspicture.ps
+ RELOC/tex/latex/pspicture/pspicture.sty
+catalogue-ctan /macros/latex/contrib/pspicture
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-in-tex obsolete

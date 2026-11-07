@@ -1,0 +1,16 @@
+name cases
+category Package
+revision 54682
+shortdesc Numbered cases environment
+relocated 1
+longdesc This package provides a LaTeX environment "numcases" to produce
+longdesc multi-case equations with a separate equation number for each
+longdesc case. There is also a "subnumcases" environment which numbers
+longdesc each case with the overall equation number plus a letter [8a,
+longdesc 8b, etc.].
+runfiles size=3
+ RELOC/tex/latex/cases/cases.sty
+catalogue-ctan /macros/latex/contrib/cases
+catalogue-license other-free
+catalogue-topics maths-syseqn
+catalogue-version 3.2

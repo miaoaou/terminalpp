@@ -1,0 +1,20 @@
+name bondgraphs
+category Package
+revision 36605
+shortdesc Draws bond graphs in LaTeX, using PGF/TikZ
+relocated 1
+longdesc The package is used to draw bond graphs in LaTeX. It uses a
+longdesc recent version (3.0+) of PGF and TikZ for the drawing, hence,
+longdesc it is mainly a set of TikZ styles that makes the drawing of
+longdesc bond graphs easier. Compared to the bondgraph package this
+longdesc package relies more on TikZ styles and less on macros, to
+longdesc generate the drawings. As such it can be more flexible than
+longdesc his, but requires more TikZ knowledge of the user.
+runfiles size=2
+ RELOC/tex/latex/bondgraphs/bondgraphs.sty
+catalogue-also bondgraph
+catalogue-ctan /macros/latex/contrib/bondgraphs
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram pgf-tikz
+catalogue-version 1.0.1

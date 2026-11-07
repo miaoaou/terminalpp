@@ -1,0 +1,18 @@
+name phfthm
+category Package
+revision 60735
+shortdesc Goodies for theorems and proofs
+relocated 1
+longdesc This package provides enhanced theorem and proof environments
+longdesc based on the amsthm original versions. It allows for hooks to
+longdesc be placed, adds some default goodies and is highly
+longdesc customizable. In particular, it can connect theorems to proofs,
+longdesc automatically producing text such as "See proof on page XYZ"
+longdesc and "Proof of Theorem 4: ...".
+runfiles size=7
+ RELOC/tex/latex/phfthm/phfthm.sty
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfthm
+catalogue-license lppl1.3
+catalogue-topics maths maths-theorem
+catalogue-version 1.2

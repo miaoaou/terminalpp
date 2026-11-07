@@ -1,0 +1,13 @@
+name umoline
+category Package
+revision 19085
+shortdesc Underline text allowing line breaking
+relocated 1
+longdesc Provides commands \Underline, \Midline and \Overline for
+longdesc underlining, striking out, and overlining their text arguments.
+runfiles size=2
+ RELOC/tex/latex/umoline/umoline.sty
+catalogue-ctan /macros/latex/contrib/umoline
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics underline

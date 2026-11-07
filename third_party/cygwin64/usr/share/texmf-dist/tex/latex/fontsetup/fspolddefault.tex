@@ -1,0 +1,592 @@
+%% (C) Antonis Tsolomitis, GPL3.
+\setmainfont[%
+  SizeFeatures={%
+{Size=-8, Font=NewCM08-Regular.otf,
+      ItalicFont=NewCM08-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM08-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}},
+{Size=8, Font=NewCM08-Regular.otf,
+      ItalicFont=NewCM08-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM08-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}},
+{Size= 9-, Font = NewCM10-Regular.otf,
+      ItalicFont=NewCM10-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM10-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}}%
+  },%
+  SmallCapsFeatures={Numbers=OldStyle},%
+  BoldSlantedFont=NewCM10-Bold.otf,%
+  SlantedFont=NewCM10-Regular.otf,%
+  BoldItalicFont=NewCM10-BoldItalic.otf,%
+  BoldFont=NewCM10-Bold.otf,%
+  ItalicFont=NewCM10-Italic.otf,%
+  SlantedFeatures={FakeSlant=0.25},%
+  BoldSlantedFeatures={FakeSlant=0.25},%
+]{NewCM10-Regular.otf}
+
+\setsansfont[%
+    SizeFeatures={%
+{Size= -8, Font=NewCMSans08-Regular.otf,%
+           ItalicFont=NewCMSans08-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+},
+{Size= 8, Font=NewCMSans08-Regular.otf,%
+          ItalicFont=NewCMSans08-Oblique.otf,%
+          BoldFont=NewCMSans10-Bold.otf,%
+          BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+          SmallCapsFeatures={Numbers=OldStyle},%
+},
+{Size= 9-, Font=NewCMSans10-Regular.otf,%
+           ItalicFont=NewCMSans10-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+}},
+           ItalicFont=NewCMSans10-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+           SlantedFont=NewCMSans10-Oblique.otf,%
+           BoldSlantedFont=NewCMSans10-BoldOblique.otf,%
+]{NewCMSans10-Regular.otf}
+
+\setmonofont[%
+ItalicFont=NewCMMono10-Italic.otf,%
+BoldFont=NewCMMono10-Bold.otf,%
+BoldItalicFont=NewCMMono10-BoldOblique.otf,%
+SlantedFont=NewCMMono10-Regular.otf,%
+SlantedFeatures={FakeSlant=0.25},
+BoldSlantedFont=NewCMMono10-Bold.otf,%
+BoldSlantedFeatures={FakeSlant=0.25},
+SmallCapsFeatures={Numbers=OldStyle}]{NewCMMono10-Regular.otf}
+
+\newfontfamily\uncial[%
+  SizeFeatures={%
+{Size=-8, Font=NewCMUncial08-Regular.otf,
+      BoldFont=NewCMUncial10-Bold.otf,%
+      SlantedFont=NewCMUncial08-Regular.otf,%
+      BoldSlantedFont=NewCMUncial10-Bold.otf,%
+      },
+{Size=8, Font=NewCMUncial08-Regular.otf,
+      BoldFont=NewCMUncial08-Bold.otf,%
+      SlantedFont=NewCMUncial08-regular.otf,%
+      BoldSlantedFont=NewCMUncial10-Bold.otf,%
+      },
+{Size= 9-, Font = NewCMUncial10-Regular.otf,
+      BoldFont=NewCMUncial10-Bold.otf,%
+      SlantedFont=NewCMUncial10-Regular.otf,%
+      BoldSlantedFont=NewCMUncial10-Bold.otf,%
+      }%
+  },%
+  BoldSlantedFont=NewCMUncial10-Bold.otf,%
+  SlantedFont=NewCMUncial10-Regular.otf,%
+  BoldFont=NewCMUncial10-Bold.otf,%
+  SlantedFeatures={FakeSlant=0.25},%
+  BoldSlantedFeatures={FakeSlant=0.25},%
+  ]{NewCMUncial10-Regular.otf}
+
+\newcommand{\textuncial}[1]{{\uncial #1}}
+\setmathfont{NewCMMath-Regular.otf}
+\setmathfont[range={\mathscr,\mathbfscr},StylisticSet=1]{NewCMMath-Regular.otf}
+
+\newcommand{\tttextsc}[1]{{\ttscshape#1}}
+%
+\let\prosgegrammeni=\undefined
+\newcommand{\prosgegrammeni}{\addfontfeature{StylisticSet=1}}
+\newcommand{\textprosgegrammeni}[1]{{\prosgegrammeni#1}}
+%
+%\newfontfamily{\ivbce}[StylisticSet=2]{NewCMSans10-Regular.otf}
+\newcommand{\ivbce}{\sffamily\addfontfeature{StylisticSet=2}}
+\newcommand{\textivbce}[1]{{\ivbce#1}}
+%
+%\newfontfamily{\ivbcealt}[StylisticSet=3]{NewCMSans10-Regular.otf}
+\newcommand{\ivbcealt}{\sffamily\addfontfeature{StylisticSet=3}}
+\newcommand{\textivbcealt}[1]{{\ivbcealt#1}}
+%
+%\newfontfamily{\vibce}[StylisticSet=4]{NewCMSans10-Regular.otf}
+\newcommand{\vibce}{\sffamily\addfontfeature{StylisticSet=4}}
+\newcommand{\textvibce}[1]{{\vibce#1}}
+%
+%% math (upright) sans Greek
+\newcommand*{\msansAlpha}{\char"E000}
+\newcommand*{\msansBeta}{\char"E001}
+\newcommand*{\msansGamma}{\char"E002}
+\newcommand*{\msansDelta}{\char"E003}
+\newcommand*{\msansEpsilon}{\char"E004}
+\newcommand*{\msansZeta}{\char"E005}
+\newcommand*{\msansEta}{\char"E006}
+\newcommand*{\msansTheta}{\char"E007}
+\newcommand*{\msansIota}{\char"E008}
+\newcommand*{\msansKappa}{\char"E009}
+\newcommand*{\msansLambda}{\char"E00A}
+\newcommand*{\msansMu}{\char"E00B}
+\newcommand*{\msansNu}{\char"E00C}
+\newcommand*{\msansXi}{\char"E00D}
+\newcommand*{\msansOmicron}{\char"E00E}
+\newcommand*{\msansPi}{\char"E00F}
+\newcommand*{\msansRho}{\char"E010}
+\newcommand*{\msansSigma}{\char"E011}
+\newcommand*{\msansTau}{\char"E012}
+\newcommand*{\msansUpsilon}{\char"E013}
+\newcommand*{\msansPhi}{\char"E014}
+\newcommand*{\msansChi}{\char"E015}
+\newcommand*{\msansPsi}{\char"E016}
+\newcommand*{\msansOmega}{\char"E017}
+\newcommand*{\msansalpha}{\char"E018}
+\newcommand*{\msansbeta}{\char"E019}
+\newcommand*{\msansgamma}{\char"E01A}
+\newcommand*{\msansdelta}{\char"E01B}
+\newcommand*{\msansepsilon}{\char"E01C}
+\newcommand*{\msanszeta}{\char"E01D}
+\newcommand*{\msanseta}{\char"E01E}
+\newcommand*{\msanstheta}{\char"E01F}
+\newcommand*{\msansiota}{\char"E020}
+\newcommand*{\msanskappa}{\char"E021}
+\newcommand*{\msanslambda}{\char"E022}
+\newcommand*{\msansmu}{\char"E023}
+\newcommand*{\msansnu}{\char"E024}
+\newcommand*{\msansxi}{\char"E025}
+\newcommand*{\msansomicron}{\char"E026}
+\newcommand*{\msanspi}{\char"E027}
+\newcommand*{\msansrho}{\char"E028}
+\newcommand*{\msansvarsigma}{\char"E029}
+\newcommand*{\msanssigma}{\char"E02A}
+\newcommand*{\msanstau}{\char"E02B}
+\newcommand*{\msansupsilon}{\char"E02C}
+\newcommand*{\msansphi}{\char"E02D}
+\newcommand*{\msanschi}{\char"E02E}
+\newcommand*{\msanspsi}{\char"E02F}
+\newcommand*{\msansomega}{\char"E030}
+\newcommand*{\msansvarepsilon}{\char"E031}
+% math italic sans Greek
+\newcommand*{\mitsansAlpha}{\char"E041}
+\newcommand*{\mitsansBeta}{\char"E042}
+\newcommand*{\mitsansGamma}{\char"E043}
+\newcommand*{\mitsansDelta}{\char"E044}
+\newcommand*{\mitsansEpsilon}{\char"E045}
+\newcommand*{\mitsansZeta}{\char"E046}
+\newcommand*{\mitsansEta}{\char"E047}
+\newcommand*{\mitsansTheta}{\char"E048}
+\newcommand*{\mitsansIota}{\char"E049}
+\newcommand*{\mitsansKappa}{\char"E04A}
+\newcommand*{\mitsansLambda}{\char"E04B}
+\newcommand*{\mitsansMu}{\char"E04C}
+\newcommand*{\mitsansNu}{\char"E04D}
+\newcommand*{\mitsansXi}{\char"E04E}
+\newcommand*{\mitsansOmicron}{\char"E04F}
+\newcommand*{\mitsansPi}{\char"E050}
+\newcommand*{\mitsansRho}{\char"E051}
+\newcommand*{\mitsansSigma}{\char"E052}
+\newcommand*{\mitsansTau}{\char"E053}
+\newcommand*{\mitsansUpsilon}{\char"E054}
+\newcommand*{\mitsansPhi}{\char"E055}
+\newcommand*{\mitsansChi}{\char"E056}
+\newcommand*{\mitsansPsi}{\char"E057}
+\newcommand*{\mitsansOmega}{\char"E058}
+\newcommand*{\mitsansalpha}{\char"E059}
+\newcommand*{\mitsansbeta}{\char"E05A}
+\newcommand*{\mitsansgamma}{\char"E05B}
+\newcommand*{\mitsansdelta}{\char"E05C}
+\newcommand*{\mitsansepsilon}{\char"E05D}
+\newcommand*{\mitsanszeta}{\char"E05E}
+\newcommand*{\mitsanseta}{\char"E05F}
+\newcommand*{\mitsanstheta}{\char"E060}
+\newcommand*{\mitsansiota}{\char"E061}
+\newcommand*{\mitsanskappa}{\char"E062}
+\newcommand*{\mitsanslambda}{\char"E063}
+\newcommand*{\mitsansmu}{\char"E064}
+\newcommand*{\mitsansnu}{\char"E065}
+\newcommand*{\mitsansxi}{\char"E066}
+\newcommand*{\mitsansomicron}{\char"E067}
+\newcommand*{\mitsanspi}{\char"E068}
+\newcommand*{\mitsansrho}{\char"E069}
+\newcommand*{\mitsansvarsigma}{\char"E06A}
+\newcommand*{\mitsanssigma}{\char"E06B}
+\newcommand*{\mitsanstau}{\char"E06C}
+\newcommand*{\mitsansupsilon}{\char"E06D}
+\newcommand*{\mitsansphi}{\char"E06E}
+\newcommand*{\mitsanschi}{\char"E06F}
+\newcommand*{\mitsanspsi}{\char"E070}
+\newcommand*{\mitsansomega}{\char"E071}
+\newcommand*{\mitsansvarepsilon}{\char"E072}
+% Ancient Greek Numerals u10140-u1018E
+\newcommand*{\atticonequarter}{\char"10140}
+\newcommand*{\atticonehalf}{\char"10141}
+\newcommand*{\atticonedrachma}{\char"10142}
+\newcommand*{\atticfive}{\char"10143}
+\newcommand*{\atticfifty}{\char"10144}
+\newcommand*{\atticfivehundred}{\char"10145}
+\newcommand*{\atticfivethousand}{\char"10146}
+\newcommand*{\atticfiftythousand}{\char"10147}
+\newcommand*{\atticfivetalents}{\char"10148}
+\newcommand*{\attictentalents}{\char"10149}
+\newcommand*{\atticfiftytalents}{\char"1014A}
+\newcommand*{\atticonehundredtalents}{\char"1014B}
+\newcommand*{\atticfivehundredtalents}{\char"1014C}
+\newcommand*{\atticonethousandtalents}{\char"1014D}
+\newcommand*{\atticfivethousandtalents}{\char"1014E}
+\newcommand*{\atticfivestaters}{\char"1014F}
+\newcommand*{\attictenstaters}{\char"10150}
+\newcommand*{\atticfiftystaters}{\char"10151}
+\newcommand*{\atticonehundredstaters}{\char"10152}
+\newcommand*{\atticfivehundredstaters}{\char"10153}
+\newcommand*{\atticonethousandstaters}{\char"10154}
+\newcommand*{\attictenthousandstaters}{\char"10155}
+\newcommand*{\atticfiftythousandstaters}{\char"10156}
+\newcommand*{\attictenmnas}{\char"10157}
+\newcommand*{\heraleumoneplethron}{\char"10158}
+\newcommand*{\thespianone}{\char"10159}
+\newcommand*{\ermionianone}{\char"1015A}
+\newcommand*{\epidauriantwo}{\char"1015B}
+\newcommand*{\thespiantwo}{\char"1015C}
+\newcommand*{\cyrenaictwodrachmas}{\char"1015D}
+\newcommand*{\epidauriantwodrachmas}{\char"1015E}
+\newcommand*{\troezenianfive}{\char"1015F}
+\newcommand*{\troezenianten}{\char"10160}
+\newcommand*{\troezeniantenalt}{\char"10161}
+\newcommand*{\hermionianten}{\char"10162}
+\newcommand*{\messenianten}{\char"10163}
+\newcommand*{\thespianten}{\char"10164}
+\newcommand*{\thespianthirty}{\char"10165}
+\newcommand*{\troezenianfifty}{\char"10166}
+\newcommand*{\troezenianfiftyalt}{\char"10167}
+\newcommand*{\hermionianfifty}{\char"10168}
+\newcommand*{\thespianfifty}{\char"10169}
+\newcommand*{\thespianonehundred}{\char"1016A}
+\newcommand*{\thespianthreehundred}{\char"1016B}
+\newcommand*{\epidaurianfivehundred}{\char"1016C}
+\newcommand*{\troezenianfivehundred}{\char"1016D}
+\newcommand*{\thespianfivehundred}{\char"1016E}
+\newcommand*{\carystianfivehundred}{\char"1016F}
+\newcommand*{\naxianfivehundred}{\char"10170}
+\newcommand*{\thespianonethousand}{\char"10171}
+\newcommand*{\thespianfivethousand}{\char"10172}
+\newcommand*{\delphicfivemnas}{\char"10173}
+\newcommand*{\stratianfiftymnas}{\char"10174}
+\newcommand*{\greekonehalfsign}{\char"10175}
+\newcommand*{\greekonehalfsignalt}{\char"10176}
+\newcommand*{\greektwothirdssign}{\char"10177}
+\newcommand*{\greekthreequarterssign}{\char"10178}
+\newcommand*{\greekyearsign}{\char"10179}
+\newcommand*{\greektalentsign}{\char"1017A}
+\newcommand*{\greekdrachmasign}{\char"1017B}
+\newcommand*{\greekobolsign}{\char"1017C}
+\newcommand*{\greektwoobolssign}{\char"1017D}
+\newcommand*{\greekthreeobolssign}{\char"1017E}
+\newcommand*{\greekfourobolssign}{\char"1017F}
+\newcommand*{\greekfiveobolssign}{\char"10180}
+\newcommand*{\greekmetretessign}{\char"10181}
+\newcommand*{\greekkyathosbasesign}{\char"10182}
+\newcommand*{\greeklytrasign}{\char"10183}
+\newcommand*{\greekounkiasign}{\char"10184}
+\newcommand*{\greekxestessign}{\char"10185}
+\newcommand*{\greekartabesign}{\char"10186}
+\newcommand*{\greekarourasign}{\char"10187}
+\newcommand*{\greekgrammasign}{\char"10188}
+\newcommand*{\greektryblionbasesign}{\char"10189}
+\newcommand*{\greekzerosign}{\char"1018A}
+\newcommand*{\greekonequartersign}{\char"1018B}
+\newcommand*{\greeksinusoidsign}{\char"1018C}
+\newcommand*{\greekindictionsign}{\char"1018D}
+\newcommand*{\nomismasign}{\char"1018E}
+%
+% some math symbols
+\DeclareRobustCommand*\nrightrightarrows{\mathrel{\char"E033}}
+\DeclareRobustCommand*\nleftleftarrows{\mathrel{\char"E032}}
+%
+% select ss02 lookup table for IPA symbols
+%\newfontfamily{\ipatext}[StylisticSet=5,%
+%BoldFont=NewCM10-Bold.otf,%
+%SlantedFont=NewCM10-Regular.otf,%
+%SlantedFeatures={FakeSlant=0.25},
+%BoldSlantedFont=NewCM10-Bold.otf,%
+%BoldSlantedFeatures={FakeSlant=0.25},
+%SmallCapsFeatures={Numbers=OldStyle}]{NewCM10-Regular.otf}
+\newcommand{\ipatext}{\addfontfeature{StylisticSet=5}}
+\newcommand{\textipa}[1]{{\ipatext#1}}
+\newcommand{\oldipatext}{\addfontfeature{StylisticSet=5,RawFeature=+lipa}}
+\newcommand{\textoldipa}[1]{{\oldipatext#1}}
+%\newfontfamily{\ipatextsans}[StylisticSet=5,%
+%ItalicFont=NewCMSans10-Oblique.otf,%
+%BoldFont=NewCMSans10-Bold.otf,%
+%BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+%SlantedFont=NewCMSans10-Oblique.otf,%
+%BoldSlantedFont=NewCMSans10-BoldOblique.otf,%
+%SmallCapsFeatures={Numbers=OldStyle}]{NewCMSans10-Regular.otf}
+%\newcommand{\ipatextsans}{\sffamily\addfontfeature{StylisticSet=5}}
+%\newcommand{\textsansipa}[1]{{\ipatextsans#1}}
+%
+% Up versions for chemistry
+\newcommand*{\chemalpha}{\textrm{α}}
+\newcommand*{\chembeta}{\textrm{β}}
+\newcommand*{\chemgamma}{\textrm{γ}}
+\newcommand*{\chemdelta}{\textrm{δ}}
+\newcommand*{\chemepsilon}{\textrm{ε}}
+\newcommand*{\chemzeta}{\textrm{ζ}}
+\newcommand*{\chemeta}{\textrm{η}}
+\newcommand*{\chemtheta}{\textrm{θ}}
+\newcommand*{\chemiota}{\textrm{ι}}
+\newcommand*{\chemkappa}{\textrm{\char"03F0}}
+\newcommand*{\chemlambda}{\textrm{λ}}
+\newcommand*{\chemmu}{\textrm{μ}}
+\newcommand*{\chemnu}{\textrm{ν}}
+\newcommand*{\chemxi}{\textrm{ξ}}
+\newcommand*{\chemomicron}{\textrm{ο}}
+\newcommand*{\chempi}{\textrm{π}}
+\newcommand*{\chemrho}{\textrm{ρ}}
+\newcommand*{\chemrhoalt}{\textrm{\char"03F1}}
+\newcommand*{\chemsigma}{\textrm{σ}}
+\newcommand*{\chemsigmaalt}{\textrm{ς}}
+\newcommand*{\chemtau}{\textrm{τ}}
+\newcommand*{\chemupsilon}{\textrm{υ}}
+\newcommand*{\chemphi}{\textrm{φ}}
+\newcommand*{\chemchi}{\textrm{χ}}
+\newcommand*{\chempsi}{\textrm{ψ}}
+\newcommand*{\chemomega}{\textrm{ω}}
+%
+\newcommand*{\chemAlpha}{\textrm{Α}}
+\newcommand*{\chemBeta}{\textrm{Β}}
+\newcommand*{\chemGamma}{\textrm{Γ}}
+\newcommand*{\chemDelta}{\textrm{Δ}}
+\newcommand*{\chemEpsilon}{\textrm{Ε}}
+\newcommand*{\chemZeta}{\textrm{Ζ}}
+\newcommand*{\chemEta}{\textrm{Η}}
+\newcommand*{\chemTheta}{\textrm{Θ}}
+\newcommand*{\chemIota}{\textrm{Ι}}
+\newcommand*{\chemKappa}{\textrm{Κ}}
+\newcommand*{\chemLambda}{\textrm{Λ}}
+\newcommand*{\chemMu}{\textrm{Μ}}
+\newcommand*{\chemNu}{\textrm{Ν}}
+\newcommand*{\chemXi}{\textrm{Ξ}}
+\newcommand*{\chemOmicron}{\textrm{Ο}}
+\newcommand*{\chemPi}{\textrm{Π}}
+\newcommand*{\chemRho}{\textrm{Ρ}}
+\newcommand*{\chemSigma}{\textrm{Σ}}
+\newcommand*{\chemTau}{\textrm{Τ}}
+\newcommand*{\chemUpsilon}{\textrm{Υ}}
+\newcommand*{\chemPhi}{\textrm{Φ}}
+\newcommand*{\chemChi}{\textrm{Χ}}
+\newcommand*{\chemPsi}{\textrm{Ψ}}
+\newcommand*{\chemOmega}{\textrm{Ω}}
+%
+%% Next block enables Devanagari letters as variables in Math font
+\Umathcode "0900 7 \symoperators "0900%
+\Umathcode "0901 7 \symoperators "0901%
+\Umathcode "0902 7 \symoperators "0902%
+\Umathcode "0903 7 \symoperators "0903%
+\Umathcode "0904 7 \symoperators "0904%
+\Umathcode "0905 7 \symoperators "0905%
+\Umathcode "0906 7 \symoperators "0906%
+\Umathcode "0907 7 \symoperators "0907%
+\Umathcode "0908 7 \symoperators "0908%
+\Umathcode "0909 7 \symoperators "0909%
+\Umathcode "090A 7 \symoperators "090A%
+\Umathcode "090B 7 \symoperators "090B%
+\Umathcode "090C 7 \symoperators "090C%
+\Umathcode "090D 7 \symoperators "090D%
+\Umathcode "090E 7 \symoperators "090E%
+\Umathcode "090F 7 \symoperators "090F%
+%
+\Umathcode "0910 7 \symoperators "0910%
+\Umathcode "0911 7 \symoperators "0911%
+\Umathcode "0912 7 \symoperators "0912%
+\Umathcode "0913 7 \symoperators "0913%
+\Umathcode "0914 7 \symoperators "0914%
+\Umathcode "0915 7 \symoperators "0915%
+\Umathcode "0916 7 \symoperators "0916%
+\Umathcode "0917 7 \symoperators "0917%
+\Umathcode "0918 7 \symoperators "0918%
+\Umathcode "0919 7 \symoperators "0919%
+\Umathcode "091A 7 \symoperators "091A%
+\Umathcode "091B 7 \symoperators "091B%
+\Umathcode "091C 7 \symoperators "091C%
+\Umathcode "091D 7 \symoperators "091D%
+\Umathcode "091E 7 \symoperators "091E%
+\Umathcode "091F 7 \symoperators "091F%
+%
+\Umathcode "0920 7 \symoperators "0920%
+\Umathcode "0921 7 \symoperators "0921%
+\Umathcode "0922 7 \symoperators "0922%
+\Umathcode "0923 7 \symoperators "0923%
+\Umathcode "0924 7 \symoperators "0924%
+\Umathcode "0925 7 \symoperators "0925%
+\Umathcode "0926 7 \symoperators "0926%
+\Umathcode "0927 7 \symoperators "0927%
+\Umathcode "0928 7 \symoperators "0928%
+\Umathcode "0929 7 \symoperators "0929%
+\Umathcode "092A 7 \symoperators "092A%
+\Umathcode "092B 7 \symoperators "092B%
+\Umathcode "092C 7 \symoperators "092C%
+\Umathcode "092D 7 \symoperators "092D%
+\Umathcode "092E 7 \symoperators "092E%
+\Umathcode "092F 7 \symoperators "092F%
+%
+\Umathcode "0930 7 \symoperators "0930%
+\Umathcode "0931 7 \symoperators "0931%
+\Umathcode "0932 7 \symoperators "0932%
+\Umathcode "0933 7 \symoperators "0933%
+\Umathcode "0934 7 \symoperators "0934%
+\Umathcode "0935 7 \symoperators "0935%
+\Umathcode "0936 7 \symoperators "0936%
+\Umathcode "0937 7 \symoperators "0937%
+\Umathcode "0938 7 \symoperators "0938%
+\Umathcode "0939 7 \symoperators "0939%
+\Umathcode "093A 7 \symoperators "093A%
+\Umathcode "093B 7 \symoperators "093B%
+\Umathcode "093C 7 \symoperators "093C%
+\Umathcode "093D 7 \symoperators "093D%
+\Umathcode "093E 7 \symoperators "093E%
+\Umathcode "093F 7 \symoperators "093F%
+%
+\Umathcode "0940 7 \symoperators "0940%
+\Umathcode "0941 7 \symoperators "0941%
+\Umathcode "0942 7 \symoperators "0942%
+\Umathcode "0943 7 \symoperators "0943%
+\Umathcode "0944 7 \symoperators "0944%
+\Umathcode "0945 7 \symoperators "0945%
+\Umathcode "0946 7 \symoperators "0946%
+\Umathcode "0947 7 \symoperators "0947%
+\Umathcode "0948 7 \symoperators "0948%
+\Umathcode "0949 7 \symoperators "0949%
+\Umathcode "094A 7 \symoperators "094A%
+\Umathcode "094B 7 \symoperators "094B%
+\Umathcode "094C 7 \symoperators "094C%
+\Umathcode "094D 7 \symoperators "094D%
+\Umathcode "094E 7 \symoperators "094E%
+\Umathcode "094F 7 \symoperators "094F%
+%
+\Umathcode "0950 7 \symoperators "0950%
+\Umathcode "0951 7 \symoperators "0951%
+\Umathcode "0952 7 \symoperators "0952%
+\Umathcode "0953 7 \symoperators "0953%
+\Umathcode "0954 7 \symoperators "0954%
+\Umathcode "0955 7 \symoperators "0955%
+\Umathcode "0956 7 \symoperators "0956%
+\Umathcode "0957 7 \symoperators "0957%
+\Umathcode "0958 7 \symoperators "0958%
+\Umathcode "0959 7 \symoperators "0959%
+\Umathcode "095A 7 \symoperators "095A%
+\Umathcode "095B 7 \symoperators "095B%
+\Umathcode "095C 7 \symoperators "095C%
+\Umathcode "095D 7 \symoperators "095D%
+\Umathcode "095E 7 \symoperators "095E%
+\Umathcode "095F 7 \symoperators "095F%
+%
+\Umathcode "0960 7 \symoperators "0960%
+\Umathcode "0961 7 \symoperators "0961%
+\Umathcode "0962 7 \symoperators "0962%
+\Umathcode "0963 7 \symoperators "0963%
+\Umathcode "0964 7 \symoperators "0964%
+\Umathcode "0965 7 \symoperators "0965%
+\Umathcode "0966 7 \symoperators "0966%
+\Umathcode "0967 7 \symoperators "0967%
+\Umathcode "0968 7 \symoperators "0968%
+\Umathcode "0969 7 \symoperators "0969%
+\Umathcode "096A 7 \symoperators "096A%
+\Umathcode "096B 7 \symoperators "096B%
+\Umathcode "096C 7 \symoperators "096C%
+\Umathcode "096D 7 \symoperators "096D%
+\Umathcode "096E 7 \symoperators "096E%
+\Umathcode "096F 7 \symoperators "096F%
+%
+\Umathcode "0970 7 \symoperators "0970%
+\Umathcode "0971 7 \symoperators "0971%
+\Umathcode "0972 7 \symoperators "0972%
+\Umathcode "0973 7 \symoperators "0973%
+\Umathcode "0974 7 \symoperators "0974%
+\Umathcode "0975 7 \symoperators "0975%
+\Umathcode "0976 7 \symoperators "0976%
+\Umathcode "0977 7 \symoperators "0977%
+\Umathcode "0978 7 \symoperators "0978%
+\Umathcode "0979 7 \symoperators "0979%
+\Umathcode "097A 7 \symoperators "097A%
+\Umathcode "097B 7 \symoperators "097B%
+\Umathcode "097C 7 \symoperators "097C%
+\Umathcode "097D 7 \symoperators "097D%
+\Umathcode "097E 7 \symoperators "097E%
+\Umathcode "097F 7 \symoperators "097F%
+%\Umathcode `ज 7 \symoperators "091C%
+%\Umathcode `अ 7 \symoperators "0905%
+%\Umathcode "0905 7 \symoperators "0905%
+%\Umathcode `क 7 \symoperators "0915%
+%\Umathcode `ख 7 \symoperators "0916%
+%\Umathcode `२ 7 \symoperators "0968%
+%\count255="0900
+% \loop\ifnum\count255<"097F
+%   \advance\count255 by 1
+%   \Umathcode \count255 7 \symoperators \count255\fi
+% \repeat
+%%%%%%%%%%%%%%% End Devanagari Variables block %%%%%%%%
+
+
+%%%%%%%%%% Begin Aegean Numbers #######################
+\newcommand*{\aegeanseparator}{\textsf{\char"10100}}
+\newcommand*{\aegeanseparatordot}{\textsf{\char"10101}}
+\newcommand*{\aegeancheckmark}{\textsf{\char"10102}}
+\newcommand*{\aegeanone}{\textsf{\char"10107}}
+\newcommand*{\aegeantwo}{\textsf{\char"10108}}
+\newcommand*{\aegeanthree}{\textsf{\char"10109}}
+\newcommand*{\aegeanfour}{\textsf{\char"1010A}}
+\newcommand*{\aegeanfive}{\textsf{\char"1010B}}
+\newcommand*{\aegeansix}{\textsf{\char"1010C}}
+\newcommand*{\aegeanseven}{\textsf{\char"1010D}}
+\newcommand*{\aegeaneight}{\textsf{\char"1010E}}
+\newcommand*{\aegeanine}{\textsf{\char"1010F}}
+\newcommand*{\aegeanten}{\textsf{\char"10110}}
+\newcommand*{\aegeantwenty}{\textsf{\char"10111}}
+\newcommand*{\aegeanthirty}{\textsf{\char"10112}}
+\newcommand*{\aegeanfourty}{\textsf{\char"10113}}
+\newcommand*{\aegeanfifty}{\textsf{\char"101114}}
+\newcommand*{\aegeansixty}{\textsf{\char"10115}}
+\newcommand*{\aegeanseventy}{\textsf{\char"10116}}
+\newcommand*{\aegeaneighty}{\textsf{\char"10117}}
+\newcommand*{\aegeanninety}{\textsf{\char"10118}}
+\newcommand*{\aegeanonehundred}{\textsf{\char"10119}}
+\newcommand*{\aegeantwohundred}{\textsf{\char"1011A}}
+\newcommand*{\aegeanthreehundred}{\textsf{\char"1011B}}
+\newcommand*{\aegeanfourhundred}{\textsf{\char"1011C}}
+\newcommand*{\aegeanfivehundred}{\textsf{\char"1011D}}
+\newcommand*{\aegeansixhundred}{\textsf{\char"1011E}}
+\newcommand*{\aegeansevenhundred}{\textsf{\char"1011F}}
+\newcommand*{\aegeaneighthundred}{\textsf{\char"10120}}
+\newcommand*{\aegeanninehundred}{\textsf{\char"10121}}
+\newcommand*{\aegeanonethousand}{\textsf{\char"10122}}
+\newcommand*{\aegeantwothousand}{\textsf{\char"10123}}
+\newcommand*{\aegeanthreethousand}{\textsf{\char"10124}}
+\newcommand*{\aegeanfourthousand}{\textsf{\char"10125}}
+\newcommand*{\aegeanfivethousand}{\textsf{\char"10126}}
+\newcommand*{\aegeansixthousand}{\textsf{\char"10127}}
+\newcommand*{\aegeanseventhousand}{\textsf{\char"10128}}
+\newcommand*{\aegeaneightthousand}{\textsf{\char"10129}}
+\newcommand*{\aegeanninethousand}{\textsf{\char"1012A}}
+\newcommand*{\aegeantenthousand}{\textsf{\char"1012B}}
+\newcommand*{\aegeantwentythousand}{\textsf{\char"1012C}}
+\newcommand*{\aegeanthirtythousand}{\textsf{\char"1012D}}
+\newcommand*{\aegeanfourtythousand}{\textsf{\char"1012E}}
+\newcommand*{\aegeanfiftythousand}{\textsf{\char"1012F}}
+\newcommand*{\aegeansixtythousand}{\textsf{\char"10130}}
+\newcommand*{\aegeanseventythousand}{\textsf{\char"10131}}
+\newcommand*{\aegeaneightythousand}{\textsf{\char"10132}}
+\newcommand*{\aegeanninetythousand}{\textsf{\char"10133}}
+\newcommand*{\aegeanweightbaseunit}{\textsf{\char"10137}}
+\newcommand*{\aegeanweightfirstsubunit}{\textsf{\char"10138}}
+\newcommand*{\aegeanweightsecondsubunit}{\textsf{\char"10139}}
+\newcommand*{\aegeanweightthirdsubunit}{\textsf{\char"1013A}}
+\newcommand*{\aegeanweightfourthsubunit}{\textsf{\char"1013B}}
+\newcommand*{\aegeandrymeasurefirstsubunit}{\textsf{\char"1013C}}
+\newcommand*{\aegeanliquidmeasurefirstsubunit}{\textsf{\char"1013D}}
+\newcommand*{\aegeansecondsubunit}{\textsf{\char"1013E}}
+\newcommand*{\aegeanthirdsubunit}{\textsf{\char"1013F}}
+%%%%%%%%%%%%%%%% End Aegean Numbers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

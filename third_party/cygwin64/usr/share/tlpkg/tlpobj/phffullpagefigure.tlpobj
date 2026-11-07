@@ -1,0 +1,16 @@
+name phffullpagefigure
+category Package
+revision 41857
+shortdesc Figures which fill up a whole page
+relocated 1
+longdesc This package defines a figure environment which provides the
+longdesc figure content on its own page, with the corresponding caption
+longdesc reading for example "Figure 3 (on next page): <caption>".
+runfiles size=3
+ RELOC/tex/latex/phffullpagefigure/phffullpagefigure.sty
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phffullpagefigure
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics float
+catalogue-version 1.0

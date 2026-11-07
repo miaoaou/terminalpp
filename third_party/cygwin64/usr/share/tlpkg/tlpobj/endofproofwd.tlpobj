@@ -1,0 +1,14 @@
+name endofproofwd
+category Package
+revision 55643
+shortdesc An "end of proof" sign
+relocated 1
+longdesc This package provides an additional "end of proof" sign. The
+longdesc command's name is \wasserdicht.
+runfiles size=3
+ RELOC/tex/latex/endofproofwd/common/endofproofwd.pdf_tex
+ RELOC/tex/latex/endofproofwd/endofproofwd.pdf
+ RELOC/tex/latex/endofproofwd/endofproofwd.sty
+catalogue-ctan /graphics/endofproofwd
+catalogue-license lppl1.3
+catalogue-topics graphics maths font-symbol-maths

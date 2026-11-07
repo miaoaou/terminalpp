@@ -1,0 +1,21 @@
+name xassoccnt
+category Package
+revision 61112
+shortdesc Associated counters stepping simultaneously
+relocated 1
+longdesc This package provides a way of associating counters to an
+longdesc existing driver counter so that incrementing the driver counter
+longdesc will increase its associated counters as well. This package can
+longdesc be regarded as a supplement to the totcount package by
+longdesc Vasileios Koutavas, but it can be used without it, too.
+longdesc xassoccnt is a successor and a complete rewrite of the assoccnt
+longdesc package by the same author. However, as of 2017-03-05, some
+longdesc features of assoccnt are not (yet) contained in xassoccnt so
+longdesc that the older package cannot yet be regarded as obsolete.
+runfiles size=31
+ RELOC/tex/latex/xassoccnt/xassoccnt.sty
+catalogue-also assoccnt
+catalogue-ctan /macros/latex/contrib/xassoccnt
+catalogue-license lppl1.3
+catalogue-topics counter-mgmt macro-supp
+catalogue-version 2.0

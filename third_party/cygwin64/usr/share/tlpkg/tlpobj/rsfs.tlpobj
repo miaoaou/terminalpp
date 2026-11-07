@@ -1,0 +1,38 @@
+name rsfs
+category Package
+revision 15878
+shortdesc Ralph Smith's Formal Script font
+relocated 1
+longdesc The fonts provide uppercase 'formal' script letters for use as
+longdesc symbols in scientific and mathematical typesetting (in contrast
+longdesc to the informal script fonts such as that used for the
+longdesc 'calligraphic' symbols in the TeX maths symbol font). The fonts
+longdesc are provided as Metafont source, and as derived Adobe Type 1
+longdesc format. LaTeX support, for using these fonts in mathematics, is
+longdesc available via one of the packages calrsfs and mathrsfs.
+execute addMixedMap rsfs.map
+runfiles size=35
+ RELOC/fonts/afm/public/rsfs/rsfs10.afm
+ RELOC/fonts/afm/public/rsfs/rsfs5.afm
+ RELOC/fonts/afm/public/rsfs/rsfs7.afm
+ RELOC/fonts/map/dvips/rsfs/rsfs.map
+ RELOC/fonts/source/public/rsfs/rsfs10.mf
+ RELOC/fonts/source/public/rsfs/rsfs5.mf
+ RELOC/fonts/source/public/rsfs/rsfs7.mf
+ RELOC/fonts/source/public/rsfs/script.mf
+ RELOC/fonts/source/public/rsfs/scriptu.mf
+ RELOC/fonts/tfm/public/rsfs/rsfs10.tfm
+ RELOC/fonts/tfm/public/rsfs/rsfs5.tfm
+ RELOC/fonts/tfm/public/rsfs/rsfs7.tfm
+ RELOC/fonts/type1/public/rsfs/rsfs10.pfb
+ RELOC/fonts/type1/public/rsfs/rsfs10.pfm
+ RELOC/fonts/type1/public/rsfs/rsfs5.pfb
+ RELOC/fonts/type1/public/rsfs/rsfs5.pfm
+ RELOC/fonts/type1/public/rsfs/rsfs7.pfb
+ RELOC/fonts/type1/public/rsfs/rsfs7.pfm
+ RELOC/tex/plain/rsfs/scrload.tex
+catalogue-also rsfso
+catalogue-ctan /fonts/rsfs
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics font font-calligraphic font-mf font-type1

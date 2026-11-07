@@ -1,0 +1,21 @@
+name tikz-nfold
+category Package
+revision 67718
+shortdesc Triple, quadruple, and n-fold paths with TikZ
+relocated 1
+longdesc This library adds higher-order paths to TikZ and also fixes
+longdesc some graphical issues with TikZ' double paths, used e.g. in
+longdesc arrows with an Implies tip. It is also compatible with tikz-cd,
+longdesc adding support for triple and higher arrows. Macros to offset
+longdesc arbitrary paths are included as well.
+runfiles size=13
+ RELOC/tex/latex/tikz-nfold/pgflibrarybezieroffset.code.tex
+ RELOC/tex/latex/tikz-nfold/pgflibrarynfold.code.tex
+ RELOC/tex/latex/tikz-nfold/pgflibraryoffsetpath.code.tex
+ RELOC/tex/latex/tikz-nfold/tikzlibrarynfold.code.tex
+catalogue-contact-bugs https://github.com/jonschz/tikz-nfold/issues
+catalogue-contact-repository https://github.com/jonschz/tikz-nfold
+catalogue-ctan /graphics/pgf/contrib/tikz-nfold
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz
+catalogue-version 1.0.0

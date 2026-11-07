@@ -1,0 +1,29 @@
+name tabularray
+category Package
+revision 69906
+shortdesc Typeset tabulars and arrays with LaTeX3
+relocated 1
+longdesc LaTeX tables are implemented using TeX commands such as
+longdesc \halign, \noalign, \span, and \omit. In order to implement new
+longdesc features, many macro packages have modified the inner table
+longdesc commands inside LaTeX. This makes package code complicated,
+longdesc difficult to maintain, and often conflicts with each other. At
+longdesc present, the LaTeX3 programming layer is basically mature. This
+longdesc tabularray package will discard the old \halign commands and
+longdesc directly use LaTeX3 functions to parse the table, and then
+longdesc typeset the entire table. Under the premise of being compatible
+longdesc with the basic syntax of LaTeX2 tables, this macro package will
+longdesc completely separate the content and style of the table, and the
+longdesc style of the table can be completely set in keyval way.
+runfiles size=120
+ RELOC/tex/latex/tabularray/tabularray-2021.sty
+ RELOC/tex/latex/tabularray/tabularray.sty
+catalogue-contact-announce https://github.com/lvjr/tabularray/wiki/ChangeLog
+catalogue-contact-bugs https://github.com/lvjr/tabularray/issues
+catalogue-contact-home https://github.com/lvjr/tabularray/wiki
+catalogue-contact-repository https://github.com/lvjr/tabularray
+catalogue-contact-support https://topanswers.xyz/tex
+catalogue-ctan /macros/latex/contrib/tabularray
+catalogue-license lppl1.3c
+catalogue-topics table table-long expl3
+catalogue-version 2024A

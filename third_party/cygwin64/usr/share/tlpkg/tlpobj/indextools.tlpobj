@@ -1,0 +1,20 @@
+name indextools
+category Package
+revision 68555
+shortdesc Producing multiple indices
+relocated 1
+longdesc This package enables the user to produce and typeset one or
+longdesc more indices simultaneously. The package is known to work in
+longdesc LaTeX documents processed with pdfLaTeX, XeLaTeX and LuaLaTeX.
+longdesc If makeindex is used for processing the index entries, no
+longdesc particular setup is needed when TeX Live is used. Using xindy
+longdesc or other programs, it is necessary to enable shell escape.
+longdesc Shell escape is also needed if splitindex is used. This is a
+longdesc fork of imakeidx, with new features and fixed bugs.
+runfiles size=4
+ RELOC/tex/latex/indextools/indextools.sty
+catalogue-also imakeidx
+catalogue-ctan /macros/latex/contrib/indextools
+catalogue-license lppl1.3
+catalogue-topics index
+catalogue-version 1.7.0

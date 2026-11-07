@@ -1,0 +1,19 @@
+name verifycommand
+category Package
+revision 69389
+shortdesc Verifies definitions are unchanged, such as before patching
+relocated 1
+longdesc This package is intended for package authors who patch code
+longdesc from other packages. To improve reliability, the verifycommand
+longdesc package provides a way to verify that macros or environments
+longdesc have not changed. This allows a package author to check before
+longdesc patching a definition. If a definition is not as expected, a
+longdesc warning is issued. At the end of the compile, a list of all
+longdesc changed definitions is displayed.
+runfiles size=2
+ RELOC/tex/latex/verifycommand/verifycommand.sty
+catalogue-contact-bugs https://github.com/bdtc/verifycommand
+catalogue-ctan /macros/latex/contrib/verifycommand
+catalogue-license lppl1.3c
+catalogue-topics package-devel
+catalogue-version 1.00

@@ -1,0 +1,21 @@
+name cybercic
+category Package
+revision 37659
+shortdesc "Controls in Contents" for the cyber package
+relocated 1
+longdesc This package is used in concert with the cyber package to make
+longdesc documents with annotations of compliance with cybersecurity
+longdesc requirements. "cic" stands for "Controls in Contents", and when
+longdesc you include this package, some notations of compliance are
+longdesc added to section names as seen in the table of contents of the
+longdesc final document. It also makes your document more brittle in
+longdesc unexpected ways: for example, when you use cybercic in the same
+longdesc document as hyperref, you cannot use any formatting in your
+longdesc section titles. So don't use cybercic unless you need to.
+runfiles size=2
+ RELOC/tex/latex/cybercic/cybercic.sty
+catalogue-ctan /macros/latex/contrib/cybercic
+catalogue-date 2016-12-18 08:45:22 +0100
+catalogue-license mit
+catalogue-topics doc-supp toc-etc
+catalogue-version 2.1

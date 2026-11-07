@@ -1,0 +1,14 @@
+name compare
+category Package
+revision 54265
+shortdesc Compare two strings
+relocated 1
+longdesc The file defines a macro \compare, which takes two arguments;
+longdesc the macro expands to -1, 0, 1, according as the first argument
+longdesc is less than, equal to, or greater than the second argument.
+longdesc Sorting is alphabetic, using ASCII collating order.
+runfiles size=1
+ RELOC/tex/generic/compare/compare.tex
+catalogue-ctan /macros/generic/misc/compare.tex
+catalogue-license pd
+catalogue-topics macro-supp

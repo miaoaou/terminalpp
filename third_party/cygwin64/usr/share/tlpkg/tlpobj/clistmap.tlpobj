@@ -1,0 +1,15 @@
+name clistmap
+category Package
+revision 61811
+shortdesc Map and iterate over LaTeX3 clists
+relocated 1
+longdesc This package provides a key-based interface for defining
+longdesc templates whose job is to partition LaTeX3 clists and map
+longdesc differentiatedly across its components.
+runfiles size=9
+ RELOC/tex/latex/clistmap/clistmap.sty
+catalogue-contact-repository https://github.com/rogard/clistmap
+catalogue-ctan /macros/latex/contrib/clistmap
+catalogue-license lppl1.3c
+catalogue-topics expl3 macro-supp
+catalogue-version 1.2

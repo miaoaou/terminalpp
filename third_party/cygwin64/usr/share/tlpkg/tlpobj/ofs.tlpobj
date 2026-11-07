@@ -1,0 +1,55 @@
+name ofs
+category Package
+revision 16991
+shortdesc Macros for managing large font collections
+relocated 1
+longdesc OFS (Olsak's Font System) is a set of Plain TeX and LaTeX
+longdesc macros for managing large font collections; it has been used by
+longdesc Czech/Slovak users for many years. Main features include:
+longdesc Mapping from long names of fonts to the metric file name. The
+longdesc user can specify only exact long names in documents. Support
+longdesc for many font encodings. Printing of catalogues of fonts and
+longdesc test samples of font families; the interactive macro \showfonts
+longdesc shows all font families you have installed via OFS. The user
+longdesc interface is the same for Plain TeX and for LaTeX, but the
+longdesc implementation differs: the LaTeX variant of OFS uses NFSS, but
+longdesc the Plain variant implements its own font management (which may
+longdesc even be better than NFSS) Support for math fonts including TX
+longdesc fonts.
+runfiles size=93
+ RELOC/tex/generic/ofs/a117.tex
+ RELOC/tex/generic/ofs/a35.sty
+ RELOC/tex/generic/ofs/a35.tex
+ RELOC/tex/generic/ofs/allfonts.sty
+ RELOC/tex/generic/ofs/allfonts.tex
+ RELOC/tex/generic/ofs/amsfn.tex
+ RELOC/tex/generic/ofs/mtfn.tex
+ RELOC/tex/generic/ofs/ofs-6a.tex
+ RELOC/tex/generic/ofs/ofs-6c.tex
+ RELOC/tex/generic/ofs/ofs-6k.tex
+ RELOC/tex/generic/ofs/ofs-6s.tex
+ RELOC/tex/generic/ofs/ofs-6t.tex
+ RELOC/tex/generic/ofs/ofs-6x.tex
+ RELOC/tex/generic/ofs/ofs-6y.tex
+ RELOC/tex/generic/ofs/ofs-8c.tex
+ RELOC/tex/generic/ofs/ofs-8t.tex
+ RELOC/tex/generic/ofs/ofs-8x.tex
+ RELOC/tex/generic/ofs/ofs-8z.tex
+ RELOC/tex/generic/ofs/ofs-ams.tex
+ RELOC/tex/generic/ofs/ofs-cm.tex
+ RELOC/tex/generic/ofs/ofs-mt.tex
+ RELOC/tex/generic/ofs/ofs-ps.tex
+ RELOC/tex/generic/ofs/ofs-px.tex
+ RELOC/tex/generic/ofs/ofs-slt.tex
+ RELOC/tex/generic/ofs/ofs-tx.tex
+ RELOC/tex/generic/ofs/ofs.sty
+ RELOC/tex/generic/ofs/ofs.tex
+ RELOC/tex/generic/ofs/ofsdef.tex
+ RELOC/tex/generic/ofs/pantyk.tex
+ RELOC/tex/generic/ofs/txfn.tex
+catalogue-also plnfss font-selection fontch
+catalogue-contact-home http://petr.olsak.net/ofs.html
+catalogue-ctan /macros/generic/ofs
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license knuth
+catalogue-topics font-sel plain-ext

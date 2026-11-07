@@ -1,0 +1,25 @@
+name dtk
+category Package
+revision 70112
+shortdesc Document class for the journal of DANTE
+relocated 1
+longdesc The bundle provides a class and style file for typesetting "Die
+longdesc TeXnische Komodie" -- the communications of the German TeX
+longdesc Users Group DANTE e.V. The arrangement means that the class may
+longdesc be used by article writers to typeset a single article, as well
+longdesc as to produce the complete journal.
+runfiles size=18
+ RELOC/tex/latex/dtk/dtk-author.clo
+ RELOC/tex/latex/dtk/dtk-fonts.clo
+ RELOC/tex/latex/dtk/dtk-full.clo
+ RELOC/tex/latex/dtk/dtk-url.sty
+ RELOC/tex/latex/dtk/dtk.bbx
+ RELOC/tex/latex/dtk/dtk.cbx
+ RELOC/tex/latex/dtk/dtk.cls
+ RELOC/tex/latex/dtk/dtk.dbx
+catalogue-contact-bugs https://github.com/rolfn/dtk/issues
+catalogue-contact-repository https://github.com/rolfn/dtk
+catalogue-ctan /usergrps/dante/dtk
+catalogue-license lppl1.3c
+catalogue-topics journalpub class
+catalogue-version 2.10e

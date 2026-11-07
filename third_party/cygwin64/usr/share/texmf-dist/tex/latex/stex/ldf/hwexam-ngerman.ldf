@@ -1,0 +1,19 @@
+% German Language Bindings for the sTeX hwexam package
+% Copyright (c) 2019 Michael Kohlhase, all rights reserved
+%               this file is released under the
+%               LaTeX Project Public License (LPPL)
+%
+% The original of this file is in the public repository at 
+% http://github.com/sLaTeX/sTeX/
+
+\tl_set:Nn\assignmentautorefname{Hausaufgabe}
+\tl_set:Nn\hwexam@given@kw{Ausgegeben}
+\tl_set:Nn\hwexam@due@kw{Abgabetermin}
+\tl_set:Nn\hwexam@minutes@kw{Minuten}
+\tl_set:Nn\correction@forgrading@kw{Nur~zur~Korrektur,~bitte~freilassen!}
+\tl_set:Nn\hwexam@testemptypage@kw{Diese~Seite~wurde~für~mehr~Platz~absichtlich~leer~gelassen.}
+\tl_set:Nn\correction@probs@kw{Aufgabe}%
+\tl_set:Nn\correction@pts@kw{M\"oglich}%
+\tl_set:Nn\correction@reached@kw{Erreicht}%
+\tl_set:Nn\correction@sum@kw{Summe}%
+\tl_set:Nn\correction@grade@kw{Note}%

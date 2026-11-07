@@ -1,0 +1,19 @@
+name zref-vario
+category Package
+revision 68846
+shortdesc Extended LaTeX page cross-references with varioref and zref-clever
+relocated 1
+longdesc This package offers a compatibility layer for varioref to be
+longdesc used alongside zref-clever. It provides \z... counterparts to
+longdesc varioref's main reference commands, each of which essentially
+longdesc does some (scoped) setup for varioref, then calls the original
+longdesc one.
+depend tools
+depend zref-clever
+runfiles size=7
+ RELOC/tex/latex/zref-vario/zref-vario.sty
+catalogue-contact-repository https://github.com/gusbrs/zref-vario
+catalogue-ctan /macros/latex/contrib/zref-vario
+catalogue-license lppl1.3c
+catalogue-topics label-ref expl3
+catalogue-version 0.1.10

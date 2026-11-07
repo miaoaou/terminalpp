@@ -1,0 +1,17 @@
+name isosafety
+category Package
+revision 68801
+shortdesc Provides ISO signs and colors according to the standards 7010 and 3864
+relocated 1
+longdesc The package provides safety colors (ISO 3864) and safety signs
+longdesc (ISO 7010) from the ISO. It can be useful when creating
+longdesc instructions for chemical or physical experiments.
+runfiles size=1
+ RELOC/tex/latex/isosafety/isosafety.sty
+catalogue-contact-bugs https://github.com/BenSt099/isosafety/issues
+catalogue-contact-home https://github.com/BenSt099/isosafety
+catalogue-contact-repository https://github.com/BenSt099/isosafety
+catalogue-ctan /macros/latex/contrib/isosafety
+catalogue-license lppl1.3c
+catalogue-topics typeset-std
+catalogue-version 1.1

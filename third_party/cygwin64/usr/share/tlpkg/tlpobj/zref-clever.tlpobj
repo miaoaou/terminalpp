@@ -1,0 +1,28 @@
+name zref-clever
+category Package
+revision 68846
+shortdesc Clever LaTeX cross-references based on zref
+relocated 1
+longdesc This package provides a user interface for making LaTeX
+longdesc cross-references which automates some of their typical
+longdesc features, thus easing their input in the document and improving
+longdesc the consistency of typeset results. A reference made with
+longdesc \zcref includes a "name" according to its "type", and lists of
+longdesc multiple labels can be automatically sorted and compressed into
+longdesc ranges when due. The reference format is highly and easily
+longdesc customizable, both globally and locally. The package is based
+longdesc on zref's extensible referencing system.
+runfiles size=68
+ RELOC/tex/latex/zref-clever/zref-clever-dutch.lang
+ RELOC/tex/latex/zref-clever/zref-clever-english.lang
+ RELOC/tex/latex/zref-clever/zref-clever-french.lang
+ RELOC/tex/latex/zref-clever/zref-clever-german.lang
+ RELOC/tex/latex/zref-clever/zref-clever-italian.lang
+ RELOC/tex/latex/zref-clever/zref-clever-portuguese.lang
+ RELOC/tex/latex/zref-clever/zref-clever-spanish.lang
+ RELOC/tex/latex/zref-clever/zref-clever.sty
+catalogue-contact-repository https://github.com/gusbrs/zref-clever
+catalogue-ctan /macros/latex/contrib/zref-clever
+catalogue-license lppl1.3c
+catalogue-topics label-ref expl3
+catalogue-version 0.4.3

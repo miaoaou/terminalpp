@@ -1,0 +1,15 @@
+name texvc
+category Package
+revision 46844
+shortdesc Use MediaWiki LaTeX commands
+relocated 1
+longdesc User MediaWiki LaTeX commands to copy and past formulae from
+longdesc MediaWiki to LaTeX documents.
+runfiles size=1
+ RELOC/tex/latex/texvc/texvc.sty
+catalogue-contact-repository https://github.com/ag-gipp/texvc-latex
+catalogue-ctan /macros/latex/contrib/texvc
+catalogue-date 2018-03-05 12:45:06 +0100
+catalogue-license lppl1.3
+catalogue-topics foreign-import
+catalogue-version 1.1

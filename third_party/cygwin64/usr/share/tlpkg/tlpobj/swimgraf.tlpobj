@@ -1,0 +1,25 @@
+name swimgraf
+category Package
+revision 25446
+shortdesc Graphical/textual representations of swimming performances
+relocated 1
+longdesc The package provides two macros that produce representations of
+longdesc a swimmer's performances. The user records data in a text file
+longdesc and specifies as arguments of the macros the date range of
+longdesc interest. The macros extract the relevant information from the
+longdesc file and process it: \swimgraph produces a graph of the times
+longdesc in a single swimming event (specified as an argument), plotting
+longdesc long course and short course times in separate lines. Records
+longdesc and qualifying times, stored in text files, may optionally be
+longdesc included on the graph. \swimtext produces a written record of
+longdesc the times in all events. Files of current world and Canadian
+longdesc records are included. The package requires the PSTricks and
+longdesc keyval packages. For attractive output it also requires a
+longdesc colour output device.
+runfiles size=13
+ RELOC/tex/latex/swimgraf/swimgraf.cfg
+ RELOC/tex/latex/swimgraf/swimgraf.sty
+catalogue-ctan /macros/latex/contrib/swimgraf
+catalogue-date 2018-09-15 14:13:15 +0200
+catalogue-license lppl
+catalogue-topics data-disp

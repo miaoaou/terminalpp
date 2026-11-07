@@ -1,0 +1,31 @@
+name gmutils
+category Package
+revision 24287
+shortdesc Support macros for other packages
+relocated 1
+longdesc Miscellaneous macros used by others of the author's packages.
+longdesc Contents of the package: \newgif and other globals; \@ifnextcat
+longdesc and \@ifXeTeX; \(Re)storeMacro(s) to override redefinitions;
+longdesc \afterfi and friends; commands from relsize, etc.; "almost an
+longdesc environment" or redefinition of \begin (\begin* doesn't check
+longdesc if the argument environment is defined).
+runfiles size=70
+ RELOC/tex/latex/gmutils/gmRCS.sty
+ RELOC/tex/latex/gmutils/gmampulex.sty
+ RELOC/tex/latex/gmutils/gmbase.sty
+ RELOC/tex/latex/gmutils/gmcommand.sty
+ RELOC/tex/latex/gmutils/gmenvir.sty
+ RELOC/tex/latex/gmutils/gmlogos.sty
+ RELOC/tex/latex/gmutils/gmmeta.sty
+ RELOC/tex/latex/gmutils/gmmw.sty
+ RELOC/tex/latex/gmutils/gmnotonlypream.sty
+ RELOC/tex/latex/gmutils/gmparts.sty
+ RELOC/tex/latex/gmutils/gmrelsize.sty
+ RELOC/tex/latex/gmutils/gmtypos.sty
+ RELOC/tex/latex/gmutils/gmurl.sty
+ RELOC/tex/latex/gmutils/gmutils.sty
+catalogue-ctan /macros/latex/contrib/gmutils
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 0.996

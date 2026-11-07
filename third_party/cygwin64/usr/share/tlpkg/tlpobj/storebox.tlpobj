@@ -1,0 +1,21 @@
+name storebox
+category Package
+revision 64967
+shortdesc Storing information for reuse
+relocated 1
+longdesc The package provides "store boxes" whose user interface matches
+longdesc that of normal LaTeX "save boxes", except that the content of a
+longdesc store box appears at most once in the output PDF file, however
+longdesc often it is used. The present version of the package supports
+longdesc pdfLaTeX and LuaLaTeX; when DVI is output, store boxes behave
+longdesc the same as save boxes.
+runfiles size=4
+ RELOC/tex/latex/storebox/storebox-pgf.sty
+ RELOC/tex/latex/storebox/storebox.sty
+catalogue-contact-bugs https://github.com/MartinScharrer/storebox/issues
+catalogue-contact-home https://github.com/MartinScharrer/storebox
+catalogue-contact-repository https://github.com/MartinScharrer/storebox.git
+catalogue-ctan /macros/latex/contrib/storebox
+catalogue-license lppl1.3
+catalogue-topics pdf-feat macro-supp
+catalogue-version 1.3a

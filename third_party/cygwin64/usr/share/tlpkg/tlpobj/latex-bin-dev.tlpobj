@@ -1,0 +1,31 @@
+name latex-bin-dev
+category TLCore
+revision 70015
+shortdesc LaTeX pre-release executables and formats
+longdesc See the latex-base-dev package for information.
+depend babel
+depend cm
+depend dehyph
+depend firstaid
+depend hyph-utf8
+depend hyphen-base
+depend l3backend
+depend l3kernel
+depend latex
+depend latex-base-dev
+depend latex-bin-dev.ARCH
+depend latex-firstaid-dev
+depend latex-fonts
+depend latex-graphics-dev
+depend latexconfig
+depend lm
+depend luahbtex
+depend luaotfload
+depend luatex
+depend pdftex
+depend tex-ini-files
+depend unicode-data
+execute AddFormat name=dvilualatex-dev engine=luatex           patterns=language.dat,language.dat.lua           options="dvilualatex.ini"           fmttriggers=babel,cm,firstaid,hyphen-base,l3backend,l3kernel,latex,latex-fonts,tex-ini-files,unicode-data,latex-base-dev,latex-firstaid-dev,lm,luaotfload
+execute AddFormat name=latex-dev engine=pdftex           patterns=language.dat           options="-translate-file=cp227.tcx *latex.ini"           fmttriggers=babel,cm,firstaid,hyphen-base,l3backend,l3kernel,latex,latex-fonts,tex-ini-files,unicode-data,latex-base-dev,latex-firstaid-dev,dehyph,hyph-utf8,latexconfig,pdftex
+execute AddFormat name=lualatex-dev engine=luahbtex           patterns=language.dat,language.dat.lua           options="lualatex.ini"           fmttriggers=babel,cm,firstaid,hyphen-base,l3backend,l3kernel,latex,latex-fonts,tex-ini-files,unicode-data,latex-base-dev,latex-firstaid-dev,lm,luaotfload
+execute AddFormat name=pdflatex-dev engine=pdftex           patterns=language.dat           options="-translate-file=cp227.tcx *pdflatex.ini"           fmttriggers=babel,cm,firstaid,hyphen-base,l3backend,l3kernel,latex,latex-fonts,tex-ini-files,unicode-data,latex-base-dev,latex-firstaid-dev,dehyph,hyph-utf8,latexconfig,pdftex

@@ -1,0 +1,18 @@
+% --------------------------------------------------------------------------
+% ST. Vincent:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{blue}{RGB}{0,94,184}
+\definecolor{gold}{RGB}{255,205,0}
+\definecolor{green}{RGB}{0,154,68}
+\fill [gold] (0,0) rectangle (\flaglength,1);
+\fill [blue] (0,0) rectangle (0.25\flaglength,1);
+\fill [green] (0.75\flaglength,0) rectangle (\flaglength,1);
+\begin{scope}
+[shift={(0.5\flaglength,0.5\flagwidth)},x=\flagwidth/48,y=\flagwidth/48]
+\fill [green] (0,0)--++(4,-8)--++(-4,-8)--++(-4,8)--cycle;
+\fill [green] (5,10)--++(4,-8)--++(-4,-8)--++(-4,8)--cycle;
+\fill [green] (-5,10)--++(4,-8)--++(-4,-8)--++(-4,8)--cycle;
+\end{scope}
+\framecode{}
+\end{flagdescription}

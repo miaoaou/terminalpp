@@ -1,0 +1,24 @@
+name returntogrid
+category Package
+revision 48485
+shortdesc Semi-automatic grid typesetting
+relocated 1
+longdesc returntogrid offers a few commands to get something like an
+longdesc simple, semi-automatic grid typesetting. It does more or less
+longdesc what the existing gridset package does. The main differences to
+longdesc gridset are that returntogrid works also with LuaLaTeX and that
+longdesc it has also a command to do some horizontal movements to get to
+longdesc "tab" positions.
+runfiles size=4
+ RELOC/tex/latex/returntogrid/returntogrid.lua
+ RELOC/tex/latex/returntogrid/returntogrid.sty
+catalogue-also grid gridset
+catalogue-contact-bugs https://github.com/u-fischer/returntogrid/issues
+catalogue-contact-home https://github.com/u-fischer/returntogrid
+catalogue-contact-repository https://github.com/u-fischer/returntogrid
+catalogue-contact-support https://github.com/u-fischer/returntogrid
+catalogue-ctan /macros/latex/contrib/returntogrid
+catalogue-date 2018-08-24 05:44:41 +0200
+catalogue-license lppl1.3c
+catalogue-topics typeset-grid
+catalogue-version 0.2

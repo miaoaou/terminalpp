@@ -1,0 +1,16 @@
+name bxdpx-beamer
+category Package
+revision 41813
+shortdesc Dvipdfmx extras for use with beamer
+relocated 1
+longdesc The package is a driver to support beamer Navigation symbols
+longdesc and \framezoomed regions when using dvipdfmx as PDF generator
+longdesc (e.g., as part of e-pTeX). The package does not define any
+longdesc 'user' commands.
+runfiles size=1
+ RELOC/tex/latex/bxdpx-beamer/bxdpx-beamer.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/bxdpx-beamer
+catalogue-date 2016-12-18 08:45:22 +0100
+catalogue-license mit
+catalogue-topics graphics-drv
+catalogue-version 0.3

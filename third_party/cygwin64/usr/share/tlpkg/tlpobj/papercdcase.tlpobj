@@ -1,0 +1,13 @@
+name papercdcase
+category Package
+revision 15878
+shortdesc Origami-style folding paper CD case
+relocated 1
+longdesc This package implements a LaTeX style file to produce
+longdesc origami-style folding paper CD cases.
+runfiles size=6
+ RELOC/tex/latex/papercdcase/papercdcase.sty
+catalogue-ctan /macros/latex/contrib/papercdcase
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics covers

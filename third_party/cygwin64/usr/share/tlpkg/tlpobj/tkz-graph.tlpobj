@@ -1,0 +1,15 @@
+name tkz-graph
+category Package
+revision 57484
+shortdesc Draw graph-theory graphs
+relocated 1
+longdesc The package is designed to create graph diagrams as simply as
+longdesc possible, using TikZ.
+runfiles size=12
+ RELOC/tex/latex/tkz-graph/tkz-graph.sty
+catalogue-also tkz-berge
+catalogue-contact-home http://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-graph
+catalogue-license lppl1.3
+catalogue-topics maths graphics pgf-tikz
+catalogue-version 2.0

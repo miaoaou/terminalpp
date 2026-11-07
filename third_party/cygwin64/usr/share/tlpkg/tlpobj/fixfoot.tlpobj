@@ -1,0 +1,19 @@
+name fixfoot
+category Package
+revision 17131
+shortdesc Multiple use of the same footnote text
+relocated 1
+longdesc Provides a \DeclareFixedFootnote command to provide a single
+longdesc command for a frequently-used footnote. The package ensures
+longdesc that only one instance of the footnote text appears on each
+longdesc page (LaTeX needs to be run several times to achieve this).
+runfiles size=2
+ RELOC/tex/latex/fixfoot/fixfoot.sty
+catalogue-also savefnmark
+catalogue-contact-repository https://github.com/rf-latex/fixfoot
+catalogue-contact-support https://github.com/rf-latex/fixfoot/issues
+catalogue-ctan /macros/latex/contrib/fixfoot
+catalogue-date 2018-09-15 15:36:28 +0200
+catalogue-license lppl
+catalogue-topics footnote
+catalogue-version 0.3a

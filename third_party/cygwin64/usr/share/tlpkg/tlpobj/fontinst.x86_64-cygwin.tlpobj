@@ -1,0 +1,6 @@
+name fontinst.x86_64-cygwin
+category Package
+revision 53554
+shortdesc x86_64-cygwin files of fontinst
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/fontinst

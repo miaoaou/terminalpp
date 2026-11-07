@@ -1,0 +1,19 @@
+name floatrowbytocbasic
+category Package
+revision 67946
+shortdesc An enhancement to package floatrow using package tocbasic
+relocated 1
+longdesc This package adds usage of package tocbasic to package
+longdesc floatrow. This not only improves compatibility with KOMA-Script
+longdesc but also adds several new features to floatrow like optional
+longdesc automatic entries to the table of contents for the lists of new
+longdesc floats, optional numbering of the lists of new floats etc.
+runfiles size=2
+ RELOC/tex/latex/floatrowbytocbasic/floatrowbytocbasic.sty
+catalogue-contact-bugs https://github.com/komascript/third-party-enhancements/issues
+catalogue-contact-home https://github.com/komascript/third-party-enhancements
+catalogue-contact-repository https://github.com/komascript/third-party-enhancements/tree/main/floatrowbytocbasic
+catalogue-ctan /macros/latex/contrib/floatrowbytocbasic
+catalogue-license lppl1.3c
+catalogue-topics float
+catalogue-version 1.0

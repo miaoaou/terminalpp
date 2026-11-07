@@ -1,0 +1,18 @@
+name joinbox
+category Package
+revision 68003
+shortdesc Join boxes vertically or horizontally
+relocated 1
+longdesc This package can join boxes vertically or horizontally. When
+longdesc using vertical joining, all boxes to be joined will keep same
+longdesc width, while when using horizontal joined, all boxes to be
+longdesc joined keep same height.
+runfiles size=5
+ RELOC/tex/latex/joinbox/joinbox.sty
+catalogue-contact-bugs https://gitee.com/nwafu_nan/joinbox/issues
+catalogue-contact-development https://gitee.com/nwafu_nan/joinbox/pulls
+catalogue-contact-repository https://gitee.com/nwafu_nan/joinbox
+catalogue-ctan /macros/latex/contrib/joinbox
+catalogue-license lppl1.3c
+catalogue-topics box-manip expl3
+catalogue-version 1.0.2

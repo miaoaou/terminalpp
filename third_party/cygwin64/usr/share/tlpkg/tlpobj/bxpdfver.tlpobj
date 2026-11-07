@@ -1,0 +1,16 @@
+name bxpdfver
+category Package
+revision 63185
+shortdesc Specify version and compression level of output PDF files
+relocated 1
+longdesc This package enables users to specify in their sources the
+longdesc following settings on the PDF document to output: PDF version
+longdesc (1.4, 1.5 etc.); whether or not to compress streams; whether or
+longdesc not to use object streams. This package supports all major
+longdesc PDF-output engines and dvipdfmx.
+runfiles size=8
+ RELOC/tex/latex/bxpdfver/bxpdfver.sty
+catalogue-ctan /macros/latex/contrib/bxpdfver
+catalogue-license mit
+catalogue-topics pdf-feat
+catalogue-version 0.6

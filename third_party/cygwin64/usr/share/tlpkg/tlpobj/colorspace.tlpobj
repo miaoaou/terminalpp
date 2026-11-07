@@ -1,0 +1,17 @@
+name colorspace
+category Package
+revision 50585
+shortdesc Provides PDF color spaces
+relocated 1
+longdesc The package provides PDF color spaces. Currently, only spot
+longdesc colors and overprinting are supported. It requires xcolor, and
+longdesc supports pdfTeX and LuaTeX.
+runfiles size=6
+ RELOC/tex/latex/colorspace/colorspace.sty
+catalogue-contact-home http://www.texnia.com/
+catalogue-contact-repository https://github.com/jbezos/colorspace
+catalogue-ctan /macros/latex/contrib/colorspace
+catalogue-date 2019-03-25 17:50:16 +0100
+catalogue-license mit
+catalogue-topics colour
+catalogue-version 1.3

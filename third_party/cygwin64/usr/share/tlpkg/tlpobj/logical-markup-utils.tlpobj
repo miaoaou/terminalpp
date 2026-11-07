@@ -1,0 +1,17 @@
+name logical-markup-utils
+category Package
+revision 15878
+shortdesc Packages for language-dependent inline quotes and dashes
+relocated 1
+longdesc The bundle contains two packages: quoted, for inserting
+longdesc quotation marks; and onedash, for inserting dashes. Each
+longdesc package takes a language name as an option; accepted language
+longdesc options are american, british, german and polish.
+runfiles size=2
+ RELOC/tex/latex/logical-markup-utils/onedash.sty
+ RELOC/tex/latex/logical-markup-utils/quoted.sty
+catalogue-also csquotes
+catalogue-ctan /macros/latex/contrib/logical-markup-utils
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics quote-marks

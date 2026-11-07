@@ -1,0 +1,21 @@
+name soulpos
+category Package
+revision 60772
+shortdesc A fancy means of underlining
+relocated 1
+longdesc The package combines the use of soul with the savepos mechanism
+longdesc of current pdfTeX so that the user can create (almost)
+longdesc arbitrary underlining and similar "decorations", including
+longdesc rules, leaders and even pictures (pgf, pstricks, etc.). Unlike
+longdesc soul underlines, which are built by repeating small elements,
+longdesc here each chunk of text to be underlined is a single element.
+depend oberdiek
+depend soul
+runfiles size=2
+ RELOC/tex/latex/soulpos/soulpos.sty
+catalogue-contact-home http://www.texnia.com/
+catalogue-contact-repository https://github.com/jbezos
+catalogue-ctan /macros/latex/contrib/soulpos
+catalogue-license mit
+catalogue-topics underline letterspace
+catalogue-version 1.2

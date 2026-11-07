@@ -1,0 +1,31 @@
+name coverpage
+category Package
+revision 63509
+shortdesc Automatic cover page creation for scientific papers
+relocated 1
+longdesc The package CoverPage was created to supplement scientific
+longdesc papers with a cover page containing bibliographical
+longdesc information, a copyright notice, and/or some logos of the
+longdesc author's institution. The cover page is created (almost)
+longdesc automatically; this is done by parsing BibTeX information
+longdesc corresponding to the main document and reading a configuration
+longdesc file in which the author can set information like the
+longdesc affiliation he or she is associated with. The cover page
+longdesc consists of header, body and footer; all three are macros which
+longdesc can be redefined using \renewcommand, thus allowing easy
+longdesc customization of the package. Additionally, it should be
+longdesc stressed that the cover page layout is totally independent of
+longdesc the main document and its page layout. This package requires
+longdesc four other packages (keyval, url, textcomp, and verbatim), but
+longdesc all of them are standard packages and should be part of every
+longdesc LaTeX installation.
+runfiles size=3
+ RELOC/tex/latex/coverpage/CoverPage.cfg
+ RELOC/tex/latex/coverpage/CoverPage.sty
+catalogue-also authorarchive
+catalogue-contact-bugs https://github.com/koppor/CoverPage/issues
+catalogue-contact-repository https://github.com/koppor/CoverPage
+catalogue-ctan /macros/latex/contrib/coverpage
+catalogue-license lppl1.2
+catalogue-topics archival journalpub
+catalogue-version 1.01

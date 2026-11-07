@@ -1,0 +1,25 @@
+name multilang
+category Package
+revision 49065
+shortdesc A LaTeX package for maintaining multiple translations of a document
+relocated 1
+longdesc Maintaining a LaTeX document with translations for multiple
+longdesc languages can be cumbersome and error-prone. This package
+longdesc provides a set of macros for defining macros and environments
+longdesc as wrappers around existing macros and environments. These
+longdesc wrappers allow one to clearly specify multiple translations for
+longdesc the arguments to the wrapped macros and environments while only
+longdesc the translation of the document's language is actually shown.
+longdesc Choosing a translation then is as simple as choosing the
+longdesc document's language via babel or polyglossia.
+runfiles size=5
+ RELOC/tex/latex/multilang/multilang-sect.sty
+ RELOC/tex/latex/multilang/multilang-tags.sty
+ RELOC/tex/latex/multilang/multilang.sty
+catalogue-contact-bugs https://github.com/Ri-Ga/multilang/issues
+catalogue-contact-repository https://github.com/Ri-Ga/multilang
+catalogue-ctan /macros/latex/contrib/multilang
+catalogue-date 2018-11-03 14:35:33 +0100
+catalogue-license lppl1.2
+catalogue-topics multilingual
+catalogue-version 0.9b

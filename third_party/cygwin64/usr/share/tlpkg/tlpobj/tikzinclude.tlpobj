@@ -1,0 +1,14 @@
+name tikzinclude
+category Package
+revision 28715
+shortdesc Import TikZ images from colletions
+relocated 1
+longdesc The package addresses the problem of importing only one
+longdesc TikZ-image from a file holding multiple images.
+runfiles size=1
+ RELOC/tex/latex/tikzinclude/tikzinclude.sty
+catalogue-ctan /graphics/pgf/contrib/tikzinclude
+catalogue-date 2019-02-21 05:13:12 +0100
+catalogue-license lppl1.3
+catalogue-topics graphics-supp
+catalogue-version 1.0

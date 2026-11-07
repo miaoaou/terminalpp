@@ -1,0 +1,20 @@
+name grid
+category Package
+revision 61719
+shortdesc Grid typesetting in LaTeX
+relocated 1
+longdesc The package helps to enables grid typesetting in double column
+longdesc documents. Grid typesetting (vertical aligning of lines of text
+longdesc in adjacent columns) is a difficult task in LaTeX, and the
+longdesc present package is no more than an attempt to help users to
+longdesc achieve it in a limited way. An example document, grid.tex, is
+longdesc provided with simple instructions to typeset it using the
+longdesc package. The package needs a lot more work: this is only a
+longdesc beginning...
+runfiles size=3
+ RELOC/tex/latex/grid/grid.sty
+catalogue-contact-home http://river-valley.com//
+catalogue-ctan /macros/latex/contrib/grid
+catalogue-license lppl
+catalogue-topics typeset-grid
+catalogue-version 1.0

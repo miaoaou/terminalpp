@@ -1,0 +1,16 @@
+name fbox
+category Package
+revision 69041
+shortdesc Extended \fbox macro from standard LaTeX
+relocated 1
+longdesc This package redefines \fbox to allow an optional argument for
+longdesc different frames. It can be any combination of l)eft, r)ight,
+longdesc t)op, and b)ottom, for example: \fbox[lt]{foo}. Using uppercase
+longdesc letters or a combination of lowercase and uppercase is also
+longdesc possible.
+runfiles size=2
+ RELOC/tex/latex/fbox/fbox.sty
+catalogue-ctan /macros/latex/contrib/fbox
+catalogue-license lppl1.3c
+catalogue-topics boxing
+catalogue-version 0.07

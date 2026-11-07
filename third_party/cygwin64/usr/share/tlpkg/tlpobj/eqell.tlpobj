@@ -1,0 +1,13 @@
+name eqell
+category Package
+revision 22931
+shortdesc Sympathetically spaced ellipsis after punctuation
+relocated 1
+longdesc The package provides commands that give a well-spaced ellipsis
+longdesc after !, ?, !? or ?!.
+runfiles size=1
+ RELOC/tex/latex/eqell/eqell.sty
+catalogue-ctan /macros/latex/contrib/eqell
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics typesetting

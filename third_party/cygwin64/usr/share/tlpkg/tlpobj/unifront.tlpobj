@@ -1,0 +1,25 @@
+name unifront
+category Package
+revision 67054
+shortdesc Give notes a unique front page for every chapter and section
+relocated 1
+longdesc This package can help you format your notes easily and give
+longdesc them a unique front page for every chapter and section. It
+longdesc calculates your progress and then displays the progress bar
+longdesc under the title. It also displays a partial table of contents
+longdesc under every progress bar and only shows the subdirectories of
+longdesc the current part. To generate this, you can simply enter your
+longdesc current completed titles with a command that accepts Variable
+longdesc Arguments. Still, that also helps you review your notes. You
+longdesc can also customise the colour of the bar.
+runfiles size=2
+ RELOC/tex/latex/unifront/unifront.sty
+catalogue-contact-announce https://github.com/weifanw/unifront/wiki
+catalogue-contact-bugs https://github.com/weifanw/unifront/issues
+catalogue-contact-development https://github.com/weifanw/unifront/pulls
+catalogue-contact-repository https://github.com/weifanw/unifront
+catalogue-contact-support https://github.com/weifanw/unifront/wiki
+catalogue-ctan /macros/latex/contrib/unifront
+catalogue-license lppl1.3c
+catalogue-topics toc-etc notes
+catalogue-version 1.0

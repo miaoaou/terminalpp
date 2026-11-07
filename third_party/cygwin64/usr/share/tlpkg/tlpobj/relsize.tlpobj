@@ -1,0 +1,15 @@
+name relsize
+category Package
+revision 30707
+shortdesc Set the font size relative to the current font size
+relocated 1
+longdesc The basic command of the package is \relsize, whose argument is
+longdesc a number of \magsteps to change size; from this are defined
+longdesc commands \larger, \smaller, \textlarger, etc.
+runfiles size=4
+ RELOC/tex/latex/relsize/relsize.sty
+catalogue-ctan /macros/latex/contrib/relsize
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics font-sel macro-supp
+catalogue-version 4.1

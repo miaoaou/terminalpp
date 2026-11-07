@@ -1,0 +1,19 @@
+name to-be-determined
+category Package
+revision 64882
+shortdesc Highlight text passages that need further work
+relocated 1
+longdesc This package provides a single command \tbd which highlights
+longdesc the pieces of text that need to be rewritten later. You can
+longdesc hide them all with a single package option hide, or just make
+longdesc them disappear entirely with the option off.
+depend soul
+depend xcolor
+runfiles size=1
+ RELOC/tex/latex/to-be-determined/to-be-determined.sty
+catalogue-contact-bugs https://github.com/yegor256/to-be-determined/issues
+catalogue-contact-repository https://github.com/yegor256/to-be-determined
+catalogue-ctan /macros/latex/contrib/to-be-determined
+catalogue-license mit
+catalogue-topics editorial decoration cond-comp
+catalogue-version 0.3.0

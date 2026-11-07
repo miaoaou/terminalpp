@@ -1,0 +1,16 @@
+name outilsgeomtikz
+category Package
+revision 69124
+shortdesc Some geometric tools, with TikZ
+relocated 1
+longdesc This package provides some commands, with French keys, to
+longdesc display geometric tools using TikZ, for example a pen, a
+longdesc compass, a rule, a square, a protractor, ...
+runfiles size=9
+ RELOC/tex/latex/outilsgeomtikz/OutilsGeomTikz.sty
+catalogue-contact-bugs https://github.com/cpierquet/OutilsGeomTikz/issues
+catalogue-contact-repository https://github.com/cpierquet/OutilsGeomTikz
+catalogue-ctan /graphics/pgf/contrib/outilsgeomtikz
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz graphics
+catalogue-version 0.1.5

@@ -1,0 +1,37 @@
+name euro-ce
+category Package
+revision 25714
+shortdesc Euro and CE sign font
+relocated 1
+longdesc Metafont source for the symbols in several variants, designed
+longdesc to fit with the Computer Modern-set text.
+runfiles size=26
+ RELOC/fonts/source/public/euro-ce/ceit.mf
+ RELOC/fonts/source/public/euro-ce/cemac.mf
+ RELOC/fonts/source/public/euro-ce/cerm.mf
+ RELOC/fonts/source/public/euro-ce/cesl.mf
+ RELOC/fonts/source/public/euro-ce/eurobf.mf
+ RELOC/fonts/source/public/euro-ce/eurobfit.mf
+ RELOC/fonts/source/public/euro-ce/eurobfsl.mf
+ RELOC/fonts/source/public/euro-ce/euroit.mf
+ RELOC/fonts/source/public/euro-ce/euromac.mf
+ RELOC/fonts/source/public/euro-ce/euroof.mf
+ RELOC/fonts/source/public/euro-ce/eurorm.mf
+ RELOC/fonts/source/public/euro-ce/eurosl.mf
+ RELOC/fonts/source/public/euro-ce/eurosp.mf
+ RELOC/fonts/tfm/public/euro-ce/ceit.tfm
+ RELOC/fonts/tfm/public/euro-ce/cerm.tfm
+ RELOC/fonts/tfm/public/euro-ce/cesl.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurobf.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurobfit.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurobfsl.tfm
+ RELOC/fonts/tfm/public/euro-ce/euroit.tfm
+ RELOC/fonts/tfm/public/euro-ce/euroof.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurorm.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurosl.tfm
+ RELOC/fonts/tfm/public/euro-ce/eurosp.tfm
+catalogue-ctan /fonts/euro-ce
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license bsd
+catalogue-topics font font-specialist font-mf
+catalogue-version 3.0b

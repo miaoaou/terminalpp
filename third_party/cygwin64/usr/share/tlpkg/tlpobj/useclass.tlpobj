@@ -1,0 +1,20 @@
+name useclass
+category Package
+revision 70444
+shortdesc Load classes as packages
+relocated 1
+longdesc This package enables the usage of classes as packages. It was
+longdesc originally designed for the l3doc class, which is employed for
+longdesc documenting LaTeX code with numerous useful features. However,
+longdesc employing the l3doc class as a package is not convenient when
+longdesc using the developing class as the style for the document.
+longdesc Therefore, this package provides a simple interface for
+longdesc utilizing classes as packages.
+runfiles size=2
+ RELOC/tex/latex/useclass/useclass.sty
+catalogue-contact-bugs https://github.com/huangyxi/useclass/issues
+catalogue-contact-repository https://github.com/huangyxi/useclass
+catalogue-ctan /macros/latex/contrib/useclass
+catalogue-license lppl1.3c
+catalogue-topics doc-supp expl3
+catalogue-version 1.0

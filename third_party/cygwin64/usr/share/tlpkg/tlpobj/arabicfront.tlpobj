@@ -1,0 +1,20 @@
+name arabicfront
+category Package
+revision 51474
+shortdesc Frontmatter with arabic page numbers
+relocated 1
+longdesc This package modifies the definitions of \frontmatter and
+longdesc \mainmatter so that page numbering starts in arabic style from
+longdesc the front matter while preserving the rest of the original
+longdesc definitions. For it to work, \pagenumbering has to be inside
+longdesc these macros--most of classes do that, but there are exceptions
+longdesc like memoir.
+runfiles size=1
+ RELOC/tex/latex/arabicfront/arabicfront.sty
+catalogue-contact-home http://www.texnia.com/
+catalogue-contact-repository https://github.com/jbezos
+catalogue-ctan /macros/latex/contrib/arabicfront
+catalogue-date 2019-06-26 19:06:30 +0200
+catalogue-license mit
+catalogue-topics page-nos
+catalogue-version 1.1

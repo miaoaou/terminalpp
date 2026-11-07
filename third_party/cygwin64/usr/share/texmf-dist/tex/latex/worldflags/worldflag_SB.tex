@@ -1,0 +1,21 @@
+% --------------------------------------------------------------------------
+% Solomon Islands:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{green}{RGB}{0,103,71}
+\definecolor{blue}{RGB}{0,94,184}
+\definecolor{gold}{RGB}{253,218,37}
+\fill [green] (0,0)--(\flaglength,0)--(\flaglength,1)--cycle;
+\fill [blue] (0,0)--(\flaglength,1)--(0,1)--cycle;
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\draw [gold,line width=0.1\flagwidth] (0,0)--(\flaglength,1);
+\end{scope}
+\coordinate (c) at (0.35*\stretchfactor,0.7);
+\starV{white}{(c)}{0.1\flagwidth*\stretchfactor}{0}
+\starV{white}{($(c)+(45:0.26*\stretchfactor)$)}{0.1\flagwidth*\stretchfactor}{0}
+\starV{white}{($(c)+(135:0.26*\stretchfactor)$)}{0.1\flagwidth*\stretchfactor}{0}
+\starV{white}{($(c)+(225:0.26*\stretchfactor)$)}{0.1\flagwidth*\stretchfactor}{0}
+\starV{white}{($(c)+(315:0.26*\stretchfactor)$)}{0.1\flagwidth*\stretchfactor}{0}
+\framecode{}
+\end{flagdescription}

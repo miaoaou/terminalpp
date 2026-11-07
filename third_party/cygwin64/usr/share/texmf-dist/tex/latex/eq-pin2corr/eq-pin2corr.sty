@@ -1,0 +1,230 @@
+%%
+%% This is file `eq-pin2corr.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% eq-pin2corr.dtx  (with options: `copyright,package')
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% eq-pin2corr.sty package,                              %%
+%% Copyright (C) 2021  D. P. Story                       %%
+%%   dpstory@uakron.edu  dpstory@acrotex.net             %%
+%%                                                       %%
+%% This program can redistributed and/or modified under  %%
+%% the terms of the LaTeX Project Public License         %%
+%% Distributed from CTAN archives in directory           %%
+%% macros/latex/base/lppl.txt; either version 1.2 of the %%
+%% License, or (at your option) any later version.       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eq-pin2corr}
+ [2021/05/29 v2.0 Applies PIN security to quizzes]
+\newif\ifPINshowScore \PINshowScorefalse
+\DeclareOption{showscore}{\PINshowScoretrue}
+\DeclareOption{!showscore}{\PINshowScorefalse}
+\ProcessOptions\relax
+\RequirePackage{exerquiz}[2021/05/21]
+\RequirePackage{eq-save}[2021/04/27]
+\def\showScoreOn{\PINshowScoretrue}
+\def\showScoreOff{\PINshowScorefalse}
+\flJSStr[noquotes]{\SaveAndSendMsg}{Success! %
+Now save and send to the instructor}
+\begin{defineJS*}[\makeesc\@\makecmt\%]{\postSubmitQuizPIN}
+// Begin post submit quiz code%
+@ifPINSecurity%
+@ifPINshowScore@else
+      var f = this.getField("ScoreField.@oField");
+      if ( f!=null ) {
+        f.textSize=0;
+        f.value = "@SaveAndSendMsg";
+      } else {
+        var f = this.getField("PointsField.@oField");
+        if (f!=null) {
+          f.textSize=0;
+          f.value = "@SaveAndSendMsg";
+        }
+      }@fi@fi
+      oRecordOfQuizData["ScoreData.@oField"]=%
+[1*Score,1*NQuestions,1*ptScore,1*NPointTotal];
+      oRecordOfQuizData["RightWrong.@oField"]=%
+eval(RightWrong.toSource());
+      oRecordOfQuizData["ProbDist.@oField"]=%
+eval(ProbDist.toSource());
+      cntCorrectResponses();
+\end{defineJS*}
+\let\eQzBtnActnsSave\eQzBtnActns
+\def\makeEndQuizPIN{%
+  \let\eQzBtnActns\eQzBtnActnsPIN
+  \let\postSubmitQuiz\postSubmitQuizPIN
+}
+\def\eQzBtnActnsPIN{\ifPINshowScore\else
+  var bDisplaySilent=true;\r\fi
+  \eQzBtnActnsSave
+}
+\let\CorrBtnActionsJSSave\CorrBtnActionsJS
+\newif\ifPINSecurity \PINSecurityfalse
+\def\usePINCorrBtn{\PINSecuritytrue
+  \makeEndQuizPIN % dps5-25
+  \let\CorrBtnActionsJS\CorrBtnActionsPwdJS}
+\def\restoreCorrBtn{\PINshowScoretrue\PINSecurityfalse
+  \restoreEndQuiz % dps5-25
+  \let\CorrBtnActionsJS\CorrBtnActionsJSSave}
+\def\classPINVar#1{\def\PINclassPV{#1}}
+\let\PINclassPV\@empty
+\newif\ifFreezeQuiz\FreezeQuizfalse
+\def\FreezeThisQuiz{\FreezeQuiztrue}
+\def\FreezeThisQuizNot{\FreezeQuizfalse}
+\begin{defineJS*}[\makeesc\|\makecmt\%]{\CorrBtnActionsPwdJS}
+|ifx|PINclassPV|@empty%
+var userPIN = "";|else%
+var userPIN = "|PINclassPV";|fi
+if (userPIN == "") userPIN = undefined;
+try {
+  if ( typeof eval(userPIN) == "undefined") userPIN = undefined;
+} catch(e) { userPIN = undefined; }
+if (typeof userPIN == "undefined") {
+  var resp=app.response({
+    cQuestion: "Enter the PIN number",
+    cTitle: "View Answers",
+    bPassword: true
+  });
+    var _resp=Collab.hashString(resp);
+    if (resp != null) var _bQzResults = ( _resp ==_PinCode );
+} else var _bQzResults = ( eval(userPIN) ==_PinCode );
+if (_bQzResults) {
+    if (typeof oRecordOfQuizData["ScoreData.|currQuiz"]!="undefined") {
+    RightWrong=eval("RightWrong.|currQuiz");
+    ProbDist=eval("ProbDist.|currQuiz");
+    correctQuiz("|currQuiz",3);
+    DisplayQuizResults("|currQuiz",3,3);
+    if (typeof correctSumryTbl == "function")
+      correctSumryTbl("|currQuiz",3);%
+|ifFreezeQuiz
+    var aFrzExt=new Array("obj.","grpobj.","essay.",%
+"beginQuiz.","endQuiz.");
+    for (var i=0; i<aFrzExt.length; i++) {
+      var f=this.getField(aFrzExt[i]+"|currQuiz");
+      if (f!=null) f.readonly=true;
+    }|fi
+  } else {
+    var retn=app.alert({%
+cMsg: "No quiz data, do you want to mark it anyway?",%
+cTitle: "AcroTeX", nIcon: 2, nType: 2});
+    if (retn==4) {
+      var bDisplaySilent=false;
+     InitializeQuiz("|currQuiz",1,0);
+     var f=this.getField("ScoreData.|currQuiz");
+     f.value="0;0;0;0";
+     cntCorrectResponses();
+      correctQuiz("|currQuiz",3);
+      DisplayQuizResults("|currQuiz",3,3,false);
+      if (typeof correctSumryTbl == "function")
+        correctSumryTbl("|currQuiz",3);
+    }
+  }
+} else {
+  if (resp != null) {
+    console.clear()
+    console.println("Something went wrong, %
+you entered an incorrect PIN Id, %
+or the class PIN Id (\\\\classPINVar) was incorrect or undefined");
+    app.beep(0);
+    console.show();
+  }
+}
+\end{defineJS*}
+\def\declPINId#1#2{\def\numPINId{#1}\def\hashPINId{#2}}
+\@onlypreamble\declPINId
+\declPINId{5243}{02JRVZdRgYgCA-Rtje8VkD} % PIN Id, hash-str
+\def\declRePINId#1#2{\def\numRePINId{#1}\def\hashRePINId{#2}}
+\@onlypreamble\declRePINId
+\declRePINId{1234}{By9mbLF0NJMA2sN2x4D0VB}
+\begin{insDLJS}{pin}{Pin Code}
+var _PinCode = "\hashPINId";
+var _rePinCode = "\hashRePINId";
+\end{insDLJS}
+\def\useWarnEndQuiz{\let\EndQuizG@te\EndQuizG@tePIN}
+\flJSStr{\EndQuizG@te@Msg}{Warning:
+Are you sure you want to end this quiz?\r\r
+The quiz will be frozen and no more changes will be allowed.
+Click 'Yes' to end the quiz or 'No' to continue working on the quiz.}
+\def\PINgobii#1#2{}
+\begin{defineJS}[\makeesc\|\makecmt\%]{\EndQuizG@tePIN}
+// Begin insertion of new code
+    var retn=app.alert({cMsg: |EndQuizG@te@Msg,%
+cTitle: "AcroTeX", nIcon: 2, nType: 2});
+    if (retn==4) {
+      var aFrzExt=new Array("mc.","obj.","grpobj.",%
+"beginQuiz.","endQuiz.");
+      for (var i=0; i<aFrzExt.length; i++) {
+        var f=this.getField(aFrzExt[i]+"|currQuiz");
+        if (f!=null) f.readonly=true;
+      }%
+|PINgobii
+\end{defineJS}
+\def\useBeginQuizPIN{%
+  \ifx\BeginQuizG@te\BeginQuizG@tePIN\else
+  \let\BeginQuizG@te\BeginQuizG@tePIN\fi}
+\@ifundefined{restoreBeginQuiz}{\let\restoreBeginQuiz\restorBeginQuiz}{}
+\flJSStr{\BeginQuizG@te@Msgi}{Enter the PIN number
+to retake this quiz}
+\flJSStr{\BeginQuizG@te@Msgii}{Press the Begin Quiz control to begin
+the quiz again}
+\def\PINgobiii#1#2#3{}
+\begin{defineJS}[\makeesc\|\makecmt\%]{\BeginQuizG@tePIN}
+if (typeof oRecordOfQuizData["ScoreData.|currQuiz"] != "undefined" ) {
+  var resp=app.response({
+    cQuestion: |BeginQuizG@te@Msgi,
+    cTitle: "AcroTeX",
+    bPassword: true
+  });
+  var _respHash=_resp=Collab.hashString(resp);
+  if (_resp == _rePinCode) {
+      oRecordOfQuizData["ScoreData.|currQuiz"]=undefined;
+      app.alert(|BeginQuizG@te@Msgii);
+      var f=this.getField("tallyresets.|currQuiz");
+      if (f!=null) f.value=1+f.value;
+  }
+} else {
+|PINgobiii
+\end{defineJS}
+\def\qzTallyTotalDefaults{%
+  \rawPDF{}\W{1}\BC{0 0 0}\S{I}\textColor{1 0 0 rg}
+  \Q{2}}
+\newcommand\qzResetTally[1][]{%
+  \textField[\presets{\qzTallyTotalDefaults}#1\DV{0}\V{0}
+  \Ff{\FfReadOnly}
+  ]{tallyresets.\currQuiz}{\TBW}{\DefaultHeightOfWidget}}
+\newcommand{\setMaxRetakes}[2]{\expandafter
+  \def\csname1MaxReset#1\endcsname{#2}}
+\def\nMaxRetakes#1{\@nameuse{1MaxReset#1}}
+\def\useBeginQuizCnt{%
+  \ifx\BeginQuizG@te\BeginQuizG@teCNT\else
+  \let\BeginQuizG@te\BeginQuizG@teCNT\fi}
+\flJSStr[noquotes]{\maxRetake@Msg}{You have taken the quiz the maximum
+number of times permitted ("+nMaxReset+"). You will not be allowed to
+continue to re-take this quiz. Move on with your life.}
+\begin{defineJS}[\makeesc\|\makecmt\%]{\BeginQuizG@teCNT}
+if (typeof oRecordOfQuizData["ScoreData.|currQuiz"] != "undefined" )
+{
+  var _bOKReset=true;
+  var f=this.getField("tallyresets.|currQuiz");
+  if (f!=null) var value=1*f.value;%
+|expandafter|ifx|csname1MaxReset|currQuiz|endcsname|relax|else
+  var nMaxReset=|csname1MaxReset|currQuiz|endcsname;
+  if (f!=null && value==nMaxReset) {
+    app.alert("|maxRetake@Msg");
+    _bOKReset=false;
+  }|fi
+  if (_bOKReset) {
+    oRecordOfQuizData["ScoreData.|currQuiz"]=undefined;
+    app.alert(|BeginQuizG@te@Msgii);
+    if (f!=null) f.value=1+value;
+  }
+} else {
+|PINgobiii
+\end{defineJS}
+\endinput
+%%
+%% End of file `eq-pin2corr.sty'.

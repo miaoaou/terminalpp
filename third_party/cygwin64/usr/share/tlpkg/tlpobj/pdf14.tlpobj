@@ -1,0 +1,19 @@
+name pdf14
+category Package
+revision 17583
+shortdesc Restore PDF 1.4 to a TeX live 2010 format
+relocated 1
+longdesc Starting with TeX Live 2010, the various formats, that directly
+longdesc generate PDF, default to generating PDF 1.5. This is generally
+longdesc a good thing, but it can lead to compatibility issues with some
+longdesc older PDF viewers. This package changes the version of PDF
+longdesc generated with formats (based on pdfTeX or LuaTeX in PDF mode),
+longdesc back to 1.4 for documents that need to achieve maximal
+longdesc compatibility with old viewers.
+runfiles size=1
+ RELOC/tex/latex/pdf14/pdf14.sty
+catalogue-ctan /macros/latex/contrib/pdf14
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics pdf-feat
+catalogue-version 0.1

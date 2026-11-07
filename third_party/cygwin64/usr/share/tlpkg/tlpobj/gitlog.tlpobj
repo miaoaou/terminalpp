@@ -1,0 +1,21 @@
+name gitlog
+category Package
+revision 38932
+shortdesc Typesetting git changelogs
+relocated 1
+longdesc This package allows git change log history to be incorporated
+longdesc into LaTeX documents; the log data is obtained from the git
+longdesc distributed version control system. The current release
+longdesc (0.0.beta) is a proof-of-concept release to allow users an
+longdesc early evaluation and to attract ideas and support. Requests and
+longdesc suggestions, as well as code contributions are welcome.
+runfiles size=3
+ RELOC/tex/latex/gitlog/gitlog.bbx
+ RELOC/tex/latex/gitlog/gitlog.dbx
+ RELOC/tex/latex/gitlog/gitlog.sty
+catalogue-contact-repository https://github.com/Hightor/gitlog/tree/develop
+catalogue-ctan /macros/latex/contrib/gitlog
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics version-control doc-mgmt
+catalogue-version 0.0.beta

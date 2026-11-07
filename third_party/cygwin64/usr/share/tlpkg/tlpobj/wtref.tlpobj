@@ -1,0 +1,17 @@
+name wtref
+category Package
+revision 69214
+shortdesc Extend LaTeX's cross-reference system
+relocated 1
+longdesc This package extends the cross-reference system of LaTeX2e and
+longdesc introduces concepts of namespace and scope. It also allows
+longdesc users to customize reference formats. The package is part of
+longdesc the WT Series. Prerequisite packages: xparse and xkeyval.
+runfiles size=2
+ RELOC/tex/latex/wtref/wtref.sty
+catalogue-contact-bugs https://github.com/wtsnjp/WTRef/issues
+catalogue-contact-repository https://github.com/wtsnjp/WTRef
+catalogue-ctan /macros/latex/contrib/wtref
+catalogue-license mit
+catalogue-topics label-ref
+catalogue-version 1.0.0

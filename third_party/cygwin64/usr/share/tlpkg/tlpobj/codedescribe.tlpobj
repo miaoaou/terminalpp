@@ -1,0 +1,20 @@
+name codedescribe
+category Package
+revision 69943
+shortdesc LaTeX code description and documentation
+relocated 1
+longdesc This package aims to document both document level (i.e. final
+longdesc user) commands, as well package/class level commands. It is
+longdesc fully implemented using expl3 syntax and structures, in
+longdesc particular l3coffins, l3seq and l3keys. Besides those the
+longdesc scontents and listing packages are used to typeset code
+longdesc snippets.
+runfiles size=16
+ RELOC/tex/latex/codedescribe/codedescribe.sty
+ RELOC/tex/latex/codedescribe/codelisting.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/codedescribe/issues
+catalogue-contact-repository https://github.com/alceu-frigeri/codedescribe
+catalogue-ctan /macros/latex/contrib/codedescribe
+catalogue-license lppl1.3c gpl
+catalogue-topics doc-supp expl3
+catalogue-version 1.4

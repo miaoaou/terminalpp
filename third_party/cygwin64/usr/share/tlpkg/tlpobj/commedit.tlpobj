@@ -1,0 +1,20 @@
+name commedit
+category Package
+revision 50116
+shortdesc Commented editions with LaTeX
+relocated 1
+longdesc The package is intended for commented editions. An example of
+longdesc commented edition is a teacher's book based on a student's
+longdesc textbook. Each page of a teacher's book is a page from the
+longdesc textbook and comments for the teacher. This package was
+longdesc commissioned by Instituto de Matematica Pura e Aplicada ( IMPA)
+runfiles size=4
+ RELOC/tex/latex/commedit/commedit.sty
+catalogue-contact-bugs https://github.com/borisveytsman/commedit/issues
+catalogue-contact-home https://github.com/borisveytsman/commedit
+catalogue-contact-repository https://github.com/borisveytsman/commedit
+catalogue-ctan /macros/latex/contrib/commedit
+catalogue-date 2019-02-26 05:14:40 +0100
+catalogue-license lppl1.3
+catalogue-topics editorial crit-ed
+catalogue-version 1.02

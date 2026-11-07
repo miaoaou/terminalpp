@@ -1,0 +1,30 @@
+\noindent\large{}Name: \hfill%
+Matriculation Number:\hspace*{2cm}\strut\\[1ex]
+
+\begin{center}
+    \Large\textbf{\@title}\\[1ex]
+    \large\@date\strut\\[3ex]
+\end{center}
+
+\textbf{You have {\hwexamminutes} (sharp) for the test};\\
+Write the solutions to the sheet.
+
+\noindent
+The estimated time for solving this exam is {\hwexam@totalmin} minutes,
+leaving you {\hwexam@checktime} minutes for revising your exam.
+
+\noindent
+You can reach {\hwexam@totalpts} points if you solve all problems.
+\if@bonuspoints
+You will only need {\hwexam@reqpts} points for a perfect score, i.e.
+{\hwexam@bonuspts} points are bonus points.
+\fi
+\vfill
+\begin{center}
+{ 
+    Different problems test different skills and knowledge, so do not
+    get stuck on one problem.
+}\vfill
+
+\correction@table\\[3ex]
+\end{center}

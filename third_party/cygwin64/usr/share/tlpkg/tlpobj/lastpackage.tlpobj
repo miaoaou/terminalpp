@@ -1,0 +1,16 @@
+name lastpackage
+category Package
+revision 34481
+shortdesc Indicates the last loaded package
+relocated 1
+longdesc This package may be used to define the last point where some
+longdesc code shall be executed. Its provides a package name for use in
+longdesc package-placing commands from the author's templatetools. Usage
+longdesc examples are provided in the documentation.
+runfiles size=1
+ RELOC/tex/latex/lastpackage/lastpackage.sty
+catalogue-ctan /macros/latex/contrib/lastpackage
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics preamble-admin
+catalogue-version 0.1

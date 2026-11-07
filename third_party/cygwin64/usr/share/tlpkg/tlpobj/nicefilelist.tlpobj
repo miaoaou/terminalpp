@@ -1,0 +1,16 @@
+name nicefilelist
+category Package
+revision 65842
+shortdesc Provide \listfiles alignment
+relocated 1
+longdesc The package extends longnamefilelist, keeping separate columns
+longdesc for date, version and "caption" (the caption now separately
+longdesc listed). Alignment is not disturbed by short file name
+longdesc extensions, such as ".fd". The package is not compatible with
+longdesc longnamefilelist: users need to re-read the documentation.
+runfiles size=7
+ RELOC/tex/latex/nicefilelist/nicefilelist.sty
+catalogue-ctan /macros/latex/contrib/nicefilelist
+catalogue-license lppl1.3c
+catalogue-topics doc-mgmt
+catalogue-version 0.9b

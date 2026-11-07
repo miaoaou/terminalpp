@@ -1,0 +1,18 @@
+name clefval
+category Package
+revision 55985
+shortdesc Key/value support with a hash
+relocated 1
+longdesc This package provides only two macros viz. \TheKey and
+longdesc \TheValue to define then use pairs of key/value and gives a
+longdesc semblance of a hash. Syntax: \TheKey{key}{value} to define the
+longdesc value associated to the key, does not produce text;
+longdesc \TheValue{key} to return the value linked to the key. Both
+longdesc arguments of \TheKey are 'moving' as LaTeX defines the term and
+longdesc we have sometimes to protect them.
+runfiles size=1
+ RELOC/tex/latex/clefval/clefval.sty
+catalogue-ctan /macros/latex/contrib/clefval
+catalogue-license lppl1.3c
+catalogue-topics keyval
+catalogue-version 0.1

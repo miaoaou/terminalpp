@@ -1,0 +1,22 @@
+% --------------------------------------------------------------------------
+% Germany - Bavaria:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{blue}{RGB}{0,141,201}
+\fill [white] (0,0) rectangle (\flaglength,1);
+\def\n{4.85}
+\pgfmathparse{\n*\flaglength/\flagwidth}
+\newcount\nx\nx\pgfmathresult\divide\nx by 2\advance\nx by 1
+\newcount\ny\ny\n\divide\ny by 2\advance\ny by 1
+\def\dsq#1#2{\fill [blue] (#1,#2)rectangle++(1/\n,-1/\n);
+             \fill [blue] (#1,#2)rectangle++(-1/\n,1/\n);}
+\begin{scope}[cm={0.96126,-0.27564,0.40674,-0.91355,(-0.55/\n,1+0.3/\n)}]
+%\def\a{24}\def\b{40}
+%\begin{scope}[cm={cos(\a),sin(\a),sin(\a),-cos(\a),(-0.55/\n,1+0.3/\n)}]
+%\begin{scope}[cm={cos(\b),sin(\b),0,1,(0,0)}]
+\foreach \x in {-\nx,...,\nx}
+\foreach \y in {-\ny,...,\ny}  {\dsq{2/\n*\x}{2/\n*\y}}
+%\end{scope}
+\end{scope}
+\framecode{}
+\end{flagdescription}

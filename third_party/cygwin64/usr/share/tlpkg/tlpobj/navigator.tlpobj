@@ -1,0 +1,23 @@
+name navigator
+category Package
+revision 41413
+shortdesc PDF features across formats and engines
+relocated 1
+longdesc Navigator implements PDF features for all formats (with some
+longdesc limitations in ConTeXt) with pdfTeX, LuaTeX and XeTeX (i.e.
+longdesc xdvipdfmx). Features include: Customizable outlines (i.e.
+longdesc bookmarks); Anchors; Links and actions (e.g. JavaScript or
+longdesc user-defined PDF actions); File embedding (not in ConTeXt);
+longdesc Document information and PDF viewer's display (not in ConTeXt);
+longdesc and Commands to create and use raw PDF objects. Navigator
+longdesc requires texapi and yax, both version at least 1.03.
+runfiles size=8
+ RELOC/tex/generic/navigator/navigator.sty
+ RELOC/tex/generic/navigator/navigator.tex
+ RELOC/tex/generic/navigator/t-navigator.tex
+catalogue-also hyperref
+catalogue-ctan /macros/generic/navigator
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics hyper pdf-feat
+catalogue-version 1.1

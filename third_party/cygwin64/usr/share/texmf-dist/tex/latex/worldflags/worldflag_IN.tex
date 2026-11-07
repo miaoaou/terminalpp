@@ -1,0 +1,17 @@
+% --------------------------------------------------------------------------
+% India:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{orange}{RGB}{255,103,32}
+\definecolor{green}{RGB}{0,132,61}
+\definecolor{blue}{RGB}{0,38,58}
+\definecolor{blue}{RGB}{0,50,100}
+\hstripesIII{orange}{white}{green}
+\ifemblem\begin{scope}[even odd rule,xshift=0.5\flaglength,yshift=0.5\flagwidth,
+    fill=blue,x=\flagwidth/400,y=\flagwidth/400]
+\fill (0,0) circle (60)(0,0) circle (52)(0,0) circle (10);
+\foreach \w in{0,15,...,345}
+\fill (\w:6)--(\w-5:20)--(\w:54)--(\w+5:20)--cycle (\w+7.5:52) circle (2.5);
+\end{scope}\fi
+\framecode{}
+\end{flagdescription}

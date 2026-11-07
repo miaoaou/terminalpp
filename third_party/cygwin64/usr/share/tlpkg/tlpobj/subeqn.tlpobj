@@ -1,0 +1,22 @@
+name subeqn
+category Package
+revision 15878
+shortdesc Package for subequation numbering
+relocated 1
+longdesc Sometimes it is necessary to be able to refer to subexpressions
+longdesc of an equation. In order to do that these subexpressions should
+longdesc be numbered. In standard LaTeX there is no provision for this.
+longdesc To solve this problem Stephen Gildea once wrote subeqn.sty for
+longdesc LaTeX 2.09; Donald Arsenau rewrote the macros and Johannes
+longdesc Braams made them available for LaTeX2e. Note that this package
+longdesc is not compatible with the package subeqnarray (written by
+longdesc Johannes Braams), but it can be used together with the LaTeX
+longdesc class options leqno and fleqn.
+runfiles size=1
+ RELOC/tex/latex/subeqn/subeqn.sty
+catalogue-also subeqnarray
+catalogue-ctan /macros/latex/contrib/subeqn
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics maths
+catalogue-version 2.0b

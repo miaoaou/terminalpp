@@ -1,0 +1,19 @@
+name ditaa
+category Package
+revision 48932
+shortdesc Use ditaa diagrams within LaTeX documents
+relocated 1
+longdesc With this package ditaa (DIagrams Through Ascii Art) diagrams
+longdesc can be embedded directly into LaTeX files.
+runfiles size=1
+ RELOC/tex/latex/ditaa/ditaa.sty
+catalogue-contact-announce https://github.com/dakusui/latex-ditaa/wiki/Announcements
+catalogue-contact-bugs https://github.com/dakusui/latex-ditaa/issues
+catalogue-contact-development https://github.com/dakusui/latex-ditaa/issues/1
+catalogue-contact-home https://github.com/dakusui/latex-ditaa
+catalogue-contact-repository https://github.com/dakusui/latex-ditaa.git
+catalogue-ctan /macros/latex/contrib/ditaa
+catalogue-date 2018-10-20 05:13:28 +0200
+catalogue-license lppl
+catalogue-topics diagram
+catalogue-version 0.9

@@ -1,0 +1,18 @@
+name setspaceenhanced
+category Package
+revision 68493
+shortdesc An enhancement of the setspace package
+relocated 1
+longdesc This package adds support for all font sizes, even non-integer
+longdesc resp. non-pt sizes to package setspace. This not only improves
+longdesc compatibility with KOMA-Script but also corrects the stretch
+longdesc value of the usual font sizes.
+runfiles size=2
+ RELOC/tex/latex/setspaceenhanced/setspaceenhanced.sty
+catalogue-contact-bugs https://github.com/komascript/third-party-enhancements/issues
+catalogue-contact-home https://github.com/komascript/third-party-enhancements
+catalogue-contact-repository https://github.com/komascript/third-party-enhancements/tree/main/setspaceenhanced
+catalogue-ctan /macros/latex/contrib/setspaceenhanced
+catalogue-license lppl1.3c
+catalogue-topics line-space expl3
+catalogue-version 1.02

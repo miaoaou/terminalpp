@@ -1,0 +1,20 @@
+name randexam
+category Package
+revision 69960
+shortdesc Make an exam paper and its randomized variants
+relocated 1
+longdesc This class helps you make an exam paper and its randomized
+longdesc variants. It mainly focuses on making math exam papers, but you
+longdesc could use it to make other exam papers.
+runfiles size=13
+ RELOC/tex/latex/randexam/randexam.cls
+catalogue-also exam-randomizechoices examz mcexam
+catalogue-contact-announce https://github.com/lvjr/randexam/wiki/ChangeLog
+catalogue-contact-bugs https://github.com/lvjr/randexam/issues
+catalogue-contact-home https://github.com/lvjr/randexam/wiki
+catalogue-contact-repository https://github.com/lvjr/randexam
+catalogue-contact-support https://github.com/lvjr/randexam/discussions
+catalogue-ctan /macros/latex/contrib/randexam
+catalogue-license lppl1.3c
+catalogue-topics exam
+catalogue-version 2024E

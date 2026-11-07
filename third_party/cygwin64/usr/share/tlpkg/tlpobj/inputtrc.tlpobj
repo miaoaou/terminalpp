@@ -1,0 +1,20 @@
+name inputtrc
+category Package
+revision 28019
+shortdesc Trace which file loads which
+relocated 1
+longdesc The package produces screen/log messages of the form '<current>
+longdesc INPUTTING <next>' reporting LaTeX input commands (<current> and
+longdesc <next> being file names). The message is indented to reflect
+longdesc the level of input nesting. Tracing may be turned on and off,
+longdesc and the unit of indentation may be adjusted. The implementation
+longdesc somewhat resembles those of packages FiNK and inputfile.
+runfiles size=3
+ RELOC/tex/latex/inputtrc/inputtrc.RLS
+ RELOC/tex/latex/inputtrc/inputtrc.sty
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/latex/contrib/inputtrc
+catalogue-date 2017-05-06 08:27:29 +0200
+catalogue-license lppl1.3
+catalogue-topics debug-supp
+catalogue-version 0.3

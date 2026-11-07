@@ -1,0 +1,16 @@
+name selinput
+category Package
+revision 53098
+shortdesc Semi-automatic detection of input encoding
+relocated 1
+longdesc This package selects the input encoding by specifying pairs of
+longdesc input characters and their glyph names.
+runfiles size=2
+ RELOC/tex/latex/selinput/selinput.sty
+catalogue-contact-bugs https://github.com/ho-tex/selinput/issues
+catalogue-contact-repository https://github.com/ho-tex/selinput
+catalogue-ctan /macros/latex/contrib/selinput
+catalogue-date 2019-12-11 08:47:13 +0100
+catalogue-license lppl1.3
+catalogue-topics inputenc
+catalogue-version 1.6

@@ -1,0 +1,42 @@
+name knuth-lib
+category Package
+revision 57963
+shortdesc Core TeX and Metafont sources from Knuth
+relocated 1
+longdesc A collection of core TeX and Metafont macro files from DEK,
+longdesc apart from the plain format and base. Includes the MF logo
+longdesc font(s), webmac.tex, etc.
+runfiles size=47
+ RELOC/fonts/source/public/knuth-lib/3test.mf
+ RELOC/fonts/source/public/knuth-lib/6test.mf
+ RELOC/fonts/source/public/knuth-lib/expr.mf
+ RELOC/fonts/source/public/knuth-lib/grayf.mf
+ RELOC/fonts/source/public/knuth-lib/io.mf
+ RELOC/fonts/source/public/knuth-lib/logo.mf
+ RELOC/fonts/source/public/knuth-lib/logo10.mf
+ RELOC/fonts/source/public/knuth-lib/logo8.mf
+ RELOC/fonts/source/public/knuth-lib/logo9.mf
+ RELOC/fonts/source/public/knuth-lib/logobf10.mf
+ RELOC/fonts/source/public/knuth-lib/logosl10.mf
+ RELOC/fonts/source/public/knuth-lib/manfnt.mf
+ RELOC/fonts/source/public/knuth-lib/null.mf
+ RELOC/fonts/source/public/knuth-lib/rtest.mf
+ RELOC/fonts/source/public/knuth-lib/slant.mf
+ RELOC/fonts/source/public/knuth-lib/test.mf
+ RELOC/fonts/source/public/knuth-lib/waits.mf
+ RELOC/fonts/source/public/knuth-lib/ztest.mf
+ RELOC/fonts/tfm/public/knuth-lib/logo10.tfm
+ RELOC/fonts/tfm/public/knuth-lib/logo8.tfm
+ RELOC/fonts/tfm/public/knuth-lib/logo9.tfm
+ RELOC/fonts/tfm/public/knuth-lib/logobf10.tfm
+ RELOC/fonts/tfm/public/knuth-lib/logosl10.tfm
+ RELOC/fonts/tfm/public/knuth-lib/manfnt.tfm
+ RELOC/tex/generic/knuth-lib/null.tex
+ RELOC/tex/plain/knuth-lib/manmac.tex
+ RELOC/tex/plain/knuth-lib/mftmac.tex
+ RELOC/tex/plain/knuth-lib/story.tex
+ RELOC/tex/plain/knuth-lib/testfont.tex
+ RELOC/tex/plain/knuth-lib/webmac.tex
+catalogue-ctan /systems/knuth/dist/lib
+catalogue-license knuth
+catalogue-topics collection

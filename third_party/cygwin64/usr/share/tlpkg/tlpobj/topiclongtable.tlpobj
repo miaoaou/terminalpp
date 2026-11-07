@@ -1,0 +1,22 @@
+name topiclongtable
+category Package
+revision 54758
+shortdesc Extend longtable with cells that merge hierarchically
+relocated 1
+longdesc This LaTeX package extends longtable implementing cells that:
+longdesc merge with the one above if it has the same content, do not
+longdesc merge with the one above unless the ones on the left are
+longdesc merged, are well behaved with respect to longtable chunking on
+longdesc page breaks, and automatically draw the correct separation
+longdesc lines. The typical use case is a table spanning multiple pages
+longdesc that contains a list of hierarchically organized topics (hence
+longdesc the package name). The package depends on array, expl3,
+longdesc longtable, multirow, xparse, and zref-abspage.
+runfiles size=4
+ RELOC/tex/latex/topiclongtable/topiclongtable.sty
+catalogue-contact-bugs https://github.com/paolobrasolin/topiclongtable/issues
+catalogue-contact-repository https://github.com/paolobrasolin/topiclongtable
+catalogue-ctan /macros/latex/contrib/topiclongtable
+catalogue-license mit
+catalogue-topics table-long table expl3
+catalogue-version 1.3.2

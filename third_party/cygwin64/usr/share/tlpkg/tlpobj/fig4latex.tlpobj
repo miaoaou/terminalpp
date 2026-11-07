@@ -1,0 +1,17 @@
+name fig4latex
+category Package
+revision 26313
+shortdesc Management of figures for large LaTeX documents
+longdesc Fig4LaTeX simplifies management of the figures in a large LaTeX
+longdesc document. Fig4LaTeX is appropriate for projects that include
+longdesc figures with graphics created by XFig -- in particular,
+longdesc graphics which use the combined PS/LaTeX (or PDF/LaTeX) export
+longdesc method. An example document (with its output) is provided.
+depend fig4latex.ARCH
+runfiles size=2
+ texmf-dist/scripts/fig4latex/fig4latex
+catalogue-ctan /graphics/fig4latex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics graphics-incl
+catalogue-version 0.2

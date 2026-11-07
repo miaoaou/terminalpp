@@ -1,0 +1,33 @@
+name ppt-slides
+category Package
+revision 69568
+shortdesc Good-looking slide decks a la PowerPoint (PPT)
+relocated 1
+longdesc This LaTeX package helps you create slide decks as good-looking
+longdesc as with PowerPointtm, but more precise, uniform, and visually
+longdesc strict. Check this series of lectures fully designed with the
+longdesc use of this package.
+depend crumbs
+depend enumitem
+depend hyperref
+depend pagecolor
+depend pgf
+depend pgfopts
+depend qrcode
+depend seqsplit
+depend tikzpagenodes
+depend tools
+depend varwidth
+depend xcolor
+runfiles size=7
+ RELOC/tex/latex/ppt-slides/ppt-schemes/ppt-dark-mono.tex
+ RELOC/tex/latex/ppt-slides/ppt-schemes/ppt-dark.tex
+ RELOC/tex/latex/ppt-slides/ppt-schemes/ppt-light-mono.tex
+ RELOC/tex/latex/ppt-slides/ppt-schemes/ppt-light.tex
+ RELOC/tex/latex/ppt-slides/ppt-slides.sty
+ RELOC/tex/latex/ppt-slides/ppt-templates/ppt-9x6.tex
+catalogue-contact-repository https://github.com/yegor256/ppt-slides
+catalogue-ctan /macros/latex/contrib/ppt-slides
+catalogue-license mit
+catalogue-topics presentation
+catalogue-version 0.3.2

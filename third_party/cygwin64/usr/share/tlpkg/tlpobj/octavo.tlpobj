@@ -1,0 +1,26 @@
+name octavo
+category Package
+revision 15878
+shortdesc Typeset books following classical design and layout
+relocated 1
+longdesc The octavo class is a modification of the standard LaTeX book
+longdesc class. Its purpose is to typeset books following classical
+longdesc design and layout principles, with the express intention of
+longdesc encouraging the making of beautiful books by anyone with access
+longdesc to a good printer and with an inclination towards venerable
+longdesc crafts, e.g., bookbinding. The octavo class differs from the
+longdesc book class by implementing many of the proposals and insights
+longdesc of respected experts, especially Jan Tschichold and Hugh
+longdesc Williamson. The documentation discusses methods to organise and
+longdesc print out any text into signatures, which can then be gathered,
+longdesc folded and sewn into a book.
+runfiles size=11
+ RELOC/tex/latex/octavo/oct10.clo
+ RELOC/tex/latex/octavo/oct11.clo
+ RELOC/tex/latex/octavo/oct12.clo
+ RELOC/tex/latex/octavo/octavo.cls
+catalogue-ctan /macros/latex/contrib/octavo
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics book-pub class
+catalogue-version 1.2

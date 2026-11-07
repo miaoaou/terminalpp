@@ -1,0 +1,15 @@
+% --------------------------------------------------------------------------
+% Malaysia:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{red}{RGB}{224,60,49}
+\definecolor{blue}{RGB}{4,30,66}
+\definecolor{gold}{RGB}{255,209,0}
+\fill [white] (0,0) rectangle (\flaglength,1);
+\foreach \n in {1,...,7} {\hbar{red}{2*\n*\flagwidth/14-\flagwidth/28}{\flagwidth/14}}
+\fill [blue] (0,6\flagwidth/14) rectangle (0.5\flaglength,1);
+\coordinate(p) at (0.25\flaglength,10/14);
+\moon{gold}{($(p)-(0.0893,0)$)}{48/224}{($(p)-(0.04464,0)$)}{42/224}
+\starn{gold}{14}{($(p)+(0.125,0)$)}{0.17857}{0.0714}{0}
+\framecode{}
+\end{flagdescription}

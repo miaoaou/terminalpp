@@ -1,0 +1,44 @@
+name hyper
+category Package
+revision 17357
+shortdesc Hypertext cross referencing
+relocated 1
+longdesc Redefines LaTeX cross-referencing commands to insert \special
+longdesc commands for HyperTeX dvi viewers, such as recent versions of
+longdesc xdvi. The package is now largely superseded by hyperref.
+runfiles size=49
+ RELOC/tex/latex/hyper/amsart.hyp
+ RELOC/tex/latex/hyper/amsbook.hyp
+ RELOC/tex/latex/hyper/amsdtx.hyp
+ RELOC/tex/latex/hyper/amsldoc.hyp
+ RELOC/tex/latex/hyper/amsmath.hyp
+ RELOC/tex/latex/hyper/amsproc.hyp
+ RELOC/tex/latex/hyper/amstex.hyp
+ RELOC/tex/latex/hyper/amsthm.hyp
+ RELOC/tex/latex/hyper/article.hyp
+ RELOC/tex/latex/hyper/book.hyp
+ RELOC/tex/latex/hyper/cweb.hyp
+ RELOC/tex/latex/hyper/doc.hyp
+ RELOC/tex/latex/hyper/fancyheadings.hyp
+ RELOC/tex/latex/hyper/ftnright.hyp
+ RELOC/tex/latex/hyper/hxt-bc.sty
+ RELOC/tex/latex/hyper/hyper.sty
+ RELOC/tex/latex/hyper/leqno.hyp
+ RELOC/tex/latex/hyper/letter.hyp
+ RELOC/tex/latex/hyper/longtable.hyp
+ RELOC/tex/latex/hyper/ltnews.hyp
+ RELOC/tex/latex/hyper/ltxdoc.hyp
+ RELOC/tex/latex/hyper/ltxguide.hyp
+ RELOC/tex/latex/hyper/natbib.hyp
+ RELOC/tex/latex/hyper/proc.hyp
+ RELOC/tex/latex/hyper/report.hyp
+ RELOC/tex/latex/hyper/slides.hyp
+ RELOC/tex/latex/hyper/subeqnarray.hyp
+ RELOC/tex/latex/hyper/theorem.hyp
+ RELOC/tex/latex/hyper/upref.hyp
+ RELOC/tex/latex/hyper/xr.hyp
+catalogue-ctan /macros/latex/contrib/hyper
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics hyper
+catalogue-version 4.2d

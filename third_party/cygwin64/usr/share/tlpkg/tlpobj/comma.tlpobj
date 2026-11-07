@@ -1,0 +1,14 @@
+name comma
+category Package
+revision 18259
+shortdesc Formats a number by inserting commas
+relocated 1
+longdesc A flexible package that allows commas (or anything else) to be
+longdesc inserted every three digits in a number, as in 1,234.
+runfiles size=1
+ RELOC/tex/latex/comma/comma.sty
+catalogue-ctan /macros/latex/contrib/comma
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics numbers
+catalogue-version 1.2

@@ -1,0 +1,21 @@
+name emotion
+category Package
+revision 69834
+shortdesc Make emojis more easy to use in XeLaTeX and LuaLaTeX
+relocated 1
+longdesc There are many emojis with long names, and we cannot remember
+longdesc them all. At the same time, when we type an emoji, we want to
+longdesc see what it looks like in text editor. Now, you do not need to
+longdesc remember the emoji name, just select it from the keyboard and
+longdesc wrap it with \emotion. Unlike other emoji packages, you can
+longdesc thus use emojis more easily and flexibly.
+runfiles size=2
+ RELOC/tex/latex/emotion/emotion.def
+ RELOC/tex/latex/emotion/emotion.sty
+catalogue-contact-bugs https://github.com/ourfor/LaTeX-emotion/issues
+catalogue-contact-home https://github.com/ourfor/LaTeX-emotion
+catalogue-contact-repository https://github.com/ourfor/LaTeX-emotion.git
+catalogue-ctan /macros/unicodetex/latex/emotion
+catalogue-license apache2
+catalogue-topics expl3
+catalogue-version 0.2

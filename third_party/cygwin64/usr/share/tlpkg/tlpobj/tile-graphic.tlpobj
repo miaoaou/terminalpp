@@ -1,0 +1,14 @@
+name tile-graphic
+category Package
+revision 55325
+shortdesc Create tiles of a graphical file
+relocated 1
+longdesc This package breaks a given graphical file into n rows and m
+longdesc columns of subgraphics, which are called tiles. The tiles can
+longdesc be written separately to individual PDF files, or packaged into
+longdesc a single PDF file.
+runfiles size=3
+ RELOC/tex/latex/tile-graphic/tile-graphic.sty
+catalogue-ctan /macros/latex/contrib/tile-graphic
+catalogue-license lppl1.2
+catalogue-topics graphics-subpic

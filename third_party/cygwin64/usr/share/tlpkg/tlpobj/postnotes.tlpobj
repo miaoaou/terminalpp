@@ -1,0 +1,22 @@
+name postnotes
+category Package
+revision 69102
+shortdesc Endnotes for LaTeX
+relocated 1
+longdesc This is an endnotes package for LaTeX. Its user interface
+longdesc provides means to print multiple sections of notes along the
+longdesc document, and to subdivide them either automatically -- by
+longdesc chapter, by section -- or at manually specified places, thus
+longdesc being able to easily handle both numbered and unnumbered
+longdesc headings. The package also provides infrastructure for setting
+longdesc up contextual running headers for printed notes. The default is
+longdesc a simple but useful one, in the form "Notes to pages N-M", but
+longdesc more elaborate ones can be built. When hyperref is loaded,
+longdesc postnotes provides hyperlinked notes, including back links.
+runfiles size=12
+ RELOC/tex/latex/postnotes/postnotes.sty
+catalogue-contact-repository https://github.com/gusbrs/postnotes
+catalogue-ctan /macros/latex/contrib/postnotes
+catalogue-license lppl1.3c
+catalogue-topics endnote expl3
+catalogue-version 0.2.8

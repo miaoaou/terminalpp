@@ -1,0 +1,20 @@
+name asypictureb
+category Package
+revision 33490
+shortdesc User-friendly integration of Asymptote into LaTeX
+relocated 1
+longdesc The package is an unofficial alternative to the package
+longdesc provided with the Asymptote distribution, for including
+longdesc pictures within a LaTeX source file. While it does not
+longdesc duplicate all the features of the official package, this
+longdesc package is more user-friendly in several ways. Most notably,
+longdesc Asymptote errors are repackaged as LaTeX errors, making
+longdesc debugging less of a pain. It also has a more robust mechanism
+longdesc for identifying unchanged pictures that need not be recompiled.
+runfiles size=3
+ RELOC/tex/latex/asypictureb/asypictureB.sty
+catalogue-ctan /graphics/asypictureb
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-incl
+catalogue-version 0.3

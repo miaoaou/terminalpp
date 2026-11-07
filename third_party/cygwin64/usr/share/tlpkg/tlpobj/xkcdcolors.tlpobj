@@ -1,0 +1,21 @@
+name xkcdcolors
+category Package
+revision 67895
+shortdesc xkcd names of colors
+relocated 1
+longdesc In the year 2010, Randall Munroe on posted a really funny and
+longdesc nice article on xkcd. He made a very curious experiment:
+longdesc showing colors to a lot of people and asking to name each one.
+longdesc Afterward, he processed the data and sorted the names for each
+longdesc color by popularity -- that means, how many people gave the
+longdesc same name to the same color. This package makes the collected
+longdesc color names usable with LaTeX.
+runfiles size=6
+ RELOC/tex/latex/xkcdcolors/xkcdcolors.sty
+catalogue-contact-bugs https://github.com/Rmano/xkcdcolors/issues
+catalogue-contact-home http://rlog.rgtti.com/2015/10/23/xkcd-color-list-for-latex-users/
+catalogue-contact-repository https://github.com/Rmano/xkcdcolors
+catalogue-ctan /macros/latex/contrib/xkcdcolors
+catalogue-license lppl1.3c cc0
+catalogue-topics colour amusements
+catalogue-version 1.0.2

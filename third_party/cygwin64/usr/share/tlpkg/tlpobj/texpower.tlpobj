@@ -1,0 +1,32 @@
+name texpower
+category Package
+revision 29349
+shortdesc Create dynamic online presentations with LaTeX
+relocated 1
+longdesc TeXPower is a bundle of packages intended to provide an
+longdesc all-inclusive environment for designing pdf screen
+longdesc presentations to be viewed in full-screen mode, especially for
+longdesc projecting `online' with a video beamer. For some of its core
+longdesc functions, it uses code derived from ppower4 packages. It is,
+longdesc however, not a complete environment in itself: it relies on an
+longdesc existing class for preparing slides (such as foiltex or
+longdesc seminar) or another package such as pdfslide.
+depend tpslifonts
+runfiles size=67
+ RELOC/tex/latex/texpower/automata.sty
+ RELOC/tex/latex/texpower/fixseminar.sty
+ RELOC/tex/latex/texpower/powersem.cls
+ RELOC/tex/latex/texpower/texpower.sty
+ RELOC/tex/latex/texpower/tpcolors.cfg
+ RELOC/tex/latex/texpower/tplists.sty
+ RELOC/tex/latex/texpower/tpoptions.cfg
+ RELOC/tex/latex/texpower/tppstcol.sty
+ RELOC/tex/latex/texpower/tpsem-a4.sty
+ RELOC/tex/latex/texpower/tpsettings.cfg
+catalogue-also prosper beamer
+catalogue-contact-repository http://texpower.sourceforge.net/
+catalogue-ctan /macros/latex/contrib/texpower
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license gpl
+catalogue-topics presentation
+catalogue-version 0.2

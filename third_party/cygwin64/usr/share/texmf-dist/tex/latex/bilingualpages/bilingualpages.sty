@@ -1,0 +1,15 @@
+% Author: Arlie Coles
+% License: LaTeX Project Public License 1.3c
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{paracol}
+\ProvidesPackage{bilingual}[2021/06/19 Bilingual facing pages.]
+
+% Facing pages
+\newenvironment{bilingualpages}
+{\begin{paracol}[1]{2}}
+{\end{paracol}}
+
+% Left and right pages
+\newcommand{\leftpage}{\switchcolumn[0]}
+\newcommand{\rightpage}{\switchcolumn[1]}

@@ -1,0 +1,16 @@
+name conv-xkv
+category Package
+revision 43558
+shortdesc Create new key-value syntax
+relocated 1
+longdesc This small package supports key-value syntax other than the
+longdesc standard LaTeX syntax of <key>=<value>. Using this package,
+longdesc create key-values of the form <key>:<value> or <key>-><value>,
+longdesc for example. The package converts the new notation to xkeyval
+longdesc notation and passes it on to xkeyval.
+runfiles size=2
+ RELOC/tex/latex/conv-xkv/conv-xkv.sty
+catalogue-ctan /macros/latex/contrib/conv-xkv
+catalogue-date 2017-03-20 15:11:14 +0100
+catalogue-license lppl1.2
+catalogue-topics macro-supp

@@ -1,0 +1,9 @@
+--enable Map=euler.map
+--enable MixedMap=cm.map
+--enable MixedMap=cmextra.map
+--enable MixedMap=cyrillic.map
+--enable MixedMap=latxfont.map
+--enable MixedMap=symbols.map
+--enable MixedMap=cmtext-bsr-interpolated.map
+--enable Map=dummy-space.map
+--enable Map=mathpple.map

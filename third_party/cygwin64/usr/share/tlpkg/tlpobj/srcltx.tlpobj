@@ -1,0 +1,18 @@
+name srcltx
+category Package
+revision 15878
+shortdesc Jump between DVI and TeX files
+relocated 1
+longdesc Provides a \special insertion into generated .dvi files
+longdesc allowing one to jump from the .dvi file to the .tex source and
+longdesc back again (given a .dvi viewer that supports this, such as Yap
+longdesc or xdvi version 22.38 or later). This was originally written by
+longdesc Aleksander Simonic, the author of the WinEdt shell.
+runfiles size=3
+ RELOC/tex/latex/srcltx/srcltx.sty
+ RELOC/tex/latex/srcltx/srctex.sty
+catalogue-ctan /macros/latex/contrib/srcltx
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics debug-supp
+catalogue-version 1.6

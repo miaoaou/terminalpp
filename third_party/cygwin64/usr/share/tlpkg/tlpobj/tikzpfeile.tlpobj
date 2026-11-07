@@ -1,0 +1,17 @@
+name tikzpfeile
+category Package
+revision 25777
+shortdesc Draw arrows using PGF/TikZ
+relocated 1
+longdesc In a document with a lot of diagrams created with PGF/TikZ,
+longdesc there is a possibility of the reader being distracted by
+longdesc different sorts of arrowheads in the diagrams and in the text
+longdesc (as, e.g., in \rightarrow). The package defines macros to
+longdesc create all arrows using PGF/TikZ, so as to avoid the problem.
+runfiles size=2
+ RELOC/tex/latex/tikzpfeile/tikzpfeile.sty
+catalogue-ctan /graphics/pgf/contrib/tikzpfeile
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-symb
+catalogue-version 1.0

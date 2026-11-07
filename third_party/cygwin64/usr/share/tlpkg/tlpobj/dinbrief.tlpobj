@@ -1,0 +1,24 @@
+name dinbrief
+category Package
+revision 15878
+shortdesc German letter DIN style
+relocated 1
+longdesc Implements a document layout for writing letters according to
+longdesc the rules of DIN (Deutsches Institut fur Normung, German
+longdesc standardisation institute). A style file for LaTeX 2.09 (with
+longdesc limited support of the features) is part of the package. Since
+longdesc the letter layout is based on a German standard, the user guide
+longdesc is written in German, but most macros have English names from
+longdesc which the user can recognize what they are used for. In
+longdesc addition there are example files showing how letters may be
+longdesc created with the package. A graphical interface for use of the
+longdesc dinbrief is provided in the dinbrief-GUI bundle.
+runfiles size=17
+ RELOC/tex/latex/dinbrief/dinbrief.cfg
+ RELOC/tex/latex/dinbrief/dinbrief.cls
+ RELOC/tex/latex/dinbrief/dinbrief.sty
+catalogue-also akletter envlab formlett g-brief
+catalogue-ctan /macros/latex/contrib/dinbrief
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics std-conform letter class

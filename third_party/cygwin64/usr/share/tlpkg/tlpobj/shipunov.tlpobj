@@ -1,0 +1,72 @@
+name shipunov
+category Package
+revision 52334
+shortdesc A collection of LaTeX packages and classes
+relocated 1
+longdesc The bundle collects packages and classes, along with one
+longdesc bibliography style and examples and scripts for converting TeX
+longdesc files. Many of the files in the collection are designed to
+longdesc support field biologists and/or Russian writers, while others
+longdesc have wider application. The collection includes: add2 - Save
+longdesc trees. Quick way to fit as many as possible into one page. Good
+longdesc for handouts. altverse - Typesetting verses. Straightforward
+longdesc typesetting, using the xtab package to aid layout. autolist -
+longdesc More lists. A means to define various sorts of list. biokey -
+longdesc Flexible identification key tables in LaTeX. The package
+longdesc provides straightforward macros to typeset sets of biological
+longdesc identification keys. Layout is flexible, and the macros will be
+longdesc useful in other disciplines. biolist - List observed species.
+longdesc Pretty formatting of species lists of flora and fauna. boldline
+longdesc - Heavier lines in tables. The package provides commands
+longdesc replacing \hline and \cline, as well as a table preamble
+longdesc element that generates heavy lines. cassete (with one 't') -
+longdesc Print labels for audio cassettes. This is a LaTeX2e class file
+longdesc (the only other cassette package on CTAN is cassette (with two
+longdesc 't'), written for Plain TeX). classif2 - Biological
+longdesc classification tables. The package defines an environment
+longdesc classif that simplifies the process of typesetting
+longdesc classification tables. dline - Double line on the left of text.
+longdesc drcaps - Simple dropped capitals. The package offers simple
+longdesc macros for dropped capitals, in a couple of forms. etiketka -
+longdesc Class for typesetting business-card-sized information
+longdesc (including business cards). flower - Typesetting lists of
+longdesc flower formulas. isyntax - Interactively check LaTeX file
+longdesc syntax. numerus - Spell numbers in Russian words. punct -
+longdesc Within italicized text, punctuation is still straight, this is
+longdesc typographically more aesthetic. qqru - Universal quotation
+longdesc marks, for Russian and English. It is able also to convert
+longdesc uniform typewriter "quotes" into left or right typographic
+longdesc quotes. rusnat - Bibliography style file, now deprecated.
+longdesc sltables - Simplified tables for LaTeX. These macros develop
+longdesc the concepts of the stables, which are designed to offer table
+longdesc macros whose use is "as simple as one might hope". Some would
+longdesc claim that LaTeX's built-in table specifications are as simple
+longdesc as one might hope, but this package offers many short-cuts and
+longdesc optimization of the mechanisms of tables. starfn - Stars as
+longdesc footnote marks. textfrac - Simple slanted fractions.
+runfiles size=28
+ RELOC/bibtex/bst/shipunov/rusnat.bst
+ RELOC/tex/latex/shipunov/add2-shipunov.sty
+ RELOC/tex/latex/shipunov/altverse.sty
+ RELOC/tex/latex/shipunov/autolist.sty
+ RELOC/tex/latex/shipunov/biokey.sty
+ RELOC/tex/latex/shipunov/biolist.sty
+ RELOC/tex/latex/shipunov/boldline.sty
+ RELOC/tex/latex/shipunov/cassete.cls
+ RELOC/tex/latex/shipunov/classif2.sty
+ RELOC/tex/latex/shipunov/dline-shipunov.sty
+ RELOC/tex/latex/shipunov/drcaps.sty
+ RELOC/tex/latex/shipunov/etiketka.cls
+ RELOC/tex/latex/shipunov/flower.sty
+ RELOC/tex/latex/shipunov/isyntax.sty
+ RELOC/tex/latex/shipunov/numerus.sty
+ RELOC/tex/latex/shipunov/punct.sty
+ RELOC/tex/latex/shipunov/qqru-shipunov.sty
+ RELOC/tex/latex/shipunov/sltables.sty
+ RELOC/tex/latex/shipunov/starfn.sty
+ RELOC/tex/latex/shipunov/textfrac-shipunov.sty
+catalogue-ctan /macros/latex/contrib/shipunov
+catalogue-date 2019-10-08 16:24:18 +0200
+catalogue-license lppl1.3
+catalogue-topics collection
+catalogue-version 1.2

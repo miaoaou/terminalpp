@@ -1,0 +1,18 @@
+% --------------------------------------------------------------------------
+% Bonaire:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{gold}{RGB}{243,208,62}
+\definecolor{blue}{RGB}{0,51,160}
+\background{white}
+\fill [blue] (0,0)-|(\flaglength,1)--cycle;
+\fill [gold] (0,7/12)|-(5/12*\flaglength,1)--cycle;
+\begin{scope}[shift={(5/18*\flaglength,7/12)}]
+\starn{black}{4}{(0,0)}{0.25}{0.125}{0}
+\fill [black] (0,0) circle (13/60);
+\fill [white] (0,0) circle (3/16);
+\starVI{red}{(0,0)}{0.125}{0}
+\end{scope}
+\framecode{}
+\end{flagdescription}

@@ -1,0 +1,142 @@
+%%
+%% This is file `title-TU-HH.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uni-titlepage.dtx  (with options: `driver,TU-HH')
+%% Copyright (c) 2009-2022 by Markus Kohm <komascript(at)gmx.info>
+%% 
+%% This file was generated from file(s) of uni-titlepage distribution.
+%% 
+%% ----------------------------------------------------------------------
+%% 
+%% This work may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, version 1.3c of the license.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer and author of this work is Markus Kohm.
+%% 
+%% This file may only be distributed together with
+%% the file `uni-titlepage.dtx'.
+%% You may however distribute the file `uni-titlepage.dtx' without this file.
+%% 
+\ProvidesFile{%
+  title%
+  -TU-HH%
+ .def%
+}[%
+2023-11-20 v1.2
+KOMA presents the title page project
+]
+\begingroup
+  \def\PackageNotLoadedError#1{%
+    \GenericError{%
+      (#1)\@spaces\@spaces\@spaces\@spaces
+    }{%
+      File `#1' Error: package `uni-titlepage' hasn't been loaded%
+    }{%
+      This definition file was made to be loaded by package
+      `uni-titlepage'.\MessageBreak
+      You may not use it without package `uni-titlepage'!\MessageBreak
+      See the documentation of package `uni-titlepage' for explanation.%
+    }%
+  }%
+  \ifx\csname uni-titlepage.sty@vers\endcsname\relax
+    \PackageNotLoadedError{%
+      title-TU-HH.def%
+    }%
+  \fi
+\endgroup
+\DefineFamilyMember[%
+  TU-HH%
+]{title}
+\FamilyBoolKey[TU-HH]{title}{final}{final}
+\providecommand*{\presentationinformationTUHH}{%
+  \iffinal Of the \else The \fi Graduation Committee of the\\
+  \usenonemptytitleelement{university}\\[.5ex]
+  to the Acquisition of the Academic Degree\\[.5ex]
+  \usenonemptytitleelement{academicgrade}\\[.5ex]
+  \iffinal approved \else submitted \fi\@subject}
+\providecaptionname{american,australian,british,canadian,%
+  english,newzealand,UKenglish,USenglish}{\presentationinformationTUHH}{%
+  \iffinal Of the \else The \fi Graduation Committee of the\\
+  \usenonemptytitleelement{university}\\[.5ex]
+  to the Acquisition of the Academic Degree\\[.5ex]
+  \usenonemptytitleelement{academicgrade}\\[.5ex]
+  \iffinal approved \else submitted \fi\@subject}
+\providecaptionname{german,ngerman,austrian,naustrian,%
+  swissgerman,nswissgerman}{\presentationinformationTUHH}{%
+  \iffinal Vom \else Dem \fi Promotionsausschuss der\\
+  \usenonemptytitleelement{university}\\[.5ex]
+  zur Erlangung des akademischen Grades\\[.5ex]
+  \usenonemptytitleelement{academicgrade}\\[.5ex]
+  \iffinal genehmigte \else vorgelegte \fi\@subject}%
+\renewcommand*{\inittitle}{%
+  \ifx\@university\@empty
+    \university{%
+      Technische\nobreakspace Universit\"at\nobreakspace
+      Hamburg-Harburg%
+    }%
+  \fi
+  \ifx\@place\@empty
+    \place{%
+      Hamburg%
+    }
+  \fi
+}
+\renewcommand*{\makemaintitle}{%
+  \begin{%
+    fullsizetitle}
+    \setlength{\parskip}{\z@}%
+    \setlength{\parindent}{\z@}%
+    \setlength{\parfillskip}{\z@\@plus 1fil}%
+    \linespread{1}\selectfont
+    \@titlepagefont
+    \sffamily
+    \centering
+    \vspace{5cm}
+    {\LARGE\bfseries\strut\ignorespaces\@title\\}
+    {\Large\strut\ignorespaces\@subtitle\\}
+    \vspace{2.5cm}
+    {\Large\presentationinformationTUHH\\}
+    \vspace{2.5cm}
+    {\Large\strut\ignorespaces\fromname\\
+      \strut\ignorespaces\usenonemptytitleelement{author}\\}
+    \vspace{2.5cm}
+    {\Large\strut\ignorespaces\fromplacename\\
+      \strut\ignorespaces\usenonemptytitleelement{place}\\}
+    \vspace{2.5cm}
+    {\Large\@date}
+  \end{%
+    fullsizetitle}
+}
+\renewcommand*{\makemaintitleback}{%
+  \begin{titlepage}
+    \setlength{\parskip}{\z@}%
+    \setlength{\parindent}{\z@}%
+    \setlength{\parfillskip}{\z@\@plus 1fil}%
+    \vspace*{\fill}
+    \iffinal
+      \@tempcnta\z@
+      \def\and{%
+        \par\advance\@tempcnta by\@ne
+        \@hangfrom{%
+          \expandafter\ordinal\expandafter{\the\@tempcnta}~\refereename:\enskip
+        }%
+      }\and\@referee
+    \fi
+    \vskip 1cm
+    \iffinal
+      \@hangfrom{\oralexaminationdatename:\enskip}{\@oralexaminationdate}%
+    \fi
+  \end{titlepage}
+}
+\endinput
+%%
+%% End of file `title-TU-HH.def'.

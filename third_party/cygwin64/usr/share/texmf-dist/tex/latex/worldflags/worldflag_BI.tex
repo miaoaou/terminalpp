@@ -1,0 +1,20 @@
+% --------------------------------------------------------------------------
+% Burundi:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{green}{RGB}{67,176,42}
+\fill [red] (0,0) rectangle (\flaglength,1);
+\fill [green] (0,0)--(\flaglength,1)--(\flaglength,0)--(0,1)--cycle;
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\draw [white,line width=\flagwidth/7.5] (0,0)--(\flaglength,1) (0,1)--(\flaglength,0);
+\end{scope}
+\begin{scope}[xshift=0.5\flaglength,yshift=0.5\flagwidth]
+\fill [white] (0,0) circle (17/60);
+\foreach \x in {90,210,330}
+{  \starVI{green}{(\x:0.14667)}{\flagwidth/15}{0}
+   \starVI{red}{(\x:0.14667)}{0.054667\flagwidth}{0}}
+\end{scope}
+\framecode{}
+\end{flagdescription}

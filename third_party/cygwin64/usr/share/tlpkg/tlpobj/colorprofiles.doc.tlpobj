@@ -1,0 +1,8 @@
+name colorprofiles.doc
+category Package
+revision 49086
+shortdesc doc files of colorprofiles
+relocated 1
+docfiles size=33
+ RELOC/doc/generic/colorprofiles/FOGRA39L_coated.iccprofile.xml
+ RELOC/doc/generic/colorprofiles/README

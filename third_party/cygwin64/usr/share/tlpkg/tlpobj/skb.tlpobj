@@ -1,0 +1,32 @@
+name skb
+category Package
+revision 22781
+shortdesc Tools for a repository of long-living documents
+relocated 1
+longdesc The package provides macros that help to build a document
+longdesc repository for long living documents. It focuses on structure
+longdesc and re-use of text, code, figures etc. The basic concept is
+longdesc first to separate structure from content (i.e., text about a
+longdesc topic from the structure it is presented by) and then
+longdesc separating the content from the actual published document, thus
+longdesc enabling easy re-use of text blocks in different publications
+longdesc (i.e., text about a protocol in a short article about this
+longdesc protocol as well as in a book about many protocols); all
+longdesc without constantly copying or changing text. As a side effect,
+longdesc using the document classes provided, it hides a lot of LaTeX
+longdesc from someone who just wants to write articles and books.
+runfiles size=12
+ RELOC/tex/latex/skb/skb.cfg
+ RELOC/tex/latex/skb/skb.sty
+ RELOC/tex/latex/skb/skbarticle.cls
+ RELOC/tex/latex/skb/skbbeamer.cls
+ RELOC/tex/latex/skb/skbbook.cls
+ RELOC/tex/latex/skb/skblncsbeamer.cls
+ RELOC/tex/latex/skb/skblncsppt.cls
+ RELOC/tex/latex/skb/skbmoderncv.cls
+catalogue-contact-repository http://sourceforge.net/projects/latex-skb
+catalogue-ctan /macros/latex/contrib/skb
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics archival
+catalogue-version 0.52

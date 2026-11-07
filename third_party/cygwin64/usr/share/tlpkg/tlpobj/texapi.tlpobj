@@ -1,0 +1,19 @@
+name texapi
+category Package
+revision 54080
+shortdesc Macros to write format-independent packages
+relocated 1
+longdesc Texapi provides utility macros to write format-independent (and
+longdesc -aware) packages. It is similar in spirit to the etoolbox,
+longdesc except that it isn't tied to LaTeX. Tools include: engine and
+longdesc format detection, expansion control, command definition and
+longdesc manipulation, various testing macros, string operations, and
+longdesc highly customizable while and for loops. The package requires
+longdesc e-TeX (and, should you want to compile its documentation, the
+longdesc pitex package is also needed).
+runfiles size=8
+ RELOC/tex/generic/texapi/texapi.tex
+catalogue-ctan /macros/generic/texapi
+catalogue-license lppl
+catalogue-topics macro-supp etex
+catalogue-version 1.04

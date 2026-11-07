@@ -1,0 +1,16 @@
+name shdoc
+category Package
+revision 41991
+shortdesc Float environment to document the shell commands of a terminal session
+relocated 1
+longdesc The package provides a simple, though fancy float environment
+longdesc to document terminal sessions -- like command executions or
+longdesc shell operations. The look and feel of the package output
+longdesc imitates the look of a shell prompt.
+runfiles size=3
+ RELOC/tex/latex/shdoc/shdoc.sty
+catalogue-ctan /macros/latex/contrib/shdoc
+catalogue-date 2016-09-04 18:33:35 +0200
+catalogue-license lppl1.3
+catalogue-topics synt-hlt float listing
+catalogue-version 2.1b

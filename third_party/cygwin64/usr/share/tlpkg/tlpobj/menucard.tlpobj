@@ -1,0 +1,13 @@
+name menucard
+category Package
+revision 55643
+shortdesc Typesetting menu cards with LaTeX
+relocated 1
+longdesc This LaTeX package can be used for typesetting simple
+longdesc restaurant menus.
+runfiles size=1
+ RELOC/tex/latex/menucard/menucard.sty
+catalogue-ctan /macros/latex/contrib/menucard
+catalogue-license lppl1.3
+catalogue-topics doc-supp cooking
+catalogue-version 0.1

@@ -1,0 +1,37 @@
+%%
+%% This is file `resmes.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% resmes.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% resmes Restriction of measures symbol in LaTeX
+%% 
+%% Copyright (c) 2022 Paolo
+%% 
+%% Licensed under MIT (https://github.com/Loara/resmes/blob/main/LICENSE)
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{resmes}[2022/12/27 v1.0 Restriction of measures symbol in LaTeX]
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+
+\NewDocumentCommand{\ress@D}{}{
+  \tikz{\draw[thick, join=round, cap=round] (0.24, 0) -- (0,0) -- (0, 0.24);}}
+\NewDocumentCommand{\ress@T}{}{
+  \tikz{\draw[semithick, join=round, cap=round] (0.23, 0) -- (0,0) -- (0, 0.23);}}
+\NewDocumentCommand{\ress@S}{}{
+  \,\tikz{\draw[thin, join=round] (0.154, 0) -- (0,0) -- (0, 0.154);}}
+\NewDocumentCommand{\ress@SS}{}{
+  \tikz{\draw[very thin, join=round] (0.11, 0) -- (0,0) -- (0, 0.11);}}
+
+\NewDocumentCommand{\resmes}{}{
+  \mathchoice{\mathbin{\ress@D}}{\mathbin{\ress@T}}
+  {\mathbin{\ress@S}}{\mathbin{\ress@SS}}}
+
+\endinput
+%%
+%% End of file `resmes.sty'.

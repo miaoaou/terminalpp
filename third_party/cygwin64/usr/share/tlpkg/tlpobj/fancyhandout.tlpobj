@@ -1,0 +1,24 @@
+name fancyhandout
+category Package
+revision 46411
+shortdesc A LaTeX class for producing nice-looking handouts
+relocated 1
+longdesc This package breaks with some of LaTeX's principles and
+longdesc redefines basic LaTeX commands with the aim of producing
+longdesc well-designed and clearly structured handouts: A sans-serif
+longdesc font is used by default; sections are not numbered, but
+longdesc highlighted by underlining; head- and footline display document
+longdesc information; and in order to avoid too much whitespace around
+longdesc the text the margin sizes are adjusted to smaller values. All
+longdesc in all, fancyhandout provides a means of typesetting documents
+longdesc not exclusively consisting of running text in a beautiful way.
+longdesc fancyhandout depends on the following other LaTeX packages:
+longdesc csquotes, enumitem, etoolbox, fancyhdr, geometry, and xcolor.
+runfiles size=3
+ RELOC/tex/latex/fancyhandout/fancyhandout.cls
+catalogue-contact-bugs https://github.com/sfr682k/fancyhandout/issues
+catalogue-contact-repository https://github.com/sfr682k/fancyhandout
+catalogue-ctan /macros/latex/contrib/fancyhandout
+catalogue-date 2018-01-23 05:35:34 +0100
+catalogue-license lppl1.3c
+catalogue-topics class presentation

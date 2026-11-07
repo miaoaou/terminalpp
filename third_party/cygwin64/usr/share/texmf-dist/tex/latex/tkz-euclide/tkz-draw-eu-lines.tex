@@ -1,0 +1,281 @@
+% tkz-obj-eu-draw-lines.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-obj-eu-draw-lines.tex}   
+\makeatletter
+
+%<--------------------------------------------------------------------------–>
+%                                Setup   Line
+%<--------------------------------------------------------------------------–>
+\pgfkeys{%
+   tkzsuline/.cd,
+   line width/.code       =   \def\tkz@line@width{#1},
+   color/.code            =   \def\tkz@line@color{#1},
+   style/.code            =   \def\tkz@line@style{#1},
+   add/.code args         =   {#1 and #2} {\def\tkz@line@left{#1}
+                                           \def\tkz@line@right{#2}},
+  /tkzsuline/.search also = {/tikz}
+} 
+%<--------------------------------------------------------------------------–>
+\def\tkzSetUpLine{\pgfutil@ifnextchar[{\tkz@SetUpLine}{\tkz@SetUpLine[]}}
+\def\tkz@SetUpLine[#1]{%
+\pgfkeys{%
+      tkzsuline/.cd,
+      line width   = \tkz@euc@linewidth,
+      color        = \tkz@euc@linecolor,
+      style        = \tkz@euc@linestyle,
+      add          = {\tkz@euc@lineleft} and {\tkz@euc@lineright}}  
+\pgfqkeys{/tkzsuline}{#1}
+\tikzset{%
+        line style/.append style ={%
+        line width        = \tkz@line@width,
+        color             = \tkz@line@color,
+        style             = \tkz@line@style,
+        add               = {\tkz@line@left} and {\tkz@line@right},
+        line cap          = round,
+        #1}
+        }
+}% end setup  
+%<--------------------------------------------------------------------------–>
+%            Drawing a line                                                  
+%<--------------------------------------------------------------------------–>
+%<--------------------------------------------------------------------------–>
+% \pgfkeys{/tkzdrawl/.cd,
+%    /tkzdrawl/.search also={/tikz}
+% }
+\def\tkzDrawLine{\pgfutil@ifnextchar[{\tkz@DrawLine}{\tkz@DrawLine[]}}
+\def\tkz@DrawLine[#1](#2,#3){%    
+\begingroup 
+ % \pgfqkeys{/tkzdrawl}{#1}  
+   \draw[line style,#1] (#2) to (#3);
+\endgroup
+}
+%<-------------------------------------------------------------------------–
+%         tkzDrawLines 
+%<-------------------------------------------------------------------------–
+\def\tkz@@multiLines#1 #2\@nil{% 
+  \protected@edef\tkz@temp{
+    \noexpand \tkzDrawLine[\tkz@optline](#1)}\tkz@temp%
+   \def\tkz@nextArg{#2}%
+   \ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+   \fi
+   \next#2\@nil
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzDrawLines{\pgfutil@ifnextchar[{\tkz@DrawLines}{\tkz@DrawLines[]}}  
+\def\tkz@DrawLines[#1](#2){%
+\xdef\tkz@optline{#1} 
+\begingroup
+   \let\next\tkz@@multiLines
+   \next#2 \@nil %    
+\endgroup     
+}%  
+%<-------------------------------------------------------------------------–> 
+%   Label
+%<-------------------------------------------------------------------------–> 
+\def\tkzLabelLine{\pgfutil@ifnextchar[{\tkz@AddLabelLine}{\tkz@AddLabelLine[]}} 
+\def\tkz@AddLabelLine[#1](#2,#3)#4{\path  (#2) to node[#1]{#4}(#3);} 
+
+
+%<--------------------------------------------------------------------------–>
+%                             draw      segment  (s)
+%<--------------------------------------------------------------------------–>  
+\pgfkeys{/tkzdraws/.cd,
+  /tkzdraws/.search also={/tikz},
+}                              
+\def\tkzDrawSegment{\pgfutil@ifnextchar[{\tkz@DrawSegment}{%
+                                         \tkz@DrawSegment[]}} 
+\def\tkz@DrawSegment[#1](#2,#3){%    
+\scope
+  \pgfqkeys{/tkzdraws}{#1}
+  \draw[line style,add=0 and 0,#1] (#2) to (#3); 
+\endscope  
+}%    
+
+\def\tkz@multiDrawSeg#1 #2\@nil{%
+ \protected@edef\tkz@temp{
+   \noexpand \tkzDrawSegment[\tkz@optseg](#1)}\tkz@temp%
+   \def\tkz@nextArg{#2}%
+   \ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+   \fi
+   \next#2\@nil
+} 
+\def\tkzDrawSegments{\pgfutil@ifnextchar[{\tkz@DrawSegments}{%
+                                         \tkz@DrawSegments[]}}
+\def\tkz@DrawSegments[#1](#2){% 
+\def\tkz@optseg{#1} 
+\begingroup
+  \let\next\tkz@multiDrawSeg
+  \next#2 \@nil %
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                               Mark   Segment
+%<--------------------------------------------------------------------------–>
+\pgfkeys{
+  /@tkzmarkoptions/.cd,
+     pos/.store in       = \tkz@mkpos,
+     color/.store in     = \tkz@mkcolor,
+     mark/.store in      = \tkz@markseg,
+     size/.store in      = \tkz@mksize,
+     size                = 4pt,
+     color               = \tkz@mk@color,
+     pos                 = .5,
+     mark                = |,
+    /@tkzmarkoptions/.search also={/tikz},
+}
+\def\tkzMarkSegment{\pgfutil@ifnextchar[{\tkz@MarkSegment}{\tkz@MarkSegment[]}}
+\def\tkz@MarkSegment[#1](#2,#3){%
+\begingroup
+ \pgfqkeys{/@tkzmarkoptions}{#1}
+\def\tkz@mymark{\pgfsetplotmarksize{\tkz@mksize}\pgfuseplotmark{\tkz@markseg}}
+\begin{scope} 
+  [decoration={markings,mark=at position \tkz@mkpos with {\tkz@mymark}}] 
+  \path [\tkz@mkcolor,/@tkzmarkoptions/.cd,#1,postaction={decorate}] (#2) -- (#3);
+\end{scope}
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+% multiple
+\def\tkz@multiMS#1 #2\@nil{%
+ \protected@edef\tkz@temp{
+   \noexpand \tkzMarkSegment[\tkz@optsg](#1)}\tkz@temp%
+   \def\tkz@nextArg{#2}%
+   \ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+   \fi
+   \next#2\@nil
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzMarkSegments{\pgfutil@ifnextchar[{\tkz@MarkSegments}{\tkz@MarkSegments[]}}
+\def\tkz@MarkSegments[#1](#2){% 
+\def\tkz@optsg{#1} 
+  \begingroup
+   \let\next\tkz@multiMS
+   \next#2 \@nil %
+\endgroup 
+} 
+%<-------------------------------------------------------------------------–> 
+%             Label on segment  
+%<-------------------------------------------------------------------------–> 
+\def\tkzLabelSegment{\pgfutil@ifnextchar[{\tkz@LabelSegment}%
+                     {\tkz@LabelSegment[]}}
+\def\tkz@LabelSegment[#1](#2,#3)#4{%
+\begingroup    
+  \path  (#2) to node[label style,#1]{#4} (#3) ;  
+\endgroup 
+} 
+%<--------------------------------------------------------------------------–>
+% multiple
+\def\tkz@multiLS#1 #2\@nil{%
+ \protected@edef\tkz@temp{
+   \noexpand \tkzLabelSegment[\tkz@optls](#1){\tkz@labelseg}}\tkz@temp%
+   \def\tkz@nextArg{#2}%
+   \ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+   \fi
+   \next#2\@nil
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzLabelSegments{\pgfutil@ifnextchar[{\tkz@LabelSegments}{\tkz@LabelSegments[]}}
+\def\tkz@LabelSegments[#1](#2)#3{% 
+\def\tkz@optls{#1}
+\def\tkz@labelseg{#3}
+  \begingroup
+   \let\next\tkz@multiLS
+   \next#2 \@nil %    
+\endgroup 
+} 
+%<--------------------------------------------------------------------------–>
+%             PolySeg
+%<--------------------------------------------------------------------------–>
+\def\tkzDrawPolySeg{\pgfutil@ifnextchar[{\tkz@DrawPolySeg}{\tkz@DrawPolySeg[]}}
+\def\tkz@DrawPolySeg[#1](#2,#3){% 
+\begingroup
+\draw[line style,#1] (#2)
+     \foreach \pt in {#2,#3}{--(\pt)};%
+\endgroup
+}
+
+
+%<--------------------------------------------------------------------------–>
+%  add dim
+    % \draw[dim={5,7pt,}]   (A) --  (B);
+    % \draw[dim={7,10pt,transform shape}]  (B) --  (C);
+    % \draw[dim={X,,}]  (A) --  (C);
+%<--------------------------------------------------------------------------–>
+% new code from muzimuzhi Z
+%https://tex.stackexchange.com/questions/553430/change-color-and-style-of-dimension-lines-in-tkz-euclide/553441
+
+\pgfkeys{/pgf/decoration/.cd, distance/.initial = 10pt}  
+
+\pgfdeclaredecoration{add dim}{final}{
+\state{final}{% 
+\pgfmathsetmacro{\dist}{\pgfkeysvalueof{/pgf/decoration/distance}}
+          \pgfpathmoveto{\pgfpoint{0pt}{0pt}}
+          \pgfpathlineto{\pgfpoint{0pt}{1.2*\dist}}   
+          \pgfpathmoveto{\pgfpoint{\pgfdecoratedpathlength}{0pt}} 
+          \pgfpathlineto{\pgfpoint{(\pgfdecoratedpathlength}{1.2*\dist}}
+          % start of patch
+          \pgfusepath{stroke}
+          \pgfsetarrowsstart{latex}
+          \pgfsetarrowsend{latex}
+          \expandafter\pgfsetdash\tkz@dim@dashpattern
+          \pgfsetstrokecolor{\tkz@dim@color}
+          % end of patch
+          \pgfpathmoveto{\pgfpoint{0pt}{\dist}}
+          \pgfpathlineto{\pgfpoint{\pgfdecoratedpathlength}{\dist}} 
+          \pgfusepath{stroke} 
+          \pgfpathmoveto{\pgfpoint{0pt}{0pt}}
+          \pgfpathlineto{\pgfpoint{\pgfdecoratedpathlength}{0pt}}
+}}
+
+
+\tikzset{
+  dim/.style args={#1,#2,#3}{%
+    postaction={
+      decoration={
+        show path construction,
+        lineto code={
+          % dim fence
+          \draw[dim fence style/.try]
+            (\tikzinputsegmentfirst) --
+              ($ (\tikzinputsegmentfirst)!1.2*(#2)!90:(\tikzinputsegmentlast) $)
+            (\tikzinputsegmentlast) --
+            ($ (\tikzinputsegmentlast)!1.2*(#2)!-90:(\tikzinputsegmentfirst) $);
+          % dim
+          \draw[dim style/.try]
+            ($ (\tikzinputsegmentfirst)!#2!90:(\tikzinputsegmentlast) $) --
+            node[inner sep=0pt, font=\footnotesize, fill=\tkz@fillcolor, pos=.5, #3] {#1}
+            ($ (\tikzinputsegmentlast)!#2!-90:(\tikzinputsegmentfirst) $);
+        }
+      },
+      decorate,
+    }
+  },
+  dim/.default={,0pt,},
+  dim style/.style={
+    latex-latex,
+  },
+}
+
+%<---------------------------  style line ---------------------------------> 
+\tikzset{add/.style args={#1 and #2}{to path={%
+ ($(\tikztostart)!-#1!(\tikztotarget)$)--($(\tikztotarget)!-#2!(\tikztostart)$)%
+  \tikztonodes}}
+} 
+\makeatother
+\endinput

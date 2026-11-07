@@ -1,0 +1,18 @@
+name tkz-tab
+category Package
+revision 66115
+shortdesc Tables of signs and variations using PGF/TikZ
+relocated 1
+longdesc The package provides comprehensive facilities for preparing
+longdesc lists of signs and variations, using PGF. The package
+longdesc documentation requires the tkz-doc bundle. This package has
+longdesc been taken temporarily out of circulation to give the author
+longdesc time to investigate some problems.
+runfiles size=12
+ RELOC/tex/latex/tkz-tab/tkz-tab.sty
+catalogue-also tableaux tableauvariations tablor tabvar
+catalogue-contact-home http://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-tab
+catalogue-license lppl1.3
+catalogue-topics maths maths-tabvar graphics pgf-tikz
+catalogue-version 2.12c

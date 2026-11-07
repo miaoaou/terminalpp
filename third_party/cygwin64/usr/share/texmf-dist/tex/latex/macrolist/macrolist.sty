@@ -1,0 +1,227 @@
+%%
+%% This is file `macrolist.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% macrolist.dtx  (with options: `package')
+%% This work may be distributed and/or modified under
+%% the conditions the LaTeX Project Public License (LPPL),
+%% either version 1.3 of this license or (at your option)
+%% any later version. The latest version of this license
+%% can be found in
+%%     http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{macrolist}[2021/07/31 v2.1.0 Create lists of macros and perform operations on them]
+
+\RequirePackage{pgffor}
+
+\newcommand{\macronewlist}[1]{
+    \ifcsname c@macrolist@list@#1\endcsname
+        \PackageError{macrolist}{The list '#1' is already defined}{}
+    \else
+        \newcounter{macrolist@list@#1}
+        \setcounter{macrolist@list@#1}{0}
+    \fi
+}
+\newcommand{\macrolistexists}[3]{\ifcsname c@macrolist@list@#1\endcsname#2\else#3\fi}
+\newcommand{\macrolistelement}[2]{%
+    \macrolist@inbounds{#1}{#2}%
+    \csname macrolist@list@#1\the\numexpr #2\relax\endcsname%
+}
+\newcommand{\macrolistindexof}[2]{%
+    \def\macrolist@listindex{0}%
+    \macrolist@exists{#1}%
+    \ifnum\macrolistsize{#1}>0\relax
+        \def\macrolist@el{#2}%
+        \macrolistforeach{#1}{\macrolist@listindexel}[\macrolistsize{#1}][1]{%
+            \ifx\macrolist@el\macrolist@listindexel
+                \xdef\macrolist@listindex{\macrolist@index}%
+            \fi
+        }%
+    \fi
+    \macrolist@listindex%
+    \let\macrolist@listindex\relax%
+}
+\newcommand{\macrolistcontains}[4]{%
+    \def\macrolist@listindex{0}%
+    \macrolist@exists{#1}%
+    \ifnum\macrolistsize{#1}>0\relax
+        \def\macrolist@el{#2}%
+        \macrolistforeach{#1}{\macrolist@listindexel}[\macrolistsize{#1}][1]{%
+            \ifx\macrolist@el\macrolist@listindexel
+                \xdef\macrolist@listindex{\macrolist@index}%
+            \fi
+        }%
+    \fi
+    \ifnum\macrolist@listindex>0\relax
+        #3%
+    \else
+        #4%
+    \fi
+}
+\newcommand{\macrolistadd}[1]{
+    \macrolist@exists{#1}
+    \def\macrolist@currlist{#1}
+    \macrolist@listadd
+}
+%% We write \macrolistadd this way such that the optional argument will be positioned correctly
+\newcommand{\macrolist@listadd}[2][]{
+    \stepcounter{macrolist@list@\macrolist@currlist}
+
+    \if\relax\detokenize{#1}\relax
+        \expandafter\gdef\csname macrolist@list@\macrolist@currlist\macrolistsize{\macrolist@currlist}\endcsname{#2}
+    \else
+        \expandafter\ifnum\csname themacrolist@list@\macrolist@currlist\endcsname=#1
+            \expandafter\gdef\csname macrolist@list@\macrolist@currlist\macrolistsize{\macrolist@currlist}\endcsname{#2}
+        \else
+            \macrolist@inbounds{\macrolist@currlist}{#1}
+            \foreach \macrolist@index in {\macrolistsize{\macrolist@currlist}, ...,\the\numexpr #1+1\relax} {
+                \global\expandafter\let\csname macrolist@list@\macrolist@currlist\macrolist@index\expandafter\endcsname\csname macrolist@list@\macrolist@currlist\the\numexpr\macrolist@index-1\relax\endcsname
+            }
+            \expandafter\gdef\csname macrolist@list@\macrolist@currlist#1\endcsname{#2}
+        \fi
+    \fi
+}
+\newcommand{\macrolisteadd}[1]{
+    \macrolist@exists{#1}
+    \def\macrolist@currlist{#1}
+    \macrolist@listeadd
+}
+\newcommand{\macrolist@listeadd}[2][]{
+    \stepcounter{macrolist@list@\macrolist@currlist}
+
+    \if\relax\detokenize{#1}\relax
+        \expandafter\xdef\csname macrolist@list@\macrolist@currlist\macrolistsize{\macrolist@currlist}\endcsname{#2}
+    \else
+        \expandafter\ifnum\csname themacrolist@list@\macrolist@currlist\endcsname=#1
+            \expandafter\gdef\csname macrolist@list@\macrolist@currlist\macrolistsize{\macrolist@currlist}\endcsname{#2}
+        \else
+            \macrolist@inbounds{\macrolist@currlist}{#1}
+            \foreach \macrolist@index in {\macrolistsize{\macrolist@currlist}, ...,\the\numexpr #1+1\relax} {
+                \global\expandafter\let\csname macrolist@list@\macrolist@currlist\macrolist@index\expandafter\endcsname\csname macrolist@list@\macrolist@currlist\the\numexpr\macrolist@index-1\relax\endcsname
+            }
+            \expandafter\xdef\csname macrolist@list@\macrolist@currlist#1\endcsname{#2}
+        \fi
+    \fi
+}
+\newcommand{\macrolistremove}[2]{
+    \macrolist@inbounds{#1}{#2}
+
+    \ifnum\numexpr#2\relax=\macrolistsize{#1}
+    \else
+        \foreach \macrolist@index in {#2, ..., \the\numexpr\macrolistsize{#1}-1\relax} {
+            \global\expandafter\let\csname macrolist@list@#1\macrolist@index\expandafter\endcsname\csname macrolist@list@#1\the\numexpr\macrolist@index+1\endcsname
+        }
+    \fi
+
+    \global\expandafter\let\csname macrolist@list@#1\macrolistsize{#1}\endcsname\relax
+    \addtocounter{macrolist@list@#1}{-1}
+}
+\newcommand{\macrolistremovelast}[1]{
+    \macrolist@exists{#1}
+    \global\expandafter\let\csname macrolist@list@#1\macrolistsize{#1}\endcsname\relax
+    \addtocounter{macrolist@list@#1}{-1}
+}
+\newcommand{\macrolistclear}[2]{
+    \macrolist@inbounds{#1}{#2}
+
+    \foreach \macrolist@index in {1, ..., \macrolistsize{#1}} {
+        \global\expandafter\let\csname \macrolist@list@#1\macrolist@index\endcsname\relax
+    }
+
+    \setcounter{macrolist@list@#1}{0}
+}
+\newcommand*{\macrolistsize}[1]{%
+    \macrolist@exists{#1}%
+    \csname themacrolist@list@#1\endcsname
+}
+\newcommand{\macrolistforeach}[2]
+{%
+    \def\macrolist@foreachstart{0}% Reset
+    % This is used to make optional arguments line up correctly
+    \def\macrolist@start{1}%
+    \def\macrolist@end{\macrolistsize{#1}}%
+    \def\macrolist@listname{#1}%
+    \def\macrolist@element{#2}%
+    \macrolist@listforeachi
+}
+
+\newcommand{\macrolist@listforeachi}[1][]{%
+    \if\relax\detokenize{#1}\relax
+    \else
+        \def\macrolist@start{#1}%
+        \def\macrolist@foreachstart{1}%
+    \fi
+    \macrolist@listforeachii
+}
+
+\newcommand{\macrolist@listforeachii}[1][]{%
+    \if\relax\detokenize{#1}\relax
+        \ifnum\macrolist@foreachstart=1
+            \PackageError{macrolist}{You must either pass in both a starting and ending position or neither}{}
+        \fi
+    \else
+        \def\macrolist@end{#1}%
+    \fi
+    \macrolist@listforeachaction
+}
+
+\newcommand{\macrolist@listforeachaction}[1]{%
+    \macrolist@exists{\macrolist@listname}%
+    \ifnum\numexpr\macrolist@start\relax>\macrolistsize{\macrolist@listname}%
+        \PackageError{macrolist}{The starting index of the loop is out of the bounds of list '\macrolist@listname'}{}
+    \fi
+    \ifnum\numexpr\macrolist@end\relax>\macrolistsize{\macrolist@listname}
+        \PackageError{macrolist}{The ending index of the loop is out of the bounds of list '\macrolist@listname'}{}
+    \fi
+    \foreach \macrolist@index in {\the\numexpr\macrolist@start\relax, ..., \the\numexpr\macrolist@end\relax} {%
+        \expandafter\expandafter\expandafter\let\expandafter\expandafter\macrolist@element\csname macrolist@list@\macrolist@listname\macrolist@index\endcsname
+        #1%
+    }%
+}
+\newcommand{\macrolistjoin}[2]{%
+    \ifnum\macrolistsize{#1}>1
+        \macrolistforeach{#1}{\macrolist@joinelement}[1][\macrolistsize{#1}-1]{\macrolist@joinelement#2}%
+    \fi
+    \ifnum\macrolistsize{#1}>0
+        \macrolistelement{#1}{\macrolistsize{#1}}%
+    \fi
+}
+%% List: Some text
+%% List: Some text, \macro
+%% Prints out "Some text"
+%% List: Element inserted into beginning, Some text, \macro
+%% List: Some text, \macro
+%% We're printing out \textbf{Some text}. We're printing out \textbf{\macro}.
+%% Some text, \macro
+\newcommand*{\macrolist@exists}[1]{%
+    \ifcsname c@macrolist@list@#1\endcsname
+    \else
+        \PackageError{macrolist}
+        {The first argument is not a defined list}
+        {Make sure you have defined the list before trying to operate on it.}
+    \fi
+}
+\newcommand*{\macrolist@inbounds}[2]{%
+    \macrolist@exists{#1}%
+    %
+    \if\relax\detokenize{#2}
+        \PackageError{macrolist}
+        {No number has been passed into the second argument of your command
+        }{Pass in a number to the second argument of your command.}
+    \fi
+    %
+    \ifnum\numexpr#2 \relax>\macrolistsize{#1}
+        \PackageError{macrolist}
+        {Index out of bounds}
+        {The number you have passed in to the second argument of your command\MessageBreak
+        is out of the bounds of list '#1'.}
+    \fi
+}
+\endinput
+%%
+%% End of file `macrolist.sty'.

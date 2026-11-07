@@ -1,0 +1,20 @@
+name graphbox
+category Package
+revision 46360
+shortdesc Extend graphicx to improve placement of graphics
+relocated 1
+longdesc Graphbox is an extension of the standard graphicx LaTeX2e
+longdesc package to allow the placement of graphics relative to the
+longdesc "current position" using additional optional arguments of
+longdesc \includegraphics. For example, changing the vertical alignment
+longdesc is convenient for using graphics as elements of (mathematical)
+longdesc formulae. Options for shifting, smashing and hiding the
+longdesc graphics may be useful in support, for example, of the beamer
+longdesc framework.
+runfiles size=2
+ RELOC/tex/latex/graphbox/graphbox.sty
+catalogue-ctan /macros/latex/contrib/graphbox
+catalogue-date 2018-01-17 14:05:37 +0100
+catalogue-license lppl1.3
+catalogue-topics graphics graphics-incl
+catalogue-version 1.1

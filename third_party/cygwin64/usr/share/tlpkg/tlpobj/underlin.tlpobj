@@ -1,0 +1,14 @@
+name underlin
+category Package
+revision 15878
+shortdesc Underlined running heads
+relocated 1
+longdesc Defines two pagestyles that provide underlined page heads in
+longdesc LaTeX.
+runfiles size=1
+ RELOC/tex/latex/underlin/underlin.sty
+catalogue-ctan /macros/latex/contrib/underlin
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics underline page-hf
+catalogue-version 1.01

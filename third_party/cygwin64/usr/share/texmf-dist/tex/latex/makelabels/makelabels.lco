@@ -1,0 +1,282 @@
+%%
+%% This is file `makelabels.lco',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% makelabels.dtx  (with options: `lco')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from makelabels.lco.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file makelabels.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\ProvidesFile{makelabels.lco}
+  [2021/08/14 v1.0 provide labels with scrlttr2 and scrletter]
+\newcommand*{\makelabels@fatal@format@error}{%
+  \GenericError{(makelabels)\@spaces\@spaces\@spaces\@spaces}%
+               {Fatal makelabels.lco error: LaTeX too old.}%
+               {See the makelabels.lco documentation for explanation.}%
+               {At least LaTeX 2020/10/01 is needed}%
+  \endinput
+}
+\@ifundefined{IfFormatAtLeastTF}{%
+  \makelabels@fatal@format@error
+}{%
+  \IfFormatAtLeastTF{2020/10/01}{}{\makelabels@fatal@format@error}%
+}
+\ExplSyntaxOn
+\msg_new:nnn { makelabels } { onlypreamble }
+  { Sorry,~but~`makelabels.lco'~can~be~used~in~the~document~preamble~only. }
+\if@atdocument
+  \msg_fatal:nnn { makelabels } { onlypreamble }
+\fi
+\cs_new_nopar:Nn \makelabels_add_label_type:nn
+  {
+    \prop_new:c { g__makelabels_label_type_#1_prop }
+    \prop_set_from_keyval:cn { g__makelabels_label_type_#1_prop } { #2 }
+  }
+\makelabels_add_label_type:nn { avery_5162 }
+  {
+    sheet height              = 11 in,
+    sheet width               = 8.5 in,
+    sheet top margin          = 0.845 in,
+    sheet bottom margin       = 0.845 in,
+    sheet left margin         = 0.167 in,
+    sheet right margin        = 0.167 in,
+    label height              = 1.330 in,
+    label width               = 4 in,
+    horizontal distance       = 0.166 in,
+    vertical distance         = 0 pt,
+    label left margin         = 5 pt,
+    label right margin        = 5 pt,
+    label top margin          = 0 pt,
+    label bottom margin       = 0 pt,
+    rows                      = 7,
+    columns                   = 2,
+  }
+\NewExpandableDocumentCommand \__makelabels_Ifkomavarempty { s m m m }
+  {
+    \IfBooleanTF { #1 }
+      {
+        \exp_args:Nc \__makelabels_if_empty_var_or_name:NTF{scr@#2@name}{#3}{#4}
+      }
+      {
+        \exp_args:Nc \__makelabels_if_empty_var_or_name:NTF{scr@#2@var}{#3}{#4}
+      }
+  }
+\prg_new_conditional:Nnn \__makelabels_if_empty_var_or_name:N { p, T, F, TF }
+  {
+    \if_cs_exist:N #1
+      \if_meaning:w #1 \c_empty_tl
+        \prg_return_true: \else: \prg_return_false: \fi:
+    \else:
+      \prg_return_false:
+    \fi:
+  }
+\NewExpandableDocumentCommand \__makelabels_usekomavar { s o m }
+  {
+    \IfValueTF{#2}{#2}{\use:e}{\cs:w scr@#3@\IfBooleanTF{#1}{name}{var}\cs_end:}
+  }
+\AtEndLetter
+  {
+    \if@filesw
+      \group_begin:
+        \cs_set:Npn \Ifkomavarempty { \__makelabels_Ifkomavarempty }
+        \cs_set:Npn \usekomavar { \__makelabels_usekomavar }
+        \iow_now:Nx \@mainaux
+          {
+            \token_to_str:N \@mlabel
+            \iow_char:N \{ \usekomavar{backaddress} \iow_char:N \}
+            \iow_char:N \{ \usekomavar{toname} \iow_char:N \\ \iow_char:N \\
+                           \usekomavar{toaddress} \iow_char:N \}
+          }
+      \group_end:
+    \fi
+  }
+\cs_new:Npn \makelabels
+  {
+    \hook_gput_code:nnn { begindocument } { makelabels.lco }
+      {
+        \cs_set_eq:NN \@startlabels \startlabels
+        \cs_set_eq:NN \@mlabel \mlabel
+        \cs_set_eq:NN \@mlabeltype \mlabeltype
+        \if@filesw
+          \iow_now:Nn \@mainaux { \@startlabels }%
+        \fi
+      }
+    \hook_gput_code:nnn { enddocument / afterlastpage } { makelabels.lco }
+      {
+        \if@filesw
+          \iow_now:Nn \@mainaux { \clearpage } %
+        \fi
+      }
+  }
+\@onlypreamble \makelabels
+\newcommand*{\selectlabeltype}[2][1]{
+  \cs_if_exist:cTF { g__makelabels_label_type_#2_prop }
+    {
+      \if@filesw
+        \iow_now:Nn \@mainaux
+          {
+            \@mlabeltype { #1 } { #2 }
+          }
+      \fi
+    }
+    {
+      \msg_error:nnn { makelabels } { unkown label type } { #1 }
+    }
+}
+\hook_gput_code:nnn { begindocument } { makelabels.lco }
+  {
+    \if@filesw
+      \iow_now:Nn \@mainaux { \providecommand* { \@startlabels } { } }
+      \iow_now:Nn \@mainaux { \providecommand* { \@mlabel }[2] { } }
+      \iow_now:Nn \@mainaux { \providecommand* { \@mlabeltype } [ 2 ] { } }
+    \fi
+  }
+\int_new:N \g__makelabels_label_repeat_int
+\int_set_eq:NN \g__makelabels_label_repeat_int \c_one_int
+\str_new:N \g__makelabels_label_type_str
+\str_set:Nn \g__makelabels_label_type_str { avery_5162 }
+\cs_new:Npn \mlabeltype #1#2
+  {
+    \int_set:Nn \g__makelabels_label_repeat_int { #1 }
+    \str_set:Nn \g__makelabels_label_type_str { #2 }
+  }
+\cs_new:Npn \startlabels
+  {
+    \clearpage
+    \if@twocolumn \onecolumn \fi
+    \pagestyle{empty}
+    \cs_set_eq:NN \@texttop \relax
+    \dim_set_eq:NN \headheight \c_zero_dim
+    \dim_set_eq:NN \headsep \c_zero_dim
+    \dim_set_eq:NN \lineskip \c_zero_dim
+    \__makelabels_prop_get_dim:nN { sheet height } \paperheight
+    \__makelabels_prop_get_dim:nN { sheet top margin } \topmargin
+    \dim_sub:Nn \topmargin { 1in }
+    \__makelabels_prop_get_dim:nN { sheet width } \paperwidth
+    \__makelabels_prop_get_dim:nN { sheet left margin } \oddsidemargin
+    \dim_sub:Nn \oddsidemargin { 1in }
+    \dim_set_eq:NN \evensidemargin \oddsidemargin
+    \__makelabels_prop_get_int:nN { rows } \g__makelabels_rows_int
+    \__makelabels_prop_get_int:nN { columns } \g__makelabels_columns_int
+    \__makelabels_prop_get_dim:nN { label height } \g__makelabels_label_height_dim
+    \__makelabels_prop_get_dim:nN { label width } \g__makelabels_label_width_dim
+    \__makelabels_prop_get_dim:nN { vertical distance } \g__makelabels_vertical_skip_dim
+    \__makelabels_prop_get_dim:nN { horizontal distance } \columnsep
+    \dim_set:Nn \textheight
+      {
+        ( \g__makelabels_label_height_dim + \g__makelabels_vertical_skip_dim ) * \g__makelabels_rows_int
+        - \g__makelabels_vertical_skip_dim
+      }
+    \dim_set:Nn \textwidth
+      {
+        ( \g__makelabels_label_width_dim + \columnsep ) * \g__makelabels_columns_int
+        - \columnsep
+      }
+    \__makelabels_prop_get_dim:nN { label top margin } \g__makelabels_label_top_margin_dim
+    \__makelabels_prop_get_dim:nN { label bottom margin } \g__makelabels_label_bottom_margin_dim
+    \__makelabels_prop_get_dim:nN { label left margin } \g__makelabels_label_left_margin_dim
+    \__makelabels_prop_get_dim:nN { label right margin } \g__makelabels_label_right_margin_dim
+    \activateareas
+    \fontsize{10pt}{12pt}\selectfont
+    \dim_set_eq:NN \boxmaxdepth \c_max_dim
+    \int_set_eq:NN \g__makelabels_row_int \c_one_int
+    \int_set_eq:NN \g__makelabels_column_int \c_one_int
+    \dim_set:Nn \g__makelabels_label_height_effective_dim
+      {
+        \g__makelabels_label_height_dim
+        - \g__makelabels_label_top_margin_dim
+        - \g__makelabels_label_bottom_margin_dim
+      }
+    \dim_set:Nn \g__makelabels_label_width_effective_dim
+      {
+        \g__makelabels_label_width_dim
+        - \g__makelabels_label_left_margin_dim
+        - \g__makelabels_label_right_margin_dim
+      }
+    \raggedright
+  }
+
+\int_new:N \g__makelabels_rows_int
+\int_new:N \g__makelabels_columns_int
+\int_new:N \g__makelabels_row_int
+\int_new:N \g__makelabels_column_int
+\dim_new:N \g__makelabels_label_height_dim
+\dim_new:N \g__makelabels_label_width_dim
+\dim_new:N \g__makelabels_label_top_margin_dim
+\dim_new:N \g__makelabels_label_bottom_margin_dim
+\dim_new:N \g__makelabels_label_left_margin_dim
+\dim_new:N \g__makelabels_label_right_margin_dim
+\dim_new:N \g__makelabels_label_height_effective_dim
+\dim_new:N \g__makelabels_label_width_effective_dim
+\dim_new:N \g__makelabels_vertical_skip_dim
+\msg_new:nnn { makelabels } { undefined property }
+  { Property~`#1'~undefined~for~label~type~`\g__makelabels_label_type_str'.~
+    Value~#2~assumed. }
+
+\cs_new:Nn \__makelabels_prop_get_dim:nN
+  {
+    \prop_get:cnNTF { g__makelabels_label_type_ \g__makelabels_label_type_str _prop } { #1 } \l_tmpa_tl
+      { \dim_set:Nn #2 \l_tmpa_tl }
+      {
+        \msg_warning:nnnn { makelabels } { undefined property } { #1 } { zero }
+        \dim_set_eq:NN #2 \c_zero_dim
+      }
+  }
+
+\cs_new:Nn \__makelabels_prop_get_int:nN
+  {
+    \prop_get:cnNTF { g__makelabels_label_type_ \g__makelabels_label_type_str _prop } { #1 } \l_tmpa_tl
+      { \int_set:Nn #2 \l_tmpa_tl }
+      {
+        \msg_warning:nnnn { makelabels } { undefined property } { #1 } { one }
+        \int_set_eq:NN #2 \c_one_int
+      }
+  }
+\cs_new:Nn \__makelabels_print_one_label:nn
+  {
+    \parbox[b][\g__makelabels_label_height_dim]{\g__makelabels_label_width_dim}{
+      \skip_vertical:N \g__makelabels_label_top_margin_dim
+      \skip_horizontal:N \g__makelabels_label_left_margin_dim
+      \parbox[c][\g__makelabels_label_height_effective_dim]{\g__makelabels_label_width_effective_dim}{
+        \ignorespaces #2
+      }
+      \skip_vertical:N \g__makelabels_label_bottom_margin_dim
+    }
+    \int_incr:N \g__makelabels_column_int
+    \if_int_compare:w \g__makelabels_column_int > \g__makelabels_columns_int
+      \par
+      \skip_vertical:N \g__makelabels_vertical_skip_dim
+      \int_set_eq:NN \g__makelabels_column_int \c_one_int
+      \int_incr:N \g__makelabels_row_int
+      \if_int_compare:w \g__makelabels_row_int > \g__makelabels_rows_int
+        \clearpage
+        \int_set_eq:NN \g__makelabels_row_int \c_one_int
+      \fi:
+    \else:
+      \skip_horizontal:N \columnsep
+    \fi:
+  }
+\cs_new:Npn \mlabel #1#2
+  {
+    \int_step_inline:nnn { 1 } { \g__makelabels_label_repeat_int }
+      {
+        \__makelabels_print_one_label:nn { #1 } { #2 }
+      }
+  }
+\ExplSyntaxOff
+\endinput
+%%
+%% End of file `makelabels.lco'.

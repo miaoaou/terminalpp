@@ -1,0 +1,1234 @@
+%%
+%% This is file `phfnote.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% phfnote.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016 by Philippe Faist, philippe.faist@bluewin.ch
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{phfnote}
+    [2021/10/08 v4.0 phfnote package]
+\RequirePackage{xkeyval}
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\def\phfnote@internal@execattribs#1#2#3{%
+  \@for\next:=#3\do{%
+    \ifcsname #1\next\endcsname%
+      \csname #1\next\endcsname%
+    \else%
+      \PackageError{phfnote}{Unknown #2: '\next'. Ignoring.}{The given #2 '\next'
+        is invalid.  Consult the package documentation for information about
+        valid attributes.}
+    \fi
+  }
+}
+\newcommand{\notetitlefont}[1]{\sffamily\bfseries #1}
+\newcommand{\notetitleauthorfont}[1]{#1}
+\newcommand{\notetitledatefont}[1]{\footnotesize #1}
+\newcommand{\notetitlebelowspace}{4mm}
+\newcommand{\notetitletopspace}{-1.2cm}
+\newcommand{\notetitlehrule}{\hrule}
+\long\def\notetitle@title#1{\long\gdef\@title{#1}}
+\def\phfnote@setupthanksmpfootnote{%
+  \def\thempfootnote{\arabic{mpfootnote}}%
+  \let\footnoterule\relax%
+  \let\thanks\footnote%
+  \def\phfnote@mpfootmaterial{}%
+  \long\def\@mpfootnotetext##1{%
+    \protected@edef\@currentlabel%
+         {\csname p@mpfootnote\endcsname\@thefnmark}%
+    \protected@edef\@tmpa{\protect\phfnote@mympfootnotemark{\@thefnmark}{##1}%
+      \protect\phfnote@mpfootnoteglue}%
+    \expandafter\g@addto@macro\expandafter\phfnote@mpfootmaterial%
+      \expandafter{\@tmpa}%
+  }%
+  \def\thanksmark[##1]{\phfnote@mympfootnotemark{##1}}%
+}
+\def\phfnote@finalizempfootnotes#1{%
+  \if\relax\detokenize\expandafter{\phfnote@mpfootmaterial}\relax
+  \else
+    \global\skip\@mpfootins=#1\relax
+    \global\setbox\@mpfootins=\vbox{%
+      \parskip=\z@\relax
+      \parindent=\z@\relax
+      \phfnote@mpfootnotes@fontparsetup
+      \noindent\leavevmode%
+      \reset@font\footnotesize%
+      \phfnote@fmt@titlefootnotes%
+      \phfnote@mpfootmaterial}%
+  \fi
+}
+\def\phfnote@mpfootnotes@fontparsetup{%
+  \parshape 1 0.04\textwidth 0.96\textwidth\relax}
+\def\phfnote@fmt@titlefootnotes{}
+\def\phfnote@mympfootnotemark#1{\@textsuperscript{\normalfont#1}}
+\def\phfnote@mpfootnoteglue{\hskip 1.2em plus 2em minus 0.5em\relax}
+\def\notetitle@thanksmark{\footnotemark}
+\let\phfnote@old@thanks\thanks
+\def\notetitle@thanks{\@ifnextchar[\phfnote@thanks{\phfnote@thanks[]}}%]
+\long\def\phfnote@thanks[#1]#2{%
+  \if\relax\detokenize{#1}\relax%
+    \footnotemark%
+    \protected@xdef\@thanks{\@thanks\protect\footnotetext[\the\c@footnote]{#2}}%
+  \else% argument, pass on to sub-commands:
+    \footnotemark[#1]%
+    \protected@xdef\@thanks{\@thanks\protect\footnotetext[#1]{#2}}%
+  \fi%
+}
+\newcommand\notetitleinnervsep{1.15ex}
+\def\notetitlewidth{\textwidth}
+\def\notetitleparskip{1.4ex}% parskip for multiple pars in main title
+\def\notetitlefontparsetup{\raggedright\setstretch{1.05}\Large}
+\def\notetitleaftertitleskip{%
+  \ifnotetitle@default@ismultipar
+    \vspace{\parskip}%
+    %\gdef\phfnote@tmp@nextskip{\z@}%
+    \gdef\phfnote@tmp@nextskip{0.5\dimexpr\notetitleinnervsep\relax}%
+  \else
+    \gdef\phfnote@tmp@nextskip{\notetitleinnervsep}%
+  \fi
+}
+\def\notetitleauthorfontparsetup{%
+  \notetitledonextvskip[2]%
+  \parshape 1 0.04\textwidth 0.96\textwidth\relax
+  \strut
+}
+\def\notetitledatefontparsetup{%
+  \notetitledonextvskip
+  \parshape 1 0.04\textwidth 0.96\textwidth\relax
+  \strut
+}
+\newcommand\notetitledonextvskip[1][]{%
+  \vspace{#1\dimexpr\phfnote@tmp@nextskip\relax}%
+  \gdef\phfnote@tmp@nextskip{\notetitleinnervsep}%
+}
+\newcommand\notetitlemakecontents{
+  \notetitlemakecontentstop
+  {\par
+    \let\phfnote@old@par\par
+    \notetitle@titledefault@preparetitle
+    \expandafter\notetitlefontparsetup\expandafter{%
+      \expandafter\notetitlefont\expandafter{\@title}}%
+    \phfnote@old@par
+    \notetitleaftertitleskip
+  }%
+  \if\relax\detokenize\expandafter{\@author}\relax\else
+    \expandafter\notetitleauthorfontparsetup\expandafter{%
+      \expandafter\notetitleauthorfont\expandafter{\@author}}\par
+  \fi
+  \if\relax\detokenize\expandafter{\@date}\relax\else
+    \expandafter\notetitledatefontparsetup\expandafter{%
+      \expandafter\notetitledatefont\expandafter{\@date}}\par
+  \fi
+  \notetitlemakecontentsbottom
+}
+\def\notetitlemakecontentstop{}
+\def\notetitlemakecontentsbottom{}
+\def\notetitlebeginrender{\begin{minipage}{\notetitlewidth}}
+\def\notetitleendrender{\end{minipage}}
+\newcommand\notetitleusemainbox[1]{%
+  \par
+  \box#1%
+  \vspace*{\notetitleinnervsep}%
+  \notetitlehrule\relax
+}
+\newsavebox\notetitle@default@mainbox
+\newif\ifnotetitle@default@usesavebox
+\notetitle@default@usesaveboxtrue
+\newif\ifnotetitleusempfootnotes
+\notetitleusempfootnotestrue
+\def\notetitle@default@setup{%
+    \notetitle@default@ismultiparfalse
+    \gdef\phfnote@tmp@nextskip{\z@}%
+    \par\raggedright}
+\newcommand{\notetitle@style@default}{%
+  \begingroup
+    \parskip=\z@\relax
+    \parindent=\z@\relax
+    \providecommand\singlespace{}%
+    \notetitle@default@setup
+    \ifnotetitleusempfootnotes
+      \phfnote@setupthanksmpfootnote
+    \fi
+    \vspace*{\notetitletopspace}%
+    \def\x{}%
+    \ifnotetitle@default@usesavebox
+      \def\x{\setbox\notetitle@default@mainbox=\hbox\bgroup}
+    \fi
+    \x\notetitlebeginrender
+    \begingroup
+          \singlespace%
+          \notetitlemakecontents\par
+          \ifnotetitleusempfootnotes
+            \expandafter\ifstrequal\expandafter{\@mpfn}{mpfootnote}{}{%
+              \PackageError{phfnote}{phfnote title: can only have
+                'usempfootnotes' in a minipage}{Make sure you open a
+                \string\begin{minipage} in the definition of
+                  \string\notetitlebeginrender \space and correspondingly close
+                  it with \string\end{minipage} in \string\notetitleendrender}%
+            }
+            \global\let\@thanks\@empty
+            \phfnote@finalizempfootnotes{\phfnote@tmp@nextskip}%
+          \fi
+    \endgroup
+    \notetitleendrender
+    \def\x{}%
+    \ifnotetitle@default@usesavebox
+      \def\x{\egroup
+        \notetitleusemainbox{\notetitle@default@mainbox}}%
+    \fi
+    \x
+    \par
+  \endgroup
+  \vskip\notetitlebelowspace\relax% don't change this, abstract needs to \removelastskip
+}
+\newif\ifnotetitle@default@ismultipar
+\newcommand\notetitle@titledefault@preparetitle{%
+  \def\par{\phfnote@old@par\global\notetitle@default@ismultipartrue}%
+  \leavevmode\parskip=\notetitleparskip\relax}
+\csdef{notetitle@style@defaultv1}{%
+  \begingroup\par\raggedright%
+    \phfnote@setupthanksmpfootnote%
+    \vspace*{\notetitletopspace}%
+    \phfnote@title@checksetspace{defaultv1}%
+    \begin{minipage}{\textwidth}%
+      \begin{singlespace}%
+        \parskip=0pt\parindent=0pt\relax%
+        {\let\phfnote@old@par\par%
+          \def\par{\phfnote@old@par%
+            \parskip=1.5ex\relax\parshape 1 0pt \textwidth\relax%
+            \noindent}%
+          \par%
+          \Large  {\notetitlefont \@title}\par}%
+        \vskip 2mm\relax
+        \if\relax\detokenize\expandafter{\@author}\relax\else%
+          \par\parshape 1 0.04\textwidth 0.96\textwidth\relax%
+          {\notetitleauthorfont \@author}%
+          \vskip 2mm\relax%
+        \fi
+        \if\relax\detokenize\expandafter{\@date}\relax\else%
+          \par\parshape 1 0.04\textwidth 0.96\textwidth\relax%
+          {\notetitledatefont \@date}
+          \vskip 2mm\relax%
+        \fi
+        \global\let\@thanks\@empty%
+        \csname phfnote@finalizempfootnotes@v1\endcsname%
+      \end{singlespace}%
+    \end{minipage}\par%
+    \vspace*{2mm}%
+    \notetitlehrule\relax%
+    \par%
+  \endgroup%
+  \vskip\notetitlebelowspace\relax% don't change this, abstract needs to \removelastskip
+}
+\csdef{phfnote@finalizempfootnotes@v1}{%
+  \global\setbox\@mpfootins=\vbox{%
+    \parskip=0pt\parindent=0pt\parshape 1 0.04\textwidth 0.96\textwidth\relax%
+    \noindent\leavevmode%
+    \reset@font\footnotesize%
+    \phfnote@fmt@titlefootnotes%
+    \phfnote@mpfootmaterial}%
+}
+\def\phfnote@title@checksetspace#1{%
+  \ifdefined\singlespace\else%
+    \PackageError{phfnote}{Note title style `#1' requires the
+      `setspace' package to be loaded!  Please load it, or use a
+      pkgset which loads it automatically}{}%
+  \fi%
+}
+\let\notetitle@style@pretty\notetitle@style@default
+\cslet{notetitle@style@pretty2}\notetitle@style@default
+\def\notetitle@stylesetup@pretty{%
+  \RequirePackage{xcolor}
+  \long\def\notetitlefont##1{\bfseries ##1}
+  \def\notetitlefontparsetup{%
+    \color{notetitleprettytextcolor}\centering}
+  \def\notetitleauthorfontparsetup{%
+    \notetitledonextvskip[2]%
+    \color{notetitleprettytextcolor}\centering}
+  \def\notetitledatefontparsetup{%
+    \notetitledonextvskip
+    \color{notetitleprettytextcolor}\centering}
+  \def\phfnote@mpfootnotes@fontparsetup{\color{notetitleprettytextcolor}}
+  %
+  \def\notetitlewidth{\dimexpr\textwidth
+    -\notetitleprettylsiderulewidth
+    -\notetitleprettyrsiderulewidth
+    -\notetitleprettylsidespacewidth
+    -\notetitleprettyrsidespacewidth\relax}
+  \let\notetitleusemainbox\notetitle@pretty@usemainbox
+  %
+  \def\notetitleprettylsiderulewidth{10pt}
+  \def\notetitleprettylsidespacewidth{10pt}
+  \def\notetitleprettyrsiderulewidth{10pt}
+  \def\notetitleprettyrsidespacewidth{10pt}
+  \def\notetitleprettytopspace{10pt}
+  \def\notetitleprettybottomspace{10pt}
+  \def\notetitleprettytophrulewidth{0pt}
+  \def\notetitleprettybottomhrulewidth{0pt}
+  %
+  \definecolor{notetitleprettylsiderulecolor}{RGB}{0,68,126}
+  \colorlet{notetitleprettyrsiderulecolor}{notetitleprettylsiderulecolor}
+  \colorlet{notetitleprettytophrulecolor}{notetitleprettylsiderulecolor}
+  \colorlet{notetitleprettybottomhrulecolor}{notetitleprettylsiderulecolor}
+  \definecolor{notetitleprettytextcolor}{RGB}{25,25,38}
+  \colorlet{notetitleprettybgcolor}{white}
+}
+\newlength\notetitle@pretty@tmplenht
+\newlength\notetitle@pretty@tmplendp
+\def\notetitle@pretty@usemainbox#1{%
+  \parskip=\z@\relax
+  \parindent=\z@\relax
+  \notetitle@pretty@tmplenht=\ht#1\relax%
+  \notetitle@pretty@tmplendp=\dp#1\relax%
+  \edef\tmp@dorule##1##2{%
+    {\noexpand\color{notetitlepretty##1siderulecolor}%
+      \noexpand\rule{##2}{%
+        \dimexpr \notetitleprettytopspace+
+            \notetitleprettybottomspace+
+            \notetitleprettytophrulewidth+
+            \notetitleprettybottomhrulewidth+
+            \notetitle@pretty@tmplendp+
+            \notetitle@pretty@tmplenht\relax}}}%
+  \fboxsep=0pt% for \colorbox
+  \par\hbox to \textwidth{%
+    \hskip 0pt plus 0.1fil minus 0.1fil\relax%
+    \tmp@dorule{l}{\notetitleprettylsiderulewidth}%
+    \colorbox{notetitleprettybgcolor}{%
+      \vbox{%
+        {\color{notetitleprettytophrulecolor}%
+          \hrule height \notetitleprettytophrulewidth\relax}%
+        \hbox{%
+          \hskip \notetitleprettylsidespacewidth\relax
+          % \fbox% DEBUG
+          {\vbox{\vskip \notetitleprettytopspace\relax
+              \box#1%
+              \vskip \notetitleprettybottomspace\relax}}%
+          \hskip \notetitleprettyrsidespacewidth\relax
+        }%
+        {\color{notetitleprettybottomhrulecolor}%
+          \hrule height \notetitleprettybottomhrulewidth\relax}%
+      }}%
+    \tmp@dorule{r}{\notetitleprettyrsiderulewidth}%
+  \hskip 0pt plus 0.1fil minus 0.1fil\relax}%
+  \par%
+}
+\csdef{notetitle@stylesetup@pretty2}{%
+  \notetitle@stylesetup@pretty
+  %
+  \definecolor{notetitleprettylsiderulecolor}{RGB}{0,68,126}
+  \colorlet{notetitleprettyrsiderulecolor}{notetitleprettylsiderulecolor}
+  \colorlet{notetitleprettytophrulecolor}{notetitleprettylsiderulecolor}
+  \colorlet{notetitleprettybottomhrulecolor}{notetitleprettylsiderulecolor}
+  \colorlet{notetitleprettytextcolor}{notetitleprettylsiderulecolor!50!black}
+  \colorlet{notetitleprettybgcolor}{white!95!notetitleprettytextcolor}
+  %
+  \def\notetitleprettytophrulewidth{.4pt}
+  \def\notetitleprettybottomhrulewidth{.4pt}
+}
+\let\notetitle@style@small\notetitle@style@default
+\newcommand\notetitle@stylesetup@small{%
+  \notetitleusempfootnotesfalse
+  %
+  \def\notetitlemakecontents{%
+    {\expandafter\notetitlefont\expandafter{\@title}}%
+    \hfill\makebox{\fontsize{9pt}{10pt}\selectfont
+      \notetitle@small@renderauthordate}%
+  }
+  %\notetitle@default@usesaveboxfalse
+  %\def\notetitlebeginrender{\par}
+  %\def\notetitleendrender{%
+  %  \vspace*{\notetitleinnervsep}\notetitlehrule\relax\vspace*{\notetitleinnervsep}}
+  \def\notetitleusemainbox##1{%
+    \par\box##1%
+    \vspace*{\notetitleinnervsep}\notetitlehrule\relax\vspace*{\notetitleinnervsep}}
+  \def\notetitle@small@renderauthordate{%
+    \expandafter\notblank\expandafter{\@author}{%
+      \expandafter\notblank\expandafter{\@date}{% both not blank
+        {\expandafter\notetitleauthorfont\expandafter{\@author}}%
+        \notetitlesmallauthordatesep
+        {\emph{\expandafter\notetitledatefont\expandafter{\@date}}}%
+      }{% only author
+        {\expandafter\notetitleauthorfont\expandafter{\@author}}%
+      }%
+    }{% only date
+      {\emph{\expandafter\notetitledatefont\expandafter{\@date}}}%
+    }}
+  %
+  \def\notetitleinnervsep{1mm}
+  \def\notetitlesmallauthordatesep{\hspace*{2mm}--\hspace*{2mm}}
+}
+\csdef{notetitle@style@smallv1}{%
+  \begingroup\par\raggedright%
+    \let\footnote\thanks%
+    \vspace*{\notetitletopspace}%
+    {\expandafter\notetitlefont\expandafter{\@title}}%
+    \hfill\makebox{\fontsize{9pt}{10pt}\selectfont
+      {\expandafter\notetitleauthorfont\expandafter{\@author}}%
+      \hspace*{2mm}--\hspace*{2mm}{\emph{\expandafter\notetitledatefont\expandafter{\@date}}}}%
+    \vspace*{1mm}\notetitlehrule\relax\vspace*{1mm}%
+    \par%
+  \endgroup%
+  \vskip\notetitlebelowspace\relax% don't change this, abstract needs to \removelastskip
+}
+\let\notetitle@style@article\notetitle@style@default
+\newcommand{\notetitle@stylesetup@article}{
+  %\def\notetitletopspace{-3em}
+  \def\notetitlebottomspace{2.5em}
+  \def\notetitleinnervsep{1.5em}
+  \def\notetitlefont{}
+  \def\notetitlefontparsetup{%
+    \LARGE\centering}
+  \long\def\notetitleauthorfontparsetup##1{%
+    \notetitledonextvskip%
+    {\large\centering
+    \lineskip .5em\relax%
+    \begin{tabular}[t]{c}%
+      ##1%
+    \end{tabular}\par}}
+  \long\def\notetitleauthorfont##1{\large ##1}
+  \def\notetitledatefontparsetup{%
+    \notetitledonextvskip
+    \centering}
+  \def\phfnote@mpfootnotes@fontparsetup{}
+  \def\notetitleusemainbox##1{%
+    \par
+    \box##1%
+  }
+  \appto\notetitle@default@setup{%
+    %\def\singlespace{}%
+  }
+  %
+  \notetitleusempfootnotesfalse
+}
+\csdef{notetitle@style@articlev1}{%
+  \vspace*{-3em}%
+  \begingroup
+    \centering
+    \let\footnote\thanks%
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large%
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author%
+      \end{tabular}\par}%
+    \vskip 1.5em%
+    {\large \@date}%
+    \par%
+  \endgroup%
+  \par%
+  \vskip 2.5em\relax%
+}
+\def\phfnote@do@notetitle#1{
+  \ifstrequal{#1}{false}{}{%
+    \if\relax\detokenize\expandafter{#1}\relax
+    \else
+      \ifcsname notetitle@style@#1\endcsname
+        \def\phfnote@tmp@titsty{#1}%
+      \else
+        \PackageError{phfnote}{Unknown title style: '#1'.}{Unknown title
+          style: '#1'. Please consult the package documentation for available
+          styles.}
+        \def\phfnote@tmp@titsty{default}%
+      \fi
+      \let\title\notetitle@title
+      \let\thanks\notetitle@thanks
+      \let\thanksmark\notetitle@thanksmark
+      \def\@author{}%
+      \ifcsname notetitle@stylesetup@\phfnote@tmp@titsty\endcsname
+        \csname notetitle@stylesetup@\phfnote@tmp@titsty\endcsname
+      \fi
+      \def\@maketitle{\csname notetitle@style@\phfnote@tmp@titsty\endcsname}%
+    \fi
+  }%
+}
+\let\notedefaultabstract\abstract
+\let\endnotedefaultabstract\endabstract
+\newcommand{\noteabstracttextfont}{}
+\newcommand{\noteabstractnamefont}{\bfseries\small}
+\if@twocolumn
+  \newcommand\noteabstracttextwidth{\hsize}
+\else
+  \newcommand{\noteabstracttextwidth}{0.9\hsize}
+\fi
+\newcommand\noteabstractafterspacing{1.5em}
+\newcommand\noteabstractbeforespacing{1.5em}
+\def\noteabstract@nameline{
+  {\parskip=0pt\relax\par\centering\noteabstractnamefont%
+    \abstractname%
+    \par}\vskip 1ex\relax%
+}
+\newenvironment{noteabstract}{%
+  \removelastskip%
+  \vspace{\noteabstractbeforespacing}%
+  \begingroup%
+    \par\noindent\centering%
+    \begin{minipage}{\noteabstracttextwidth}%
+      \noteabstract@nameline%
+      \noteabstracttextfont%
+    }%
+    {%
+    \end{minipage}%
+    \par%
+  \endgroup%
+  \vspace{\noteabstractafterspacing}%
+}
+\def\noteabstract@attr@wide{%
+  \def\noteabstracttextwidth{\textwidth}%
+}
+\def\noteabstract@attr@narrow{%
+  \if@twocolumn
+  \else
+    \def\noteabstracttextwidth{0.8\textwidth}%
+  \fi
+}
+\def\noteabstract@attr@noname{%
+  \def\noteabstract@nameline{}%\vspace*{1ex}}%
+}
+\def\noteabstract@attr@original{%
+  \let\abstract\notedefaultabstract
+  \let\endabstract\endnotedefaultabstract
+}
+\def\noteabstract@attr@small{%
+  \g@addto@macro\noteabstracttextfont{\small}%
+}
+\def\noteabstract@attr@compact{%
+  \renewcommand\noteabstractafterspacing{1ex}%
+  \renewcommand\noteabstractbeforespacing{1ex}%
+}
+\def\noteabstract@attr@it{%
+  \g@addto@macro\noteabstracttextfont{\itshape}%
+}
+\def\phfnote@do@noteabstract#1{%
+  \ifstrequal{#1}{false}{}{%
+    \let\abstract\noteabstract
+    \let\endabstract\endnoteabstract
+    \phfnote@internal@execattribs{noteabstract@attr@}{abstract attribute}{#1}
+  }%
+}
+\def\phfnote@pagegeomstyle@default{
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=1in,vmargin=0.75in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin=1.5in,vmargin=1.25in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin=1.5in,vmargin=1.25in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin=1.25in,vmargin=1.25in}{geometry}%
+    \fi%
+  \fi
+}
+\def\phfnote@pagegeomstyle@narrow{
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=1.25in,vmargin=0.75in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin=1.75in,vmargin=1.5in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin=1.75in,vmargin=1.5in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin=1.5in,vmargin=1.5in}{geometry}%
+    \fi%
+  \fi
+}
+\def\phfnote@pagegeomstyle@wide{
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=0.75in,vmargin=0.75in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin=1.25in,vmargin=1.25in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin=1.25in,vmargin=1.25in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin=1in,vmargin=1.25in}{geometry}%
+    \fi%
+  \fi
+}
+\def\phfnote@pagegeomstyle@xwide{
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=0.5in,vmargin=0.5in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin=1in,vmargin=1in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin=1in,vmargin=1in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin=0.75in,vmargin=1in}{geometry}%
+    \fi%
+  \fi
+}
+\csdef{phfnote@pagegeomstyle@xwidev1}{
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=0.5in,vmargin=0.5in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin=1in,vmargin=1.25in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin=1in,vmargin=1.25in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin=0.75in,vmargin=1.25in}{geometry}%
+    \fi%
+  \fi
+}
+\def\phfnote@pagegeomstyle@bigmargin{%
+  \if@twocolumn
+    \PassOptionsToPackage{hmargin=1.5in,vmargin=0.75in,includeheadfoot}{geometry}%
+  \else
+    % fix the margins a bit to make text wider
+    \ifcase\@ptsize% mods for 10 pt
+      \PassOptionsToPackage{hmargin={2.25in,1.75in},vmargin=1.25in}{geometry}%
+    \or% mods for 11 pt
+      \PassOptionsToPackage{hmargin={2.25in,1.75in},vmargin=1.25in}{geometry}%
+    \or% mods for 12 pt
+      \PassOptionsToPackage{hmargin={2in,1.5in},vmargin=1.25in}{geometry}%
+    \fi%
+  \fi
+}
+\newcommand{\phfnote@do@pagegeom}[1]{
+  \ifstrequal{#1}{false}{}{%
+    \message{phfnote: Setting page geometry style #1}%
+    \ifcsname phfnote@pagegeomstyle@#1\endcsname
+      \csname phfnote@pagegeomstyle@#1\endcsname
+    \else
+      \PackageWarning{phfnote}{Unknown page geometry style: `#1'!}%
+    \fi
+    %
+    \RequirePackage{geometry}%
+  }%
+}
+\def\phfnote@do@spacingdefs#1{
+  \ifstrequal{#1}{false}{}{%
+    \@ifpackageloaded{setspace}{
+      \def\phfnote@dostretch##1{%
+        \setstretch{##1}\phfnote@docaptionstretch{##1}}
+    }{
+      \def\phfnote@dostretch##1{%
+        \renewcommand\baselinestretch{##1}\phfnote@docaptionstretch{##1}}
+    }
+    \@ifpackageloaded{caption}{
+      \def\phfnote@docaptionstretch##1{\captionsetup{font={stretch=##1}}}
+    }{
+      \def\phfnote@docaptionstretch##1{\PackageWarning{phfnote}{Can't
+          set line spacing for captions, because the package `caption'
+          is not loaded.  Please load it before `phfnote', or use an
+          appropriate pkgset (e.g. `rich') which loads this package
+          automatically.}}
+    }
+    \if@twocolumn
+      \phfnote@dostretch{1.0} % leave default
+      \emergencystretch=3em\relax
+    \else
+      \ifcase\@ptsize% 10pt
+        \phfnote@dostretch{1.1}
+      \or% 11pt
+        \phfnote@dostretch{1.0} % 1.05? better 1.0...
+      \or% 12pt
+        \phfnote@dostretch{1.0} % 1.03? not really noticeable...
+      \fi
+      \emergencystretch=6em\relax
+    \fi
+  }
+}
+\def\phfnote@par@original{%
+}
+\def\phfnote@par@indent{%
+  \parindent=1.5em\relax
+  \parskip=0pt\relax
+}
+\def\phfnote@par@indentminiskip{%
+  \parindent=1.5em\relax
+  \parskip=0.3em plus 0.1em\relax
+}
+\def\phfnote@par@skip{%
+  \parindent=0pt\relax
+  \parskip=0.8em plus 0.2em minus 0.1em\relax
+}
+\def\phfnote@do@par#1{%
+  \ifstrequal{#1}{false}{}{%
+    \ifcsname phfnote@par@#1\endcsname
+      \csname phfnote@par@#1\endcsname
+    \else
+      \PackageWarning{phfnote}{Bad paragraph setting: #1. Leaving original}
+    \fi
+  }
+}
+\newcommand{\notesectionallfont}{%
+  \fontfamily{\notesectionallfontfamily}\fontseries{bx}\selectfont}
+\newcommand{\notesectionallfontfamily}{ppl}
+\newcommand{\notesectionfont}{\large}
+\newcommand{\notesubsectionfont}{\normalsize}
+\newcommand{\notesubsubsectionfont}{\small}
+\newcommand{\noteparagraphfont}{\normalsize}
+\newcommand{\notesubparagraphfont}{\normalsize}
+\newcommand{\notesectionsetfonts}[3]{%
+  \renewcommand{\notesectionfont}{#1}%
+  \renewcommand{\notesubsectionfont}{#2}%
+  \renewcommand{\notesubsubsectionfont}{#3}%
+}
+\newcommand{\noteparagraphsetfonts}[2]{%
+  \renewcommand{\noteparagraphfont}{#1}%
+  \renewcommand{\notesubparagraphfont}{#2}%
+}
+\def\phfnote@do@secfmt@section{
+  \RequirePackage{sectsty}
+  \sectionfont{\notesectionallfont\notesectionfont}
+  \subsectionfont{\notesectionallfont\notesubsectionfont}
+  \subsubsectionfont{\notesectionallfont\notesubsubsectionfont}
+}
+\def\phfnote@do@secfmt@paragraph{
+  \RequirePackage{sectsty}
+  \paragraphfont{\notesectionallfont\noteparagraphfont}
+  \subparagraphfont{\notesectionallfont\notesubparagraphfont}
+}
+\def\phfnote@do@secfmt@compact{
+  \notesectionsetfonts{\normalsize}{\small}{\small}
+}
+\def\phfnote@do@secfmt@larger{
+  \notesectionsetfonts{\Large}{\large}{\normalsize}
+}
+
+\def\phfnote@do@secfmt@secsquares{
+  \RequirePackage{amssymb}
+  \let\phfnote@secsquares@old@seccntformat\@seccntformat
+  \def\@seccntformat##1{%
+    \expandafter\ifx\csname ##1\endcsname\section\relax%
+    \unexpanded{\makebox[0pt][r]{\raisebox{0.15ex}{{%
+            \notesmaller[0.6]\ensuremath{\blacksquare}}}%
+        \hspace*{1.2ex}}}%
+    \fi%
+    \phfnote@secsquares@old@seccntformat{##1}}
+}
+\def\phfnote@do@secfmt@secnummargin{
+  \let\phfnote@secnummargin@old@seccntformat\@seccntformat
+  \def\@seccntformat##1{%
+    \protect\makebox[0pt][r]{\phfnote@secnummargin@old@seccntformat{##1}}}
+}
+
+\def\phfnote@do@secfmt@rmfamily{
+  \renewcommand\notesectionallfontfamily{\rmdefault}
+}
+\def\phfnote@do@secfmt@sffamily{
+  \renewcommand\notesectionallfontfamily{\sfdefault}
+}
+\def\phfnote@do@secfmt@itpar{
+  \def\noteparagraphfont{\normalfont\normalsize\itshape}
+  \def\notesubparagraphfont{\normalfont\normalsize\itshape}
+}
+\def\phfnote@do@secfmt@blockpar{
+  \let\phfnote@old@paragraph\paragraph
+  \def\paragraph##1{%
+    \phfnote@old@paragraph{##1}%
+    \hspace*{0pt}\par\nopagebreak% ugly hack!!
+  }
+}
+\def\phfnote@do@secfmt#1{%
+  \ifstrequal{#1}{false}{}{%
+    \phfnote@internal@execattribs{phfnote@do@secfmt@}{section formatting preset}{#1}%
+  }
+}
+\def\phfnote@do@pkgset@none{
+}
+
+\def\phfnote@do@pkgset@minimal{
+
+  \RequirePackage{amsmath}
+  \RequirePackage{amsfonts}
+  \RequirePackage{amssymb}
+  \RequirePackage{amsthm}
+
+  \RequirePackage{xcolor}
+
+}
+
+\def\phfnote@internal@setifxeorlua#1#2{%
+  \ifXeTeX\let#1#2\fi
+  \ifLuaTeX\let#1#2\fi
+}
+
+\def\phfnote@do@pkgset@rich{
+
+  \phfnote@do@pkgset@minimal
+
+  \RequirePackage{setspace}
+  \RequirePackage{caption}
+
+  \PassOptionsToPackage{shortlabels}{enumitem}
+  \RequirePackage{enumitem}
+
+  \RequirePackage{graphicx}
+
+  \def\phfnote@tmp@requireinputencfontenc{
+    \@ifpackageloaded{fontenc}{}{
+      \PassOptionsToPackage{T1}{fontenc}
+      \RequirePackage{fontenc}
+    }
+    \@ifpackageloaded{inputenc}{}{
+      \PassOptionsToPackage{utf8}{inputenc}
+      \RequirePackage{inputenc}
+    }
+  }
+  \IfFileExists{iftex.sty}{
+    \RequirePackage{iftex}
+    \phfnote@internal@setifxeorlua\phfnote@tmp@requireinputencfontenc\relax
+  }{}
+  \phfnote@tmp@requireinputencfontenc
+
+  \RequirePackage{microtype}
+}
+
+\def\phfnote@do@pkgset@extended{
+
+  \phfnote@do@pkgset@rich
+
+  \RequirePackage{float}
+
+  \RequirePackage{verbdef}
+
+  \PassOptionsToPackage{autostyle,autopunct=true}{csquotes}
+  \RequirePackage{csquotes}
+
+  \RequirePackage{dsfont}
+  \RequirePackage{bbm}
+  \RequirePackage{mathtools}
+
+}
+\def\phfnote@do@pkgset#1{
+  \phfnote@internal@execattribs{phfnote@do@pkgset@}{package set}{#1}
+}
+\def\phfnote@hyperrefdefs@val@options{%
+  bookmarksnumbered=false,bookmarksopen=false,bookmarksopenlevel=1,%
+  breaklinks=true,pdfborder={0 0 0},colorlinks=true,%
+  anchorcolor=docnotelinkcolor,citecolor=docnotelinkcolor,%
+  filecolor=docnotelinkcolor,linkcolor=docnotelinkcolor,%
+  menucolor=docnotelinkcolor,runcolor=docnotelinkcolor,%
+  urlcolor=docnotelinkcolor%
+}%
+\def\phfnote@hyperrefdefs@deferredhypersetup#1{%
+  \AtBeginDocument{%
+    \@ifpackageloaded{hyperref}{%
+      \hypersetup{#1}%
+    }{%
+      \PackageWarning{phfnote}{\MessageBreak\MessageBreak
+        *** package `hyperref` was not loaded ***\MessageBreak
+        Since you specified `hyperrefdefs=defer`, I was expecting you would call
+        `\string\usepackage{hyperref}` at some point later in your preamble, but
+        it does not appear you did so.  Your document might look weird.}%
+    }%
+  }%
+}
+\providecommand\phfnote@hyperrefdefs@dopkgoptions{%
+  \PassOptionsToPackage{unicode=true}{hyperref}
+}
+\def\phfnote@hyperrefdefs@loadhyperref{%
+    \phfnote@hyperrefdefs@dopkgoptions
+    \RequirePackage{hyperref}}
+\def\phfnote@hyperrefdefs@provideemail{\let\email\phfnote@email}
+\def\phfnote@eqref#1{%
+  \hyperref[{#1}]{\textup{\tagform@{\ref*{#1}}}}%
+}
+\def\phfnote@hyperrefdefs@redefeqref{%
+  \let\eqref\phfnote@eqref
+}
+\def\phfnote@hyperrefdefs@afterhook{}
+\def\phfnote@do@hyperrefdefs@attr@true{}% for explicit value "hyperrefdefs=true"
+\def\phfnote@do@hyperrefdefs@attr@defer{
+  \def\phfnote@hyperrefdefs@loadhyperref{%
+    \phfnote@hyperrefdefs@dopkgoptions
+    \let\hypersetup\phfnote@hyperrefdefs@deferredhypersetup}
+}
+\def\phfnote@do@hyperrefdefs@attr@clearoptions{
+  \def\phfnote@hyperrefdefs@val@options{}
+}
+\def\phfnote@do@hyperrefdefs@attr@noemail{
+  \def\phfnote@hyperrefdefs@provideemail{}
+}
+\def\phfnote@do@hyperrefdefs@attr@noeqref{
+  \def\phfnote@hyperrefdefs@redefeqref{}
+}
+\def\phfnote@do@hyperrefdefs@attr@noload{
+  \def\phfnote@hyperrefdefs@loadhyperref{}
+  \def\phfnote@hyperrefdefs@redefeqref{}
+  \let\hypersetup\@gobble
+}
+\def\phfnote@do@hyperrefdefs#1{%
+  \ifstrequal{#1}{false}{}{%
+    \phfnote@requirecolorpackage%
+    \definecolor{docnotelinkcolor}{rgb}{0,0,0.4}%
+    \RequirePackage{url}%
+    \DeclareUrlCommand\phfnote@format@url{}%
+    \let\phfnoteEmail\phfnote@email
+    \phfnote@internal@execattribs{phfnote@do@hyperrefdefs@attr@}{%
+      phfnote hyperref-related option}{#1}%
+    \phfnote@hyperrefdefs@loadhyperref
+    \expandafter\hypersetup\expandafter{\phfnote@hyperrefdefs@val@options}
+    \phfnote@hyperrefdefs@provideemail
+    \phfnote@hyperrefdefs@redefeqref
+    \urlstyle{notesf}
+    \phfnote@hyperrefdefs@afterhook
+  }
+}
+\newcommand{\phfnotePdfLinkColor}[1]{%
+  \@ifpackageloaded{xcolor}{%
+    \colorlet{docnotelinkcolor}{#1}%
+  }{% else:
+    \PackageError{phfnote}{\protect\phfnotePdfLinkColor may only be
+      used if the package xcolor is loaded.}{}%
+  }%
+}
+\def\phfnote@sanitize@url{%
+  \catcode`\$12%
+  \catcode`\&12%
+  \catcode`\#12%
+  \catcode`\^12%
+  \catcode`\_12%
+  \catcode`\%12%
+  % \catcode`\^^J10%  newline = space
+  % \catcode`\^^M10%  newline = space
+  \relax%
+}%
+\def\phfnote@email{\begingroup\phfnote@sanitize@url\phfnote@impl@email@}%
+\def\phfnote@impl@email@#1{\endgroup\href{mailto:#1}{\phfnote@format@url{#1}}}%
+\def\phfnote@requirecolorpackage{%
+  \@ifpackageloaded{color}{%
+  }{%
+    \@ifpackageloaded{xcolor}{%
+    }{%
+      \RequirePackage{xcolor}%
+    }%
+  }%
+}
+\def\phfnote@do@fontdefs#1{
+  \ifstrequal{#1}{false}{}{%
+    \let\phfnote@tmp@do\@firstofone
+    \IfFileExists{iftex.sty}{%
+      \RequirePackage{iftex}%
+      \phfnote@internal@setifxeorlua\phfnote@tmp@do\@gobble
+    }{}
+    \phfnote@tmp@do{
+      \PassOptionsToPackage{T1}{fontenc}
+      \RequirePackage{fontenc}
+      \renewcommand\sfdefault{cmbr}
+    }
+  }
+}
+\newcommand{\phfnote@bibstyle}{naturemagdoi}
+\newcommand{\phfnote@bibfont}{\fontsize{9}{11}\selectfont}
+\let\phfnote@old@bibliography\bibliography
+\let\phfnote@old@bibliographystyle\bibliographystyle
+\newcommand{\phfnote@bibliography}[1]{%
+  \begingroup%
+    \phfnote@bibfont%
+    \phfnote@old@bibliographystyle{\phfnote@bibstyle}%
+    \phfnoteHackSectionStarWithTOC%
+    \catcode`\&=12\relax% normal char
+    \providecommand\eprint[2][]{\href{http://arxiv.org/abs/##2}{arXiv:##2}}
+    \providecommand\doibase{\phfnote@doibasefix}
+    \phfnote@old@bibliography{#1}%
+  \endgroup%
+}
+\def\phfnote@doibasefix#110.{https://doi.org/10.}
+\newcommand{\phfnote@bibliographystyle}[1]{%
+  \renewcommand{\phfnote@bibstyle}{#1}%
+}
+\def\phfnote@do@bibliographydefs#1{%
+  \ifstrequal{#1}{false}{}{%
+    \let\bibliographystyle\phfnote@bibliographystyle%
+    \let\bibliography\phfnote@bibliography%
+  }
+}
+\def\phfnote@do@footnotedefs#1{
+  \ifstrequal{#1}{false}{}{%
+    \let\phfnote@orig@makefnmark\@makefnmark
+%%    \def\@makefnmark{\hbox{\@textsuperscript{%
+%%        \normalfont\tiny\fontseries{sb}\selectfont\@thefnmark}}}
+    \def\@makefnmark{\hbox{\@textsuperscript{%
+          \normalfont\tiny\bfseries\@thefnmark}}}
+%%    \def\@makefnmark{\hbox{\@textsuperscript{%
+%%        \normalfont\scriptsize\bfseries\@thefnmark}}}% too large
+  }
+}
+\newcommand\notesmaller[1][\notesmallerfrac]{%
+  \fontsize{#1\dimexpr\f@size pt\relax}{#1\dimexpr\f@baselineskip pt\relax}%
+  \selectfont\ignorespaces%
+}
+\def\notesmallerfrac{0.9}
+\newcommand{\inlinetoc}{%
+  \begingroup%
+    \vspace*{2mm}%
+    \hrule%
+    \vspace*{2mm}%
+    \parskip=1pt\relax%
+    \@starttoc{toc}%
+    \vspace*{4mm}%
+    \hrule%
+    \vspace*{6mm}%
+  \endgroup%
+}
+\def\url@notettstyle{%
+  \def\UrlFont{\ttfamily\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@notesfstyle{%
+  \def\UrlFont{\sffamily\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@notesfssstyle{%
+  \def\UrlFont{\fontfamily{cmss}\selectfont\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@noteitsfstyle{%
+  \def\UrlFont{\sffamily\itshape\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@notermstyle{%
+  \def\UrlFont{\rmfamily\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@noteitstyle{%
+  \def\UrlFont{\itshape\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\url@notesmlstyle{%
+  \def\UrlFont{\notesmaller}%
+  \phfnote@urlstyle@common%
+}
+\def\phfnote@url@tilde{\hbox{\fontfamily{ptm}\selectfont\textasciitilde}}
+%%\def\phfnote@url@tilde{\raise-0.8ex\hbox{%
+%%    \kern-0.2ex\fontfamily{cmbr}\selectfont\textasciitilde}}
+\def\phfnote@urlstyle@common{%
+  \def\UrlTildeSpecial{\do\~{\phfnote@url@tilde}}%
+  \let\Url@force@Tilde\UrlTildeSpecial%
+}
+\def\phfnoteHackSectionStarWithTOC{%
+    \let\phfnote@old@section\section%
+    \def\section*##1{\phfnote@old@section*{##1}\addcontentsline{toc}{section}{##1}}%
+}
+\def\phfnoteHackSectionStarWithTOCInCommand#1{%
+  \expandafter\let\csname phfnote@old@\string#1\endcsname#1%
+  \gdef#1{%
+    \begingroup%
+    \phfnoteHackSectionStarWithTOC%
+    \csname phfnote@old@\string#1\endcsname%
+    \endgroup%
+  }%
+}
+\def\phfnoteSaveDefs#1#2{%
+  \csgdef{phfnote@restoredefs@#1}{}%
+  \def\@tmpa{#2}%
+  \@for\next:=\@tmpa\do{%
+    \global\csletcs{phfnote@restoredefs@#1@\next}{\next}%
+    \expandafter\xappto\csname phfnote@restoredefs@#1\endcsname{%
+      \noexpand\csletcs{\next}{phfnote@restoredefs@#1@\next}%
+    }%
+  }%
+}
+\def\phfnoteRestoreDefs#1{%
+  \ifcsname phfnote@restoredefs@#1\endcsname%
+    \csname phfnote@restoredefs@#1\endcsname%
+  \else%
+    \PackageError{phfnote}{\string\phfnoteRestoreDefs: no such
+      definitions stored (#1)}{}
+  \fi%
+}
+\def\phfverb#1{%
+  \ifx\protect\relax%
+    \phfverbfmt{\detokenize{#1}\unskip}%
+  \else%
+    \noexpand\phfverb{\unexpanded{#1}}%
+  \fi%
+}
+\def\phfverbfmt#1{{\normalfont\texttt{#1}}}
+\SetupKeyvalOptions{
+  family=phfnote,
+  prefix=phfnote@opt@
+}
+\DeclareStringOption[default]{title}
+\DeclareVoidOption{notitle}{\def\phfnote@opt@title{false}}
+\DeclareStringOption[]{abstract}
+\DeclareVoidOption{noabstract}{\def\phfnote@opt@abstract{false}}
+\DeclareStringOption[rich]{pkgset}
+\DeclareStringOption[default]{pagegeom}
+\DeclareVoidOption{nopagegeom}{\def\phfnote@opt@pagegeom{false}}
+\DeclareBoolOption[true]{pagegeomdefs}
+\DeclareComplementaryOption{nopagegeomdefs}{pagegeomdefs}
+\DeclareStringOption[section]{secfmt}
+\DeclareVoidOption{nosecfmt}{\def\phfnote@opt@secfmt{false}}
+\DeclareStringOption[skip]{par}
+\DeclareVoidOption{nopar}{\def\phfnote@opt@par{false}}
+\DeclareStringOption[true]{spacingdefs}[true]
+\DeclareVoidOption{nospacingdefs}{\def\phfnote@opt@spacingdefs{false}}
+\DeclareStringOption[true]{fontdefs}[true]
+\DeclareVoidOption{nofontdefs}{\def\phfnote@opt@fontdefs{false}}
+\DeclareStringOption[true]{footnotedefs}[true]
+\DeclareVoidOption{nofootnotedefs}{\def\phfnote@opt@footnotedefs{false}}
+\DeclareStringOption[]{hyperrefdefs}[]
+\DeclareVoidOption{nohyperrefdefs}{\def\phfnote@opt@hyperrefdefs{false}}
+\DeclareStringOption[true]{bibliographydefs}[true]
+\DeclareVoidOption{nobibliographydefs}{\def\phfnote@opt@bibliographydefs{false}}
+\def\phfnote@loadpreset#1{%
+  \IfFileExists{phfnotepreset-#1.def}{%
+    \input{phfnotepreset-#1.def}%
+  }{%
+    \ifcsname phfnote@preset@#1\endcsname%
+      \csname phfnote@preset@#1\endcsname%
+    \else%
+      \PackageError{phfnote}{Unknown preset: `#1'!}{You specified the
+        option 'preset=...' with an invalid value.  Please look up the
+        package documentation corresponding to your version of phfnote
+        for possible values.  Additionally, no file named `phfnotepreset-#1.def'
+        was found.}%
+  \fi%
+  }%
+}
+\define@key{phfnote}{preset}{%
+  \phfnote@loadpreset{#1}%
+}
+\DeclareDefaultOption{%
+  \@unknownoptionerror
+}
+\def\phfnote@ifpkgoptfalsesetfalse#1#2{%
+  \edef\x{%
+    \expandafter\noexpand\csname ifphfnote@opt@#1\endcsname\noexpand\else
+      \noexpand\PackageWarning{phfnote}{Option #1 is obsolete. Please use "#2=false'' instead.}%
+      \noexpand\csgdef{phfnote@opt@#2}{false}\noexpand\fi}%
+  \x
+}
+\def\phfnote@hook@atendload{}
+\def\phfnote@preset@article{
+  \def\phfnote@opt@title{article}
+  \def\phfnote@opt@par{indent}
+  \def\phfnote@opt@pagegeom{default}
+}
+\newcommand\phfnote@presetcommon@xnote[1][noteitsf]{
+  \def\phfnote@opt@title{default}
+  \def\phfnote@opt@par{skip}
+  %\phfnote@opt@pagegeomdefstrue
+  \def\phfnote@opt@pagegeom{wide}
+  \setlength{\footnotesep}{5pt}
+  \g@addto@macro\phfnote@hook@atendload{
+    \ifdefined\urlstyle
+      \urlstyle{#1}
+    \fi
+  }
+}
+\def\phfnote@preset@sfnote{
+  \phfnote@presetcommon@xnote
+  \def\phfnote@opt@footnotedefs{true}
+  \def\phfnote@opt@fontdefs{true}
+  \renewcommand\familydefault{\sfdefault}
+  \renewcommand{\notesectionallfontfamily}{\sfdefault}
+}
+\def\phfnote@preset@sfssnote{
+  \phfnote@loadpreset{sfnote}%
+  \def\phfnote@opt@fontdefs{false}
+  \PassOptionsToPackage{T1}{fontenc}
+  \RequirePackage{fontenc}
+  \renewcommand\sfdefault{cmss}
+}
+\def\phfnote@preset@opensansnote{
+  \phfnote@loadpreset{sfnote}%
+  \def\phfnote@opt@fontdefs{false}
+  \PassOptionsToPackage{T1}{fontenc}
+  \RequirePackage{fontenc}
+  \PassOptionsToPackage{default,scale=0.9}{opensans}
+  \RequirePackage{opensans}
+}
+\def\phfnote@preset@utopianote{
+  \phfnote@presetcommon@xnote[noteit]
+  \def\phfnote@opt@fontdefs{false}
+  \PassOptionsToPackage{T1}{fontenc}
+  \RequirePackage{fontenc}
+  \RequirePackage{fourier}
+  \renewcommand{\notesectionallfontfamily}{put}
+  \renewcommand{\notetitlefont}{\bfseries}
+  \renewcommand{\sfdefault}{phv}
+}
+\def\phfnote@preset@mnmynote{
+  \phfnote@presetcommon@xnote[noteit]
+  \def\phfnote@opt@footnotedefs{false}
+  \def\phfnote@opt@fontdefs{false}
+  \PassOptionsToPackage{T1}{fontenc}
+  \RequirePackage{fontenc}
+  \renewcommand{\notesectionallfontfamily}{\sfdefault}
+  \g@addto@macro\phfnote@hook@atendload{
+    \RequirePackage{MnSymbol}
+    \PassOptionsToPackage{medfamily,textosf,mathlf,minionint,footnotefigures}{MinionPro}
+    \RequirePackage{MinionPro}
+    \PassOptionsToPackage{medfamily}{MyriadPro}
+    \RequirePackage{MyriadPro}
+  }
+}
+\def\phfnote@preset@pkgdoc{
+  \phfnote@presetcommon@xnote[noteit]
+  \def\phfnote@opt@fontdefs{false}
+  \phfnote@pkgdoc@setupfont
+  \def\phfnote@opt@secfmt{section,paragraph,itpar,blockpar,larger,secsquares,secnummargin}
+  \def\phfnote@opt@pagegeom{bigmargin}
+  \def\phfnote@opt@abstract{noname}
+}
+\providecommand\phfnote@pkgdoc@setupfont{
+  \PassOptionsToPackage{T1}{fontenc}
+  \RequirePackage{fontenc}
+  \phfnote@pkgdoc@setupmainfont
+  \renewcommand{\notesectionallfontfamily}{put}
+  \renewcommand{\notetitlefont}{\bfseries}
+  \IfFileExists{opensans.sty}{}{\PackageError{phfnote}{Font OpenSans is not
+      available (need `opensans' package)}{Please install the opensans
+      package, which provides the OpenSans font.}}
+  \PassOptionsToPackage{scale=0.85,defaultsans}{opensans}
+  \RequirePackage{opensans}
+}
+\providecommand\phfnote@pkgdoc@setupmainfont{\RequirePackage{fourier}}
+\def\phfnote@preset@reset{
+  \def\phfnote@opt@pkgset{none}
+  \def\phfnote@opt@title{false}
+  \def\phfnote@opt@pagegeom{false}
+  \def\phfnote@opt@spacingdefs{false}
+  \def\phfnote@opt@par{false}
+  \def\phfnote@opt@abstract{false}
+  \def\phfnote@opt@hyperrefdefs{false}
+  \def\phfnote@opt@fontdefs{false}
+  \def\phfnote@opt@secfmt{false}
+  \def\phfnote@opt@bibliographydefs{false}
+  \def\phfnote@opt@footnotedefs{false}
+}
+\ProcessKeyvalOptions*
+\expandafter\phfnote@do@pkgset\expandafter{\phfnote@opt@pkgset}
+\expandafter\phfnote@do@notetitle\expandafter{\phfnote@opt@title}
+\expandafter\phfnote@do@noteabstract\expandafter{\phfnote@opt@abstract}
+\expandafter\phfnote@do@secfmt\expandafter{\phfnote@opt@secfmt}
+\phfnote@ifpkgoptfalsesetfalse{pagegeomdefs}{pagegeom}
+\expandafter\phfnote@do@pagegeom\expandafter{\phfnote@opt@pagegeom}
+\expandafter\phfnote@do@spacingdefs\expandafter{\phfnote@opt@spacingdefs}
+\expandafter\phfnote@do@par\expandafter{\phfnote@opt@par}
+\expandafter\phfnote@do@hyperrefdefs\expandafter{\phfnote@opt@hyperrefdefs}
+\expandafter\phfnote@do@fontdefs\expandafter{\phfnote@opt@fontdefs}
+\expandafter\phfnote@do@bibliographydefs\expandafter{\phfnote@opt@bibliographydefs}
+\expandafter\phfnote@do@footnotedefs\expandafter{\phfnote@opt@footnotedefs}
+\phfnote@hook@atendload
+\endinput
+%%
+%% End of file `phfnote.sty'.

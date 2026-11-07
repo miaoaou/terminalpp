@@ -1,0 +1,17 @@
+name ecclesiastic
+category Package
+revision 38172
+shortdesc Typesetting Ecclesiastic Latin
+relocated 1
+longdesc The package modifies the way the latin option to babel operates
+longdesc when typesetting Latin. The style is somewhat 'frenchified' in
+longdesc respect of punctuation spacings and footnote style; shortcuts
+longdesc are available in order to set accents on all vowels, including
+longdesc y and the diphthongs ae and oe.
+runfiles size=2
+ RELOC/tex/latex/ecclesiastic/ecclesiastic.sty
+catalogue-ctan /macros/latex/contrib/ecclesiastic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics multilingual-addon
+catalogue-version 0.3

@@ -1,0 +1,17 @@
+name fltpoint
+category Package
+revision 56594
+shortdesc Simple floating point arithmetic
+relocated 1
+longdesc The package provides simple floating point operations
+longdesc (addition, subtraction, multiplication, division and rounding).
+longdesc Used, for example, by rccol.
+runfiles size=7
+ RELOC/tex/generic/fltpoint/deccomma.sty
+ RELOC/tex/generic/fltpoint/fltpoint.sty
+ RELOC/tex/generic/fltpoint/fltpoint.tex
+catalogue-also fp
+catalogue-ctan /macros/generic/fltpoint
+catalogue-license other-free
+catalogue-topics arithmetic calculation macro-gen
+catalogue-version 1.1b

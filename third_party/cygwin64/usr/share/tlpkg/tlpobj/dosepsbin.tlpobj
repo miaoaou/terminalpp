@@ -1,0 +1,22 @@
+name dosepsbin
+category Package
+revision 29752
+shortdesc Deal with DOS binary EPS files
+longdesc A Encapsulated PostScript (EPS) file may given in a special
+longdesc binary format to support the inclusion of a thumbnail. This
+longdesc file format, commonly known as DOS EPS format starts with a
+longdesc binary header that contains the positions of the possible
+longdesc sections: PostScript (PS); Windows Metafile Format (WMF); and
+longdesc Tag Image File Format (TIFF). The PS section must be present
+longdesc and either the WMF file or the TIFF file should be given. The
+longdesc package provides a Perl program that will extract any of the
+longdesc sections of such a file, in particular providing a 'text'-form
+longdesc EPS file for use with (La)TeX.
+depend dosepsbin.ARCH
+runfiles size=3
+ texmf-dist/scripts/dosepsbin/dosepsbin.pl
+catalogue-ctan /support/dosepsbin
+catalogue-date 2016-07-05 18:29:32 +0200
+catalogue-license artistic
+catalogue-topics image-supp
+catalogue-version 1.2

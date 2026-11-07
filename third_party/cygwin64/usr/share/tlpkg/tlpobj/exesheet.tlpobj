@@ -1,0 +1,25 @@
+name exesheet
+category Package
+revision 69838
+shortdesc Typesetting exercise or exam sheets
+relocated 1
+longdesc The exesheet package is designed for typesetting exercise or
+longdesc exam sheets. The primary advantage of exesheet is its ability
+longdesc to display a detailed scoring guide and correction instructions
+longdesc as needed. This feature is especially beneficial for grading
+longdesc papers with multiple graders. The exesheet package provides:
+longdesc macros for organizing exercises and subparts, specific settings
+longdesc for enumeration lists, environments for questions and answers,
+longdesc which can be displayed or hidden, macros for detailed comments
+longdesc and grading instructions in the margins which can be displayed
+longdesc or hidden. Additionally, the exesheet class loads the
+longdesc schooldocs package which manages the page layout, the main
+longdesc title, headers and footers.
+runfiles size=9
+ RELOC/tex/latex/exesheet/exesheet.cls
+ RELOC/tex/latex/exesheet/exesheet.sty
+catalogue-also schooldocs
+catalogue-ctan /macros/latex/contrib/exesheet
+catalogue-license lppl1.3
+catalogue-topics exam exercise teaching class
+catalogue-version 2.7

@@ -1,0 +1,50 @@
+name zapfchan
+category Package
+revision 61719
+catalogue urw-base35
+shortdesc URW 'Base 35' font pack for LaTeX
+relocated 1
+longdesc A set of fonts for use as "drop-in" replacements for Adobe's
+longdesc basic set, comprising: Century Schoolbook (substituting for
+longdesc Adobe's New Century Schoolbook); Dingbats (substituting for
+longdesc Adobe's Zapf Dingbats); Nimbus Mono L (substituting for Abobe's
+longdesc Courier); Nimbus Roman No9 L (substituting for Adobe's Times);
+longdesc Nimbus Sans L (substituting for Adobe's Helvetica); Standard
+longdesc Symbols L (substituting for Adobe's Symbol); URW Bookman; URW
+longdesc Chancery L Medium Italic (substituting for Adobe's Zapf
+longdesc Chancery); URW Gothic L Book (substituting for Adobe's Avant
+longdesc Garde); and URW Palladio L (substituting for Adobe's Palatino).
+execute addMap uzc.map
+runfiles size=59
+ RELOC/dvips/zapfchan/config.uzc
+ RELOC/fonts/afm/adobe/zapfchan/pzcmi8a.afm
+ RELOC/fonts/afm/urw/zapfchan/uzcmi8a.afm
+ RELOC/fonts/map/dvips/zapfchan/uzc.map
+ RELOC/fonts/tfm/adobe/zapfchan/pzcmi.tfm
+ RELOC/fonts/tfm/adobe/zapfchan/pzcmi7t.tfm
+ RELOC/fonts/tfm/adobe/zapfchan/pzcmi8c.tfm
+ RELOC/fonts/tfm/adobe/zapfchan/pzcmi8r.tfm
+ RELOC/fonts/tfm/adobe/zapfchan/pzcmi8t.tfm
+ RELOC/fonts/tfm/urw35vf/zapfchan/uzcmi7t.tfm
+ RELOC/fonts/tfm/urw35vf/zapfchan/uzcmi8c.tfm
+ RELOC/fonts/tfm/urw35vf/zapfchan/uzcmi8r.tfm
+ RELOC/fonts/tfm/urw35vf/zapfchan/uzcmi8t.tfm
+ RELOC/fonts/type1/urw/zapfchan/uzcmi8a.pfb
+ RELOC/fonts/type1/urw/zapfchan/uzcmi8a.pfm
+ RELOC/fonts/vf/adobe/zapfchan/pzcmi.vf
+ RELOC/fonts/vf/adobe/zapfchan/pzcmi7t.vf
+ RELOC/fonts/vf/adobe/zapfchan/pzcmi8c.vf
+ RELOC/fonts/vf/adobe/zapfchan/pzcmi8t.vf
+ RELOC/fonts/vf/urw35vf/zapfchan/uzcmi7t.vf
+ RELOC/fonts/vf/urw35vf/zapfchan/uzcmi8c.vf
+ RELOC/fonts/vf/urw35vf/zapfchan/uzcmi8t.vf
+ RELOC/tex/latex/zapfchan/8ruzc.fd
+ RELOC/tex/latex/zapfchan/omluzc.fd
+ RELOC/tex/latex/zapfchan/omsuzc.fd
+ RELOC/tex/latex/zapfchan/ot1uzc.fd
+ RELOC/tex/latex/zapfchan/t1uzc.fd
+ RELOC/tex/latex/zapfchan/ts1uzc.fd
+catalogue-also tex-gyre
+catalogue-ctan /fonts/urw/base35
+catalogue-license gpl
+catalogue-topics font font-type1 font-collection

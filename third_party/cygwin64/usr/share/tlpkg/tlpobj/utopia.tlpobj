@@ -1,0 +1,73 @@
+name utopia
+category Package
+revision 15878
+shortdesc Adobe Utopia fonts
+relocated 1
+longdesc The Adobe Standard Encoding set (upright and italic shapes,
+longdesc medium and bold weights) of the Utopia font family, which Adobe
+longdesc donated to the X Consortium. Macro support, and maths fonts
+longdesc that match the Utopia family, are provided by the Fourier and
+longdesc the Mathdesign font packages.
+runfiles size=168
+ RELOC/fonts/afm/adobe/utopia/putb8a.afm
+ RELOC/fonts/afm/adobe/utopia/putbi8a.afm
+ RELOC/fonts/afm/adobe/utopia/putr8a.afm
+ RELOC/fonts/afm/adobe/utopia/putri8a.afm
+ RELOC/fonts/tfm/adobe/utopia/putb7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putb8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putb8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putb8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbc7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbc8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbi7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbi8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbi8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbi8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbo7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbo8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbo8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putbo8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putr7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putr8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putr8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putr8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putrc7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putrc8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putri7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putri8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putri8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putri8t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putro7t.tfm
+ RELOC/fonts/tfm/adobe/utopia/putro8c.tfm
+ RELOC/fonts/tfm/adobe/utopia/putro8r.tfm
+ RELOC/fonts/tfm/adobe/utopia/putro8t.tfm
+ RELOC/fonts/type1/adobe/utopia/putb8a.pfb
+ RELOC/fonts/type1/adobe/utopia/putbi8a.pfb
+ RELOC/fonts/type1/adobe/utopia/putr8a.pfb
+ RELOC/fonts/type1/adobe/utopia/putri8a.pfb
+ RELOC/fonts/vf/adobe/utopia/putb7t.vf
+ RELOC/fonts/vf/adobe/utopia/putb8c.vf
+ RELOC/fonts/vf/adobe/utopia/putb8t.vf
+ RELOC/fonts/vf/adobe/utopia/putbc7t.vf
+ RELOC/fonts/vf/adobe/utopia/putbc8t.vf
+ RELOC/fonts/vf/adobe/utopia/putbi7t.vf
+ RELOC/fonts/vf/adobe/utopia/putbi8c.vf
+ RELOC/fonts/vf/adobe/utopia/putbi8t.vf
+ RELOC/fonts/vf/adobe/utopia/putbo7t.vf
+ RELOC/fonts/vf/adobe/utopia/putbo8c.vf
+ RELOC/fonts/vf/adobe/utopia/putbo8t.vf
+ RELOC/fonts/vf/adobe/utopia/putr7t.vf
+ RELOC/fonts/vf/adobe/utopia/putr8c.vf
+ RELOC/fonts/vf/adobe/utopia/putr8t.vf
+ RELOC/fonts/vf/adobe/utopia/putrc7t.vf
+ RELOC/fonts/vf/adobe/utopia/putrc8t.vf
+ RELOC/fonts/vf/adobe/utopia/putri7t.vf
+ RELOC/fonts/vf/adobe/utopia/putri8c.vf
+ RELOC/fonts/vf/adobe/utopia/putri8t.vf
+ RELOC/fonts/vf/adobe/utopia/putro7t.vf
+ RELOC/fonts/vf/adobe/utopia/putro8c.vf
+ RELOC/fonts/vf/adobe/utopia/putro8t.vf
+catalogue-ctan /fonts/utopia
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license other-free
+catalogue-topics font font-type1

@@ -1,0 +1,279 @@
+%%
+%% This is file `blowup.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% blowup.dtx  (with options: `blowup.sty,package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from blowup.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file blowup.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{blowup}[2023/07/15 2.2.0 Page scaling (RN)]
+\RequirePackage{keyval,graphics}
+\@ifpackageloaded{typearea}{}{%
+  \newcommand*\BL@save@dimen[1]{%
+    \@ifundefined{BL@#1}{%
+      \expandafter\newlength\csname BL@#1\endcsname}{}%
+    \csname BL@#1\endcsname\csname #1\endcsname
+    \g@addto@macro\BL@restore@dimens{%
+      \csname #1\endcsname\csname BL@#1\endcsname}%
+  }%
+  \newcommand*\BL@restore@dimens{}%
+  \BL@save@dimen{paperwidth}%
+  \BL@save@dimen{paperheight}%
+  \BL@save@dimen{textwidth}%
+  \BL@save@dimen{textheight}%
+  \BL@save@dimen{evensidemargin}%
+  \BL@save@dimen{oddsidemargin}%
+  \BL@save@dimen{topmargin}%
+  \BL@save@dimen{headheight}%
+  \BL@save@dimen{headsep}%
+  \BL@save@dimen{topskip}%
+  \BL@save@dimen{footskip}%
+  \BL@save@dimen{baselineskip}%
+  \let\l@addto@macro=\relax
+  \RequirePackage[pagesize=false]{typearea}%
+  \expandafter\let\csname ver@typearea.sty\endcsname=\relax
+  \BL@restore@dimens
+  \let\BL@save@dimen=\relax
+  \let\BL@restore@dimens=\relax
+}
+\providecommand*\vb@xt@{\vbox to}
+\newlength\tPaperWidth
+\newlength\tPaperHeight
+\newlength\oPaperWidth  \oPaperWidth=\z@
+\newlength\oPaperHeight \oPaperHeight=\z@
+\newcommand*\BL@resize[1]{#1}
+\newcommand*\BL@scalePage{%
+  \setbox\ShipoutBox=\vbox{%
+    \vskip1in\moveright1in\box\ShipoutBox}%
+  \setbox\ShipoutBox=\hb@xt@\paperwidth{%
+    \box\ShipoutBox\hss}%
+  \setbox\ShipoutBox=\vb@xt@\paperheight{%
+    \box\ShipoutBox\vss}%
+  \ifBL@noscale\else
+    \ifdim\oPaperWidth>\z@
+      \setbox\ShipoutBox=\hbox{\resizebox{\oPaperWidth}{\oPaperHeight}%
+        {\box\ShipoutBox}}%
+    \else
+      \def\BL@resize##1{\resizebox{\tPaperWidth}{!}{##1}}%
+      \setbox\@tempboxa=\hbox{\BL@resize{\copy\ShipoutBox}}%
+      \ifdim\ht\@tempboxa>\tPaperHeight
+        \def\BL@resize##1{\resizebox{!}{\tPaperHeight}{##1}}%
+      \fi
+    \fi
+  \fi
+  \setbox\@tempboxa=\vb@xt@\tPaperHeight{%
+    \kern\z@\BL@t
+    \hb@xt@\tPaperWidth{\BL@l\BL@resize{\box\ShipoutBox}\BL@r}%
+    \BL@b\kern\z@
+  }%
+  \ifBL@mirroring
+    \setbox\@tempboxa=\hbox{\scalebox{\BL@h}[\BL@v]{\box\@tempboxa}}%
+  \fi
+  \setbox\ShipoutBox=\vbox{%
+    \vskip-1in\moveright-1in\box\@tempboxa}%
+}
+\newcommand\BL@tempa{}
+\newcommand\BL@tempb{}
+\newcommand*\BL@strip@comma{}
+\def\BL@strip@comma#1,{#1}
+\newcommand*\BL@is@dimen@pair[1]{%
+  \expandafter\BL@@is@dimen@pair#1,\@nil
+}
+\newcommand*\BL@@is@dimen@pair{}
+\def\BL@@is@dimen@pair#1,#2\@nil{%
+  \edef\BL@tempa{#1}\edef\BL@tempb{#2}%
+  \@tempswafalse
+  \ifx\BL@tempb\@empty\else
+    \edef\BL@tempb{\expandafter\BL@strip@comma\BL@tempb}%
+    \ifdimen{\BL@tempa}{%
+      \ifdimen{\BL@tempb}{\@tempswatrue}{}%
+    }{}%
+  \fi
+  \if@tempswa
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+\newcommand*\BL@strip@x{}
+\def\BL@strip@x#1x{#1}
+\newcommand*\BL@is@factor[1]{%
+  \expandafter\BL@@is@factor#1x\@nil
+}
+\newcommand*\BL@@is@factor{}
+\def\BL@@is@factor#1x#2\@nil{%
+  \edef\BL@tempa{#2}%
+  \@tempswafalse
+  \ifx\BL@tempa\@empty\else
+    \edef\BL@tempa{\expandafter\BL@strip@x\BL@tempa}%
+    \ifdimen{\BL@tempa pt}{\@tempswatrue}{}%
+  \fi
+  \if@tempswa
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+\newcommand*\BL@getDimens[3]{%
+  \BL@is@dimen@pair{#1}{%
+    \global#2=\BL@tempa\relax
+    \global#3=\BL@tempb\relax
+  }{%
+    \BL@is@factor{#1}{%
+      \global#2=\BL@tempa\paperwidth
+      \global#3=\BL@tempa\paperheight
+    }{%
+      \begingroup
+        \KOMAoptions{paper=portrait,paper=#1}%
+        \global#2=\paperwidth
+        \global#3=\paperheight
+      \endgroup
+    }%
+  }%
+}
+\define@key{BL@}{origin}{%
+  \BL@getDimens{#1}{\oPaperWidth}{\oPaperHeight}%
+}
+\define@key{BL@}{target}{%
+  \BL@getDimens{#1}{\tPaperWidth}{\tPaperHeight}%
+}
+\newif\ifBL@noscale \BL@noscalefalse
+\newif\ifBL@mirroring \BL@mirroringfalse
+\define@key{BL@}{noscale}[true]{%
+  \global\csname BL@noscale#1\endcsname
+}
+\define@key{BL@}{h-mirroring}[true]{%
+  \global\csname BL@mirroring#1\endcsname
+  \gdef\BL@h{-1}%
+}
+\define@key{BL@}{v-mirroring}[true]{%
+  \global\csname BL@mirroring#1\endcsname
+  \gdef\BL@v{-1}%
+}
+\newcommand*\BL@l{}
+\newcommand*\BL@r{}
+\newcommand*\BL@i{}
+\newcommand*\BL@o{}
+\newcommand*\BL@t{}
+\newcommand*\BL@b{}
+\newcommand*\BL@h{1}
+\newcommand*\BL@v{1}
+\newcommand\BL@setPos[1]{%
+  \def\BL@l{\hss}\def\BL@r{\hss}%
+  \def\BL@o{\hss}\def\BL@i{\hss}%
+  \def\BL@t{\vss}\def\BL@b{\vss}%
+  \BL@is@dimen@pair{#1}{%
+    \edef\BL@b{\vskip\BL@tempb}%
+    \if@twoside
+      \edef\BL@l{\noexpand\ifodd\value{page}%
+        \hskip\BL@tempa\noexpand\else\hss\noexpand\fi}%
+      \edef\BL@r{\noexpand\ifodd\value{page}%
+        \hss\noexpand\else\hskip\BL@tempa\noexpand\fi}%
+    \else
+      \edef\BL@l{\hskip\BL@tempa}%
+    \if
+  }{%
+    \@for\BL@tempa:=#1\do{%
+      \edef\BL@tempb{\expandafter\@car\BL@tempa\@nil}%
+      \expandafter\let\csname BL@\BL@tempb \endcsname\relax
+    }%
+    \if@twoside
+      \ifx\BL@i\relax
+        \def\BL@r{\ifodd\value{page}\hss\else\relax\fi}%
+        \def\BL@l{\ifodd\value{page}\relax\else\hss\fi}%
+      \fi
+      \ifx\BL@o\relax
+        \def\BL@l{\ifodd\value{page}\hss\else\relax\fi}%
+        \def\BL@r{\ifodd\value{page}\relax\else\hss\fi}%
+      \fi
+    \else
+      \let\BL@l=\BL@o
+      \let\BL@r=\BL@i
+    \fi
+  }%
+}
+\define@key{BL@}{pos}{%
+  \BL@setPos{#1}%
+}
+\newif\ifBL@landscape \BL@landscapefalse
+\define@key{BL@}{landscape}[true]{%
+  \csname BL@landscape#1\endcsname
+}
+\newcommand*\BL@setup{}
+\define@key{BL@}{onepage}[true]{%
+  \csname if#1\endcsname
+    \def\BL@setup{\gdef\shipout{\deadcycles\z@\setbox\@tempboxa=}}%
+  \fi
+}
+\newcommand*\blowUp[1]{%
+  \global\tPaperWidth=\paperwidth
+  \global\tPaperHeight=\paperheight
+  \setkeys{BL@}{#1}%
+  \ifBL@landscape
+    \@tempdima=\tPaperWidth
+    \global\tPaperWidth=\tPaperHeight
+    \global\tPaperHeight=\@tempdima
+  \fi
+  \AtBeginDocument{%
+    \AtBeginDvi{\BL@pagesize@code{\tPaperWidth}{\tPaperHeight}}%
+    \AddToHook{shipout}{\BL@setup\BL@scalePage}%
+  }%
+  \gdef\blowUp##1{%
+    \PackageWarning{blowup}{Only the first call of `\string\blowUp'
+      \MessageBreak is effective}}%
+}
+\@onlypreamble\blowUp
+\newcommand*\BL@pagesize@code[2]{}
+\RequirePackage{iftex}
+\ifluatex
+  \PackageInfo{blowup}{Generating code for LuaTeX}%
+  \@ifundefined{pagewidth}{%
+    \def\BL@pagesize@code#1#2{\global\pdfpagewidth=#1 %
+      \global\pdfpageheight=#2}%
+  }{%
+    \def\BL@pagesize@code#1#2{\global\pagewidth=#1 %
+      \global\pageheight=#2}%
+  }
+\else
+  \ifxetex
+    \PackageInfo{blowup}{Generating code for XeTeX}%
+    \def\BL@pagesize@code#1#2{\global\pdfpagewidth=#1 %
+      \global\pdfpageheight=#2}%
+  \else
+    \ifvtex
+      \PackageInfo{blowup}{Generating code for VTeX}%
+      \def\BL@pagesize@code#1#2{\global\mediawidth=#1 %
+        \global\mediaheight=#2}%
+    \else
+      \ifpdf
+        \PackageInfo{blowup}{Generating code for pdfTeX}%
+        \def\BL@pagesize@code#1#2{\global\pdfpagewidth=#1 %
+          \global\pdfpageheight=#2}%
+      \else
+        \PackageInfo{blowup}{Generating code for dvips}%
+        \def\BL@pagesize@code#1#2{%
+          \@tempdima=#1 \@tempdimb=#2 %
+          \special{papersize=\the\@tempdima,\the\@tempdimb}%
+        }%
+      \fi
+    \fi
+  \fi
+\fi
+\endinput
+%%
+%% End of file `blowup.sty'.

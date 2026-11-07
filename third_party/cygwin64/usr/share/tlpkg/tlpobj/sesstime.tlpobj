@@ -1,0 +1,17 @@
+name sesstime
+category Package
+revision 49750
+shortdesc Session and timing information in lecture notes
+relocated 1
+longdesc This LaTeX2e package makes it possible to add timing marks to
+longdesc lecture notes in order to help managing the time available for
+longdesc presenting a given section of the document. It also provides
+longdesc tools to record and estimate the progress throughout the
+longdesc course.
+runfiles size=4
+ RELOC/tex/latex/sesstime/sesstime.sty
+catalogue-ctan /macros/latex/contrib/sesstime
+catalogue-date 2019-01-18 00:03:38 +0100
+catalogue-license lppl1.3
+catalogue-topics teaching
+catalogue-version 1.12

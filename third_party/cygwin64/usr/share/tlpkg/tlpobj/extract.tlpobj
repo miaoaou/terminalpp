@@ -1,0 +1,26 @@
+name extract
+category Package
+revision 52117
+shortdesc Extract parts of a document and write to another document
+relocated 1
+longdesc The package provides the means to extract specific content from
+longdesc a source document and write that to a target document. One
+longdesc could, for instance, use this to extract all exercises from
+longdesc lecture notes and generate an exercises book on the fly. The
+longdesc package also provides an environment which writes its body
+longdesc entirely to the target file. Another environment will write to
+longdesc the target file, but will also execute the body. This allows to
+longdesc share code (for instance, a preamble) between the source
+longdesc document and the target file. Finally, the package provides an
+longdesc interface to conditionally extract content. With a single
+longdesc package option, one can specify exactly which commands (counted
+longdesc from the start of the document) should be extracted and which
+longdesc not. This might be useful for extracting specific slides from a
+longdesc presentation and use them in a new file.
+runfiles size=5
+ RELOC/tex/latex/extract/extract.sty
+catalogue-ctan /macros/latex/contrib/extract
+catalogue-date 2019-09-18 21:11:08 +0200
+catalogue-license lppl1.3
+catalogue-topics editorial
+catalogue-version 1.9a

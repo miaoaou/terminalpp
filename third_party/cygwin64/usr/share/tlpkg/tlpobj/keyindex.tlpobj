@@ -1,0 +1,20 @@
+name keyindex
+category Package
+revision 50828
+shortdesc Index entries by key lookup
+relocated 1
+longdesc The package provides functionality for producing an index
+longdesc without directly entering index entries into the text using the
+longdesc \index command, but instead by looking up short keys and
+longdesc printing a predefined string in the main text and adding a
+longdesc corresponding index entry. The standard use case is the
+longdesc production of an index of names.
+runfiles size=1
+ RELOC/tex/latex/keyindex/keyindex.sty
+catalogue-contact-bugs https://github.com/rzach/keyindex/issues
+catalogue-contact-repository https://github.com/rzach/keyindex
+catalogue-ctan /macros/latex/contrib/keyindex
+catalogue-date 2019-04-06 05:43:19 +0200
+catalogue-license lppl1.3c
+catalogue-topics index
+catalogue-version 1.0

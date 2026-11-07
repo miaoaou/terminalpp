@@ -1,0 +1,14 @@
+name coolfn
+category Package
+revision 69007
+shortdesc Typeset long legal footnotes
+relocated 1
+longdesc This package provides formatting for footnotes in long legal
+longdesc documents, using hanging indents to make them look nicer.
+runfiles size=1
+ RELOC/tex/latex/coolfn/coolfn.sty
+catalogue-contact-repository https://github.com/ezgranet/coolfn
+catalogue-ctan /macros/latex/contrib/coolfn
+catalogue-license lppl1.3c
+catalogue-topics footnote
+catalogue-version 1.2.2

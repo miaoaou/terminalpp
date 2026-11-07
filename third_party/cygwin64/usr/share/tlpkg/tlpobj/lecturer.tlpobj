@@ -1,0 +1,39 @@
+name lecturer
+category Package
+revision 23916
+shortdesc On-screen presentations for (almost) all formats
+relocated 1
+longdesc The package creates slides for on-screen presentations based on
+longdesc PDF features without manipulating TeX's typesetting process.
+longdesc The presentation flow relies on PDF's abilities to display
+longdesc content step by step. Features include: Free positioning of
+longdesc anything anywhere in painted areas on the slide, as well as in
+longdesc the main textblock; Numerous attributes to control the layout
+longdesc and the presentation flow, from TeX's primitive dimensions to
+longdesc the visibility of steps; Feature inheritance from global to
+longdesc local settings, with intermediate types; Basic drawing
+longdesc facilities to produce symbols, e.g., for list items or buttons;
+longdesc Colours, transparency, shades, and pictures; Navigation with
+longdesc links, pop-up menus, and customizable bookmarks; Easy switch
+longdesc between presentation and handout; and PDF transitions. Besides
+longdesc the traditional documentation, the distribution includes visual
+longdesc documentation and six demo presentations ranging from geometric
+longdesc abstraction to classic style to silly video game. Lecturer is
+longdesc designed to work with all formats, but presently fails with
+longdesc ConTeXt MkIV (because of clashes in management of PDF objects,
+longdesc probably), works only with pdfTeX and LuaTeX for the time
+longdesc being, and requires texapi and yax, both v.1.02.
+runfiles size=23
+ RELOC/tex/generic/lecturer/lecturer.sty
+ RELOC/tex/generic/lecturer/lecturer.tex
+ RELOC/tex/generic/lecturer/ltr-areas.tex
+ RELOC/tex/generic/lecturer/ltr-graphics.tex
+ RELOC/tex/generic/lecturer/ltr-job.tex
+ RELOC/tex/generic/lecturer/ltr-navigation.tex
+ RELOC/tex/generic/lecturer/ltr-slides.tex
+ RELOC/tex/generic/lecturer/ltr-steps.tex
+ RELOC/tex/generic/lecturer/t-lecturer.tex
+catalogue-ctan /macros/generic/lecturer
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation

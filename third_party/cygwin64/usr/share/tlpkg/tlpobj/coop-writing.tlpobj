@@ -1,0 +1,33 @@
+name coop-writing
+category Package
+revision 61607
+shortdesc Support for Cooperative Writing and editorial comments
+relocated 1
+longdesc This package for Cooperative Writing supports editorial
+longdesc comments and gives some extra support for writing and
+longdesc submitting papers, such as anonymization commands for any
+longdesc document that involves more than one author or editor. The
+longdesc general behavior of this package is to provide different ways
+longdesc of marking your text, for example with comments or to-do-notes,
+longdesc suggestions to add, remove or change text that can be totally
+longdesc supressed from the output when desired. Mostly, this can be
+longdesc easily done using one of the three main option states: editing,
+longdesc submit, and publish. Users should use the editing state most of
+longdesc the time. In this state, all markings will appear and
+longdesc anonymization will be off. When submitting, the submit state
+longdesc will provide a clean article, without any markings, but
+longdesc anonymized. It is possible to use the options submit and
+longdesc noanonymize together. Publish will never anonymize. The goal is
+longdesc to make the submit and publish documents states minimally
+longdesc invasive, to avoid any clash with publishers' styles. Commands
+longdesc were inspired from different packages that do not work together
+longdesc very well, such as ed, todonotes, and color-edits.
+runfiles size=5
+ RELOC/tex/latex/coop-writing/coop-writing.sty
+catalogue-contact-announce https://github.com/xexeo/coop-writing/discussions/
+catalogue-contact-bugs https://github.com/xexeo/coop-writing/issues
+catalogue-contact-repository https://github.com/xexeo/coop-writing
+catalogue-ctan /macros/latex/contrib/coop-writing
+catalogue-license mit
+catalogue-topics editorial
+catalogue-version 1.2.4

@@ -1,0 +1,25 @@
+name guitlogo
+category Package
+revision 55741
+shortdesc Macros for typesetting the GuIT logo
+relocated 1
+longdesc This package provides some commands useful to correctly write
+longdesc the logo of "Gruppo Utilizzatori Italiani di TeX" (Italian TeX
+longdesc User Group), using the default document color or any other
+longdesc color the user may ever choose, in conformity with the logo's
+longdesc scheme as seen on the group's website https://www.guitex.org.
+longdesc Likewise, commands are provided that simplify the writing of
+longdesc the GuIT acronym's complete expansion, of the addresses of the
+longdesc group's internet site and public forum, and the meeting
+longdesc 'GuITmeeting' and the magazine Ars TeXnica's logo. Optionally,
+longdesc using hyperref, the outputs of the above cited commands can
+longdesc become hyperlinks to the group's website
+longdesc https://www.guitex.org. The Documentation is available in
+longdesc Italian only.
+runfiles size=4
+ RELOC/tex/latex/guitlogo/guit.cfg
+ RELOC/tex/latex/guitlogo/guit.sty
+catalogue-ctan /macros/latex/contrib/GuIT/GuITlogo
+catalogue-license lppl1.3a
+catalogue-topics logo
+catalogue-version 1.0.0-alpha.4

@@ -1,0 +1,25 @@
+name metanorma
+category Package
+revision 55010
+shortdesc Write Metanorma standardization documents using LaTe
+relocated 1
+longdesc metanorma This work includes a LaTeX document class, a
+longdesc `latexml` script and a `latexmlpost` stylesheet which allow you
+longdesc to write a LaTeX document and transcode it into Metanorma's
+longdesc `ADOC` format. This work is sponsored by Ribose Inc.
+longdesc (<https://www.ribose.com>). This work is maintained by Ribose
+longdesc Inc. (<open.source@ribose.com>).
+runfiles size=11
+ RELOC/tex/latex/metanorma/metanorma.cls
+ RELOC/tex/latex/metanorma/metanorma.cls.ltxml
+ RELOC/tex/latex/metanorma/metanorma.xsl
+catalogue-contact-announce https://github.com/metanorma/tex2mn/releases
+catalogue-contact-bugs https://github.com/metanorma/tex2mn/issues
+catalogue-contact-development https://github.com/metanorma/tex2mn
+catalogue-contact-home https://github.com/metanorma/tex2mn
+catalogue-contact-repository https://github.com/metanorma/tex2mn
+catalogue-contact-support https://github.com/metanorma/tex2mn/issues
+catalogue-ctan /macros/latex/contrib/metanorma
+catalogue-license mit
+catalogue-topics class cvt-other format-cvt scientific-docs std-conform scientific-docs
+catalogue-version 0.5.0

@@ -1,0 +1,39 @@
+name expkv-bundle
+category Package
+revision 65623
+shortdesc An expandable key=val implementation and friends
+relocated 1
+longdesc This is a collection of different packages that provide
+longdesc key=value functionality in plainTeX, LaTeX, and ConTeXt. At the
+longdesc core, the expkv package implements two expandable key=value
+longdesc parsers that are somewhat fast and robust against common bugs
+longdesc in many key=value implementations (no accidental brace
+longdesc stripping, no fragility for active commas or equals signs).
+longdesc expkv-cs enables users to define expandable key=value macros in
+longdesc a comfortable and straightforward way. expkv-def provides an
+longdesc interface to define common key types for expkv similar to the
+longdesc key defining interfaces of widespread key=value
+longdesc implementations. expkv-opt allows to parse package or class
+longdesc options in LaTeX via expkv. expkv-pop is a utility package to
+longdesc define prefix oriented parsers that allow a somewhat natural
+longdesc formulation (it provides the core functionality for the
+longdesc key-defining front ends of both expkv-cs and expkv-def).
+runfiles size=45
+ RELOC/tex/context/third/expkv-bundle/t-expkv-cs.tex
+ RELOC/tex/context/third/expkv-bundle/t-expkv-def.tex
+ RELOC/tex/context/third/expkv-bundle/t-expkv-pop.tex
+ RELOC/tex/context/third/expkv-bundle/t-expkv.tex
+ RELOC/tex/generic/expkv-bundle/expkv-cs.tex
+ RELOC/tex/generic/expkv-bundle/expkv-def.tex
+ RELOC/tex/generic/expkv-bundle/expkv-pop.tex
+ RELOC/tex/generic/expkv-bundle/expkv.tex
+ RELOC/tex/latex/expkv-bundle/expkv-cs.sty
+ RELOC/tex/latex/expkv-bundle/expkv-def.sty
+ RELOC/tex/latex/expkv-bundle/expkv-opt-2020-10-10.sty
+ RELOC/tex/latex/expkv-bundle/expkv-opt.sty
+ RELOC/tex/latex/expkv-bundle/expkv-pop.sty
+ RELOC/tex/latex/expkv-bundle/expkv.sty
+catalogue-contact-repository https://gitlab.com/islandoftex/texmf/expkv-bundle
+catalogue-ctan /macros/generic/expkv-bundle
+catalogue-license lppl1.3c
+catalogue-topics keyval macro-supp macro-gen

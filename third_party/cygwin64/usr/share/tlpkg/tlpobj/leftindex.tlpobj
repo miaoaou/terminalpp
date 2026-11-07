@@ -1,0 +1,14 @@
+name leftindex
+category Package
+revision 69660
+shortdesc Left indices with better spacing
+relocated 1
+longdesc This package provides commands for typesetting left indices.
+longdesc Unlike other similar packages, leftindex also indents the left
+longdesc superscript, providing much better spacing in general.
+runfiles size=2
+ RELOC/tex/latex/leftindex/leftindex.sty
+catalogue-ctan /macros/latex/contrib/leftindex
+catalogue-license lppl1.3c
+catalogue-topics subsup-pos maths expl3
+catalogue-version 0.2beta

@@ -1,0 +1,15 @@
+name tikz3d-fr
+category Package
+revision 67774
+shortdesc Work with some 3D figures
+relocated 1
+longdesc This is a package for working with some 3D figures.
+runfiles size=3
+ RELOC/tex/latex/tikz3d-fr/tikz3d-fr.sty
+catalogue-also pst-solides3d
+catalogue-contact-home https://github.com/cpierquet/tikz3dfr
+catalogue-contact-support https://github.com/cpierquet/tikz3dfr/issues
+catalogue-ctan /graphics/pgf/contrib/tikz3d-fr
+catalogue-license lppl1.3c
+catalogue-topics graphics-3d pgf-tikz
+catalogue-version 0.1.2

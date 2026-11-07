@@ -1,0 +1,16 @@
+name centerlastline
+category Package
+revision 56644
+shortdesc Paragraphs with last line centered, known as "Spanish" paragraphs
+relocated 1
+longdesc This LaTeX package provides a command \centerlastline and an
+longdesc environment centerlastline that typeset "Spanish" paragraphs,
+longdesc that is paragraphs without indentation, and last line centered,
+longdesc useful to finish a large paragraph of text at the end of
+longdesc chapters, prologues, etc.
+runfiles size=1
+ RELOC/tex/latex/centerlastline/centerlastline.sty
+catalogue-ctan /macros/latex/contrib/centerlastline
+catalogue-license lppl1.2
+catalogue-topics micro-layout
+catalogue-version 1.0

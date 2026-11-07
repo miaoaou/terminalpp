@@ -1,0 +1,17 @@
+name beamertheme-tcolorbox
+category Package
+revision 67000
+shortdesc A beamer inner theme which reproduces standard beamer blocks using tcolorboxes
+relocated 1
+longdesc This package provides an inner theme for beamer which
+longdesc reproduces standard beamer blocks using tcolorboxes. The look
+longdesc and feel (rounded/sharp corners, shadows and colours) will
+longdesc automatically adapt to which other themes are loaded.
+runfiles size=2
+ RELOC/tex/latex/beamertheme-tcolorbox/beamerinnerthemetcolorbox.sty
+catalogue-contact-repository https://github.com/samcarter/beamertheme-tcolorbox
+catalogue-contact-support https://github.com/samcarter/beamertheme-tcolorbox/issues
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-tcolorbox
+catalogue-license lppl1.3c
+catalogue-topics presentation
+catalogue-version 0.6

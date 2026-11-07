@@ -1,0 +1,11 @@
+name topfloat
+category Package
+revision 19084
+shortdesc Move floats to the top of the page
+relocated 1
+runfiles size=1
+ RELOC/tex/latex/topfloat/topfloat.sty
+catalogue-ctan /macros/latex/contrib/topfloat
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license gpl
+catalogue-topics float

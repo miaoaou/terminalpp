@@ -1,0 +1,13 @@
+name fnbreak
+category Package
+revision 66615
+shortdesc Warn for split footnotes
+relocated 1
+longdesc This package detects footnotes that are split over several
+longdesc pages, and writes a warning to the log file.
+runfiles size=2
+ RELOC/tex/latex/fnbreak/fnbreak.sty
+catalogue-ctan /macros/latex/contrib/fnbreak
+catalogue-license lppl1.3c
+catalogue-topics footnote
+catalogue-version 1.40

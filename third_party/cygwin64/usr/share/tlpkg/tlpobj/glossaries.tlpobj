@@ -1,0 +1,108 @@
+name glossaries
+category Package
+revision 68437
+shortdesc Create glossaries and lists of acronyms
+longdesc The glossaries package supports acronyms and multiple
+longdesc glossaries, and has provision for operation in several
+longdesc languages (using the facilities of either babel or
+longdesc polyglossia). New entries are defined to have a name and
+longdesc description (and optionally an associated symbol). Support for
+longdesc multiple languages is offered, and plural forms of terms may be
+longdesc specified. An additional package, glossaries-accsupp, can make
+longdesc use of the accsupp package mechanisms for accessibility support
+longdesc for PDF files containing glossaries. The user may define new
+longdesc glossary styles, and preambles and postambles can be specified.
+longdesc There is provision for loading a database of terms, but only
+longdesc terms used in the text will be added to the relevant glossary.
+longdesc The package uses an indexing program to provide the actual
+longdesc glossary; either makeindex or xindy may serve this purpose, and
+longdesc a Perl script is provided to serve as interface. This package
+longdesc requires the mfirstuc package. The package supersedes the
+longdesc author's glossary package (which is now obsolete).
+depend amsmath
+depend datatool
+depend etoolbox
+depend glossaries.ARCH
+depend mfirstuc
+depend tracklang
+depend xfor
+depend xkeyval
+runfiles size=481
+ texmf-dist/scripts/glossaries/glossaries.l2h
+ texmf-dist/scripts/glossaries/makeglossaries
+ texmf-dist/scripts/glossaries/makeglossaries-lite.lua
+ texmf-dist/tex/latex/glossaries/base/glossaries-babel.sty
+ texmf-dist/tex/latex/glossaries/base/glossaries-compatible-207.sty
+ texmf-dist/tex/latex/glossaries/base/glossaries-compatible-307.sty
+ texmf-dist/tex/latex/glossaries/base/glossaries-polyglossia.sty
+ texmf-dist/tex/latex/glossaries/base/glossaries-prefix.sty
+ texmf-dist/tex/latex/glossaries/base/glossaries.sty
+ texmf-dist/tex/latex/glossaries/expl/glossaries-accsupp.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-2022-11-03.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-accsupp-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-accsupp-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-babel-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-babel-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-compatible-207-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-compatible-207-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-compatible-307-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-compatible-307-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-polyglossia-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-polyglossia-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-prefix-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossaries-prefix-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-hypernav-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-hypernav-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-hypernav-2022-11-03.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-inline-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-inline-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-list-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-list-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-long-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-long-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-longbooktabs-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-longbooktabs-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-longragged-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-longragged-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-mcols-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-mcols-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-super-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-super-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-superragged-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-superragged-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-tree-2020-03-19.sty
+ texmf-dist/tex/latex/glossaries/rollback/glossary-tree-2021-11-01.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-inline.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-list.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-long.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-longbooktabs.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-longragged.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-mcols.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-superragged.sty
+ texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-acronym-desc.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-acronym.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-acronyms-lang.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-brief.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-childmultipar.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-childnoname.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-cite.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-images.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-long.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-longchild.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-multipar.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-parent.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-symbolnames.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-symbols.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-url.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-user.tex
+ texmf-dist/tex/latex/glossaries/test-entries/example-glossaries-utf8.tex
+catalogue-contact-bugs https://www.dickimaw-books.com/bugtracker.php?category=glossaries
+catalogue-ctan /macros/latex/contrib/glossaries
+catalogue-license lppl1.3
+catalogue-topics glossary acronym
+catalogue-version 4.53

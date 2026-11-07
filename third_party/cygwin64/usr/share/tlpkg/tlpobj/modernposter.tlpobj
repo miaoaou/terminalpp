@@ -1,0 +1,21 @@
+name modernposter
+category Package
+revision 47269
+shortdesc A modern LaTeX poster theme
+relocated 1
+longdesc This class extends the a0poster class in that it adds support
+longdesc to easily create posters without the need for taking care of
+longdesc the layout at all. It allows to use \maketitle to generate a
+longdesc fancy header containing the title information and also provides
+longdesc macros to position various different types of text boxes in a
+longdesc two-column layout. The color scheme is inspired by the
+longdesc metropolis beamer theme.
+runfiles size=2
+ RELOC/tex/latex/modernposter/modernposter.cls
+catalogue-also beamerposter
+catalogue-contact-repository https://github.com/derlerd/modernposter
+catalogue-ctan /macros/latex/contrib/modernposter
+catalogue-date 2018-04-03 21:08:25 +0200
+catalogue-license cc-by-sa-4
+catalogue-topics poster class
+catalogue-version 1.03.1

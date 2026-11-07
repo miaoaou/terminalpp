@@ -1,0 +1,18 @@
+name korigamik
+category Package
+revision 68204
+shortdesc Typeset articles using KorigamiK's document class
+relocated 1
+longdesc The KorigamiK class is used for typesetting documents for
+longdesc university or school projects and lab reports. It is based on
+longdesc the article class with modifications to allow for more flexible
+longdesc front-matter among other small changes.
+runfiles size=2
+ RELOC/tex/latex/korigamik/korigamik.cls
+catalogue-contact-announce https://korigamik.zc.al
+catalogue-contact-bugs https://github.com/KorigamiK/doc-korigamik/issues/
+catalogue-contact-repository https://github.com/KorigamiK/doc-korigamik/
+catalogue-ctan /macros/latex/contrib/korigamik
+catalogue-license gpl3+
+catalogue-topics class doc-templ article-like
+catalogue-version 1.0

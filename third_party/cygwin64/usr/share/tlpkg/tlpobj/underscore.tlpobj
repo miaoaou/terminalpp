@@ -1,0 +1,18 @@
+name underscore
+category Package
+revision 18261
+shortdesc Control the behaviour of "_" in text
+relocated 1
+longdesc With the package, \_ in text mode (i.e., \textunderscore)
+longdesc prints an underscore so that hyphenation of words either side
+longdesc of it is not affected; a package option controls whether an
+longdesc actual hyphenation point appears after the underscore, or
+longdesc merely a break point. The package also arranges that, while in
+longdesc text, '_' itself behaves as \textunderscore (the behaviour of _
+longdesc in maths mode is not affected).
+runfiles size=3
+ RELOC/tex/latex/underscore/underscore.sty
+catalogue-ctan /macros/latex/contrib/underscore
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics typesetting

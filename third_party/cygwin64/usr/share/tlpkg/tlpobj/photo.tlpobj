@@ -1,0 +1,19 @@
+name photo
+category Package
+revision 18739
+shortdesc A float environment for photographs
+relocated 1
+longdesc This package introduces a new float type called photo which
+longdesc works similar to the float types table and figure. Various
+longdesc options exist for placing photos, captions, and a
+longdesc "photographer" line. In twocolumn documents, a possibility
+longdesc exists to generate double-column floats automatically if the
+longdesc photo does not fit into one column. Photos do not have to be
+longdesc placed as floats, they can also be placed as boxes, with
+longdesc captions and photographer line still being available.
+runfiles size=2
+ RELOC/tex/latex/photo/photo.sty
+catalogue-ctan /macros/latex/contrib/photo
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics float

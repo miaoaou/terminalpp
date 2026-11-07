@@ -1,0 +1,21 @@
+name wordcloud
+category Package
+revision 68209
+shortdesc Drawing wordclouds with MetaPost and Lua
+relocated 1
+longdesc This MetaPost and LuaLaTeX package allows drawing wordclouds
+longdesc from a list of words and weights. The algorithm is implemented
+longdesc with MetaPost whereas Lua is used to parse LaTeX commands, to
+longdesc build the list of words and weights from a text file and to
+longdesc generate MetaPost code interpreted by luamplib.
+runfiles size=8
+ RELOC/metapost/wordcloud/wordcloud.mp
+ RELOC/tex/latex/wordcloud/wordcloud.lua
+ RELOC/tex/latex/wordcloud/wordcloud.sty
+catalogue-contact-bugs https://github.com/chupinmaxime/wordcloud/issues
+catalogue-contact-home https://plmlab.math.cnrs.fr/mchupin/wordcloud
+catalogue-contact-repository https://github.com/chupinmaxime/wordcloud
+catalogue-ctan /graphics/metapost/contrib/macros/wordcloud
+catalogue-license lppl1.3c fdl
+catalogue-topics luatex mp-use
+catalogue-version 0.2

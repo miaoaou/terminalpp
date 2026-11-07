@@ -1,0 +1,20 @@
+name scontents
+category Package
+revision 62902
+shortdesc Stores LaTeX contents in memory or files
+relocated 1
+longdesc This package stores valid LaTeX code in memory (sequences)
+longdesc using the l3seq module of expl3. The stored content (including
+longdesc verbatim) can be used as many times as desired in the document,
+longdesc additionally can be written to external files if desired.
+runfiles size=14
+ RELOC/tex/context/third/scontents/t-scontents.mkiv
+ RELOC/tex/generic/scontents/scontents-code.tex
+ RELOC/tex/generic/scontents/scontents.tex
+ RELOC/tex/latex/scontents/scontents.sty
+catalogue-contact-bugs https://github.com/pablgonz/scontents/issues
+catalogue-contact-repository https://github.com/pablgonz/scontents
+catalogue-ctan /macros/latex/contrib/scontents
+catalogue-license lppl1.3c
+catalogue-topics file-mgmt expl3
+catalogue-version 2.0

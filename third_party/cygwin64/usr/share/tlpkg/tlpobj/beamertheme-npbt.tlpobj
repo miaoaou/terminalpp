@@ -1,0 +1,40 @@
+name beamertheme-npbt
+category Package
+revision 54512
+shortdesc A collection of LaTeX beamer themes
+relocated 1
+longdesc "NPBT" stands for "Norman's Pandoc Beamer Themes". Currently
+longdesc the following themes are supported: Sefiroth Consulting: A
+longdesc private (demonstration) theme. FOM: The layout of Hochschule
+longdesc FOM. FOM ifes: The layout of Hochschule FOM, Institut fur
+longdesc Empirie & Statistik. eufom: The layout of eufom.
+runfiles size=404
+ RELOC/tex/latex/beamertheme-npbt/beamercolorthemeNPBT_EUFOM.sty
+ RELOC/tex/latex/beamertheme-npbt/beamercolorthemeNPBT_FOM.sty
+ RELOC/tex/latex/beamertheme-npbt/beamercolorthemeNPBT_FOM_ifes.sty
+ RELOC/tex/latex/beamertheme-npbt/beamercolorthemeNPBT_SC.sty
+ RELOC/tex/latex/beamertheme-npbt/beamerouterthemeNPBT_FOM.sty
+ RELOC/tex/latex/beamertheme-npbt/beamerouterthemeNPBT_FOM_ifes.sty
+ RELOC/tex/latex/beamertheme-npbt/beamerthemeNPBT.sty
+ RELOC/tex/latex/beamertheme-npbt/images/LICENSE.md
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_background.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_frametitlebackground.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_ifes_backgound.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_ifes_frametitlebackgound.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_ifes_linie.pdf
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_ifes_logo.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_linie.pdf
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_FOM_logo.pdf
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_SC_background.jpg
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_SC_logo.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_eufom_backgound.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_eufom_frametitlebackgound.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_eufom_linie.png
+ RELOC/tex/latex/beamertheme-npbt/images/NPBT_eufom_logo.png
+ RELOC/tex/latex/beamertheme-npbt/images/lNPBT_SC_linie.png
+catalogue-contact-bugs https://github.com/NMarkgraf/NPBT/issues
+catalogue-contact-repository https://github.com/NMarkgraf/NPBT
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-npbt
+catalogue-license gpl3 pd
+catalogue-topics presentation
+catalogue-version 4.1

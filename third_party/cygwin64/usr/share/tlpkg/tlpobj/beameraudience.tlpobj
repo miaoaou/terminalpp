@@ -1,0 +1,17 @@
+name beameraudience
+category Package
+revision 23427
+shortdesc Assembling beamer frames according to audience
+relocated 1
+longdesc The Beamer Audience package provides macros to easily assemble
+longdesc frames according to different audiences. It enables to pick up
+longdesc the frames for a specific audience while leaving their order
+longdesc according to a logical structure in the LaTeX source.
+runfiles size=1
+ RELOC/tex/latex/beameraudience/beameraudience.sty
+catalogue-also beamer
+catalogue-ctan /macros/latex/contrib/beamer-contrib/beameraudience
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 0.1

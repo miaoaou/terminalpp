@@ -1,0 +1,21 @@
+name pdfprivacy
+category Package
+revision 45985
+shortdesc A LaTeX package to remove or suppress pdf meta-data
+relocated 1
+longdesc Creating pdfs with pdfLaTeX populates several pdf meta-data
+longdesc fields such as date/time of creation/modification, information
+longdesc about the LaTeX installation (e.g., pdfTeX version), and the
+longdesc relative paths of included pdfs. The pdfprivacy package
+longdesc provides support for emptying several of these pdf meta-data
+longdesc fields as well as suppressing some pdfTeX meta-data entries in
+longdesc the resulting pdf.
+runfiles size=1
+ RELOC/tex/latex/pdfprivacy/pdfprivacy.sty
+catalogue-contact-bugs https://github.com/LaurensS/pdfprivacy/issues
+catalogue-contact-repository https://github.com/LaurensS/pdfprivacy
+catalogue-ctan /macros/latex/contrib/pdfprivacy
+catalogue-date 2017-12-05 05:27:30 +0100
+catalogue-license lppl1.3c
+catalogue-topics pdf-feat pdf-view pdfprocess
+catalogue-version 1.0

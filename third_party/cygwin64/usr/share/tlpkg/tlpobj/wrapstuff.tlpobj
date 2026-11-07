@@ -1,0 +1,18 @@
+name wrapstuff
+category Package
+revision 64058
+shortdesc Wrapping text around stuff
+relocated 1
+longdesc This package provides another implementation of text wrapping.
+longdesc Its implementation benefits from the paragraph hooks available
+longdesc since LaTeX 2021-06-01.
+runfiles size=20
+ RELOC/tex/latex/wrapstuff/wrapstuff.sty
+catalogue-contact-announce https://github.com/qinglee/wrapstuff/releases
+catalogue-contact-bugs https://github.com/qinglee/wrapstuff/issues
+catalogue-contact-repository https://github.com/qinglee/wrapstuff
+catalogue-contact-support https://github.com/qinglee/wrapstuff/discussions
+catalogue-ctan /macros/latex/contrib/wrapstuff
+catalogue-license lppl1.3c
+catalogue-topics text-flow expl3
+catalogue-version 0.3

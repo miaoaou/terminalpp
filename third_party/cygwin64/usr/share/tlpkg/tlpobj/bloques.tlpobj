@@ -1,0 +1,14 @@
+name bloques
+category Package
+revision 22490
+shortdesc Generate control diagrams
+relocated 1
+longdesc The package uses TikZ to provide commands for generating
+longdesc control diagrams (specially in power electronics).
+runfiles size=3
+ RELOC/tex/latex/bloques/bloques.sty
+catalogue-ctan /graphics/pgf/contrib/bloques
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram-ctrl
+catalogue-version 1.0

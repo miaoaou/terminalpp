@@ -1,0 +1,19 @@
+name txgreeks
+category Package
+revision 21839
+shortdesc Shape selection for TX fonts Greek letters
+relocated 1
+longdesc The package allows LaTeX users who use the TX fonts to select
+longdesc the shapes (italic or upright) for the Greek lowercase and
+longdesc uppercase letters. Once the shapes for lowercase and uppercase
+longdesc have been selected via a package option, the \other prefix
+longdesc (e.g., \otheralpha) allows using the alternate glyph (as in the
+longdesc fourier package). The txgreeks package does not constrain the
+longdesc text font that may be used in the document.
+runfiles size=2
+ RELOC/tex/latex/txgreeks/txgreeks.sty
+catalogue-ctan /macros/latex/contrib/txgreeks
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics font-supp
+catalogue-version 1.0

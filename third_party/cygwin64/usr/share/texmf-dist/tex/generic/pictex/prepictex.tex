@@ -1,0 +1,39 @@
+% This is prepictex.tex
+%    Version 1.1 9/10/87. See section 10 of the PiCTeX manual.
+%    Version 1.1b 2021-06-08 extended LaTeX support for picture environment
+%            LaTeX Project (with Michael Wichura's permission for the update)
+%            Support lengths in LaTeX picture mode coordinates in recent LaTeX.
+
+% To use the PiCTeX macros under LaTeX, you first need to \input this
+% file, then the main corpus of PiCTeX macros (pictex.tex), and then
+% the file postpictex.tex. Do not \input the file latexpicobjs.tex.
+
+\catcode`@=11 \catcode`!=11
+
+% First of all, see if  \fiverm  is defined. If so do nothing;
+% if not, let  \fiverm  take on meaning of LaTeX's  \fivrm.
+\expandafter\ifx\csname fiverm\endcsname\relax
+  \let\fiverm\fivrm
+\fi
+  
+% Save meanings of LaTeX keywords that duplicate PiCTeX keywords
+\let\!latexendpicture=\endpicture 
+\let\!latexframe=\frame
+\let\!latexlinethickness=\linethickness
+\let\!latexmultiput=\multiput
+\let\!latexput=\put
+ 
+% Redefine the LaTeX \@picture macro
+% 2021-06-08 Adjust so working for old and new LaTeX releases
+\let\!latex@picture\@picture
+\def\@picture(#1,#2)(#3,#4){%
+  \!latex@picture(#1,#2)(#3,#4)%
+  \let\endpicture=\!latexendpicture
+  \let\frame=\!latexframe
+  \let\linethickness=\!latexlinethickness
+  \let\multiput=\!latexmultiput
+  \let\put=\!latexput
+  \ignorespaces}
+
+
+\catcode`@=12 \catcode`!=12

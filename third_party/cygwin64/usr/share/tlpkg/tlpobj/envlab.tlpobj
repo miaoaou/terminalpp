@@ -1,0 +1,18 @@
+name envlab
+category Package
+revision 61937
+shortdesc Addresses on envelopes or mailing labels
+relocated 1
+longdesc A LaTeX package for producing mailing envelopes and labels,
+longdesc including barcodes and address formatting according to the US
+longdesc Postal Service rules. Redefines the standard \makelabels
+longdesc command of the LaTeX letter documentclass.
+runfiles size=7
+ RELOC/tex/latex/envlab/envlab.cfg
+ RELOC/tex/latex/envlab/envlab.sty
+catalogue-also akletter dinbrief formlett
+catalogue-contact-home http://borisv.lk.net
+catalogue-ctan /macros/latex/contrib/envlab
+catalogue-license lppl
+catalogue-topics letter barcode class
+catalogue-version 1.2

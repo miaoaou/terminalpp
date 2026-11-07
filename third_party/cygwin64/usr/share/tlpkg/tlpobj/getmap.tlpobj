@@ -1,0 +1,23 @@
+name getmap
+category Package
+revision 50589
+shortdesc Download OpenStreetMap maps for use in documents
+longdesc The package provides a simple interface to OpenStreetMap, and
+longdesc to Google Maps "map images". In the simplest case, it is
+longdesc sufficient to specify the address you need (if you don't, the
+longdesc package will use its own default). The package loads the map
+longdesc image using an external lua script (invoked via \write 18:
+longdesc LaTeX must be running with \write 18 enabled). The ("external")
+longdesc lua script may be used from the command line; a bash version is
+longdesc provided.
+depend getmap.ARCH
+runfiles size=10
+ texmf-dist/scripts/getmap/getmapdl.lua
+ texmf-dist/tex/latex/getmap/getmap.cfg
+ texmf-dist/tex/latex/getmap/getmap.sty
+catalogue-contact-home http://getmap.jklatex.de/
+catalogue-ctan /macros/latex/contrib/getmap
+catalogue-date 2019-03-25 15:25:51 +0100
+catalogue-license lppl
+catalogue-topics cartography
+catalogue-version 1.11

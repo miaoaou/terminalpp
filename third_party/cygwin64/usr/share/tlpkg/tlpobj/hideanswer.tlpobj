@@ -1,0 +1,15 @@
+name hideanswer
+category Package
+revision 63852
+shortdesc Generate documents with and without answers by toggling a switch
+relocated 1
+longdesc This package can generate documents with and without answers
+longdesc from a single file by toggling a switch. However, it can only
+longdesc be used to create documents to be printed on paper.
+runfiles size=1
+ RELOC/tex/latex/hideanswer/hideanswer.sty
+catalogue-contact-home https://www.metaphysica.info/technote/package_hideanswer/
+catalogue-ctan /macros/latex/contrib/hideanswer
+catalogue-license mit
+catalogue-topics cond-comp exam
+catalogue-version 1.1

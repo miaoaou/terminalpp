@@ -1,0 +1,22 @@
+name mercatormap
+category Package
+revision 56060
+shortdesc Spherical Mercator coordinate systems and Web Mercator tile integration
+relocated 1
+longdesc This package extends TikZ with tools to create map graphics.
+longdesc The provided coordinate system relies on the Web Mercator
+longdesc projection used on the Web by OpenStreetMap and others. The
+longdesc package supports the seamless integration of graphics from
+longdesc public map tile servers by a Python script. Also, common map
+longdesc elements like markers, geodetic networks, bar scales, routes,
+longdesc orthodrome pieces, and more are part of the package.
+runfiles size=30
+ RELOC/tex/latex/mercatormap/mercatormap.sty
+ RELOC/tex/latex/mercatormap/mercatorpy.def
+ RELOC/tex/latex/mercatormap/mercatorsupplier.def
+catalogue-contact-bugs https://github.com/T-F-S/mercatormap/issues
+catalogue-contact-home https://github.com/T-F-S/mercatormap
+catalogue-ctan /macros/latex/contrib/mercatormap
+catalogue-license lppl1.3
+catalogue-topics cartography pgf-tikz graphics expl3
+catalogue-version 1.02

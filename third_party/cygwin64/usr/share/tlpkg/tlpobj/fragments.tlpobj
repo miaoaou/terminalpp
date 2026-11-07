@@ -1,0 +1,22 @@
+name fragments
+category Package
+revision 15878
+shortdesc Fragments of LaTeX code
+relocated 1
+longdesc A collection of fragments of LaTeX code, suitable for inclusion
+longdesc in packages, or (possibly) in users' documents. Included are:
+longdesc checklab, for modifying the label checking code at
+longdesc \end{document}; overrightarrow, defining a doubled over-arrow
+longdesc macro; removefr, for removing 'reset' relations between
+longdesc counters; and subscript, defining a \textsubscript command.
+runfiles size=4
+ RELOC/tex/latex/fragments/checklab.tex
+ RELOC/tex/latex/fragments/overrightarrow.sty
+ RELOC/tex/latex/fragments/removefr.tex
+ RELOC/tex/latex/fragments/subscript.sty
+catalogue-contact-repository https://github.com/rf-latex/fragments
+catalogue-contact-support https://github.com/rf-latex/fragments/issues
+catalogue-ctan /macros/latex/contrib/fragments
+catalogue-date 2018-09-13 20:21:43 +0200
+catalogue-license collection
+catalogue-topics collection

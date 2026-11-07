@@ -1,0 +1,14 @@
+name hhtensor
+category Package
+revision 54080
+shortdesc Print vectors, matrices, and tensors
+relocated 1
+longdesc This package provides commands for vectors, matrices, and
+longdesc tensors with different styles -- arrows (as the LaTeX default),
+longdesc underlined, and bold.
+runfiles size=1
+ RELOC/tex/latex/hhtensor/hhtensor.sty
+catalogue-ctan /macros/latex/contrib/hhtensor
+catalogue-license lppl
+catalogue-topics maths
+catalogue-version 0.61

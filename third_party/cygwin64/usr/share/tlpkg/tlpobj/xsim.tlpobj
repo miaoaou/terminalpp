@@ -1,0 +1,19 @@
+name xsim
+category Package
+revision 61988
+shortdesc eXercise Sheets IMproved
+relocated 1
+longdesc This package helps in creating exercises and the corresponding
+longdesc solutions. It is the official successor of the exsheets package
+longdesc and fixes/improves various long-standing issues.
+runfiles size=57
+ RELOC/tex/latex/xsim/xsim-manual.cls
+ RELOC/tex/latex/xsim/xsim.sty
+ RELOC/tex/latex/xsim/xsim.style.layouts.code.tex
+ RELOC/tex/latex/xsim/xsimverb.sty
+catalogue-contact-bugs https://github.com/cgnieder/xsim/issues
+catalogue-contact-repository https://github.com/cgnieder/xsim/
+catalogue-ctan /macros/latex/contrib/xsim
+catalogue-license lppl1.3c
+catalogue-topics exercise exam expl3
+catalogue-version 0.21

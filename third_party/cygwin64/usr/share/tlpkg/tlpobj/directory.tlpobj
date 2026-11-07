@@ -1,0 +1,27 @@
+name directory
+category Package
+revision 15878
+shortdesc An address book using BibTeX
+relocated 1
+longdesc A package for LaTeX and BibTeX that facilitates the
+longdesc construction, maintenance and exploitation of an address
+longdesc book-like database.
+runfiles size=33
+ RELOC/bibtex/bib/directory/business.bib
+ RELOC/bibtex/bib/directory/family.bib
+ RELOC/bibtex/bst/directory/address-html.bst
+ RELOC/bibtex/bst/directory/address-ldif.bst
+ RELOC/bibtex/bst/directory/address-vcard.bst
+ RELOC/bibtex/bst/directory/address.bst
+ RELOC/bibtex/bst/directory/birthday.bst
+ RELOC/bibtex/bst/directory/email-html.bst
+ RELOC/bibtex/bst/directory/email.bst
+ RELOC/bibtex/bst/directory/letter.bst
+ RELOC/bibtex/bst/directory/phone.bst
+ RELOC/tex/latex/directory/directory.sty
+catalogue-contact-home http://geuz.org/directory
+catalogue-ctan /biblio/bibtex/contrib/directory
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl
+catalogue-topics addr-list
+catalogue-version 1.20

@@ -1,0 +1,17 @@
+name clicks
+category Package
+revision 64602
+shortdesc Slide Deck Animation
+relocated 1
+longdesc With the help of this package you can simulate animation in
+longdesc your slide deck, making it look similar to what PowerPoint can
+longdesc do.
+depend etoolbox
+depend xkeyval
+runfiles size=1
+ RELOC/tex/latex/clicks/clicks.sty
+catalogue-contact-repository https://github.com/yegor256/clicks
+catalogue-ctan /macros/latex/contrib/clicks
+catalogue-license mit
+catalogue-topics emulation layout presentation
+catalogue-version 0.4.1

@@ -1,0 +1,18 @@
+name dprogress
+category Package
+revision 15878
+shortdesc LaTeX-relevant log information for debugging
+relocated 1
+longdesc The package logs LaTeX's progress through the file, making the
+longdesc LaTeX output more verbose. This helps to make LaTeX debugging
+longdesc easier, as it is simpler to find where exactly LaTeX failed.
+longdesc The package outputs the typesetting of section, subsection and
+longdesc subsubsection headers and (if amsmath is loaded) details of the
+longdesc align environment.
+runfiles size=2
+ RELOC/tex/latex/dprogress/dprogress.sty
+catalogue-ctan /macros/latex/contrib/dprogress
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-debug
+catalogue-version 0.1

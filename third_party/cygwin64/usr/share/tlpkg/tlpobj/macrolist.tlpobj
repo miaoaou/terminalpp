@@ -1,0 +1,19 @@
+name macrolist
+category Package
+revision 60139
+shortdesc List operations for LaTeX2e
+relocated 1
+longdesc This package provides a list data structure and common list
+longdesc functions such as \macrolistadd, \macrolistremove,
+longdesc \macrolistforeach, as well as \macrolistremovelast (similar to
+longdesc C++'s pop_back) and \macrolistjoin (similar to Javascript's
+longdesc arr.join). Unlike most programming languages, the lists in this
+longdesc package are 1-indexed, meaning the first element is numbered 1,
+longdesc the second element numbered 2, and so on.
+runfiles size=3
+ RELOC/tex/latex/macrolist/macrolist.sty
+catalogue-contact-repository https://github.com/chennisden/macrolist
+catalogue-ctan /macros/latex/contrib/macrolist
+catalogue-license lppl1.3
+catalogue-topics list macro-supp
+catalogue-version 2.1.0

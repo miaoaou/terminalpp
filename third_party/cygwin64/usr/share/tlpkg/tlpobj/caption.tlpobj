@@ -1,0 +1,50 @@
+name caption
+category Package
+revision 68425
+shortdesc Customising captions in floating environments
+relocated 1
+longdesc The caption package provides many ways to customise the
+longdesc captions in floating environments like figure and table, and
+longdesc cooperates with many other packages. Facilities include
+longdesc rotating captions, sideways captions, continued captions (for
+longdesc tables or figures that come in several parts). A list of
+longdesc compatibility notes, for other packages, is provided in the
+longdesc documentation. The package also provides the "caption outside
+longdesc float" facility, in the same way that simpler packages like
+longdesc capt-of do. The package supersedes caption2.
+runfiles size=235
+ RELOC/tex/latex/caption/bicaption.sty
+ RELOC/tex/latex/caption/caption-ams-smf.sto
+ RELOC/tex/latex/caption/caption-beamer.sto
+ RELOC/tex/latex/caption/caption-elsarticle.sto
+ RELOC/tex/latex/caption/caption-koma.sto
+ RELOC/tex/latex/caption/caption-light.sty
+ RELOC/tex/latex/caption/caption-memoir.sto
+ RELOC/tex/latex/caption/caption-ntg.sto
+ RELOC/tex/latex/caption/caption-thesis.sto
+ RELOC/tex/latex/caption/caption.sty
+ RELOC/tex/latex/caption/caption2.sty
+ RELOC/tex/latex/caption/caption2_1995-10-09.sty
+ RELOC/tex/latex/caption/caption2_2005-10-03.sty
+ RELOC/tex/latex/caption/caption3.sty
+ RELOC/tex/latex/caption/caption3_2007-04-11.sty
+ RELOC/tex/latex/caption/caption3_2010-01-14.sty
+ RELOC/tex/latex/caption/caption3_2011-11-01.sty
+ RELOC/tex/latex/caption/caption3_2019-09-01.sty
+ RELOC/tex/latex/caption/caption3_2020-07-29.sty
+ RELOC/tex/latex/caption/caption3_2020-10-26.sty
+ RELOC/tex/latex/caption/caption_1995-04-05.sty
+ RELOC/tex/latex/caption/caption_2007-04-16.sty
+ RELOC/tex/latex/caption/caption_2010-01-09.sty
+ RELOC/tex/latex/caption/caption_2011-11-10.sty
+ RELOC/tex/latex/caption/caption_2019-09-01.sty
+ RELOC/tex/latex/caption/caption_2020-07-29.sty
+ RELOC/tex/latex/caption/caption_2020-10-26.sty
+ RELOC/tex/latex/caption/ltcaption.sty
+ RELOC/tex/latex/caption/subcaption.sty
+catalogue-also subcaption bicaption
+catalogue-contact-bugs https://gitlab.com/axelsommerfeldt/caption/-/issues
+catalogue-contact-repository https://gitlab.com/axelsommerfeldt/caption
+catalogue-ctan /macros/latex/contrib/caption
+catalogue-license lppl1.3
+catalogue-topics caption float

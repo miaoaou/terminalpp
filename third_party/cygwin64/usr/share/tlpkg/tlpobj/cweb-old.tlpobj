@@ -1,0 +1,12 @@
+name cweb-old
+category Package
+revision 49271
+relocated 1
+runfiles size=16
+ RELOC/tex/plain/cweb-old/README
+ RELOC/tex/plain/cweb-old/pdfXcwebmac.tex
+ RELOC/tex/plain/cweb-old/pdfcwebmac.tex
+ RELOC/tex/plain/cweb-old/pdfdcwebmac.tex
+ RELOC/tex/plain/cweb-old/pdffcwebmac.tex
+ RELOC/tex/plain/cweb-old/pdficwebmac.tex
+ RELOC/tex/plain/cweb-old/pdfwebmac.tex

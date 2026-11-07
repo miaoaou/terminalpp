@@ -1,0 +1,16 @@
+name hlist
+category Package
+revision 44983
+shortdesc Horizontal and columned lists
+relocated 1
+longdesc This plain TeX and LaTeX package provides the "hlist"
+longdesc environment in which \hitem starts a horizontal and columned
+longdesc item. It depends upon the simplekv package.
+runfiles size=9
+ RELOC/tex/generic/hlist/hlist.sty
+ RELOC/tex/generic/hlist/hlist.tex
+catalogue-ctan /macros/generic/hlist
+catalogue-date 2017-08-08 20:25:45 +0200
+catalogue-license lppl1.3c
+catalogue-topics list-supp table list
+catalogue-version 0.11

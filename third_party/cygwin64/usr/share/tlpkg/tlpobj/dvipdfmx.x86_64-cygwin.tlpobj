@@ -1,0 +1,11 @@
+name dvipdfmx.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of dvipdfmx
+binfiles arch=x86_64-cygwin size=249
+ bin/x86_64-cygwin/dvipdfm
+ bin/x86_64-cygwin/dvipdfmx
+ bin/x86_64-cygwin/dvipdft
+ bin/x86_64-cygwin/ebb
+ bin/x86_64-cygwin/extractbb
+ bin/x86_64-cygwin/xdvipdfmx.exe

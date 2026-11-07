@@ -1,0 +1,16 @@
+name lambdax
+category Package
+revision 60278
+shortdesc Use Lambda expression within LaTeX
+relocated 1
+longdesc This package provides Lambda expressions. It is an interface to
+longdesc specify the parameters and replacement code of a
+longdesc document-command, and then to evaluate it with compatible
+longdesc arguments. Optionally, it can be used recursively.
+runfiles size=2
+ RELOC/tex/latex/lambdax/lambdax.sty
+catalogue-contact-repository https://github.com/rogard/lambdax
+catalogue-ctan /macros/latex/contrib/lambdax
+catalogue-license lppl1.3c
+catalogue-topics macro-supp macro-def
+catalogue-version 1.1

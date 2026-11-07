@@ -1,0 +1,20 @@
+name schedule
+category Package
+revision 51805
+shortdesc Weekly schedules
+relocated 1
+longdesc Automatically format weekly schedules using LaTeX's picture
+longdesc environment. It requires the packages calc and color. Its main
+longdesc feature is the accuracy with which appointments are
+longdesc represented: boxes drawn to represent a particular appointment
+longdesc are accurate to the minute -- i.e., a 31-minute appointment
+longdesc will have a box 1/30th longer than a 30-minute appointment. A
+longdesc number of features are included to allow the user to customize
+longdesc the output.
+runfiles size=6
+ RELOC/tex/latex/schedule/schedule.sty
+catalogue-ctan /macros/latex/contrib/schedule
+catalogue-date 2019-08-01 21:36:05 +0200
+catalogue-license lppl1.3c
+catalogue-topics planning timetable
+catalogue-version 1.20

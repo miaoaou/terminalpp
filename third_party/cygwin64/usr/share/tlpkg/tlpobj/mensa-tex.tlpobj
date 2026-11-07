@@ -1,0 +1,23 @@
+name mensa-tex
+category Package
+revision 45997
+shortdesc Typeset simple school cafeteria menus
+relocated 1
+longdesc This package provides a flexible LaTeX2e class for typesetting
+longdesc school cafeteria menus consisting of two lunches (with
+longdesc dessert), and dinner. It supports two different layouts: The
+longdesc first layout is optimized for printing the menu on A4 paper.
+longdesc The second layout is optimized for smartphone screens and uses
+longdesc one (A6 sized) page per day. Supported localizations are
+longdesc English (GB/US) and German. A way of defining additional
+longdesc localizations is described in the documentation. The package
+longdesc requires array, colortbl, datetime2, datetime2-calc, geometry,
+longdesc graphicx, lmodern, textcomp, and xcolor.
+runfiles size=4
+ RELOC/tex/latex/mensa-tex/mensa-tex.cls
+catalogue-contact-bugs https://github.com/sfr682k/mensa-tex/issues
+catalogue-contact-repository https://github.com/sfr682k/mensa-tex
+catalogue-ctan /macros/latex/contrib/mensa-tex
+catalogue-date 2017-12-05 22:30:21 +0100
+catalogue-license lppl1.3c
+catalogue-topics class cooking

@@ -1,0 +1,4128 @@
+% Author     : Christophe Poulain
+% licence    : Released under the LaTeX Project Public License v1.3c
+% or later, see http://www.latex-project.org/lppl.txtf
+\NeedsTeXFormat{LaTeX2e}%
+\def\filedate{2024/03/06}%
+\let\PfMfiledate\filedate%
+\def\fileversion{0.88}%
+\let\PfMfileversion\fileversion%
+\ProvidesPackage{ProfMaquette}[\filedate\space v\fileversion\space Maquettage de documents]%
+
+% packages nécessaires
+\RequirePackage{verbatim}%
+
+\RequirePackage{calc}%
+
+\RequirePackage{xlop}%
+
+\RequirePackage{varwidth}%
+
+\RequirePackage{tcolorbox}%
+\tcbuselibrary{breakable,external,fitting,hooks,magazine,poster,raster,skins,theorems,listings,listingsutf8}%
+
+\RequirePackage{xinttools}%
+
+\RequirePackage{listofitems}%
+\RequirePackage{array}%
+\RequirePackage{datatool}%
+
+\RequirePackage{modulus}%
+
+% mettre un option Dys
+\RequirePackage{ragged2e}%
+
+\makeatletter
+\gdef\PfMFontSize{\@ptsize}
+\makeatother
+%définition des clés
+\RequirePackage{simplekv}%
+\setKVdefault[Boulot]{Dys=false,Taille=14,Cours=false,Base=false,BaseHTML=false,CAN=false,Fiche=false,DM=false,DS=false,IE=false,Kholle=false,RecapBrevet=false,PdT=false,Parcours=false,Contrat=false,FdR=false,ParcoursPerso=false,CorrigeApres=false,CorrigeFin=false,CorrigeAll=false,Brevet=false,BaremeComplet=false,BaremeGlobal=false,CorrectionColonnes=false,Epaisseur=0pt,AllDirect=false,AllPouce=false,VersSolution=false}%Les deux derniers pour essayer de mettre tous les exercices d'un même fichier en mode Reponse, en mode Indice. Pas implanté, pas testé
+\defKV[Boulot]{Colonnes=\setKV[Boulot]{CorrectionColonnes}}%
+\setKVdefault[Cours]{Couleur=Crimson,Theme=Trace écrite,NomExercice=Exercice}%
+\setKVdefault[DM]{Numero=1,Date=\today,Classe={},Niveau=3,Code=\jobname}%
+\setKVdefault[DS]{Numero=1,Date=\today,Classe={},Niveau=3,Code=\jobname,Calculatrice=false,Sujet=A}%
+\setKVdefault[Fiche]{Theme=Les nombres décimaux,Date=\today,Niveau=6,Classe={},Code={},NomExercice=Exercice}%
+\setKVdefault[PdT]{Theme=Les nombres décimaux,Date=\today,Niveau=6,Classe={},Code={},NomExercice=Exercice}%
+\setKVdefault[FdR]{Theme=Les nombres décimaux,Date=\today,Niveau=6,Classe={},Code={},NomExercice=Exercice}%
+\setKVdefault[Parcours]{Theme=Les nombres décimaux,Date=\today,Niveau=6,Classe={},Code={},NomExercice=Exercice,Vertical=false}%
+\setKVdefault[Contrat]{Theme=Les nombres décimaux,Date=\today,Niveau=6,Classe={},Code={},NomExercice=Exercice}%
+\setKVdefault[ParcoursPerso]{Fichier={}}%
+\setKVdefault[IE]{Nom=\'Evaluation,Sujets=false,Theme={},Numero=1,Date=\today,Classe={},Niveau=3,Code=\jobname,Calculatrice=false}%
+\defKV[IE]{Sujet=\setKV[IE]{Sujets}}%
+\setKVdefault[RecapBrevet]{Theme=Les nombres décimaux,Date=\today,Code={},NomExercice=Exercice}%
+\setKVdefault[Kholle]{Sujet=1,Numero=1,Date=15,Niveau=TSI-1,Code=\jobname,Lieu=Lycée
+  du Hainaut (Valenciennes),NomEleve=Albert Einstein,CR=false}%
+\setKVdefault[CAN]{Date=\today,Niveau=6,Duree=9,CoefQ=0.4,CoefR=0.35,CoefJ=0.1}%
+\setKVdefault[ClesExercices]{NbQuestions=1,PasTitre=false,AffichageSource=false,BaremeTotal,BaremeDetaille=false,MotPoint=point,AffichageTitre=false,Calculatrice=true,Oral=false,Difficulte=0,AffichageCompetence=false,PasCorrige=false,Direct=false,Pouce=false,Parcours=false,Contrat=false,FdR=false,Routes=false,Stops=false,Background=white,Cadre=gray!50,Numerote,Ligne=false,Cadres=false,TitreSol=false,NonUtilise=false,Profile=false}%
+\defKV[ClesExercices]{TitreSolution=\setKV[ClesExercices]{TitreSol}}%
+\defKV[ClesExercices]{Source=\setKV[ClesExercices]{AffichageSource}}%
+\defKV[ClesExercices]{Titre=\setKV[ClesExercices]{AffichageTitre}}%
+\defKV[ClesExercices]{Competence=\setKV[ClesExercices]{AffichageCompetence}}%
+\defKV[ClesExercices]{Trajet=\setKV[ClesExercices]{Parcours}}%
+\defKV[ClesExercices]{Confiance=\setKV[ClesExercices]{Contrat}}%
+\defKV[ClesExercices]{Route=\setKV[ClesExercices]{Routes}}%
+\defKV[ClesExercices]{Stop=\setKV[ClesExercices]{Stops}}%
+\defKV[ClesExercices]{Lignes=\setKV[ClesExercices]{Ligne}}%
+\defKV[ClesExercices]{Encart=\setKV[ClesExercices]{Cadres}}%
+\def\PfMTexteEncart{Indique ton travail ci-dessous.}%
+\setKVdefault[SchemaParcours]{Colonnes=100,Rayon=2.5mm,Largeur=7.5mm,Couleur=LightSteelBlue,Csv=false}%
+\setKVdefault[SchemaContrat]{Ecart=7mm,Rayon=2.5mm}%
+\setKVdefault[SchemaFdR]{Ecart=7mm,Colonnes=100,Rayon=2.5mm,Largeur=7.5mm,Couleur=LightSteelBlue,Csv=false}%
+% Sucres
+\makeatletter%
+\NewDocumentCommand\PfMDotfill{}{%
+\leavevmode%
+\cleaders\hb@xt@.44em{\hss\xleaders\hrule width0.33em\hss}\hfill%
+\kern\z@}%
+
+%\makeatother%
+%
+\NewDocumentCommand\PfMpointilles{o}{%
+  \IfNoValueTF{#1}{\PfMDotfill}{\makebox[#1]{\PfMDotfill}}%
+}%
+%
+\NewDocumentCommand\PfMLignespointilles{m}{%
+  \xintifboolexpr{\fpeval{#1}>1}{%
+    \xintFor* ##1 in {\xintSeq {1}{\fpeval{#1}}}\do{%
+      \PfMpointilles\par%
+    }%
+  }{}%
+}%
+% Definition de longueurs
+\newlength\PfMLargeurSchemaParcours%
+\newlength\PfMRayonSchemaParcours%
+\newlength\PfMLargeurSchemaContrat%
+\newlength\PfMRayonSchemaContrat%
+\newlength\PfMLargeurSchemaFdR%
+\newlength\PfMRayonSchemaFdR%
+\newlength\PfMHauteurAppreciation%
+\newlength\PfMHauteurRemarque%
+\newlength\PfMLargeurQuestion%
+\newlength\PfMLargeurReponse%
+\newlength\PfMLargeurJury%
+\newlength\PfMEspaceAvantLignes%
+\newlength\PfMEspaceApresLignes%
+\newlength\PfMLargeurComp
+\newlength\CRRHauteur
+\setlength{\CRRHauteur}{10cm}
+\setlength{\PfMHauteurAppreciation}{5cm}%
+\setlength{\PfMHauteurRemarque}{5cm}%
+\setlength{\PfMEspaceAvantLignes}{1em}
+\setlength{\PfMEspaceApresLignes}{1em}
+% définition des compteurs
+\newcounter{PfMMaquette}%Pour compter le nombres de "travaux"
+\setcounter{PfMMaquette}{0}%
+\newcounter{PfMSection}%Pour le barème et ne pas faire obstruction à section
+\setcounter{PfMSection}{0}%
+\newcounter{PfMExo}[PfMMaquette]%Numéro des exercices
+\setcounter{PfMExo}{0}%
+\newcounter{PfMExoSol}%Pour repérer les valeurs aléatoires construites automatiquement dans la solution
+\setcounter{PfMExoSol}{0}%
+\newcounter{PfMCorrigeParcoursPerso}%affichage des solutions ou pas dans le cadre d'un parcours perso
+\setcounter{PfMCorrigeParcoursPerso}{0}%
+\newcounter{PfMSOS}%Numéro des SOS dans les parcours fléchés
+\setcounter{PfMSOS}{0}%
+\newcounter{PfMAlea}%Pour repérer les valeurs aléatoires construites automatiquement
+\setcounter{PfMAlea}{0}%
+\newcounter{RetiensSol}%Pour l'affichage des solutions
+\newcounter{RetiensRep}%Pour l'affichage des reponses.
+\newcounter{RetiensInd}%Pour l'affichage des indices.
+\setcounter{RetiensSol}{0}%
+\setcounter{RetiensRep}{0}%
+\setcounter{RetiensInd}{0}%
+\newcounter{PfMNbLogo}%Pour décaler les logos sur la ligne haute de tcolorbox
+\setcounter{PfMNbLogo}{0}%
+\newcount\Orientation%Pour le schéma des parcours
+\newcounter{PfMCNNumQ}%
+
+\newcounter{Nbcolonnes}
+
+\newif\ifPfMDeuxColonnes
+\newif\ifPfMRectoVerso
+\makeatletter
+\if@twocolumn
+  \PfMDeuxColonnestrue
+  \setcounter{Nbcolonnes}{2}
+\else
+  \PfMDeuxColonnesfalse
+  \setcounter{Nbcolonnes}{4}
+\fi
+\if@twoside
+  \PfMRectoVersotrue
+\else
+  \PfMRectoVersofalse
+\fi
+\makeatother
+
+% couleurs
+\colorlet{PfMColCpt}{gray!50}%
+\colorlet{PfMColSrc}{gray!50}%
+\colorlet{PfMCadreEncart}{gray!50}
+\colorlet{PfMCadreDM}{gray!85}%
+\colorlet{PfMCadreParcours}{gray!50}%
+\colorlet{PfMCadreContrat}{gray!50}%
+\colorlet{PfMColbackFdR}{white}%
+\colorlet{PfMCadreFdR}{gray!50}%
+\colorlet{PfMFondEncart}{white}%
+% Définitions de commandes
+\newcommand\PfMIENom{\dotfill}%
+\newcommand\PfMIEPrenom{\dotfill}%
+\newcommand\PfMIEClasse{\dotfill}%
+\newcommand\PfMCompNA{NA}%
+\newcommand\PfMCompECA{ECA}%
+\newcommand\PfMCompA{A}%
+
+\NewDocumentCommand\TournerPage{O{\faShare}}{%
+  \par\vfill\par\hfill{\em Tourner la page #1}\clearpage
+}%
+
+\tcbset{%
+  consignes/.style={
+    empty,
+    right=0pt,
+    left=0mm,
+    top=0pt,
+    bottom=0pt,
+    frame engine=path,
+    colframe=Crimson!10,
+    notitle,
+    sharp corners=west,
+    borderline west={3pt}{0pt}{Crimson!50}
+  }
+}
+
+\NewDocumentEnvironment{Consignes}{+b}{%
+  \ifboolKV[Boulot]{CAN}{}{%
+  \begin{tcolorbox}[consignes]%
+    \small\sffamily #1
+  \end{tcolorbox}%
+  }%
+}{}%
+
+%% Option french pour les mathématiques
+% By CT
+\NewDocumentCommand\TypoMathFrance{}{%
+  \unless\ifdefined\countletters\newcount\countletters\fi
+  \countletters=`A
+  \loop
+  \unless\ifnum\countletters>`Z
+    \begingroup\lccode`!=\countletters
+    \lowercase{\endgroup\DeclareMathSymbol{!}{\mathalpha}{operators}{`!}}%
+    \advance\countletters 1
+    \repeat
+}%
+
+%% Gestion de l'affichage ou pas des item (Pour élèves PAP) par exemple
+% Code by egreg : https://tex.stackexchange.com/questions/627250/hide-specific-item-in-a-list
+\ExplSyntaxOn
+
+\NewDocumentCommand{\cacheitem}{}
+ {
+  \PfMitem_hide:
+ }
+
+\NewDocumentCommand{\PfMhideitems}{}
+ {
+  \bool_set_true:N \l_PfMitem_hide_bool
+ }
+\NewDocumentCommand{\PfMshowitems}{}
+ {
+  \bool_set_false:N \l_PfMitem_hide_bool
+ }
+
+\bool_new:N \l_PfMitem_hide_bool
+
+\cs_new_protected:Nn \PfMitem_hide:
+ {
+  \bool_if:NT \l_PfMitem_hide_bool
+   {
+    \peek_regex_replace_once:nn
+     % search \item followed by anything until finding
+     % \item or \hideit or \end{<current environment>}
+     { \c{item}.*?(\c{item}|\c{cacheitem}|\c{end}\{\u{@currenvir}\}) }
+     % replace by the matching item
+     { \1 }
+   }
+ }
+
+\ExplSyntaxOff
+
+\definecolor{SLCP}{HTML}{00B51A}%
+\colorlet{Evidence}{SLCP}%
+
+\NewDocumentCommand\RepartirEffectifTotal{mmm}{%
+  % #1 valeur de l'effectif total
+  % #2 nombre de valeurs à obtenir
+  % #3 écart acceptable :) autour de la moyenen
+  \xdef\PfCSLEffectifs{}%
+  \xdef\PfCValeurMoyenneTemp{\fpeval{floor(#1/#2)}}%
+  \xdef\PfCRetiensRETSomme{}%
+  \xdef\PfCRetiensRETSommeTotale{0}%
+  \xintFor* ##1 in {\xintSeq{1}{\fpeval{#2-1}}}\do{%
+    \xdef\PfCSLDelta{\fpeval{randint(0,#3)}}%
+    \ifodd##1\relax%
+      \xdef\PfCSLEffectifs{\PfCSLEffectifs \fpeval{\PfCValeurMoyenneTemp+\PfCSLDelta},}%
+      \xdef\PfCRetiensRETSomme{\PfCRetiensRETSomme-\fpeval{\PfCValeurMoyenneTemp+\PfCSLDelta}}%
+      \xdef\PfCRetiensRETSommeTotale{\PfCRetiensRETSommeTotale+\fpeval{\PfCValeurMoyenneTemp+\PfCSLDelta}}%
+    \else%
+      \xdef\PfCSLEffectifs{\PfCSLEffectifs \fpeval{\PfCValeurMoyenneTemp-\PfCSLDelta},}%
+      \xdef\PfCRetiensRETSomme{\PfCRetiensRETSomme-\fpeval{\PfCValeurMoyenneTemp-\PfCSLDelta}}%
+      \xdef\PfCRetiensRETSommeTotale{\PfCRetiensRETSommeTotale+\fpeval{\PfCValeurMoyenneTemp-\PfCSLDelta}}%
+    \fi%
+  }%
+  % On rectifie sur la dernière valeur :)
+  \xdef\PfCSLEffectifs{\PfCSLEffectifs \fpeval{#1+\PfCRetiensRETSomme}}%
+  \xdef\PfCRetiensRETSommeTotale{\PfCRetiensRETSommeTotale+\fpeval{#1+\PfCRetiensRETSomme}}%
+%  On voulait un effectif fixe à #1 en #2 valeurs avec un écart de #3 par rapport à la moyenne.\\
+  %Les choix : \PfCSLEffectifs.\\
+  % Somme totale : \fpeval{\PfCRetiensRETSommeTotale}\\
+}
+
+\NewDocumentCommand\RepartirEffectifTotalB{mmm}{%
+  % #1 valeur de l'effectif total
+  % #2 nombre de valeurs à obtenir
+  % #3 le scale de la valeur de base pour calculer le delta
+  \xdef\PfCCPEffectifs{}%
+  \xdef\PfCValeurMoyenneTemp{\fpeval{floor(#1/#2)}}%
+  \xdef\PfCRetiensRETSomme{#1}%
+  \xdef\PfCRetiensRETSommeTotale{0}%
+  \xintFor* ##1 in {\xintSeq{1}{\fpeval{#2-1}}}\do{%
+    %La valeur moyenne ##1 est \PfCValeurMoyenneTemp\\
+    %On cherche entre \fpeval{-\PfCValeurMoyenneTemp+1} et \fpeval{\PfCValeurMoyenneTemp-1}\\
+    \xdef\PfCCPDelta{\fpeval{randint(-floor(#3*\PfCValeurMoyenneTemp)+1,floor(#3*\PfCValeurMoyenneTemp)-1)}}%
+    %Le delta ##1 est \PfCCPDelta\\
+    \xdef\PfCCPValeurRetenue{\fpeval{\PfCValeurMoyenneTemp+\PfCCPDelta}}%
+    %La valeur retenue ##1 est \PfCCPValeurRetenue\\
+    \xdef\PfCCPEffectifs{\PfCCPEffectifs \PfCCPValeurRetenue,}%
+    \xdef\PfCRetiensRETSomme{\fpeval{\PfCRetiensRETSomme-\PfCCPValeurRetenue}}%
+    \xdef\PfCValeurMoyenneTemp{\fpeval{floor(\PfCRetiensRETSomme/(#2-##1))}}%
+    \xdef\PfCRetiensRETSommeTotale{\PfCRetiensRETSommeTotale+\PfCCPValeurRetenue}%
+    %La somme totale ##1 est \fpeval{\PfCRetiensRETSommeTotale}\\
+  }%
+%  % On rectifie sur la dernière valeur :)
+  \xdef\PfCCPEffectifs{\PfCCPEffectifs \fpeval{#1-\fpeval{\PfCRetiensRETSommeTotale}}}%
+  %Les choix : \PfCCPEffectifs.\\
+  %% Somme totale : \fpeval{\PfCRetiensRETSommeTotale}\\
+}
+
+% Pour la gestion de l'aléatoire
+% afin de permettre d'utiliser le même exercice.
+% Extraire des sommets
+\newcounter{PfMSommetcount}%
+\newcommand\ChoixSommet[2]{%
+  % #1 le nombre de sommets
+  % #2 le nom de base des commandes qui sauvegarde les noms
+  % après chgt
+  \stepcounter{PfMAlea}%
+  % fin chgt
+  \xdef\CANSGFoo{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}%
+  \MelangeListe{\CANSGFoo}{#1}%
+  \ignoreemptyitems%
+  \readlist*\PfMSommet{\faa}%
+  \reademptyitems%
+  \xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+    \setcounter{PfMSommetcount}{##1}%
+    \expandafter\xdef\csname p\Alph{PfMSommetcount}\endcsname{\PfMSommet[##1]}%
+    % avant chgt
+    % \expandafter\xdef\csname #2\Roman{PfMExo}\alph{PfMSommetcount}\endcsname{\PfMSommet[##1]}%
+    % après chgt
+    \expandafter\xdef\csname #2\Roman{PfMExo}\roman{PfMAlea}\alph{PfMSommetcount}\endcsname{\PfMSommet[##1]}%
+  }%
+}%
+%%%
+
+\NewDocumentCommand\RestoreSommet{mm}{%
+  % #1 le nombre de sommets
+  % #2 le nom de base utilisé lors de la création des sommets
+  \stepcounter{PfMAlea}%
+  \xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+    \setcounter{PfMSommetcount}{##1}%
+    \expandafter\xdef\csname p\Alph{PfMSommetcount}\endcsname{\csname #2\Roman{PfMExoSol}\roman{PfMAlea}\alph{PfMSommetcount}\endcsname}%
+  }%
+}%
+
+\ifdef{\VariableAlea}{%
+  \RenewDocumentCommand\VariableAlea{s m m}{%
+    \IfBooleanTF{#1}{%
+      \stepcounter{PfMAlea}%
+      \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{#3}}%
+      \expandafter\xdef\csname #2\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+    }{%
+      \xdef#2{\fpeval{#3}}%
+    }%
+  }%
+}{%
+  \NewDocumentCommand\VariableAlea{s m m}{%
+    \IfBooleanTF{#1}{%
+      \stepcounter{PfMAlea}%
+      \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{#3}}%
+      \expandafter\xdef\csname #2\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+    }{%
+      \xdef#2{\fpeval{#3}}%
+    }%
+  }%
+}%
+
+\ifdef{\ChoixAlea}{%
+  \RenewDocumentCommand\ChoixAlea{s o m m m}{%
+    \IfBooleanTF{#1}{%
+      \stepcounter{PfMAlea}%
+%      je sauvegarde la valeur \thePfMExo-\thePfMAlea
+      \IfNoValueTF{#2}{%
+        \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{randint(#3,#4)}}%
+        \expandafter\xdef\csname #5\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+      }{%
+        \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{round(randint(#3,#4)+rand(),#2)}}%
+        \expandafter\xdef\csname #5\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+      }%
+    }{%
+      \IfNoValueTF{#2}{%
+        \xdef#5{\fpeval{randint(#3,#4)}}%
+      }{%
+        \xdef#5{\fpeval{round(randint(#3,#4)+rand(),#2)}}%
+      }%
+    }%
+  }%
+}{%
+  \NewDocumentCommand\ChoixAlea{s o m m m}{%
+    \IfBooleanTF{#1}{%
+      \stepcounter{PfMAlea}%
+      \IfNoValueTF{#2}{%
+        \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{randint(#3,#4)}}%
+        \expandafter\xdef\csname #5\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+      }{%
+        \expandafter\xdef\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname{\fpeval{round(randint(#3,#4)+rand(),#2)}}%
+        \expandafter\xdef\csname #5\endcsname{\csname valeur\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+      }%
+    }{%
+      \IfNoValueTF{#2}{%
+        \xdef#5{\fpeval{randint(#3,#4)}}%
+      }{%
+        \xdef#5{\fpeval{round(randint(#3,#4)+rand(),#2)}}%
+      }%
+    }%
+  }%
+}% 
+
+\NewDocumentCommand\ChoixAleaMultiMix{mmmmm}{%
+  % #1 nombre de valeurs à choisir
+  % #2 valeur minimale
+  % #3 valeur maximale
+  % #4 valeur(s) exclue(s)
+  % #5 Nom de la liste qui récupère les données.
+  \ifx\bla#4\bla%
+    \PackageWarning{ProfMaquette}{Il faut définir au moins une valeur à exclure.}%
+  \else%
+    \xdef\PfMMixFoo{#2}%
+    \setsepchar{,}\ignoreemptyitems%
+    \readlist*\ListeValeursExclues{#4}%
+    \xintFor* ##1 in{\xintSeq{\fpeval{#2+1}}{#3}}\do{%
+      \xdef\PfMMixFoo{\PfMMixFoo,##1}%
+    }%
+    \readlist*\ListeValeursRetenues{\PfMMixFoo}%
+    \xintFor* ##1 in{\xintSeq{1}{\ListeValeursExclueslen}}\do{%
+      \xdef\PfMMixFoo{}%
+      \xintFor* ##2 in{\xintSeq{1}{\ListeValeursRetenueslen}}\do{%
+        \xintifboolexpr{\ListeValeursRetenues[##2]==\ListeValeursExclues[##1]}{}{%
+          \xdef\PfMMixFoo{\PfMMixFoo,\ListeValeursRetenues[##2]}%
+        }%
+      }%
+      \ignoreemptyitems%
+      \readlist*\ListeValeursRetenues{\PfMMixFoo}%
+    }%
+    \MelangeListe{\PfMMixFoo}{#1}%
+    \xdef#5{\faa}%
+  \fi%
+}%
+
+\NewDocumentCommand\ChoixAleaMultiMixListe{mmmm}{%
+  % #1 nombre de valeurs à choisir
+  % #2 Liste à parcourir
+  % #3 valeur(s) exclue(s)
+  % #4 Nom de la liste qui récupère les données.
+  \ifx\bla#3\bla%
+    \PackageWarning{ProfMaquette}{Il faut définir au moins une valeur à exclure.}%
+  \else%
+    \setsepchar{,}\ignoreemptyitems%
+    \readlist*\ListeValeursExclues{#3}%
+    \readlist*\ListeValeursRetenues{#2}%
+    \xintFor* ##1 in{\xintSeq{1}{\ListeValeursExclueslen}}\do{%
+      \xdef\PfMMixFoo{}%
+      \xintFor* ##2 in{\xintSeq{1}{\ListeValeursRetenueslen}}\do{%
+        \xintifboolexpr{\ListeValeursRetenues[##2]==\ListeValeursExclues[##1]}{}{%
+          \xdef\PfMMixFoo{\PfMMixFoo,\ListeValeursRetenues[##2]}%
+        }%
+      }%
+      \setsepchar{,}\ignoreemptyitems%
+      \readlist*\ListeValeursRetenues{\PfMMixFoo}%
+    }%
+    \ifnum\ListeValeursRetenueslen>1\relax%
+      \MelangeListe{\PfMMixFoo}{#1}%
+      \xdef#4{\faa}%
+    \else%
+      \xdef#4{\PfMMixFoo}%
+    \fi%
+  \fi%
+}%
+
+\NewDocumentCommand\ChoixAleaListe{ommmm}{%
+  % Il n'y a pas de répétitions des éléments.
+  % #1 précision des décimaux
+  % #2 nombre d'éléments
+  % #3 valeur entière minimale
+  % #4 valeur entière maximale
+  % #5 nom de la liste récupérant les nombres choisis.
+  % 1ere valeur
+  \IfNoValueTF{#1}{\xdef\ListeNombresAlea{\fpeval{randint(#3,#4)}}}{\xdef\ListeNombresAlea{\fpeval{round(randint(#3,#4-1)+rand(),#1)}}}%
+  \setsepchar{,}%
+  \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+  \whiledo{\ListeARenvoyerlen<#2}{%
+    \IfNoValueTF{#1}{\xdef\SuivantNombreAlea{\fpeval{randint(#3,#4)}}}{\xdef\SuivantNombreAlea{\fpeval{round(randint(#3,#4-1)+rand(),#1)}}}%
+    \def\Unique{0}%
+    \xintFor* ##1 in{\xintSeq{1}{\ListeARenvoyerlen}}\do{%
+      \xintifboolexpr{\fpeval{\SuivantNombreAlea}==\fpeval{\ListeARenvoyer[##1]}}{%
+        \def\Unique{1}%
+        \xintBreakFor%
+      }{}%
+    }%
+    \ifnum\fpeval{\Unique}=0\relax%
+      \xdef\ListeNombresAlea{\ListeNombresAlea,\SuivantNombreAlea}%
+      \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+    \fi%
+  }%
+  \xdef#5{\ListeNombresAlea}%
+}%
+
+\NewDocumentCommand\ChoixAleaListeold{mmmm}{%
+  % Il n'y a pas de répétitions des éléments.
+  % #1 nombre d'éléments
+  % #2 valeur entière minimale
+  % #3 valeur entière maximale
+  % #4 nom de la liste récupérant les nombres choisis.
+  % 1ere valeur
+  \xdef\ListeNombresAlea{\fpeval{randint(#2,#3)}}
+  \setsepchar{,}\ignoreemptyitems
+  \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+  \whiledo{\ListeARenvoyerlen<#1}{%
+    \xdef\SuivantNombreAlea{\fpeval{randint(#2,#3)}}%
+    \def\Unique{0}%
+    \xintFor* ##1 in{\xintSeq{1}{\ListeARenvoyerlen}}\do{%
+      \xintifboolexpr{\fpeval{\SuivantNombreAlea}==\fpeval{\ListeARenvoyer[##1]}}{%
+        \def\Unique{1}%
+        \xintBreakFor%
+      }{}%
+    }%
+    \ifnum\fpeval{\Unique}=0\relax%
+      \xdef\ListeNombresAlea{\ListeNombresAlea,\SuivantNombreAlea}%
+      \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+    \fi%
+  }%
+  \xdef#4{\ListeNombresAlea}%
+}
+
+\NewDocumentCommand\ChoixAleaListeMix{mmmmm}{%
+  % ideé by reddit : I need a randomly ordered list...
+  % Il n'y a pas de répétitions des éléments.
+  % #1 nombre d'éléments
+  % #2 valeur entière minimale
+  % #3 valeur entière maximale
+  % #4 Liste des valeurs à exclure  
+  % #5 nom de la liste récupérant les nombres choisis.
+  \xdef\Toto{#4}%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeValeursExclues{\Toto}%
+  % 1ere valeur
+  \xdef\PfMNbCoups{0}%
+  \whiledo{\fpeval{\PfMNbCoups}<\ListeValeursExclueslen}{%
+    \xdef\ListeNombresAlea{\fpeval{randint(#2,#3)}}%
+    \xintFor* ##1 in {\xintSeq{1}{\ListeValeursExclueslen}}\do{%
+      \xintifboolexpr{\fpeval{\ListeNombresAlea}==\fpeval{\ListeValeursExclues[##1]}}{%
+        \xdef\PfMNbCoups{0}%
+        \xintBreakFor%
+      }{\xdef\PfMNbCoups{\fpeval{\PfMNbCoups+1}}}%
+    }%
+  }%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+  \whiledo{\ListeARenvoyerlen<#1}{%
+    \xdef\SuivantNombreAlea{\fpeval{randint(#2,#3)}}%
+    \def\Unique{0}%
+    \xintFor* ##1 in {\xintSeq{1}{\ListeValeursExclueslen}}\do{
+      \xintifboolexpr{\fpeval{\SuivantNombreAlea}==\fpeval{\ListeValeursExclues[##1]}}{%
+        \def\Unique{1}%
+        \xintBreakFor%
+      }{}%
+    }%
+    \ifnum\fpeval{\Unique}=0\relax%
+      \xintFor* ##1 in{\xintSeq{1}{\ListeARenvoyerlen}}\do{%
+        \xintifboolexpr{\fpeval{\SuivantNombreAlea}==\fpeval{\ListeARenvoyer[##1]}}{%
+          \def\Unique{1}%
+          \xintBreakFor%
+        }{}%
+      }%
+    \fi%
+    \ifnum\fpeval{\Unique}=0\relax%
+      \xdef\ListeNombresAlea{\ListeNombresAlea,\SuivantNombreAlea}%
+      \readlist*\ListeARenvoyer{\ListeNombresAlea}%
+    \fi%
+  }%
+  \xdef#5{\ListeNombresAlea}%
+}
+
+\NewDocumentCommand\ChoixAleaMulti{mmmm}{%
+  % #1 nombre de valeurs à choisir qui peut être supérieur au nombre de valeurs entières disponibles
+  % #2 valeur minimale
+  % #3 valeur maximale
+  % #4 Nom de la liste qui récupère les données.
+  \xdef\PfMMixFoo{\fpeval{randint(#2,#3)}}%
+  \xintFor* ##1 in{\xintSeq{1}{\fpeval{#1-1}}}\do{%
+    \xdef\PfMMixFoo{\PfMMixFoo,\fpeval{randint(#2,#3)}}%
+  }%
+  \xdef#4{\PfMMixFoo}%
+}%
+
+\NewDocumentCommand\ChoixAleaMultiMixRep{mmmmm}{%
+  % #1 nombre de valeurs à choisir
+  % #2 valeur minimale
+  % #3 valeur maximale
+  % #4 valeur à exclure
+  % #5 Nom de la liste qui récupère les données.
+  \xdef\PfCRetiensRetenues{}%
+  \xdef\PfMMixFoo{#2,#3}%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeValeursExclues{#4}%
+  \xintFor* ##1 in{\xintSeq{\fpeval{#2+1}}{\fpeval{#3-1}}}\do{%
+    \xdef\PfCRetiensExclues{0}%
+    \xintFor* ##2 in{\xintSeq{1}{\ListeValeursExclueslen}}\do{%
+      \xintifboolexpr{##1==\ListeValeursExclues[##2]}{\xdef\PfCRetiensExclues{\fpeval{\PfCRetiensExclues+1}}}{}%
+    }%
+    \ifnum\fpeval{\PfCRetiensExclues}=0\relax%
+      \xdef\PfMMixFoo{\PfMMixFoo,##1}%
+    \fi%
+  }%
+  \xintFor* ##1 in {\xintSeq{1}{#1}}\do{%
+    \MelangeListe{\PfMMixFoo}{1}%
+    \xdef\PfCRetiensRetenues{\PfCRetiensRetenues\faa}%
+  }%
+  \xdef#5{\PfCRetiensRetenues}%
+}%
+
+\NewDocumentCommand\MelangeNomFonction{mm}{%
+  % #1 Nombre d'éléments à conserver
+  % #2 Nom de la commande qui conserve
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeInter{f,g,h,k,\ell,m,p,q,r,s,u,v,w}%%
+  \xdef\faa{}% Liste construite
+  \xdef\fii{}% Liste détruite
+  \xintFor* ##1 in {\xintSeq{1}{#1}}\do{%
+    \xintifboolexpr{#1==1}{%
+      \xdef\Alea{\fpeval{randint(\ListeInterlen)}}%
+      \xdef\faa{\faa\ListeInter[\Alea]}%
+    }{%
+      \xintifboolexpr{\ListeInterlen>1}{%
+        \xdef\Alea{\fpeval{randint(\ListeInterlen)}}%
+        \xdef\faa{\faa\ListeInter[\Alea],}%
+        \xdef\fii{}%
+        \xintFor* ##2 in {\xintSeq{1}{\ListeInterlen}}\do{%
+          \xintifboolexpr{##2 == \Alea}{%
+          }{%
+            \xdef\fii{\fii \ListeInter[##2],}%
+          }%
+        }%
+      }{%
+        \xdef\faa{\faa\ListeInter[1]}%
+      }%
+      \readlist*\ListeInter{\fii}%
+    }%
+  }%
+  \xdef#2{\faa}%
+}%
+
+\NewDocumentCommand\MelangeNomVariable{mm}{%
+  % #1 Nombre d'éléments à conserver
+  % #2 Nom de la commande qui conserve
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeInter{a,b,n,t,x,y,z}%
+  \xdef\faa{}% Liste construite
+  \xdef\fii{}% Liste détruite
+  \xintFor* ##1 in {\xintSeq{1}{#1}}\do{%
+    \xintifboolexpr{#1==1}{%
+      \xdef\Alea{\fpeval{randint(\ListeInterlen)}}%
+      \xdef\faa{\faa\ListeInter[\Alea]}%
+    }{%
+      \xintifboolexpr{\ListeInterlen>1}{%
+        \xdef\Alea{\fpeval{randint(\ListeInterlen)}}%
+        \xdef\faa{\faa\ListeInter[\Alea],}%
+        \xdef\fii{}%
+        \xintFor* ##2 in {\xintSeq{1}{\ListeInterlen}}\do{%
+          \xintifboolexpr{##2 == \Alea}{%
+          }{%
+            \xdef\fii{\fii \ListeInter[##2],}%
+          }%
+        }%
+      }{%
+        \xdef\faa{\faa\ListeInter[1]}%
+      }%
+      \readlist*\ListeInter{\fii}%
+    }%
+  }%
+  \xdef#2{\faa}%
+}%
+
+\NewDocumentCommand\AffSigne{smm}{%
+  \ifnum#2=0\relax{}
+  \else
+  \ifnum#3=0\relax{}
+  \else
+  \ifnum#3>0\relax{}
+  +
+  \fi
+  \fi
+  \fi
+}%
+
+\NewDocumentCommand\AffPoly{O{x}m}{%
+  \setsepchar{,}\ignoreemptyitems
+  \readlist*\ListeCoeff{#2}
+  \ensuremath{
+    \ifnum\ListeCoeff[1]=0\relax
+    \Affichage{\ListeCoeff[2]}{\ListeCoeff[3]}{\ListeCoeff[4]}%
+    \else
+    \ifnum\ListeCoeff[1]=1\relax
+    #1^3%
+    \else\ifnum\ListeCoeff[1]=-1\relax
+    -#1^3
+    \else\num{\ListeCoeff[1]}#1^3
+    \fi
+    \fi
+    \ifnum\ListeCoeff[2]=0\relax
+    \ifnum\ListeCoeff[3]=0\relax
+    \ifnum\ListeCoeff[4]=0\relax
+    \else
+    \ifnum\ListeCoeff[4]>0
+    +\Affichage[Lettre=#1]{0}{0}{\ListeCoeff[4]}
+    \else
+    \Affichage[Lettre=#1]{0}{0}{\ListeCoeff[4]}
+    \fi
+    \fi
+    \else
+    \ifnum\ListeCoeff[3]>0\relax
+    +\Affichage[Lettre=#1]{0}{\ListeCoeff[3]}{\ListeCoeff[4]}
+    \else
+    \Affichage[Lettre=#1]{0}{\ListeCoeff[3]}{\ListeCoeff[4]}
+    \fi
+    \fi
+    \else
+    \ifnum\ListeCoeff[2]>0\relax
+    +\Affichage[Lettre=#1]{\ListeCoeff[2]}{\ListeCoeff[3]}{\ListeCoeff[4]}%\num{\ListeCoeff[2]}x^2
+    \else
+    \Affichage[Lettre=#1]{\ListeCoeff[2]}{\ListeCoeff[3]}{\ListeCoeff[4]}%\num{\ListeCoeff[2]}x^2
+    \fi
+    \fi
+    \fi
+  }
+}
+
+\newcounter{PfCenumi}
+
+\NewDocumentCommand\RestoreChoixAlea{m}{%
+  \stepcounter{PfMAlea}%
+  %Je restaure la valeur \thePfMExoSol-\thePfMAlea
+  \expandafter\xdef\csname #1\endcsname{\csname valeur\Roman{PfMExoSol}\roman{PfMAlea}\endcsname}%
+}%
+
+\NewDocumentCommand\ExporteListe{mm}{%
+  %#1 le nom de la liste
+  %#2 le contenu de la liste.
+  \stepcounter{PfMAlea}%
+  \expandafter\xdef\csname Liste\Roman{PfMExo}\roman{PfMAlea}\endcsname{#2}%
+  \expandafter\xdef\csname #1\endcsname{\csname Liste\Roman{PfMExo}\roman{PfMAlea}\endcsname}%
+}%
+
+\NewDocumentCommand\RestoreListe{m}{%
+  %#1 le nom de la liste à restaurer
+  \stepcounter{PfMAlea}%
+  \expandafter\xdef\csname #1\endcsname{\csname Liste\Roman{PfMExoSol}\roman{PfMAlea}\endcsname}%
+}%
+
+%%
+\newcounter{Melquestions}%
+\newcounter{Comptequestions}%
+%
+\NewDocumentEnvironment{Enumelange}{o+b}{%
+  \setcounter{Melquestions}{0}%
+  \setsepchar{\item}\ignoreemptyitems%
+  \readlist*\ListeTest{#2}%
+%  La liste des éléments retenus est \showitems*\ListeTest[]
+  \IfNoValueTF{#1}{%
+    \ChoixAleaMultiMix{\ListeTestlen}{1}{\ListeTestlen}{0}{\ListeShuffleA}%
+    \xdef\MelangeValeurTotale{\ListeTestlen}%
+  }{%
+    \ChoixAleaMultiMix{#1}{1}{\ListeTestlen}{0}{\ListeShuffleA}%
+    \xdef\MelangeValeurTotale{#1}%
+  }%
+  \ExporteListe{ListeShuffle}{\ListeShuffleA}%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeNumQ{\ListeShuffleA}%
+  \setcounter{Comptequestions}{1}%
+  \begin{enumerate}
+    \loop%
+    \setcounter{Melquestions}{\ListeNumQ[\theComptequestions]}%
+  \item \ListeTest[\theMelquestions]%
+    \stepcounter{Comptequestions}%
+    \ifnum\theComptequestions<\numexpr\MelangeValeurTotale+1%
+      \repeat%
+  \end{enumerate}
+}{}%
+
+\NewDocumentEnvironment{Enumelangesol}{b}{%
+  \setcounter{Melquestions}{0}%
+  \setsepchar{\item}%
+  \readlist*\ListeTest{#1}%
+  \RestoreListe{ListeShuffle}%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeNumQ{\ListeShuffle}%
+  \setcounter{Comptequestions}{1}%
+  \begin{enumerate}
+    \loop%
+    \setcounter{Melquestions}{\ListeNumQ[\theComptequestions]}%
+  \item \ListeTest[\theMelquestions]%
+    \stepcounter{Comptequestions}%
+    \ifnum\theComptequestions<\numexpr\ListeNumQlen+1%
+      \repeat%
+  \end{enumerate}
+}{}%
+
+\newcount\PfManp%
+\newcount\PfMbnp%
+\newcount\PfMcnp%
+\newcount\PfMdnp%
+
+\NewDocumentCommand\DeterminerNonPremiersEntreEuxInf{m}{%#1 : le nombre entier \`a tester
+  \xdef\RetiensNonPremiersEntreEuxInf{}%
+  \xdef\RetiensPremiersEntreEuxInf{}%
+  \PfManp=#1%
+  \PfMbnp=2%
+  \PfMcnp=0%
+  \PfMdnp=0%
+  \whiledo{\PfMbnp<\PfManp}{%
+    \PGCD{\the\PfManp}{\the\PfMbnp}{}%
+    \ifnum\pgcd>1\relax
+      \PfMcnp=\numexpr\PfMcnp+1\relax
+      \ifnum\PfMcnp=1\relax
+        \xdef\RetiensNonPremiersEntreEuxInf{\the\PfMbnp}%
+      \else%
+        \xdef\RetiensNonPremiersEntreEuxInf{\RetiensNonPremiersEntreEuxInf,\the\PfMbnp}%
+      \fi%
+    \else
+      \PfMdnp=\numexpr\PfMdnp+1\relax
+      \ifnum\PfMdnp=1\relax
+        \xdef\RetiensPremiersEntreEuxInf{\the\PfMbnp}%
+      \else%
+        \xdef\RetiensPremiersEntreEuxInf{\RetiensPremiersEntreEuxInf,\the\PfMbnp}%
+      \fi%
+    \fi%
+    \PfMbnp=\numexpr\PfMbnp+1%
+  }%
+  \ifnum\PfMcnp=0\relax%
+    \xdef\RetiensNonPremiersEntreEuxInf{1}%
+  \fi%
+  \ifnum\PfMdnp=0\relax%
+    \xdef\RetiensPremiersEntreEuxInf{1}%
+  \fi%
+}%
+
+% Définitions pour les compétences
+\NewDocumentCommand\Competences{O{3}m}{%
+  \setsepchar[*]{/}\ignoreemptyitems%
+  \readlist*\ListeCompetence{#2}
+  \ifnum#1=3\relax
+  \buildtabcompetences%
+  \else
+  \Buildtabcompetences{#1}{\ListeCompetencelen}%
+  \fi
+}
+
+\def\buildtabcompetences{%
+  \[\begin{tabular}{|p{0.70\linewidth}|*{3}{>{\centering\arraybackslash}p{0.05\linewidth}|}}
+      \cline{2-4}
+      \multicolumn{1}{c|}{}&\PfMCompNA&\PfMCompECA&\PfMCompA\\
+      \hline
+      \xintFor* ##1 in {\xintSeq {1}{\ListeCompetencelen}}\do{\ListeCompetence[##1]&&&\\\hline}
+    \end{tabular}
+  \]
+}%
+
+\def\Buildtabcompetences#1#2{%
+  \setlength{\PfMLargeurComp}{\fpeval{0.85-0.05*#1}\linewidth-\fpeval{2*(#1-3)}\tabcolsep}%
+  \[\begin{tabular}{|p{\PfMLargeurComp}|*{#1}{>{\centering\arraybackslash}p{0.05\linewidth}|}}%
+      \cline{2-\fpeval{1+#1}}%
+      \multicolumn{1}{c|}{}\xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+      &\ListeCompetence[##1]}\\%
+      \hline%
+      \xintFor* ##1 in {\xintSeq {\fpeval{#1+1}}{\ListeCompetencelen}}\do{\ListeCompetence[##1]%
+      \xintFor* ##2 in {\xintSeq{1}{#1}}\do{&}%
+      \\\hline%
+      }%
+    \end{tabular}%
+  \]%
+}%
+%
+%%%%
+%%% Définitions des environnements pour la correction
+\makeatletter
+\newwrite\verbatim@out
+
+\def\SolutionWrite{%
+  \setcounter{PfMAlea}{0}%
+  \@bsphack%
+  \immediate\openout \verbatim@out "\jobname-Ex\thePfMExo.sol"%
+  \let\do\@makeother\dospecials%
+  \catcode`\^^M\active%
+  \def\verbatim@processline{%
+    \immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}%
+\def\endSolutionWrite{\immediate\closeout\verbatim@out\@esphack}%
+
+\def\SolutionWritePP{%
+  \@bsphack
+  \immediate\openout \verbatim@out "\jobname-PPEx\thePfMExo.sol" %
+  \let\do\@makeother\dospecials
+  \catcode`\^^M\active
+  \def\verbatim@processline{%
+    \immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}
+\def\endSolutionWritePP{\immediate\closeout\verbatim@out\@esphack}
+
+\def\ReponseWrite{%
+  \@bsphack
+  \immediate\openout \verbatim@out "\jobname-Ex\thePfMExo.rep" %
+  \let\do\@makeother\dospecials
+  \catcode`\^^M\active
+  \def\verbatim@processline{%
+    \immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}
+\def\endReponseWrite{\immediate\closeout\verbatim@out\@esphack}
+
+\def\IndiceWrite{%
+  \@bsphack
+  \immediate\openout \verbatim@out "\jobname-Ex\thePfMExo.cdp" %coup de pouce
+  \let\do\@makeother\dospecials
+  \catcode`\^^M\active
+  \def\verbatim@processline{%
+    \immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}
+\def\endIndiceWrite{\immediate\closeout\verbatim@out\@esphack}
+\makeatother
+
+\def\SolutionNow{\textbf{Correction de l'exercice --}\par\nopagebreak\setcounter{PfMExoSol}{\thePfMExo}\setcounter{PfMAlea}{0}\PfMAffichageHideItemSolution}
+\def\endSolutionNow{\par\goodbreak\PfMshowitems}
+
+\def\ReponseNow{\textbf{Réponse(s) de l'exercice --}\par\nopagebreak\PfMAffichageHideItemSolution}
+\def\endReponseNow{\par\goodbreak\PfMshowitems}
+
+\def\IndiceNow{\textbf{Indice(s) --}\par\nopagebreak\PfMAffichageHideItemSolution}
+\def\endIndiceNow{\par\goodbreak\PfMshowitems}
+
+\NewDocumentEnvironment{Solution}{}{}{}%
+\NewDocumentEnvironment{Reponse}{}{}{}%
+\NewDocumentEnvironment{Indice}{}{}{}%
+
+\NewDocumentCommand\PfMChoixAffichageCorrection{}{%
+  \ifboolKV[Boulot]{CorrigeAll}{%
+      \let\Solution\SolutionWrite\let\endSolution\endSolutionWrite
+      \let\Reponse\ReponseWrite\let\endReponse\endReponseWrite
+      \let\Indice\IndiceWrite\let\endIndice\endIndiceWrite
+  }{%
+  \ifboolKV[Boulot]{ParcoursPerso}{%
+    \let\Solution\SolutionWritePP\let\endSolution\endSolutionWritePP
+  }{%
+    \ifnum\theRetiensSol=1\relax
+    \let\Reponse\comment\let\endReponse\endcomment
+    \let\Indice\comment\let\endIndice\endcomment
+    \ifboolKV[Boulot]{CorrigeFin}{%
+      \let\Solution\SolutionWrite\let\endSolution\endSolutionWrite
+    }{\ifboolKV[Boulot]{CorrigeApres}{%
+        \let\Solution\SolutionNow\let\endSolution\endSolutionNow
+      }{}%
+    }%
+    \else
+    \let\Solution\comment\let\endSolution\endcomment
+    \let\Indice\comment\let\endIndice\endcomment
+    \ifnum\theRetiensRep=1\relax
+    \ifboolKV[Boulot]{CorrigeFin}{%
+      \let\Reponse\ReponseWrite\let\endReponse\endReponseWrite
+    }{\ifboolKV[Boulot]{CorrigeApres}{%
+        \let\Reponse\ReponseNow\let\endReponse\endReponseNow
+      }{}%
+    }%
+    \else
+    \let\Solution\comment\let\endSolution\endcomment
+    \let\Reponse\comment\let\endReponse\endcomment
+    \ifnum\theRetiensInd=1\relax
+    \ifboolKV[Boulot]{CorrigeFin}{%
+      \let\Indice\IndiceWrite\let\endIndice\endIndiceWrite
+    }{\ifboolKV[Boulot]{CorrigeApres}{%
+        \let\Indice\IndiceNow\let\endIndice\endIndiceNow
+      }{}%
+    }%
+    \fi
+    \fi
+    \fi
+  }%
+  }%
+}%
+
+\NewDocumentCommand\PfMChoixCorrection{}{%
+  \setcounter{RetiensSol}{0}%
+  \setcounter{RetiensRep}{0}%
+  \setcounter{RetiensInd}{0}%
+  \ifboolKV[Boulot]{CorrigeFin}{%
+%    \ifboolKV[Boulot]{CorrigeAll}{%
+%      \setcounter{RetiensSol}{1}%
+%      \setcounter{RetiensRep}{1}%
+%      \setcounter{RetiensInd}{1}%
+%    }{%
+      \setcounter{RetiensSol}{1}%
+      \setcounter{RetiensRep}{0}%
+      \setcounter{RetiensInd}{0}%
+%    }%
+  }{\ifboolKV[Boulot]{CorrigeApres}{%
+      \setcounter{RetiensSol}{1}%
+      \setcounter{RetiensRep}{0}%
+      \setcounter{RetiensInd}{0}%
+    }{}%
+  }%
+  \ifboolKV[ClesExercices]{PasCorrige}{%
+    \setcounter{RetiensSol}{0}%
+    \setcounter{RetiensRep}{0}%
+    \setcounter{RetiensInd}{0}%
+  }{%
+    \ifboolKV[ClesExercices]{Direct}{%
+      \setcounter{RetiensSol}{0}%
+      \setcounter{RetiensRep}{1}%
+      \setcounter{RetiensInd}{0}%
+    }{%
+      \ifboolKV[ClesExercices]{Pouce}{%
+        \setcounter{RetiensSol}{0}%
+        \setcounter{RetiensRep}{0}%
+        \setcounter{RetiensInd}{1}%
+      }{}%
+    }%
+  }%
+}%
+
+\def\PfMTexteDuCorrige{Corrigé de l'exercice}
+
+\NewDocumentCommand\PfMAffichageCorrige{}{%
+  \ifboolKV[Boulot]{CAN}{%Toto
+    \xintFor* ##1 in{\xintSeq{1}{\PfMCANTotalExo}}\do{%
+      \setcounter{PfMExoSol}{##1}%
+      \setcounter{PfMAlea}{0}%
+      \IfFileExists{\jobname-Ex##1.sol}{\textbf{Question\ifnum\PfMCANTotalExo=1\relax\else~\ref{page-\thePfMMaquette-##1} :\fi}~\input{\jobname-Ex##1.sol}\par\goodbreak}{}%
+    }%
+  }{%
+    \setcounter{PfMExoSol}{0}%
+    \xintFor* ##1 in{\xintSeq{1}{\thePfMExo}}\do{%
+      \refstepcounter{PfMExoSol}%{##1}%
+      \label{pagesol-\thePfMMaquette-\thePfMExoSol}
+      \setcounter{PfMAlea}{0}%
+      \IfFileExists{\jobname-Ex##1.sol}{\PfMAffichageHideItemSolution\textbf{\PfMTexteDuCorrige\ifnum\thePfMExo=1\relax\else~\ref{page-\thePfMMaquette-##1}\fi\PfMAffichageTitreSolution}\par\nopagebreak\input{\jobname-Ex##1.sol}\par\goodbreak}{\IfFileExists{\jobname-Ex##1.rep}{\PfMAffichageHideItemSolution\textbf{Réponse(s) seule(s) de l'exercice\ifnum\thePfMExo=1\relax\else~\ref{page-\thePfMMaquette-##1}\fi}\par\nopagebreak\input{\jobname-Ex##1.rep}\par\goodbreak}{%
+          \IfFileExists{\jobname-Ex##1.cdp}{\PfMAffichageHideItemSolution\textbf{Indice(s) pour l'exercice\ifnum\thePfMExo=1\relax\else~\ref{page-\thePfMMaquette-##1}\fi}\par\nopagebreak\input{\jobname-Ex##1.cdp}\par\goodbreak}{}%
+        }%
+      }%
+      \PfMshowitems%
+    }%
+  }%
+}%
+%%%%%%%% BAREME %%%%%%%%%%%
+%% Bareme
+\newlength{\brouillon}
+
+\newcommand*\FranPt[1]{%
+%  \ifboolKV[ClesExercices]{BaremeDetaille}{%
+    \color{gray!75}(\num{#1})%
+%  }{}
+}
+
+\makeatletter
+\newcommand\BaremeEspace@Marge{18pt}
+\newcommand\BaremeEspace@MargeCorrection{0pt}
+%\f@size est la taille par défaut de la fonte.
+
+\newcommand*\brm[1]{%
+  \ifboolKV[Boulot]{Fiche}{}{%
+    \immediate\write\@auxout{%
+      \string\opadd*{#1}%
+      {total\the\c@PfMSection-\the\c@PfMExo}%
+      {total\the\c@PfMSection-\the\c@PfMExo}%
+      \string\opcopy{\thePfMExo}{TotalExo}%
+    }%
+    \ifboolKV[ClesExercices]{BaremeDetaille}{%
+      \setlength{\brouillon}{\BaremeEspace@Marge-\linewidth+\textwidth}%
+      \makebox[0pt][r]{\footnotesize\FranPt{#1}\hspace*{\brouillon}}%
+      \ignorespaces%
+    }{}%
+  }%
+}%
+
+\NewDocumentCommand\BRM{som}{%
+  \ifboolKV[Boulot]{Fiche}{}{%
+    \immediate\write\@auxout{%
+      \string\opadd*{#3}%
+      {total\the\c@PfMSection-\the\c@PfMExo}%
+      {total\the\c@PfMSection-\the\c@PfMExo}%
+      \string\opcopy{\thePfMExo}{TotalExo}%
+    }%
+    \IfBooleanTF{#1}{%
+      \ifboolKV[ClesExercices]{BaremeDetaille}{%
+        \setlength{\brouillon}{\fpeval{\BaremeEspace@Marge-#2}pt}%
+        \makebox[0pt][r]{\footnotesize\FranPt{#3}\hspace*{\brouillon}}%
+        \ignorespaces%
+      }{}%
+    }{%
+      \ifboolKV[ClesExercices]{BaremeDetaille}{%
+        \setlength{\brouillon}{\BaremeEspace@Marge-\linewidth+\textwidth}%
+        \makebox[0pt][r]{\footnotesize\FranPt{#3}\hspace*{\brouillon}}%
+        \ignorespaces%
+      }{}%
+    }%
+  }%
+}%
+
+\newcommand*{\Brm}[1]{%
+  \ifboolKV[Boulot]{Fiche}{}{%
+    \setlength{\brouillon}{\BaremeEspace@MargeCorrection-\linewidth+\textwidth}%
+    \makebox[0pt][r]{\footnotesize\color{gray!75}(\opprint{#1})\hspace*{\brouillon}}%
+    \ignorespaces%
+  }%
+}%
+
+\newcommand\total[1]{%
+  \@ifundefined{Op@total#1}{recompilez}%
+  {%
+    \opunzero{total#1}% on ne sait jamais
+    \opset{decimalsepsymbol={,}}
+    \opprint{total#1}~%
+    \opset{decimalsepsymbol={.}}
+    \opcmp{total#1}{2}%
+    \ifopge \useKV[ClesExercices]{MotPoint}s\else \useKV[ClesExercices]{MotPoint}\fi
+  }%
+}
+
+\newcommand\NoteFinale{%
+  \@ifundefined{Op@TotalExo}{Recompilez}%
+  {%
+    \opexport{TotalExo}{\TotalExo}%Le total d'exercices est \TotalExo.
+    \xdef\NoteTotale{0}%
+    \xintFor* ##1 in {\xintSeq{1}{\TotalExo}}\do{%
+     \opexport{total##1-##1}{\totalUn}%
+     \xdef\NoteTotale{\fpeval{\NoteTotale+\totalUn}}%
+   }%
+   \NoteTotale%
+  }%
+}%
+
+\def\TexteDevantPointParExercice{}%
+
+\newcommand\TableauRecapitulatif{%
+  \@ifundefined{Op@TotalExo}{Recompilez}%
+  {%
+    \opexport{TotalExo}{\TotalExo}%
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{Barème récapitulatif}\\
+      \hline
+      \xintFor* ##1 in {\xintSeq{1}{\TotalExo}}\do{
+      Exercice ##1&\TexteDevantPointParExercice\total{##1-##1}\\
+      }
+      \hline
+    \end{tabular}
+  }
+}%
+\makeatother
+%%%%%%%% FIN BAREME %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Commandes pour les affichages optionnels dans les cadres
+\NewDocumentCommand{\PfMAffichageLogos}{}{%
+  \ifboolKV[ClesExercices]{Calculatrice}{}{\node[fill=white,anchor=west,xshift=(\thePfMNbLogo*2.5+(\thePfMNbLogo-1)*20)*1pt] at (A.east) {\cancel{\faCalculator}};\stepcounter{PfMNbLogo}}%
+  \ifboolKV[ClesExercices]{Oral}{\node[fill=white,anchor=west,xshift=(\thePfMNbLogo*2.5+(\thePfMNbLogo-1)*20)*1pt] at (A.east) {\faBullhorn};\stepcounter{PfMNbLogo}}{}
+  }%
+%
+\NewDocumentCommand{\PfMAffichageCompetencesTravaillees}{}{%
+  \ifboolKV[ClesExercices]{AffichageCompetence}{%
+     \node[%
+     fill=white,%
+     anchor=east,%
+     xshift=-10pt,%
+     text=PfMColCpt,%
+     ]
+     at (frame.north east)
+     {\itshape\scriptsize\sffamily Compétence(s) dominante(s) : \useKV[ClesExercices]{Competence}};
+   }{}%
+ }%
+%
+\NewDocumentCommand{\PfMLienVersSolution}{}{%
+  \ifboolKV[Boulot]{VersSolution}{%
+    \ifboolKV[ClesExercices]{PasCorrige}{}{%
+      \node[%
+      fill=tcbcolback,%
+      anchor=center,%
+      ] at (frame.east){\hyperref[pagesol-\thePfMMaquette-\thePfMExo]{\faKey}};%
+    }%
+  }{}%
+}%
+
+\makeatletter
+\NewDocumentCommand{\PfMAffichageSource}{}{%
+  \ifboolKV[ClesExercices]{AffichageSource}{%
+    \node[%
+    fill=tcbcolback,
+    anchor=east,
+    yshift=0.5pt,
+    xshift=-\kvtcb@rightlower,%-10pt,
+    text=PfMColSrc,
+    ]
+    at (frame.south east)
+    {\scriptsize\sffamily \useKV[ClesExercices]{Source}};
+  }{}%
+}%
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%Style des différents documents
+\tcbset{%
+  tikzbase/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    bicolor,
+    colback=LightSteelBlue,
+    colbacklower=white,
+    frame hidden,
+  }
+}
+
+\tcbset{%
+  tikzbasehtml/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    fonttitle=\bfseries\sffamily,
+    title=\ifboolKV[ClesExercices]{AffichageTitre}{\useKV[ClesExercices]{Titre}}{},%
+    coltitle=black,
+    frame hidden,
+  }
+}
+
+\makeatletter
+%%% Base des exercices DM
+\tcbset{%
+  tikzdm/.style={%
+    %lowerbox=ignored,
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=PfMCadreDM,
+    fonttitle=\bfseries\sffamily,
+    title=Exercice\ifboolKV[ClesExercices]{Numerote}{ \thePfMExo}{}\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{},
+    attach boxed title to top left={xshift=0.2mm},
+    boxed title size=standard,
+    boxed title style={%
+      empty,
+      rounded corners=north, 
+      boxrule=0pt,
+      bottom=0pt
+    },
+    underlay boxed title={%
+      \filldraw[rounded corners, gray!85, line width=.5mm]
+      (title.south east)--++(90:\tcboxedtitleheight)--++(183:\tcboxedtitlewidth)--++(-90:\tcboxedtitleheight)|-cycle;
+    },%
+    overlay unbroken and first={%
+      %
+      \PfMAffichageSource%
+      %
+      \ifboolKV[ClesExercices]{BaremeTotal}{%
+        \node[
+        fill=white,
+        anchor=east,
+        xshift=-10pt,
+        text=black,
+        font=\bfseries
+        ]
+        at (frame.north east)
+        {\footnotesize\sffamily \total{\the\c@PfMSection-\the\c@PfMExo}};
+      }{}%
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+
+\NewDocumentEnvironment{exerciceDM}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \immediate\write\@auxout{%
+    \string\opcopy{\thePfMExo}{TotalExo}%
+  }%
+  \ifboolKV[ClesExercices]{BaremeTotal}{%
+    \immediate\write\@auxout{%
+      \string\opcopy{0}{total\the\c@PfMSection-\the\c@PfMExo}%
+    }}{}%
+  \begin{tcolorbox}[%
+  tikzdm,%
+  label is label,%
+  label=page-\thePfMMaquette-\thePfMExo,%
+  ]%
+  \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+  #3
+  \end{tcolorbox}%
+  \PfMApresLesExercices%
+  }
+}{}%
+
+%%Contrat
+
+%\makeatletter
+\NewDocumentCommand\AfficheContrat{o}{%
+  \useKVdefault[SchemaContrat]%
+  \setKV[SchemaContrat]{#1}%
+  \setlength{\PfMLargeurSchemaContrat}{\useKV[SchemaContrat]{Ecart}}%
+  \setlength{\PfMRayonSchemaContrat}{\useKV[SchemaContrat]{Rayon}}%
+  %\colorlet{PfMCouleurSP}{\useKV[SchemaContrat]{Couleur}}%
+  \@ifundefined{Op@\Roman{PfMMaquette}-ContratTotalExo}{Recompilez pour obtenir le contrat.}%
+  {%
+    \opexport{\Roman{PfMMaquette}-ContratTotalExo}{\ContratTotalExo}%
+%    % Total Exo : \ContratTotalExo
+    \setsepchar{,}\ignoreemptyitems%
+    \xdef\PfCFooListeA{\csname \Roman{PfMMaquette}Contrata\endcsname}%
+    \xdef\PfCFooListeB{\csname \Roman{PfMMaquette}Contratb\endcsname}%
+    \readlist*\ListeA{\PfCFooListeA}%
+    \readlist*\ListeB{\PfCFooListeB}%
+%    Liste A : \showitems\ListeA[]\par
+%    Liste B : \showitems\ListeB[]\par
+%    % On écrit en supposant que la liste A est la plus longue
+    \xdef\LongueurA{\ListeAlen}%
+    \xdef\LongueurB{\ListeBlen}%
+    \xdef\Foo{}%
+    \xdef\Decalage{0}%
+    % On change la liste B en ajoutant des 0 où il manque des éléments.
+    \xintFor* ##1 in{\xintSeq{1}{\LongueurB}}\do{%
+      \xdef\Test{0}%
+      \xintFor * ##2 in {\xintSeq{1}{\LongueurA}}\do{%
+        % ListeA vaut \ListeA[##2] et ListeB vaut \ListeB[##1]\par
+        \IfStrEq{\ListeA[##2]}{\ListeB[##1]}{\xdef\Test{\fpeval{\Test+1}}\xdef\Position{##2}}{}%
+      }%
+      \xintifboolexpr{\Test==0}{%pas présent
+        \xdef\Foo{\Foo,\ListeB[##1]}
+      }{%présent
+        \xintifboolexpr{\Position>\fpeval{##1+\Decalage}}{%
+          \xintFor* ##3 in{\xintSeq{\fpeval{##1+\Decalage}}{\fpeval{\Position-1}}}\do{%
+            \xdef\Foo{\Foo,0}%
+          }
+          \xdef\Decalage{\fpeval{\Position-##1-\Decalage}}
+        }{}
+        \xdef\Foo{\Foo,\ListeB[##1]}
+      }%
+    }%
+    % on vérifie qu'on n'a pas oublié des 0 :)
+    \readlist*\ListeB{\Foo}%
+    \ifnum\ListeAlen>\ListeBlen\relax
+      \xintFor* ##4 in{\xintSeq{1}{\fpeval{\ListeAlen-\ListeBlen}}}\do{
+        \xdef\Foo{\Foo,0}
+      }
+    \fi
+%    La liste A est \showitems\ListeA[]\par
+    \readlist*\ListeB{\Foo}%
+%    La liste B modifiée est \showitems\ListeB[]\par
+    \xdef\FooNoeuds{}%
+    \foreachitem\compteur\in\ListeA{%
+      \xdef\FooNoeuds{\FooNoeuds,\ListeA[\compteurcnt]/\ListeB[\compteurcnt]}%
+    }%
+    \BuildConfianceTikz{\FooNoeuds}%
+  }%
+}%
+%\makeatother
+
+\NewDocumentCommand\BuildConfianceTikz{m}{%
+  \setsepchar[*]{,*/}\ignoreemptyitems%
+  \readlist*\Noeuds{#1}%
+  \begin{tikzpicture}
+    \coordinate (C-0) at (-\PfMLargeurSchemaContrat,0);%
+    \coordinate (A-0) at (-\PfMLargeurSchemaContrat,-\PfMLargeurSchemaContrat+\PfMRayonSchemaContrat);%
+    \coordinate (B-0) at (-\PfMLargeurSchemaContrat,\PfMLargeurSchemaContrat-\PfMRayonSchemaContrat);%
+    \xintFor*##1 in{\xintSeq{1}{\fpeval{\Noeudslen+1}}}\do{%
+      \coordinate[xshift=\PfMLargeurSchemaContrat] (C-##1) at (C-\fpeval{##1-1});%
+      \coordinate[xshift=\PfMLargeurSchemaContrat] (A-##1) at (A-\fpeval{##1-1});%
+      \coordinate[xshift=\PfMLargeurSchemaContrat] (B-##1) at (B-\fpeval{##1-1});%
+    }%
+    % On place les points
+    \xintFor* ##1 in{\xintSeq{1}{\Noeudslen}}\do{%
+      \xintifboolexpr{\Noeuds[##1,1]==\Noeuds[##1,2]}{%
+        \coordinate (A-##1) at (C-##1);%
+        \coordinate (B-##1) at (C-##1);%
+      }{}%
+    }%
+    % on trace
+    \xintifboolexpr{\Noeuds[1,1]==\Noeuds[1,2]}{\draw[line width=1pt,->] (C-0)--(C-1);%
+    }{%
+      \draw[line width=1pt,->] (A-0)--(A-1);
+      \draw[line width=1pt,->] (B-0)--(B-1);
+    }%
+    \xintFor* ##1 in{\xintSeq{2}{\Noeudslen}}\do{%
+      \draw[line width=1pt] (A-\fpeval{##1-1})--(A-##1);%
+      \draw[line width=1pt] (B-\fpeval{##1-1})--(B-##1);%
+    }%
+    \xintifboolexpr{\Noeuds[\Noeudslen,1]==\Noeuds[\Noeudslen,2]}{\draw[line width=1pt,->] (C-\Noeudslen)--(C-\fpeval{\Noeudslen+1});%
+    }{%
+      \draw[line width=1pt,->] (A-\Noeudslen)--(A-\fpeval{\Noeudslen+1});
+      \draw[line width=1pt,->] (B-\Noeudslen)--(B-\fpeval{\Noeudslen+1});
+    }%
+    % on dessine les cercles
+    \xintFor* ##1 in{\xintSeq{1}{\Noeudslen}}\do{%
+      \xintifboolexpr{\Noeuds[##1,1]==\Noeuds[##1,2]}{%
+        \draw[fill=white] (C-##1) circle (\PfMRayonSchemaContrat) node{\ref{page-\thePfMMaquette-\Noeuds[##1,1]}};%
+      }{%
+        \draw[fill=white] (A-##1) circle (\PfMRayonSchemaContrat) node{\ref{page-\thePfMMaquette-\Noeuds[##1,1]}};%
+        \xintifboolexpr{\Noeuds[##1,2]==0}{}{\draw[fill=white] (B-##1) circle (\PfMRayonSchemaContrat) node{\ref{page-\thePfMMaquette-\Noeuds[##1,2]}};}%
+      }%
+    }%
+  \end{tikzpicture}%
+}%
+
+\NewDocumentCommand\RemplisContrat{m}{%
+  \ifcsname \Roman{PfMMaquette}confiance#1\endcsname
+  \expandafter\xdef\csname \Roman{PfMMaquette}confiance#1\endcsname{\csname \Roman{PfMMaquette}confiance#1\endcsname,\thePfMExo}%
+%  Yes !
+  \else
+%  No !
+  \expandafter\xdef\csname \Roman{PfMMaquette}confiance#1\endcsname{\thePfMExo}%
+  \fi
+  \immediate\write\@auxout{\noexpand\expandafter\gdef\noexpand\csname \Roman{PfMMaquette}Contrat#1\endcsname{\csname \Roman{PfMMaquette}confiance#1\endcsname}}%
+}%
+
+ 
+\NewDocumentEnvironment{exerciceContrat}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}%
+  \useKVdefault[ClesExercices]%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+  \setKV[ClesExercices]{#2}%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \immediate\write\@auxout{\string\opcopy{\thePfMExo}{\Roman{PfMMaquette}-ContratTotalExo}}%
+  % Creation des parcours
+  \ifboolKV[ClesExercices]{Contrat}{%
+    % Remise à zéro de conteneurs des parcours
+    \setsepchar{,}%
+    \xdef\PfMFooListeContrat{\useKV[ClesExercices]{Confiance}}
+    \readlist*\ListeContrat{\PfMFooListeContrat}%
+    \foreachitem\compteur\in\ListeContrat{%
+      \RemplisContrat{\ListeContrat[\compteurcnt]}%
+    }%
+  }{}%
+  %
+  \begin{tcolorbox}[%
+    tikzcontrat,
+    label is label,
+    label=page-\thePfMMaquette-\thePfMExo
+    ]
+    \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+    #3
+  \end{tcolorbox}
+  \PfMApresLesExercices%
+  }%
+}{}%
+
+%%% Contrat %%%
+\tcbset{%
+  usercontrat/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  usercontratcor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzContrat{}{%
+  \begin{tcolorbox}[usercontrat]%
+    \Large\sffamily \useKV[Contrat]{Theme}\hfill\useKV[Contrat]{Niveau} \useKV[Contrat]{Classe}%
+    \par{\tiny\useKV[Contrat]{Code}}\hfill{\scriptsize\useKV[Contrat]{Date}}%
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzContratCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \clearpage
+  \setKV[Contrat]{#1}%
+  \begin{tcolorbox}[usercontratcor]%
+    \Large\sffamily \useKV[Contrat]{Theme} (Correction) \hfill\useKV[Contrat]{Niveau} \useKV[Contrat]{Classe}
+    \par{\tiny\useKV[Contrat]{Code}}\hfill{\scriptsize\useKV[Contrat]{Date}}
+  \end{tcolorbox}%
+}
+
+\tcbset{%
+  tikzcontrat/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=PfMCadreContrat,
+    overlay unbroken and first={%
+      \node[%
+      name=A,
+      fill=white,
+      anchor=west,
+      xshift=10pt,
+      ] at (frame.north west){\bfseries\sffamily \useKV[Contrat]{NomExercice} \thePfMExo\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{}};
+      %% 
+      \PfMAffichageLogos%
+      %%
+      \PfMAffichageCompetencesTravaillees%
+      %%
+      \PfMAffichageSource%
+      %
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+%% Fin Contrat %%%
+
+%%FdR
+\NewDocumentCommand\AfficheFdR{o}{%
+  \useKVdefault[SchemaFdR]%
+  \setKV[SchemaFdR]{#1}%
+  \setlength{\PfMLargeurSchemaFdR}{\useKV[SchemaFdR]{Ecart}}%
+  \setlength{\PfMRayonSchemaFdR}{\useKV[SchemaFdR]{Rayon}}%
+  \colorlet{PfMCouleurFdR}{\useKV[SchemaFdR]{Couleur}}%
+  \@ifundefined{Op@\Roman{PfMMaquette}-FdRTotalExo}{Recompilez pour obtenir la feuille de route.}%
+  {%
+    \opexport{\Roman{PfMMaquette}-FdRTotalExo}{\FdRTotalExo}%
+    \xdef\PfMListeExerciceFdR{\csname \Roman{PfMMaquette}FdRtrue\endcsname}%
+    \ifcsname \Roman{PfMMaquette}FdRstop\endcsname%
+      \xdef\PfMListeExerciceFdRStop{\csname \Roman{PfMMaquette}FdRstop\endcsname}%
+    \else%
+      \xdef\PfMListeExerciceFdRStop{}%
+    \fi%
+    % On ajoute un stop au dernier exercice
+    \xdef\PfMListeExerciceFdRStop{\PfMListeExerciceFdRStop,\FdRTotalExo}%
+    %Liste Exos : \PfMListeExerciceFdR\\
+    %Liste Stop : \PfMListeExerciceFdRStop\\
+    \BuildRouteTikz{\FdRTotalExo}{\PfMListeExerciceFdR}{\PfMListeExerciceFdRStop}%
+  }%
+}%
+
+\NewDocumentCommand\BuildRouteTikz{mmm}{%
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeRetiensExo{#2}%
+  \readlist*\ListeRetiensStop{#3}%
+  \reademptyitems%
+  %Les exos retenus : \showitems\ListeRetiensExo[]\\
+  %Les exos stop : \showitems\ListeRetiensStop[]\\
+  \xdef\LongueurA{\ListeRetiensExolen}%
+  \xdef\LongueurB{\fpeval{\ListeRetiensStoplen-1}}%
+  \xdef\PfMFooExoIncrustes{}%
+  \xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+    \xdef\RetiensExclus{0}%
+    \xintFor* ##2 in {\xintSeq{1}{\LongueurA}}\do{%
+      \xintifboolexpr{\ListeRetiensExo[##2]==##1}{\xdef\RetiensExclus{1}}{}%
+    }%
+    \xintifboolexpr{\RetiensExclus>0}{}{\xdef\PfMFooExoIncrustes{\PfMFooExoIncrustes,##1}}%
+  }%
+  %%%%%%%%%%
+  %PfMFooExoIncrustes : \PfMFooExoIncrustes\\%
+  \ifx\bla\PfMFooExoIncrustes\bla%
+    \xdef\LongueurC{0}%
+  \else%
+    \setsepchar{,}\ignoreemptyitems%
+    \readlist*\ListeRetiensExclus{\PfMFooExoIncrustes}%
+    \xdef\LongueurC{\ListeRetiensExcluslen}%
+  \fi%
+  %%%%%%%%%%%%%%%%%%%%
+  % portion 1
+  % Portion 1 :\\
+  \xdef\ListeRoute{}%
+  \xdef\ListeRouteExclus{}%
+  \xdef\NBExo{0}\xdef\NBExoSup{0}%
+  \xintFor* ##1 in{\xintSeq{1}{\LongueurA}}\do{%
+    \xintifboolexpr{\ListeRetiensExo[##1]>\ListeRetiensStop[1]}{%
+      %
+    }{%
+      \xdef\NBExo{\fpeval{\NBExo+1}}\xdef\ListeRoute{\ListeRoute,\ListeRetiensExo[##1]}%
+    }%
+  }%
+  \ifnum\LongueurC=0\relax%
+  \else%
+    \xintFor* ##1 in{\xintSeq{1}{\LongueurC}}\do{%
+      \xintifboolexpr{\ListeRetiensExclus[##1]>\ListeRetiensStop[1]}{}{\xdef\NBExoSup{\fpeval{\NBExoSup+1}}\xdef\ListeRouteExclus{\ListeRouteExclus,\ListeRetiensExclus[##1]}}%
+    }%
+  \fi%
+  \xintifboolexpr{\NBExoSup==\NBExo}{}{%
+    \xintifboolexpr{\NBExoSup>\NBExo}{%
+      \xintFor* ##1 in{\xintSeq{1}{\fpeval{\NBExoSup-\NBExo}}}\do{%
+        \xdef\ListeRoute{\ListeRoute,-1}%0 pour l'écart
+      }%
+    }{%
+      \xintFor* ##1 in{\xintSeq{1}{\fpeval{\NBExo-\NBExoSup}}}\do{%
+        \xdef\ListeRouteExclus{\ListeRouteExclus,-1}%0 pour l'écart
+      }%
+    }%
+  }%
+  \xdef\ListeRoute{\ListeRoute,0}%0 pour le symbole stop
+  \xdef\ListeRouteExclus{\ListeRouteExclus,0}%0 pour le symbole stop
+   %Route Basse P1 : \ListeRoute\\
+   %Route Haute P1 : \ListeRouteExclus\\
+  % portions centrales
+  % Portions centrales :\\
+   \xintifboolexpr{\ListeRetiensStoplen>2}{%
+     \xintFor* ##1 in{\xintSeq{1}{\fpeval{\LongueurB-1}}}\do{%
+       \xdef\NBExo{0}\xdef\NBExoSup{0}%
+       \xintFor* ##2 in{\xintSeq{1}{\LongueurA}}\do{%
+         \xintifboolexpr{\ListeRetiensExo[##2]<\fpeval{\ListeRetiensStop[##1]+1} || \ListeRetiensExo[##2]>\ListeRetiensStop[\fpeval{##1+1}]}{}{\xdef\NBExo{\fpeval{\NBExo+1}}\xdef\ListeRoute{\ListeRoute,\ListeRetiensExo[##2]}%
+         }%
+       }%
+       \ifnum\LongueurC=0\relax%
+       \else%
+         \xintFor* ##2 in{\xintSeq{1}{\LongueurC}}\do{%
+           \xintifboolexpr{\ListeRetiensExclus[##2]<\fpeval{\ListeRetiensStop[##1]+1} || \ListeRetiensExclus[##2]>\ListeRetiensStop[\fpeval{##1+1}]}{}{\xdef\NBExoSup{\fpeval{\NBExoSup+1}}\xdef\ListeRouteExclus{\ListeRouteExclus,\ListeRetiensExclus[##2]}%
+           }%%
+         }%
+       \fi%
+      \xintifboolexpr{\NBExoSup==\NBExo}{}{%
+        \xintifboolexpr{\NBExoSup>\NBExo}{%
+          \xintFor* ##3 in{\xintSeq{1}{\fpeval{\NBExoSup-\NBExo}}}\do{%
+            \xdef\ListeRoute{\ListeRoute,-1}%0 pour l'écart
+          }%
+        }{%
+          \xintFor* ##3 in{\xintSeq{1}{\fpeval{\NBExo-\NBExoSup}}}\do{%
+            \xdef\ListeRouteExclus{\ListeRouteExclus,-1}%0 pour l'écart
+          }%
+        }%
+      }%
+      \xdef\ListeRoute{\ListeRoute,0}\xdef\ListeRouteExclus{\ListeRouteExclus,0}%
+    }%
+   }{}%
+   %Route Basse P2 : \ListeRoute\\
+   %Route Haute P2 : \ListeRouteExclus\\
+  % portion finale
+  % Portion fin \\
+   \xintifboolexpr{\ListeRetiensStoplen>1}{%
+     \xdef\NBExo{0}\xdef\NBExoSup{0}%
+     \xintFor* ##1 in{\xintSeq{1}{\LongueurA}}\do{%
+       \xintifboolexpr{\fpeval{\ListeRetiensExo[##1]}>\fpeval{\ListeRetiensStop[\ListeRetiensStoplen-1]}}{\xdef\NBExo{\fpeval{\NBExo+1}}\xdef\ListeRoute{\ListeRoute,\ListeRetiensExo[##1]}}{}%
+     }%
+     \ifnum\LongueurC=0\relax%
+     \else%
+     \xintFor* ##1 in{\xintSeq{1}{\LongueurC}}\do{%
+       \xintifboolexpr{\ListeRetiensExclus[##1]>\fpeval{\ListeRetiensStop[\ListeRetiensStoplen-1]}}{\xdef\NBExoSup{\fpeval{\NBExoSup+1}}\xdef\ListeRouteExclus{\ListeRouteExclus,\ListeRetiensExclus[##1]}}{}%
+     }%
+     \fi%
+     \xintifboolexpr{\NBExoSup==\NBExo}{}{%
+       \xintifboolexpr{\NBExoSup>\NBExo}{%
+         \xintFor* ##1 in{\xintSeq{1}{\fpeval{\NBExoSup-\NBExo}}}\do{%
+           \xdef\ListeRoute{\ListeRoute,-1}%0 pour l'écart
+         }%
+       }{%
+         \xintFor* ##1 in{\xintSeq{1}{\fpeval{\NBExo-\NBExoSup}}}\do{%
+           \xdef\ListeRouteExclus{\ListeRouteExclus,-1}%0 pour l'écart
+         }%
+       }%
+     }%
+     \xdef\ListeRoute{\ListeRoute,0}%0 pour le symbole stop
+     \xdef\ListeRouteExclus{\ListeRouteExclus,0}%0 pour le symbole stop
+   }{}%
+  %Route Basse P3 : \ListeRoute\\
+  %Route Haute P3 : \ListeRouteExclus\\
+  \setsepchar{,}\ignoreemptyitems%
+  \readlist*\ListeRouteBasse{\ListeRoute}%
+  \readlist*\ListeRouteHaute{\ListeRouteExclus}%
+  %Liste Route : \showitems\ListeRouteBasse[]\\
+  %Liste Exclus : \showitems\ListeRouteHaute[]\\
+  \begin{tikzpicture}
+    \coordinate (A-0) at (-\PfMLargeurSchemaFdR,0);
+    \coordinate (A-1) at (0,0);%
+    \coordinate (B-1) at (0,1);%
+    \xintFor* ##1 in{\xintSeq{2}{\ListeRouteBasselen}}\do{%
+      \coordinate[xshift=\PfMLargeurSchemaFdR] (A-##1) at (A-\fpeval{##1-1});%
+      \coordinate[xshift=\PfMLargeurSchemaFdR] (B-##1) at (B-\fpeval{##1-1});%
+    }%
+   \coordinate[xshift=\PfMLargeurSchemaFdR] (A-\fpeval{\ListeRouteBasselen+1}) at (A-\ListeRouteBasselen);%
+   % Route haute
+   % Correct !
+   %\xintFor* ##1 in{\xintSeq{1}{\ListeRouteHautelen}}\do{%
+   %  \xintifboolexpr{\ListeRouteHaute[##1]<0}{%
+   %    \draw[red] (B-##1) to (B-\fpeval{##1+1});
+   %  }{%
+   %    \xintifboolexpr{\ListeRouteHaute[##1]==0}{%
+   %      \draw (B-##1) to (A-##1);%
+   %    }{%
+   %      \draw[blue] (B-##1) to (B-\fpeval{##1+1});
+   %      \draw[fill=white](B-##1) circle (\PfMRayonSchemaFdR) node{\ref{page-\thePfMMaquette-\ListeRouteHaute[##1]}};
+   %    }%
+   %  }%
+   %}%
+   %% Fin Correct !
+   \xdef\RetiensLesZeros{0}%
+   \xdef\RetiensLeDepart{0}%
+   \xdef\RetiensLesReponses{0}%
+   \xdef\RetiensNonAffichees{0}%
+   \xdef\RetiensEtage{0}
+   \xintFor* ##1 in{\xintSeq{1}{\ListeRouteHautelen}}\do{%
+     \xintifboolexpr{\ListeRouteHaute[##1]==0}{%
+       \xdef\RetiensEtage{\fpeval{\RetiensEtage+1}}%
+       \xdef\RetiensLesReponses{\fpeval{\RetiensLesReponses+1}}%
+       \xintFor* ##2 in{\xintSeq{\fpeval{\RetiensLeDepart+1}}{\fpeval{\RetiensLeDepart+\RetiensLesReponses}}}\do{%
+         \xintifboolexpr{\ListeRouteHaute[##2]<0}{%
+           \xdef\RetiensNonAffichees{\fpeval{\RetiensNonAffichees+1}}%
+         }{}%
+       }%
+       %\node at (0,\RetiensEtage) {Il y a \RetiensNonAffichees fois le nombre -1.};
+       % On affiche
+       \xintifboolexpr{\fpeval{\RetiensLesReponses-1}==\RetiensNonAffichees}{%
+%         %
+       }{%
+         \xintFor* ##2 in{\xintSeq{\fpeval{\RetiensLeDepart+1}}{\fpeval{\RetiensLeDepart+\RetiensLesReponses}}}\do{
+           \xintifboolexpr{\ListeRouteHaute[##2]<0}{%
+             \draw (B-##2) to (B-\fpeval{##2+1});%
+           }{%
+             \xintifboolexpr{\ListeRouteHaute[##2]==0}{%
+               %\xintifboolexpr{\fpeval{\RetiensLesReponses-1}==\RetiensNonAffichees}{}{
+                 \draw (B-##2) to (A-##2);%
+               %}
+             }{%
+               \draw[] (B-##2) to (B-\fpeval{##2+1});%
+               \draw[fill=white](B-##2) circle (\PfMRayonSchemaFdR) node{\ref{page-\thePfMMaquette-\ListeRouteHaute[##2]}};%
+             }%
+           }%    
+         }%
+       }%
+       %
+       \xdef\RetiensLeDepart{\fpeval{\RetiensLeDepart+\RetiensLesReponses}}%
+       \xdef\RetiensLesReponses{0}%
+       \xdef\RetiensNonAffichees{0}%
+     }{\xdef\RetiensLesReponses{\fpeval{\RetiensLesReponses+1}}%
+     }%
+   }%
+   % Route basse
+    \foreach\i in{1,...,\fpeval{\ListeRouteBasselen}}{%
+      \draw[line width=1pt] (A-\fpeval{\i-1}) -- (A-\i);%
+    }%
+    \draw[line width=1pt,>=latex,->] (A-\ListeRouteBasselen) to (A-\fpeval{\ListeRouteBasselen+1});%
+    \xintFor* ##1 in{\xintSeq{1}{\ListeRouteBasselen}}\do{%
+      \xintifboolexpr{\ListeRouteBasse[##1]<0}{}{%
+        \xintifboolexpr{\ListeRouteBasse[##1]==0}{%
+          \draw[fill=white,draw=white](A-##1) circle (\PfMRayonSchemaFdR) node{\faCheck};%
+        }{%
+          \draw[fill=PfMCouleurFdR](A-##1) circle (\PfMRayonSchemaFdR) node{\ref{page-\thePfMMaquette-\ListeRouteBasse[##1]}};%
+        }%
+      }%
+    }%
+  \end{tikzpicture}%
+}%
+
+\NewDocumentCommand\RemplisFdR{m}{%
+  \ifcsname \Roman{PfMMaquette}route#1\endcsname
+  \expandafter\xdef\csname \Roman{PfMMaquette}route#1\endcsname{\csname \Roman{PfMMaquette}route#1\endcsname,\thePfMExo}%
+%  Yes !
+  \else
+%  No !
+  \expandafter\xdef\csname \Roman{PfMMaquette}route#1\endcsname{\thePfMExo}%
+  \fi
+  \immediate\write\@auxout{\noexpand\expandafter\gdef\noexpand\csname \Roman{PfMMaquette}FdR#1\endcsname{\csname \Roman{PfMMaquette}route#1\endcsname}}%
+}%
+ 
+\NewDocumentEnvironment{exerciceFdR}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+  \stepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \immediate\write\@auxout{\string\opcopy{\thePfMExo}{\Roman{PfMMaquette}-FdRTotalExo}}%
+  % Creation des parcours
+  \ifboolKV[ClesExercices]{Routes}{%
+    \colorlet{PfMCadreFdR}{black}
+    % Remise à zéro de conteneurs des parcours
+    \setsepchar{,}%
+    % \ifboolKV[ClesExercices]{Stop}{\xdef\PfMFooListeFdR{\useKV[ClesExercices]{Route},0}}{
+    \xdef\PfMFooListeFdR{\useKV[ClesExercices]{Route}}
+ %   % }%
+    \readlist*\ListeFdR{\PfMFooListeFdR}%
+    \foreachitem\compteur\in\ListeFdR{%
+      \RemplisFdR{\ListeFdR[\compteurcnt]}%
+    }%
+  }{\colorlet{PfMCadreFdR}{gray!15}}
+  \ifboolKV[ClesExercices]{Stops}{%
+    \setsepchar{,}%
+    % \ifboolKV[ClesExercices]{Stop}{\xdef\PfMFooListeFdR{\useKV[ClesExercices]{Route},0}}{
+    \xdef\PfMFooListeFdR{stop}%
+    % }%
+    \readlist*\ListeFdR{\PfMFooListeFdR}%
+    \foreachitem\compteur\in\ListeFdR{%
+      \RemplisFdR{\ListeFdR[\compteurcnt]}%
+    }%
+  }{}%
+  %
+  \begin{tcolorbox}[%
+    tikzFdR,
+    label is label,
+    label=page-\thePfMMaquette-\thePfMExo
+    ]
+    \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+    #3
+  \end{tcolorbox}
+  \PfMApresLesExercices%
+  }%
+}{}%
+
+%CAN
+\setsepchar[*]{,*/}%
+\readlist*\ListeNoms{Aude/Elle/d'Aude/qu'Aude/elle,Bernard/Il/de Bernard/que Bernard/il,Céline/Elle/de Céline/que Céline/elle,Daniel/Il/de Daniel/que Daniel/il,\'Elise/Elle/d'\'Elise/qu'\'Elise/elle,Fabien/Il/de Fabien/que Fabien/il,Gérard/Il/de Gérard/que Gérard/il,Hélène/Elle/d'Hélène/qu'Hélène/elle,Ilies/Il/d'Ilies/qu'Ilies/il,Jasmine/Elle/de Jasmine/que Jasmine/elle,Kylian/Il/de Kylian/que Kylian/il,Laurent/Il/de Laurent/que Laurent/il,Mathilde/Elle/de Mathilde/que Mathilde/elle,Nina/Elle/de Nina/que Nina/elle,Octave/Il/d'Octave/qu'Octave/il,Philippe/Il/de Philippe/que Philippe/il,Joachim/Il/de Joachim/que Joachim/il,Thérèse/Elle/de Thérèse/que Thérèse/elle,Nawel/Elle/de Nawel/que Nawel/elle,Alexandre/Il/d'Alexandre/qu'Alexandre/il,Maxence/Il/de Maxence/que Maxence/il,Sophie/Elle/de Sophie/que Sophie/elle,Christophe/Il/de Christophe/que Christophe/il,Myriam/Elle/de Myriam/que Myriam/elle,Nathalie/Elle/de Nathalie/que Nathalie/elle,Sébastien/Il/de Sébastion/que Sébastien/il}%
+\readlist*\ListeChersObjets{montre/une,collier/un,bague/une,pendentif/un}%
+\readlist*\ListeSport{Football/du football/le football,Tennis/du tennis/le tennis,Basket/du basket/le basket,Athlétisme/de l'athlétisme/l'athlétisme,Natation/de la natation/la natation,Hand-ball/du hand-ball/le hand-ball,Volley-ball/du volley-ball/le volley-ball}
+\setsepchar{,}%
+\readlist*\ListePetitsObjets{bonbons,billes,biscuits,gommes,clous,vis,cahiers,trousses}%
+\readlist*\ListeFruits{pommes,poires,abricots,cerises,fraises,framboises,noix,pêches,nectarines,myrtilles,oranges,mandarines,kiwis}%
+\readlist*\ListeVariables{a,b,c,m,n,p,r,s,t,x,y,z}%
+
+\makeatletter
+\def\ExoCANWrite{%
+  \setcounter{PfMAlea}{0}%
+  \PfMChoixCorrection%
+  \stepcounter{PfMExo}%
+  \immediate\write\@auxout{%
+    \string\opcopy{\thePfMExo}{TotalExo}%
+  }%
+  \@bsphack%
+  \immediate\openout \verbatim@out "\jobname-Ex\thePfMExo.can"%
+  \let\do\@makeother\dospecials%
+  \catcode`\^^M\active%
+  \def\verbatim@processline{\immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}%
+\def\endExoCANWrite{\immediate\closeout\verbatim@out\@esphack}%
+\makeatother
+
+\NewDocumentCommand\Complement{+m}{%
+  \ifboolKV[Boulot]{CAN}{%
+    \expandafter\xdef\csname CNReponse\endcsname{#1}%
+  }{%
+    \begin{center}
+      #1%
+    \end{center}
+  }%
+}%
+
+\NewDocumentCommand\EcartComplement{m}{%
+  \rule{0mm}{#1}%
+}%
+
+\tcbset{%
+  usercan/.style={%
+    enhanced,
+    % spread upwards=-1cm,colback=gray!5%
+    frame hidden,
+    colback=white,
+    middle=24pt,
+    overlay={% unbroken and first={%
+      \draw[line width=2pt] (frame.north west)--(frame.north east);
+      \draw[line width=2pt] (frame.south west)--(frame.south east);
+    }
+  }%
+}%
+\tcbset{%
+  usercancor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\makeatletter
+\NewDocumentCommand\TikzCAN{}{%
+  \begin{tcolorbox}[usercan]%
+    {\sc Nom :} \PfCTBstrut\pointilles[0.35\linewidth]\hfill\textbf{\sc Prénom :} \pointilles[0.35\linewidth]
+    \par\bigskip\par
+    \textbf{\sc Classe :} \pointilles[0.35\linewidth]\hfill
+    \begin{minipage}{0.3\linewidth}
+      \begin{tcolorbox}
+        \textbf{\sc Score :} \hfill\textbf{/\@ifundefined{Op@TotalExo}{Recompilez}{\opexport{TotalExo}{\TotalExo}\TotalExo}}
+      \end{tcolorbox}
+    \end{minipage}
+    \tcblower
+    \begin{itemize}
+    \item[\faCheck] \textbf{Durée : \useKV[CAN]{Duree} minutes.}\\[0.5em]
+    \item[\faCheck] \textit{L'épreuve comporte \@ifundefined{Op@TotalExo}{Recompilez}{\opexport{TotalExo}{\TotalExo}\TotalExo{} question\ifnum\TotalExo=1\else\relax s\fi.}}\\[0.5em]
+    \item[\faCheck] \textit{L'usage de la calculatrice et du brouillon sont interdits. Il n'est pas permis d'écrire des calculs intermédiaires.} 
+    \end{itemize}
+    \vspace*{12pt}
+  \end{tcolorbox}%
+  \begin{center}
+    \Large Sujet \useKV[CAN]{Niveau}\hspace{0.15\linewidth}\useKV[CAN]{Date}
+  \end{center}
+  \clearpage%
+}%
+%\makeatother
+
+%\makeatletter
+\NewDocumentCommand\TikzCANCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[CAN]{#1}%
+  \begin{tcolorbox}[usercancor]%
+    \begin{center}
+      \Large\sffamily Course aux nombres (Correction)
+    \end{center}
+    \hfill\useKV[CAN]{Niveau}%
+    %\par{\tiny\useKV[CAN]{Code}}\hfill{\scriptsize\useKV[CAN]{Date}}%
+  \end{tcolorbox}%
+}
+%%% FdR %%%
+\tcbset{%
+  userfdr/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  userfdrcor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzFdR{}{%
+  \begin{tcolorbox}[userfdr]%
+    \Large\sffamily \useKV[FdR]{Theme}\hfill\useKV[FdR]{Niveau} \useKV[FdR]{Classe}%
+    \par{\tiny\useKV[FdR]{Code}}\hfill{\scriptsize\useKV[FdR]{Date}}%
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzFdRCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[FdR]{#1}%
+  \begin{tcolorbox}[userfdrcor]%
+    \Large\sffamily \useKV[FdR]{Theme} (Correction) \hfill\useKV[FdR]{Niveau} \useKV[FdR]{Classe}
+    \par{\tiny\useKV[FdR]{Code}}\hfill{\scriptsize\useKV[FdR]{Date}}
+  \end{tcolorbox}%
+}
+
+\tcbset{%
+  tikzFdR/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=PfMColbackFdR,
+    colframe=PfMCadreFdR,
+    overlay unbroken and first={%
+      \node[%
+      name=A,
+      fill=white,
+      anchor=west,
+      xshift=10pt,
+      ] at (frame.north west){\bfseries\sffamily \useKV[FdR]{NomExercice} \thePfMExo\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{}};
+      %% 
+      \PfMAffichageLogos
+      %%
+      \PfMAffichageCompetencesTravaillees%
+      %%
+      \PfMAffichageSource%
+      %
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+%% Fin FdR %%%
+
+
+%%Parcours
+
+%\makeatletter
+\NewDocumentCommand\AfficheParcours{om}{%
+  \useKVdefault[SchemaParcours]%
+  \setKV[SchemaParcours]{#1}%
+  \setlength{\PfMLargeurSchemaParcours}{\useKV[SchemaParcours]{Largeur}}%
+  \colorlet{PfMCouleurSP}{\useKV[SchemaParcours]{Couleur}}%
+  \@ifundefined{Op@\Roman{PfMMaquette}-ParcoursTotalExo}{Recompilez pour obtenir le parcours.}%
+  {%
+    \opexport{\Roman{PfMMaquette}-ParcoursTotalExo}{\ParcoursTotalExo}%
+%    Total Exo : \ParcoursTotalExo
+    \setsepchar{,}\ignoreemptyitems%
+    \readlist*\ListeExercicesPA{\csname \Roman{PfMMaquette}Parcours#2\endcsname}
+    \reademptyitems%
+    \xdef\PfMFooTestA{\ListeExercicesPA[1]}%
+    \ifnum\ListeExercicesPAlen>1\relax%
+    \xintFor* ##1 in{\xintSeq{2}{\ListeExercicesPAlen}}\do{%
+      \xdef\PfMFooTestA{\PfMFooTestA,\ListeExercicesPA[##1]}%
+    }%
+    \fi%
+    \ifboolKV[Parcours]{Vertical}{%
+      \BuildParcoursTikzV{\ParcoursTotalExo}{\PfMFooTestA}%
+    }{%
+      \BuildParcoursTikz{\ParcoursTotalExo}{\PfMFooTestA}%
+    }%
+  }%
+}%
+%\makeatother
+
+\NewDocumentCommand\BuildParcoursTikzV{mm}{%
+  \setsepchar{,}%
+  \readlist*\ListeRetiens{#2}%
+    \begin{tikzpicture}[remember picture,overlay]
+      % On place les points%anchor=base,baseline[xshift=-1cm,yshift=-4cm]
+      \coordinate (A-1) at (0,0);%
+      \xintFor* ##1 in{\xintSeq{2}{#1}}\do{%
+        \coordinate[yshift=-1cm] (A-##1) at (A-\fpeval{##1-1});%
+      }%
+      \foreach\i in{2,...,#1}{%
+        \draw[line width=1pt] (A-\fpeval{\i-1}) -- (A-\i);%
+      }%
+      %
+      \draw[line width=1pt,>=latex,->] (A-#1)--(A-\fpeval{#1+1});
+      %
+      \xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+        \draw[fill=white,dashed](A-##1) circle (2.5mm) node{##1};%
+      }%
+      \foreachitem\compteur\in\ListeRetiens{%
+        \draw[fill=PfMCouleurSP](A-\ListeRetiens[\compteurcnt]) circle (2.5mm) node{\ref{page-\thePfMMaquette-\ListeRetiens[\compteurcnt]}};%
+      }%
+    \end{tikzpicture}%
+}%
+
+\NewDocumentCommand\BuildParcoursTikz{mm}{%
+  \setsepchar{,}%
+  \readlist*\ListeRetiens{#2}%
+  \begin{tikzpicture}[anchor=center,baseline=-1.25mm]
+    % On place les points
+    \Orientation=1\relax
+    \coordinate[anchor=base,baseline=-1.25mm] (A-1) at (0,0);%
+    \xintFor* ##1 in{\xintSeq{2}{\fpeval{#1+1}}}\do{%
+      \modulo{##1}{\useKV[SchemaParcours]{Colonnes}}%
+      \ifnum\remainder=0\relax%
+      \Orientation=\numexpr\Orientation*(-1)\relax%
+      \coordinate[yshift=-1cm] (A-##1) at (A-\fpeval{##1-1});%
+      \else%
+      \coordinate[xshift=\the\Orientation*\PfMLargeurSchemaParcours] (A-##1) at (A-\fpeval{##1-1});%
+      \fi%
+    }%
+    \foreach\i in{2,...,#1}{%
+      \draw[line width=1pt] (A-\fpeval{\i-1}) -- (A-\i);%
+    }%
+    %
+    \draw[line width=1pt,>=latex,->] (A-#1)--(A-\fpeval{#1+1});
+    %
+    \xintFor* ##1 in{\xintSeq{1}{#1}}\do{%
+      \draw[fill=white,dashed](A-##1) circle (2.5mm) node{##1};%
+    }%
+    \foreachitem\compteur\in\ListeRetiens{%
+      \draw[fill=PfMCouleurSP](A-\ListeRetiens[\compteurcnt]) circle (2.5mm) node{\ref{page-\thePfMMaquette-\ListeRetiens[\compteurcnt]}};%
+    }%
+  \end{tikzpicture}%
+}%
+
+\NewDocumentCommand\RemplisParcours{m}{%
+  \ifcsname \Roman{PfMMaquette}trajet#1\endcsname
+  \expandafter\xdef\csname \Roman{PfMMaquette}trajet#1\endcsname{\csname \Roman{PfMMaquette}trajet#1\endcsname,\thePfMExo}%
+%  Yes !
+  \else
+%  No !
+  \expandafter\xdef\csname \Roman{PfMMaquette}trajet#1\endcsname{\thePfMExo}%
+  \fi
+  \immediate\write\@auxout{\noexpand\expandafter\gdef\noexpand\csname \Roman{PfMMaquette}Parcours#1\endcsname{\csname \Roman{PfMMaquette}trajet#1\endcsname}}%
+}%
+
+\def\exerciceParcoursPerso{%
+  \stepcounter{PfMExo}%
+  \PfMChoixCorrection%
+  \@bsphack%
+  \immediate\openout \verbatim@out "\jobname-PPEx\thePfMExo.tex" %
+  \immediate\write\verbatim@out{\string\begin{exercice}}
+  \let\do\@makeother\dospecials%
+  \catcode`\^^M\active%
+  \def\verbatim@processline{%
+    \immediate\write\verbatim@out{\the\verbatim@line}}%
+  \verbatim@start}%
+
+\def\endexerciceParcoursPerso{\immediate\write\verbatim@out{\string\end{exercice}}\immediate\closeout\verbatim@out\@esphack}%
+  
+\NewDocumentEnvironment{exerciceParcours}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \immediate\write\@auxout{\string\opcopy{\thePfMExo}{\Roman{PfMMaquette}-ParcoursTotalExo}}%
+  % Creation des parcours
+  \ifboolKV[ClesExercices]{Parcours}{%
+      % Remise à zéro de conteneurs des parcours
+      \setsepchar{,}%
+    \xdef\PfMFooListeParcours{\useKV[ClesExercices]{Trajet}}
+    \readlist*\ListeParcours{\PfMFooListeParcours}%
+    \foreachitem\compteur\in\ListeParcours{%
+      \RemplisParcours{\ListeParcours[\compteurcnt]}%
+    }%
+  }{}%
+  %
+  \begin{tcolorbox}[%
+    tikzparcours,
+    label is label,
+    label=page-\thePfMMaquette-\thePfMExo
+    ]
+    \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+    #3
+  \end{tcolorbox}
+  \PfMApresLesExercices%
+  }
+}{}%
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Pour encart
+%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{PfMtcbEncart}{%
+  before skip=1em,
+    enhanced,
+    breakable,
+    frame hidden,
+    height=\useKV[ClesExercices]{Encart},
+    colback=PfMFondEncart,
+    left=10pt,
+%    % colframe=PfMCadreEncart,
+    overlay unbroken and first={%
+      \coordinate[xshift=10*\kvtcb@leftlower] (B) at (frame.north west);
+      \coordinate[xshift=-10*\kvtcb@leftlower] (C) at (frame.south east);
+      \draw[PfMCadreEncart,line width=1pt] (frame.south east)--(frame.south west)--(frame.north west)--(B);
+      \node[%
+      name=A,
+      fill=PfMFondEncart,
+      anchor=west,
+      xshift=\kvtcb@leftlower,
+      ] at (frame.north west){\bfseries\sffamily\PfMTexteEncart};
+      %% 
+    }%
+  }%
+
+\NewDocumentCommand\PfMApresLesExercices{}{%
+  \ifboolKV[ClesExercices]{Ligne}{%
+    \par\vspace{\PfMEspaceAvantLignes}\par\PfMLignespointilles{\useKV[ClesExercices]{Lignes}}%
+    \par\vspace*{\PfMEspaceApresLignes}\par%
+  }{}%
+  \par%
+  \ifboolKV[ClesExercices]{Cadres}{%
+      \begin{PfMtcbEncart}%
+        %
+      \end{PfMtcbEncart}%
+  }{}%
+}%
+
+\NewDocumentCommand\PfMAffichageTitreSolution{}{%
+  %Affichage du titre de la solution :) Le compteur PfMExoSol vaut \thePfMExoSol
+  \expandafter\xdef\csname PfMEcrireTitreSol\endcsname{\csname PfMTSol\Roman{PfMExoSol}\endcsname}%
+  \ifx\bla\PfMEcrireTitreSol\bla%
+  \else
+    \PfMEcrireTitreSol%
+  \fi%
+}%
+
+\NewDocumentCommand\PfMChoixTitreSolution{}{%
+  \ifboolKV[ClesExercices]{TitreSol}{%
+    %J'ai un titre à mettre à la solution.\par LE compteur PfMExo vaut \thePfMExo
+    \expandafter\xdef\csname PfMTSol\Roman{PfMExo}\endcsname{\useKV[ClesExercices]{TitreSolution}}}{%
+    %Je n'ai pas de titre à mettre à la solution.\par%
+    \expandafter\xdef\csname PfMTSol\Roman{PfMExo}\endcsname{}%
+  }%
+}%
+
+\NewDocumentCommand\PfMChoixHideItemSolution{}{%
+  \ifboolKV[ClesExercices]{Profile}{%
+ %   J'ai un élève à profile Je dois me souvenir que la correction doit être profilée. Le compteur PfMExo vaut \thePfMExo
+    \expandafter\xdef\csname PfMHideSol\Roman{PfMExo}\endcsname{A}}{%
+    %Je n'ai pas d'élève à profile
+    \expandafter\xdef\csname PfMHideSol\Roman{PfMExo}\endcsname{}%
+  }%
+}%
+
+\NewDocumentCommand\PfMAffichageHideItemSolution{}{%
+  \expandafter\xdef\csname PfMEcrireHideItemSol\endcsname{\csname PfMHideSol\Roman{PfMExoSol}\endcsname}%
+  \ifx\bla\PfMEcrireHideItemSol\bla%
+%    \textcolor{blue}{Normalement, pas de hide car clé profile pas active.}
+  \else
+%    \textcolor{red}{Hide Item dans les solutions}
+    \PfMhideitems%
+  \fi%
+}%
+
+\NewDocumentEnvironment{exerciceFiche}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+    \IfBooleanTF{#1}{%
+      \setKV[ClesExercices]{Numerote=false}%
+    }{}%
+    \ifboolKV[ClesExercices]{Profile}{\PfMhideitems}{}%
+    \colorlet{ColExoFiche}{\useKV[ClesExercices]{Background}}%
+    \colorlet{PfMCadreFiche}{\useKV[ClesExercices]{Cadre}}%
+    \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+    \refstepcounter{PfMSection}%
+    \PfMChoixCorrection%
+    \refstepcounter{PfMExo}%
+    \PfMChoixTitreSolution%
+    \PfMChoixHideItemSolution%
+    \begin{tcolorbox}[%
+      tikzfiche,
+      label is label,
+      label=page-\thePfMMaquette-\thePfMExo
+      ]
+      \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+      #3
+    \end{tcolorbox}%
+    \ifboolKV[ClesExercices]{Profile}{\PfMshowitems}{}%
+    \PfMApresLesExercices%
+  }%
+}{}
+
+\NewDocumentEnvironment{exerciceDS}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \ifboolKV[ClesExercices]{NonUtilise}{%
+    % Mettre la correction hors-jeu
+    \setKV[ClesExercices]{PasCorrige}%
+    \PfMChoixCorrection%
+  }{%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \ifboolKV[ClesExercices]{Profile}{\PfMhideitems}{}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \immediate\write\@auxout{%
+    \string\opcopy{\thePfMExo}{TotalExo}%
+  }
+  \ifboolKV[ClesExercices]{BaremeTotal}{%
+    \immediate\write\@auxout{%
+      \string\opcopy{0}{total\the\c@PfMSection-\the\c@PfMExo}%
+    }}{}
+  \begin{tcolorbox}[%
+  tikzds,
+  label is label,
+  label=page-\thePfMMaquette-\thePfMExo
+  ]
+  \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+  #3
+  \end{tcolorbox}%
+  \PfMApresLesExercices%
+  }%
+}{}%
+
+\NewDocumentEnvironment{ExerciceRecapBrevet}{so+b}{%
+  \setcounter{PfMAlea}{0}%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#2}%
+  \IfBooleanTF{#1}{%
+    \setKV[ClesExercices]{Numerote=false}%
+  }{}%
+  \colorlet{ColExoFiche}{\useKV[ClesExercices]{Background}}%
+  \colorlet{PfMCadreFiche}{\useKV[ClesExercices]{Cadre}}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \ifboolKV[ClesExercices]{BaremeTotal}{%
+    \immediate\write\@auxout{%
+      \string\opcopy{0}{total\the\c@PfMSection-\the\c@PfMExo}%
+    }%
+  }{}%
+  \begin{tcolorbox}[%
+  tikzrecapbrevet,
+  label is label,
+  label=page-\thePfMMaquette-\thePfMExo
+  ]
+  \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+    #3
+  \end{tcolorbox}
+  \PfMApresLesExercices%
+}{}%
+
+\makeatother
+%%% Recap Brevet
+%%% Style Brevet
+\tcbset{%
+  userbrevet/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  userbrevetcor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+% Fiche Exercice Brevet
+\newcommand\TikzRecapBrevet{%
+\begin{tcolorbox}[userbrevet]%
+  \Large\sffamily \useKV[RecapBrevet]{Theme}
+  \par{\tiny\useKV[RecapBrevet]{Code}}\hfill{\scriptsize\useKV[RecapBrevet]{Date}}
+  \end{tcolorbox}%
+}
+
+\newcommand\TikzRecapBrevetCor[1]{%
+  \clearpage
+  \setKV[RecapBrevet]{#1}%
+  \begin{tcolorbox}[userbrevetcor]%
+    \Large\sffamily \useKV[RecapBrevet]{Theme} (Correction)
+    \par{\tiny\useKV[RecapBrevet]{Code}}\hfill{\scriptsize\useKV[RecapBrevet]{Date}}
+  \end{tcolorbox}%
+}
+
+\makeatletter
+\tcbset{%
+  tikzrecapbrevet/.style={%
+    before skip=1em,%
+    enhanced,%
+    breakable,%
+    colback=white,%
+    colframe=PfMCadreFiche,%
+    overlay unbroken and first={%
+      \node[%
+      name=A,%
+      fill=white,%
+      anchor=west,%
+      xshift=10pt,%
+      ] at (frame.north west){\bfseries\sffamily \useKV[Fiche]{NomExercice} \thePfMExo\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{}};%
+      %%
+      \ifboolKV[ClesExercices]{BaremeTotal}{\node[%
+      fill=white,%
+      anchor=east,%
+      xshift=-10pt,%
+      text=black,%
+      font=\bfseries%
+      ]
+      at (frame.north east)%
+      {\footnotesize\sffamily \total{\the\c@PfMSection-\the\c@PfMExo}};%
+      }{}%
+    }%
+  }%
+}%
+\makeatother
+%% PDT
+\tcbset{%
+  tikzpdt/.style={%
+    top=\ifboolKV[ClesExercices]{PasTitre}{0mm}{2mm},bottom=0mm,left=0mm,right=0mm,%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=blue!50,
+    remember,
+    overlay unbroken and first={%
+      \coordinate[xshift=2pt,yshift=-2pt] (NO-\thePfMExo) at (frame.north west);%
+      \coordinate[xshift=-2pt,yshift=-2pt] (NE-\thePfMExo) at (frame.north east);%
+      \coordinate[xshift=-2pt,yshift=2pt] (SE-\thePfMExo) at (frame.south east);%
+      \coordinate[xshift=2pt,yshift=2pt] (SO-\thePfMExo) at (frame.south west);%
+      \coordinate (N-\thePfMExo) at (frame.north);
+      \coordinate (S-\thePfMExo) at (frame.south);
+      \coordinate (E-\thePfMExo) at (frame.east);
+      \coordinate (O-\thePfMExo) at (frame.west);
+      \ifboolKV[ClesExercices]{PasTitre}{%
+        \coordinate[xshift=10pt] (A) at (frame.north west);
+      }{%
+        \node[%
+        name=A,
+        fill=white,
+        anchor=west,
+        xshift=10pt,
+        ] at (frame.north west){\bfseries\sffamily \useKV[PdT]{NomExercice} \thePfMExo\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{}};
+      }
+      %% 
+      \PfMAffichageLogos%
+      %
+      \PfMAffichageCompetencesTravaillees%
+      %
+      \PfMAffichageSource%
+      %
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+
+\tcbset{%
+  userpdt/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  userpdtcor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzPdT{}{%
+  \begin{tcolorbox}[userpdt]%
+    \Large\sffamily \useKV[PdT]{Theme}\hfill\useKV[PdT]{Niveau} \useKV[PdT]{Classe}%
+    \par{\tiny\useKV[PdT]{Code}}\hfill{\scriptsize\useKV[PdT]{Date}}%
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzPdTCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[PdT]{#1}%
+  \begin{tcolorbox}[userpdtcor]%
+    \Large\sffamily \useKV[PdT]{Theme} (Correction) \hfill\useKV[PdT]{Niveau} \useKV[PdT]{Classe}
+    \par{\tiny\useKV[PdT]{Code}}\hfill{\scriptsize\useKV[PdT]{Date}}
+  \end{tcolorbox}%
+}
+
+\newenvironment{exercicePdT}[1][]{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#1}%
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+  \refstepcounter{PfMSection}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \tcolorbox[%
+  tikzpdt,
+  label is label,
+  label=page-\thePfMMaquette-\thePfMExo
+  ]%
+  \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+}{\endtcolorbox%
+}
+
+\newenvironment{SOS}[1][]{%
+  \stepcounter{PfMSOS}%
+  \tcolorbox[%
+  enhanced,
+  remember,%
+  tikzsos,
+  overlay unbroken and first={%
+    \coordinate[xshift=2pt,yshift=-2pt] (SOS-NO-\thePfMSOS) at (frame.north west);%
+    \coordinate[xshift=-2pt,yshift=-2pt] (SOS-NE-\thePfMSOS) at (frame.north east);%
+    \coordinate[xshift=-2pt,yshift=2pt] (SOS-SE-\thePfMSOS) at (frame.south east);%
+    \coordinate[xshift=2pt,yshift=2pt] (SOS-SO-\thePfMSOS) at (frame.south west);%
+    \coordinate (SOS-N-\thePfMSOS) at (frame.north);
+    \coordinate (SOS-S-\thePfMSOS) at (frame.south);
+    \coordinate (SOS-E-\thePfMSOS) at (frame.east);
+    \coordinate (SOS-O-\thePfMSOS) at (frame.west);
+  }%
+  ]%
+}{\endtcolorbox%
+}
+
+\tikzstyle{cheminPdT}=[-stealth]
+
+\NewDocumentCommand\CheminVrai{m}{%
+  \setsepchar[*]{,*/}%
+  \readlist*\ListeCheminVrai{#1}%
+  \setsepchar{,}%
+  \begin{tikzpicture}[remember picture,overlay]%
+    \foreachitem\compteur\in\ListeCheminVrai{%
+      \draw[cheminPdT] (\ListeCheminVrai[\compteurcnt,1]) to node[midway]{\Large \RKbigsmile}(\ListeCheminVrai[\compteurcnt,2]);%
+    }%
+  \end{tikzpicture}%
+}%
+
+\NewDocumentCommand\CheminFaux{m}{%
+  \setsepchar[*]{,*/}%
+  \readlist*\ListeCheminVrai{#1}%
+  \setsepchar{,}%
+  \begin{tikzpicture}[remember picture,overlay]%
+    \foreachitem\compteur\in\ListeCheminVrai{%
+      \draw[cheminPdT] (\ListeCheminVrai[\compteurcnt,1]) to node[midway]{\Large \RKdevilish}(\ListeCheminVrai[\compteurcnt,2]);%
+    }%
+  \end{tikzpicture}%
+}%
+
+\tcbset{%
+  tikzsos/.style={%
+    left=0pt,right=0pt,top=0pt,bottom=0pt,%
+    colback=Crimson!15,%
+    colframe=Crimson!50,%
+  }%
+}%
+
+%% Kholle
+\tcbset{%
+  tikzkholle/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=gray!50,
+    overlay unbroken and first={%
+      \node[%
+      name=A,
+      fill=white,
+      anchor=west,
+      xshift=10pt,
+      ] at (frame.north west){\ifboolKV[ClesExercices]{AffichageTitre}{%
+          {\bfseries\sffamily\useKV[ClesExercices]{Titre}}%
+        }{\bfseries\sffamily Exercice \thePfMExo}%
+        \xintifboolexpr{\useKV[ClesExercices]{Difficulte}<1}{}{%
+          ~(\foreach \s in {1,...,\useKV[ClesExercices]{Difficulte}}{%
+            $\star$%
+          })%
+        }
+      }
+      ;
+      %%
+      \PfMAffichageSource%
+    }%
+  }%
+}%
+
+\newenvironment{CRNote}{%
+  \tcolorbox[colback=white,height=2cm,title=NOTE,fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white,enhanced,%
+    overlay unbroken and first={%
+      \node[%
+      anchor=east,
+      yshift=-8pt,
+      xshift=-10pt,
+      text=black,
+      ]
+      at (frame.north east)
+      {\sffamily\bfseries \useKV[Kholle]{NomEleve}};
+      \node[%
+      anchor=center,
+      yshift=-8pt,
+      text=black,
+      ]
+      at (frame.north)
+      {\sffamily\bfseries \useKV[Kholle]{Date}};
+    }
+    ]%
+  }{%
+  \endtcolorbox%
+}
+
+\newenvironment{CRRemarque}{%
+  \tcolorbox[colback=white,height=\CRRHauteur,title=REMARQUE(S),fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white%
+  ]}
+{%
+  \endtcolorbox%
+}%
+
+\NewDocumentEnvironment{exerciceKholle}{o}{%
+  \useKVdefault[ClesExercices]%
+  \setKV[ClesExercices]{#1}%
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}%
+  \PfMChoixCorrection%
+  \refstepcounter{PfMExo}%
+  \PfMChoixTitreSolution%
+  \tcolorbox[%
+  tikzkholle,
+  label is label,
+  label=page-\thePfMMaquette-\thePfMExo
+  ]
+  \ifboolKV[Boulot]{Dys}{\raggedright}{}%
+}{\endtcolorbox%
+}
+
+\newenvironment{exerciceBase}[1][]{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}
+  \useKVdefault[ClesExercices]
+  \setKV[ClesExercices]{#1}
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}
+  \refstepcounter{PfMExo}
+  \tcolorbox[%
+  tikzbase
+  ]
+}{\endtcolorbox%
+}
+
+\newenvironment{exerciceBaseHTML}[1][]{%
+  \setcounter{PfMAlea}{0}%
+  \setcounter{PfMNbLogo}{1}
+  \useKVdefault[ClesExercices]
+  \setKV[ClesExercices]{#1}
+  \setKV[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}
+  \refstepcounter{PfMExo}
+  \tcolorbox[%
+  standard jigsaw, opacityback=0,
+  lowerbox=ignored,
+  tikzbasehtml
+  ]
+}{\endtcolorbox%
+}
+
+%Alias pour tous les exercices.
+\NewDocumentEnvironment{exercice}{}{}{}%
+
+%%%%%%%%% STyle Kholle%%%%%%%%%%
+% Kholle
+\tcbset{%
+  userkholle/.style={%
+    frame hidden,colback=white,enhanced,%
+    borderline north={3pt}{0pt}{gray!85},
+    borderline north={2pt}{0.5pt}{gray!15},
+    borderline south={3pt}{0pt}{gray!85},
+    borderline south={2pt}{0.5pt}{gray!15}
+  }%
+}%
+
+\newcommand\TikzKholle{%
+  \clearpage
+  \begin{tcolorbox}[userkholle]%
+    \sffamily Interrogation Orale \useKV[Kholle]{Numero}\hfill
+    \ifboolKV[Kholle]{CR}{}{Sujet \useKV[Kholle]{Sujet}\hfill}\useKV[Kholle]{Niveau}%
+    \par\useKV[Kholle]{Lieu}\hfill Le \useKV[Kholle]{Date}%
+  \end{tcolorbox}%
+}
+
+\newcommand\TikzKholleCor[1]{%
+  \clearpage
+  \setKV[Kholle]{#1}
+  \begin{tcolorbox}[colback=white,height=2cm,title=NOTE,fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white,enhanced,%
+    overlay unbroken and first={%
+      \node[%
+      anchor=east,
+      yshift=-8pt,
+      xshift=-10pt,
+      text=black,
+      ]
+      at (frame.north east)
+      {\sffamily\bfseries Nom : \hbox to5cm{}};
+      \node[%
+      anchor=center,
+      yshift=-8pt,
+      text=black,
+      ]
+      at (frame.north)
+      {\sffamily\bfseries \useKV[Kholle]{Date}};
+    }
+    ]%
+  \end{tcolorbox}%
+  \begin{tcolorbox}[colback=white,height=2cm,title=EXERCICE(S),fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white%
+    ]%
+  \end{tcolorbox}%
+  \begin{tcolorbox}[colback=white,height=\textheight-5cm,title=REMARQUE(S),fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white%
+    ]%
+  \end{tcolorbox}%
+}
+
+%%%%%%%%%% Style DM%%%%%%%%%%%%%
+\tcbset{%
+  userdm/.style={%
+    frame hidden,colback=white,enhanced,%
+    borderline north={3pt}{0pt}{gray!85},%
+    borderline north={2pt}{0.5pt}{gray!15},%
+    borderline south={3pt}{0pt}{gray!85},%
+    borderline south={2pt}{0.5pt}{gray!15}%
+  }%
+}%
+
+\tcbset{%
+  userdmcor/.style={%
+    colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzDM{}{%
+  \clearpage%
+  \begin{tcolorbox}[userdm]%
+    \sffamily Devoir en temps libre \useKV[DM]{Numero}\hfill\useKV[DM]{Niveau} \useKV[DM]{Classe}%\no
+    \par{\tiny\useKV[DM]{Code}}\hfill{\scriptsize Pour le \useKV[DM]{Date}}%
+  \end{tcolorbox}%
+}%
+
+\NewDocumentCommand\TikzDMCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[DM]{#1}%
+  \begin{tcolorbox}[colback=white,height=\PfMHauteurAppreciation,title=APPR\'ECIATION,fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white,enhanced,%
+    overlay unbroken and first={%
+      \node[%
+      inner sep=0pt,
+      fill=white,
+      anchor=east,
+      yshift=-9pt,
+      xshift=-10pt,
+      text=black,
+      ]
+      at (frame.north east)
+      {\scriptsize\sffamily\bfseries \useKV[DM]{Code}};
+    }
+    ]%
+  \end{tcolorbox}%
+  \begin{tcolorbox}[colback=white,height=\PfMHauteurRemarque,title=CONSEIL(S) / REMARQUE(S),fonttitle=\color{black}\bfseries\sffamily,colbacktitle=white%
+    ]%
+  \end{tcolorbox}%
+}
+%%% Style Cours
+\tcbset{
+  usercours/.style={
+    enhanced,
+  skin=enhancedlast jigsaw,
+  attach boxed title to top left={xshift=-4mm,yshift=-0.5mm},
+  fonttitle=\bfseries\sffamily,
+  colbacktitle=blue!45,
+  colframe=red!50!black,
+  interior style={
+    top color=blue!10,
+    bottom color=red!10
+  },
+  boxed title style={
+    empty,
+    arc=0pt,
+    outer arc=0pt,
+    boxrule=0pt
+  },
+  underlay boxed title={
+    \fill[blue!45!white] 
+      (title.north west) -- 
+      (title.north east) -- 
+      +(\tcboxedtitleheight-1mm,-\tcboxedtitleheight+1mm) -- 
+      ([xshift=4mm,yshift=0.5mm]frame.north east) -- 
+      +(0mm,-1mm) -- 
+      (title.south west) -- cycle;
+    \fill[blue!45!white!50!black] 
+      ([yshift=-0.5mm]frame.north west) -- 
+      +(-0.4,0) -- 
+      +(0,-0.3) -- cycle;
+    \fill[blue!45!white!50!black] 
+      ([yshift=-0.5mm]frame.north east) -- 
+      +(0,-0.3) -- 
+      +(0.4,0) -- cycle; 
+  },
+  title={\useKV[Cours]{Theme}},
+}
+}
+
+\NewDocumentCommand\TikzCours{}{%
+  \begin{tcolorbox}[usercours]%
+%    \Large\sffamily\bfseries  Cours : \useKV[Fiche]{Theme}%
+%    \useKV[Fiche]{Niveau}~\useKV[Fiche]{Classe}\hfill{\scriptsize\useKV[Fiche]{Date}}%
+  \end{tcolorbox}%
+}
+
+%%%%%% Style Fiche
+\tcbset{%
+  userfiche/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  userfichecor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzFiche{}{%
+  \begin{tcolorbox}[userfiche]%
+    \Large\sffamily \useKV[Fiche]{Theme}\hfill\useKV[Fiche]{Niveau} \useKV[Fiche]{Classe}%
+    \par{\tiny\useKV[Fiche]{Code}}\hfill{\scriptsize\useKV[Fiche]{Date}}%
+  \end{tcolorbox}%
+}%
+
+\NewDocumentCommand\TikzFicheCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[Fiche]{#1}%
+  \begin{tcolorbox}[userfichecor]%
+    \Large\sffamily \useKV[Fiche]{Theme} (Correction) \hfill\useKV[Fiche]{Niveau} \useKV[Fiche]{Classe}
+    \par{\tiny\useKV[Fiche]{Code}}\hfill{\scriptsize\useKV[Fiche]{Date}}
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzFicheCorRep{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[Fiche]{#1}%
+  \begin{tcolorbox}[userfichecor]%
+    \Large\sffamily \useKV[Fiche]{Theme} (Réponses) \hfill\useKV[Fiche]{Niveau} \useKV[Fiche]{Classe}
+    \par{\tiny\useKV[Fiche]{Code}}\hfill{\scriptsize\useKV[Fiche]{Date}}
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzFicheCorInd{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[Fiche]{#1}%
+  \begin{tcolorbox}[userfichecor]%
+    \Large\sffamily \useKV[Fiche]{Theme} (Indices) \hfill\useKV[Fiche]{Niveau} \useKV[Fiche]{Classe}
+    \par{\tiny\useKV[Fiche]{Code}}\hfill{\scriptsize\useKV[Fiche]{Date}}
+  \end{tcolorbox}%
+}
+
+\makeatletter
+\tcbset{%
+  tikzfiche/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=ColExoFiche,
+    colframe=PfMCadreFiche,
+    overlay unbroken and first={%
+      \node[%
+      name=A,
+      fill=ColExoFiche,
+      anchor=west,
+      xshift=\kvtcb@leftlower,
+      ] at (frame.north west){\bfseries\sffamily\useKV[Fiche]{NomExercice}\ifboolKV[ClesExercices]{Numerote}{ \thePfMExo}{}\ifboolKV[ClesExercices]{AffichageTitre}{\ifboolKV[ClesExercices]{Numerote}{~:~}{\xdef\PfMTitiLgNE{\useKV[Fiche]{NomExercice}}\IfStrEq{\PfMTitiLgNE}{}{}{~:~}}\useKV[ClesExercices]{Titre}}{}};
+      %% 
+      \PfMAffichageLogos%
+      %
+      \PfMAffichageCompetencesTravaillees%
+      %
+      \PfMAffichageSource%
+      % Lien vers la solution
+      \PfMLienVersSolution
+    }%
+  }%
+}%
+\makeatother
+%%% Parcours %%%
+\tcbset{%
+  userparcours/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\tcbset{%
+  userparcourscor/.style={%
+    spread upwards=-1cm,colback=gray!5%
+  }%
+}%
+
+\NewDocumentCommand\TikzParcours{}{%
+  \begin{tcolorbox}[userparcours]%
+    \Large\sffamily \useKV[Parcours]{Theme}\hfill\useKV[Parcours]{Niveau} \useKV[Parcours]{Classe}%
+    \par{\tiny\useKV[Parcours]{Code}}\hfill{\scriptsize\useKV[Parcours]{Date}}%
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand\TikzParcoursCor{m}{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[Parcours]{#1}%
+  \begin{tcolorbox}[userparcourscor]%
+    \Large\sffamily \useKV[Parcours]{Theme} (Correction) \hfill\useKV[Parcours]{Niveau} \useKV[Parcours]{Classe}
+    \par{\tiny\useKV[Parcours]{Code}}\hfill{\scriptsize\useKV[Parcours]{Date}}
+  \end{tcolorbox}%
+}
+
+\tcbset{%
+  tikzparcours/.style={%
+    before skip=1em,
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=PfMCadreParcours,
+    overlay unbroken and first={%
+      \node[%
+      name=A,
+      fill=white,
+      anchor=west,
+      xshift=10pt,
+      ] at (frame.north west){\bfseries\sffamily \useKV[Parcours]{NomExercice} \thePfMExo\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{}};
+      %% 
+      \PfMAffichageLogos%
+      %%
+      \PfMAffichageCompetencesTravaillees%
+      %%
+      \PfMAffichageSource%
+      %
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+%% Fin Parcours %%%
+%%% DS %%%
+\tcbset{%
+  userds/.style={%
+    colback=gray!5,%
+    enhanced,%
+    overlay unbroken and first={%
+      \node[yshift=1em] at (frame.south) {\scriptsize\sffamily-- Calculatrice \ifboolKV[DS]{Calculatrice}{autorisée}{interdite} --};
+    }%
+  }%
+}%
+
+\tcbset{%
+  userdscor/.style={%
+    colback=gray!5%
+  }%
+}%
+
+
+\newcommand\TikzDS{%
+  \clearpage
+  \begin{tcolorbox}[userds]%
+    \sffamily Devoir surveillé \useKV[DS]{Numero} (Sujet \useKV[DS]{Sujet})\hfill\useKV[DS]{Niveau} \useKV[DS]{Classe}
+    \par{\tiny\useKV[DS]{Code}}\hfill{\scriptsize\useKV[DS]{Date}}
+  \end{tcolorbox}%
+}%
+
+\newcommand\TikzDSCor[1]{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[DS]{#1}%
+  \begin{tcolorbox}[userdscor]%
+    \sffamily Devoir surveillé \useKV[DS]{Numero} (Sujet \useKV[DS]{Sujet})\hfill\useKV[DS]{Niveau} \useKV[DS]{Classe}%
+    \par Correction%
+  \end{tcolorbox}%
+}
+
+\makeatletter
+\tcbset{%
+  tikzds/.style={%
+    enhanced,
+    breakable,
+    before skip=2mm,after skip=2mm,
+    colback=white,
+    attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight},
+    varwidth boxed title*=-3cm,
+    boxed title style={frame code={
+        \path[fill=tcbcolback!30!black]
+        ([yshift=-1mm,xshift=-1mm]frame.north west)
+        arc[start angle=0,end angle=180,radius=1mm]
+        ([yshift=-1mm,xshift=1mm]frame.north east)
+        arc[start angle=180,end angle=0,radius=1mm];
+        \path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+        middle color=tcbcolback!80!black]
+        ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+        [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+        -- (frame.south east) -- (frame.south west)
+        -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+        [sharp corners]-- cycle;
+      },interior engine=empty,
+    },
+    fonttitle=\bfseries\sffamily,
+    title=Exercice\ifboolKV[ClesExercices]{Numerote}{ \thePfMExo}{}\ifboolKV[ClesExercices]{AffichageTitre}{ : \useKV[ClesExercices]{Titre}}{},
+    overlay unbroken and first={%
+      %
+      \PfMAffichageSource%
+      %
+      \ifboolKV[ClesExercices]{BaremeTotal}{%
+        \node[
+        fill=white,
+        anchor=east,
+        xshift=-10pt,
+        text=black,
+        font=\bfseries
+        ]
+        at (frame.north east)
+        {\footnotesize\sffamily \total{\the\c@PfMSection-\the\c@PfMExo}};
+      }{}
+      \PfMLienVersSolution%
+    }%
+  }%
+}%
+\makeatother
+% Interrogations écrites
+\tcbset{%
+  userie/.style={%
+  colback=gray!5,
+  enhanced,%
+  overlay unbroken and first={%
+    \node[yshift=1em] at (frame.south) {\scriptsize\sffamily-- Calculatrice \ifboolKV[IE]{Calculatrice}{autorisée}{interdite} --};
+    }%
+  }%
+}%
+
+\tcbset{%
+  useriecor/.style={%
+  colback=gray!5,
+  enhanced,%
+  overlay unbroken and first={%
+    \node[yshift=1em] at (frame.south) {
+      \scriptsize\sffamily-- Calculatrice \ifboolKV[IE]{Calculatrice}{autorisée}{interdite} --
+      };%
+    }%
+  }%
+}%
+\newcommand\TikzIE{%
+  \clearpage
+  \begin{minipage}{0.6\linewidth}
+    \begin{tcolorbox}[userie]%
+      \sffamily \useKV[IE]{Nom} \useKV[IE]{Numero} : \useKV[IE]{Theme} \ifboolKV[IE]{Sujets}{\scriptsize(Sujet \useKV[IE]{Sujet})}{}
+      \vspace{1em}
+      \par{\tiny\useKV[IE]{Code}}\hfill{\scriptsize\useKV[IE]{Date}}
+    \end{tcolorbox}%
+  \end{minipage}\hfill\begin{minipage}{0.35\linewidth}
+    Nom : \PfMIENom\\[0.5em]
+    Prénom : \PfMIEPrenom\\[0.5em]
+    Classe : \PfMIEClasse%
+  \end{minipage}%
+  \par\bigskip%
+}%
+
+\newcommand\TikzIECor[1]{%
+  \ifPfMRectoVerso%
+    \cleardoublepage%
+  \else%
+    \clearpage%
+  \fi%
+  \setKV[IE]{#1}%
+  \begin{tcolorbox}[useriecor]%
+    \sffamily \useKV[IE]{Nom} \useKV[IE]{Numero} : \useKV[IE]{Theme} \ifboolKV[IE]{Sujets}{\scriptsize(Sujet \useKV[IE]{Sujet})}{}\hfill Correction%
+    \par{\tiny\useKV[IE]{Code}}\hfill{\scriptsize\useKV[IE]{Date}}%
+  \end{tcolorbox}%
+}%
+
+\NewDocumentCommand\Recapitulatif{m}{%
+  \DTLforeach*{dataperso}{\Prenom=PrenomEleve,\Nom=NomEleve,\RecapListeExo=ListeExo}{%
+    \begin{Maquette}[Fiche]{#1,Code=\normalsize\Prenom~\Nom}%
+      \readlist*\ListeExercices{\RecapListeExo}%
+      \ifnum\fpeval{\ListeExerciceslen}=1\relax{}
+        \setKVdefault[ClesExercices]{Numerote=false}
+%        \begin{exercice}*
+          \input{\jobname-PPEx\ListeExercices[1].tex}%
+          % \end{exercice}%
+          \setKVdefault[ClesExercices]{Numerote}
+      \else
+        \foreach\i in{1,...,\ListeExerciceslen}{%
+  %        \begin{exercice}
+            \input{\jobname-PPEx\ListeExercices[\i].tex}%
+   %       \end{exercice}%
+        }
+      \fi
+      \ifnum\thePfMCorrigeParcoursPerso=1\relax%
+        % \RecapitulatifCorrection{#2}%
+        \clearpage
+        \TikzFicheCor{#1,Code=\normalsize\Prenom~\Nom}%
+        \readlist*\ListeExercices{\RecapListeExo}%
+        \ifnum\fpeval{\ListeExerciceslen}=1\relax{}
+          \textbf{Corrigé de l'exercice} : \input{\jobname-PPEx\ListeExercices[1].sol}\par\goodbreak%
+        \else
+          \foreach\i in{1,...,\ListeExerciceslen}{%
+            \textbf{Corrigé de l'exercice \i} : \input{\jobname-PPEx\ListeExercices[\i].sol}\par\goodbreak%
+          }%
+        \fi%
+      \fi%
+    \end{Maquette}%
+  }%
+}%
+
+\NewDocumentCommand\RecapitulatifCorrection{m}{%
+  \DTLforeach*{dataperso}{\Prenom=PrenomEleve,\Nom=NomEleve,\RecapListeExo=ListeExo}{%
+    \clearpage
+    \TikzFicheCor{#1,Code=\normalsize\Prenom~\Nom}%
+    \readlist*\ListeExercices{\RecapListeExo}%
+    \foreach\i in{1,...,\ListeExerciceslen}{%
+      \IfFileExists{\jobname-PPEx\ListeExercices[\i].sol}{\textbf{Corrigé de l'exercice \i} : \input{\jobname-PPEx\ListeExercices[\i].sol}\par\goodbreak}{}%
+    }%
+  }%
+}%
+
+\NewDocumentCommand\PfMBasculeDys{}{%
+  \ifboolKV[Boulot]{Dys}{%
+    % d'après \url{https://culturedys.com/quelle-est-la-meilleure-police-pour-les-dyslexiques/}
+    \xdef\PfMTaillePointDys{\useKV[Boulot]{Taille}}
+    \fontsize{\PfMTaillePointDys}{\fpeval{\PfMTaillePointDys*1.2*1.5}}\selectfont%
+    \raggedright%
+  }{%
+    \ifnum\thePfMMaquette=1\relax%
+    \else%
+      \ifnum\PfMFontSize=0\relax%
+        \fontsize{10}{\fpeval{1.2*10}}%
+      \else\ifnum\PfMFontSize=1\relax%
+          \fontsize{11}{\fpeval{1.2*11}}%
+        \else%
+          \fontsize{12}{\fpeval{1.2*12}}%
+        \fi%
+      \fi%
+      \selectfont%
+      \renewcommand{\JustifyingParindent}{\parindent}
+      \justifying%
+    \fi%
+  }%
+}%
+
+%%%%%%%%%%%%%%% Debut Maquette %%%%%%%
+% Environnement englobant le tout.
+%\makeatletter
+\NewDocumentEnvironment{Maquette}{om}{%
+  % on remet à zéro les compteurs de solutions : inutile ?
+  \setcounter{RetiensSol}{0}%
+  \setcounter{RetiensRep}{0}%
+  \setcounter{RetiensInd}{0}%
+  % on remet à zéro le compteur des exercices
+  %\setcounter{PfMExo}{0}%
+  \setcounter{PfMSOS}{0}%
+  % nouvelles valeurs.
+  \stepcounter{PfMMaquette}%
+  % options de boulot
+  \IfHookExistsTF{env/Maquette/after}{\RemoveFromHook{env/Maquette/after}[*]}{}%
+  \IfHookExistsTF{env/exercice/after}{\RemoveFromHook{env/exercice/after}[*]}{}%
+  % \AddToHook{env/exercice/after}[ChoixExo]{\PfMChoixAffichageCorrection}%
+  \useKVdefault[Boulot]%
+  \setKV[Boulot]{#1}%
+  \PfMBasculeDys%
+  \IfHookExistsTF{env/exercice/after}{\RemoveFromHook{env/exercice/after}[*]\AddToHook{env/exercice/after}[ChoixExo]{\PfMChoixAffichageCorrection}}{\AddToHook{env/exercice/after}[ChoixExo]{\PfMChoixAffichageCorrection}}%
+  % Test
+  \IfHookExistsTF{env/exercice/begin}{\RemoveFromHook{env/exercice/begin}[*]}{}%
+  \IfHookExistsTF{env/Maquette/end}{\RemoveFromHook{env/Maquette/end}[*]}{}%
+  \ifboolKV[Boulot]{CAN}{%
+    \setKV[CAN]{#2}\TikzCAN%
+    \setcounter{PfMCNNumQ}{1}%
+    \setlength{\PfMLargeurQuestion}{\useKV[CAN]{CoefQ}\linewidth}\setlength{\PfMLargeurReponse}{\useKV[CAN]{CoefR}\linewidth}\setlength{\PfMLargeurJury}{\useKV[CAN]{CoefJ}\linewidth}%
+    \let\exercice\ExoCANWrite\let\endexercice\endExoCANWrite%
+    \AddToHook{env/exercice/begin}{\setcounter{PfMAlea}{0}}%
+    \AddToHook{env/Maquette/end}{%
+      \xdef\PfMCANTotalExo{\thePfMExo}%
+      \setcounter{PfMExo}{0}%
+      \renewcommand{\arraystretch}{2}%
+      \begin{longtable}{|c|m{\PfMLargeurQuestion}|>{\centering\arraybackslash}m{\PfMLargeurReponse}|m{\PfMLargeurJury}|}%
+        \hhline{~---}%
+        \multicolumn{1}{c|}{}&\cellcolor{gray!15}\centering Question&\cellcolor{gray!15}\centering Réponse&\cellcolor{gray!15}\centering\arraybackslash Jury\\%
+        \hline%
+        \endhead%
+        \xintFor* ##1 in {\xintSeq{1}{\PfMCANTotalExo}}\do{%
+          \ttfamily{\thePfMCNNumQ}\stepcounter{PfMCNNumQ}&\Complement{}\stepcounter{PfMExo}\setcounter{PfMAlea}{0}\input{\jobname-Ex##1.can}&\CNReponse&\\
+          \hline%
+        }%
+      \end{longtable}%
+      \renewcommand{\arraystretch}{1}%
+    }%
+      \ifboolKV[Boulot]{CorrigeFin}{%
+          \AddToHook{env/Maquette/after}[Correction]{%
+            \useKVdefault[Boulot]%
+            \setKV[Boulot]{#1}%
+            \PfMBasculeDys%
+            \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+            \TikzCANCor{#2}%
+            \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+            \PfMAffichageCorrige%
+            \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+        }%
+      }{}%
+    }{%
+  \ifboolKV[Boulot]{FdR}{%
+      \setKV[FdR]{#2}\TikzFdR%
+      \let\exercice\exerciceFdR\let\endexercice\endexerciceFdR%
+      \ifboolKV[Boulot]{CorrigeFin}{%
+        \AddToHook{env/Maquette/after}[Correction]{%
+          \useKVdefault[Boulot]%
+          \setKV[Boulot]{#1}%
+          \PfMBasculeDys%
+          \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+          \TikzFdRCor{#2}%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+          \PfMAffichageCorrige%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+        }%
+      }{}%
+   }{%
+  \ifboolKV[Boulot]{Contrat}{%
+      \setKV[Contrat]{#2}\TikzContrat%
+      \let\exercice\exerciceContrat\let\endexercice\endexerciceContrat%
+      \ifboolKV[Boulot]{CorrigeFin}{%
+        \AddToHook{env/Maquette/after}[Correction]{%
+          \useKVdefault[Boulot]%
+          \setKV[Boulot]{#1}%
+          \PfMBasculeDys%
+          \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+          \TikzContratCor{#2}
+          \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+          \PfMAffichageCorrige%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+        }%
+      }{}%
+   }{%
+  \ifboolKV[Boulot]{Cours}{%
+    \setKV[Cours]{#2}%
+    \TikzCours%
+    \let\exercice\exerciceFiche\let\endexercice\endexerciceFiche%
+    \ifboolKV[Boulot]{CorrigeFin}{%
+        \AddToHook{env/Maquette/after}[Correction]{%
+          \useKVdefault[Boulot]%
+        \setKV[Boulot]{#1}%
+        \PfMBasculeDys%
+        \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+        \TikzFicheCor{#2}%
+        \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+          \PfMAffichageCorrige%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+        }%
+      }{}%
+    }{%
+     \ifboolKV[Boulot]{RecapBrevet}{%
+    \setKV[RecapBrevet]{#2}%
+    \TikzRecapBrevet%
+    \let\exercice\ExerciceRecapBrevet\let\endexercice\endExerciceRecapBrevet%
+    \ifboolKV[Boulot]{CorrigeFin}{%
+        \AddToHook{env/Maquette/after}[Correction]{%
+          \useKVdefault[Boulot]%
+          \setKV[Boulot]{#1}%
+          \PfMBasculeDys%
+          \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+          \TikzRecapBrevetCor{#2}%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+          \PfMAffichageCorrige%
+          \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+      }%
+    }{}%
+  }{%
+    \ifboolKV[Boulot]{ParcoursPerso}{%
+      \setKV[ParcoursPerso]{#2}%
+      \DTLloaddb[noheader,keys={PrenomEleve,NomEleve,ListeExo}]{dataperso}{\useKV[ParcoursPerso]{Fichier}.csv}%
+      \let\exercice\exerciceParcoursPerso\let\endexercice\endexerciceParcoursPerso%
+      \ifboolKV[Boulot]{CorrigeFin}{\setcounter{PfMCorrigeParcoursPerso}{1}}{}%
+      \setcounter{PfMExo}{0}%
+      \AtEndDocument{%
+        \Recapitulatif{#2}%
+      }%
+    }{%
+      \ifboolKV[Boulot]{Parcours}{%
+        \setKV[Parcours]{#2}\TikzParcours%
+        \let\exercice\exerciceParcours\let\endexercice\endexerciceParcours%
+        \ifboolKV[Boulot]{CorrigeFin}{%
+            \AddToHook{env/Maquette/after}[Correction]{%
+              \useKVdefault[Boulot]%
+              \setKV[Boulot]{#1}%
+              \PfMBasculeDys%
+              \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+              \TikzParcoursCor{#2}
+              \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+              \PfMAffichageCorrige%
+              \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+            }%
+        }{}%
+      }{%
+        \ifboolKV[Boulot]{PdT}{%
+          \setKV[PdT]{#2}\TikzPdT%
+          \let\exercice\exercicePdT\let\endexercice\endexercicePdT%
+          \ifboolKV[Boulot]{CorrigeFin}{%
+              \AddToHook{env/Maquette/after}[Correction]{%
+                \useKVdefault[Boulot]%
+                \setKV[Boulot]{#1}%
+                \PfMBasculeDys%
+                \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                \TikzPdTCor{#2}%
+                \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                \PfMAffichageCorrige%
+                \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+            }%
+          }{}%
+        }{%
+          \ifboolKV[Boulot]{DM}{%
+            \setKV[DM]{#2}\TikzDM{}%
+            \let\exercice\exerciceDM\let\endexercice\endexerciceDM%
+            \ifboolKV[Boulot]{CorrigeFin}{%
+                \AddToHook{env/Maquette/after}[Correction]{%
+                  \useKVdefault[Boulot]%
+                  \setKV[Boulot]{#1}%
+                  \PfMBasculeDys%
+                  \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                  \TikzDMCor{#2}%
+                  \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                  \PfMAffichageCorrige%
+                  \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+              }%
+            }{}%
+          }{%
+            \ifboolKV[Boulot]{Fiche}{%
+                \setKV[Fiche]{#2}%
+                \TikzFiche%
+                \let\exercice\exerciceFiche\let\endexercice\endexerciceFiche%
+                \ifboolKV[Boulot]{CorrigeFin}{%
+                    \ifboolKV[Boulot]{CorrigeAll}{%
+                        \AddToHook{env/Maquette/after}[Correction]{%
+                          \useKVdefault[Boulot]%
+                        \setKV[Boulot]{#1}%
+                        \PfMBasculeDys%
+                      \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                      \TikzFicheCor{#2}%
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                          \xintFor* ##1 in{\xintSeq{1}{\thePfMExo}}\do{%
+                            \IfFileExists{\jobname-Ex##1.sol}{\textbf{Corrigé de l'exercice ##1}\par\nopagebreak\input{\jobname-Ex##1.sol}\par\goodbreak}{}%
+                          }% 
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                      \TikzFicheCorRep{#2}%
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                          \xintFor* ##1 in{\xintSeq{1}{\thePfMExo}}\do{%
+                            \IfFileExists{\jobname-Ex##1.rep}{\textbf{Réponse(s) de l'exercice ##1}\par\nopagebreak\input{\jobname-Ex##1.rep}\par\goodbreak}{}%
+                          }% 
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                      \TikzFicheCorInd{#2}%
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                          \xintFor* ##1 in{\xintSeq{1}{\thePfMExo}}\do{%
+                            \IfFileExists{\jobname-Ex##1.cdp}{\textbf{Indice(s) pour l'exercice ##1}\par\nopagebreak\input{\jobname-Ex##1.cdp}\par\goodbreak}{}%
+                          }% 
+                          \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                        }%
+                   }{%
+                     \AddToHook{env/Maquette/after}[Correction]{%
+                       \useKVdefault[Boulot]%
+                     \setKV[Boulot]{#1}%
+                     \PfMBasculeDys
+                     \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                     \TikzFicheCor{#2}%
+                     \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                       \PfMAffichageCorrige%
+                     \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                   }%
+                 }%
+              }{}%
+            }{%
+              \ifboolKV[Boulot]{DS}{%
+                \setKV[DS]{#2}\TikzDS%
+                \let\exercice\exerciceDS\let\endexercice\endexerciceDS%
+                \ifboolKV[Boulot]{BaremeComplet}{%
+                  \begin{center}
+                    \TableauRecapitulatif
+                  \end{center}
+                }{}%
+                \ifboolKV[Boulot]{CorrigeFin}{%
+                    \AddToHook{env/Maquette/after}[Correction]{%
+                      \useKVdefault[Boulot]%
+                      \setKV[Boulot]{#1}%
+                      \PfMBasculeDys%
+                      \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                    \TikzDSCor{#2}%
+                    \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                       \PfMAffichageCorrige%
+                     \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                  }%
+                }{}%
+              }{%
+                \ifboolKV[Boulot]{IE}{%
+                  \setKV[IE]{#2}\TikzIE%
+                  \let\exercice\exerciceDS\let\endexercice\endexerciceDS%On garde exerciceDS
+                  \ifboolKV[Boulot]{CorrigeFin}{%
+                      \AddToHook{env/Maquette/after}[Correction]{%
+                        \useKVdefault[Boulot]%
+                        \setKV[Boulot]{#1}%
+                        \PfMBasculeDys%
+                      \setlength{\columnseprule}{\useKV[Boulot]{Epaisseur}}%
+                      \TikzIECor{#2}%
+                      \ifboolKV[Boulot]{CorrectionColonnes}{\begin{multicols}{\useKV[Boulot]{Colonnes}}}{}%
+                       \PfMAffichageCorrige%
+                     \ifboolKV[Boulot]{CorrectionColonnes}{\end{multicols}}{}%
+                    }%
+                  }{}%
+                }{%
+                  \ifboolKV[Boulot]{Kholle}{%
+                    \setKV[Kholle]{#2}%
+                    \TikzKholle%
+                    \let\exercice\exerciceKholle\let\endexercice\endexerciceKholle%
+                    \ifboolKV[Kholle]{CR}{}{%
+                      \ifboolKV[Boulot]{CorrigeFin}{%
+                        \AddToHook{env/Maquette/after}[Correction]{%
+                          \TikzKholleCor{#2}%
+                          \TikzKholleCor{#2}%
+                          \TikzKholleCor{#2}%
+                          \PfMAffichageCorrige%
+                        }%
+                      }{}%
+                    }%
+                  }{}%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+  }%
+}%
+}%
+}%
+}{}%
+
+%D'après JCC
+% Package pour gérer les nombres pseudo-aléatoires
+\makeatletter
+\input{random}
+
+% Pour toutes les macros de liste, le premier paramètre est le nom de
+% la macro représentant la liste.
+
+% macro pour tester si une liste est vide
+\def\empty@list{}
+
+% Macro pour définir une nouvelle liste
+\newcommand\definelist[2]{\def#1{#2}}
+
+% Macro pour ajouter un élément en fin de liste
+\newcommand\push[2]{%
+  \ifx\\#2\\%
+    \PackageError{randomlist}
+                 {You can't push an empty value.}
+                 {Arg 2 of \string\pushlist is empty.}%
+  \else
+    \ifx#1\empty@list
+      \def#1{#2}%
+    \else
+      \edef#1{#1,#2}%
+    \fi
+  \fi
+}
+
+% Macro pour retirer le premier élément d'une liste
+\newcommand\pop[2]{%
+  \getwidth{#1}{\RL@temp}%
+  \ifnum\RL@temp = 0
+    % cas de la liste vide
+    \PackageError{randomlist}
+                 {You can't pop an empty list.}
+                 {There is no value to pull in list #1.}%
+  \else\ifnum\RL@temp = 1
+    % cas de la liste avec un seul élément
+    \edef#2{#1}%
+    \def#1{}%
+  \else
+    % cas de la liste avec au moins deux éléments
+    \expandafter\@@poplist#1,\@nil#1#2%
+  \fi\fi
+}
+\def\@@poplist#1,#2,\@nil#3#4{%
+  \def#4{#1}%
+  \def#3{#2}%
+}
+
+% Macro comptant le nombre d'élément d'une liste.
+\newcount\RL@cnta
+\newcommand\getwidth[2]{%
+  \RL@cnta \z@
+  \unless\ifx#1\empty@list
+    \expandafter\@countlist#1,\@nil,%
+  \fi
+  \edef#2{\the\RL@cnta}%
+}
+\def\@countlist#1,{%
+  \def\RL@arg{#1}%
+  \unless\ifx\RL@arg\@nnil
+    \advance\RL@cnta \@ne
+    \expandafter\@countlist
+  \fi
+}
+
+% Macro d'extraction de la nieme valeur
+\newcommand\extract[3]{%
+  % #1 = liste
+  % #2 = indice
+  % #3 = macro de retour de la nieme valeur
+  % On vérifie si la longueur de la liste est suffisante
+  \getwidth{#1}{\RL@temp}%
+  \ifnum#2>\RL@temp
+    \PackageError{randomlist}
+                 {Value number #2 doesn't exist in list #1}
+                 {List #1 has only \RL@temp\ values}%
+  \else
+    \RL@cnta #2
+    % On initialise une liste temporaire qui se remplira avec les
+    % éléments non extraits
+    \def\RL@temp{}%
+    % Lancement de la lecture récursive de la liste
+    \expandafter\RL@extract#1,\@nil,%
+    % On met la valeur extraite dans la macro prévue
+    \edef#3{\RL@return}%cp a remplacé edef par xdef
+    % La liste est celle sans l'élément extrait
+    \let#1\RL@temp
+  \fi
+}
+\def\RL@extract#1,{%
+  % Dans cette étape, on ne peut pas atteindre la fin de la liste, il
+  % faut juste repérer l'élément à extraire
+  \advance\RL@cnta \m@ne
+  \ifnum\RL@cnta = 0
+    % L'élément est atteint, on le sauvegarde
+    \def\RL@return{#1}%
+    % et on appelle la macro récursive de fin de lecture.
+    \expandafter\RL@@extract
+  \else
+    % L'élément n'est pas atteint, on augmente la liste temporaire
+    % on protège d'éventuelles virgule avec des accolades
+    \edef\RL@temp{\RL@temp,{#1}}%
+    % et on réalise l'appel récursif
+    \expandafter\RL@extract
+  \fi
+}
+\def\RL@@extract#1,{%
+  % L'élément a été extrait, on lit le reste de la liste pour mettre à
+  % jour la liste temporaire
+  \def\RL@arg{#1}%
+  \ifx\RL@arg\@nnil
+    % Si la liste est vide, on place une virgule
+    \ifx\RL@temp\empty
+      \def\RL@temp{,}%
+    \fi
+    % La fin de la liste est atteinte, il faut supprimer la virgule
+    % initiale de la liste temporaire
+    \expandafter\RL@@@extract\RL@temp\@nil
+  \else
+    % On n'a pas atteint la fin de liste, on augmente la liste
+    % temporaire avec l'élément lu et on réalise l'appel récursif
+    % l'élément ajouté est protégé avec des accolades au cas où il
+    % contiendrait des virgules.
+    \edef\RL@temp{\RL@temp,{#1}}%
+    \expandafter\RL@@extract
+  \fi
+}
+\def\RL@@@extract,#1\@nil{\def\RL@temp{#1}}
+
+% Extraction de l'élément <n> de la liste. Le choix de <n> étant
+% aléatoire
+\newcount\RL@cntb
+\newcommand\randomextract[2]{%
+  % Le choix aléatoire se fait dans l'intervalle [1,max de la liste]
+  % donc on commence par récupérer l'indice maximum de la liste.
+  \getwidth{#1}{\RL@temp}%
+  % Nombre aléatoire dans le compteur \RL@cntb
+  \setrannum{\RL@cntb}{1}{\RL@temp}%
+  % Appel de la macro d'extraction
+  \extract{#1}{\the\RL@cntb}{#2}%
+}
+%
+% Initialisation du germe en gardant la même valeur toutes les #2
+% compilations. Lors de la première compilation, c'est #1 qui sera le
+% germe (si valeur vide, on laisse faire random)
+\newcommand\initrandomlist[2][]{%
+  \ifdefined\randomlistseed
+    % Si le germe existe, c'est qu'il a été déclaré dans le
+    % fichier .aux avec le compteur de compilation. Le germe et le
+    % compteur de compilation existent et sont à jour.
+  \else
+    % Si le fichier aux n'a pas déclaré de compteur \randomlistseed
+    % on considère qu'on est à la première compilation donc qu'on
+    % compile avec un nouveau germe et un compteur de compilation à
+    % un. Dans ce cas particulier, on laisse random.tex choisir le
+    % germe.
+    \newcount\randomlistseed
+    \ifx\\#1\\
+      % si l'argument optionnel est vide, on laisse faire random
+      \nextrandom
+      \randomlistseed \randomi
+    \else
+      % sinon, on prend cet argument comme germe initial
+      \randomlistseed #1
+    \fi
+    \newcount\randomlistcompile
+    \randomlistcompile \@ne
+  \fi
+  % Utilisation du germe adéquat pour la compilation en cours.
+  \randomi\randomlistseed
+  % Préparation de la compilation suivante (dans le fichier .aux)
+  % On regarde si le nombre de compilations est égale  à zéro modulo #2 
+  \ifnum\numexpr(\randomlistcompile/#2)*#2-\randomlistcompile=0
+    % Si le nombre de compilations avec le même germe est atteint
+    % on changera le germe à la prochaine compilation.
+    \immediate\write\@mainaux{%
+      \string\newcount\string\randomlistseed
+    }%
+    % modification du germe (sans laisser faire random sinon cela ne
+    % change pas au cours de chaque minute)
+    \ifnum\randomlistseed>2147483646
+      \randomlistseed \z@
+    \else
+      \advance\randomlistseed \@ne
+    \fi
+    \immediate\write\@mainaux{%
+      \string\global\string\randomlistseed=\the\randomlistseed
+    }%
+  \else
+    % Il faut faire encore des compilations avec le même germe, on
+    % sauvegarde le germe et le compteur de compilation dans le
+    % fichier .aux.
+    \immediate\write\@mainaux{%
+      \string\newcount\string\randomlistseed
+    }%
+    \immediate\write\@mainaux{%
+      \string\global\string\randomlistseed=\the\randomlistseed
+    }%
+  \fi
+  % Dans tous les cas, on augmente le compteur de compilation
+    \immediate\write\@mainaux{%
+      \string\newcount\string\randomlistcompile
+    }%
+    \advance\randomlistcompile \@ne
+    \immediate\write\@mainaux{%
+      \string\global\string\randomlistcompile=\the\randomlistcompile
+    }%
+}
+\makeatother
+\newcommand\initEnsemblede{%
+  \definelist{\EnsembleDe}{%
+    {2,4,6,8,10,12},%
+    {1,3,5,7,9,11},%
+    {2,3,5,7,11,13},%
+  }
+}
+
+\newcommand\GetValeurDe[1]{%
+  \extract{\EnsembleDe}{#1}{\DeChoisi}%
+  \randomextract{\DeChoisi}{\NbDeChoisi}%
+}
+
+\def\PfMListeNombresPremiers{2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97}
+  
+
+\newcommand\initpremiers{%
+  \definelist{\listpremiers}{13,17,19,23,29,31,37,41,43,47}%
+}
+
+\newcommand\initPremiers{%
+  \definelist{\listPremiers}{71,73,79,83,89,97,101,103,107,109,113,127,131,137,139}%
+}
+
+\newcommand\getpremier{%
+  \randomextract{\listpremiers}{\NbPremier}
+}%
+
+\newcommand\getPremier{%
+  \randomextract{\listPremiers}{\NBPremier}
+}%
+
+\newcommand\getpytha{%
+  \randomextract{\tripletspythaentier}{\triplet}%
+  \extract{\triplet}{3}{\grand}% le troisième et le plus grand
+  \randomextract{\triplet}{\cote}%
+  \randomextract{\triplet}{\autre}%
+}
+
+\newcommand\initalpha{%
+  \definelist{\alphas}{b,c,d,e,f}
+}
+\newcommand\getalpha{%
+  \randomextract{\alphas}{\alphaA}%
+}%
+
+\newcommand\initsommet{%
+  \definelist{\sommets}{A,B,C,D,E,F,G,H,I,J,K,L,M,% pas d'espace ?
+                        N,O,P,Q,R,S,T,U,V,W,X,Y,Z}%
+}
+
+\newcommand\initsommetrep{%
+  \definelist{\sommets}{A,B,C,D,E,F,G,H,I,J,K,L,M,% pas d'espace ?
+                        N,P,Q,R,S,T,U,V,W,X,Y,Z}%
+}
+
+\newcommand\gettri{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+}
+
+\newcommand\getquad{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+}
+
+\newcommand\getpenta{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+}
+
+\newcommand\gethexa{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+  \randomextract{\sommets}{\pF}%
+}
+
+\newcommand\gethepta{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+  \randomextract{\sommets}{\pF}%
+  \randomextract{\sommets}{\pG}%
+}
+
+\newcommand\getocto{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+  \randomextract{\sommets}{\pF}%
+  \randomextract{\sommets}{\pG}%
+  \randomextract{\sommets}{\pH}%
+}
+
+\newcommand\getnonna{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+  \randomextract{\sommets}{\pF}%
+  \randomextract{\sommets}{\pG}%
+  \randomextract{\sommets}{\pH}%
+  \randomextract{\sommets}{\pI}%
+}
+
+\newcommand\gettreize{%
+  \randomextract{\sommets}{\pA}%
+  \randomextract{\sommets}{\pB}%
+  \randomextract{\sommets}{\pC}%
+  \randomextract{\sommets}{\pD}%
+  \randomextract{\sommets}{\pE}%
+  \randomextract{\sommets}{\pF}%
+  \randomextract{\sommets}{\pG}%
+  \randomextract{\sommets}{\pH}%
+  \randomextract{\sommets}{\pI}%
+  \randomextract{\sommets}{\pJ}%
+  \randomextract{\sommets}{\pK}%
+  \randomextract{\sommets}{\pL}%
+  \randomextract{\sommets}{\pM}%
+}
+
+\definelist{\quadruplets}{%
+{2{,}8,9{,}6,6,8},%10
+{3{,}2,12{,}6,5,12},%13
+{6{,}6,11{,}2,5,12},%13
+{7{,}8,10{,}4,5,12},%13
+{3{,}2,12{,}6,6{,}6,11{,}2},%13
+{3{,}2,12{,}6,7{,}8,10{,}4},%13
+{6{,}6,11{,}2,7{,}8,10{,}4},%13
+{7{,}8,10{,}4,6{,}6,11{,}2},%13
+{4{,}2,14{,}4,9,12},%15
+{2{,}6,16{,}8,7{,}2,15{,}4},%17
+{8,15,10{,}2,13{,}6},%17
+{2{,}6,16{,}8,8,15},%17
+{2{,}6,16{,}8,10{,}2,13{,}6},%17
+{5{,}6,19{,}2,12,16},%20
+{12,16,5{,}6,19{,}2},%20
+{7,24,8{,}8,23{,}4},%25
+{7,24,15,20},%25
+{8{,}8,23{,}4,15,20},%25
+{6{,}4,25{,}2,10,24},%26
+{6{,}4,25{,}2,13{,}2,22{,}4},%26
+{10,24,13{,}2,22{,}4},%26
+{10,24,15{,}6,20{,}8},%26
+{13{,}2,22{,}4,15{,}6,20{,}8},%26
+{9,40,16{,}8,37{,}4},%41
+{24{,}6,32{,}8,26{,}6,31{,}2},%41
+{9,40,26{,}6,31{,}2},%41
+{24{,}6,32{,}8,16{,}8,37{,}4}%41
+}%
+
+\definelist{\Quadruplets}{%pour un fonctionnement avec \fpeval
+{2.8,9.6,6,8},%10
+{3.2,12.6,5,12},%13
+{6.6,11.2,5,12},%13
+{7.8,10.4,5,12},%13
+{3.2,12.6,6.6,11.2},%13
+{3.2,12.6,7.8,10.4},%13
+{6.6,11.2,7.8,10.4},%13
+{7.8,10.4,6.6,11.2},%13
+{4.2,14.4,9,12},%15
+{2.6,16.8,7.2,15.4},%17
+{8,15,10.2,13.6},%17
+{2.6,16.8,8,15},%17
+{2.6,16.8,10.2,13.6},%17
+{5.6,19.2,12,16},%20
+{12,16,5.6,19.2},%20
+{7,24,8.8,23.4},%25
+{7,24,15,20},%25
+{8.8,23.4,15,20},%25
+{6.4,25.2,10,24},%26
+{6.4,25.2,13.2,22.4},%26
+{10,24,13.2,22.4},%26
+{10,24,15.6,20.8},%26
+{13.2,22.4,15.6,20.8},%26
+{9,40,16.8,37.4},%41
+{24.6,32.8,26.6,31.2},%41
+{9,40,26.6,31.2},%41
+{24.6,32.8,16.8,37.4}%41
+}%
+
+\definelist{\tripletspytha}{{2{,}8,9{,}6,10},{6,8,10},%10
+{3{,}2,12{,}6,13},{5,12,13},%13
+{6{,}6,11{,}2,13},{7{,}8,10{,}4,13},%13
+{4{,}2,14{,}4,15},{9,12,15},%15
+{2{,}6,16{,}8,17},{7{,}2,15{,}4,17},%17
+{8,15,17},{10{,}2,13{,}6,17},%17
+{5{,}6,19{,}2,20},{12,16,20},%20
+{7,24,25},{8{,}8,23{,}4,25},%25
+{15,20,25},%25
+{8{,}8,23{,}4,25},%25
+{6{,}4,25{,}2,26},{10,24,26},%26
+{13{,}2,22{,}4,26},%26
+{15{,}6,20{,}8,26},%26
+{9,40,41},{16{,}8,37{,}4,41},%41
+{24{,}6,32{,}8,41},{26{,}6,31{,}2,41}%41
+}%
+
+\definelist{\tripletspythaentier}{%
+{3,4,5},{5,12,13},{6,8,10},{7,24,25},{8,15,17},{9,12,15},{9,40,41},{10,24,26},{11,60,61},{12,16,20},{12,35,37},{13,84,85},{14,48,50},{15,20,25},{15,36,39},{16,30,34},{16,63,65},{18,24,30},{18,80,82},{20,21,29},{20,48,52},{21,28,35},{21,72,75},{24,32,40},{24,45,51},{24,70,74},{25,60,65},{27,36,45},{28,45,53},{28,96,100},{30,40,50},{30,72,78},{32,60,68},{33,44,55},{33,56,65},{35,84,91},{36,48,60},{36,77,85},{39,52,65},{39,80,89},{40,42,58},{40,75,85},{42,56,70},{45,60,75},{48,55,73},{48,64,80},{51,68,85},{54,72,90},{57,76,95},{60,63,87},{60,80,100},{65,72,97}}%%d'après villement.gerard.free.fr
+
+
+\newcommand\initcarre{%
+  \definelist{\carres}{4,9,16,25,36,49,64,81,100}%
+}
+\newcommand\getcarre{%
+  \randomextract{\carres}{\carreA}
+}
+
+%2009-2018
+  % Source https://ec.europa.eu/eurostat/databrowser/view/ENV_AIR_GGE__custom_743354/default/table?lang=en
+\definelist{\GazSerreEu}{%
+  {{la },Belgique,131038.46,123642.9},%
+  {{la },Bulgarie,58617.88,58595.07},%
+  {{le },Danemark,65734.85,51299.75},%
+  {{l'},Allemagne,934202.04,888718.56},%
+  {{l'},Irlande,63985.03,64241.55},%
+  {{la },Grèce,127381.2,96113.19},%
+  {{l'},Espagne,385211.04,352208.55},%
+  {{la },France,521519.73,462798.66},%
+  {{l'},Italie,510950.49,439263.95},%
+  {{les },{Pays Bas},212360.67,200458.52},%
+  {{la },Pologne,395464.33,415858.2},%
+  {{la },Norvège,54280.59,53769.04},%
+  {{la },Suisse,57276.22,52099.15}%
+}
+
+\newcommand\getGazSerre{%
+  \randomextract{\GazSerreEu}{\GazSerrePays}%
+  \extract{\GazSerrePays}{1}{\ArticlePaysGS}%
+  \extract{\GazSerrePays}{1}{\NomPaysGS}%
+  \extract{\GazSerrePays}{1}{\ConsoAPaysGS}%
+  \extract{\GazSerrePays}{1}{\ConsoBPaysGS}%
+}
+
+  \definelist{\VehiculesINSEE}{%
+    {2012,13132,22264,8111,15242},%
+    {2013,12853,22712,8028,15020},%
+    {2014,12778,23134,8049,14905},%
+    {2015,12874,23460,8144,14813},%
+    {2016,13144,23634,8308,14813},%
+    {2017,13580,23645,8437,14629},%
+    {2018,14140,23293,8652,14453},%
+    {2019,14756,22636,8920,14392}%
+  }%
+  \newcommand\getVehiculesINSEE{%
+    \randomextract{\VehiculesINSEE}{\NbVehiculesINSEE}%
+    \extract{\NbVehiculesINSEE}{1}{\AnneeVehiculesINSEE}%
+    \extract{\NbVehiculesINSEE}{1}{\EssenceVehiculesINSEE}%
+    \extract{\NbVehiculesINSEE}{1}{\DieselVehiculesINSEE}%
+    \extract{\NbVehiculesINSEE}{1}{\KmEssenceVehiculesINSEE}%
+    \extract{\NbVehiculesINSEE}{1}{\KmDieselVehiculesINSEE}%
+  }
+
+  % On met Christ7 à la fin :)
+  \newcommand{\vecteur}[1]{\overrightarrow{\strut #1}}
+  
+  \newlength{\ltxt}
+  
+  \newcommand\compo[4]{%
+    \setlength{\ltxt}{\linewidth}
+    \setbox#1=\hbox{\includegraphics[scale=#3]{#2.#1}}
+    \addtolength{\ltxt}{-\wd#1}
+    \addtolength{\ltxt}{-10pt}
+    \begin{minipage}{\wd#1}
+      \includegraphics[scale=#3]{#2.#1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{\ltxt}
+      #4
+    \end{minipage}
+  }%
+
+\newlength{\lntxt}
+\newcommand{\Compo}[4]{
+\setlength{\lntxt}{\linewidth}
+\setbox#1=\hbox{\includegraphics[scale=#3]{#2}}
+\addtolength{\lntxt}{-\wd#1}
+\addtolength{\lntxt}{-10pt}
+\begin{minipage}{\wd#1}
+\includegraphics[scale=#3]{#2}
+\end{minipage}
+\hfill
+\begin{minipage}{\lntxt}
+#4
+\end{minipage}
+}
+
+\newcommand{\Compog}[4]{
+\setlength{\lntxt}{\linewidth}
+\setbox#1=\hbox{\includegraphics[scale=#3]{#2}}
+\addtolength{\lntxt}{-\wd#1}
+\addtolength{\lntxt}{-10pt}
+\begin{minipage}{\lntxt}
+#4
+\end{minipage}
+\hfill
+\begin{minipage}{\wd#1}
+\includegraphics[scale=#3]{#2}
+\end{minipage}
+}
+
+\newlength{\ecart}
+\setlength{\ecart}{-20pt}
+
+\newcommand{\compog}[4]{%
+\setlength{\ltxt}{\linewidth}
+\setbox#1=\hbox{\includegraphics[scale=#3]{#2.#1}}
+\addtolength{\ltxt}{-\wd#1}
+\addtolength{\ltxt}{\ecart}
+\begin{minipage}{\ltxt}
+#4
+\end{minipage}
+\hfill
+\begin{minipage}{\wd#1}
+\includegraphics[scale=#3]{#2.#1}
+\end{minipage}
+}
+
+\newlength{\appui}
+\setlength{\appui}{20pt}
+
+\newlength{\lnttxt}
+\newcommand\dispo[3]{%
+\setlength{\lnttxt}{\linewidth}
+\setbox#1=\hbox{#2}
+\addtolength{\lnttxt}{-\wd#1}
+\addtolength{\lnttxt}{-\appui}
+\begin{minipage}{\wd#1}
+#2
+\end{minipage}
+\hfill
+\begin{minipage}{\lnttxt}
+#3
+\end{minipage}
+}
+
+\newcommand\dispog[3]{%
+\setlength{\lnttxt}{\linewidth}%
+\setbox#1=\hbox{#2}%
+\addtolength{\lnttxt}{-\wd#1}%
+\addtolength{\lnttxt}{-\appui}%
+\begin{minipage}{\lnttxt}%
+#3
+\end{minipage}%
+\hfill%
+\begin{minipage}{\wd#1}%
+#2
+\end{minipage}%
+}%
+
+\newcommand\compoxe[4][1]{%
+  \setbox#1=\hbox{\includegraphics[scale=#3]{#2.pdf}}%
+  \setlength{\lnttxt}{\linewidth-\wd#1-\appui}%
+  \begin{minipage}{\wd#1}%
+    \usebox#1%
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}{\lnttxt}%
+    #4%
+  \end{minipage}%
+}%
+
+\newcommand\compogxe[4][1]{%
+  \setbox#1=\hbox{\includegraphics[scale=#3]{#2.pdf}}%
+  \setlength{\lnttxt}{\linewidth-\wd#1-\appui}%
+  \begin{minipage}{\lnttxt}%
+    #4
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}{\wd#1}%
+    \usebox#1
+  \end{minipage}%
+}%
+
+\newcommand{\compogb}[4]{%
+\setlength{\ltxt}{\linewidth}
+\BaremeEspaceMarge{-20pt-82pt-\wd#1}
+\setbox#1=\hbox{\includegraphics[scale=#3]{#2.#1}}
+\addtolength{\ltxt}{-\wd#1}
+\addtolength{\ltxt}{-20pt}
+\begin{minipage}{\ltxt}
+#4
+\end{minipage}
+\hfill
+\begin{minipage}{\wd#1}
+\includegraphics[scale=#3]{#2.#1}
+\end{minipage}
+\BaremeEspaceMarge{-82pt}
+}
+
+\newcommand{\dispogb}[3]{
+\setlength{\ltxt}{\linewidth}
+\BaremeEspaceMarge{-20pt-82pt-\wd#1}
+\setbox#1=\hbox{#2}
+\addtolength{\ltxt}{-\wd#1}
+\addtolength{\ltxt}{-\appui}
+\begin{minipage}{\ltxt}
+#3
+\end{minipage}
+\hfill
+\begin{minipage}{\wd#1}
+#2
+\end{minipage}
+\BaremeEspaceMarge{-82pt}
+}
+
+\AddToHook{env/multicols/begin}{\setcounter{Nbcolonnes}{2}}%
+\AddToHook{env/multicols/after}{\setcounter{Nbcolonnes}{4}}%
+\NewDocumentEnvironment{Dispo}{sm+b}{%
+  \ifPfMDeuxColonnes
+    \IfBooleanTF{#1}{%
+      #3
+      \begin{center}
+        #2
+      \end{center}
+    }{%
+      \begin{center}
+        #2
+      \end{center}
+      #3
+    }%
+  \else%
+    \IfBooleanTF{#1}{%
+      \dispog{1}{#2}{#3}
+    }{%
+      \dispo{1}{#2}{#3}
+    }%
+  \fi%
+}%
+
+\NewDocumentEnvironment{CALign}{O{&=\dots&}O{&=\dots}mb}{%
+  % #1 séparateur généraliste
+  % #2 séparateur dernière colonne
+  % #3 nombre de colonnes souhaitées
+  % #4 environnement
+  \xdef\Foo{#4}%
+  \setsepchar{§}\ignoreemptyitems%
+  \readlist*\ListeTest{\Foo}%
+  \reademptyitems%
+  \quotient{\ListeTestlen}{#3}%
+  \modulo{\ListeTestlen}{#3}%
+  \begin{align*}
+    \ifnum\intquotient>0\relax
+    \xintFor* ##9 in{\xintSeq{0}{\fpeval{\the\intquotient-1}}}\do{%
+    \xintFor* ##8 in{\xintSeq{1}{#3}}\do{
+    \ListeTest[\fpeval{##9*#3+##8}]\xintifForLast{#2}{#1}
+    }\ifnum##9<\fpeval{\the\intquotient-1}\relax\\\fi
+    }
+    \fi
+    \ifnum\remainder>0\relax
+    \ifnum\intquotient>0\relax\\\fi
+    \xintFor* ##8 in{\xintSeq{1}{\the\remainder}}\do{
+    \ListeTest[\fpeval{\the\intquotient*#3+##8}]\xintifForLast{#2}{#1}
+    }
+    \fi
+  \end{align*}
+}{}%
+
+\NewDocumentEnvironment{CALignAv}{O{A&=}mb}{%
+  % #1 séparateur généraliste
+  % #2 nombre de colonnes souhaitées
+  % #3 environnement
+  \xdef\Foo{#3}%
+  \setsepchar{§}\ignoreemptyitems%
+  \readlist*\ListeTest{\Foo}%
+  \reademptyitems%
+  \quotient{\ListeTestlen}{#2}%
+  \modulo{\ListeTestlen}{#2}%
+  \begin{align*}
+    \ifnum\intquotient>0\relax
+    \xintFor* ##9 in{\xintSeq{0}{\fpeval{\the\intquotient-1}}}\do{%
+    \xintFor* ##8 in{\xintSeq{1}{#2}}\do{%
+    #1\ListeTest[\fpeval{##9*#2+##8}]\ifnum##8<#2\relax\uppercase{&}\fi
+                                                        }\ifnum##9<\fpeval{\the\intquotient-1}\relax{}\\\fi
+    }%
+    \fi%
+    \ifnum\remainder>0\relax%
+    \ifnum\intquotient>0\relax\\\fi
+    \xintFor* ##8 in{\xintSeq{1}{\the\remainder}}\do{%
+    #1\ListeTest[\fpeval{\the\intquotient*#2+##8}]\ifnum##8<\remainder\relax\uppercase{&}\fi
+                                                                                 }%
+    \fi%
+  \end{align*}
+}{}%

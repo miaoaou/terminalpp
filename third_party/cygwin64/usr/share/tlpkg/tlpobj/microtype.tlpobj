@@ -1,0 +1,62 @@
+name microtype
+category Package
+revision 66587
+shortdesc Subliminal refinements towards typographical perfection
+relocated 1
+longdesc The package provides a LaTeX interface to the micro-typographic
+longdesc extensions that were introduced by pdfTeX and have since also
+longdesc propagated to XeTeX and LuaTeX: most prominently, character
+longdesc protrusion and font expansion, furthermore the adjustment of
+longdesc interword spacing and additional kerning, as well as
+longdesc hyphenatable letterspacing (tracking) and the possibility to
+longdesc disable all or selected ligatures. These features may be
+longdesc applied to customisable sets of fonts, and all
+longdesc micro-typographic aspects of the fonts can be configured in a
+longdesc straight-forward and flexible way. Settings for various fonts
+longdesc are provided. Note that character protrusion requires pdfTeX,
+longdesc LuaTeX, or XeTeX. Font expansion works with pdfTeX or LuaTeX.
+longdesc The package will by default enable protrusion and expansion if
+longdesc they can safely be assumed to work. Disabling ligatures
+longdesc requires pdfTeX or LuaTeX, while the adjustment of interword
+longdesc spacing and of kerning only works with pdfTeX. Letterspacing is
+longdesc available with pdfTeX or LuaTeX. The alternative package
+longdesc 'letterspace', which also works with plain TeX, provides the
+longdesc user commands for letterspacing only, omitting support for all
+longdesc other extensions.
+runfiles size=128
+ RELOC/tex/latex/microtype/letterspace.sty
+ RELOC/tex/latex/microtype/microtype-luatex.def
+ RELOC/tex/latex/microtype/microtype-pdftex.def
+ RELOC/tex/latex/microtype/microtype-show.sty
+ RELOC/tex/latex/microtype/microtype-xetex.def
+ RELOC/tex/latex/microtype/microtype.cfg
+ RELOC/tex/latex/microtype/microtype.lua
+ RELOC/tex/latex/microtype/microtype.sty
+ RELOC/tex/latex/microtype/mt-CharisSIL.cfg
+ RELOC/tex/latex/microtype/mt-EBGaramond.cfg
+ RELOC/tex/latex/microtype/mt-LatinModernRoman.cfg
+ RELOC/tex/latex/microtype/mt-NewComputerModern.cfg
+ RELOC/tex/latex/microtype/mt-Palatino.cfg
+ RELOC/tex/latex/microtype/mt-TU-basic.cfg
+ RELOC/tex/latex/microtype/mt-TU-empty.cfg
+ RELOC/tex/latex/microtype/mt-bch.cfg
+ RELOC/tex/latex/microtype/mt-blg.cfg
+ RELOC/tex/latex/microtype/mt-cmr.cfg
+ RELOC/tex/latex/microtype/mt-euf.cfg
+ RELOC/tex/latex/microtype/mt-eur.cfg
+ RELOC/tex/latex/microtype/mt-eus.cfg
+ RELOC/tex/latex/microtype/mt-msa.cfg
+ RELOC/tex/latex/microtype/mt-msb.cfg
+ RELOC/tex/latex/microtype/mt-mvs.cfg
+ RELOC/tex/latex/microtype/mt-pmn.cfg
+ RELOC/tex/latex/microtype/mt-ppl.cfg
+ RELOC/tex/latex/microtype/mt-ptm.cfg
+ RELOC/tex/latex/microtype/mt-ugm.cfg
+ RELOC/tex/latex/microtype/mt-zpeu.cfg
+catalogue-also pdfcprot
+catalogue-contact-bugs https://github.com/schlcht/microtype/issues
+catalogue-contact-repository https://github.com/schlcht/microtype/
+catalogue-ctan /macros/latex/contrib/microtype
+catalogue-license lppl1.3c
+catalogue-topics micro-layout letterspace
+catalogue-version 3.1a

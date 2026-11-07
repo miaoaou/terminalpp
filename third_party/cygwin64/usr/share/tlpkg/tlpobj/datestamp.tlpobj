@@ -1,0 +1,18 @@
+name datestamp
+category Package
+revision 61719
+shortdesc Fixed date-stamps with LuaLaTeX
+relocated 1
+longdesc Add fixed date-stamps with simple and customizable aux files
+longdesc and LuaLaTeX. As long as the aux file is not deleted/modified
+longdesc the date-stamp generated with this package remains intact.
+runfiles size=1
+ RELOC/tex/lualatex/datestamp/datestamp.sty
+catalogue-contact-bugs https://puszcza.gnu.org.ua/bugs/?group=datestamp
+catalogue-contact-home https://puszcza.gnu.org.ua/projects/datestamp/
+catalogue-contact-repository https://git.gnu.org.ua/datestamp.git/
+catalogue-contact-support mailto:datestamp-help@gnu.org.ua
+catalogue-ctan /macros/luatex/latex/datestamp
+catalogue-license gpl3+ fdl
+catalogue-topics luatex date-time
+catalogue-version 0.3

@@ -1,0 +1,19 @@
+name scrwfile
+category Package
+revision 66872
+shortdesc Use LaTeX .aux file in place of \newrite files
+relocated 1
+longdesc The package provides a means of sending all LaTeX \newrite,
+longdesc table of contents, and other miscellaneous output via the LaTeX
+longdesc .aux file. The mechanism subverts the mechanism of \newrite,
+longdesc and means there will never be a "No room for new \write"
+longdesc message.
+runfiles size=2
+ RELOC/tex/latex/scrwfile/scrwfile.sty
+catalogue-also morewrites rvwrite
+catalogue-contact-home https://github.com/komascript/scrwfile
+catalogue-contact-repository https://github.com/komascript/scrwfile.git
+catalogue-ctan /macros/latex/contrib/scrwfile
+catalogue-license lppl1.3c
+catalogue-topics io-mgmt
+catalogue-version 0.1.99

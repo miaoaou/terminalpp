@@ -1,0 +1,26 @@
+name gmdoc
+category Package
+revision 21292
+shortdesc Documentation of LaTeX packages
+relocated 1
+longdesc A LaTeX package and an example class for documenting (La)TeX
+longdesc packages, document classes, .dtx etc., providing hyperlinks.
+longdesc The package is believed to be compatible with doc and permits
+longdesc minimal markup of code (the macrocode environment is no longer
+longdesc necessary). The package provides automatic detection of
+longdesc definitions (detecting such things as \def, \newcommand,
+longdesc \DeclareOption etc.). The package needs hyperref and the
+longdesc author's three 'basic' packages: gmutils, gmverb and gmiflink.
+longdesc As a bonus (and as an example of doc compatibility) driver
+longdesc files are provided that may be used to typeset the LaTeX Base.
+runfiles size=42
+ RELOC/makeindex/gmdoc/gmglo.ist
+ RELOC/tex/latex/gmdoc/gmdoc.sty
+ RELOC/tex/latex/gmdoc/gmdocc.cls
+ RELOC/tex/latex/gmdoc/gmoldcomm.sty
+catalogue-also gmdoc-enhance
+catalogue-ctan /macros/latex/contrib/gmdoc
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics doc-supp class
+catalogue-version 0.993

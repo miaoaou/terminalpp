@@ -1,0 +1,20 @@
+name texsurgery
+category Package
+revision 59885
+shortdesc A LaTeX companion to the "texsurgery" python project
+relocated 1
+longdesc This LaTeX library is a companion to the texsurgery python
+longdesc project. It will make sure that "pdflatex document.tex" will
+longdesc work, with reasonable defaults, for a document that is intended
+longdesc to work with texsurgery, and also has other uses, always in
+longdesc tandem with the texsurgery pypi package.
+runfiles size=2
+ RELOC/tex/latex/texsurgery/texsurgery.sty
+catalogue-contact-announce https://framagit.org/pang/texsurgery/-/releases
+catalogue-contact-bugs https://framagit.org/pang/texsurgery/-/issues
+catalogue-contact-development https://framagit.org/pang/texsurgery/-/project_members
+catalogue-contact-repository https://framagit.org/pang/texsurgery
+catalogue-ctan /macros/latex/contrib/texsurgery
+catalogue-license bsd3
+catalogue-topics preprocessor callback graphics-inline
+catalogue-version 0.6.0

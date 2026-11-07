@@ -1,0 +1,17 @@
+name sim-os-menus
+category Package
+revision 68843
+shortdesc Insert 'terminal' or 'context menu' or 'viewers' like in an OS
+relocated 1
+longdesc This is a package to present, like in an OS: a fake terminal
+longdesc (with tcolorbox); a fake context menu with sub-menus (with
+longdesc TikZ); a fake viewer (with tcolorbox).
+runfiles size=8
+ RELOC/tex/latex/sim-os-menus/sim-os-menus.sty
+catalogue-contact-bugs https://github.com/cpierquet/sim-os-menus/issues
+catalogue-contact-home https://github.com/cpierquet/sim-os-menus
+catalogue-contact-repository https://github.com/cpierquet/sim-os-menus
+catalogue-ctan /macros/latex/contrib/sim-os-menus
+catalogue-license lppl1.3c
+catalogue-topics presentation boxing comp-sci
+catalogue-version 0.1.1

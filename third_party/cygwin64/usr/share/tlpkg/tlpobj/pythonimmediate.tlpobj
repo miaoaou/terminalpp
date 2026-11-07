@@ -1,0 +1,31 @@
+name pythonimmediate
+category Package
+revision 69487
+shortdesc Library to run Python code
+relocated 1
+longdesc Just like PerlTeX or PyLuaTeX (and unlike PythonTeX or
+longdesc lt3luabridge), this only requires a single run, and variables
+longdesc are persistent throughout the run. Unlike PerlTeX or PyLuaTeX,
+longdesc there is no restriction on compiler or script required to run
+longdesc the code. There are also debugging functionalities: TeX errors
+longdesc result in Python traceback, and Python errors result in TeX
+longdesc traceback. Errors in code executed with the pycode environment
+longdesc give the correct traceback point to the Python line of code in
+longdesc the TeX file. For advanced users, this package allows the user
+longdesc to manipulate the TeX state directly from within Python, so you
+longdesc don't need to write a single line of TeX code. CAUTION: In
+longdesc addition to this LaTeX package you need the Python
+longdesc pythonimmediate-tex package, which can be obtained from
+longdesc https://pypi.org/project/pythonimmediate-tex/.
+depend currfile
+depend l3packages
+depend precattl
+depend saveenv
+runfiles size=3
+ RELOC/tex/latex/pythonimmediate/pythonimmediate.sty
+ RELOC/tex/latex/pythonimmediate/pythonimmediate_helper.lua
+catalogue-contact-repository https://github.com/user202729/pythonimmediate-tex
+catalogue-ctan /macros/latex/contrib/pythonimmediate
+catalogue-license lppl1.3c
+catalogue-topics callback expl3
+catalogue-version 0.5.0

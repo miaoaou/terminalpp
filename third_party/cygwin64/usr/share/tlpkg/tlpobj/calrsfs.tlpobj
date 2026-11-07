@@ -1,0 +1,13 @@
+name calrsfs
+category Package
+revision 17125
+shortdesc Copperplate calligraphic letters in LaTeX
+relocated 1
+longdesc Provides a maths interface to the rsfs fonts.
+runfiles size=2
+ RELOC/tex/latex/calrsfs/OMSrsfs.fd
+ RELOC/tex/latex/calrsfs/calrsfs.sty
+catalogue-ctan /macros/latex/contrib/calrsfs
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics font-supp

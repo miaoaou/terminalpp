@@ -1,0 +1,16 @@
+name xcpdftips
+category Package
+revision 50449
+shortdesc Natbib citations with PDF tooltips
+relocated 1
+longdesc This LaTeX package uses pdfcomment and bibentry to surround
+longdesc natbib citations with PDF tooltips.
+runfiles size=2
+ RELOC/tex/latex/xcpdftips/xcpdftips.sty
+catalogue-contact-repository https://github.com/mekeetsa/xcpdftips
+catalogue-contact-support https://github.com/mekeetsa/xcpdftips/issues
+catalogue-ctan /macros/latex/contrib/xcpdftips
+catalogue-date 2019-03-18 09:44:11 +0100
+catalogue-license gpl3+
+catalogue-topics bibtex-supp cite-supp pdf-feat
+catalogue-version 1.1

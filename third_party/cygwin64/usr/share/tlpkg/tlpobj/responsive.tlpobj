@@ -1,0 +1,22 @@
+name responsive
+category Package
+revision 69147
+shortdesc Responsive design methods for LaTeX
+relocated 1
+longdesc Responsive design aims to display text and other design
+longdesc elements well on variety of outputs, including electronic
+longdesc devices or various paper sizes. It originated on the Web, using
+longdesc Cascading Style Sheets to change design elements. This package
+longdesc tries to achieve similar results with LaTeX. The main aim is to
+longdesc support the output of multiple editions of one document with
+longdesc readable font sizes regardless of the physical size of the
+longdesc produced PDF, from smartphones or e-ink readers to printed A4
+longdesc pages.
+runfiles size=4
+ RELOC/tex/latex/responsive/responsive.sty
+catalogue-contact-bugs https://github.com/michal-h21/responsive-latex/issues
+catalogue-contact-home https://github.com/michal-h21/responsive-latex
+catalogue-ctan /macros/latex/contrib/responsive
+catalogue-license lppl1.3
+catalogue-topics typesetting
+catalogue-version 0.1

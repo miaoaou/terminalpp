@@ -1,0 +1,487 @@
+%%
+%% This is file `libgreek.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% libgreek.dtx  (with options: `sty')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from libgreek.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file libgreek.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{libgreek}
+         [2022/11/11 1.1 Greek in math mode via libertinus-type1 (JFB)]
+\@ifpackageloaded{libgreek-legacy}{%
+    \PackageWarning{libgreek}%
+    {libgreek-legacy loaded previously, now aborting\@gobble}%
+    \endinput
+}{}%
+\RequirePackage{kvoptions}
+\IfFileExists{ufxl03.fd}{%
+    \define@key{libgreek}{libertinus}[0]{\global\let\libgreek@nolegacy\@empty}
+    \define@key{libgreek}{serif}[0]{\global\let\libgreek@nolegacy\@empty}
+    \define@key{libgreek}{libertine}[0]{}
+    \define@key{libgreek}{sans}[0]{\global\let\libgreek@nolegacy\@empty}
+    \define@key{libgreek}{biolinum}[0]{}
+    \define@key{libgreek}{scale}[0]{}
+    \define@key{libgreek}{upshape}[0]{\global\let\libgreek@nolegacy\@empty}
+    \define@key{libgreek}{itshape}[0]{\global\let\libgreek@nolegacy\@empty}
+    \define@key{libgreek}{style}[0]{}
+    \define@key{libgreek}{Greek}[0]{}
+    \define@key{libgreek}{greek}[0]{}
+    \define@key{libgreek}{series}[0]{}
+    \define@key{libgreek}{boldseries}[0]{}
+    \define@key{libgreek}{alphabets}[0]{\global\let\libgreek@nolegacy\@empty}
+    {\ProcessLocalKeyvalOptions*}%
+    \ifdefined\libgreek@nolegacy\expandafter\@gobble\else\expandafter\@firstofone\fi
+   {%
+   \PackageInfo{libgreek}{%
+   ****************************************************\MessageBreak
+   File ufxl03.fd exists!\MessageBreak
+   Thus, now handing over to libgreek-legacy.\MessageBreak
+   To avoid this, use libertinus option.\MessageBreak
+   ****************************************************\@gobbletwo
+   }%
+   \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{libgreek-legacy}}%
+   \ProcessOptions\relax
+   \endinput
+   \RequirePackage{libgreek-legacy}%
+   }%
+  }{}%
+\def\libgreek@fontfamily{LibertinusSerif}
+\def\libgreek@scale{1}
+\def\libgreek@upshape{n}
+\def\libgreek@itshape{it}
+\newif\iflibgreek@upper@up\libgreek@upper@uptrue
+\newif\iflibgreek@lower@up
+\edef\libgreek@series{\seriesdefault}
+\edef\libgreek@boldseries{\bfdefault}
+\def\libgreek@upper@shape{\libgreek@upshape}
+\def\libgreek@lower@shape{\libgreek@itshape}
+\def\libgreek@style{TeX}
+\newif\iflibgreek@sty
+\define@key{libgreek}{libertinus}[true]{}
+\define@key{libgreek}{serif}[true]{\def\libgreek@fontfamily{LibertinusSerif}}
+\define@key{libgreek}{libertine}[true]{\def\libgreek@fontfamily{LibertinusSerif}}
+\define@key{libgreek}{sans}[true]{\def\libgreek@fontfamily{LibertinusSans}}
+\define@key{libgreek}{biolinum}[true]{\def\libgreek@fontfamily{LibertinusSans}}
+\define@key{libgreek}{scale}[1]{\def\libgreek@scale{#1}}
+\define@key{libgreek}{upshape}{\edef\libgreek@upshape{#1}}
+\define@key{libgreek}{itshape}{\edef\libgreek@itshape{#1}}
+\define@key{libgreek}{style}{\edef\libgreek@style{#1}\libgreek@stytrue}
+\define@key{libgreek}{Greek}{\edef\libgreek@upper@shape{#1}}
+\define@key{libgreek}{greek}{\edef\libgreek@lower@shape{#1}%
+                             \edef\libgreek@upper@shape{#1}}
+\define@key{libgreek}{series}{\edef\libgreek@series{#1}}
+\define@key{libgreek}{boldseries}{\edef\libgreek@boldseries{#1}}
+\DeclareBoolOption[false]{alphabets}
+\def\libgreek@style@ISO{%
+    \libgreek@upper@upfalse
+    \libgreek@lower@upfalse
+    \let\libgreek@upper@shape\libgreek@itshape
+    \let\libgreek@lower@shape\libgreek@itshape
+}
+\def\libgreek@style@French{%
+    \libgreek@upper@uptrue
+    \libgreek@lower@uptrue
+    \let\libgreek@upper@shape\libgreek@upshape
+    \let\libgreek@lower@shape\libgreek@upshape
+}
+\def\libgreekk@style@TeX{%
+    \libgreek@upper@uptrue
+    \libgreek@lower@upfalse
+    \let\libgreek@upper@shape\libgreek@upshape
+    \let\libgreek@lower@shape\libgreek@itshape
+}
+\def\libgreek@process@style{%
+   \libgreek@styfalse
+   \ifcsname libgreek@style@\libgreek@style\endcsname
+     \csname libgreek@style@\libgreek@style\endcsname
+   \else
+     \PackageWarning{libgreek}{Unknown style `\libgreek@style'}%
+   \fi
+}
+\def\libgreek@process@shapes{%
+   \edef\libgreek@upper@shape{\libgreek@upper@shape}%
+   \edef\libgreek@lower@shape{\libgreek@lower@shape}%
+   \ifx\libgreek@upper@shape\libgreek@upshape
+      \libgreek@upper@uptrue
+   \else
+      \ifx\libgreek@upper@shape\libgreek@itshape
+         \libgreek@upper@upfalse
+      \else
+   \expandafter\in@\expandafter{\expandafter.\libgreek@upper@shape,}{.up,}%
+   \ifin@\libgreek@upper@uptrue
+   \else
+     \expandafter\in@\expandafter{\expandafter.\libgreek@upper@shape,}{.it,}%
+     \ifin@\libgreek@upper@upfalse
+     \else
+        \libgreek@process@upper@lastresort
+   \fi\fi\fi\fi
+   \ifx\libgreek@lower@shape\libgreek@itshape
+      \libgreek@lower@upfalse
+   \else
+      \ifx\libgreek@lower@shape\libgreek@upshape
+         \libgreek@lower@uptrue
+      \else
+   \expandafter\in@\expandafter{\expandafter.\libgreek@lower@shape,}{.it,}%
+   \ifin@\libgreek@lower@upfalse
+   \else
+     \expandafter\in@\expandafter{\expandafter.\libgreek@lower@shape,}{.up,}%
+     \ifin@\libgreek@lower@uptrue
+     \else
+        \libgreek@process@lower@lastresort
+   \fi\fi\fi\fi
+}%
+\def\libgreek@process@upper@lastresort{%
+    \libgreek@upper@uptrue
+    \let\libgreek@upshape\libgreek@upper@shape
+}
+\def\libgreek@process@lower@lastresort{%
+    \libgreek@lower@upfalse
+    \let\libgreek@itshape\libgreek@lower@shape
+}
+\ProcessLocalKeyvalOptions*
+\expandafter\edef\csname\libgreek@fontfamily @scale\endcsname{\libgreek@scale}
+\iflibgreek@sty
+  \libgreek@process@style
+\else
+  \libgreek@process@shapes
+\fi
+\def\libgreek@process@upper@lastresort{%
+    \PackageWarning{libgreek}{%
+                       Too late for the shape `\libgreek@upper@shape'\MessageBreak
+                       originating in Greek or greek option. Ignored.\MessageBreak
+                       Use `up' or `it'}%
+}
+\def\libgreek@process@lower@lastresort{%
+    \PackageWarning{libgreek}{%
+                       Too late for the shape `\libgreek@lower@shape'\MessageBreak
+                       originating in greek option. Ignored.\MessageBreak
+                       Use `up' or `it'}%
+}
+\def\libgreeksetup#1{%
+    \setkeys{libgreek}{#1}%
+    \iflibgreek@sty\libgreek@process@style\else\libgreek@process@shapes\fi
+    \libgreek@setgreekcs
+}
+\DisableKeyvalOption{libgreek}{libertinus}
+\DisableKeyvalOption{libgreek}{serif}
+\DisableKeyvalOption{libgreek}{libertine}
+\DisableKeyvalOption{libgreek}{sans}
+\DisableKeyvalOption{libgreek}{biolinum}
+\DisableKeyvalOption{libgreek}{scale}
+\DisableKeyvalOption{libgreek}{upshape}
+\DisableKeyvalOption{libgreek}{itshape}
+\DisableKeyvalOption{libgreek}{series}
+\DisableKeyvalOption{libgreek}{boldseries}
+\DisableKeyvalOption{libgreek}{alphabets}
+\DeclareFontEncoding{LGR}{}{}
+\DeclareSymbolFont{libgreekup}{LGR}{\libgreek@fontfamily-TLF}
+                                   {\libgreek@series}
+                                   {\libgreek@upshape}
+\SetSymbolFont{libgreekup}{bold}{LGR}{\libgreek@fontfamily-TLF}
+                                     {\libgreek@boldseries}
+                                     {\libgreek@upshape}
+\DeclareSymbolFont{libgreekit}{LGR}{\libgreek@fontfamily-TLF}
+                                   {\libgreek@series}
+                                   {\libgreek@itshape}
+\SetSymbolFont{libgreekit}{bold}{LGR}{\libgreek@fontfamily-TLF}
+                                     {\libgreek@boldseries}
+                                     {\libgreek@itshape}
+\iflibgreek@alphabets
+   \DeclareSymbolFontAlphabet{\libgreekup}{libgreekup}
+   \DeclareSymbolFontAlphabet{\libgreekit}{libgreekit}
+\fi
+\DeclareMathSymbol{\Alphaup}{\mathalpha}{libgreekup}{65}
+\DeclareMathSymbol{\Betaup}{\mathalpha}{libgreekup}{66}
+\DeclareMathSymbol{\Gammaup}{\mathalpha}{libgreekup}{71}
+\DeclareMathSymbol{\Deltaup}{\mathalpha}{libgreekup}{68}
+\DeclareMathSymbol{\Epsilonup}{\mathalpha}{libgreekup}{69}
+\DeclareMathSymbol{\Zetaup}{\mathalpha}{libgreekup}{90}
+\DeclareMathSymbol{\Etaup}{\mathalpha}{libgreekup}{72}
+\DeclareMathSymbol{\Thetaup}{\mathalpha}{libgreekup}{74}
+\DeclareMathSymbol{\Iotaup}{\mathalpha}{libgreekup}{73}
+\DeclareMathSymbol{\Kappaup}{\mathalpha}{libgreekup}{75}
+\DeclareMathSymbol{\Lambdaup}{\mathalpha}{libgreekup}{76}
+\DeclareMathSymbol{\Muup}{\mathalpha}{libgreekup}{77}
+\DeclareMathSymbol{\Nuup}{\mathalpha}{libgreekup}{78}
+\DeclareMathSymbol{\Xiup}{\mathalpha}{libgreekup}{88}
+\DeclareMathSymbol{\Omicronup}{\mathalpha}{libgreekup}{79}
+\DeclareMathSymbol{\Piup}{\mathalpha}{libgreekup}{80}
+\DeclareMathSymbol{\Rhoup}{\mathalpha}{libgreekup}{82}
+\DeclareMathSymbol{\Sigmaup}{\mathalpha}{libgreekup}{83}
+\DeclareMathSymbol{\Tauup}{\mathalpha}{libgreekup}{84}
+\DeclareMathSymbol{\Upsilonup}{\mathalpha}{libgreekup}{85}
+\DeclareMathSymbol{\Phiup}{\mathalpha}{libgreekup}{70}
+\DeclareMathSymbol{\Chiup}{\mathalpha}{libgreekup}{81}
+\DeclareMathSymbol{\Psiup}{\mathalpha}{libgreekup}{89}
+\DeclareMathSymbol{\Omegaup}{\mathalpha}{libgreekup}{87}
+\DeclareMathSymbol{\alphaup}{\mathalpha}{libgreekup}{97}
+\DeclareMathSymbol{\betaup}{\mathalpha}{libgreekup}{98}
+\DeclareMathSymbol{\gammaup}{\mathalpha}{libgreekup}{103}
+\DeclareMathSymbol{\deltaup}{\mathalpha}{libgreekup}{100}
+\DeclareMathSymbol{\epsilonup}{\mathalpha}{libgreekup}{101}
+\DeclareMathSymbol{\zetaup}{\mathalpha}{libgreekup}{122}
+\DeclareMathSymbol{\etaup}{\mathalpha}{libgreekup}{104}
+\DeclareMathSymbol{\thetaup}{\mathalpha}{libgreekup}{106}
+\DeclareMathSymbol{\iotaup}{\mathalpha}{libgreekup}{105}
+\DeclareMathSymbol{\kappaup}{\mathalpha}{libgreekup}{107}
+\DeclareMathSymbol{\lambdaup}{\mathalpha}{libgreekup}{108}
+\DeclareMathSymbol{\muup}{\mathalpha}{libgreekup}{109}
+\DeclareMathSymbol{\nuup}{\mathalpha}{libgreekup}{110}
+\DeclareMathSymbol{\xiup}{\mathalpha}{libgreekup}{120}
+\DeclareMathSymbol{\omicronup}{\mathalpha}{libgreekup}{111}
+\DeclareMathSymbol{\piup}{\mathalpha}{libgreekup}{112}
+\DeclareMathSymbol{\rhoup}{\mathalpha}{libgreekup}{114}
+\DeclareMathSymbol{\sigmaup}{\mathalpha}{libgreekup}{115}
+\DeclareMathSymbol{\tauup}{\mathalpha}{libgreekup}{116}
+\DeclareMathSymbol{\upsilonup}{\mathalpha}{libgreekup}{117}
+\DeclareMathSymbol{\phiup}{\mathalpha}{libgreekup}{102}
+\DeclareMathSymbol{\chiup}{\mathalpha}{libgreekup}{113}
+\DeclareMathSymbol{\psiup}{\mathalpha}{libgreekup}{121}
+\DeclareMathSymbol{\omegaup}{\mathalpha}{libgreekup}{119}
+\DeclareMathSymbol{\Alphait}{\mathalpha}{libgreekit}{65}
+\DeclareMathSymbol{\Betait}{\mathalpha}{libgreekit}{66}
+\DeclareMathSymbol{\Gammait}{\mathalpha}{libgreekit}{71}
+\DeclareMathSymbol{\Deltait}{\mathalpha}{libgreekit}{68}
+\DeclareMathSymbol{\Epsilonit}{\mathalpha}{libgreekit}{69}
+\DeclareMathSymbol{\Zetait}{\mathalpha}{libgreekit}{90}
+\DeclareMathSymbol{\Etait}{\mathalpha}{libgreekit}{72}
+\DeclareMathSymbol{\Thetait}{\mathalpha}{libgreekit}{74}
+\DeclareMathSymbol{\Iotait}{\mathalpha}{libgreekit}{73}
+\DeclareMathSymbol{\Kappait}{\mathalpha}{libgreekit}{75}
+\DeclareMathSymbol{\Lambdait}{\mathalpha}{libgreekit}{76}
+\DeclareMathSymbol{\Muit}{\mathalpha}{libgreekit}{77}
+\DeclareMathSymbol{\Nuit}{\mathalpha}{libgreekit}{78}
+\DeclareMathSymbol{\Xiit}{\mathalpha}{libgreekit}{88}
+\DeclareMathSymbol{\Omicronit}{\mathalpha}{libgreekit}{79}
+\DeclareMathSymbol{\Piit}{\mathalpha}{libgreekit}{80}
+\DeclareMathSymbol{\Rhoit}{\mathalpha}{libgreekit}{82}
+\DeclareMathSymbol{\Sigmait}{\mathalpha}{libgreekit}{83}
+\DeclareMathSymbol{\Tauit}{\mathalpha}{libgreekit}{84}
+\DeclareMathSymbol{\Upsilonit}{\mathalpha}{libgreekit}{85}
+\DeclareMathSymbol{\Phiit}{\mathalpha}{libgreekit}{70}
+\DeclareMathSymbol{\Chiit}{\mathalpha}{libgreekit}{81}
+\DeclareMathSymbol{\Psiit}{\mathalpha}{libgreekit}{89}
+\DeclareMathSymbol{\Omegait}{\mathalpha}{libgreekit}{87}
+\DeclareMathSymbol{\alphait}{\mathalpha}{libgreekit}{97}
+\DeclareMathSymbol{\betait}{\mathalpha}{libgreekit}{98}
+\DeclareMathSymbol{\gammait}{\mathalpha}{libgreekit}{103}
+\DeclareMathSymbol{\deltait}{\mathalpha}{libgreekit}{100}
+\DeclareMathSymbol{\epsilonit}{\mathalpha}{libgreekit}{101}
+\DeclareMathSymbol{\zetait}{\mathalpha}{libgreekit}{122}
+\DeclareMathSymbol{\etait}{\mathalpha}{libgreekit}{104}
+\DeclareMathSymbol{\thetait}{\mathalpha}{libgreekit}{106}
+\DeclareMathSymbol{\iotait}{\mathalpha}{libgreekit}{105}
+\DeclareMathSymbol{\kappait}{\mathalpha}{libgreekit}{107}
+\DeclareMathSymbol{\lambdait}{\mathalpha}{libgreekit}{108}
+\DeclareMathSymbol{\muit}{\mathalpha}{libgreekit}{109}
+\DeclareMathSymbol{\nuit}{\mathalpha}{libgreekit}{110}
+\DeclareMathSymbol{\xiit}{\mathalpha}{libgreekit}{120}
+\DeclareMathSymbol{\omicronit}{\mathalpha}{libgreekit}{111}
+\DeclareMathSymbol{\piit}{\mathalpha}{libgreekit}{112}
+\DeclareMathSymbol{\rhoit}{\mathalpha}{libgreekit}{114}
+\DeclareMathSymbol{\sigmait}{\mathalpha}{libgreekit}{115}
+\DeclareMathSymbol{\tauit}{\mathalpha}{libgreekit}{116}
+\DeclareMathSymbol{\upsilonit}{\mathalpha}{libgreekit}{117}
+\DeclareMathSymbol{\phiit}{\mathalpha}{libgreekit}{102}
+\DeclareMathSymbol{\chiit}{\mathalpha}{libgreekit}{113}
+\DeclareMathSymbol{\psiit}{\mathalpha}{libgreekit}{121}
+\DeclareMathSymbol{\omegait}{\mathalpha}{libgreekit}{119}
+\DeclareMathSymbol{\varsigmaup}{\mathalpha}{libgreekup}{99}
+\DeclareMathSymbol{\varvarsigmaup}{\mathalpha}{libgreekup}{6}
+\DeclareMathSymbol{\varSigmaup}{\mathalpha}{libgreekup}{22}
+\DeclareMathSymbol{\Sampiup}{\mathalpha}{libgreekup}{23}
+\DeclareMathSymbol{\sampiup}{\mathalpha}{libgreekup}{27}
+\DeclareMathSymbol{\digammaup}{\mathalpha}{libgreekup}{147}
+\DeclareMathSymbol{\Digammaup}{\mathalpha}{libgreekup}{195}
+\DeclareMathSymbol{\koppaup}{\mathalpha}{libgreekup}{18}
+\DeclareMathSymbol{\varsigmait}{\mathalpha}{libgreekit}{99}
+\DeclareMathSymbol{\varvarsigmait}{\mathalpha}{libgreekit}{6}
+\DeclareMathSymbol{\varSigmait}{\mathalpha}{libgreekit}{22}
+\DeclareMathSymbol{\Sampiit}{\mathalpha}{libgreekit}{23}
+\DeclareMathSymbol{\sampiit}{\mathalpha}{libgreekit}{27}
+\DeclareMathSymbol{\digammait}{\mathalpha}{libgreekit}{147}
+\DeclareMathSymbol{\Digammait}{\mathalpha}{libgreekit}{195}
+\DeclareMathSymbol{\koppait}{\mathalpha}{libgreekit}{18}
+\DeclareMathSymbol{\alphatonosup}{\mathalpha}{libgreekup}{136}
+\DeclareMathSymbol{\epsilontonosup}{\mathalpha}{libgreekup}{232}
+\DeclareMathSymbol{\etatonosup}{\mathalpha}{libgreekup}{160}
+\DeclareMathSymbol{\iotatonosup}{\mathalpha}{libgreekup}{208}
+\DeclareMathSymbol{\omicrontonosup}{\mathalpha}{libgreekup}{236}
+\DeclareMathSymbol{\upsilontonosup}{\mathalpha}{libgreekup}{212}
+\DeclareMathSymbol{\omegatonosup}{\mathalpha}{libgreekup}{184}
+\DeclareMathSymbol{\upsilondieresistonosup}{\mathalpha}{libgreekup}{246}
+\DeclareMathSymbol{\iotadieresisup}{\mathalpha}{libgreekup}{240}
+\DeclareMathSymbol{\iotadieresistonosup}{\mathalpha}{libgreekup}{242}
+\DeclareMathSymbol{\upsilondieresisup}{\mathalpha}{libgreekup}{244}
+\DeclareMathSymbol{\alphatonosit}{\mathalpha}{libgreekit}{136}
+\DeclareMathSymbol{\epsilontonosit}{\mathalpha}{libgreekit}{232}
+\DeclareMathSymbol{\etatonosit}{\mathalpha}{libgreekit}{160}
+\DeclareMathSymbol{\iotatonosit}{\mathalpha}{libgreekit}{208}
+\DeclareMathSymbol{\omicrontonosit}{\mathalpha}{libgreekit}{236}
+\DeclareMathSymbol{\upsilontonosit}{\mathalpha}{libgreekit}{212}
+\DeclareMathSymbol{\omegatonosit}{\mathalpha}{libgreekit}{184}
+\DeclareMathSymbol{\upsilondieresistonosit}{\mathalpha}{libgreekit}{246}
+\DeclareMathSymbol{\iotadieresisit}{\mathalpha}{libgreekit}{240}
+\DeclareMathSymbol{\iotadieresistonosit}{\mathalpha}{libgreekit}{242}
+\DeclareMathSymbol{\upsilondieresisit}{\mathalpha}{libgreekit}{244}
+\def\libgreek@setgreekcs{%
+    \iflibgreek@upper@up
+       \let\Alpha\Alphaup
+       \let\Beta\Betaup
+       \let\Gamma\Gammaup
+       \let\Delta\Deltaup
+       \let\Epsilon\Epsilonup
+       \let\Zeta\Zetaup
+       \let\Eta\Etaup
+       \let\Theta\Thetaup
+       \let\Iota\Iotaup
+       \let\Kappa\Kappaup
+       \let\Lambda\Lambdaup
+       \let\Mu\Muup
+       \let\Nu\Nuup
+       \let\Xi\Xiup
+       \let\Omicron\Omicronup
+       \let\Pi\Piup
+       \let\Rho\Rhoup
+       \let\Sigma\Sigmaup
+       \let\Tau\Tauup
+       \let\Upsilon\Upsilonup
+       \let\Phi\Phiup
+       \let\Chi\Chiup
+       \let\Psi\Psiup
+       \let\Omega\Omegaup
+       \let\Sampi\Sampiup
+       \let\Digamma\Digammaup
+       \let\varSigma\varSigmaup
+    \else
+       \let\Alpha\Alphait
+       \let\Beta\Betait
+       \let\Gamma\Gammait
+       \let\Delta\Deltait
+       \let\Epsilon\Epsilonit
+       \let\Zeta\Zetait
+       \let\Eta\Etait
+       \let\Theta\Thetait
+       \let\Iota\Iotait
+       \let\Kappa\Kappait
+       \let\Lambda\Lambdait
+       \let\Mu\Muit
+       \let\Nu\Nuit
+       \let\Xi\Xiit
+       \let\Omicron\Omicronit
+       \let\Pi\Piit
+       \let\Rho\Rhoit
+       \let\Sigma\Sigmait
+       \let\Tau\Tauit
+       \let\Upsilon\Upsilonit
+       \let\Phi\Phiit
+       \let\Chi\Chiit
+       \let\Psi\Psiit
+       \let\Omega\Omegait
+       \let\Sampi\Sampiit
+       \let\Digamma\Digammait
+       \let\varSigma\varSigmait
+    \fi
+    \iflibgreek@lower@up
+       \let\alpha\alphaup
+       \let\beta\betaup
+       \let\gamma\gammaup
+       \let\delta\deltaup
+       \let\epsilon\epsilonup
+       \let\zeta\zetaup
+       \let\eta\etaup
+       \let\theta\thetaup
+       \let\iota\iotaup
+       \let\kappa\kappaup
+       \let\lambda\lambdaup
+       \let\mu\muup
+       \let\nu\nuup
+       \let\xi\xiup
+       \let\omicron\omicronup
+       \let\pi\piup
+       \let\rho\rhoup
+       \let\sigma\sigmaup
+       \let\tau\tauup
+       \let\upsilon\upsilonup
+       \let\phi\phiup
+       \let\chi\chiup
+       \let\psi\psiup
+       \let\omega\omegaup
+       \let\varsigma\varsigmaup
+       \let\varvarsigma\varvarsigmaup
+       \let\sampi\sampiup
+       \let\digamma\digammaup
+       \let\koppa\koppaup
+       \let\alphatonos\alphatonosup
+       \let\epsilontonos\epsilontonosup
+       \let\etatonos\etatonosup
+       \let\iotatonos\iotatonosup
+       \let\omicrontonos\omicrontonosup
+       \let\upsilontonos\upsilontonosup
+       \let\omegatonos\omegatonosup
+       \let\upsilondieresistonos\upsilondieresistonosup
+       \let\iotadieresis\iotadieresisup
+       \let\iotadieresistonos\iotadieresistonosup
+       \let\upsilondieresis\upsilondieresisup
+    \else
+       \let\alpha\alphait
+       \let\beta\betait
+       \let\gamma\gammait
+       \let\delta\deltait
+       \let\epsilon\epsilonit
+       \let\zeta\zetait
+       \let\eta\etait
+       \let\theta\thetait
+       \let\iota\iotait
+       \let\kappa\kappait
+       \let\lambda\lambdait
+       \let\mu\muit
+       \let\nu\nuit
+       \let\xi\xiit
+       \let\omicron\omicronit
+       \let\pi\piit
+       \let\rho\rhoit
+       \let\sigma\sigmait
+       \let\tau\tauit
+       \let\upsilon\upsilonit
+       \let\phi\phiit
+       \let\chi\chiit
+       \let\psi\psiit
+       \let\omega\omegait
+       \let\varsigma\varsigmait
+       \let\varvarsigma\varvarsigmait
+       \let\sampi\sampiit
+       \let\digamma\digammait
+       \let\koppa\koppait
+       \let\alphatonos\alphatonosit
+       \let\epsilontonos\epsilontonosit
+       \let\etatonos\etatonosit
+       \let\iotatonos\iotatonosit
+       \let\omicrontonos\omicrontonosit
+       \let\upsilontonos\upsilontonosit
+       \let\omegatonos\omegatonosit
+       \let\upsilondieresistonos\upsilondieresistonosit
+       \let\iotadieresis\iotadieresisit
+       \let\iotadieresistonos\iotadieresistonosit
+       \let\upsilondieresis\upsilondieresisit
+    \fi
+}%
+\libgreek@setgreekcs
+\endinput
+%%
+%% End of file `libgreek.sty'.

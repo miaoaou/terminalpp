@@ -1,0 +1,878 @@
+%%
+%% `numspell-latin.sty' Latin language package for 'numspell.sty'
+%%
+%% Copyright 2021 by Keno Wehr
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Keno Wehr.
+%%
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{numspell-latin}[2021/11/21 v1.0 Latin language package for numspell]
+
+%% GROUP NAMES according to Latin Wikipedia
+%% https://la.wikipedia.org/wiki/Nomina_permagnorum_numerorum
+\def\numspell@group@ii@la@name{\numspell@{mille}}
+\def\numspell@group@iii@la@name{\numspell@{millio}}
+\def\numspell@group@iv@la@name{\numspell@{milliardum}}
+\def\numspell@group@v@la@name{\numspell@{billio}}
+\def\numspell@group@vi@la@name{\numspell@{billiardum}}
+\def\numspell@group@vii@la@name{\numspell@{trillio}}
+\def\numspell@group@viii@la@name{\numspell@{trilliardum}}
+\def\numspell@group@ix@la@name{\numspell@{quadrillio}}
+\def\numspell@group@x@la@name{\numspell@{quadrilliardum}}
+\def\numspell@group@xi@la@name{\numspell@{quintillio}}
+\def\numspell@group@xii@la@name{\numspell@{quintilliardum}}
+\def\numspell@group@xiii@la@name{\numspell@{sextillio}}
+\def\numspell@group@xiv@la@name{\numspell@{sextilliardum}}
+\def\numspell@group@xv@la@name{\numspell@{septillio}}
+\def\numspell@group@xvi@la@name{\numspell@{septilliardum}}
+\def\numspell@group@xvii@la@name{\numspell@{octillio}}
+\def\numspell@group@xviii@la@name{\numspell@{octilliardum}}
+\def\numspell@group@xix@la@name{\numspell@{nonillio}}
+\def\numspell@group@xx@la@name{\numspell@{nonilliardum}}
+\def\numspell@group@xxi@la@name{\numspell@{decillio}}
+\def\numspell@group@xxii@la@name{\numspell@{decilliardum}}
+
+%% GROUP NAMES (PLURAL)
+\def\numspell@group@ii@la@name@plural{\numspell@{milia}}
+\def\numspell@group@iii@la@name@plural{\numspell@{milliones}}
+\def\numspell@group@iv@la@name@plural{\numspell@{milliarda}}
+\def\numspell@group@v@la@name@plural{\numspell@{billiones}}
+\def\numspell@group@vi@la@name@plural{\numspell@{billiarda}}
+\def\numspell@group@vii@la@name@plural{\numspell@{trilliones}}
+\def\numspell@group@viii@la@name@plural{\numspell@{trilliarda}}
+\def\numspell@group@ix@la@name@plural{\numspell@{quadrilliones}}
+\def\numspell@group@x@la@name@plural{\numspell@{quadrilliarda}}
+\def\numspell@group@xi@la@name@plural{\numspell@{quintilliones}}
+\def\numspell@group@xii@la@name@plural{\numspell@{quintilliarda}}
+\def\numspell@group@xiii@la@name@plural{\numspell@{sextilliones}}
+\def\numspell@group@xiv@la@name@plural{\numspell@{sextilliarda}}
+\def\numspell@group@xv@la@name@plural{\numspell@{septilliones}}
+\def\numspell@group@xvi@la@name@plural{\numspell@{septilliarda}}
+\def\numspell@group@xvii@la@name@plural{\numspell@{octilliones}}
+\def\numspell@group@xviii@la@name@plural{\numspell@{octilliarda}}
+\def\numspell@group@xix@la@name@plural{\numspell@{nonilliones}}
+\def\numspell@group@xx@la@name@plural{\numspell@{nonilliarda}}
+\def\numspell@group@xxi@la@name@plural{\numspell@{decilliones}}
+\def\numspell@group@xxii@la@name@plural{\numspell@{decilliarda}}
+
+%% ORDINAL GROUP NAMES ("millesimus" can be found in the grammars,
+%% the other forms have been created analogously based on Italian)
+\def\numspell@ordgroup@ii@la@name{\numspell@{millesim}}
+\def\numspell@ordgroup@iii@la@name{\numspell@{millionesim}}
+\def\numspell@ordgroup@iv@la@name{\numspell@{milliardesim}}
+\def\numspell@ordgroup@v@la@name{\numspell@{billionesim}}
+\def\numspell@ordgroup@vi@la@name{\numspell@{billiardesim}}
+\def\numspell@ordgroup@vii@la@name{\numspell@{trillionesim}}
+\def\numspell@ordgroup@viii@la@name{\numspell@{trilliardesim}}
+\def\numspell@ordgroup@ix@la@name{\numspell@{quadrillionesim}}
+\def\numspell@ordgroup@x@la@name{\numspell@{quadrilliardesim}}
+\def\numspell@ordgroup@xi@la@name{\numspell@{quintillionesim}}
+\def\numspell@ordgroup@xii@la@name{\numspell@{quintilliardesim}}
+\def\numspell@ordgroup@xiii@la@name{\numspell@{sextillionesim}}
+\def\numspell@ordgroup@xiv@la@name{\numspell@{sextilliardesim}}
+\def\numspell@ordgroup@xv@la@name{\numspell@{septillionesim}}
+\def\numspell@ordgroup@xvi@la@name{\numspell@{septilliardesim}}
+\def\numspell@ordgroup@xvii@la@name{\numspell@{octillionesim}}
+\def\numspell@ordgroup@xviii@la@name{\numspell@{octilliardesim}}
+\def\numspell@ordgroup@xix@la@name{\numspell@{nonillionesim}}
+\def\numspell@ordgroup@xx@la@name{\numspell@{nonilliardesim}}
+\def\numspell@ordgroup@xxi@la@name{\numspell@{decillionesim}}
+\def\numspell@ordgroup@xxii@la@name{\numspell@{decilliardesim}}
+
+%% SPELLING VARIANTS
+%%
+%% ae, appearing in the female plural ending, was a diphthong in classical
+%% Latin. In the late antiquity it became a monophthong and was written in
+%% different ways later on. Like babel-latin, we use a ligature for medieval
+%% and ecclesiastic Latin.
+%%
+%% The letter U did not exist in classical Latin. The vowel U was always
+%% written as V. In the minuscule manuscripts of the Middle Ages it evolved to
+%% u. The distinction of U and V is of modern origin. So we do not use U and v
+%% for classical and medieval Latin, but only for modern and ecclesiastic Latin.
+%%
+\def\numspell@la@ae@diphthong{%
+    \def\numspell@la@ae{\numspell@{ae}}%
+}
+\def\numspell@la@ae@ligature{%
+    \def\numspell@la@ae{\numspell@{\ae}}%
+}
+\def\numspell@la@use@vocalic@V{%
+    \def\numspell@la@v{\numspell@{u}}%
+    \def\numspell@la@uppercase@u{V}%
+}
+\def\numspell@la@use@U@and@v{%
+    \def\numspell@la@v{\numspell@{v}}%
+    \def\numspell@la@uppercase@u{U}%
+}
+
+%% WORDING VARIANTS
+%%
+%% The classical main forms of "twentieth" and "thirtieth" are "vicesimus" and
+%% "tricesimus". Ecclesiastic Latin uses the more regular varints "vigesimus"
+%% and "trigesimus" instead.
+%%
+%% The classical main form of "seventeen" is "septendecim", but later "decem et
+%% septem" was used instead (e.g. Gen 47:28). We only use "septendecim" for
+%% classical and modern Latin.
+%% Reference: Lewis/Short, A Latin Dictionary: "septendecim was in use only
+%% among the antiqui"
+%%
+%% The word "millio" for million is of modern origin. The classical term for
+%% one million is "decies centena milia" (ten times hundred thousand).
+%% The Thesaurus Linguae Latinae even documents the form "quadringenties milies
+%% [centena milia]" (400 times 1000 times 100000, used by Sueton, ThLL v.s.
+%% "miliens").
+%% For classical and medieval Latin we use the classical wording for cardinal
+%% numbers less than 10^11 and for ordinal numbers less than 10^7. We use the
+%% modern wording in other cases.
+%%
+\def\numspell@la@classical@ordinals{%
+    \def\numspell@la@twentieth{\numspell@la@v\numspell@{icesim}}%
+    \def\numspell@la@thirtieth{\numspell@{tricesim}}%
+}
+\def\numspell@la@ecclesiastic@ordinals{%
+    \def\numspell@la@twentieth{\numspell@la@v\numspell@{igesim}}%
+    \def\numspell@la@thirtieth{\numspell@{trigesim}}%
+}
+\def\numspell@la@classical@seventeen{%
+    \def\numspell@la@seventeen{\numspell@{septendecim}}%
+}
+\def\numspell@la@postclassical@seventeen{%
+    \def\numspell@la@seventeen{\numspell@{decem et septem}}%
+}
+\newif\ifnumspell@la@modern@million
+
+%% ADDITION AND SUBTRACTION, INVERSION OF ORDINALS
+%%
+%% Numbers ending in 8 or 9 can be formed by addition or by subtraction.
+%% 28 by addition: viginti octo, 28 by subtraction: duodetriginta
+%% We use subtraction for classical and modern Latin and addition for medieval
+%% and ecclesiastic Latin.
+%%
+%% Ordinals under 20 are normally inverted (tertia decima for 13th). In
+%% ecclesiastical Latin they are not inverted (decima tertia for 13th).
+%%
+%% The reference for medieval Latin is:
+%% Peter Stotz, Handbuch zur lateinischen Sprache des Mittelalters (HLSMA)
+%%
+%% HLSMA 4, VIII, § 88
+%% »Die Zahlbez’en für ,11‘ bis ,19‘ sind bereits in der Antike, und so dann
+%% auch im MA, recht oft durch zwei asyndetische oder mit *et* verbundene
+%% einfache Zahlwörter gegeben worden: *septem (et/ac) decem* usf., etwa auch
+%% *duobus decim*. Häufig aber kommen vor: *decem et quattuor*, *d. et sex*,
+%% *d. et septem*, *d. et octo*, *decem et novem*.
+%% An Stelle der Bildungen auf *-decim* bei ,17‘ und *-deviginti* bei ,18‘, ,19‘
+%% erscheint oft auch asyndetisches oder geeintes *decem-*: *decemseptem*,
+%% *decemocto*, *decemnovem* (vgl. it. *diciasètte*, *diciòtto*, *diciannòve*).
+%% (Zum Verhältnis additiver und subtraktiver Formen in diesen Fällen vgl.
+%% weiter § 97.)«
+%%
+%% HLSMA 4, VIII, § 97.1
+%% »Subtraktive Bez’en für Zahlen unter der vollen Zehnerzahl wie *undeviginti*
+%% ,19‘, *duodetriginta* ,28‘, duodeseptuagesimus ,der 68ste‘ sind auch im MA
+%% noch belegt: *duo de sexaginta*, *duo de XX*, *duo de XL*. Häufig sind sie
+%% nicht gewesen, und als Belege kommen selbstverständlich nur in den Hss.
+%% ausgeschriebene Zahlenbenennungen in Betracht. Bereits in der Antike kommen
+%% reichlich Bez’en vor wie *decem (et) octo/novem*, *octo et viginti*, *nonus
+%% et vicesimus* u. a. m. (Vgl. auch § 88.) In aller Regel wurden im lat. MA
+%% Formen gebraucht wie *decem et octo*, *viginti octo*. Seit Livius ist das
+%% nach *undecim* usf. analogisch gebildete *octodecim* in Gebrauch; auch
+%% *novemdecim* kommt vor, sodann *octavus decimus*, *nonus decimus*.«
+%%
+\newif\ifnumspell@la@subtraction
+\newif\ifnumspell@la@invert@ordinals
+
+%% SETTINGS FOR LANGUAGE VARIANTS
+\def\numspell@la@classical@settings{%
+    \numspell@la@ae@diphthong
+    \numspell@la@use@vocalic@V
+    \numspell@la@classical@ordinals
+    \numspell@la@classical@seventeen
+    \numspell@la@subtractiontrue
+    \numspell@la@invert@ordinalstrue
+    \numspell@la@modern@millionfalse
+}
+\def\numspell@la@medieval@settings{%
+    \numspell@la@ae@ligature
+    \numspell@la@use@vocalic@V
+    \numspell@la@classical@ordinals
+    \numspell@la@postclassical@seventeen
+    \numspell@la@subtractionfalse
+    \numspell@la@invert@ordinalstrue
+    \numspell@la@modern@millionfalse
+}
+\def\numspell@la@modern@settings{%
+    \numspell@la@ae@diphthong
+    \numspell@la@use@U@and@v
+    \numspell@la@classical@ordinals
+    \numspell@la@classical@seventeen
+    \numspell@la@subtractiontrue
+    \numspell@la@invert@ordinalstrue
+    \numspell@la@modern@milliontrue
+}
+\def\numspell@la@ecclesiastic@settings{%
+    \numspell@la@ae@ligature
+    \numspell@la@use@U@and@v
+    \numspell@la@ecclesiastic@ordinals
+    \numspell@la@postclassical@seventeen
+    \numspell@la@subtractionfalse
+    \numspell@la@invert@ordinalsfalse
+    \numspell@la@modern@milliontrue
+}
+\def\numspell@la@check@language@variant{%
+    \IfLanguageName{classiclatin}{%
+        \numspell@la@classical@settings
+    }{%
+        \IfLanguageName{medievallatin}{%
+            \numspell@la@medieval@settings
+        }{%
+            \IfLanguageName{ecclesiasticlatin}{%
+                \numspell@la@ecclesiastic@settings
+            }{%
+                \ifcsname iflanguageoption\endcsname% for polyglossia
+                    \iflanguageoption{latin}{variant}{classic}{%
+                        \numspell@la@classical@settings
+                    }{%
+                        \iflanguageoption{latin}{variant}{medieval}{%
+                            \numspell@la@medieval@settings
+                        }{%
+                            \iflanguageoption{latin}{variant}{ecclesiastic}{%
+                                \numspell@la@ecclesiastic@settings
+                            }{%
+                                \numspell@la@modern@settings
+                            }%
+                        }%
+                    }%
+                \else
+                    \numspell@la@modern@settings
+                \fi
+            }%
+        }%
+    }%
+}
+
+%% INFLECTION ENDINGS
+\def\numspelllamasculine{%
+    \def\numspell@la@ending@sing{\numspell@{us}}%
+    \def\numspell@la@ending@plural{\numspell@{i}}%
+    \def\numspell@la@two{\numspell@{duo}}%
+    \def\numspell@la@three{\numspell@{tres}}%
+}
+\def\numspelllafeminine{%
+    \def\numspell@la@ending@sing{\numspell@{a}}%
+    \def\numspell@la@ending@plural{\numspell@la@ae}%
+    \def\numspell@la@two{\numspell@{du}\numspell@la@ae}%
+    \def\numspell@la@three{\numspell@{tres}}%
+}
+\def\numspelllaneuter{%
+    \def\numspell@la@ending@sing{\numspell@{um}}%
+    \def\numspell@la@ending@plural{\numspell@{a}}%
+    \def\numspell@la@two{\numspell@{duo}}%
+    \def\numspell@la@three{\numspell@{tria}}%
+}
+\numspelllamasculine
+
+%% TERMS FOR THE ONES
+\def\numspell@la@ones@cardinal#1{%
+    \ifcase#1%
+        \or\numspell@{un}\numspell@la@ending@sing\or\numspell@la@two\or\numspell@la@three
+        \or\numspell@{quattuor}\or\numspell@{quinque}\or\numspell@{sex}\or\numspell@{septem}%
+        \or\numspell@{octo}\or\numspell@{no}\numspell@la@v\numspell@{em}\or\numspell@{decem}%
+        \or\numspell@{undecim}\or\numspell@{duodecim}\or\numspell@{tredecim}\or\numspell@{quattuordecim}%
+        \or\numspell@{quindecim}\or\numspell@{sedecim}\or\numspell@la@seventeen
+    \fi
+}
+
+\def\numspell@la@ones@ordinal#1{%
+    \ifcase#1%
+        \or\numspell@{prim}\or\numspell@{secund}\or\numspell@{terti}\or\numspell@{quart}%
+        \or\numspell@{quint}\or\numspell@{sext}\or\numspell@{septim}\or\numspell@{octa}\numspell@la@v
+        \or\numspell@{non}\or\numspell@{decim}\or\numspell@{undecim}\or\numspell@{duodecim}%
+    \fi
+    \numspell@la@ending@sing
+}
+
+\def\numspell@la@ones@adverb#1{%
+    \ifcase#1%
+        \or\numspell@{semel}\or\numspell@{bis}\or\numspell@{ter}\or\numspell@{quater}%
+        \or\numspell@{quinquies}\or\numspell@{sexies}\or\numspell@{septies}\or\numspell@{octies}%
+        \or\numspell@{no}\numspell@la@v\numspell@{ies}\or\numspell@{decies}\or\numspell@{undecies}%
+        \or\numspell@{duodecies}%
+    \fi
+}
+
+%% TERMS FOR THE TENS
+\def\numspell@la@tens@cardinal#1{%
+    \ifcase#1%
+        \or\numspell@{decem}\or\numspell@la@v\numspell@{iginti}\or\numspell@{triginta}%
+        \or\numspell@{quadraginta}\or\numspell@{quinquaginta}\or\numspell@{sexaginta}%
+        \or\numspell@{septuaginta}\or\numspell@{octoginta}\or\numspell@{nonaginta}\or\numspell@{centum}%
+    \fi
+}
+
+\def\numspell@la@tens@ordinal#1{%
+    \ifcase#1%
+        \or\numspell@{decim}\or\numspell@la@twentieth\or\numspell@la@thirtieth
+        \or\numspell@{quadragesim}\or\numspell@{quinquagesim}\or\numspell@{sexagesim}%
+        \or\numspell@{septuagesim}\or\numspell@{octogesim}\or\numspell@{nonagesim}\or\numspell@{centesim}%
+    \fi
+    \numspell@la@ending@sing
+}
+
+\def\numspell@la@tens@adverb#1{%
+    \ifcase#1%
+        \or\numspell@{decies}\or\numspell@la@v\numspell@{icies}\or\numspell@{tricies}%
+        \or\numspell@{quadragies}\or\numspell@{quinquagies}\or\numspell@{sexagies}%
+        \or\numspell@{septuagies}\or\numspell@{octogies}\or\numspell@{nonagies}\or\numspell@{centies}%
+    \fi
+}
+
+%% TERMS FOR THE HUNDREDS
+\def\numspell@la@hundreds@cardinal#1{%
+    \ifcase#1%
+        \or\numspell@{centum}\or\numspell@{ducent}\or\numspell@{trecent}\or\numspell@{quadringent}%
+        \or\numspell@{quingent}\or\numspell@{sescent}\or\numspell@{septingent}\or\numspell@{octingent}%
+        \or\numspell@{nongent}%
+    \fi
+    \ifnum#1>1%
+        \numspell@la@ending@plural
+    \fi
+}
+
+\def\numspell@la@hundreds@ordinal#1{%
+    \ifcase#1%
+        \or\numspell@{cent}\or\numspell@{ducent}\or\numspell@{trecent}\or\numspell@{quadringent}%
+        \or\numspell@{quingent}\or\numspell@{sescent}\or\numspell@{septingent}\or\numspell@{octingent}%
+        \or\numspell@{nongent}%
+    \fi
+    \numspell@{esim}%
+    \numspell@la@ending@sing
+}
+
+\def\numspell@la@hundreds@adverb#1{%
+    \ifcase#1%
+        \or\numspell@{centies}\or\numspell@{ducenties}\or\numspell@{trecenties}%
+        \or\numspell@{quadringenties}\or\numspell@{quingenties}\or\numspell@{sescenties}%
+        \or\numspell@{septingenties}\or\numspell@{octingenties}\or\numspell@{nongenties}%
+    \fi
+}
+
+%% NAMES OF SPECIAL NUMERALS
+\def\numspell@la@hundred@distributive{\numspell@{centena}}% neuter form, used before "milia"
+\def\numspell@la@thousand@adverb{\numspell@{milies}}
+
+%% MACROS FOR TWO-DIGIT NUMBERS
+\def\numspell@la@addition@cardinal{%
+    \numspell@la@tens@cardinal\numspell@group@digit@ii
+    \ifnum\numspell@group@digit@iii>0%
+        \numspell@{ }%
+        \ifnum\numspell@group@digit@ii=1%
+            \numspell@{et }%
+        \fi
+        \numspell@la@ones@cardinal\numspell@group@digit@iii
+    \fi
+}
+
+\def\numspell@la@addition@ordinal{%
+    \numspell@la@tens@ordinal\numspell@group@digit@ii
+    \ifnum\numspell@group@digit@iii>0%
+        \numspell@{ }%
+        \numspell@la@ones@ordinal\numspell@group@digit@iii
+    \fi
+}
+
+\def\numspell@la@addition@adverb{%
+    \numspell@la@tens@adverb\numspell@group@digit@ii
+    \ifnum\numspell@group@digit@iii>0%
+        \numspell@{ }%
+        \numspell@la@ones@adverb\numspell@group@digit@iii
+    \fi
+}
+
+\def\numspell@la@inverted@addition@ordinal{%
+    \ifnum\numspell@group@digit@iii>0%
+        \numspell@la@ones@ordinal\numspell@group@digit@iii
+        \numspell@{ }%
+    \fi
+    \numspell@la@tens@ordinal\numspell@group@digit@ii
+}
+
+\def\numspell@la@inverted@addition@adverb{%
+    \ifnum\numspell@group@digit@iii>0%
+        \numspell@la@ones@adverb\numspell@group@digit@iii
+        \numspell@{ }%
+    \fi
+    \numspell@la@tens@adverb\numspell@group@digit@ii
+}
+
+\newcount\numspell@la@tmp@count
+
+\def\numspell@la@subtraction@cardinal{%
+    \ifnum\numspell@group@digit@iii=8%
+        \numspell@{duode}%
+    \else
+        \numspell@{unde}%
+    \fi
+    \numspell@la@tmp@count\numexpr\numspell@group@digit@ii+1\relax
+    \numspell@la@tens@cardinal\numspell@la@tmp@count
+}
+
+\def\numspell@la@subtraction@ordinal{%
+    \ifnum\numspell@group@digit@iii=8%
+        \numspell@{duode}%
+    \else
+        \numspell@{unde}%
+    \fi
+    \numspell@la@tmp@count\numexpr\numspell@group@digit@ii+1\relax
+    \numspell@la@tens@ordinal\numspell@la@tmp@count
+}
+
+\def\numspell@la@subtraction@adverb{%
+    \ifnum\numspell@group@digit@iii=8%
+        \numspell@{duode}%
+    \else
+        \numspell@{unde}%
+    \fi
+    \numspell@la@tmp@count\numexpr\numspell@group@digit@ii+1\relax
+    \numspell@la@tens@adverb\numspell@la@tmp@count
+}
+
+%% SPELLING CARDINAL NUMBER GROUP
+%% ---------------------------------
+%% \numspell@group@spell@la{<group>} (<group>=000,001,...,999)
+%% ---------------------------------
+%% \numspell@group@digits{<group>}
+%% Adding the <group> spelling to \thenumspell
+%%
+\def\numspell@group@spell@la#1{%
+    \numspell@group@digits{#1}%
+    \ifnum\numspell@group@digit@i>0%
+        \numspell@la@hundreds@cardinal\numspell@group@digit@i
+        \ifnum\numexpr\numspell@group@digit@ii+\numspell@group@digit@iii>0%
+            \numspell@{ }%
+        \fi
+    \fi
+    \numspell@la@tmp@count\numexpr10*\numspell@group@digit@ii+\numspell@group@digit@iii\relax
+    \ifnum\numspell@la@tmp@count<18% 1, 2, ..., 17
+        \numspell@la@ones@cardinal\numspell@la@tmp@count% unus, duo, ..., septendecim/decem et septem
+    \else
+        \ifnum\numspell@group@digit@iii>7%
+            \ifnum\numspell@group@digit@i=0% 18, 19, 28, 29, ..., 98, 99
+                \ifnumspell@la@subtraction
+                    \numspell@la@subtraction@cardinal% duodeviginti, ...
+                \else
+                    \numspell@la@addition@cardinal% decem et octo, ..., viginti octo, ...
+                \fi
+            \else
+                \ifnum\numspell@group@digit@ii<9% 118, 119, 128, 129, ..., 188, 189, ..., 988, 989
+                    \ifnumspell@la@subtraction
+                        \numspell@la@subtraction@cardinal% centum duodeviginti, ...
+                    \else
+                        \numspell@la@addition@cardinal% centum decem et octo, ...
+                    \fi
+                \else% 198, 199, 298, 299, ..., 998, 999
+                    \numspell@la@addition@cardinal% centum nonaginta octo
+                \fi
+            \fi
+        \else
+            \ifnum\numspell@group@digit@ii>1% 20, 21, ..., 27, 30, 31, ..., 97
+                \numspell@la@addition@cardinal% viginti, viginti unus, ...
+            \fi
+        \fi
+    \fi
+}
+
+%% SPELLING ORDINAL NUMBER GROUP
+%% ------------------------------------
+%% \numspell@ordgroup@spell@la{<group>} (<group>=000,001,...,999)
+%% ------------------------------------
+%% \numspell@group@digits{<group>}
+%% Adding the <group> ordinal spelling to \thenumspell
+%%
+\def\numspell@ordgroup@spell@la#1{%
+    \numspell@group@digits{#1}%
+    \ifnum\numspell@group@digit@i>0%
+        \numspell@la@hundreds@ordinal\numspell@group@digit@i
+        \ifnum\numexpr\numspell@group@digit@ii+\numspell@group@digit@iii>0%
+            \numspell@{ }%
+        \fi
+    \fi
+    \numspell@la@tmp@count\numexpr10*\numspell@group@digit@ii+\numspell@group@digit@iii\relax
+    \ifnum\numspell@la@tmp@count>0%
+        \ifnum\numspell@la@tmp@count<13% 1, 2, ..., 12
+            \numspell@la@ones@ordinal\numspell@la@tmp@count% primus, secundus, ..., duodecimus
+        \else
+            \ifnum\numspell@la@tmp@count<18% 13, 14, ..., 17
+                \ifnumspell@la@invert@ordinals
+                    \numspell@la@inverted@addition@ordinal% tertius decimus, ...
+                \else
+                    \numspell@la@addition@ordinal% decimus tertius, ...
+                \fi
+            \else
+                \ifnum\numspell@group@digit@iii>7%
+                    \ifnum\numspell@group@digit@i=0% 18, 19, 28, 29, ..., 98, 99
+                        \ifnumspell@la@subtraction
+                            \numspell@la@subtraction@ordinal% duodevicesimus, ...
+                        \else
+                            \ifnum\numspell@group@digit@ii=1%
+                                \ifnumspell@la@invert@ordinals
+                                    \numspell@la@inverted@addition@ordinal% octavus decimus, ...
+                                \else
+                                    \numspell@la@addition@ordinal% decimus octavus, ...
+                                \fi
+                            \else
+                                \numspell@la@addition@ordinal% vicesimus octavus, ...
+                            \fi
+                        \fi
+                    \else
+                        \ifnum\numspell@group@digit@ii<9% 118, 119, 128, 129, ..., 188, 189, ..., 988, 989
+                            \ifnumspell@la@subtraction
+                                \numspell@la@subtraction@ordinal% centesimus undevicesimus, ...
+                            \else
+                                \numspell@la@addition@ordinal% centesimus decimus octavus, ...
+                            \fi
+                        \else% 198, 199, 298, 299, ..., 998, 999
+                            \numspell@la@addition@ordinal% centesimus nonagesimus octavus, ...
+                        \fi
+                    \fi
+                \else
+                    \ifnum\numspell@group@digit@ii>1% 20, 21, ..., 27, 30, 31, ..., 97
+                        \numspell@la@addition@ordinal% vicesimus, vicesimus primus, ...
+                    \fi
+                \fi
+            \fi
+        \fi
+    \fi
+}
+
+%% SPELLING ADVERBIAL NUMBER GROUP
+\def\numspell@adverbgroup@spell@la#1{%
+    \numspell@group@digits{#1}%
+    \ifnum\numspell@group@digit@i>0%
+        \numspell@la@hundreds@adverb\numspell@group@digit@i
+        \ifnum\numexpr\numspell@group@digit@ii+\numspell@group@digit@iii>0%
+            \numspell@{ }%
+        \fi
+    \fi
+    \numspell@la@tmp@count\numexpr10*\numspell@group@digit@ii+\numspell@group@digit@iii\relax
+    \ifnum\numspell@la@tmp@count<13% 1, 2, ..., 12
+        \numspell@la@ones@adverb\numspell@la@tmp@count% semel, bis, ..., duodecies
+    \else
+        \ifnum\numspell@la@tmp@count<18% 13, 14, ..., 17
+            \ifnumspell@la@invert@ordinals
+                \numspell@la@inverted@addition@adverb% ter decies, quater decies, ..., septies decies
+            \else
+                \numspell@la@addition@adverb% decies ter, decies quater, ..., decies septies
+            \fi
+        \else
+            \ifnum\numspell@group@digit@iii>7%
+                \ifnum\numspell@group@digit@i=0% 18, 19, 28, 29, ..., 98, 99
+                    \ifnumspell@la@subtraction
+                        \numspell@la@subtraction@adverb% duodevicies, ...
+                    \else
+                        \ifnum\numspell@group@digit@ii=1% 18, 19
+                            \ifnumspell@la@invert@ordinals
+                                \numspell@la@inverted@addition@adverb% octies decies, ...
+                            \else
+                                \numspell@la@addition@adverb% decies octies, ...
+                            \fi
+                        \else% 28, 29, 38, 39, ..., 98, 99
+                            \numspell@la@addition@adverb% vicies octies, ...
+                        \fi
+                    \fi
+                \else
+                    \ifnum\numspell@group@digit@ii<9% 118, 119, 128, 129, ..., 188, 189, ..., 988, 989
+                        \ifnumspell@la@subtraction
+                            \numspell@la@subtraction@adverb% centies duodevicies, ...
+                        \else
+                            \numspell@la@addition@adverb
+                        \fi
+                    \else% 198, 199, 298, 299, ..., 998, 999
+                        \numspell@la@addition@adverb
+                    \fi
+                \fi
+            \else
+                \ifnum\numspell@group@digit@ii>1% 20, 21, ..., 27, 30, 31, ..., 97
+                    \numspell@la@addition@adverb% vicies, ...
+                \fi
+            \fi
+        \fi
+    \fi
+}
+
+%% SPELLING CARDINAL NUMBER WITH MODERN TERM FOR MILLIONS
+\def\numspell@la@cardinal@modern@million{%
+    \setcounter{numspell@groupcount}{22}%
+    \@whilenum\value{numspell@groupcount}>2%
+    \do{%
+        \IfEq{\csname numspell@group@\roman{numspell@groupcount}\endcsname}{0}{}{%
+            \bgroup
+            \ifodd\thenumspell@groupcount
+                \numspelllafeminine% because "millio" is feminine
+            \else
+                \numspelllaneuter% because "milliardum" is neuter
+            \fi
+            \numspell@group@spell@la{\csname numspell@group@\roman{numspell@groupcount}\endcsname}%
+            \egroup
+            \numspell@{ }%
+            \IfEq{\csname numspell@group@\roman{numspell@groupcount}\endcsname}{1}%
+                {\csname numspell@group@\roman{numspell@groupcount}@la@name\endcsname}%
+                {\csname numspell@group@\roman{numspell@groupcount}@la@name@plural\endcsname}%
+            \ifnum\csname numspell@group@\roman{numspell@groupcount}@before\endcsname>0\numspell@{ }\fi
+        }%
+        \addtocounter{numspell@groupcount}{-1}%
+    }%
+    \IfEq{\numspell@group@ii}{0}{}{%
+        \IfEq{\numspell@group@ii}{1}{\numspell@group@ii@la@name}{%
+            \bgroup
+            \numspelllaneuter% because "milia" is neuter
+            \numspell@group@spell@la{\numspell@group@ii}%
+            \egroup
+            \numspell@{ }%
+            \numspell@group@ii@la@name@plural
+        }%
+        \ifnum\numspell@group@ii@before>0\numspell@{ }\fi
+    }%
+    \IfEq{\numspell@group@i}{0}{}{%
+        \numspell@group@spell@la{\numspell@group@i}%
+    }%
+}
+
+%% SPELLING CARDINAL NUMBER WITH CLASSICAL TERM FOR MILLIONS
+%% This outputs "decies centena milia" instead of "una millio" and
+%% "decies milies centena milia" instead of "unum milliardum".
+%% Modern wording is however used for numbers >= 10^11.
+\def\numspell@la@cardinal@classical@million{%
+    \ifnum\numspell@group@max>4%
+        \numspell@la@cardinal@modern@million
+    \else
+        \ifnum\numspell@group@iv>99%
+            \numspell@la@cardinal@modern@million
+        \else
+            \StrMid{\numspell@fullnum}{56}{58}[\numspell@la@hundred@millions]%
+            \StrMid{\numspell@fullnum}{59}{61}[\numspell@la@hundred@thousands]%
+            \StrMid{\numspell@fullnum}{62}{63}[\numspell@la@thousands]%
+            \ifnum\numspell@la@hundred@millions>0%
+                \ifnum\numspell@la@hundred@millions>1%
+                    \numspell@adverbgroup@spell@la{\numspell@la@hundred@millions}%
+                    \numspell@{ }%
+                \fi
+                \numspell@la@thousand@adverb
+                \ifnum\numspell@la@hundred@thousands>0%
+                    \numspell@{ }%
+                    \numspell@adverbgroup@spell@la{\numspell@la@hundred@thousands}%
+                    \numspell@{ }%
+                    \numspell@la@hundred@distributive
+                    \numspell@{ }%
+                \else
+                    \numspell@{ }%
+                    \numspell@la@hundred@distributive
+                    \numspell@{ }%
+                \fi
+                \ifnum\numspell@la@thousands>0%
+                    \numspell@{et }%
+                    \bgroup
+                    \numspelllaneuter% because "milia" is neuter
+                    \numspell@group@spell@la{0\numspell@la@thousands}%
+                    \egroup
+                    \numspell@{ }%
+                \fi
+                \numspell@group@ii@la@name@plural% "milia"
+                \ifnum\numspell@group@ii@before>0%
+                    \numspell@{ }%
+                \fi
+            \else
+                \ifnum\numspell@la@hundred@thousands>9% 100000 is "centum milia", not "semel centena milia"
+                    \numspell@adverbgroup@spell@la{\numspell@la@hundred@thousands}%
+                    \numspell@{ }%
+                    \numspell@la@hundred@distributive
+                    \numspell@{ }%
+                    \ifnum\numspell@la@thousands>0%
+                        \numspell@{et }%
+                        \bgroup
+                        \numspelllaneuter% because "milia" is neuter
+                        \numspell@group@spell@la{0\numspell@la@thousands}%
+                        \egroup
+                        \numspell@{ }%
+                    \fi
+                    \numspell@group@ii@la@name@plural% "milia"
+                    \ifnum\numspell@group@ii@before>0%
+                        \numspell@{ }%
+                    \fi
+                \else
+                    \StrMid{\numspell@fullnum}{61}{63}[\numspell@la@thousands]%
+                    \ifnum\numspell@la@thousands>0%
+                        \ifnum\numspell@la@thousands=1%
+                            \numspell@group@ii@la@name
+                        \else
+                            \bgroup
+                            \numspelllaneuter% because "milia" is neuter
+                            \IfEq{\numspell@group@iii}{0}{%
+                                \numspell@group@spell@la{\numspell@la@thousands}%
+                            }{%
+                                \numspell@group@spell@la{0\numspell@la@thousands}%
+                            }%
+                            \egroup
+                            \numspell@{ }%
+                            \numspell@group@ii@la@name@plural
+                        \fi
+                        \ifnum\numspell@group@ii@before>0%
+                            \numspell@{ }%
+                        \fi
+                    \fi
+                \fi
+            \fi
+            \IfEq{\numspell@group@i}{0}{}{%
+                \numspell@group@spell@la{\numspell@group@i}%
+            }%
+        \fi
+    \fi
+}
+
+%% SPELLING CARDINAL NUMBER
+%% --------------------------------------
+%% \numspell@num@spell@la{<num1>}{<num2>}
+%% --------------------------------------
+%% \numspell@groups{<num1>}{<num2>}
+%% Adding the \numspell@num spelling to \thenumspell
+%%
+\def\numspell@num@spell@la#1#2{%
+    \numspell@la@check@language@variant
+    \gdef\thenumspell{}%
+    \numspell@groups{#1}{#2}%
+    \ifnum\numspell@group@max=0%
+        \numspell@{null}\numspell@la@ending@sing
+    \else
+        \ifnumspell@la@modern@million
+            \numspell@la@cardinal@modern@million
+        \else
+            \numspell@la@cardinal@classical@million
+        \fi
+    \fi
+}
+
+%% SPELLING ORDINAL NUMBER WITH MODERN TERM FOR MILLIONS
+\def\numspell@la@ordinal@modern@million{%
+    \setcounter{numspell@groupcount}{22}%
+    \@whilenum\value{numspell@groupcount}>1%
+    \do{%
+        \IfEq{\csname numspell@group@\roman{numspell@groupcount}\endcsname}{0}{}{%
+            \IfEq{\csname numspell@group@\roman{numspell@groupcount}\endcsname}{1}%
+                {\csname numspell@ordgroup@\roman{numspell@groupcount}@la@name\endcsname}%
+                {%
+                    \numspell@adverbgroup@spell@la{\csname numspell@group@\roman{numspell@groupcount}\endcsname}%
+                    \numspell@{ }%
+                    \csname numspell@ordgroup@\roman{numspell@groupcount}@la@name\endcsname
+                }%
+            \numspell@la@ending@sing
+            \ifnum\csname numspell@group@\roman{numspell@groupcount}@before\endcsname>0\numspell@{ }\fi
+        }%
+        \addtocounter{numspell@groupcount}{-1}%
+    }%
+    \IfEq{\numspell@group@i}{0}{}{%
+        \numspell@ordgroup@spell@la{\numspell@group@i}%
+    }%
+}
+
+%% SPELLING ORDINAL NUMBER WITH CLASSICAL TERM FOR MILLIONS
+%% This outputs "decies centies millesimus" instead of "millionesimus".
+%%
+%% Reference: Kühner/Holzweissig, Ausführliche Grammatik der lateinischen
+%% Sprache, vol. 1, 2nd edition, 1912, p. 632
+%%
+%% Modern wording is however used for numbers >= 10^7.
+\def\numspell@la@ordinal@classical@million{%
+    \ifnum\numspell@group@max>3%
+        \numspell@la@ordinal@modern@million
+    \else
+        \ifnum\numspell@group@iii>9%
+            \numspell@la@ordinal@modern@million
+        \else
+            \StrMid{\numspell@fullnum}{60}{61}[\numspell@la@hundred@thousands]%
+            \ifnum\numspell@la@hundred@thousands>9%
+                \numspell@adverbgroup@spell@la{0\numspell@la@hundred@thousands}%
+                \numspell@{ }%
+                \numspell@la@hundreds@adverb{1}%
+                \numspell@{ }%
+                \StrMid{\numspell@fullnum}{62}{63}[\numspell@la@thousands]%
+                \ifnum\numspell@la@thousands>0%
+                    \numspell@adverbgroup@spell@la{0\numspell@la@thousands}%
+                    \numspell@{ }%
+                \fi
+            		\numspell@ordgroup@ii@la@name
+            		\numspell@la@ending@sing
+            		\ifnum\numspell@group@i>0%
+                    \numspell@{ }%
+                		\numspell@ordgroup@spell@la{\numspell@group@i}%
+            		\fi
+            \else
+            		\numspell@la@ordinal@modern@million% no difference between classical and modern
+            \fi
+        \fi
+    \fi
+}
+
+%% SPELLING ORDINAL NUMBER
+%% -----------------------------------------
+%% \numspell@ordnum@spell@la{<num1>}{<num2>}
+%% -----------------------------------------
+%% \numspell@groups{<num1>}{<num2>}
+%% Adding the \numspell@num ordinal spelling to \thenumspell
+%%
+\def\numspell@ordnum@spell@la#1#2{%
+    \numspell@la@check@language@variant
+    \gdef\thenumspell{}%
+    \numspell@groups{#1}{#2}%
+    \ifnum\numspell@group@max=0%
+        \numspell@{nullesim}\numspell@la@ending@sing
+    \else
+        \ifnumspell@la@modern@million
+            \numspell@la@ordinal@modern@million
+        \else
+            \numspell@la@ordinal@classical@million
+        \fi
+    \fi
+}
+
+%% ----------------------
+%% \numspell@uppercase@la
+%% ----------------------
+%% E.g. \def\thenumspell{unus}\numspell@uppercase\thenumspell --> 'Unus'
+%% \MakeUppercase does not work on pdf bookmark (see hyperref), so using another effective macro.
+%%
+\def\numspell@uppercase@la{%
+    \fullexpandarg
+    \StrChar{\thenumspell}{1}[\numspell@firstletter]%
+    \expandarg
+    \StrGobbleLeft{\thenumspell}{1}[\numspell@trunc]%
+    \fullexpandarg
+    \def\numspell@the{}%
+    \IfStrEq{\numspell@firstletter}{u}{\g@addto@macro\numspell@the{\numspell@la@uppercase@u}}{}% unus
+    \IfStrEq{\numspell@firstletter}{d}{\g@addto@macro\numspell@the{D}}{}% duo
+    \IfStrEq{\numspell@firstletter}{t}{\g@addto@macro\numspell@the{T}}{}% tres
+    \IfStrEq{\numspell@firstletter}{q}{\g@addto@macro\numspell@the{Q}}{}% quattuor
+    \IfStrEq{\numspell@firstletter}{s}{\g@addto@macro\numspell@the{S}}{}% sex
+    \IfStrEq{\numspell@firstletter}{o}{\g@addto@macro\numspell@the{O}}{}% octo
+    \IfStrEq{\numspell@firstletter}{n}{\g@addto@macro\numspell@the{N}}{}% novem
+    \IfStrEq{\numspell@firstletter}{v}{\g@addto@macro\numspell@the{V}}{}% viginti
+    \IfStrEq{\numspell@firstletter}{c}{\g@addto@macro\numspell@the{C}}{}% centum
+    \IfStrEq{\numspell@firstletter}{m}{\g@addto@macro\numspell@the{M}}{}% mille
+    \IfStrEq{\numspell@firstletter}{p}{\g@addto@macro\numspell@the{P}}{}% primus
+    \IfStrEq{\numspell@firstletter}{b}{\g@addto@macro\numspell@the{B}}{}% bis
+    \ifx\numspell@the\@empty\@latexerr{'numspell.sty' error! There is not '\numspell@firstletter' in uppercase!}{}\fi
+    \g@addto@macro\numspell@the{\numspell@trunc}%
+    \def\thenumspell{\numspell@the}%
+}
+
+\endinput

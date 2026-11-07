@@ -1,0 +1,16 @@
+name pxpic
+category Package
+revision 67955
+shortdesc Draw pixel pictures
+relocated 1
+longdesc With pxpic you draw pictures pixel by pixel. It was inspired by
+longdesc a lovely post by Paulo Cereda, among other things (most notably
+longdesc a beautiful duck) showcasing the use of characters from the
+longdesc Mario video games by Nintendo in LaTeX.
+runfiles size=3
+ RELOC/tex/latex/pxpic/pxpic.sty
+catalogue-contact-repository https://github.com/Skillmon/ltx_pxpic
+catalogue-ctan /graphics/pxpic
+catalogue-license lppl1.3c
+catalogue-topics graphics graphics-in-tex
+catalogue-version 1.5

@@ -1,0 +1,6 @@
+name mf2pt1.x86_64-cygwin
+category Package
+revision 33557
+shortdesc x86_64-cygwin files of mf2pt1
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/mf2pt1

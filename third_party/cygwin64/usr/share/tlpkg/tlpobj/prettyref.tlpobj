@@ -1,0 +1,20 @@
+name prettyref
+category Package
+revision 15878
+shortdesc Make label references "self-identify"
+relocated 1
+longdesc Prettyref provides a command \newrefformat, which specifies the
+longdesc way in which a reference is typeset, according to a label
+longdesc "identification". The identification is set in the \label
+longdesc command, by using prefixed label names; so instead of
+longdesc \label{mysection}, one uses \label{sec:mysection}, and
+longdesc prettyref interprets the "sec:" part. The package is compatible
+longdesc with hyperref and with other packages.
+runfiles size=1
+ RELOC/tex/latex/prettyref/prettyref.sty
+catalogue-also typedref
+catalogue-ctan /macros/latex/contrib/prettyref
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license pd
+catalogue-topics label-ref
+catalogue-version 3.0

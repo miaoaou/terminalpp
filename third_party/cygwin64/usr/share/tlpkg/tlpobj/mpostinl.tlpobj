@@ -1,0 +1,18 @@
+name mpostinl
+category Package
+revision 49559
+shortdesc Embed MetaPost figures within LaTeX documents
+relocated 1
+longdesc This LaTeX2e package enables the embedding of MetaPost figures
+longdesc within LaTeX documents. The package automatically collects the
+longdesc embedded definitions and figures in a .mp file, adds an
+longdesc appropriate LaTeX document structure, and compiles it to .mps
+longdesc files. It also allows for various configuration options to
+longdesc manage the generation of files and compilation.
+runfiles size=5
+ RELOC/tex/latex/mpostinl/mpostinl.sty
+catalogue-ctan /macros/latex/contrib/mpostinl
+catalogue-date 2018-12-31 09:10:51 +0100
+catalogue-license lppl1.3
+catalogue-topics mp-supp graphics-inline graphics comp-mgmt
+catalogue-version 1.5

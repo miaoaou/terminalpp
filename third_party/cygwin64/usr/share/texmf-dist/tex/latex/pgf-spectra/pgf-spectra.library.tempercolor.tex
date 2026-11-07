@@ -1,0 +1,146 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-spectra package -----------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\def\pgfspectra@library@tempercolor@loaded{}%
+\message{pgf-spectra tempercolor library loaded!}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% provide the macro
+%       \tempercolor{Kelvin}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \tempercolor -> Convert a temperature in Kelvin to rgb color
+%
+% The original algorithm used in this macro can be found at
+%
+%                                    https://github.com/neilbartlett/color-temperature
+%
+% More information at...
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------------------------------------------------------------------------------------------
+% https://tannerhelland.com/2012/09/18/convert-temperature-rgb-algorithm-code.html
+%
+% «Start with a temperature, in Kelvin, somewhere between 1000 and 40000.  (Other values may work,
+% but I can't make any promises about the quality of the algorithm's estimates above 40000 K.)»
+%                                                                                                                       Tanner Helland
+% https://www.zombieprototypes.com/?p=210
+%---------------------------------------------------------------------------------------------------------------
+% and the improved algorithm at...
+% --------------------------------------------------------------------------------------------------------------
+% https://github.com/neilbartlett/color-temperature
+%
+% neilbartlett/color-temperature is licensed under the
+%
+% MIT License
+% A short and simple permissive license with conditions only requiring preservation of copyright and license notices.
+% Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+%
+% Permissions
+%      Commercial use, Modification,  Distribution,  Private use
+% Limitations
+%    Liability,  Warranty
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The MIT License (MIT)
+%
+% Copyright (c) 2015 Neil Bartlett
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+% THE SOFTWARE.
+% © 2021 GitHub, Inc.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{tempercolor}{rgb}{0,0,0}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \tempercolor{Kelvin}
+\def\tempercolor#1{\ignorespaces%
+%Set Temperature = Temperature \ 100
+\edef\pgfspectra@temperatura{#1sp}%
+\ifdim\pgfspectra@temperatura>16380sp\relax% for supporting large values of T
+\pgfkeys{/pgf/number format/.cd,fixed,precision=2,fixed zerofill,set thousands separator={},assume math mode=true}%
+\pgfmathparse{#1sp/100sp*1.0026931+.002}% correction factor for the division made in sp
+\pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@T@tmp}%
+\edef\pgfspectra@temperatura{\pgfspectra@T@tmp}%
+\edef\pgfspectra@temperatura@pt{\pgfmathresult pt}%
+\else%
+\pgfmathparse{#1/100}%
+\edef\pgfspectra@temperatura{\pgfmathresult}%
+\edef\pgfspectra@temperatura@pt{\pgfmathresult pt}%
+\fi%
+\ifdim\pgfspectra@temperatura@pt<10pt\relax%
+\PackageError{pgf-spectra}{tempercolor: the temperature must be at least 1000K}{Type a greater temperature...}%
+\else\ifdim\pgfspectra@temperatura@pt>400pt\relax%
+\PackageError{pgf-spectra}{tempercolor: the temperature must be at most 40000K}{Type a smaller temperature...}%
+\else%
+%Calculate Red:
+\ifdim\pgfspectra@temperatura@pt>66pt\relax%
+    \pgfmathparse{\pgfspectra@temperatura-55}\edef\pgfspectra@tempercolor@r{\pgfmathresult}%
+    \pgfmathparse{351.976906+ 0.114207*\pgfspectra@tempercolor@r-40.253663*ln(\pgfspectra@tempercolor@r)}%
+    \edef\pgfspectra@tempercolor@r{\pgfmathresult}%
+    \edef\pgfspectra@tempercolor@r@pt{\pgfmathresult pt}%
+    \ifdim\pgfspectra@tempercolor@r@pt<0pt\edef\pgfspectra@tempercolor@r{0}\relax\fi%
+    \ifdim\pgfspectra@tempercolor@r@pt>255pt\edef\pgfspectra@tempercolor@r{255}\relax\fi%
+    \pgfmathparse{\pgfspectra@tempercolor@r/255}\edef\pgfspectra@tempercolor@r{\pgfmathresult}%
+\else%
+    \edef\pgfspectra@tempercolor@r{1}%
+\fi%
+% Calculate Green:
+\ifdim\pgfspectra@temperatura@pt>66pt\relax%
+    \pgfmathparse{\pgfspectra@temperatura-50}\edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+    \pgfmathparse{325.449413+0.079435*\pgfspectra@tempercolor@g -28.085296*ln(\pgfspectra@tempercolor@g)}%
+    \edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+    \edef\pgfspectra@tempercolor@g@pt{\pgfmathresult pt}%
+    \ifdim\pgfspectra@tempercolor@g@pt<0pt\edef\pgfspectra@tempercolor@g{0}\relax\fi%
+    \ifdim\pgfspectra@tempercolor@g@pt>255pt\edef\pgfspectra@tempercolor@g{255}\relax\fi%
+    \pgfmathparse{\pgfspectra@tempercolor@g/255}\edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+\else%
+    \pgfmathparse{\pgfspectra@temperatura-2}\edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+    \pgfmathparse{-155.254856-0.445970*\pgfspectra@tempercolor@g+104.492162*ln(\pgfspectra@tempercolor@g)}%
+    \edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+    \edef\pgfspectra@tempercolor@g@pt{\pgfmathresult pt}%
+    \ifdim\pgfspectra@tempercolor@g@pt<0pt\edef\pgfspectra@tempercolor@g{0}\relax\fi%
+    \ifdim\pgfspectra@tempercolor@g@pt>255pt\edef\pgfspectra@tempercolor@b{255}\relax\fi%
+    \pgfmathparse{\pgfspectra@tempercolor@g/255}\edef\pgfspectra@tempercolor@g{\pgfmathresult}%
+\fi%
+%Calculate Blue:
+\ifdim\pgfspectra@temperatura@pt<66pt\relax%
+    \ifdim\pgfspectra@temperatura@pt>20pt\relax%
+    \pgfmathparse{\pgfspectra@temperatura-10}\edef\pgfspectra@tempercolor@b{\pgfmathresult}%
+    \pgfmathparse{-254.769352+0.827410*\pgfspectra@tempercolor@b+115.679944*ln(\pgfspectra@tempercolor@b)}%
+    \edef\pgfspectra@tempercolor@b{\pgfmathresult}%
+    \edef\pgfspectra@tempercolor@b@pt{\pgfmathresult pt}%
+    \ifdim\pgfspectra@tempercolor@b@pt<0pt\edef\pgfspectra@tempercolor@b{0}\relax\fi%
+    \ifdim\pgfspectra@tempercolor@b@pt>255pt\edef\pgfspectra@tempercolor@b{255}\relax\fi%
+    \pgfmathparse{\pgfspectra@tempercolor@b/255}\edef\pgfspectra@tempercolor@b{\pgfmathresult}%
+    \else%
+    \edef\pgfspectra@tempercolor@b{0}%
+    \fi%
+\else%
+    \edef\pgfspectra@tempercolor@b{1}%
+\fi%
+\definecolor{pgfspectra@@tempercolor}{rgb}{\pgfspectra@tempercolor@r,\pgfspectra@tempercolor@g,\pgfspectra@tempercolor@b}%
+\colorlet{tempercolor}{pgfspectra@@tempercolor}%
+\fi\fi% check limits 1000K<T<40000K
+}%
+% <--- NEW v2.1.0 ------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatother%
+\endinput

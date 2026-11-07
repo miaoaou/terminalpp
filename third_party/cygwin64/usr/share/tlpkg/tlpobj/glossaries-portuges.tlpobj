@@ -1,0 +1,16 @@
+name glossaries-portuges
+category Package
+revision 36064
+shortdesc Portuges language module for glossaries package
+relocated 1
+longdesc Portuges language module for glossaries package.
+runfiles size=4
+ RELOC/tex/latex/glossaries-portuges/glossaries-portuges-noenc.ldf
+ RELOC/tex/latex/glossaries-portuges/glossaries-portuges-utf8.ldf
+ RELOC/tex/latex/glossaries-portuges/glossaries-portuges.ldf
+ RELOC/tex/latex/glossaries-portuges/glossaries-pt-BR.ldf
+catalogue-ctan /macros/latex/contrib/glossaries-portuges
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.1

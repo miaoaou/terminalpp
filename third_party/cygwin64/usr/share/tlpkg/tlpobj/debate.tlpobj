@@ -1,0 +1,22 @@
+name debate
+category Package
+revision 64846
+shortdesc Debates between reviewers
+relocated 1
+longdesc This package helps to organize debates between multiple
+longdesc reviewers of a paper within the text.
+depend listings
+depend listingsutf8
+depend pdfcol
+depend tcolorbox
+depend xcolor
+depend xkeyval
+runfiles size=1
+ RELOC/tex/latex/debate/debate.sty
+catalogue-also fixmetodonotes
+catalogue-contact-home https://github.com/yegor256/debate
+catalogue-contact-repository https://github.com/yegor256/debate
+catalogue-ctan /macros/latex/contrib/debate
+catalogue-license mit
+catalogue-topics notes
+catalogue-version 0.2.1

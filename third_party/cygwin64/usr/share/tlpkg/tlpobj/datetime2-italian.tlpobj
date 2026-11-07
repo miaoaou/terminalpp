@@ -1,0 +1,16 @@
+name datetime2-italian
+category Package
+revision 37146
+shortdesc Italian language module for the datetime2 package
+relocated 1
+longdesc This module provides the "italian" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty.
+runfiles size=5
+ RELOC/tex/latex/datetime2-italian/datetime2-italian-ascii.ldf
+ RELOC/tex/latex/datetime2-italian/datetime2-italian-utf8.ldf
+ RELOC/tex/latex/datetime2-italian/datetime2-italian.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-italian
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.3

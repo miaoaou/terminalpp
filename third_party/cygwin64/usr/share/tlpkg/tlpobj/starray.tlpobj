@@ -1,0 +1,20 @@
+name starray
+category Package
+revision 70599
+shortdesc A structured array (of properties) based on expl3
+relocated 1
+longdesc This package implements vector-like 'structures', like in 'C'
+longdesc and other programming languages. So it is possible to store
+longdesc information in a systematic and regular way. The provided
+longdesc 'functions' are similar to the ones provided for property (or
+longdesc sequence, or token) lists. The package is based on expl3 and
+longdesc aimed at package authors, not end users. The name "starray" is
+longdesc an abbreviation for "structured arrays".
+runfiles size=17
+ RELOC/tex/latex/starray/starray.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/starray/issues
+catalogue-contact-repository https://github.com/alceu-frigeri/starray
+catalogue-ctan /macros/latex/contrib/starray
+catalogue-license lppl1.3c gpl
+catalogue-topics package-devel expl3
+catalogue-version 1.6

@@ -1,0 +1,19 @@
+name ran_toks
+category Package
+revision 59515
+shortdesc Randomise token strings
+relocated 1
+longdesc The package provides means of randomising lists of tokens, or
+longdesc lists of chunks of tokens. Two mechanisms for defining chunks
+longdesc are provided: the \ranToks command accepts an argument
+longdesc containing tokens to be randomised; and the \bRTVToks/\eRTVToks
+longdesc commands delimit a collection of tokens for randomising; each
+longdesc group inside a rtVw constitutes one of these (typically larger)
+longdesc token sets.
+runfiles size=6
+ RELOC/tex/latex/ran_toks/ran-toks.sty
+ RELOC/tex/latex/ran_toks/ran_toks.sty
+ RELOC/tex/latex/ran_toks/rt-dbapp.def
+catalogue-ctan /macros/latex/contrib/ran_toks
+catalogue-license lppl1
+catalogue-topics macro-supp

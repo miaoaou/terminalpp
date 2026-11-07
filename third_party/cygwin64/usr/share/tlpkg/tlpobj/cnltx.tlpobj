@@ -1,0 +1,35 @@
+name cnltx
+category Package
+revision 55265
+shortdesc LaTeX tools and documenting facilities
+relocated 1
+longdesc This is a versatile bundle of packages and classes for
+longdesc consistent formatting of control sequences, package options,
+longdesc source code examples, and writing a package manual (including
+longdesc an index containing the explained control sequences, options,
+longdesc ldots). The bundle also provides several other small ideas of
+longdesc mine such as a mechansim for providing abbreviations etc. Not
+longdesc at least it provides a number of programming tools. The
+longdesc intention behind this bundle mainly is a selfish one:
+longdesc documenting my own packages. The bundle contains an index style
+longdesc file cnltx.ist that should be placed in a directory in a TDS
+longdesc makeindex directory.
+runfiles size=51
+ RELOC/bibtex/bib/cnltx/cnltx.bib
+ RELOC/makeindex/cnltx/cnltx.ist
+ RELOC/tex/latex/cnltx/cnltx-base.sty
+ RELOC/tex/latex/cnltx/cnltx-doc.cls
+ RELOC/tex/latex/cnltx/cnltx-example.sty
+ RELOC/tex/latex/cnltx/cnltx-listings.sty
+ RELOC/tex/latex/cnltx/cnltx-names.sty
+ RELOC/tex/latex/cnltx/cnltx-tools.sty
+ RELOC/tex/latex/cnltx/cnltx-translations.sty
+ RELOC/tex/latex/cnltx/cnltx.bbx
+ RELOC/tex/latex/cnltx/cnltx.cbx
+ RELOC/tex/latex/cnltx/cnltx.dbx
+ RELOC/tex/latex/cnltx/cnltx.sty
+catalogue-contact-repository https://github.com/cgnieder/cnltx/
+catalogue-ctan /macros/latex/contrib/cnltx
+catalogue-license lppl1.3
+catalogue-topics doc-supp class expl3 macro-demo
+catalogue-version 0.15

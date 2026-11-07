@@ -1,0 +1,19 @@
+name tikzquests
+category Package
+revision 69388
+shortdesc A parametric questions' repositories framework
+relocated 1
+longdesc This is a framework for building parametric questions'
+longdesc repositories, which can be further used to construct parametric
+longdesc questions for exams. Unlike other packages of the kind this
+longdesc does not try to enforce any pre-defined presentation format,
+longdesc focusing only on how to set a repository of questions and use
+longdesc them.
+runfiles size=5
+ RELOC/tex/latex/tikzquests/tikzquests.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/tikzquests/issues
+catalogue-contact-repository https://github.com/alceu-frigeri/tikzquests
+catalogue-ctan /macros/latex/contrib/tikzquests
+catalogue-license lppl1.3c gpl3+
+catalogue-topics exam keyval pgf-tikz expl3
+catalogue-version 1.1

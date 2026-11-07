@@ -1,0 +1,67 @@
+name font-change
+category Package
+revision 40403
+shortdesc Macros to change text and mathematics fonts in plain TeX
+relocated 1
+longdesc Macros to Change Text and Mathematics fonts in TeX: 45
+longdesc Beautiful Variants The macros are written for plain TeX and may
+longdesc be used with other packages like AmSTeX, eplain, etc. They also
+longdesc work with XeTeX. The macros allow users to change the fonts
+longdesc (for both text and mathematics) in their TeX document with only
+longdesc one statement. The fonts may be used readily at various
+longdesc predefined sizes. All the fonts called by these macro files are
+longdesc free and are included in current MiKTeX and TeX Live
+longdesc distributions.
+runfiles size=135
+ RELOC/tex/plain/font-change/default-amssymbols.tex
+ RELOC/tex/plain/font-change/font_antp_euler.tex
+ RELOC/tex/plain/font-change/font_antt-condensed-light.tex
+ RELOC/tex/plain/font-change/font_antt-condensed-medium.tex
+ RELOC/tex/plain/font-change/font_antt-condensed.tex
+ RELOC/tex/plain/font-change/font_antt-light.tex
+ RELOC/tex/plain/font-change/font_antt-medium.tex
+ RELOC/tex/plain/font-change/font_antt.tex
+ RELOC/tex/plain/font-change/font_arev.tex
+ RELOC/tex/plain/font-change/font_artemisia_euler.tex
+ RELOC/tex/plain/font-change/font_bera_concrete.tex
+ RELOC/tex/plain/font-change/font_bera_euler.tex
+ RELOC/tex/plain/font-change/font_bera_fnc.tex
+ RELOC/tex/plain/font-change/font_bookman.tex
+ RELOC/tex/plain/font-change/font_century.tex
+ RELOC/tex/plain/font-change/font_charter.tex
+ RELOC/tex/plain/font-change/font_cm.tex
+ RELOC/tex/plain/font-change/font_cmbright.tex
+ RELOC/tex/plain/font-change/font_concrete.tex
+ RELOC/tex/plain/font-change/font_epigrafica_euler.tex
+ RELOC/tex/plain/font-change/font_epigrafica_palatino.tex
+ RELOC/tex/plain/font-change/font_iwona-bold.tex
+ RELOC/tex/plain/font-change/font_iwona-condensed-bold.tex
+ RELOC/tex/plain/font-change/font_iwona-condensed-light.tex
+ RELOC/tex/plain/font-change/font_iwona-condensed-medium.tex
+ RELOC/tex/plain/font-change/font_iwona-condensed.tex
+ RELOC/tex/plain/font-change/font_iwona-light.tex
+ RELOC/tex/plain/font-change/font_iwona-medium.tex
+ RELOC/tex/plain/font-change/font_iwona.tex
+ RELOC/tex/plain/font-change/font_kp-light.tex
+ RELOC/tex/plain/font-change/font_kp.tex
+ RELOC/tex/plain/font-change/font_kurier-bold.tex
+ RELOC/tex/plain/font-change/font_kurier-condensed-bold.tex
+ RELOC/tex/plain/font-change/font_kurier-condensed-light.tex
+ RELOC/tex/plain/font-change/font_kurier-condensed-medium.tex
+ RELOC/tex/plain/font-change/font_kurier-condensed.tex
+ RELOC/tex/plain/font-change/font_kurier-light.tex
+ RELOC/tex/plain/font-change/font_kurier-medium.tex
+ RELOC/tex/plain/font-change/font_kurier.tex
+ RELOC/tex/plain/font-change/font_libertine_kp.tex
+ RELOC/tex/plain/font-change/font_libertine_palatino.tex
+ RELOC/tex/plain/font-change/font_libertine_times.tex
+ RELOC/tex/plain/font-change/font_mdutopia.tex
+ RELOC/tex/plain/font-change/font_pagella.tex
+ RELOC/tex/plain/font-change/font_palatino.tex
+ RELOC/tex/plain/font-change/font_times.tex
+ RELOC/tex/plain/font-change/font_utopia.tex
+catalogue-ctan /macros/plain/contrib/font-change
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics font-supp plain-ext
+catalogue-version 2015.2

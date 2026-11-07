@@ -1,0 +1,15 @@
+name handoutwithnotes
+category Package
+revision 62140
+shortdesc Create Handouts with notes from your LaTeX beamer presentation
+relocated 1
+longdesc This package provides pgfpages layouts to place notes next to
+longdesc the scaled slides.
+runfiles size=6
+ RELOC/tex/latex/handoutwithnotes/handoutWithNotes.sty
+catalogue-contact-bugs https://github.com/gdiepen/latexbeamer-handoutWithNotes/issues
+catalogue-contact-repository https://github.com/gdiepen/latexbeamer-handoutWithNotes
+catalogue-ctan /macros/latex/contrib/handoutwithnotes
+catalogue-license lppl1.3c
+catalogue-topics presentation expl3
+catalogue-version 1.3

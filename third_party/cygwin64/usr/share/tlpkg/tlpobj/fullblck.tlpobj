@@ -1,0 +1,14 @@
+name fullblck
+category Package
+revision 25434
+shortdesc Left-blocking for letter class
+relocated 1
+longdesc Used with the letter documentclass to set the letter in a
+longdesc fullblock style (everything at the left margin).
+runfiles size=1
+ RELOC/tex/latex/fullblck/fullblck.sty
+catalogue-ctan /macros/latex/contrib/fullblck
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics letter
+catalogue-version 1.03

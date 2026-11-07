@@ -1,0 +1,9 @@
+name texlive.infra.x86_64-cygwin
+category TLCore
+revision 61925
+shortdesc x86_64-cygwin files of texlive.infra
+binfiles arch=x86_64-cygwin size=111
+ bin/x86_64-cygwin/mktexlsr
+ bin/x86_64-cygwin/tlmgr
+ tlpkg/installer/lz4/lz4.x86_64-cygwin.exe
+ tlpkg/installer/xz/xz.x86_64-cygwin.exe

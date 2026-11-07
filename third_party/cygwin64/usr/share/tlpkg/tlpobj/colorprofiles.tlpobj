@@ -1,0 +1,18 @@
+name colorprofiles
+category Package
+revision 49086
+shortdesc Collection of free ICC profiles
+relocated 1
+longdesc This package collects free ICC profiles that can be used by
+longdesc color profile aware applications/tools like the pdfx package,
+longdesc as well as TeX and LaTeX packages to access them.
+runfiles size=33
+ RELOC/tex/generic/colorprofiles/FOGRA39L_coated.icc
+ RELOC/tex/generic/colorprofiles/colorprofiles.sty
+ RELOC/tex/generic/colorprofiles/colorprofiles.tex
+ RELOC/tex/generic/colorprofiles/sRGB.icc
+catalogue-ctan /support/colorprofiles
+catalogue-date 2018-11-12 08:43:52 +0100
+catalogue-license other-free
+catalogue-topics colour
+catalogue-version 20181105

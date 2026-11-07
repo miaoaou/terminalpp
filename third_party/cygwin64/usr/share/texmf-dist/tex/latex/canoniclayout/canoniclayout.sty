@@ -1,0 +1,197 @@
+%%
+%% This is file `canoniclayout.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% canoniclayout.dtx  (with options: `package')
+%%   ______________________________________________________
+%%   The canoniclayout package for LaTeX
+%%   Copyright (C) 2010 Claudio Beccari
+%%   All rights reserved
+%% 
+%%   License information appended
+%% 
+\NeedsTeXFormat{LaTeX2e}[2009/01/01]
+\ProvidesPackage{canoniclayout}%
+   [2022/11/01 v.1.0 Text block height equal to paper width]
+
+\IfFormatAtLeastTF{2022/06/01}{}{%
+\PackageWarning{canoniclayout}{%
+The format file is not suited\MessageBreak
+for working with this package.\MessageBreak
+This package is being skipped and \MessageBreak
+its functionalities are not available
+\expandafter\endinput}
+\fi}
+
+\@ifclassloaded{memoir}{%
+\AtBeginDocument{%
+\dimen@=\dimexpr \p@ * \paperwidth / \paperheight\relax
+\edef\CLshape{\strip@pt\dimen@}
+\dimen@=\dimexpr \p@ * \p@ / \dimen@\relax
+\edef\CLinvshape{\strip@pt\dimen@}
+\textheight=\paperwidth
+\settypeblocksize{\textheight}{*}{\CLshape}
+\setlrmargins{*}{*}{\CLinvshape}
+\setulmargins{*}{*}{\CLinvshape}
+\setmarginnotes{7pt}{\dimexpr \foremargin-3\marginparsep}{\onelineskip}
+
+\checkandfixthelayout
+}}%              memoir class end code; start code for standard classes
+{\RequirePackage{etoolbox,pict2e}%
+\AtEndPreamble{%
+\unless\ifcsname color\endcsname \RequirePackage{xcolor}\fi
+\newlength\CLinner \newlength\CLouter %             new length registers
+\newlength\CLtop \newlength\CLbottom  %              other new registers
+\edef\CLx{\fpeval{\paperwidth/\paperheight}}%                 equation 1
+\edef\CLxx{\fpeval{(1-\CLx)/(1+\CLx)}}%      for equations 2, 3, 4, 5, 9
+\CLinner=\fpeval{\paperwidth*\CLx*\CLxx}\p@%                  equation 2
+\CLouter=\fpeval{\paperwidth*\CLxx}\p@%                       equation 3
+\CLtop=\fpeval{\paperheight*\CLx*\CLxx}\p@%                   equation 4
+\CLbottom=\fpeval{\paperheight*\CLxx}\p@%                     equation 5
+\textwidth=\fpeval{\CLx*\paperwidth}\p@%                      equation 6
+\textheight=\paperwidth%                                      equation 7
+\edef\CLcirclecenterX{\fpeval{\paperwidth/2}}%                equation 8
+\edef\CLcirclecenterY{\fpeval{\CLxx*\paperheight+\paperwidth/2}}%  eq. 9
+\let\CLcircleradius\CLcirclecenterX%                         equation 10
+\edef\CLcirclediameter{\strip@pt\paperwidth}%
+\let\CLpageW\CLcirclediameter
+
+\normalsize
+\headheight=\baselineskip
+\headsep=\baselineskip
+\footskip=2\baselineskip
+\marginparsep=0.1\CLouter\relax
+\marginparwidth=0.8\CLouter\relax
+\topmargin=\dimexpr\CLtop-\headsep-\headheight-1in\relax
+\oddsidemargin=\dimexpr\CLinner-1in \relax
+\evensidemargin=\dimexpr\CLouter-1in \relax
+
+\edef\CLdiagX{\strip@pt\paperwidth}%       diagonal horizontal component
+\edef\CLdiagY{\strip@pt\paperheight}%        diagonal vertical component
+\let\@CLdrawing\relax%                 initially drawings are turned off
+\edef\CLlly{-\expandafter\strip@pt%           both pages corner ordinate
+    \dimexpr\paperheight-\CLtop+\headsep}%
+\edef\CLllLx{-\strip@pt\CLouter}%   lower left left-page corner abscissa
+\edef\CLllRx{-\strip@pt\CLinner}%  lower left right-page corner abscissa
+
+\newcommand*\CLstartdrawings{\let\@CLdrawing\CLdrawing}
+\newcommand*\CLstopdrawings{\let\@CLdrawing\relax}
+
+\newcommand*\CLdrawing{%
+  \begin{picture}(0,0)\color{red}%
+  \unitlength=\p@
+  \if@twoside
+    \ifodd\value{page}%
+      \put(\CLllRx,\CLlly){%     right page: displaces the origin to the
+        \put(\CLcirclecenterX,\CLcirclecenterY){\circle{\CLcirclediameter}}
+          \put(\CLpageW,0){\line(-\CLdiagX,\CLdiagY){\CLpageW}}
+      }
+    \else
+      \put(\CLllLx,\CLlly){%      left page: displaces the origin to the
+        \put(\CLcirclecenterX,\CLcirclecenterY){\circle{\CLcirclediameter}}
+        \put(0,0){\line(\CLdiagX,\CLdiagY){\CLpageW}}
+      }
+    \fi
+  \else
+    \put(\CLllRx,\CLlly){%         one side: displaces the origin to the
+      \put(\CLcirclecenterX,\CLcirclecenterY){\circle{\CLcirclediameter}}
+      \put(\CLcirclecenterX,\CLcirclecenterY){%
+        \put(0,0){\line(\CLdiagX,\CLdiagY){\CLcircleradius}}
+        \put(0,0){\line(-\CLdiagX,-\CLdiagY){\CLcircleradius}}
+      }
+    }
+  \fi
+  \end{picture}
+}
+\def\ps@empty{%
+  \let\@mkboth\@gobbletwo
+  \def\@oddhead{\makebox[\textwidth][l]{{\@CLdrawing}}}\let\@oddfoot\@empty
+  \def\@evenheadhead{\makebox[\textwidth][l]{{\@CLdrawing}}}
+  \let\@evenfoot\@empty}
+\def\ps@plain{\let\@mkboth\@gobbletwo
+     \def\@oddhead{\makebox[\textwidth][l]{{\@CLdrawing}}}
+     \def\@oddfoot{\reset@font\hfil\thepage\hfil}
+     \def\@evenheadhead{\makebox[\textwidth][l]{{\@CLdrawing}}}
+     \let\@evenfoot\@oddfoot}
+\if@twoside
+  \def\ps@headings{%
+    \let\@oddfoot\@empty\let\@evenfoot\@empty
+    \def\@evenhead{\@CLdrawing\thepage\hfil{\slshape\leftmark}}%
+    \def\@oddhead{\@CLdrawing{\slshape\rightmark}\hfil\thepage}%
+    \let\@mkboth\markboth
+    \def\chaptermark##1{%
+      \markboth {\MakeUppercase{%
+        \ifnum \c@secnumdepth >\m@ne
+          \if@mainmatter
+            \@chapapp\ \thechapter. \ %
+          \fi
+        \fi
+        ##1}}{}}%
+    \def\sectionmark##1{%
+      \markright {\MakeUppercase{%
+        \ifnum \c@secnumdepth >\z@
+          \thesection. \ %
+        \fi
+        ##1}}}}
+\else
+  \def\ps@headings{%
+    \let\@oddfoot\@empty
+    \def\@oddhead{\@CLdrawing{\slshape\rightmark}\hfil\thepage}%
+    \let\@mkboth\markboth
+    \def\chaptermark##1{%
+      \markright {\MakeUppercase{%
+        \ifnum \c@secnumdepth >\m@ne
+          \if@mainmatter
+            \@chapapp\ \thechapter. \ %
+          \fi
+        \fi
+        ##1}}}}
+\fi
+\def\ps@myheadings{%
+    \let\@oddfoot\@empty\let\@evenfoot\@empty
+    \def\@evenhead{\@CLdrawing\thepage\hfil{\slshape\leftmark}}%
+    \def\@oddhead{\@CLdrawing{\slshape\rightmark}\hfil\thepage}%
+    \let\@mkboth\@gobbletwo
+    \let\chaptermark\@gobble
+    \let\sectionmark\@gobble
+    }
+
+}}%
+\newlength\abc@width
+\newcommand*\currentfontletters{%
+\settowidth\abc@width{abcdefghijklmnopqrstuvwxyz}\dimen0=26\p@
+\dimen0=\dimexpr \textwidth * \dimen0 / \abc@width \relax
+\count254=\numexpr \dimen0 / \p@ \relax
+\par The number of characters in one text line with the current font is
+    \the\count254.\par}
+
+\newcommand*\charactersperpage{%
+\settowidth\abc@width{abcdefghijklmnopqrstuvwxyz}\dimen0=26\p@
+\dimen0=\dimexpr \textwidth * \dimen0 / \abc@width \relax
+\count254=\numexpr \dimen0 / \p@ \relax
+\count252=\numexpr \textheight / \baselineskip \relax
+\count250=\numexpr \count252 * \count254\relax
+\quote The number of characters in one text line with the current
+    font is \the\count254;\\
+    this text block contains \the\count252\ lines;\\
+    a rough estimate of the number of characters per page is
+    \the\count250.\par
+    This might be used to estimate the total number of pages of
+    a document.
+\endquote}
+
+%% Copyright 2010 Claudio Beccari
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "author-maintained"
+%% 
+%% This work consists of this file canoniclayout.dtx, a README file
+%% and the derived files canoniclayout.sty and canoniclayout.pdf.
+%% 
+%%
+%% End of file `canoniclayout.sty'.

@@ -1,0 +1,16 @@
+name fail-fast
+category Package
+revision 67543
+shortdesc Turn warnings into errors
+relocated 1
+longdesc This LaTeX package helps you make the build more fragile by
+longdesc turning warnings into errors. This may be a good practice if
+longdesc you care about the quality of your documents.
+runfiles size=1
+ RELOC/tex/latex/fail-fast/fail-fast.sty
+catalogue-contact-bugs https://github.com/yegor256/fail-fast/issues
+catalogue-contact-repository https://github.com/yegor256/fail-fast
+catalogue-ctan /macros/latex/contrib/fail-fast
+catalogue-license mit
+catalogue-topics compilation
+catalogue-version 0.0.2

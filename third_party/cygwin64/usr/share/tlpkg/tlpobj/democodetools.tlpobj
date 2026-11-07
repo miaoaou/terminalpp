@@ -1,0 +1,16 @@
+name democodetools
+category Package
+revision 64314
+shortdesc Package for LaTeX code documentation
+relocated 1
+longdesc This is 'yet another doc/docx/doc3' package for LaTeX code
+longdesc documentation.
+runfiles size=8
+ RELOC/tex/latex/democodetools/democodelisting.sty
+ RELOC/tex/latex/democodetools/democodetools.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/democodetools/issues
+catalogue-contact-repository https://github.com/alceu-frigeri/democodetools
+catalogue-ctan /macros/latex/contrib/democodetools
+catalogue-license lppl1.3c gpl
+catalogue-topics doc-supp
+catalogue-version 1.0.1beta

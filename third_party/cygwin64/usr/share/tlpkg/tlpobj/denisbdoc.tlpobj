@@ -1,0 +1,12 @@
+name denisbdoc
+category Package
+revision 70592
+shortdesc A personal dirty package for documenting packages
+relocated 1
+longdesc A personal dirty package for documenting packages.
+runfiles size=16
+ RELOC/tex/latex/denisbdoc/denisbdoc.sty
+catalogue-ctan /macros/latex/contrib/denisbdoc
+catalogue-license lppl1.3c
+catalogue-topics doc-supp
+catalogue-version 0.9.5

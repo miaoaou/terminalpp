@@ -1,0 +1,20 @@
+name kinematikz
+category Package
+revision 61392
+shortdesc Design kinematic chains and mechanisms
+relocated 1
+longdesc This package provides functionalities to draw kinematic
+longdesc diagrams for mechanisms using dedicate symbols (some from the
+longdesc ISO standard and others). The intention is not to represent CAD
+longdesc mechanical drawings of mechanisms and robots, but only to
+longdesc represent 2D and 3D kinematic chains. The package provides
+longdesc links, joints and other symbols, mostly in the form of TikZ pic
+longdesc objects. These pics can be placed in the canvas either by a
+longdesc central point for joints, and start and end points for some
+longdesc links.
+runfiles size=29
+ RELOC/tex/latex/kinematikz/kinematikz.sty
+catalogue-ctan /graphics/pgf/contrib/kinematikz
+catalogue-license lppl1.3 gpl
+catalogue-topics pgf-tikz physics
+catalogue-version 1.0

@@ -1,0 +1,18 @@
+name jobname-suffix
+category Package
+revision 64797
+shortdesc Compile differently based on the filename
+relocated 1
+longdesc This package allows to compile a document differently depending
+longdesc on the portion of the document's file name (internally, the
+longdesc \jobname) that comes after the first "-" character. This allows
+longdesc one to have one source file and multiple links to this source
+longdesc file that each compile differently.
+runfiles size=1
+ RELOC/tex/latex/jobname-suffix/jobname-suffix.sty
+catalogue-contact-bugs https://github.com/siefkenj/jobname-suffix/issues
+catalogue-contact-home https://github.com/siefkenj/jobname-suffix
+catalogue-ctan /macros/latex/contrib/jobname-suffix
+catalogue-license lppl1.3
+catalogue-topics compilation
+catalogue-version 1.0

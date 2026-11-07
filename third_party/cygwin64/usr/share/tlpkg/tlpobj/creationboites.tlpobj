@@ -1,0 +1,17 @@
+name creationboites
+category Package
+revision 68087
+shortdesc Macros to create simple tcolorbox with some customizations
+relocated 1
+longdesc This package provides provides some macros to create
+longdesc sampleboxes with tcolorbox : a macro \CreationBoite to create
+longdesc the box; a macro \ParamBoites to modify some parameters;
+longdesc possibility to modify 'deeply' the boxes.
+runfiles size=2
+ RELOC/tex/latex/creationboites/CreationBoites.sty
+catalogue-contact-bugs https://github.com/cpierquet/CreationBoites/issues
+catalogue-contact-home https://github.com/cpierquet/CreationBoites
+catalogue-ctan /macros/latex/contrib/creationboites
+catalogue-license lppl1.3c
+catalogue-topics boxing colour
+catalogue-version 0.1.0

@@ -1,0 +1,57 @@
+name inputenx
+category Package
+revision 52986
+shortdesc Enhanced input encoding handling
+relocated 1
+longdesc This package deals with input encodings. It provides a wider
+longdesc range of input encodings using standard mappings, than does
+longdesc inputenc; it also covers nearly all slots. In this way, it
+longdesc serves as more uptodate replacement for package inputenc.
+runfiles size=120
+ RELOC/tex/latex/inputenx/inputenx.sty
+ RELOC/tex/latex/inputenx/ix-alias.def
+ RELOC/tex/latex/inputenx/ix-math.def
+ RELOC/tex/latex/inputenx/ix-name.def
+ RELOC/tex/latex/inputenx/ix-slot.def
+ RELOC/tex/latex/inputenx/ix-uc.def
+ RELOC/tex/latex/inputenx/ix-utf8enc.dfu
+ RELOC/tex/latex/inputenx/x-ascii.def
+ RELOC/tex/latex/inputenx/x-atarist.def
+ RELOC/tex/latex/inputenx/x-cp1250.def
+ RELOC/tex/latex/inputenx/x-cp1251.def
+ RELOC/tex/latex/inputenx/x-cp1252.def
+ RELOC/tex/latex/inputenx/x-cp1255.def
+ RELOC/tex/latex/inputenx/x-cp1257.def
+ RELOC/tex/latex/inputenx/x-cp437.def
+ RELOC/tex/latex/inputenx/x-cp850.def
+ RELOC/tex/latex/inputenx/x-cp852.def
+ RELOC/tex/latex/inputenx/x-cp855.def
+ RELOC/tex/latex/inputenx/x-cp858.def
+ RELOC/tex/latex/inputenx/x-cp865.def
+ RELOC/tex/latex/inputenx/x-cp866.def
+ RELOC/tex/latex/inputenx/x-dec-mcs.def
+ RELOC/tex/latex/inputenx/x-iso-8859-1.def
+ RELOC/tex/latex/inputenx/x-iso-8859-10.def
+ RELOC/tex/latex/inputenx/x-iso-8859-13.def
+ RELOC/tex/latex/inputenx/x-iso-8859-14.def
+ RELOC/tex/latex/inputenx/x-iso-8859-15.def
+ RELOC/tex/latex/inputenx/x-iso-8859-16.def
+ RELOC/tex/latex/inputenx/x-iso-8859-2.def
+ RELOC/tex/latex/inputenx/x-iso-8859-3.def
+ RELOC/tex/latex/inputenx/x-iso-8859-4.def
+ RELOC/tex/latex/inputenx/x-iso-8859-5.def
+ RELOC/tex/latex/inputenx/x-iso-8859-8.def
+ RELOC/tex/latex/inputenx/x-iso-8859-9.def
+ RELOC/tex/latex/inputenx/x-koi8-r.def
+ RELOC/tex/latex/inputenx/x-mac-centeuro.def
+ RELOC/tex/latex/inputenx/x-mac-cyrillic.def
+ RELOC/tex/latex/inputenx/x-mac-roman.def
+ RELOC/tex/latex/inputenx/x-nextstep.def
+ RELOC/tex/latex/inputenx/x-verbatim.def
+catalogue-contact-bugs https://github.com/ho-tex/inputenx/issues
+catalogue-contact-repository https://github.com/ho-tex/inputenx
+catalogue-ctan /macros/latex/contrib/inputenx
+catalogue-date 2019-11-30 11:10:53 +0100
+catalogue-license lppl1.3
+catalogue-topics inputenc
+catalogue-version 1.12

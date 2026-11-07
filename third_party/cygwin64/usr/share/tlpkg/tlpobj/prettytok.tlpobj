@@ -1,0 +1,20 @@
+name prettytok
+category Package
+revision 66884
+shortdesc Pretty-print token lists
+relocated 1
+longdesc Pretty-print token lists to HTML file for debugging purposes.
+longdesc Open the file in any browser to view the result. Can be used to
+longdesc replace \tl_analysis_show:n.
+depend filecontentsdef
+depend l3kernel
+depend precattl
+runfiles size=7
+ RELOC/tex/latex/prettytok/prettytok-decode-8bit.py
+ RELOC/tex/latex/prettytok/prettytok.lua
+ RELOC/tex/latex/prettytok/prettytok.sty
+catalogue-contact-repository https://github.com/user202729/TeXlib
+catalogue-ctan /macros/latex/contrib/prettytok
+catalogue-license lppl1.3c
+catalogue-topics expl3 debug-supp
+catalogue-version 0.2.0

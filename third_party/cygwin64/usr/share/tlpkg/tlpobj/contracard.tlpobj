@@ -1,0 +1,15 @@
+name contracard
+category Package
+revision 67201
+shortdesc Generate calling cards for dances
+relocated 1
+longdesc A package and a class used to typeset traditional country
+longdesc dances, such as contra and square dances, and to create calling
+longdesc cards for the same.
+runfiles size=8
+ RELOC/tex/latex/contracard/contracard.cls
+ RELOC/tex/latex/contracard/contracard.sty
+catalogue-ctan /macros/latex/contrib/contracard
+catalogue-license lppl1.3c
+catalogue-topics music class
+catalogue-version 2.0.0

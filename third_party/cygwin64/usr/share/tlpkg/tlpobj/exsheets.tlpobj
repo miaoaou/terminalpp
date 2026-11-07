@@ -1,0 +1,30 @@
+name exsheets
+category Package
+revision 67300
+shortdesc Create exercise sheets and exams
+relocated 1
+longdesc The package provides the means to create exercises or questions
+longdesc and their corresponding solutions. The questions may be divided
+longdesc into classes and/or topics and may be printed selectively.
+longdesc Meta-data to questions can be added and recovered. The
+longdesc solutions may be printed where they are, or collected and
+longdesc printed at a later point in the document all together,
+longdesc section-wise or selectively by ID. The package provides the
+longdesc means to selectively include questions from an external file,
+longdesc and to control the style of headings of both questions and
+longdesc solutions. As of May 2017, this package has been superseded by
+longdesc its official successor xsim. exsheets itself is now considered
+longdesc obsolete, but will stay alive, and will continue to receive
+longdesc bugfix releases. However, new features will not be added any
+longdesc more.
+runfiles size=42
+ RELOC/tex/latex/exsheets/exsheets-listings.sty
+ RELOC/tex/latex/exsheets/exsheets.sty
+ RELOC/tex/latex/exsheets/exsheets_configurations.cfg
+ RELOC/tex/latex/exsheets/exsheets_headings.cfg
+ RELOC/tex/latex/exsheets/exsheets_headings.def
+catalogue-also xsim
+catalogue-ctan /macros/latex/contrib/exsheets
+catalogue-license lppl1.3
+catalogue-topics exercise exam expl3
+catalogue-version 0.21k

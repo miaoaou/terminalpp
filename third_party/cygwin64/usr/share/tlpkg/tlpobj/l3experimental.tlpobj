@@ -1,0 +1,36 @@
+name l3experimental
+category Package
+revision 70026
+shortdesc Experimental LaTeX3 concepts
+relocated 1
+longdesc The l3experimental packages are a collection of experimental
+longdesc implementations for aspects of the LaTeX3 kernel, dealing with
+longdesc higher-level ideas such as the Designer Interface. Some of them
+longdesc work as stand alone packages, providing new functionality, and
+longdesc can be used on top of LaTeX2e with no changes to the existing
+longdesc kernel. The present release includes: l3benchmark for measuring
+longdesc the time taken by TeX to run certain code; l3draw, a code-level
+longdesc interface for constructing drawings; l3graphics, an interfaces
+longdesc for the inclusion of graphics files; l3opacity, support for
+longdesc opacity in PDF output; l3str, support for string manipulation;
+longdesc l3sys-shell, which provides abstractions for common shell
+longdesc functions like file deletion and copying; xcoffins, which
+longdesc allows the alignment of boxes using a series of 'handle'
+longdesc positions, supplementing the simple TeX reference point;
+longdesc xgalley, which controls boxes receiving text for typesetting.
+depend l3kernel
+runfiles size=48
+ RELOC/tex/latex/l3experimental/l3benchmark/l3benchmark.sty
+ RELOC/tex/latex/l3experimental/l3draw/l3draw.sty
+ RELOC/tex/latex/l3experimental/l3graphics/l3graphics.sty
+ RELOC/tex/latex/l3experimental/l3opacity/l3opacity.sty
+ RELOC/tex/latex/l3experimental/l3str/l3str-format.sty
+ RELOC/tex/latex/l3experimental/l3sys-shell/l3sys-shell.sty
+ RELOC/tex/latex/l3experimental/xcoffins/xcoffins.sty
+ RELOC/tex/latex/l3experimental/xgalley/l3galley.sty
+ RELOC/tex/latex/l3experimental/xgalley/xgalley.sty
+catalogue-also l3kernel l3packages
+catalogue-contact-home http://www.latex-project.org/code.html
+catalogue-ctan /macros/latex/contrib/l3experimental
+catalogue-license lppl1.3c
+catalogue-topics macro-supp layout latex3 pre-release

@@ -1,0 +1,47 @@
+name tikzlings
+category Package
+revision 63628
+shortdesc A collection of cute little animals and similar creatures
+relocated 1
+longdesc A collection of LaTeX packages for drawing cute little animals
+longdesc and similar creatures using TikZ. Currently, the following
+longdesc TikZlings are included: anteater bat bear bee bug cat chicken
+longdesc coati elephant hippo koala marmot mole mouse owl panda penguin
+longdesc pig rhino sheep sloth snowman squirrel wolf These little
+longdesc drawings can be customized in many ways.
+runfiles size=97
+ RELOC/tex/latex/tikzlings/tikzlibrarytikzlings.code.tex
+ RELOC/tex/latex/tikzlings/tikzlings-addons.sty
+ RELOC/tex/latex/tikzlings/tikzlings-anteaters.sty
+ RELOC/tex/latex/tikzlings/tikzlings-bats.sty
+ RELOC/tex/latex/tikzlings/tikzlings-bears.sty
+ RELOC/tex/latex/tikzlings/tikzlings-bees.sty
+ RELOC/tex/latex/tikzlings/tikzlings-bugs.sty
+ RELOC/tex/latex/tikzlings/tikzlings-cats.sty
+ RELOC/tex/latex/tikzlings/tikzlings-chickens.sty
+ RELOC/tex/latex/tikzlings/tikzlings-coatis.sty
+ RELOC/tex/latex/tikzlings/tikzlings-elephants.sty
+ RELOC/tex/latex/tikzlings/tikzlings-hippos.sty
+ RELOC/tex/latex/tikzlings/tikzlings-koalas.sty
+ RELOC/tex/latex/tikzlings/tikzlings-list.sty
+ RELOC/tex/latex/tikzlings/tikzlings-marmots.sty
+ RELOC/tex/latex/tikzlings/tikzlings-mice.sty
+ RELOC/tex/latex/tikzlings/tikzlings-moles.sty
+ RELOC/tex/latex/tikzlings/tikzlings-owls.sty
+ RELOC/tex/latex/tikzlings/tikzlings-pandas.sty
+ RELOC/tex/latex/tikzlings/tikzlings-penguins.sty
+ RELOC/tex/latex/tikzlings/tikzlings-pigs.sty
+ RELOC/tex/latex/tikzlings/tikzlings-rhinos.sty
+ RELOC/tex/latex/tikzlings/tikzlings-sheep.sty
+ RELOC/tex/latex/tikzlings/tikzlings-sloths.sty
+ RELOC/tex/latex/tikzlings/tikzlings-snowmen.sty
+ RELOC/tex/latex/tikzlings/tikzlings-squirrels.sty
+ RELOC/tex/latex/tikzlings/tikzlings-wolves.sty
+ RELOC/tex/latex/tikzlings/tikzlings.sty
+catalogue-also tikzducks tikzmarmots
+catalogue-contact-repository https://github.com/samcarter/tikzlings
+catalogue-contact-support https://github.com/samcarter/tikzlings/issues
+catalogue-ctan /graphics/pgf/contrib/tikzlings
+catalogue-license lppl1.3c
+catalogue-topics amusements graphics pgf-tikz expl3
+catalogue-version 1.0

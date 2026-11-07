@@ -1,0 +1,16 @@
+name hep-title
+category Package
+revision 67632
+shortdesc Extensions for the title page
+relocated 1
+longdesc The hep-title package extends the title macros of the standard
+longdesc classes with macros for a preprint, affiliation, editors, and
+longdesc endorsers. The package is loaded with \usepackage{hep-title}.
+runfiles size=4
+ RELOC/tex/latex/hep-title/hep-title.sty
+catalogue-contact-bugs https://github.com/janhajer/hep-paper/issues
+catalogue-contact-repository https://github.com/janhajer/hep-paper
+catalogue-ctan /macros/latex/contrib/hep-title
+catalogue-license lppl1.3c
+catalogue-topics titlepage
+catalogue-version 1.2

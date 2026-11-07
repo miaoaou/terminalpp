@@ -1,0 +1,45 @@
+name xint
+category Package
+revision 63562
+shortdesc Expandable operations on long numbers
+relocated 1
+longdesc The xint bundle main modules are: xinttools utilities of
+longdesc independent interest such as expandable and non-expandable
+longdesc loops, xintcore expandable macros implementing addition,
+longdesc subtraction, multiplication, division, and powers for
+longdesc arbitrarily long integers, xint extension of xintcore, xintfrac
+longdesc extends the scope of xint to decimal numbers, to numbers using
+longdesc scientific notation and also to (exact) fractions, xintexpr
+longdesc provides expandable parsers of numeric expressions using the
+longdesc standard infix notations, parentheses, built-in functions, user
+longdesc definable functions and variables (and more ...) which do
+longdesc either exact evaluations (also with fractions) or floating
+longdesc point evaluations under a user chosen precision. Further
+longdesc modules of the bundle are: xintkernel (support macros for all
+longdesc the bundle constituents), xintbinhex (conversion to and from
+longdesc hexadecimal and binary bases), xintgcd (provides gcd() and
+longdesc lcm() functions to xintexpr), xintseries (evaluates numerically
+longdesc partial sums of series and power series with fractional
+longdesc coefficients), and xintcfrac (dedicated to the computation and
+longdesc display of continued fractions). All computations are
+longdesc compatible with expansion-only context. The packages may be
+longdesc used with Plain TeX, LaTeX, or (a priori) any other macro
+longdesc format built upon TeX.
+runfiles size=163
+ RELOC/tex/generic/xint/xint.sty
+ RELOC/tex/generic/xint/xintbinhex.sty
+ RELOC/tex/generic/xint/xintcfrac.sty
+ RELOC/tex/generic/xint/xintcore.sty
+ RELOC/tex/generic/xint/xintexpr.sty
+ RELOC/tex/generic/xint/xintfrac.sty
+ RELOC/tex/generic/xint/xintgcd.sty
+ RELOC/tex/generic/xint/xintkernel.sty
+ RELOC/tex/generic/xint/xintlog.sty
+ RELOC/tex/generic/xint/xintseries.sty
+ RELOC/tex/generic/xint/xinttools.sty
+ RELOC/tex/generic/xint/xinttrig.sty
+catalogue-alias xintexpr
+catalogue-ctan /macros/generic/xint
+catalogue-license lppl1.3c
+catalogue-topics arithmetic calculation
+catalogue-version 1.4m

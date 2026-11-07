@@ -1,0 +1,17 @@
+name edichokey
+category Package
+revision 56223
+shortdesc Typeset dichotomous identification keys
+relocated 1
+longdesc This is a LaTeX package for typesetting dichotomous
+longdesc identification key in indented style. It can be considered as
+longdesc an extended version of package dichokey, as edichokey is more
+longdesc capable of dealing with complex keys.
+runfiles size=1
+ RELOC/tex/latex/edichokey/edichokey.sty
+catalogue-contact-bugs https://github.com/Mikumikunisiteageru/edichokey/issues
+catalogue-contact-repository https://github.com/Mikumikunisiteageru/edichokey
+catalogue-ctan /macros/latex/contrib/edichokey
+catalogue-license lppl1.3c
+catalogue-topics biology
+catalogue-version 2.01y

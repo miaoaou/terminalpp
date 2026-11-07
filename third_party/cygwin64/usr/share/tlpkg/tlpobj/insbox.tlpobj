@@ -1,0 +1,16 @@
+name insbox
+category Package
+revision 34299
+shortdesc Insert pictures/boxes into paragraphs
+relocated 1
+longdesc The package provides convenient bundling of the \parshape
+longdesc primitive. LaTeX users should note that this is a generic
+longdesc package, and should be loaded using \input .
+runfiles size=2
+ RELOC/tex/generic/insbox/insbox.tex
+catalogue-also wrapfig floatflt infpic
+catalogue-ctan /macros/generic/insbox
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics text-flow
+catalogue-version 2.2

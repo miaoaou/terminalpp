@@ -1,0 +1,18 @@
+name eukdate
+category Package
+revision 15878
+shortdesc UK format dates, with weekday
+relocated 1
+longdesc The package is used to change the format of \today's date,
+longdesc including the weekday, e.g., "Saturday, 26 June 2008", the 'UK
+longdesc format', which is preferred in many parts of the world, as
+longdesc distinct from that which is used in \maketitle of the article
+longdesc class, "June 26, 2008", the 'US format'.
+runfiles size=1
+ RELOC/tex/latex/eukdate/eukdate.sty
+catalogue-also dayofweek weekday
+catalogue-ctan /macros/latex/contrib/eukdate
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics date-time
+catalogue-version 1.04

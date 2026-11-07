@@ -1,0 +1,17 @@
+name genmpage
+category Package
+revision 15878
+shortdesc Generalization of LaTeX's minipages
+relocated 1
+longdesc The GenMPage package generalizes LaTeX's minipages. Keyval
+longdesc options and styles can be used to determine their appearance in
+longdesc an easy and consistent way. Includes options for paragraph
+longdesc indentation and vertical alignment with respect to the visual
+longdesc top and bottom margins.
+runfiles size=2
+ RELOC/tex/latex/genmpage/genmpage.sty
+catalogue-ctan /macros/latex/contrib/genmpage
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics layout boxing
+catalogue-version 0.3.1

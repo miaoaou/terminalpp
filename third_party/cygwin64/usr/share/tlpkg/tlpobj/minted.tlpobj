@@ -1,0 +1,32 @@
+name minted
+category Package
+revision 69163
+shortdesc Highlighted source code for LaTeX
+relocated 1
+longdesc The package that facilitates expressive syntax highlighting in
+longdesc LaTeX using the powerful Pygments library. The package also
+longdesc provides options to customize the highlighted source code
+longdesc output using fancyvrb.
+depend catchfile
+depend etoolbox
+depend float
+depend framed
+depend fvextra
+depend graphics
+depend ifplatform
+depend kvoptions
+depend lineno
+depend newfloat
+depend pdftexcmds
+depend tools
+depend xcolor
+depend xstring
+runfiles size=16
+ RELOC/tex/latex/minted/minted.sty
+ RELOC/tex/latex/minted/minted1.sty
+catalogue-also texments verbments
+catalogue-contact-repository https://github.com/gpoore/minted
+catalogue-ctan /macros/latex/contrib/minted
+catalogue-license lppl1.3 bsd3
+catalogue-topics listing verbatim synt-hlt
+catalogue-version 2.9

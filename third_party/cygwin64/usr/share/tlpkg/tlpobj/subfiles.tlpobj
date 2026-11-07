@@ -1,0 +1,21 @@
+name subfiles
+category Package
+revision 56977
+shortdesc Individual typesetting of subfiles of a "main" document
+relocated 1
+longdesc Using this package the user can handle multi-file projects more
+longdesc comfortably, making it possible to both process the subsidiary
+longdesc files by themselves and to process the main file that includes
+longdesc them, without making any changes to either.
+depend import
+runfiles size=3
+ RELOC/tex/latex/subfiles/subfiles.cls
+ RELOC/tex/latex/subfiles/subfiles.sty
+catalogue-also combine standalone
+catalogue-contact-bugs https://github.com/gsalzer/subfiles/issues
+catalogue-contact-repository https://github.com/gsalzer/subfiles
+catalogue-contact-support https://tex.stackexchange.com/
+catalogue-ctan /macros/latex/contrib/subfiles
+catalogue-license lppl1.3
+catalogue-topics subdocs class
+catalogue-version 2.2

@@ -1,0 +1,13 @@
+name luafindfont
+category Package
+revision 67468
+shortdesc Search fonts in the LuaTeX font database
+longdesc This Lua script searches for fonts in the font database.
+depend luafindfont.ARCH
+runfiles size=5
+ texmf-dist/scripts/luafindfont/luafindfont.lua
+catalogue-alias findfont
+catalogue-ctan /support/luafindfont
+catalogue-license lppl1.3c
+catalogue-topics font-sel
+catalogue-version 0.13

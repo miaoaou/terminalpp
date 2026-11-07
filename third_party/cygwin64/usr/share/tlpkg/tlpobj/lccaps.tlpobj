@@ -1,0 +1,23 @@
+name lccaps
+category Package
+revision 46432
+shortdesc Lowercased (spaced) small capitals
+relocated 1
+longdesc This little package serves the purpose of providing a uniform
+longdesc method to use lowercased small capitals and spaced lowercased
+longdesc small capitals. It relies on the iftex, textcase, and microtype
+longdesc packages and comes with four new user macros: \textlcc, the
+longdesc main feature: lowercased small capitals; \spacedcaps, a prefix
+longdesc to small capitals text commands to slightly increase their
+longdesc spacing; \textslcc and \textssc, which are shortcuts for
+longdesc \spacedcaps\textlcc and \spacedcaps\textsc (accordingly).
+runfiles size=1
+ RELOC/tex/latex/lccaps/lccaps.sty
+catalogue-contact-bugs https://github.com/giannotr/lccaps/issues
+catalogue-contact-home https://github.com/giannotr/lccaps
+catalogue-contact-repository https://github.com/giannotr/lccaps.git
+catalogue-ctan /macros/latex/contrib/lccaps
+catalogue-date 2018-01-26 07:47:53 +0100
+catalogue-license lppl1.3c
+catalogue-topics font-supp
+catalogue-version 1.0

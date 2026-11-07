@@ -1,0 +1,94 @@
+name achemso
+category Package
+revision 69638
+shortdesc Support for American Chemical Society journal submissions
+relocated 1
+longdesc The bundle provides the official macros (achemso.cls) and
+longdesc BibTeX styles (achemso.bst and biochem.bst) for submission to
+longdesc the journals of the American Chemical Society. The natmove
+longdesc package, which moves citations relative to punctuation, is
+longdesc distributed as part of the bundle.
+runfiles size=105
+ RELOC/bibtex/bst/achemso/achemso.bst
+ RELOC/bibtex/bst/achemso/biochem.bst
+ RELOC/tex/latex/achemso/achemso-aaembp.cfg
+ RELOC/tex/latex/achemso/achemso-aaemcq.cfg
+ RELOC/tex/latex/achemso/achemso-aamick.cfg
+ RELOC/tex/latex/achemso/achemso-aanmf6.cfg
+ RELOC/tex/latex/achemso/achemso-aapmcd.cfg
+ RELOC/tex/latex/achemso/achemso-aastgj.cfg
+ RELOC/tex/latex/achemso/achemso-abmcb8.cfg
+ RELOC/tex/latex/achemso/achemso-abseba.cfg
+ RELOC/tex/latex/achemso/achemso-acbcct.cfg
+ RELOC/tex/latex/achemso/achemso-accacs.cfg
+ RELOC/tex/latex/achemso/achemso-achre4.cfg
+ RELOC/tex/latex/achemso/achemso-acncdm.cfg
+ RELOC/tex/latex/achemso/achemso-acsccc.cfg
+ RELOC/tex/latex/achemso/achemso-acscii.cfg
+ RELOC/tex/latex/achemso/achemso-acsodf.cfg
+ RELOC/tex/latex/achemso/achemso-aeacb3.cfg
+ RELOC/tex/latex/achemso/achemso-aeacc4.cfg
+ RELOC/tex/latex/achemso/achemso-aeecco.cfg
+ RELOC/tex/latex/achemso/achemso-aelccp.cfg
+ RELOC/tex/latex/achemso/achemso-aesccq.cfg
+ RELOC/tex/latex/achemso/achemso-aewcaa.cfg
+ RELOC/tex/latex/achemso/achemso-afsthl.cfg
+ RELOC/tex/latex/achemso/achemso-aidcbc.cfg
+ RELOC/tex/latex/achemso/achemso-amacgu.cfg
+ RELOC/tex/latex/achemso/achemso-amachv.cfg
+ RELOC/tex/latex/achemso/achemso-amclct.cfg
+ RELOC/tex/latex/achemso/achemso-amlccd.cfg
+ RELOC/tex/latex/achemso/achemso-amlcef.cfg
+ RELOC/tex/latex/achemso/achemso-amrcda.cfg
+ RELOC/tex/latex/achemso/achemso-anaccx.cfg
+ RELOC/tex/latex/achemso/achemso-ancac3.cfg
+ RELOC/tex/latex/achemso/achemso-ancham.cfg
+ RELOC/tex/latex/achemso/achemso-aoiab5.cfg
+ RELOC/tex/latex/achemso/achemso-apcach.cfg
+ RELOC/tex/latex/achemso/achemso-apchd5.cfg
+ RELOC/tex/latex/achemso/achemso-appccd.cfg
+ RELOC/tex/latex/achemso/achemso-asbcd6.cfg
+ RELOC/tex/latex/achemso/achemso-ascecg.cfg
+ RELOC/tex/latex/achemso/achemso-ascefj.cfg
+ RELOC/tex/latex/achemso/achemso-bcches.cfg
+ RELOC/tex/latex/achemso/achemso-bichaw.cfg
+ RELOC/tex/latex/achemso/achemso-bomaf6.cfg
+ RELOC/tex/latex/achemso/achemso-cgdefu.cfg
+ RELOC/tex/latex/achemso/achemso-chreay.cfg
+ RELOC/tex/latex/achemso/achemso-cmatex.cfg
+ RELOC/tex/latex/achemso/achemso-crtoec.cfg
+ RELOC/tex/latex/achemso/achemso-enfuem.cfg
+ RELOC/tex/latex/achemso/achemso-esthag.cfg
+ RELOC/tex/latex/achemso/achemso-estlcu.cfg
+ RELOC/tex/latex/achemso/achemso-iecred.cfg
+ RELOC/tex/latex/achemso/achemso-inoraj.cfg
+ RELOC/tex/latex/achemso/achemso-jaaucr.cfg
+ RELOC/tex/latex/achemso/achemso-jacsat.cfg
+ RELOC/tex/latex/achemso/achemso-jafcau.cfg
+ RELOC/tex/latex/achemso/achemso-jceaax.cfg
+ RELOC/tex/latex/achemso/achemso-jceda8.cfg
+ RELOC/tex/latex/achemso/achemso-jcisd8.cfg
+ RELOC/tex/latex/achemso/achemso-jctcce.cfg
+ RELOC/tex/latex/achemso/achemso-jmcmar.cfg
+ RELOC/tex/latex/achemso/achemso-jnprdf.cfg
+ RELOC/tex/latex/achemso/achemso-joceah.cfg
+ RELOC/tex/latex/achemso/achemso-jpcafh.cfg
+ RELOC/tex/latex/achemso/achemso-jpcbfk.cfg
+ RELOC/tex/latex/achemso/achemso-jpccck.cfg
+ RELOC/tex/latex/achemso/achemso-jpclcd.cfg
+ RELOC/tex/latex/achemso/achemso-jprobs.cfg
+ RELOC/tex/latex/achemso/achemso-langd5.cfg
+ RELOC/tex/latex/achemso/achemso-mamobx.cfg
+ RELOC/tex/latex/achemso/achemso-mpohbp.cfg
+ RELOC/tex/latex/achemso/achemso-nalefd.cfg
+ RELOC/tex/latex/achemso/achemso-oprdfk.cfg
+ RELOC/tex/latex/achemso/achemso-orgnd7.cfg
+ RELOC/tex/latex/achemso/achemso-orlef7.cfg
+ RELOC/tex/latex/achemso/achemso.cls
+ RELOC/tex/latex/achemso/achemso.sty
+ RELOC/tex/latex/achemso/natmove.sty
+catalogue-contact-repository https://github.com/josephwright/achemso
+catalogue-ctan /macros/latex/contrib/achemso
+catalogue-license lppl1.3c other-free
+catalogue-topics chemistry journalpub bibtex-sty class
+catalogue-version 3.13g

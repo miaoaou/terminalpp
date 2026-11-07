@@ -1,0 +1,17 @@
+name progress
+category Package
+revision 19519
+shortdesc Creates an overview of a document's state
+relocated 1
+longdesc Progress is a package which. when compiling TeX and LaTeX
+longdesc documents, generates a HTML file showing an overview of a
+longdesc document's state (of how finished it is). The report is sent to
+longdesc file \ProgressReportName, which is by default the \jobname with
+longdesc the date appended (but is user-modifiable).
+runfiles size=4
+ RELOC/tex/latex/progress/progress.sty
+catalogue-ctan /macros/latex/contrib/progress
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-mgmt
+catalogue-version 1.10

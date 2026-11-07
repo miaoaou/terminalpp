@@ -1,0 +1,17 @@
+name phfsvnwatermark
+category Package
+revision 41870
+shortdesc Watermarks with version control information from SVN
+relocated 1
+longdesc This package allows you to add version control information as a
+longdesc gray watermark on each page of your document. The SVN info is
+longdesc read from keyword tags such as $Id$, $Date$, and $Author$ via
+longdesc the svn or svn-multi packages.
+runfiles size=2
+ RELOC/tex/latex/phfsvnwatermark/phfsvnwatermark.sty
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfsvnwatermark
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics watermark version-control doc-mgmt
+catalogue-version 1.0

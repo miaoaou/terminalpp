@@ -1,0 +1,16 @@
+name polyhedra
+category Package
+revision 68770
+shortdesc A TikZ package for drawing polyhedra
+relocated 1
+longdesc This package provides macros for creating polyhedral objects in
+longdesc 2D and 3D. It requires TikZ and tikz-3dplot. The macros
+longdesc provided can be used for drawing vertices, edges, rays,
+longdesc polygons and cones.
+runfiles size=5
+ RELOC/tex/latex/polyhedra/polyhedra.sty
+catalogue-contact-repository https://github.com/zafeirakopoulos/polyhedra.sty
+catalogue-ctan /graphics/pgf/contrib/polyhedra
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz maths
+catalogue-version 0.3

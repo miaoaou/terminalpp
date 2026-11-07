@@ -1,0 +1,14 @@
+name identkey
+category Package
+revision 61719
+shortdesc Typesetting bracketed dichotomous identification keys
+relocated 1
+longdesc The package is for typesetting bracketed dichotomous
+longdesc identification keys.
+runfiles size=1
+ RELOC/tex/latex/identkey/identkey.sty
+catalogue-also dichokey
+catalogue-ctan /macros/latex/contrib/identkey
+catalogue-license gpl3
+catalogue-topics biology
+catalogue-version 0.1.0

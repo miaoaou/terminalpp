@@ -1,0 +1,20 @@
+name beamerthemelalic
+category Package
+revision 58777
+shortdesc A beamer theme for LALIC
+relocated 1
+longdesc This package provides the beamer theme for LALIC (Laboratorio
+longdesc de Linguistica e Inteligencia Computacional of the Federal
+longdesc University of Sao Carlos, Brazil).
+runfiles size=5
+ RELOC/tex/latex/beamerthemelalic/beamercolorthemelalic.sty
+ RELOC/tex/latex/beamerthemelalic/beamerfontthemelalic.sty
+ RELOC/tex/latex/beamerthemelalic/beamerinnerthemelalic.sty
+ RELOC/tex/latex/beamerthemelalic/beamerouterthemelalic.sty
+ RELOC/tex/latex/beamerthemelalic/beamerthemelalic.sty
+catalogue-contact-bugs https://github.com/jandermoreira/temabeamerlalic/issues
+catalogue-contact-repository https://github.com/jandermoreira/temabeamerlalic
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerthemelalic
+catalogue-license gpl3+
+catalogue-topics presentation
+catalogue-version 1.0

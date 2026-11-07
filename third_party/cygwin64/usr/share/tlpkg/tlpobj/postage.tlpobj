@@ -1,0 +1,21 @@
+name postage
+category Package
+revision 55920
+shortdesc Stamp letters with >>Deutsche Post<<'s service >>Internetmarke<<
+relocated 1
+longdesc The postage package is used for franking letters with
+longdesc >>Deutsche Post<<'s online postage service >>Internetmarke<<.
+longdesc Note that in order to print valid stamps you must point to a
+longdesc valid PDF of >>Deutsche Post<<'s >>Ausdruck 4-spaltig (DIN
+longdesc A4)<<.
+runfiles size=2
+ RELOC/tex/latex/postage/postage.sty
+catalogue-contact-bugs https://github.com/heinrichreimer/latex-postage/issues
+catalogue-contact-development https://github.com/heinrichreimer/latex-postage
+catalogue-contact-home https://github.com/heinrichreimer/latex-postage
+catalogue-contact-repository https://github.com/heinrichreimer/latex-postage
+catalogue-contact-support https://github.com/heinrichreimer/latex-postage/issues
+catalogue-ctan /graphics/postage
+catalogue-license lppl1.3c
+catalogue-topics letter
+catalogue-version 1.0

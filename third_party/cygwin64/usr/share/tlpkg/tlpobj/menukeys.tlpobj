@@ -1,0 +1,17 @@
+name menukeys
+category Package
+revision 64314
+shortdesc Format menu sequences, paths and keystrokes from lists
+relocated 1
+longdesc This package is designed to format menu sequences, paths and
+longdesc keyboard shortcuts automatically. There are several predefined
+longdesc styles and one can define one's own styles in a flexible way.
+runfiles size=16
+ RELOC/tex/latex/menukeys/menukeys-2020-12-19.sty
+ RELOC/tex/latex/menukeys/menukeys.sty
+catalogue-contact-bugs https://github.com/tweh/menukeys/issues
+catalogue-contact-repository https://github.com/tweh/menukeys
+catalogue-ctan /macros/latex/contrib/menukeys
+catalogue-license lppl1.3c
+catalogue-topics doc-supp
+catalogue-version 1.6.2

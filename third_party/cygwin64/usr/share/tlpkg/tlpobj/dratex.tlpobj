@@ -1,0 +1,16 @@
+name dratex
+category Package
+revision 15878
+shortdesc General drawing macros
+relocated 1
+longdesc A low level (DraTex.sty) and a high-level (AlDraTex.sty)
+longdesc drawing package written entirely in TeX.
+runfiles size=54
+ RELOC/tex/generic/dratex/AlDraTex.sty
+ RELOC/tex/generic/dratex/DraTex.sty
+ RELOC/tex/generic/dratex/TeXProject.sty
+ RELOC/tex/generic/dratex/wotree.sty
+catalogue-ctan /graphics/dratex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-in-tex

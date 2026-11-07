@@ -1,0 +1,23 @@
+name refstyle
+category Package
+revision 69680
+shortdesc Advanced formatting of cross references
+relocated 1
+longdesc The package provides a consistent way of producing references
+longdesc throughout a project. Enough flexibility is provided to make
+longdesc local changes to a single reference. The user can configure
+longdesc their own setup. The package offers a direct interface to
+longdesc varioref (for use, for example, in large projects such as a
+longdesc series of books, or a multivolume thesis written as a series of
+longdesc documents), and name references from the nameref package may be
+longdesc incorporated with ease. For large projects such as a series of
+longdesc books or a multi volume thesis, written as freestanding
+longdesc documents, a facility is provided to interface to the xr
+longdesc package for external document references.
+runfiles size=8
+ RELOC/tex/latex/refstyle/refstyle.cfg
+ RELOC/tex/latex/refstyle/refstyle.sty
+catalogue-ctan /macros/latex/contrib/refstyle
+catalogue-license lppl
+catalogue-topics label-ref
+catalogue-version 0.6b

@@ -1,0 +1,23 @@
+name easy
+category Package
+revision 19440
+shortdesc A collection of easy-to-use macros
+relocated 1
+longdesc The collection comprises: easybib, support for customising
+longdesc bibliographies; easybmat, support for composing block matrices;
+longdesc easyeqn, support for various aspects of equations; easymat,
+longdesc support for composing matrices; easytable, support for writing
+longdesc tables; easyvector, a C-like syntax for writing vectors.
+runfiles size=20
+ RELOC/tex/latex/easy/easy.sty
+ RELOC/tex/latex/easy/easybib.sty
+ RELOC/tex/latex/easy/easybmat.sty
+ RELOC/tex/latex/easy/easyeqn.sty
+ RELOC/tex/latex/easy/easymat.sty
+ RELOC/tex/latex/easy/easytable.sty
+ RELOC/tex/latex/easy/easyvector.sty
+catalogue-ctan /macros/latex/contrib/easy
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics collection
+catalogue-version 0.99

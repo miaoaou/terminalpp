@@ -1,0 +1,25 @@
+name bhcexam
+category Package
+revision 64093
+shortdesc An exam class for mathematics teachers in China
+relocated 1
+longdesc This exam class is specially designed for mathematics teachers
+longdesc in China. It is used by mathcrowd.cn (an opensource math exam
+longdesc database) as the default class for exporting exam papers to
+longdesc pdf. Using BHCexam you can separate the format and the content
+longdesc very well; export both teacher paper and student paper; typeset
+longdesc multiple choice questions with 3-6 options keeping adaptively
+longdesc neat alignment; typeset cloze questions with a customizable
+longdesc underline; typeset questions with subquestions in lists; group
+longdesc questions in a list to control whether to show score, leave
+longdesc spacing, initialize question number; and more (see BHCexam
+longdesc Documentation).
+runfiles size=4
+ RELOC/tex/xelatex/bhcexam/BHCexam.cls
+catalogue-contact-announce https://github.com/mathedu4all/bhcexam/wiki
+catalogue-contact-bugs https://github.com/mathedu4all/bhcexam/issues
+catalogue-contact-repository https://github.com/mathedu4all/bhcexam
+catalogue-ctan /macros/xetex/latex/bhcexam
+catalogue-license lppl1.3
+catalogue-topics exam class chinese
+catalogue-version 1.7

@@ -1,0 +1,31 @@
+% --------------------------------------------------------------------------
+% Grenada:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{249,66,58}
+\definecolor{green}{RGB}{44,127,108}
+\definecolor{gold}{RGB}{253,218,37}
+\fill [red] (0,0) rectangle (\flaglength,1);
+\fill [gold] (0.14,0.14)--(0.5\flaglength,0.5)--($(\flaglength,0)+(-0.14,0.14)$)--cycle;
+\fill [green] (0.14,0.14)--(0.5\flaglength,0.5)--(0.14,0.86)--cycle;
+\fill [gold] (0.14,0.86)--(0.5\flaglength,0.5)--($(\flaglength,1)+(-0.14,-0.14)$)--cycle;
+\fill [green] ($(\flaglength,0)+(-0.14,0.14)$)--(0.5\flaglength,0.5)--($(\flaglength,1)+(-0.14,-0.14)$)--cycle;
+\fill [red] (0.5\flaglength,0.5) circle (0.12);
+\starV{gold}{(0.5\flaglength,0.5)}{0.11\flagwidth}{0}
+\foreach \x in {0.3,0.5,0.7}
+{ \starV{gold}{(\x\flaglength,0.07)}{0.065\flagwidth}{0}
+  \starV{gold}{(\x\flaglength,0.93)}{0.065\flagwidth}{0}}
+\begin{scope}[xshift=0.15\flaglength,yshift=0.5\flagwidth]
+\begin{scope}[y=-\flagwidth/300,x=\flagwidth/300,shift={(-75,-150)}]
+\path[fill=red] (67.749,150.41) .. controls (72.253,158.8) and (81.014,167.93) ..
+  (88.6650,171.14) .. controls (88.788,162.62) and (85.765,151.7) ..
+  (81.631,143) -- cycle;
+\path[fill=gold] (60.112,121.63) .. controls (66.641,135.24) and
+  (43.179,167.71) .. (82.268,175.32) .. controls (77.446,168.74) and
+  (74.337,157.88) .. (75.513,149.16) .. controls (83.714,152.28) and
+  (92.343,161.41) .. (95.830,168.39) .. controls (106.06,131.24) and
+  (69.590,133.50) .. (60.112,121.63) -- cycle;
+\end{scope}
+\end{scope}
+\framecode{}
+\end{flagdescription}

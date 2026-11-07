@@ -1,0 +1,15 @@
+name tikzpackets
+category Package
+revision 55827
+shortdesc Display network packets
+relocated 1
+longdesc This package allows you to easily display network packets
+longdesc graphically.
+runfiles size=2
+ RELOC/tex/latex/tikzpackets/tikzPackets.sty
+catalogue-contact-bugs https://bitbucket.org/OpCode-eu-org/latex-libs/issues
+catalogue-contact-repository https://bitbucket.org/OpCode-eu-org/LaTeX-libs/
+catalogue-ctan /graphics/pgf/contrib/tikzpackets
+catalogue-license mit
+catalogue-topics pgf-tikz comp-net
+catalogue-version 1.0

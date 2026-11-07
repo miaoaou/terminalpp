@@ -1,0 +1,62 @@
+name babelbib
+category Package
+revision 57349
+shortdesc Multilingual bibliographies
+relocated 1
+longdesc This package enables the user to generate multilingual
+longdesc bibliographies in cooperation with babel. Two approaches are
+longdesc possible: Each citation may be written in another language, or
+longdesc the whole bibliography can be typeset in a language chosen by
+longdesc the user. In addition, the package supports commands to change
+longdesc the typography of the bibliographies.
+runfiles size=213
+ RELOC/bibtex/bst/babelbib/bababbr3-fl.bst
+ RELOC/bibtex/bst/babelbib/bababbr3-lf.bst
+ RELOC/bibtex/bst/babelbib/bababbr3.bst
+ RELOC/bibtex/bst/babelbib/bababbrv-fl.bst
+ RELOC/bibtex/bst/babelbib/bababbrv-lf.bst
+ RELOC/bibtex/bst/babelbib/bababbrv.bst
+ RELOC/bibtex/bst/babelbib/babalpha-fl.bst
+ RELOC/bibtex/bst/babelbib/babalpha-lf.bst
+ RELOC/bibtex/bst/babelbib/babalpha.bst
+ RELOC/bibtex/bst/babelbib/babamspl.bst
+ RELOC/bibtex/bst/babelbib/babplai3-fl.bst
+ RELOC/bibtex/bst/babelbib/babplai3-lf.bst
+ RELOC/bibtex/bst/babelbib/babplai3.bst
+ RELOC/bibtex/bst/babelbib/babplain-fl.bst
+ RELOC/bibtex/bst/babelbib/babplain-lf.bst
+ RELOC/bibtex/bst/babelbib/babplain.bst
+ RELOC/bibtex/bst/babelbib/babunsrt-fl.bst
+ RELOC/bibtex/bst/babelbib/babunsrt-lf.bst
+ RELOC/bibtex/bst/babelbib/babunsrt.bst
+ RELOC/tex/latex/babelbib/afrikaans.bdf
+ RELOC/tex/latex/babelbib/babelbib.sty
+ RELOC/tex/latex/babelbib/bahasa.bdf
+ RELOC/tex/latex/babelbib/catalan.bdf
+ RELOC/tex/latex/babelbib/croatian.bdf
+ RELOC/tex/latex/babelbib/czech.bdf
+ RELOC/tex/latex/babelbib/danish.bdf
+ RELOC/tex/latex/babelbib/dutch.bdf
+ RELOC/tex/latex/babelbib/english.bdf
+ RELOC/tex/latex/babelbib/esperanto.bdf
+ RELOC/tex/latex/babelbib/finnish.bdf
+ RELOC/tex/latex/babelbib/french.bdf
+ RELOC/tex/latex/babelbib/galician.bdf
+ RELOC/tex/latex/babelbib/german.bdf
+ RELOC/tex/latex/babelbib/greek.bdf
+ RELOC/tex/latex/babelbib/italian.bdf
+ RELOC/tex/latex/babelbib/norsk.bdf
+ RELOC/tex/latex/babelbib/portuguese.bdf
+ RELOC/tex/latex/babelbib/romanian.bdf
+ RELOC/tex/latex/babelbib/russian.bdf
+ RELOC/tex/latex/babelbib/serbian.bdf
+ RELOC/tex/latex/babelbib/spanish.bdf
+ RELOC/tex/latex/babelbib/swedish.bdf
+ RELOC/tex/latex/babelbib/turkish.bdf
+catalogue-contact-bugs https://github.com/TeX-Live/babelbib/issues
+catalogue-contact-home https://github.com/TeX-Live/babelbib
+catalogue-contact-repository https://github.com/TeX-Live/babelbib.git
+catalogue-ctan /biblio/bibtex/contrib/babelbib
+catalogue-license lppl1
+catalogue-topics bibtex-sty multilingual
+catalogue-version 1.34

@@ -1,0 +1,21 @@
+name exam-n
+category Package
+revision 64674
+shortdesc Exam class, focused on collaborative authoring
+relocated 1
+longdesc The class design offers: Direct support for collaborative
+longdesc development of an exam, using a model in which a departmental
+longdesc 'exams convener' or 'exam chair' coordinates multiple authors
+longdesc writing individual questions (the class file and associated
+longdesc process is in regular use within a physics and astronomy
+longdesc department). All of the 'traditional' exam paper features such
+longdesc as sectioning, per-part running marks, 'Question n continued'
+longdesc catchwords, and so on. Readily configured local adaptation.
+runfiles size=13
+ RELOC/tex/latex/exam-n/exam-n.cls
+catalogue-contact-home https://purl.org/nxg/dist/exam-n
+catalogue-contact-repository https://heptapod.host/nxg/exam-n/
+catalogue-ctan /macros/latex/contrib/exam-n
+catalogue-license lppl1.3c
+catalogue-topics exam
+catalogue-version 1.4.0

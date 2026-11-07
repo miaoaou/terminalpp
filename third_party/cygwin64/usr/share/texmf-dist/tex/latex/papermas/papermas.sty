@@ -1,0 +1,284 @@
+%%
+%% This is file `papermas.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% papermas.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Project: papermas
+%% Version: 2023-04-12 v1.1a
+%% Info: Computes paper mass of a printout
+%% 
+%% Copyright (C) 2010 - 2023 by
+%%     H.-Martin Muench <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    https://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005-12-01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file papermas.dtx
+%% the README, and the derived files
+%%    papermas.sty, papermas.pdf,
+%%    papermas.ins, papermas.drv,
+%%    papermas-example.tex, papermas-example.pdf.
+%% 
+%% In memoriam
+%%  Claudia Simone Barth + 1996-01-30
+%%  Tommy Muench         + 2014-01-02
+%%  Hans-Klaus Muench    + 2014-08-24
+%% 
+\NeedsTeXFormat{LaTeX2e}[2022-11-01]
+\ProvidesPackage{papermas}[2023-04-12 v1.1a Computes paper mass of a printout (HMM)]
+
+%% Allows to compute the number of sheets of paper
+%% needed to print a document as well as the
+%% mass of that printed version of the document,
+%% useful e.g. to determine the postage when sending it by snail mail.
+%% Warning/Disclaimer: Mass of (printer's) ink has to be added
+%% and that of envelope, address sticker, stamps,...!
+%% So, this is only an estimation without guarantee -
+%% do not sue me, if you have got to pay excess postage!
+
+\providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+
+\IfFormatAtLeastTF{2022/11/01}{\relax}{%
+  \PackageError{papermas}{%
+      Newer LaTeX format needed or older papermas package%
+    }{Needed LaTeX format version: 2022-11-01 or newer.\MessageBreak%
+      Found\space\space LaTeX format version: \fmtversion.\MessageBreak%
+      Either update your TeX distribution\MessageBreak%
+      or use an archived version of papermas\MessageBreak%
+      (see section History in the documentation).\MessageBreak%
+     }
+  }
+
+\RequirePackage{kvoptions}[2022-06-15]% v3.15 Key value format for package options  (HO)
+\RequirePackage{intcalc}[2019/12/15]%   v1.3  Expandable calculations with integers (HO)
+
+\SetupKeyvalOptions{family = papermas,prefix = papermas@}
+\DeclareStringOption[4]{format}[4]%        paper format, ISO A..., default: (ISO A) 4
+\DeclareStringOption[80]{masss}[80]%       specific mass of the paper, default: 80 (g/(m^2))
+\DeclareStringOption[2]{pagespersheet}[2]% number of pages per sheet, for duplex printing this is 2.
+\DeclareStringOption[.]{decimalsep}[.]%    decimal separator,
+%%             e.g. "." or ",": decimalsep={,} - brackets are needed!!!
+%%             decimalsep={,\,} does not work for screen, aux, log output!
+
+\ProcessKeyvalOptions*
+
+\def\papermas@undefined{\textbf{??}}
+\let\papermassPages\papermas@undefined
+\let\papermasstotal\papermas@undefined
+\let\papermasformat\papermas@undefined
+\let\papermasmasss\papermas@undefined
+\let\papermaspagespersheet\papermas@undefined
+\let\papermassheets\papermas@undefined
+\let\papermas@rerun\z@
+
+\DeclareRobustCommand\papermas@totmass{%
+  \newcounter{papermasA}% paper mass for ISO A...
+  \setcounter{papermasA}{\papermas@format}% e.g. 4
+  \ifnum \value{papermasA}<0%
+    \PackageError{papermas}{Option format has no valid value}%
+     {The format option of the papermas package\MessageBreak%
+      only takes whole, non-negative numbers (0, 1, 2, 3,...),\MessageBreak%
+      because this should be the paper format\MessageBreak%
+      ISO A 0, 1, 2, 3,...\MessageBreak%
+      Found instead: \papermas@format \MessageBreak%
+     }%
+  \else%
+    \newcounter{papermasmasss}%
+    \setcounter{papermasmasss}{\papermas@masss}% default   80
+    \multiply \value{papermasmasss} 100 %        default 8000
+    \ifnum \value{papermasmasss}<1%
+      \PackageError{papermas}{Option masss has no valid value}%
+       {The masss option of the papermas package\MessageBreak%
+        only takes positive numbers,\MessageBreak%
+        because this should be the mass per square meter\MessageBreak%
+        of a single sheet of your paper.\MessageBreak%
+        Found instead: \papermas@masss\MessageBreak%
+       }%
+    \else%
+      \newcounter{papermasPPS}%
+      \setcounter{papermasPPS}{\papermas@pagespersheet}% default 2
+      \ifnum \value{papermasPPS}<1%
+        \PackageError{papermas}{The number of pages per sheet must be positive.}{%
+          You cannot print less than one TeX page per sheet of paper.\MessageBreak%
+          The value found was \papermas@pagespersheet .\MessageBreak%
+          }%
+      \else%
+        \newcounter{papermas@sheets}%
+        \let\papermassPages\m@ne%
+        \xdef\papermassmd{\number\maxdimen}%
+        \ifnum \@abspage@last=\papermassmd\relax%
+          \setcounter{papermas@sheets}{1}%
+          \gdef\papermas@rerun{1}%
+        \else%
+          \setcounter{papermas@sheets}{\@abspage@last}%
+          \xdef\papermassPages{\@abspage@last}%
+        \fi%
+        \divide \value{papermas@sheets} by \value{papermasPPS}%
+        \newcounter{papermas@tmpn}%
+        \setcounter{papermas@tmpn}{\arabic{papermas@sheets}}%
+        \multiply \value{papermas@tmpn} \value{papermasPPS}%
+        \ifnum \value{papermas@tmpn}=\papermassPages%
+        \else \addtocounter{papermas@sheets}{1}%
+        \fi%
+        \multiply \value{papermasmasss} \value{papermas@sheets}%
+        % default:     8000              (no default for this)
+        \divide \value{papermasmasss} by \intcalcPow{2}{\value{papermasA}}%
+        % default:    16000           /              2^(\value{papermasA})
+        % for the example 297 is used
+        \newcounter{papermas@tmpm}%
+        \setcounter{papermas@tmpm}{\arabic{papermasmasss}}%   m:297 n:  0 o:0 p: 0 q:0
+        \setcounter{papermas@tmpn}{\arabic{papermasmasss}}%   m:291 n:291 o:0 p: 0 q:0
+        \divide \value{papermas@tmpn} by 100%                 m:297 n:  2 o:0 p: 0 q:0
+        \newcounter{papermas@tmpo}%
+        \setcounter{papermas@tmpo}{\arabic{papermas@tmpn}}%   m:291 n:  2 o:2 p: 0 q:0
+        \multiply \value{papermas@tmpn} 10%                   m:297 n: 20 o:2 p: 0 q:0
+        \divide \value{papermas@tmpm} by 10%                  m: 29 n: 20 o:2 p: 0 q:0
+        \newcounter{papermas@tmpp}%
+        \setcounter{papermas@tmpp}{\arabic{papermas@tmpm}}%
+        \addtocounter{papermas@tmpp}{-\arabic{papermas@tmpn}}%m: 29 n: 20 o:2 p: 9 q:0
+        %                  29        -  20 = 9
+        \multiply \value{papermas@tmpm} 10%                   m:290 n: 20 o:2 p: 9 q:0
+        \newcounter{papermas@tmpq}%
+        \setcounter{papermas@tmpq}{\arabic{papermasmasss}}%
+        \addtocounter{papermas@tmpq}{-\arabic{papermas@tmpm}}%m:290 n: 20 o:2 p: 9 q:7
+        %                 297        - 290 = 7
+        \ifnum\value{papermas@tmpq}>4%
+          \addtocounter{papermas@tmpp}{1}%                    m:290 n: 20 o:2 p:10 q:7
+          \ifnum\value{papermas@tmpp}>9%                      m:290 n: 20 o:2 p:10 q:7
+            \addtocounter{papermas@tmpo}{1}%                  m:290 n: 20 o:3 p:10 q:7
+            \setcounter{papermas@tmpp}{0}%                    m:290 n: 20 o:3 p: 0 q:7
+          \fi%
+        \fi%
+        \ifx\papermassPages\m@ne\relax\let\papermassPages\papermas@undefined\fi%
+        \edef\papermastmpr{\arabic{papermas@tmpo}\papermas@decimalsep\arabic{papermas@tmpp}}%
+        \xdef\papermas@mbs{\arabic{papermas@tmpo}}%
+        \edef\papermastmpformat{\papermas@format}%
+        \edef\papermastmpmasss{\papermas@masss}%
+        \edef\papermastmppagespersheet{\papermas@pagespersheet}%
+        \edef\papermastmpt{\arabic{papermas@sheets}}%
+        \@ifundefined{c@papermassttl}{\newcounter{papermassttl}}{\relax}%
+        \ifnum\value{papermassttl}=\value{papermasmasss}%
+        \else\gdef\papermas@rerun{1}%
+        \fi%
+        \setcounter{papermassttl}{\arabic{papermasmasss}}%
+        \edef\papermastmps{\arabic{papermasmasss}}%
+        \if@filesw%
+          \immediate\write\@auxout{\string\@ifundefined{c@papermassttl}{\string\newcounter{papermassttl}}{\string\relax}}%
+          \immediate\write\@auxout{\string\setcounter{papermassttl}{\papermastmps}}%
+          \immediate\write\@auxout{\string\gdef\string\papermassPages{\papermassPages}}%
+          \immediate\write\@auxout{\string\gdef\string\papermasstotal{\papermastmpr}}%
+          \immediate\write\@auxout{\string\gdef\string\papermasformat{\papermastmpformat}}%
+          \immediate\write\@auxout{\string\gdef\string\papermasmasss{\papermastmpmasss}}%
+          \immediate\write\@auxout{\string\gdef\string\papermaspagespersheet{\papermastmppagespersheet}}%
+          \immediate\write\@auxout{\string\gdef\string\papermassheets{\papermastmpt}}%
+        \else\PackageError{papermas}{No writing to auxiliary file allowed}{%
+           It was not allowed to write to an .aux file.\MessageBreak%
+           This package does not work without access to an .aux file.\MessageBreak%
+           But it is OK if the .aux file was already updated by previouse compiler runs\MessageBreak%
+           and would not have changed anyway. In that case just press Enter or Return\MessageBreak%
+           to continue the compilation.}%
+        \fi%
+      \fi%
+    \fi%
+  \fi%
+  }
+
+\newcounter{papermassSpace}
+
+\DeclareRobustCommand{\papermas@log}[1]{%
+  \ifnum#1>9%
+    \addtocounter{papermassSpace}{1}%
+    \papermas@log{\intcalcDiv{#1}{10}}%
+  \fi%
+  }
+
+\DeclareRobustCommand{\papermas@spaces}[2]{%
+  \setcounter{papermassSpace}{1}%
+  \papermas@log{#1}%
+  \addtocounter{papermassSpace}{-#2}%
+  \multiply\value{papermassSpace} -1%
+  \papermas@space{\arabic{papermassSpace}}%
+  \message{*^^J}%
+  }
+
+\DeclareRobustCommand{\papermas@space}[1]{%
+  \ifnum\value{papermassSpace}>0\relax\message{}\fi%
+  \setcounter{papermassSpace}{#1}%
+  \addtocounter{papermassSpace}{-1}%
+  \ifnum\value{papermassSpace}>0\relax\papermas@space{\arabic{papermassSpace}}\fi%
+  }
+
+\AddToHook{begindocument}{%
+ \@bsphack%
+  \ifx\papermassPages\papermas@undefined       \gdef\papermas@rerun{1}\fi%
+  \ifx\papermasstotal\papermas@undefined       \gdef\papermas@rerun{1}\fi%
+  \ifx\papermasformat\papermas@undefined       \gdef\papermas@rerun{1}\fi%
+  \ifx\papermasmasss\papermas@undefined        \gdef\papermas@rerun{1}\fi%
+  \ifx\papermaspagespersheet\papermas@undefined\gdef\papermas@rerun{1}\fi%
+  \ifx\papermassheets\papermas@undefined       \gdef\papermas@rerun{1}\fi%
+ \@esphack%
+ \AddToHook{enddocument}{%
+  \AddToHook{enddocument/afterlastpage}{%
+   \papermas@totmass%
+   \AddToHook{enddocument/afteraux}{%
+    \ifx\papermassPages\m@ne\relax\gdef\papermas@rerun{1}%
+    \else\ifx\papermassPages\@abspage@last\else\gdef\papermas@rerun{1}\fi%
+    \fi%
+    \AddToHook{enddocument/info}[kernel/filelist]{%
+     \message{^^J}%
+     \message{papermas: ******************** Paper mass ********************^^J}%
+     \ifx\papermas@rerun\z@\relax%
+       \edef\papermassETest{\the\ReadonlyShipoutCounter\thetotalpages\PreviousTotalPages\@abspage@last}%
+       \edef\papermassEmpty{0001}%
+       \ifx\papermassEmpty\papermassETest\relax%
+         \PackageWarningNoLine{papermas}{Your document seems to consists of zero pages.\MessageBreak%
+           When printing no pages, no paper will be needed.\MessageBreak%
+           No paper has no mass.\MessageBreak%
+           Maybe just rerun or fix any mistakes}%
+         \gdef\papermassPages{0}%
+         \gdef\papermaspagespersheet{0}%
+         \gdef\papermasstotal{0}%
+       \else%
+         \ifnum \papermassPages=1\relax\message{papermas: * This document consists of 1 page.}%
+                                       \papermas@spaces{1}{16}% 16 because page vs. pages
+         \else \message{papermas: * This document consists of \papermassPages\space pages.}%
+               \papermas@spaces{\papermassPages}{15}%
+         \fi%
+         \ifnum \papermaspagespersheet=1\relax \message{papermas: * When printing one page on one sheet of paper,}%
+                \papermas@spaces{100}{6}%
+         \else \message{papermas: * When printing \papermaspagespersheet\space pages on one sheet of paper,}%
+               \papermas@spaces{\papermaspagespersheet}{5}%
+         \fi%
+         \ifnum \papermassheets=1\relax \message{papermas: * one sheet will be needed.}%
+                \papermas@spaces{100}{26}%
+         \else \message{papermas: * \papermassheets\space sheets will be needed.}%
+               \papermas@spaces{\papermassheets}{25}%
+         \fi%
+         \message{papermas: * For ISO A \papermasformat\space paper of \papermasmasss\space g/m^2 specific mass,}%
+           \papermas@spaces{\papermasmasss}{6}%
+         \message{papermas: * the printout will have a mass of about \papermasstotal\space g.}%
+           \papermas@spaces{\papermas@mbs}{4}%
+       \fi%
+     \else \PackageWarningNoLine{papermas}{Variables have changed.\MessageBreak Rerun to get them right}%
+     \fi%
+     \message{papermas: ****************************************************^^J^^J}%
+    }}}}}%
+\endinput
+%%
+%% End of file `papermas.sty'.

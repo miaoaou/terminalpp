@@ -1,0 +1,23 @@
+name codedoc
+category Package
+revision 17630
+shortdesc LaTeX code and documentation in LaTeX-format file
+relocated 1
+longdesc The CodeDoc class is an alternative to DocStrip (and others) to
+longdesc produce LaTeX code along with its documentation without
+longdesc departing from LaTeX's ordinary syntax. The documentation is
+longdesc prepared like any other LaTeX document and the code to be
+longdesc commented verbatim is simply delimited by an environment. When
+longdesc an option is turned on in the class options, this code is
+longdesc written to the desired file(s). The class also includes fully
+longdesc customizable verbatim environments which provide the author
+longdesc with separate commands to typeset the material and/or to
+longdesc execute it.
+runfiles size=12
+ RELOC/tex/latex/codedoc/codedoc.cls
+catalogue-also doc gmdoc
+catalogue-ctan /macros/latex/contrib/codedoc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-supp
+catalogue-version 0.3

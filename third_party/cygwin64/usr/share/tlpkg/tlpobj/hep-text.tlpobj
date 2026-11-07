@@ -1,0 +1,16 @@
+name hep-text
+category Package
+revision 67632
+shortdesc List and text extensions
+relocated 1
+longdesc The hep-text package extends LaTeX lists using the enumitem
+longdesc package and provides some text macros. The package is loaded
+longdesc with \usepackage{hep-text}.
+runfiles size=1
+ RELOC/tex/latex/hep-text/hep-text.sty
+catalogue-contact-bugs https://github.com/janhajer/hep-paper/issues
+catalogue-contact-repository https://github.com/janhajer/hep-paper
+catalogue-ctan /macros/latex/contrib/hep-text
+catalogue-license lppl1.3c
+catalogue-topics list
+catalogue-version 1.2

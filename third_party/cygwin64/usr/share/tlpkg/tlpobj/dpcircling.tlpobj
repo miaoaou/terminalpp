@@ -1,0 +1,20 @@
+name dpcircling
+category Package
+revision 54994
+shortdesc Decorated text boxes using TikZ
+relocated 1
+longdesc This simple package provides four types of text decorations
+longdesc using TikZ. You can frame your text with circles, rectangles,
+longdesc jagged rectangles, and fan-shapes. The baseline will be
+longdesc adjusted properly according to the surroundings. You can use
+longdesc these decorations both in text mode and in math mode. You can
+longdesc specify line color, line width, width, and height using option
+longdesc keys. Note: The "DP" in the package name stands for "Decorated
+longdesc Packets".
+runfiles size=3
+ RELOC/tex/latex/dpcircling/DPcircling.sty
+catalogue-contact-repository https://github.com/domperor/DPcircling
+catalogue-ctan /graphics/pgf/contrib/dpcircling
+catalogue-license mit
+catalogue-topics decoration boxing pgf-tikz
+catalogue-version 1.0

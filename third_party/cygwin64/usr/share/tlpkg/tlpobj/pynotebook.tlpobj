@@ -1,0 +1,18 @@
+name pynotebook
+category Package
+revision 69985
+shortdesc pynotebook presents (raw, Markdown or Python) codes (and execution with LuaLaTeX) as in a Jupyter Notebook
+relocated 1
+longdesc This package provides environments to (re)create a jupyter
+longdesc notebook with: raw blocks markdown blocks (with full LaTeX
+longdesc support) code blocks (python) with execution thanks to piton
+longdesc and PyLuaTeX
+runfiles size=4
+ RELOC/tex/latex/pynotebook/pynotebook.sty
+catalogue-contact-bugs https://github.com/cpierquet/pynotebook/issues
+catalogue-contact-home https://github.com/cpierquet/pynotebook
+catalogue-contact-repository https://github.com/cpierquet/pynotebook
+catalogue-ctan /macros/latex/contrib/pynotebook
+catalogue-license lppl1.3c
+catalogue-topics listing boxing callback
+catalogue-version 0.1.1

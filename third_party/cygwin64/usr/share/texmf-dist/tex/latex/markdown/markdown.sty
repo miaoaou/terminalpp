@@ -1,0 +1,238 @@
+%%
+%% This is file `markdown.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% markdown.dtx  (with options: `latex')
+%% 
+%% Copyright (C) 2016-2024 Vít Starý Novotný
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Vít Starý Novotný.
+%% 
+%% Send bug reports, requests for additions and questions
+%% either to the GitHub issue tracker at
+%% 
+%%   https://github.com/Witiko/markdown/issues
+%% 
+%% or to the e-mail address <witiko@mail.muni.cz>.
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\RequirePackage{expl3}
+\ExplSyntaxOn
+\tl_const:Nn \c__markdown_option_layer_latex_tl { latex }
+\cs_generate_variant:Nn
+  \tl_const:Nn
+  { NV }
+\tl_if_exist:NF
+  \c__markdown_top_layer_tl
+  {
+    \tl_const:NV
+      \c__markdown_top_layer_tl
+      \c__markdown_option_layer_latex_tl
+  }
+\ExplSyntaxOff
+\input markdown/markdown
+\newenvironment{markdown}\relax\relax
+\newenvironment{markdown*}[1]\relax\relax
+\DeclareOption{finalizecache}{\markdownSetup{finalizeCache}}
+\DeclareOption{frozencache}{\markdownSetup{frozenCache}}
+\ExplSyntaxOn
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_latex_tl
+  {
+    \__markdown_define_option_commands_and_keyvals:
+    \__markdown_define_renderers:
+    \__markdown_define_renderer_prototypes:
+  }
+\ExplSyntaxOff
+\newif\ifmarkdownLaTeXLoaded
+  \markdownLaTeXLoadedfalse
+\AtEndOfPackage{
+  \markdownLaTeXLoadedtrue
+  \markdownIfOption{noDefaults}{}{
+    \markdownSetup{theme=witiko/markdown/defaults}
+  }
+}
+\def\markdownVersionSpace{ }%
+\ProvidesPackage{markdown}[\markdownLastModified\markdownVersionSpace v%
+  \markdownVersion\markdownVersionSpace markdown renderer]%
+\let\markdownInputPlainTeX\markdownInput
+\renewcommand\markdownInput[2][]{%
+  \begingroup
+    \markdownSetup{#1}%
+    \markdownInputPlainTeX{#2}%
+  \endgroup}%
+\ExplSyntaxOn
+\renewenvironment
+  { markdown }
+  {
+    \group_begin:
+    \char_set_catcode_active:n { 13 }
+    \char_set_catcode_letter:n { 35 }
+    \peek_regex_replace_once:nnF
+      { \ *\[\r*([^]]*)\][^\r]* }
+      {
+        \c { group_end: }
+        \c { tl_set_rescan:Nnn } \c { l_tmpa_tl } { } { \1 }
+        \c { __markdown_setup:V } \c { l_tmpa_tl }
+        \c { markdownReadAndConvert@markdown } { }
+      }
+      {
+        \group_end:
+        \markdownReadAndConvert@markdown { }
+      }
+  }
+  { \markdownEnd }
+\renewenvironment
+  { markdown* }
+  [ 1 ]
+  {
+    \msg_warning:nnn
+      { markdown }
+      { latex-markdown-star-deprecated }
+      { #1 }
+    \__markdown_setup:n
+      { #1 }
+    \markdownReadAndConvert@markdown *
+  }
+  { \markdownEnd }
+\msg_new:nnn
+  { markdown }
+  { latex-markdown-star-deprecated }
+  {
+    The~markdown*~LaTeX~environment~has~been~deprecated~and~will~
+    be~removed~in~the~next~major~version~of~the~Markdown~package.
+  }
+\ExplSyntaxOff
+\begingroup
+  \catcode`\|=0\catcode`\<=1\catcode`\>=2%
+  \catcode`\\=12|catcode`|{=12|catcode`|}=12%
+  |gdef|markdownReadAndConvert@markdown#1<%
+    |markdownReadAndConvert<\end{markdown#1}>%
+                           <|end<markdown#1>>>%
+|endgroup
+\DeclareOption*{%
+  \expandafter\markdownSetup\expandafter{\CurrentOption}}%
+\ProcessOptions\relax
+\ExplSyntaxOn
+\cs_gset:Nn
+  \__markdown_load_theme:nn
+  {
+    \ifmarkdownLaTeXLoaded
+      \ifx\@onlypreamble\@notprerr
+        \file_if_exist:nTF
+          { markdown theme #2.sty }
+          {
+            \msg_error:nnn
+              { markdown }
+              { latex-theme-after-preamble }
+              { #1 }
+          }
+          {
+            \__markdown_plain_tex_load_theme:nn
+              { #1 }
+              { #2 }
+          }
+      \else
+        \file_if_exist:nTF
+          { markdown theme #2.sty }
+          {
+            \msg_info:nnn
+              { markdown }
+              { loading-latex-theme }
+              { #1 }
+            \RequirePackage
+              { markdown theme #2 }
+          }
+          {
+            \__markdown_plain_tex_load_theme:nn
+              { #1 }
+              { #2 }
+          }
+      \fi
+    \else
+      \msg_info:nnn
+        { markdown }
+        { theme-loading-postponed }
+        { #1 }
+      \AtEndOfPackage
+        {
+          \__markdown_load_theme:nn
+            { #1 }
+            { #2 }
+        }
+    \fi
+  }
+\msg_new:nnn
+  { markdown }
+  { theme-loading-postponed }
+  {
+    Postponing~loading~Markdown~theme~#1~until~
+    Markdown~package~has~finished~loading
+  }
+\msg_new:nnn
+  { markdown }
+  { loading-latex-theme }
+  { Loading~LaTeX~Markdown~theme~#1 }
+\cs_generate_variant:Nn
+  \msg_new:nnnn
+  { nnVV }
+\tl_set:Nn
+  \l_tmpa_tl
+  { Cannot~load~LaTeX~Markdown~theme~#1~after~ }
+\tl_put_right:NV
+  \l_tmpa_tl
+  \c_backslash_str
+\tl_put_right:Nn
+  \l_tmpa_tl
+  { begin{document} }
+\tl_set:Nn
+  \l_tmpb_tl
+  { Load~Markdown~theme~#1~before~ }
+\tl_put_right:NV
+  \l_tmpb_tl
+  \c_backslash_str
+\tl_put_right:Nn
+  \l_tmpb_tl
+  { begin{document} }
+\msg_new:nnVV
+  { markdown }
+  { latex-theme-after-preamble }
+  \l_tmpa_tl
+  \l_tmpb_tl
+\ExplSyntaxOff
+\newcommand\markdownMakeOther{%
+  \count0=128\relax
+  \loop
+    \catcode\count0=11\relax
+    \advance\count0 by 1\relax
+  \ifnum\count0<256\repeat}%
+\endinput
+%%
+%% End of file `markdown.sty'.

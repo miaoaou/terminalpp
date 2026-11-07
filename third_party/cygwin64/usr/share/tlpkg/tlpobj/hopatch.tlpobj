@@ -1,0 +1,18 @@
+name hopatch
+category Package
+revision 65491
+shortdesc Load patches for packages
+relocated 1
+longdesc Hopatch provides a command with which the user may register of
+longdesc patch code for a particular package. Hopatch will apply the
+longdesc patch immediately, if the relevant package has already been
+longdesc loaded; otherwise it will store the patch until the package
+longdesc appears.
+runfiles size=3
+ RELOC/tex/latex/hopatch/hopatch-2016-05-16.sty
+ RELOC/tex/latex/hopatch/hopatch.sty
+catalogue-contact-bugs https://github.com/ho-tex/hopatch/issues
+catalogue-ctan /macros/latex/contrib/hopatch
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 1.5

@@ -1,0 +1,29 @@
+name accessibility
+category Package
+revision 55777
+shortdesc Create tagged and structured PDF files
+relocated 1
+longdesc The accessibility package is intended to create tagged,
+longdesc structured PDF documents from LaTeX source code. It allows to
+longdesc produce tagged PDF output following Adobe's PDF-1.5 and 1.6
+longdesc specifications. This package is predominantly targeted at
+longdesc documents produced using the KOMA-Script document classes.
+longdesc However, the author told us towards the end of June 2020:
+longdesc "Based on feedback to the 'accessibility' package and
+longdesc discussions with a few folks, I'd like to discourage people
+longdesc from using the package any more. It's evident that it's not
+longdesc going to work in it's current form, and I don't have the skills
+longdesc or time to update it. I know the general concept is very
+longdesc important, and so I'm looking at getting support from various
+longdesc funding agencies to employ someone to completely refactor the
+longdesc code in a more future-proof fashion. I'll coordinate this with
+longdesc the core LaTeX Team once I have more solid ideas."
+runfiles size=17
+ RELOC/tex/latex/accessibility/accessibility.sty
+catalogue-also accsupp
+catalogue-contact-home https://github.com/AndyClifton/accessibility
+catalogue-contact-support https://github.com/AndyClifton/accessibility/issues
+catalogue-ctan /macros/latex/contrib/accessibility
+catalogue-license lppl1.3c
+catalogue-topics accessible pdf-feat
+catalogue-version 2.0.3

@@ -1,0 +1,20 @@
+name movement-arrows
+category Package
+revision 67270
+shortdesc Drawing movement arrows on linguistic example sentences
+relocated 1
+longdesc This package supplies simple support for drawing movement
+longdesc arrows on example sentences. It automatically adjusts spacing
+longdesc between examples or gloss lines to make room for the arrows.
+longdesc Arrows can also be annotated with labels. The package uses TikZ
+longdesc as a base, and various properties of the arrows can be adjusted
+longdesc using TikZ styles. The package has been tested with the gb4e,
+longdesc linguex, and ExPex example packages.
+runfiles size=2
+ RELOC/tex/latex/movement-arrows/movement-arrows.sty
+catalogue-contact-bugs https://github.com/amunn/movement-arrows/issues
+catalogue-contact-repository https://github.com/amunn/movement-arrows
+catalogue-ctan /macros/latex/contrib/movement-arrows
+catalogue-license lppl1.3
+catalogue-topics linguistic pgf-tikz
+catalogue-version 2.0

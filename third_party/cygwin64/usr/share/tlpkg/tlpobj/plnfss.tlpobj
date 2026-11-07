@@ -1,0 +1,35 @@
+name plnfss
+category Package
+revision 15878
+shortdesc Font selection for Plain TeX
+relocated 1
+longdesc Plnfss is a set of macros to provide easy font access (somewhat
+longdesc similar to NFSS but with some limitations) with Plain TeX.
+longdesc Plnfss can automatically make use of PSNFSS fd files, i.e.,
+longdesc when an Adobe Type 1 is used the relevant fd file will be
+longdesc loaded automatically. For cmr-like fonts (ec, vnr, csr or plr
+longdesc fonts), a special format called pfd (plain fd) is required and
+longdesc must be loaded manually. See ot1cmr.pfd for further
+longdesc information.
+runfiles size=17
+ RELOC/tex/plain/plnfss/MIKmathf.tex
+ RELOC/tex/plain/plnfss/ams.pfd
+ RELOC/tex/plain/plnfss/il2cm.pfd
+ RELOC/tex/plain/plnfss/il2cmr.pfd
+ RELOC/tex/plain/plnfss/ly1lm.pfd
+ RELOC/tex/plain/plnfss/ot1cm.pfd
+ RELOC/tex/plain/plnfss/ot1cmr.pfd
+ RELOC/tex/plain/plnfss/ot4cm.pfd
+ RELOC/tex/plain/plnfss/plnfss.tex
+ RELOC/tex/plain/plnfss/qxlm.pfd
+ RELOC/tex/plain/plnfss/t1lm.pfd
+ RELOC/tex/plain/plnfss/t5cm.pfd
+ RELOC/tex/plain/plnfss/t5cmr.pfd
+ RELOC/tex/plain/plnfss/t5lm.pfd
+ RELOC/tex/plain/plnfss/ts1lm.pfd
+catalogue-also ofs font-selection fontch
+catalogue-ctan /macros/plain/plnfss
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-sel plain-ext
+catalogue-version 1.1

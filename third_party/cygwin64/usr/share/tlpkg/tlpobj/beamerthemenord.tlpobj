@@ -1,0 +1,17 @@
+name beamerthemenord
+category Package
+revision 56180
+shortdesc A simple beamer theme using the "Nord" color theme
+relocated 1
+longdesc This package provides a simple beamer theme using the Nord
+longdesc color theme.
+runfiles size=4
+ RELOC/tex/latex/beamerthemenord/beamercolorthemeNord.sty
+ RELOC/tex/latex/beamerthemenord/beamerfontthemeNord.sty
+ RELOC/tex/latex/beamerthemenord/beamerthemeNord.sty
+catalogue-contact-bugs https://github.com/junwei-wang/beamerthemeNord/issues
+catalogue-contact-repository https://github.com/junwei-wang/beamerthemeNord
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerthemenord
+catalogue-license lppl1.3c
+catalogue-topics presentation
+catalogue-version 0.2.0

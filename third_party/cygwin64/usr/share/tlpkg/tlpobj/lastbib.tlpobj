@@ -1,0 +1,13 @@
+name lastbib
+category Package
+revision 70376
+shortdesc Record the number of citations in a document
+relocated 1
+longdesc The package records the number of citations in a document, and
+longdesc provides a command (\LastBib) to print the number.
+runfiles size=1
+ RELOC/tex/latex/lastbib/lastbib.sty
+catalogue-ctan /macros/latex/contrib/lastbib
+catalogue-license lppl
+catalogue-topics cite-supp
+catalogue-version 2.1

@@ -1,0 +1,19 @@
+name factura
+category Package
+revision 61697
+shortdesc Typeset and calculate invoices according to Venezuelan law
+relocated 1
+longdesc 'factura' is the Spanish word for 'invoice', so this is a LaTeX
+longdesc class for typesetting and calculating invoices, taking into
+longdesc account requirements of SENIAT legislation (tax collector
+longdesc entity on the Bolivarian Republic of Venezuela). However, its
+longdesc use is not restricted to Venezuela because all variables and
+longdesc the displayed text can be redefined by invoking commands or
+longdesc editing.
+runfiles size=34
+ RELOC/tex/latex/factura/factura.cls
+ RELOC/tex/latex/factura/factura.def
+catalogue-ctan /macros/latex/contrib/factura
+catalogue-license lppl1.3c
+catalogue-topics invoice spanish class
+catalogue-version 4.32

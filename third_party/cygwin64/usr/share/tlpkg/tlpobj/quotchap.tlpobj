@@ -1,0 +1,14 @@
+name quotchap
+category Package
+revision 56926
+shortdesc Decorative chapter headings
+relocated 1
+longdesc A package for creating decorative chapter headings with
+longdesc quotations. Uses graphical and coloured output and by default
+longdesc needs the "Adobe standard font set" (as supported by psnfss).
+runfiles size=2
+ RELOC/tex/latex/quotchap/quotchap.sty
+catalogue-ctan /macros/latex/contrib/quotchap
+catalogue-license gpl2
+catalogue-topics headings
+catalogue-version 1.3

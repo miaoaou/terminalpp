@@ -1,0 +1,38 @@
+name memoize
+category Package
+revision 70015
+shortdesc Externalization of graphics and memoization of compilation results in general
+longdesc Memoize is a package for externalization of graphics and
+longdesc memoization of compilation results in general, allowing the
+longdesc author to reuse the results of compilation-intensive code.
+longdesc Memoize (i) induces very little overhead, as all externalized
+longdesc graphics is produced in a single compilation. It features (ii)
+longdesc automatic recompilation upon the change of code or
+longdesc user-adjustable context, and (iii) automatic externalization of
+longdesc TikZ pictures and Forest trees, easily extensible to other
+longdesc commands and environments. Furthermore, Memoize (iv) supports
+longdesc cross-referencing, TikZ overlays and Beamer, (v) works with all
+longdesc major engines and formats, and (vi) is adaptable to any
+longdesc workflow.
+depend memoize.ARCH
+runfiles size=60
+ texmf-dist/scripts/memoize/memoize-clean.pl
+ texmf-dist/scripts/memoize/memoize-clean.py
+ texmf-dist/scripts/memoize/memoize-extract.pl
+ texmf-dist/scripts/memoize/memoize-extract.py
+ texmf-dist/tex/context/third/memoize/t-memoizable.tex
+ texmf-dist/tex/context/third/memoize/t-memoize.tex
+ texmf-dist/tex/context/third/memoize/t-nomemoize.tex
+ texmf-dist/tex/generic/memoize/memoizable.code.tex
+ texmf-dist/tex/latex/memoize/memoizable.sty
+ texmf-dist/tex/latex/memoize/memoize.sty
+ texmf-dist/tex/latex/memoize/nomemoize.sty
+ texmf-dist/tex/plain/memoize/memoizable.tex
+ texmf-dist/tex/plain/memoize/memoize-extract-one.tex
+ texmf-dist/tex/plain/memoize/memoize.tex
+ texmf-dist/tex/plain/memoize/nomemoize.tex
+catalogue-contact-repository https://github.com/sasozivanovic/memoize
+catalogue-ctan /macros/generic/memoize
+catalogue-license lppl1.3c
+catalogue-topics compilation ext-code cond-comp macro-gen graphics
+catalogue-version 1.1.2

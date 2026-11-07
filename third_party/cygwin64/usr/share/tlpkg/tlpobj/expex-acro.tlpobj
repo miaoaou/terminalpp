@@ -1,0 +1,17 @@
+name expex-acro
+category Package
+revision 68046
+shortdesc Wrapper for the expex package
+relocated 1
+longdesc This is a small wrapper for the expex package, adding ways to
+longdesc define, use, and summarize glossing abbreviations. It also
+longdesc provides commands to refer to examples, as well as some inline
+longdesc formatting commands commonly used in linguistics.
+runfiles size=7
+ RELOC/tex/generic/expex-acro/expex-acro.sty
+catalogue-contact-bugs https://github.com/fmatter/expex-acro/issues
+catalogue-contact-repository https://github.com/fmatter/expex-acro/
+catalogue-ctan /macros/generic/expex-acro
+catalogue-license lppl1.3
+catalogue-topics glossary linguistic macro-gen
+catalogue-version 0.0.3

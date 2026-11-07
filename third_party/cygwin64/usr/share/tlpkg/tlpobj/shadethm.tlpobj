@@ -1,0 +1,28 @@
+name shadethm
+category Package
+revision 53350
+shortdesc Theorem environments that are shaded
+relocated 1
+longdesc Extends the \newtheorem command. If you say
+longdesc \newshadetheorem{theorem}{Theorem} in the preamble then your
+longdesc regular \begin{theorem} .. \end{theorem} will produce a theorem
+longdesc statement in a shaded box. It supports all the options of
+longdesc \newtheorem, including forms \newshadetheorem{..}[..]{..} and
+longdesc \newshadetheorem{..}{..}[..]. Environments declared using the
+longdesc package require their body to remain on one page; the mdframed
+longdesc package can frame and shade theorems, and its environments
+longdesc break at the end of a page; users are generally recommended,
+longdesc therefore, to use mdframed. In the same spirit, the author told
+longdesc us in January 2020: "These materials are obsolete. There are a
+longdesc number of more recent, more powerful packages that have
+longdesc capabilities that greatly extend the simple ones here. A new
+longdesc project should use one of those. These files only continue to
+longdesc be available to help people who are working with an old
+longdesc project."
+runfiles size=8
+ RELOC/tex/latex/shadethm/colored.sth
+ RELOC/tex/latex/shadethm/shadein.sth
+ RELOC/tex/latex/shadethm/shadethm.sty
+catalogue-ctan /macros/latex/contrib/shadethm
+catalogue-license lppl
+catalogue-topics maths-theorem decoration

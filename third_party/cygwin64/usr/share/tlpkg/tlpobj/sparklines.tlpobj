@@ -1,0 +1,21 @@
+name sparklines
+category Package
+revision 42821
+shortdesc Drawing sparklines: intense, simple, wordlike graphics
+relocated 1
+longdesc Sparklines are intense, simple, wordlike graphics (so named by
+longdesc Edward Tufte). In lieu of a more detailed introduction,
+longdesc Professor Tufte's site has an early release of a chapter on
+longdesc sparklines. A PHP implementation may be found at SourceForge. A
+longdesc sparkline can be added using the sparkline environment. Also,
+longdesc you can add sparkling rectangles for the median and special
+longdesc sparkling dots in red or blue. The package requires pdfLaTeX;
+longdesc sparklines cannot appear in a dvi file. The sparklines package
+longdesc uses pgf, and does not work with pictex.
+runfiles size=2
+ RELOC/tex/latex/sparklines/sparklines.sty
+catalogue-ctan /graphics/sparklines
+catalogue-date 2016-12-31 14:06:34 +0100
+catalogue-license lppl
+catalogue-topics graphics-in-tex
+catalogue-version 1.7

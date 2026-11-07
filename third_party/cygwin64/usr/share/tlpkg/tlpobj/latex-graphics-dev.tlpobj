@@ -1,0 +1,37 @@
+name latex-graphics-dev
+category Package
+revision 68730
+shortdesc Development pre-release of the LaTeX graphics bundle
+relocated 1
+longdesc This is a pre-release version of the standard LaTeX graphics
+longdesc bundle. It accompanies the pre-testing kernel code
+longdesc (latex-base-dev), and is intended for testing by knowledgeable
+longdesc users.
+depend graphics-cfg
+runfiles size=36
+ RELOC/tex/latex-dev/graphics/color.sty
+ RELOC/tex/latex-dev/graphics/dvipdf.def
+ RELOC/tex/latex-dev/graphics/dvipsnam.def
+ RELOC/tex/latex-dev/graphics/dvipsone.def
+ RELOC/tex/latex-dev/graphics/dviwin.def
+ RELOC/tex/latex-dev/graphics/emtex.def
+ RELOC/tex/latex-dev/graphics/epsfig.sty
+ RELOC/tex/latex-dev/graphics/graphics-2017-06-25.sty
+ RELOC/tex/latex-dev/graphics/graphics.sty
+ RELOC/tex/latex-dev/graphics/graphicx.sty
+ RELOC/tex/latex-dev/graphics/keyval.sty
+ RELOC/tex/latex-dev/graphics/lscape.sty
+ RELOC/tex/latex-dev/graphics/mathcolor.ltx
+ RELOC/tex/latex-dev/graphics/pctex32.def
+ RELOC/tex/latex-dev/graphics/pctexhp.def
+ RELOC/tex/latex-dev/graphics/pctexps.def
+ RELOC/tex/latex-dev/graphics/pctexwin.def
+ RELOC/tex/latex-dev/graphics/rotating.sty
+ RELOC/tex/latex-dev/graphics/tcidvi.def
+ RELOC/tex/latex-dev/graphics/trig.sty
+ RELOC/tex/latex-dev/graphics/truetex.def
+catalogue-also latex-graphics
+catalogue-ctan /macros/latex-dev/required/graphics
+catalogue-license lppl1.3c
+catalogue-topics graphics collection latex-devel
+catalogue-version 2024-06-01 pre-release 0

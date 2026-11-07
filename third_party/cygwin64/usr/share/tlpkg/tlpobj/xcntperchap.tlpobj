@@ -1,0 +1,14 @@
+name xcntperchap
+category Package
+revision 54080
+shortdesc Track the number of subsections etc. that occur in a specified tracklevel
+relocated 1
+longdesc This package is the successor of cntperchap and allows to
+longdesc provide more tracklevels than just only one.
+runfiles size=3
+ RELOC/tex/latex/xcntperchap/xcntperchap.sty
+catalogue-also cntperchap
+catalogue-ctan /macros/latex/contrib/xcntperchap
+catalogue-license lppl1.3
+catalogue-topics counter-mgmt macro-supp
+catalogue-version 0.5

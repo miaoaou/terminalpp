@@ -1,0 +1,16 @@
+name regcount
+category Package
+revision 19979
+shortdesc Display the allocation status of the TeX registers
+relocated 1
+longdesc Adds a macro \rgcounts which displays the allocation status of
+longdesc the TeX registers. The display is written into the .log file as
+longdesc it is a bit verbose. An automatic call to \rgcounts is done at
+longdesc \begin{document} and \end{document}.
+runfiles size=1
+ RELOC/tex/latex/regcount/regcount.sty
+catalogue-ctan /macros/latex/contrib/regcount
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics debug-supp
+catalogue-version 1.0

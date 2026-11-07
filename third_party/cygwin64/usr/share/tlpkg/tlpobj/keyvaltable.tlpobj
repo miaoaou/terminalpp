@@ -1,0 +1,20 @@
+name keyvaltable
+category Package
+revision 65416
+shortdesc Re-usable table layouts separating content and presentation
+relocated 1
+longdesc The main goal of this package is to offer means for typesetting
+longdesc tables easily and yet still looking rather nicely in a way that
+longdesc separates content from presentation and with re-usable layout
+longdesc for tables of the same type. For this purpose, the package
+longdesc provides the environment KeyValTable, which allows one to
+longdesc typeset tables that have a previously defined column layout and
+longdesc whose rows can be produced in a key-value fashion.
+runfiles size=11
+ RELOC/tex/latex/keyvaltable/keyvaltable.sty
+catalogue-contact-bugs https://github.com/Ri-Ga/keyvaltable/issues
+catalogue-contact-repository https://github.com/Ri-Ga/keyvaltable
+catalogue-ctan /macros/latex/contrib/keyvaltable
+catalogue-license lppl1.2
+catalogue-topics table
+catalogue-version 2.3

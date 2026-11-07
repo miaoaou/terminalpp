@@ -1,0 +1,17 @@
+name tikzviolinplots
+category Package
+revision 66659
+shortdesc Draws violin plots from data
+relocated 1
+longdesc This package enables the user to draw violin plots, calculating
+longdesc the kernel density estimation from the data and plotting the
+longdesc resulting curve inside a tikzpicture environment. It supports
+longdesc different kernels, and allows the user to either set the
+longdesc bandwidth value for each plot or use a default value.
+runfiles size=5
+ RELOC/tex/latex/tikzviolinplots/tikzviolinplots.sty
+catalogue-contact-repository https://github.com/pedro-callil/tikzviolinplots
+catalogue-ctan /graphics/pgf/contrib/tikzviolinplots
+catalogue-license lppl1.3
+catalogue-topics statistics graphics graphics-plot pgf-tikz
+catalogue-version 0.7.2

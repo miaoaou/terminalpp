@@ -1,0 +1,18 @@
+name exercisebank
+category Package
+revision 50448
+shortdesc Creating and managing exercises, and reusing them as composed sets
+relocated 1
+longdesc This package makes it easier to maintain and edit your exercise
+longdesc sets. Exercises are saved as separate files containing part
+longdesc problems. These files can be used to make sets, and you can
+longdesc cherry-pick or exclude certain part problems as you see fit.
+runfiles size=9
+ RELOC/tex/latex/exercisebank/exercisebank.sty
+catalogue-contact-bugs https://github.com/Strauman/exercisebank/issues
+catalogue-contact-repository https://github.com/Strauman/exercisebank
+catalogue-ctan /macros/latex/contrib/exercisebank
+catalogue-date 2019-03-18 10:53:02 +0100
+catalogue-license lppl1.3c
+catalogue-topics exercise exam doc-templ
+catalogue-version 0.3.0

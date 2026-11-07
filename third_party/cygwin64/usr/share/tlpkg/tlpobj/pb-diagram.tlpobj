@@ -1,0 +1,15 @@
+name pb-diagram
+category Package
+revision 15878
+shortdesc A commutative diagram package using LAMSTeX or Xy-pic fonts
+relocated 1
+runfiles size=19
+ RELOC/tex/latex/pb-diagram/lamsarrow.sty
+ RELOC/tex/latex/pb-diagram/pb-diagram.sty
+ RELOC/tex/latex/pb-diagram/pb-lams.sty
+ RELOC/tex/latex/pb-diagram/pb-xy.sty
+catalogue-ctan /macros/latex/contrib/pb-diagram
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license other-free
+catalogue-topics diagram-comm
+catalogue-version 5.0

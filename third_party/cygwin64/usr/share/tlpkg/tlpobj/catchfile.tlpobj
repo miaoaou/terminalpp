@@ -1,0 +1,17 @@
+name catchfile
+category Package
+revision 53084
+shortdesc Catch an external file into a macro
+relocated 1
+longdesc This package catches the contents of a file and puts it in a
+longdesc macro. It requires e-TeX. Both LaTeX and plain TeX are
+longdesc supported.
+runfiles size=3
+ RELOC/tex/generic/catchfile/catchfile.sty
+catalogue-contact-bugs https://github.com/ho-tex/catchfile/issues
+catalogue-contact-repository https://github.com/ho-tex/catchfile
+catalogue-ctan /macros/latex/contrib/catchfile
+catalogue-date 2019-12-10 09:45:53 +0100
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 1.8

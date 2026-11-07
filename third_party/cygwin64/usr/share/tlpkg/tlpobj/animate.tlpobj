@@ -1,0 +1,16 @@
+name animate
+category Package
+revision 67401
+shortdesc Create PDF and SVG animations from graphics files and inline graphics
+relocated 1
+longdesc The package provides an interface to create portable,
+longdesc JavaScript driven PDF and SVG animations from sets of graphics
+longdesc files or from inline graphics, such as LaTeX picture
+longdesc environment, PSTricks or pgf/TikZ generated pictures, or just
+longdesc from typeset text.
+runfiles size=34
+ RELOC/tex/latex/animate/animate.sty
+catalogue-contact-repository https://gitlab.com/agrahn/animate
+catalogue-ctan /macros/latex/contrib/animate
+catalogue-license lppl
+catalogue-topics graphics-motion

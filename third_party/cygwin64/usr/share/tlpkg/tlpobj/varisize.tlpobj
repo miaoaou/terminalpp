@@ -1,0 +1,24 @@
+name varisize
+category Package
+revision 15878
+shortdesc Change font size in Plain TeX
+relocated 1
+longdesc A series of files, each of which defines a size-change macro.
+longdesc Note that 10point.tex is by convention called by one of the
+longdesc other files, so that there's always a "way back".
+runfiles size=10
+ RELOC/tex/plain/varisize/10point.tex
+ RELOC/tex/plain/varisize/10pointss.tex
+ RELOC/tex/plain/varisize/11point.tex
+ RELOC/tex/plain/varisize/12point.tex
+ RELOC/tex/plain/varisize/14point.tex
+ RELOC/tex/plain/varisize/17point.tex
+ RELOC/tex/plain/varisize/20point.tex
+ RELOC/tex/plain/varisize/7point.tex
+ RELOC/tex/plain/varisize/8point.tex
+ RELOC/tex/plain/varisize/9point.tex
+catalogue-also plnfss ofs font-selection
+catalogue-ctan /macros/plain/contrib/varisize
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics font-sel

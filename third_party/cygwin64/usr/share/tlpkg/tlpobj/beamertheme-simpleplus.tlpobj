@@ -1,0 +1,20 @@
+name beamertheme-simpleplus
+category Package
+revision 64770
+shortdesc A simple and clean theme for LaTeX beamer
+relocated 1
+longdesc This package provides a simple and clean theme for LaTeX
+longdesc Beamer. It can be used for academic and scientific
+longdesc presentations.
+runfiles size=4
+ RELOC/tex/latex/beamertheme-simpleplus/beamercolorthemeSimplePlus.sty
+ RELOC/tex/latex/beamertheme-simpleplus/beamerfontthemeSimplePlus.sty
+ RELOC/tex/latex/beamertheme-simpleplus/beamerinnerthemeSimplePlus.sty
+ RELOC/tex/latex/beamertheme-simpleplus/beamerthemeSimplePlus.sty
+catalogue-contact-bugs https://github.com/PM25/SimplePlus-BeamerTheme/issues
+catalogue-contact-development https://pm25.github.io
+catalogue-contact-repository https://github.com/PM25/SimplePlus-BeamerTheme
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-simpleplus
+catalogue-license pd
+catalogue-topics presentation
+catalogue-version 1.0

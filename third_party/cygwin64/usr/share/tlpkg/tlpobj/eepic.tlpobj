@@ -1,0 +1,21 @@
+name eepic
+category Package
+revision 15878
+shortdesc Extensions to epic and the LaTeX drawing tools
+relocated 1
+longdesc Extensions to epic and the LaTeX picture drawing environment,
+longdesc include the drawing of lines at any slope, the drawing of
+longdesc circles in any radii, and the drawing of dotted and dashed
+longdesc lines much faster with much less TeX memory, and providing
+longdesc several new commands for drawing ellipses, arcs, splines, and
+longdesc filled circles and ellipses. The package uses tpic \special
+longdesc commands.
+runfiles size=13
+ RELOC/tex/latex/eepic/eepic.sty
+ RELOC/tex/latex/eepic/eepicemu.sty
+ RELOC/tex/latex/eepic/epic.sty
+catalogue-ctan /macros/latex/contrib/eepic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics graphics-in-tex
+catalogue-version 1.1e

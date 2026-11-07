@@ -1,0 +1,23 @@
+name qstest
+category Package
+revision 15878
+shortdesc Bundle for unit tests and pattern matching
+relocated 1
+longdesc This is the public release of the qstest bundle (written for
+longdesc DocScape Publisher) (C) 2006, 2007 QuinScape GmbH. The bundle
+longdesc contains the packages 'makematch' for matching patterns to
+longdesc targets (with a generalization in the form of pattern lists and
+longdesc keyword lists), and 'qstest' for performing unit tests,
+longdesc allowing the user to run a number of logged tests ensuring the
+longdesc consistency of values, properties and call sequences during
+longdesc execution of test code. Both packages make extensive use of in
+longdesc their package documentation, providing illustrated examples
+longdesc that are automatically verified to work as expected. Check the
+longdesc README file for details.
+runfiles size=5
+ RELOC/tex/latex/qstest/makematch.sty
+ RELOC/tex/latex/qstest/qstest.sty
+catalogue-ctan /macros/latex/contrib/qstest
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics units

@@ -1,0 +1,14 @@
+name pressrelease
+category Package
+revision 35147
+shortdesc A class for typesetting press releases
+relocated 1
+longdesc A configurable class for writing press releases.
+runfiles size=5
+ RELOC/tex/latex/pressrelease/pressrelease-symbols.sty
+ RELOC/tex/latex/pressrelease/pressrelease.cls
+catalogue-ctan /macros/latex/contrib/pressrelease
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics publicity
+catalogue-version 1.0

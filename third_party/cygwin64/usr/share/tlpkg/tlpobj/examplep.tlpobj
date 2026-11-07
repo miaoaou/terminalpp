@@ -1,0 +1,30 @@
+name examplep
+category Package
+revision 55265
+shortdesc Verbatim phrases and listings in LaTeX
+relocated 1
+longdesc Examplep provides sophisticated features for typesetting
+longdesc verbatim source code listings, including the display of the
+longdesc source code and its compiled LaTeX or MetaPost output
+longdesc side-by-side, with automatic width detection and enabled page
+longdesc breaks (in the source), without the need for specifying the
+longdesc source twice. Special care is taken that section, page and
+longdesc footnote numbers do not interfere with the main document. For
+longdesc typesetting short verbatim phrases, a replacement for the \verb
+longdesc command is also provided in the package, which can be used
+longdesc inside tables and moving arguments such as footnotes and
+longdesc section titles. The listings package is used for syntax
+longdesc highlighting. The accompanying codep package and the wrfiles.pl
+longdesc Perl script provide a convenient interface to the examplep
+longdesc package for authors of manuals. With codep it is possible to
+longdesc generate the source code, the LaTeX or MetaPost output and the
+longdesc compilable example file from a single source embedded into the
+longdesc appropriate place of the .tex document file.
+runfiles size=34
+ RELOC/tex/latex/examplep/codep.sty
+ RELOC/tex/latex/examplep/examplep.sty
+ RELOC/tex/latex/examplep/verbfwr.sty
+catalogue-ctan /macros/latex/contrib/examplep
+catalogue-license gpl
+catalogue-topics listing macro-demo
+catalogue-version 0.04

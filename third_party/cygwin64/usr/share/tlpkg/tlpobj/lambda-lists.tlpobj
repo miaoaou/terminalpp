@@ -1,0 +1,15 @@
+name lambda-lists
+category Package
+revision 31402
+shortdesc Lists in TeX's mouth
+relocated 1
+longdesc These list-processing macros avoid the reassignments employed
+longdesc in the macros shown in Appendix D of the TeXbook: all the
+longdesc manipulations take place in what Knuth is pleased to call
+longdesc "TeX's mouth".
+runfiles size=1
+ RELOC/tex/plain/lambda-lists/lambda.sty
+catalogue-ctan /macros/generic/lambda-lists
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp

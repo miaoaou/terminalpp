@@ -1,0 +1,225 @@
+%%
+%% This is file `title-KIT.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uni-titlepage.dtx  (with options: `driver,KIT')
+%% Copyright (c) 2009-2022 by Markus Kohm <komascript(at)gmx.info>
+%% 
+%% This file was generated from file(s) of uni-titlepage distribution.
+%% 
+%% ----------------------------------------------------------------------
+%% 
+%% This work may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, version 1.3c of the license.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer and author of this work is Markus Kohm.
+%% 
+%% This file may only be distributed together with
+%% the file `uni-titlepage.dtx'.
+%% You may however distribute the file `uni-titlepage.dtx' without this file.
+%% 
+\ProvidesFile{%
+  title%
+  -KIT%
+ .def%
+}[%
+2023-11-20 v1.2
+KOMA presents the title page project
+]
+\begingroup
+  \def\PackageNotLoadedError#1{%
+    \GenericError{%
+      (#1)\@spaces\@spaces\@spaces\@spaces
+    }{%
+      File `#1' Error: package `uni-titlepage' hasn't been loaded%
+    }{%
+      This definition file was made to be loaded by package
+      `uni-titlepage'.\MessageBreak
+      You may not use it without package `uni-titlepage'!\MessageBreak
+      See the documentation of package `uni-titlepage' for explanation.%
+    }%
+  }%
+  \ifx\csname uni-titlepage.sty@vers\endcsname\relax
+    \PackageNotLoadedError{%
+      title-KIT.def%
+    }%
+  \fi
+\endgroup
+\DefineFamilyMember[%
+  KIT%
+]{title}
+\providecommand*{\presentationinformationKIT}{%
+  At the \usenonemptytitleelement{faculty}\\
+  \strut\ignorespaces\@chair\\
+}
+\providecaptionname{american,australian,british,canadian,%
+  english,newzealand,UKenglish,USenglish}{\presentationinformationKIT}{%
+  At the \usenonemptytitleelement{faculty}\\
+  \strut\ignorespaces\@chair\\
+}%
+\providecaptionname{german,ngerman,austrian,naustrian,%
+  swissgerman,nswissgerman}{\presentationinformationKIT}{%
+  An der \usenonemptytitleelement{faculty}\\
+  \strut\ignorespaces\@chair\\
+}%
+\providecaptionname{american,australian,british,canadian,%
+  english,newzealand,UKenglish,USenglish}{\KITlongname}{%
+  University of the State of Baden-W\"urttemberg and National Research Center
+  of the Helmholtz Association%
+}%
+\providecaptionname{german,ngerman,austrian,naustrian,%
+  swissgerman,nswissgerman}{\KITlongname}{%
+  Universit\"at des Landes Baden-W\"urttemberg und nationales
+  Forschungszentrum in der Helmholtz-Gemeinschaft
+}%
+\scr@ifundefinedorrelax{captionsamerican}{}{%
+  \renewcaptionname{american}{\fromname}{of}%
+  \renewcaptionname{american}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsaustralian}{}{%
+  \renewcaptionname{australian}{\fromname}{of}%
+  \renewcaptionname{australian}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsbritish}{}{%
+  \renewcaptionname{british}{\fromname}{of}%
+  \renewcaptionname{british}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionscanadian}{}{%
+  \renewcaptionname{canadian}{\fromname}{of}%
+  \renewcaptionname{canadian}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsenglish}{}{%
+  \renewcaptionname{english}{\fromname}{of}%
+  \renewcaptionname{english}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsnewzealand}{}{%
+  \renewcaptionname{newzealand}{\fromname}{of}%
+  \renewcaptionname{newzealand}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsUKenglish}{}{%
+  \renewcaptionname{UKenglish}{\fromname}{of}%
+  \renewcaptionname{UKenglish}{\refereename}{Reviewer}%
+}%
+\scr@ifundefinedorrelax{captionsUSenglish}{}{%
+  \renewcaptionname{USenglish}{\fromname}{of}%
+  \renewcaptionname{USenglish}{\refereename}{Reviewer}%
+}%
+\newcommand*{\KITurl}{www.kit.edu}
+\renewcommand*{\inittitle}{%
+  \ifx\@university\@empty
+    \university{%
+      KIT -- \KITlongname
+    }%
+  \fi
+  \ifx\@place\@empty
+    \place{%
+      Karlsruhe%
+    }
+  \fi
+  \ifx\@homepage\@empty
+    \homepage{\KITurl}%
+  \fi
+  \ifx\@mainlogo\@empty
+    \def\KIT@logo{KITLogo_RGB.pdf}\IfFileExists{\KIT@logo}{}{%
+      \def\KIT@logo{2560px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+        \def\KIT@logo{2000px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+          \def\KIT@logo{1280px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+            \def\KIT@logo{1024px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+              \def\KIT@logo{1000px-Logo_KIT.svg.png}\IfFileExists{KIT@logo}{}{%
+                \def\KIT@logo{800px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+                  \def\KIT@logo{640px-Logo_KIT.svg.png}\IfFileExists{\KIT@logo}{}{%
+                    \def\KIT@logo{500px-Logo_KIT.svg.png}%
+                  }}}}}}}}%
+    \IfFileExists{\KIT@logo}{%
+      \scr@ifundefinedorrelax{includegraphics}{%
+        \if@atdocument\else\RequirePackage{graphicx}\fi
+      }{}%
+      \scr@ifundefinedorrelax{includegraphics}{}{%
+        \mainlogo{%
+          \includegraphics[width=40mm,height=18.5mm]{\KIT@logo}%
+        }%
+      }%
+    }{}%
+  \fi
+  \ifx\@titlehead\@empty
+    \titlehead{\@mainlogo\hspace*{\fill}}%
+  \fi
+  \ifx\@titlepagefont\@empty
+    \renewcommand*{\@titlepagefont}{\usefont{T1}{phv}{m}{n}}%
+  \fi
+}
+\renewcommand*{\makemaintitle}{%
+  \begin{%
+    fullsizetitle}
+    \setlength{\parskip}{\z@}%
+    \setlength{\parindent}{\z@}%
+    \setlength{\parfillskip}{\z@\@plus 1fil}%
+    \linespread{1}\selectfont
+    \@titlepagefont
+    \setlength{\unitlength}{1mm}%
+    \begin{picture}(0,0)
+      \put(15,-12){%
+        \line(1,0){\dimexpr\paperwidth-37mm\relax\@gobble}%
+      }%
+      \put(\dimexpr\paperwidth-22mm\@gobble,-19){\oval(14,14)[rt]}%
+      \put(\dimexpr\paperwidth-15mm\@gobble,-19){%
+        \line(0,-1){\dimexpr\paperheight-37mm\relax\@gobble}%
+      }%
+      \put(22,-\dimexpr\paperheight-18mm\relax\@gobble){%
+        \line(1,0){\dimexpr\paperwidth-37mm\relax\@gobble}%
+      }%
+      \put(22,-\dimexpr\paperheight-25mm\relax\@gobble){\oval(14,14)[lb]}%
+      \put(15,-\dimexpr\paperheight-25mm\relax\@gobble){%
+        \line(0,1){\dimexpr\paperheight-37mm\relax\@gobble}%
+      }%
+    \end{picture}\par
+    \vskip\dimexpr -\baselineskip+25mm\relax
+    \hspace*{27mm}%
+    \begin{minipage}[t][\dimexpr\paperheight-68mm\relax][t]
+      {\dimexpr\paperwidth-54mm\relax}
+      \raggedright\@titlehead\par
+      \centering
+      \vskip 25mm
+      {\@titlepagefont\@title\par}%
+      \vskip 20mm
+      {\Large\@subject\par\fromname\par}
+      \vskip 1cm
+      {\huge\usenonemptytitleelement{author}\par}
+      \vskip 1cm
+      {\Large\presentationinformationKIT\par}
+      \vskip 2cm
+      {\Large
+        \let\@tempa\refereename
+        \def\@tempb{1}%
+        \def\and{%
+          \\
+          \xdef\@tempb{\the\numexpr\@tempb+1\relax}%
+          \expandafter\ordinal\expandafter{\@tempb}~\@tempa: &
+        }%
+        \begin{tabular}{@{}lr@{}}
+          \refereename: & \@referee \\
+          \global\let\@tempa\advisorname\xdef\@tempb{1}%
+          \advisorname: & \@advisor \\
+        \end{tabular}\par
+      }
+      \vfill
+      {\large \durationname: \@duration\par}
+    \end{minipage}
+    \vskip 35mm
+    \hspace*{27mm}\makebox[\dimexpr\paperwidth-56mm\relax]{%
+      \tiny\@university\hfill\large\textbf{\@homepage}%
+    }%
+  \end{%
+    fullsizetitle}
+}
+\endinput
+%%
+%% End of file `title-KIT.def'.

@@ -1,0 +1,17 @@
+name braket
+category Package
+revision 17127
+shortdesc Dirac bra-ket and set notations
+relocated 1
+longdesc Provides macros to typeset bra-ket notation, as well as set
+longdesc specifiers, with a single ("|") or a double ("||" or ("\|")
+longdesc vertical bar specifier in between two bracketed parts. Each
+longdesc macro comes in a fixed-size version and an expanding version.
+longdesc If the package finds itself operating under e-tex, it uses the
+longdesc extended primitive \middle for more reliable results
+runfiles size=1
+ RELOC/tex/latex/braket/braket.sty
+catalogue-ctan /macros/latex/contrib/braket
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics maths physics

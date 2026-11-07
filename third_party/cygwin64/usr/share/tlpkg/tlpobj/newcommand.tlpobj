@@ -1,0 +1,14 @@
+name newcommand
+category Package
+revision 18704
+shortdesc Generate new LaTeX command definitions
+relocated 1
+longdesc Generating any other than the simple \newcommand-style
+longdesc commands, in LaTeX, is tedious (in the least). This script
+longdesc allows the specification of commands in a 'natural' style; the
+longdesc script then generates macros to define the command.
+catalogue-ctan /support/newcommand
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 2.0

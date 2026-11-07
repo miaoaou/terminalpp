@@ -1,0 +1,460 @@
+% -----------------------------------------------------------
+% This is TikZ Osci package
+%
+% It allows you to produce oscilloscope "screen shots".
+%
+% It is based on TikZ and pgfplots and is a replacement can-
+% didate to the pstricks pst-osci package which is not main-
+% tained anymore.
+%
+% Author: Thibault Giauffret
+% Date: 2023/10/24
+% Version: 0.4.0
+% Licence : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txtf
+% Not an expert... Just doing it for fun.
+% -----------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tikz-osci}[2023/10/24 0.4.0 Tikz Osci package]
+
+% Required packages
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{pgfkeys}
+\RequirePackage{pgfplots}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,decorations.markings,decorations.pathmorphing,
+  decorations.pathreplacing,calc,patterns,shapes.geometric}
+
+% Raised text
+\newcommand*{\raisedtext}[1]{%
+  \begingroup
+    \leavevmode
+    \rlap{\kern-.2pt\raise.2pt\hbox{\color{white}#1}}%
+    \rlap{\kern.2pt\raise-.2pt\hbox{\color{black!30}#1}}%
+    \hbox{#1}%
+  \endgroup
+}
+
+% The main command
+\newcommand\osci[1][]{
+
+  % Init the keys and get the values and add the user's values
+  \pgfkeys{
+    /osci/.cd,
+    scale/.store in=\scale,
+    scale=1,
+    rounded corners/.store in=\roundedCorners,
+    rounded corners=10,
+    second channel/.store in=\secondChannel,
+    second channel=0,
+    screen offset one/.store in=\screenOffsetOne,
+    screen offset one=0,
+    screen offset two/.store in=\screenOffsetTwo,
+    screen offset two=-0,
+    time div/.store in=\timeDiv,
+    time div=20,
+    voltage div one/.store in=\voltageDivOne,
+    voltage div one=1,
+    voltage div two/.store in=\voltageDivTwo,
+    voltage div two=1,
+    sample rate/.store in=\sampleRate,
+    sample rate=200,
+    xy mode/.store in=\xyMode,
+    xy mode=0,
+    math mode/.store in=\mathMode,
+    math mode=0,
+    math mode hide source/.store in=\mathModeHideSource,
+    math mode hide source=0,
+    func one/.store in=\funcOne,
+    func one=2*sin(2*180/0.020*x),
+    func two/.store in=\funcTwo,
+    func two=0.6*sin(2*180/0.020*x)+0.2*sin(2*180/0.040*x),
+    indicators/.store in=\indicators,
+    indicators=1,
+    vertical cursor one/.store in=\verticalCursorOne,
+    vertical cursor one=false,
+    vertical cursor two/.store in=\verticalCursorTwo,
+    vertical cursor two=false,
+    horizontal cursor one/.store in=\horizontalCursorOne,
+    horizontal cursor one=false,
+    horizontal cursor two/.store in=\horizontalCursorTwo,
+    horizontal cursor two=false,
+    cursor precision/.store in=\cursorPrecision,
+    cursor precision=1,
+    color one/.store in=\colorOne,
+    color one=D62626,
+    color text one/.store in=\colorTextOne,
+    color text one=FFFFFF,
+    color two/.store in=\colorTwo,
+    color two=1053AF,
+    color text two/.store in=\colorTextTwo,
+    color text two=FFFFFF,
+    color three/.store in=\colorThree,
+    color three=2E8B73,
+    color text three/.store in=\colorTextThree,
+    color text three=FFFFFF,
+    graph back color/.store in=\graphBackColor,
+    graph back color=FFFFFF,
+    info back color/.store in=\infoBackColor,
+    info back color=D6D6D6,
+    info text color/.store in=\infoTextColor,
+    info text color=000000,
+    main axis color/.store in=\mainAxisColor,
+    main axis color=000000,
+    grid color/.store in=\gridColor,
+    grid color=AAAAAA,
+    horizontal cursor color/.store in=\horizontalCursorColor,
+    horizontal cursor color=FFA500,
+    vertical cursor color/.store in=\verticalCursorColor,
+    vertical cursor color=800080,
+    smooth one/.store in=\smoothOne,
+    smooth one=0,
+    smooth two/.store in=\smoothTwo,
+    smooth two=0,
+    smooth three/.store in=\smoothThree,
+    smooth three=0,
+    #1
+  }
+
+
+  % Set the scale of the picture
+  \scalebox{\scale}{
+    % Begin the picture
+    \begin{tikzpicture}
+
+      % Set the colors
+      \definecolor{firstcolor}{HTML}{\colorOne}
+      \definecolor{secondcolor}{HTML}{\colorTwo}
+      \definecolor{thirdcolor}{HTML}{\colorThree}
+      \definecolor{graphbackcolor}{HTML}{\graphBackColor}
+      \definecolor{infoBackColor}{HTML}{\infoBackColor}
+      \definecolor{infoTextColor}{HTML}{\infoTextColor}
+      \definecolor{mainAxisColor}{HTML}{\mainAxisColor}
+      \definecolor{gridColor}{HTML}{\gridColor}
+      \definecolor{colorTextOne}{HTML}{\colorTextOne}
+      \definecolor{colorTextTwo}{HTML}{\colorTextTwo}
+      \definecolor{colorTextThree}{HTML}{\colorTextThree}
+      \definecolor{verticalCursorColor}{HTML}{\verticalCursorColor}
+      \definecolor{horizontalCursorColor}{HTML}{\horizontalCursorColor}
+
+      % Draw the info box
+      \draw[black,thick, fill= infoBackColor]
+      (0,0) --
+      ++(10,0) {[rounded corners=\roundedCorners] --
+        ++(0,-1.5) --
+        ++(-10,0)} --
+      cycle
+        {};
+
+      % Add time/div label
+      \draw (5,-0.15) node[anchor=north, color= infoTextColor] {\timeDiv\ ms/div};
+
+      % Test if smoothOne is enabled
+      \ifnum\smoothOne=1
+        % set \smoothOne to smooth
+        \def\smoothOne{smooth}
+      \else
+        % set \smoothOne to empty
+        \def\smoothOne{}
+      \fi
+
+      % Test if smoothTwo is enabled
+      \ifnum\smoothTwo=1
+        % set \smoothTwo to smooth
+        \def\smoothTwo{smooth}
+      \else
+        % set \smoothTwo to empty
+        \def\smoothTwo{}
+      \fi
+
+      % Test if smoothThree is enabled
+      \ifnum\smoothThree=1
+        % set \smoothThree to smooth
+        \def\smoothThree{smooth}
+      \else
+        % set \smoothThree to empty
+        \def\smoothThree{}
+      \fi
+
+      % Add XY mode indicator
+      % Lissajou mode
+      \ifnum\xyMode=1
+
+        \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+        \draw (5,-0.75) node[anchor=north, color=colorTextThree] {XY mode};
+
+      \else
+
+        % Add mode
+        \ifnum\mathMode=1
+
+          \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+          \draw (5,-0.75) node[anchor=north, color=colorTextThree] {Add};
+
+        \else
+
+          % Substract mode
+          \ifnum\mathMode=2
+
+            \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+            \draw (5,-0.75) node[anchor=north, color=colorTextThree] {Substract};
+
+          \else
+
+            % Multiply mode
+            \ifnum\mathMode=3
+
+              \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+              \draw (5,-0.75) node[anchor=north, color=colorTextThree] {Multiply};
+
+            \else
+
+              % Divide mode
+              \ifnum\mathMode=4
+
+                \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+                \draw (5,-0.75) node[anchor=north, color=colorTextThree] {Divide};
+
+              \fi
+            \fi
+          \fi
+        \fi
+      \fi
+
+      % Add voltage/div label for the first channel
+      \draw[firstcolor,fill=firstcolor] (0.5,-0.15) rectangle (1.5,-0.6);
+      \draw (1,-0.1) node[anchor=north, color=colorTextOne] {CH1};
+      \draw (1,-0.75) node[anchor=north, color= infoTextColor] {\voltageDivOne\ V/div};
+
+      % Add voltage/div label for the second channel
+      \ifnum\secondChannel=1
+        \draw[secondcolor,fill=secondcolor] (8.5,-0.15) rectangle (9.5,-0.6);
+        \draw (9,-0.1) node[anchor=north, color=colorTextTwo]{CH2};
+        \draw (9,-0.75) node[anchor=north, color= infoTextColor] {\voltageDivTwo\ V/div};
+      \fi
+
+      % Draw the oscilloscope screen border
+      \draw[black,thick, fill= graphbackcolor]
+      (0,0) --
+      ++(10,0) {[rounded corners=\roundedCorners] --
+        ++(0,8) --
+        ++(-10,0)} --
+      cycle
+        {};
+
+      % Draw the oscilloscope screen graduations
+      \begin{scope}
+
+        % Remove the border
+        \clip (0.05,0.05) rectangle (9.95,7.95);
+
+        \begin{axis}[xmin=-5*(\timeDiv/1000), xmax=5*(\timeDiv/1000), ymin=-4, ymax=4, xtick distance = \timeDiv/1000,
+            axis x line=middle, axis y line=middle,
+            axis line style={-},
+            color=mainAxisColor,
+            % Draw major grid
+            grid=both,
+            xticklabels={,,},
+            yticklabels={,,},
+            % Add sub ticks for the x axis
+            minor tick num=4,
+            % Remove minor grid
+            minor grid style={line width=0pt, draw=white, draw opacity=0},
+            major grid style={thick,dashed,draw=gridColor},
+            every major tick/.append style={very thick, major tick length=6pt, color=mainAxisColor},
+            every minor tick/.append style={thick, minor tick length=4pt, color=mainAxisColor},
+          ]
+
+          % Change plot width
+          \pgfplotsset{width=11.58cm, height=9.58cm}
+          % Change tick label style
+          \pgfplotsset{ every non boxed x axis/.append style={x axis line style=-},
+            every non boxed y axis/.append style={y axis line style=-}}
+
+          % Lissajous mode
+          \ifnum\xyMode=1
+            \addplot
+            [domain=0:360,variable=\x,
+              samples=200,very thick,color=thirdcolor, \smoothThree]
+            ({(\funcOne)/\voltageDivOne},{(\funcTwo)/\voltageDivTwo});
+            \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+            \draw (5,-0.75) node[anchor=north, color=white] {XY mode};
+
+          \else
+
+            % Show source signals
+            \ifnum\mathModeHideSource=0
+              % Draw each channel separately
+              % First channel plot
+              \addplot[color=firstcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000),samples=\sampleRate,\smoothOne]{(\funcOne)/\voltageDivOne+\screenOffsetOne};
+
+              % If the second channel is enabled, draw it
+              \ifnum\secondChannel=1
+                % Draw the second channel
+                \addplot[color=secondcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000), samples=\sampleRate,\smoothTwo]{(\funcTwo)/\voltageDivTwo+\screenOffsetTwo};
+
+              \fi
+            \fi
+
+            % Add mode
+            \ifnum\mathMode=1
+              \addplot[color=thirdcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000),
+                smooth, samples=\sampleRate, \smoothThree]{(\funcOne)/\voltageDivOne + (\funcTwo)/\voltageDivTwo};
+
+            \else
+
+              % Substract mode
+              \ifnum\mathMode=2
+                \addplot[color=thirdcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000), samples=\sampleRate, \smoothThree]{(\funcOne)/\voltageDivOne - (\funcTwo)/\voltageDivTwo};
+                \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+                \draw (5,-0.75) node[anchor=north, color=white] {Substract};
+
+              \else
+
+                % Multiply mode
+                \ifnum\mathMode=3
+                  \addplot[color=thirdcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000) ,samples=\sampleRate, \smoothThree]{(\funcOne)/\voltageDivOne * (\funcTwo)/\voltageDivTwo};
+                  \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+                  \draw (5,-0.75) node[anchor=north, color=white] {Multiply};
+
+                \else
+
+                  % Divide mode
+                  \ifnum\mathMode=4
+                    \addplot[color=thirdcolor,very thick,domain=-5*(\timeDiv/1000):5*(\timeDiv/1000), samples=\sampleRate, \smoothThree]{(\funcOne)/\voltageDivOne / (\funcTwo)/\voltageDivTwo};
+                    \draw[thirdcolor,fill=thirdcolor] (4,-0.78) rectangle (6,-1.28);
+                    \draw (5,-0.75) node[anchor=north, color=white] {Divide};
+                  \fi
+                \fi
+              \fi
+            \fi
+          \fi
+
+        \end{axis}
+
+        \ifnum\xyMode=1
+        \else
+          % Show the channel indicators
+          \ifnum\indicators=1
+            % Draw the first channel's screen marker
+            \draw[firstcolor,fill=firstcolor] (0.4, \screenOffsetOne+4) -- (0, \screenOffsetOne+4+0.3) -- (0, \screenOffsetOne+4-0.3) -- cycle;
+            \draw (-0.04, \screenOffsetOne+4) node[anchor=west, color=colorTextOne,font=\fontsize{8}{10}\selectfont] {1};
+
+
+            % Draw the second channel's screen marker
+            \ifnum\secondChannel=1
+              \draw[secondcolor,fill=secondcolor] (0.4, \screenOffsetTwo+4) -- (0, \screenOffsetTwo+4+0.3) -- (0, \screenOffsetTwo+4-0.3) -- cycle;
+              \draw (-0.04, \screenOffsetTwo+4) node[anchor=west, color=colorTextTwo,font=\fontsize{8}{10}\selectfont] {2};
+            \fi
+          \fi
+
+
+          % Draw the vertical cursors
+
+          % Define the false value
+          \def\false{false}
+
+          % Set the value of \verticalCursorOne
+          \pgfmathsetmacro{\verticalCursorOneValue}{\verticalCursorOne*\timeDiv}
+          
+
+          % If the first vertical cursor is enabled
+          \ifx\verticalCursorOne\false
+          \else
+            % Draw the first vertical cursor with \verticalCursorOne value
+            \draw[verticalCursorColor,very thick,dashed] (\verticalCursorOne+5,0) -- (\verticalCursorOne+5,8);
+            \draw[verticalCursorColor,very thick,fill=verticalCursorColor] (\verticalCursorOne+5-0.25,7.5) rectangle (\verticalCursorOne+5+0.25,8);
+
+            % Draw the indicator
+            \draw[white,very thick] (\verticalCursorOne+5,7.45) node[anchor=south, color=white,font=\fontsize{10}{12}\selectfont] {A};
+
+            % Draw the legend
+            \draw[verticalCursorColor,very thick] (0.25,0.5) node[anchor=west, color=verticalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurA \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\verticalCursorOneValue}\ ms}};
+
+            % If the second vertical cursor is enabled
+            \ifx\verticalCursorTwo\false
+            \else
+              % Draw the time difference between the two vertical cursors
+              \pgfmathsetmacro{\verticalCursorDiff}{\verticalCursorTwo-\verticalCursorOne}
+              \pgfmathsetmacro{\verticalCursorDiffValue}{\verticalCursorDiff*\timeDiv}
+              \draw[verticalCursorColor,very thick] (0.25,1.5) node[anchor=west, color=verticalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurB - CurA \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\verticalCursorDiffValue}\ ms}};
+            \fi
+
+          \fi
+
+          % Set the value of \verticalCursorTwo
+          \pgfmathsetmacro{\verticalCursorTwoValue}{\verticalCursorTwo*\timeDiv}
+
+          % If the second vertical cursor is enabled
+          \ifx\verticalCursorTwo\false
+          \else
+            % Draw the second vertical cursor with \verticalCursorTwo value
+            \draw[verticalCursorColor,very thick,dashed] (\verticalCursorTwo+5,0) -- (\verticalCursorTwo+5,8);
+            \draw[verticalCursorColor,very thick,fill=verticalCursorColor] (\verticalCursorTwo+5-0.25,7.5) rectangle (\verticalCursorTwo+5+0.25,8);
+
+            % Draw the indicator
+            \draw[white,very thick] (\verticalCursorTwo+5,7.45) node[anchor=south, color=white,font=\fontsize{10}{12}\selectfont] {B};
+
+            % Draw the legend
+            \draw[verticalCursorColor,very thick] (0.25,1) node[anchor=west, color=verticalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurB \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\verticalCursorTwoValue}\ ms}};
+
+          \fi
+
+
+          % Draw the horizontal cursors
+
+          % Set the value of \horizontalCursorOne
+          \pgfmathsetmacro{\horizontalCursorOneValue}{\horizontalCursorOne*\voltageDivOne}
+
+          % If the first horizontal cursor is enabled
+          \ifx\horizontalCursorOne\false
+          \else
+            % Draw the first horizontal cursor with \horizontalCursorOne value
+            \draw[horizontalCursorColor,very thick,dashed] (0,\horizontalCursorOne+4) -- (10,\horizontalCursorOne+4);
+            \draw[horizontalCursorColor,very thick,fill=horizontalCursorColor] (9.5,\horizontalCursorOne+4-0.25) rectangle (10.5,\horizontalCursorOne+4+0.25);
+            
+            % Draw the indicator
+            \draw[white,very thick] (10,\horizontalCursorOne+4) node[anchor=east, color=white,font=\fontsize{10}{12}\selectfont] {A};
+
+            % Draw the legend
+            \draw[horizontalCursorColor,very thick] (5.25,0.5) node[anchor=west, color=horizontalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurA \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\horizontalCursorOneValue}\ V}};
+
+            % If the second horizontal cursor is enabled
+            \ifx\horizontalCursorTwo\false
+            \else
+              % Draw the voltage difference between the two horizontal cursors
+              \pgfmathsetmacro{\horizontalCursorDiff}{\horizontalCursorTwo-\horizontalCursorOne}
+              \pgfmathsetmacro{\horizontalCursorDiffValue}{\horizontalCursorDiff*\voltageDivOne}
+              \draw[horizontalCursorColor,very thick] (5.25,1.5) node[anchor=west, color=horizontalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurB - CurA \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\horizontalCursorDiffValue}\ V}};
+            \fi
+          \fi
+
+          % Set the value of \horizontalCursorTwo
+          \pgfmathsetmacro{\horizontalCursorTwoValue}{\horizontalCursorTwo*\voltageDivOne}
+
+          % If the second horizontal cursor is enabled
+          \ifx\horizontalCursorTwo\false
+          \else
+            % Draw the second horizontal cursor with \horizontalCursorTwo value
+            \draw[horizontalCursorColor,very thick,dashed] (0,\horizontalCursorTwo+4) -- (10,\horizontalCursorTwo+4);
+            \draw[horizontalCursorColor,very thick,fill=horizontalCursorColor] (9.5,\horizontalCursorTwo+4-0.25) rectangle (10.5,\horizontalCursorTwo+4+0.25);
+
+            % Draw the indicator
+            \draw[white,very thick] (10,\horizontalCursorTwo+4) node[anchor=east, color=white,font=\fontsize{10}{12}\selectfont] {B};
+
+            % Draw the legend
+            \draw[horizontalCursorColor,very thick] (5.25,1) node[anchor=west, color=horizontalCursorColor,font=\fontsize{10}{12}\selectfont] {\raisedtext{CurB \pgfmathprintnumber[precision=\cursorPrecision, assume math mode=true,fixed zerofill]{\horizontalCursorTwoValue}\ V}};
+
+          \fi
+
+          % End xyMode test
+        \fi
+
+      \end{scope}
+
+    \end{tikzpicture}
+  }
+}
+
+
+

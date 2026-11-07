@@ -1,0 +1,57 @@
+% tkz-tools-colors
+% Copyright 2024 Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{4.21c}
+\def\filedate{2024/01/16} 
+\typeout{2024/01/16 4.21c  tkz-tools-colors}  
+\makeatletter
+
+%<------  Initialisation of the colors with tkzSetUpColors  -----------------> 
+% Première macro SetUpColors %%%%%%%%%%%%%%%%%%%%%
+%Possible
+\pgfkeys{/tkzsucolor/.is family}
+\def\setupcolorkeys#1{%
+   \pgfkeys{/tkzsucolor,#1}}
+\setupcolorkeys{
+   background/.estore in   =  \setupcolor@background,
+   text/.estore in         =  \setupcolor@text,
+   @initial/.style         =  {background=white,text=black},
+   @apply/.code            =  {\pagecolor{\setupcolor@background}%
+                                    \color{\setupcolor@text}%
+ },
+}
+\def\tkzSetUpColors{\pgfutil@ifnextchar[{\tkz@SetUpColors}{\tkz@SetUpColors[]}}
+\def\tkz@SetUpColors[#1]{\setupcolorkeys{@initial,#1,@apply}}
+
+%<------  Initialisation of all colors   -----------------> 
+\pgfkeys{/tkzsupallcol/.cd,
+         background/.store in       = \tkz@suac@bkc,
+         text/.store in             = \tkz@suac@txt,
+         background                 = \tkz@backgroundcolor,% see tkz-base.cfg
+         text                       = \tkz@textcolor% idem
+        } 
+\def\tkzSetUpAllColors{\pgfutil@ifnextchar[{\tkz@SetUpAllColors}{%
+                                 \tkz@SetUpAllColors[]}} 
+\def\tkz@SetUpAllColors[#1]{%
+   \pgfqkeys{/tkzsupallcol}{#1} % now we redine the based colors
+   \def\tkz@fillcolor{\tkz@suac@bkc}   
+   \def\tkz@mainlinecolor{\tkz@suac@txt}
+   \def\tkz@textcolor{\tkz@suac@txt}
+   \def\tkz@otherlinecolor{\tkz@suac@txt!50}
+   \def\tkz@sua@color{\tkz@suac@txt} 
+   \tkzSetUpAxis[color=\tkz@suac@txt]
+   \tkzSetUpGrid[color=\tkz@suac@txt]      
+   \pagecolor{\tkz@suac@bkc}
+   \color{\tkz@suac@txt}  
+}
+\makeatother
+\endinput

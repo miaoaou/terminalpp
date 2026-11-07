@@ -1,0 +1,24 @@
+name curve
+category Package
+revision 20745
+shortdesc A class for making curriculum vitae
+relocated 1
+longdesc CurVe is a class for writing a CV, with configuration for the
+longdesc language in which you write. The class provides a set of
+longdesc commands to create rubrics, entries in these rubrics etc. CurVe
+longdesc then format the CV (possibly splitting it onto multiple pages,
+longdesc repeating the titles etc), which is usually the most painful
+longdesc part of CV writing. Another nice feature of CurVe is its
+longdesc ability to manage different CV 'flavours' simultaneously. It is
+longdesc often the case that you want to maintain slightly divergent
+longdesc versions of your CV at the same time, in order to emphasize on
+longdesc different aspects of your background. CurVe also comes with
+longdesc support for use with AUC-TeX.
+runfiles size=7
+ RELOC/tex/latex/curve/curve.cls
+catalogue-also currvita cv esieecv europecv vita
+catalogue-ctan /macros/latex/contrib/curve
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics cv class
+catalogue-version 1.16

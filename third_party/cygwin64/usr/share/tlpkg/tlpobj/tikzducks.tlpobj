@@ -1,0 +1,21 @@
+name tikzducks
+category Package
+revision 66773
+shortdesc A little fun package for using rubber ducks in TikZ
+relocated 1
+longdesc The package is a LaTeX package for ducks to be used in TikZ
+longdesc pictures. This project is a continuation of an answer at
+longdesc StackExchange How we can draw a duck?
+runfiles size=29
+ RELOC/tex/generic/tikzducks/t-tikzducks.mkiv
+ RELOC/tex/generic/tikzducks/tikzducks-generic.tex
+ RELOC/tex/generic/tikzducks/tikzducks-plain.tex
+ RELOC/tex/generic/tikzducks/tikzducks.sty
+ RELOC/tex/generic/tikzducks/tikzlibraryducks.code.tex
+catalogue-also tikzlings tikzmarmots
+catalogue-contact-repository https://github.com/samcarter/tikzducks
+catalogue-contact-support https://github.com/samcarter/tikzducks/issues
+catalogue-ctan /graphics/pgf/contrib/tikzducks
+catalogue-license lppl1.3c
+catalogue-topics amusements graphics pgf-tikz expl3
+catalogue-version 1.6

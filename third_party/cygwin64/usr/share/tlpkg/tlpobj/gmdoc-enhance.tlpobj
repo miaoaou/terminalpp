@@ -1,0 +1,17 @@
+name gmdoc-enhance
+category Package
+revision 15878
+shortdesc Some enhancements to the gmdoc package
+relocated 1
+longdesc This package provides some enhancements for the gmdoc package:
+longdesc nicer formatting for multiple line inline comments, an ability
+longdesc to "comment out" some code, and a macro to input other files in
+longdesc "normal" LaTeX mode.
+runfiles size=3
+ RELOC/tex/latex/gmdoc-enhance/gmdoc-enhance.sty
+catalogue-also gmdoc
+catalogue-ctan /macros/latex/contrib/gmdoc-enhance
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-supp
+catalogue-version 0.2

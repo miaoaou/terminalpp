@@ -1,0 +1,17 @@
+name pgf-interference
+category Package
+revision 61562
+shortdesc Drawing interference patterns with PGF/TikZ
+relocated 1
+longdesc This LaTeX package makes it possible to simulate interference
+longdesc patterns occuring on a screen if monochromatic light is
+longdesc diffracted at regular structures of slits. It makes use of the
+longdesc PGF/TikZ graphics package.
+runfiles size=5
+ RELOC/tex/latex/pgf-interference/pgf-interference.sty
+catalogue-contact-bugs https://codeberg.org/wehr/pgf-interference/issues
+catalogue-contact-repository https://codeberg.org/wehr/pgf-interference
+catalogue-ctan /graphics/pgf/contrib/pgf-interference
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz physics
+catalogue-version 0.1

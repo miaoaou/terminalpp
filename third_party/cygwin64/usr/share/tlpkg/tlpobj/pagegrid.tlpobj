@@ -1,0 +1,19 @@
+name pagegrid
+category Package
+revision 64470
+shortdesc Print page grid in background
+relocated 1
+longdesc This package puts a grid on the paper. It was written for
+longdesc developers of a class or package who have to put elements on
+longdesc definite locations on a page (e.g. letter class). The grid
+longdesc allows a faster optical check, whether the positions are
+longdesc correct. If the previewer already offers features for
+longdesc measuring, the package might be unnecessary. Otherwise it saves
+longdesc the developer from printing the page and measuring by hand. The
+longdesc package was part of the oberdiek bundle.
+runfiles size=3
+ RELOC/tex/latex/pagegrid/pagegrid.sty
+catalogue-ctan /macros/latex/contrib/pagegrid
+catalogue-license lppl1.3
+catalogue-topics layout-show background
+catalogue-version 1.6

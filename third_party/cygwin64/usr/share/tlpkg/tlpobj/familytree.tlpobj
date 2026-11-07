@@ -1,0 +1,17 @@
+name familytree
+category Package
+revision 63739
+shortdesc Draw family trees
+relocated 1
+longdesc Boxes describe individuals; lines connecting boxes represent
+longdesc sibling or parent-child relationships, or marriages. Excluding
+longdesc the marriage box, you can get a maleline/patrilineal tree, or a
+longdesc femaleline/matrilineal tree. For Japanese, the jlreq.cls
+longdesc vertical option (tate) is supported.
+runfiles size=8
+ RELOC/tex/latex/familytree/familytree.sty
+catalogue-contact-repository https://github.com/jiro1010/familytree
+catalogue-ctan /macros/latex/contrib/familytree
+catalogue-license gpl2+
+catalogue-topics genealogy tree diagram
+catalogue-version 3.1

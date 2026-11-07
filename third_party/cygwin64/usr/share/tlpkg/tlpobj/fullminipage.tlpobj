@@ -1,0 +1,16 @@
+name fullminipage
+category Package
+revision 34545
+shortdesc Minipage spanning a complete page
+relocated 1
+longdesc This package provides the environment fullminipage, which
+longdesc generates a minipage spanning a new, complete page with page
+longdesc style empty. The environment provides options to set margins
+longdesc around the minipage and configure the background.
+runfiles size=1
+ RELOC/tex/latex/fullminipage/fullminipage.sty
+catalogue-ctan /macros/latex/contrib/fullminipage
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics layout
+catalogue-version 0.1.1

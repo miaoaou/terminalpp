@@ -1,0 +1,166 @@
+%%
+%% This is file `hep-float.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% hep-float-implementation.dtx  (with options: `package')
+%% This is a generated file.
+%% Copyright (C) 2019-2023 by Jan Hajer
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{hep-float}[2023/07/01 v1.2 Float adjustments]
+
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+  family=hepfloat,
+  prefix=hepfloat@
+}
+\DeclareBoolOption[true]{manualplacement}
+\ProcessKeyvalOptions*
+\setcounter{bottomnumber}{0} % 1
+\setcounter{topnumber}{1} % 2
+\setcounter{dbltopnumber}{1} % 2
+\renewcommand{\topfraction}{.9} % .7
+\renewcommand{\dbltopfraction}{.9} % .7
+\renewcommand{\textfraction}{.1} % .2
+\renewcommand{\floatpagefraction}{.8} % .5
+\let\hep@figure\figure%
+\let\end@hep@figure\endfigure%
+\let\hep@table\table%
+\let\end@hep@table\endtable%
+\ifhepfloat@manualplacement%
+  \renewenvironment{figure}[1][tbp]{%
+    \hep@figure[#1]\centering\small%
+    }{\end@hep@figure}%
+  \renewenvironment{table}[1][tbp]{%
+    \hep@table[#1]\centering\small%
+  }{\end@hep@table}%
+\else%
+  \renewenvironment{figure}[1][]{%
+    \hep@figure\centering\small%
+  }{\end@hep@figure}%
+  \renewenvironment{table}[1][]{%
+    \hep@table\centering\small%
+  }{\end@hep@table}
+\fi%
+\newcommand{\figurehspace}{0.0333}
+\newcommand{\figurevspace}{.5\baselineskip}
+\newenvironment{figures}[2][b]{%
+  \begin{figure}
+  \let\oldcaption\caption
+  \renewcommand{\caption}[1]{%
+    \renewcommand{\caption}{\oldcaption}%
+    \captionof{figure}{##1}\vspace{\figurevspace}%
+  }
+  \ifdim#2pt>1pt%
+    \newcommand{\hep@figure@space}{\figurehspace\linewidth/#2}%
+    \renewcommand{\figure}[1][b]{%
+      \end{minipage}\hfill%
+      \begin{minipage}[##1]{\linewidth/#2-\hep@figure@space}%
+    }
+    \begin{minipage}[#1]{\linewidth/#2-\hep@figure@space}
+  \else%
+    \newcommand{\hep@figure@space}[1]{##1\linewidth*\real{\figurehspace}}
+    \renewcommand{\figure}[2][b]{%
+      \end{minipage}\hfill%
+      \begin{minipage}[##1]{##2\linewidth-\hep@figure@space{##2}}%
+    }
+    \begin{minipage}[#1]{#2\linewidth-\hep@figure@space{#2}}
+  \fi%
+}{%
+\end{minipage}\end{figure}%
+}
+\newcommand{\tablehspace}{0.0333}
+\newcommand{\tablevspace}{.5\baselineskip}
+\newenvironment{tables}[2][b]{%
+  \begin{table}
+  \let\oldcaption\caption
+  \renewcommand{\caption}[1]{%
+    \renewcommand{\caption}{\oldcaption}%
+    \captionof{table}{##1}\vspace{\tablevspace}%
+  }
+  \ifdim#2pt>1pt%
+    \newcommand{\hep@table@space}{\tablehspace\linewidth/#2}%
+    \renewcommand{\table}[1][b]{%
+      \end{minipage}\hfill%
+      \begin{minipage}[##1]{\linewidth/#2-\hep@table@space}\centering%
+    }
+    \begin{minipage}[#1]{\linewidth/#2-\hep@table@space}\centering
+  \else%
+    \newcommand{\hep@table@space}[1]{##1\linewidth*\real{\tablehspace}}
+    \renewcommand{\table}[2][b]{%
+      \end{minipage}\hfill%
+      \begin{minipage}[##1]{##2\linewidth-\hep@table@space{##2}}%
+      \centering%
+    }
+    \begin{minipage}[#1]{#2\linewidth-\hep@table@space{#2}}%
+    \centering
+  \fi%
+}{%
+\end{minipage}\end{table}%
+}
+\PassOptionsToPackage{subrefformat=parens}{subcaption}
+\RequirePackage{subcaption}
+\captionsetup{font=small}
+\captionsetup[sub]{font=small}
+\RequirePackage{xparse}
+\providecommand*\subcaption@minipage[2]{%
+  \minipage#1{#2}\setcaptionsubtype\relax%
+}
+\ProvideDocumentEnvironment{subcaptionblock}{O{b}m}{%
+  \caption@withoptargs\subcaption@minipage[#1]{#2}%
+}{\endminipage}
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\newcommand{\panelhspace}{0.0333}
+\newcommand{\panelvspace}{.5\baselineskip}
+\newenvironment{panels}[2][b]{%
+  \addtolength{\belowcaptionskip}{\panelvspace}%
+  \newcommand{\begin@subcaption@minipage}[2][b]{%
+    \subcaptionblock[##1]{##2}%
+    \centering\vskip 0pt%
+  }%
+  \ifdim#2pt>1pt%
+    \newcommand{\hep@panel@space}{\panelhspace\linewidth/#2}%
+    \newcommand{\panel}[1][b]{%
+      \endminipage\hfill\begin@subcaption@minipage[#1]{%
+        \linewidth/#2-\hep@panel@space%
+      }%
+    }%
+    \begin@subcaption@minipage[#1]{\linewidth/#2-\hep@panel@space}%
+  \else%
+    \newcommand{\hep@panel@space}[1]{##1\linewidth*\real{\panelhspace}}%
+    \newcommand{\panel}[2][b]{%
+      \endminipage\hfill\begin@subcaption@minipage[#1]{%
+        ##2\linewidth-\hep@panel@space{##2}%
+      }%
+    }%
+    \begin@subcaption@minipage[#1]{%
+      #2\linewidth-\hep@panel@space{#2}%
+    }%
+  \fi%
+}{%
+\endsubcaptionblock%
+\vspace{-\panelvspace}%
+}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+
+\RequirePackage{graphicx}
+\providecommand{\tikzsetnextfilename}[1]{}
+\newcommand{\graphic}[2][1]{\tikzsetnextfilename{#2}{%
+  \centering\includegraphics[width=#1\linewidth]{#2}\par%
+}}
+\newcommand{\graphics}[1]{\graphicspath{{./#1/}}}
+
+\endinput
+%%
+%% End of file `hep-float.sty'.

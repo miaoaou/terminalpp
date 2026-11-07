@@ -1,0 +1,27 @@
+name invoice2
+category Package
+revision 67327
+shortdesc Intelligent invoices with LaTeX3
+relocated 1
+longdesc Typeset invoices with automatic VAT and calculation of totals.
+longdesc Supports internationalization, invoices are typeset with
+longdesc booktabs for readability. Does not support separate projects
+longdesc per invoice. Can be used as a replacement for invoice in most
+longdesc cases.
+depend booktabs
+depend l3kernel
+depend l3packages
+depend siunitx
+depend siunitx
+depend tools
+depend translations
+depend xcolor
+runfiles size=7
+ RELOC/tex/latex/invoice2/invoice2-english.trsl
+ RELOC/tex/latex/invoice2/invoice2-german.trsl
+ RELOC/tex/latex/invoice2/invoice2-swissgerman.trsl
+ RELOC/tex/latex/invoice2/invoice2.sty
+catalogue-contact-home https://github.com/no-preserve-root/invoice2
+catalogue-ctan /macros/latex/contrib/invoice2
+catalogue-license gpl3+
+catalogue-topics invoice

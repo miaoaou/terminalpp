@@ -1,0 +1,15 @@
+name readablecv
+category Package
+revision 67986
+shortdesc A highly readable and good looking CV and letter class
+relocated 1
+longdesc This class provides, what I have found, to be an extremely
+longdesc attractive and highly readable CV which will lead to your CV
+longdesc being read rather than disgarded.
+runfiles size=4
+ RELOC/tex/latex/readablecv/ReadableCV.cls
+catalogue-contact-home https://www.typewithtex.com
+catalogue-ctan /macros/latex/contrib/readablecv
+catalogue-license lppl1.3
+catalogue-topics class cv
+catalogue-version 4.0

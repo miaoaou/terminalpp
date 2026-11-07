@@ -1,0 +1,16 @@
+name docmute
+category Package
+revision 25741
+shortdesc Input files ignoring LaTeX preamble, etc
+relocated 1
+longdesc Input or include stand-alone LaTeX documents, ignoring
+longdesc everything but the material between \begin{document} and
+longdesc \end{document}.
+runfiles size=1
+ RELOC/tex/latex/docmute/docmute.sty
+catalogue-also combine includex newclude standalone
+catalogue-ctan /macros/latex/contrib/docmute
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics subdocs
+catalogue-version 1.4

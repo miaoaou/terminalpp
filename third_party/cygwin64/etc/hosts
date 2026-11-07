@@ -1,0 +1,3 @@
+# Standard loopback addresses for localhost.
+127.0.0.1 localhost
+::1 localhost

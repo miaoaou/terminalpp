@@ -1,0 +1,24 @@
+name copyedit
+category Package
+revision 37928
+shortdesc Copyediting support for LaTeX documents
+relocated 1
+longdesc This package implements copyediting support for LaTeX
+longdesc documents. Authors can enjoy the freedom of using, for example,
+longdesc words with US or UK or Canadian or Australian spelling in a
+longdesc mixed way, yet, they can choose any one of the usage forms for
+longdesc their entire document irrespective of kinds of spelling they
+longdesc have adopted. In the same fashion, the users can have the
+longdesc benefit of the following features available in the package:
+longdesc Localization -- British-American-Australian-Canadian Close-up,
+longdesc Hyphenation, and Spaced words Latin abbreviations Acronyms and
+longdesc Abbreviations Itemization, nonlocal lists and labels
+longdesc Parenthetical and serial commas Non-local tokenization in
+longdesc language through Abbreviations and pronouns.
+runfiles size=3
+ RELOC/tex/latex/copyedit/copyedit.sty
+catalogue-ctan /macros/latex/contrib/copyedit
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics english
+catalogue-version 1.6

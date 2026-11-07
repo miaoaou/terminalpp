@@ -1,0 +1,18 @@
+name gmiflink
+category Package
+revision 15878
+shortdesc Simplify usage of \hypertarget and \hyperlink
+relocated 1
+longdesc Three hyperref-based macros that simplify usage of \hypertarget
+longdesc and \hyperlink: one argument instead of the same one twice.
+longdesc Also \gmiflink and \gmifref which typeset plain text instead of
+longdesc generating an error or printing '??' if there is no respective
+longdesc hypertarget or label.
+runfiles size=2
+ RELOC/tex/latex/gmiflink/gmiflink.sty
+catalogue-also hyperref
+catalogue-ctan /macros/latex/contrib/gmiflink
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics hyper
+catalogue-version 0.97

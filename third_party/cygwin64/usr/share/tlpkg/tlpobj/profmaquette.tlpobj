@@ -1,0 +1,13 @@
+name profmaquette
+category Package
+revision 70491
+shortdesc Use exercises in different types of documents
+relocated 1
+longdesc This LaTeX package can help French maths teachers to put one
+longdesc and the same exercise into different sorts of documents.
+runfiles size=33
+ RELOC/tex/latex/profmaquette/ProfMaquette.sty
+catalogue-ctan /macros/latex/contrib/profmaquette
+catalogue-license lppl1.3c
+catalogue-topics teaching exercise maths
+catalogue-version 0.88

@@ -1,0 +1,26 @@
+name lua-physical
+category Package
+revision 59138
+shortdesc Functions and objects for the computation of physical quantities
+relocated 1
+longdesc This is a pure Lua library, which provides functions and
+longdesc objects for the computation of physical quantities. The package
+longdesc provides units of the SI and the imperial system. In order to
+longdesc display the numbers with measurement uncertainties, the package
+longdesc is able to perform Gaussian error propagation.
+runfiles size=270
+ RELOC/scripts/lua-physical/physical-astronomical.lua
+ RELOC/scripts/lua-physical/physical-data.lua
+ RELOC/scripts/lua-physical/physical-definition.lua
+ RELOC/scripts/lua-physical/physical-dimension.lua
+ RELOC/scripts/lua-physical/physical-isotope.lua
+ RELOC/scripts/lua-physical/physical-number.lua
+ RELOC/scripts/lua-physical/physical-quantity.lua
+ RELOC/scripts/lua-physical/physical-unit.lua
+ RELOC/scripts/lua-physical/physical.lua
+catalogue-contact-bugs https://github.com/tjenni/lua-physical/issues
+catalogue-contact-home https://github.com/tjenni/lua-physical
+catalogue-ctan /macros/luatex/latex/lua-physical
+catalogue-license mit
+catalogue-topics physics luatex
+catalogue-version 1.0.5

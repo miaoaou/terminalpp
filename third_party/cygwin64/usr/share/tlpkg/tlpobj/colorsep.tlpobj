@@ -1,0 +1,12 @@
+name colorsep
+category Package
+revision 13293
+shortdesc Color separation
+relocated 1
+longdesc Support for colour separation when using dvips.
+runfiles size=2
+ RELOC/dvips/colorsep/colorsep.pro
+catalogue-ctan /graphics/colorsep
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics colour

@@ -1,0 +1,9 @@
+name memoize.x86_64-cygwin
+category Package
+revision 68515
+shortdesc x86_64-cygwin files of memoize
+binfiles arch=x86_64-cygwin size=4
+ bin/x86_64-cygwin/memoize-clean.pl
+ bin/x86_64-cygwin/memoize-clean.py
+ bin/x86_64-cygwin/memoize-extract.pl
+ bin/x86_64-cygwin/memoize-extract.py

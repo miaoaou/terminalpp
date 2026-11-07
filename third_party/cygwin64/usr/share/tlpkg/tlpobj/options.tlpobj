@@ -1,0 +1,17 @@
+name options
+category Package
+revision 39030
+shortdesc Provides convenient key-value options for LaTeX package writers
+relocated 1
+longdesc The options package provides easy to use key-value options for
+longdesc LaTeX package writers. It has a similar interface as pgfkeys
+longdesc with path options but comes with more built-in data types and
+longdesc more convenient support for families and searching.
+runfiles size=13
+ RELOC/tex/latex/options/options.sty
+catalogue-also keyval pgfkeys xkeyval
+catalogue-ctan /macros/latex/contrib/options
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics keyval
+catalogue-version 1.0

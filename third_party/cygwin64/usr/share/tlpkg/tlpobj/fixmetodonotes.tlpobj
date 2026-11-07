@@ -1,0 +1,17 @@
+name fixmetodonotes
+category Package
+revision 30168
+shortdesc Add notes on document development
+relocated 1
+longdesc The package provides tools to highlight FIXME and TODO
+longdesc annotations. The command \listofnotes prints a list of
+longdesc outstanding notes, with links to the pages on which they
+longdesc appear.
+runfiles size=1
+ RELOC/tex/latex/fixmetodonotes/fixmetodonotes.sty
+catalogue-also fixme todonotes
+catalogue-ctan /macros/latex/contrib/fixmetodonotes
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics notes editorial
+catalogue-version 0.2.2

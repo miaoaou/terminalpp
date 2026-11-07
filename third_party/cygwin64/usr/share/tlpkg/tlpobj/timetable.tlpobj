@@ -1,0 +1,14 @@
+name timetable
+category Package
+revision 15878
+shortdesc Generate timetables
+relocated 1
+longdesc A highly-configurable package, with nice output and simple
+longdesc input. The macros use a radix sort mechanism so that the order
+longdesc of input is not critical.
+runfiles size=10
+ RELOC/tex/plain/timetable/timetable.tex
+catalogue-ctan /macros/plain/contrib/timetable
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics timetable

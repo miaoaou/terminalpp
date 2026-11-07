@@ -1,0 +1,20 @@
+name scrlayer-fancyhdr
+category Package
+revision 63844
+shortdesc Combining package fancyhdr with KOMA-Script's scrlayer
+relocated 1
+longdesc This LaTeX package uses KOMA-Script's scrlayer to redefine the
+longdesc page styles of package fancyhdr. This allows the combination of
+longdesc features of fancyhdr with features of scrlayer. Before
+longdesc KOMA-Script v3.33 scrlayer-fancyhdr was part of KOMA-Script
+longdesc itself.
+runfiles size=1
+ RELOC/tex/latex/scrlayer-fancyhdr/scrlayer-fancyhdr.sty
+catalogue-contact-announce https://github.com/komascript/scrlayer-fancyhdr/wiki
+catalogue-contact-bugs https://github.com/komascript/scrlayer-fancyhdr/issues
+catalogue-contact-home https://github.com/komascript/scrlayer-fancyhdr
+catalogue-contact-repository https://github.com/komascript/scrlayer-fancyhdr.git
+catalogue-ctan /macros/latex/contrib/scrlayer-fancyhdr
+catalogue-license lppl1.3c
+catalogue-topics page-hf
+catalogue-version 0.2.2

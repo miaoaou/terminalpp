@@ -1,0 +1,52 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% Macro for loading pgf-PeriodicTable libraries --------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+%
+%
+% Taken and adapted from pgf ---------------->
+% Library files inclusion
+% Include a library file.
+%
+% #1 = List of names of library file.
+%
+% Description:
+%
+% This command includes a list of library files. For each file X in the
+% list, the file pgfPTlibrary.X.tex is included, provided this has
+% not been done earlier.
+%
+% \usepgfPTlibrary{elements}
+% \usepgflPTibrary[elements,plot]
+%
+\def\usepgfPTlibrary#1{\ignorespaces%
+  \edef\pgfPT@list{#1}%
+  \@for\pgfPT@temp:=\pgfPT@list\do{%
+    \ifx\pgfPT@temp\@empty\relax%
+    \else%
+      \expandafter\ifx\csname pgfPT@library@\pgfPT@temp @loaded\endcsname\relax%
+      \expandafter\let\csname pgfPT@library@\pgfPT@temp @loaded\endcsname=\@empty%
+      \expandafter\edef\csname pgfPT@library@#1@atcode\endcsname{\the\catcode`\@}%
+      \expandafter\edef\csname pgfPT@library@#1@barcode\endcsname{\the\catcode`\|}%
+      \expandafter\edef\csname pgfPT@library@#1@dollarcode\endcsname{\the\catcode`\$}%
+      \catcode`\@=11%
+      \catcode`\|=12%
+      \catcode`\$=3%
+      \pgfutil@InputIfFileExists{pgfPT.library.\pgfPT@temp.tex}{}{%
+          \PackageError{pgfPT}{I did not find the pgfPT library
+            '\pgfPT@temp'. I looked for the file named
+            pgfPTlibrary.\pgfPT@temp.tex, but could not find it in in
+            the current texmf trees.}
+        }%
+      \catcode`\@=\csname pgfPT@library@#1@atcode\endcsname%
+      \catcode`\|=\csname pgfPT@library@#1@barcode\endcsname%
+      \catcode`\$=\csname pgfPT@library@#1@dollarcode\endcsname%
+      \fi%
+    \fi%
+  }%
+}%
+% <---------------- Taken and adapted from pgf (pgfutil-common.tex)
+\endinput

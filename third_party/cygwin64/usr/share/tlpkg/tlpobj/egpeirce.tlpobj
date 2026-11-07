@@ -1,0 +1,16 @@
+name egpeirce
+category Package
+revision 66924
+shortdesc Draw existential graphs invented by Charles S. Peirce
+relocated 1
+longdesc This package is for drawing existential graphs invented and
+longdesc developed by philosopher and polymath Charles S. Peirce. It
+longdesc also contains new and unique symbols for several types of
+longdesc linear logical operators Peirce invented and used in his larger
+longdesc logical system.
+runfiles size=25
+ RELOC/tex/latex/egpeirce/egpeirce.sty
+catalogue-ctan /graphics/pstricks/contrib/egpeirce
+catalogue-license lppl1.3
+catalogue-topics philosophy logic diagram pstricks
+catalogue-version 1.0.0

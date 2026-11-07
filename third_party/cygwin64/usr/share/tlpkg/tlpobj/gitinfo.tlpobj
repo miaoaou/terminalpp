@@ -1,0 +1,19 @@
+name gitinfo
+category Package
+revision 34049
+shortdesc Access metadata from the git distributed version control system
+relocated 1
+longdesc The package makes it possible to incorporate git version
+longdesc control metadata into documents. For memoir users, the package
+longdesc provides the means to tailor page headers and footers to use
+longdesc the metadata. Note this version is now deprecated, but is kept
+longdesc on the archive, pro tem, for continuity for existing users. All
+longdesc new repositories should use gitinfo2.
+runfiles size=2
+ RELOC/tex/latex/gitinfo/gitinfo.sty
+ RELOC/tex/latex/gitinfo/gitsetinfo.sty
+catalogue-ctan /macros/latex/contrib/gitinfo
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics version-control doc-mgmt
+catalogue-version 1.0

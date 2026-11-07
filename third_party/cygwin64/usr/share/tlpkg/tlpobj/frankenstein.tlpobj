@@ -1,0 +1,47 @@
+name frankenstein
+category Package
+revision 15878
+shortdesc A collection of LaTeX packages
+relocated 1
+longdesc Frankenstein is a bundle of LaTeX packages serving various
+longdesc purposes and a BibTeX bibliography style. Descriptions are
+longdesc given under the individual packages: abbrevs, achicago package,
+longdesc achicago bibstyle, attrib, blkcntrl, compsci, dialogue, lips,
+longdesc moredefs, newclude, slemph, titles.
+runfiles size=191
+ RELOC/bibtex/bib/frankenstein/frankenstein.bib
+ RELOC/bibtex/bst/frankenstein/achicago.bst
+ RELOC/tex/latex/frankenstein/abbrevs.cfg
+ RELOC/tex/latex/frankenstein/abbrevs.stq
+ RELOC/tex/latex/frankenstein/abbrevs.sty
+ RELOC/tex/latex/frankenstein/achicago.stq
+ RELOC/tex/latex/frankenstein/achicago.sty
+ RELOC/tex/latex/frankenstein/allocate.sto
+ RELOC/tex/latex/frankenstein/attrib.stq
+ RELOC/tex/latex/frankenstein/attrib.sty
+ RELOC/tex/latex/frankenstein/blkcntrl.stq
+ RELOC/tex/latex/frankenstein/blkcntrl.sty
+ RELOC/tex/latex/frankenstein/compsci.cfg
+ RELOC/tex/latex/frankenstein/compsci.stq
+ RELOC/tex/latex/frankenstein/compsci.sty
+ RELOC/tex/latex/frankenstein/dialogue.stq
+ RELOC/tex/latex/frankenstein/dialogue.sty
+ RELOC/tex/latex/frankenstein/lips.stq
+ RELOC/tex/latex/frankenstein/lips.sty
+ RELOC/tex/latex/frankenstein/moredefs.stq
+ RELOC/tex/latex/frankenstein/moredefs.sty
+ RELOC/tex/latex/frankenstein/newclude.stq
+ RELOC/tex/latex/frankenstein/newclude.sty
+ RELOC/tex/latex/frankenstein/simple.sto
+ RELOC/tex/latex/frankenstein/slemph.cfg
+ RELOC/tex/latex/frankenstein/slemph.stq
+ RELOC/tex/latex/frankenstein/slemph.sty
+ RELOC/tex/latex/frankenstein/tag.sto
+ RELOC/tex/latex/frankenstein/titles.cfg
+ RELOC/tex/latex/frankenstein/titles.stq
+ RELOC/tex/latex/frankenstein/titles.sty
+catalogue-also frankenstein-unsupported
+catalogue-ctan /macros/latex/contrib/frankenstein
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license collection
+catalogue-topics collection

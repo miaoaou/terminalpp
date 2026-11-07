@@ -1,0 +1,25 @@
+name chextras
+category Package
+revision 27118
+shortdesc A companion package for the Swiss typesetter
+relocated 1
+longdesc The package simplifies the preparation of Swiss documents and
+longdesc letters by setting up linguistic and common packages. While it
+longdesc is a useful addition to the chletter document class, it is not
+longdesc tied to it and may be used as a general purpose package.
+runfiles size=11
+ RELOC/tex/latex/chextras/chextras.sty
+ RELOC/tex/latex/chextras/eu1lmros.fd
+ RELOC/tex/latex/chextras/eu1lmssos.fd
+ RELOC/tex/latex/chextras/eu1lmttos.fd
+ RELOC/tex/latex/chextras/eu1lmvttos.fd
+ RELOC/tex/latex/chextras/t1lmros.fd
+ RELOC/tex/latex/chextras/t1lmssos.fd
+ RELOC/tex/latex/chextras/t1lmttos.fd
+ RELOC/tex/latex/chextras/t1lmvttos.fd
+catalogue-also chletter
+catalogue-ctan /macros/latex/contrib/chextras
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics swiss
+catalogue-version 1.01

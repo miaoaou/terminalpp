@@ -1,0 +1,19 @@
+name systeme
+category Package
+revision 66655
+shortdesc Format systems of equations
+relocated 1
+longdesc The package allows you to enter systems of equations or
+longdesc inequalities in an intuitive way, and produces typeset output
+longdesc where the terms and signs are aligned vertically. The package
+longdesc works with plain TeX or LaTeX, but e-TeX is required. Cette
+longdesc petite extension permet de saisir des systemes d'equations ou
+longdesc inequations de facon intuitive, et produit un affichage ou les
+longdesc termes et les signes sont alignes verticalement.
+runfiles size=8
+ RELOC/tex/generic/systeme/systeme.sty
+ RELOC/tex/generic/systeme/systeme.tex
+catalogue-ctan /macros/generic/systeme
+catalogue-license lppl1.3c
+catalogue-topics maths maths-syseqn simplified
+catalogue-version 0.34

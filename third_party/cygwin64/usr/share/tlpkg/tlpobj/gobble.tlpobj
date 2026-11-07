@@ -1,0 +1,27 @@
+name gobble
+category Package
+revision 64967
+shortdesc More gobble macros for PlainTeX and LaTeX
+relocated 1
+longdesc The LaTeX package gobble includes several gobble macros not
+longdesc included in the LaTeX kernel. These macros remove a number of
+longdesc arguments after them, a feature regulary used inside other
+longdesc macros. This includes gobble macros for optional arguments. The
+longdesc LaTeX package gobble-user provides these macros at the user
+longdesc level, i.e. using names without @ so that these can be used
+longdesc without \makeatletter and \makeatother. The same macros are
+longdesc provided inside .tex files for use with plain-TeX or other TeX
+longdesc formats. However, the gobble macros for optional macros require
+longdesc \@ifnextchar to be defined.
+runfiles size=4
+ RELOC/tex/generic/gobble/gobble-user.sty
+ RELOC/tex/generic/gobble/gobble-user.tex
+ RELOC/tex/generic/gobble/gobble.sty
+ RELOC/tex/generic/gobble/gobble.tex
+catalogue-contact-bugs https://github.com/MartinScharrer/gobble/issues
+catalogue-contact-home https://github.com/MartinScharrer/gobble
+catalogue-contact-repository https://github.com/MartinScharrer/gobble.git
+catalogue-ctan /macros/generic/gobble
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 0.2

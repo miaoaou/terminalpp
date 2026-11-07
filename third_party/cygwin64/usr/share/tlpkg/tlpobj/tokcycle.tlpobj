@@ -1,0 +1,24 @@
+name tokcycle
+category Package
+revision 60320
+shortdesc Build tools to process tokens from an input stream
+relocated 1
+longdesc The tokcycle package helps one to build tools to process tokens
+longdesc from an input stream. If a macro to process an arbitrary single
+longdesc token can be built, then tokcycle can provide a wrapper for
+longdesc cycling through an input stream (including macros, spaces, and
+longdesc groups) on a token-by-token basis, using the provided macro on
+longdesc each successive character. tokcycle characterizes each
+longdesc successive token in the input stream as a Character, a Group, a
+longdesc Macro, or a Space. Each of these token categories are processed
+longdesc with a unique directive, to bring about the desired effect of
+longdesc the token cycle. If condition flags are provided to identify
+longdesc active, implicit, and catcode-6 tokens as they are digested.
+longdesc The package provides a number of options for handling groups.
+runfiles size=6
+ RELOC/tex/generic/tokcycle/tokcycle.sty
+ RELOC/tex/generic/tokcycle/tokcycle.tex
+catalogue-ctan /macros/generic/tokcycle
+catalogue-license lppl1.3c
+catalogue-topics macro-supp parser macro-iterate misc-support macro-gen
+catalogue-version 1.42

@@ -1,0 +1,16 @@
+name ushort
+category Package
+revision 32261
+shortdesc Shorter (and longer) underlines and underbars
+relocated 1
+longdesc Some engineers need underlined or twice underlined variables
+longdesc for which the usual \underline is too long. This package
+longdesc provides a generic command for creating underlines of various
+longdesc sizes and types.
+runfiles size=1
+ RELOC/tex/latex/ushort/ushort.sty
+catalogue-ctan /macros/latex/contrib/ushort
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics underline
+catalogue-version 2.2

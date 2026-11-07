@@ -1,0 +1,34 @@
+name cleveref-usedon
+category Package
+revision 70491
+shortdesc Adds forward-referencing functionality to the cleveref package
+relocated 1
+longdesc Imagine you are reading a long mathematical text such as a text
+longdesc book or a thesis. There are plenty of supplementary lemmas,
+longdesc propositions, theorems and/or exercises throughout the whole
+longdesc text. You ask yourself "Gosh, while Lemma 1.12 is certainly an
+longdesc interesting result, where is this result used later on in this
+longdesc long text? I really would find that helpful to decide why I
+longdesc should read the proof." You can, of course, use the PDF search
+longdesc function of your viewer to look up the string "Lemma 1.12", but
+longdesc wouldn't it be more helpful if Lemma 1.12 already indicated all
+longdesc or at least its most useful/crucial applications via an info
+longdesc message? This is what this package tries to address: The info
+longdesc message "Used on p. 40, 43-45 and 101." would then be printed
+longdesc to the header of Lemma 1.12. This is done by extending the
+longdesc \cref and \Cref commands and giving them an optional argument
+longdesc UsedOn. Every time you wish to record a reference in the "used
+longdesc on page list", you would simply type
+longdesc \cref[UsedOn]{<LabelName>}. If you use \cref without this
+longdesc optional argument, this reference won't be recorded in this
+longdesc page list.
+runfiles size=3
+ RELOC/tex/latex/cleveref-usedon/cleveref-usedon.sty
+catalogue-also cleveref-forward
+catalogue-contact-bugs https://github.com/SvenPistre/cleveref-usedon/issues
+catalogue-contact-repository https://github.com/SvenPistre/cleveref-usedon
+catalogue-contact-support https://github.com/SvenPistre/cleveref-usedon/discussions
+catalogue-ctan /macros/latex/contrib/cleveref-usedon
+catalogue-license lppl1.3
+catalogue-topics label-ref
+catalogue-version 0.4.0

@@ -1,0 +1,1257 @@
+% ---------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package -----------------------------------------------
+% ---------------------------------------------------------------------------------------
+\def\pgfPT@library@colorschemes@loaded{}%
+\message{pgfPT color schemes library loaded!}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% provide the macros
+%       \pgfPTGroupColors[name of color scheme]{list}
+%       \pgfPTPeriodColors[name of color scheme]{list}
+%       \pgfPTCScombine[prop,mode]{CS one,CS two,CS new}
+%       \pgfPTCSwrite[name]{CSName's list}
+%
+% support for colors -> named color OR named color a!##!named color b OR *[model:values], e.g. *[rgb:.5;.2,;3] ->
+%                             --> (see Table 3: Supported color models on page 10 of the documentation of xcolor v2.14 (2022/06/12)
+%
+% BUBBLE SORT
+% adapted from https://tex.stackexchange.com/questions/481678/apply-a-numeric-bubble-sort-to-output-strings-which-are-specified-by-names-code
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter%
+%\pgfPTGroupColors{name of color scheme}{list}
+% ---------------------------------------------------------------------------------------
+% list:
+% left color=<color>,right color=<color>,middle color=<color>
+% or
+% G1=<color>,G2=<color>, ... , G18=<color>
+% or
+% gradient={G<n>=<color>,G<n>=<color>,...,G<n>=<color>}
+%
+% with options:
+%    -> period blending={color=<color>,percentage=<positive or negative integer>,mode=<add,sub,linear>}
+%                   NOTES: the percentage refers to how much of the color, in total, was mixed at the end of the 7 periods;
+%                                               for example 60% adds 10% to each period (P1:0% -> P2:10% -> P3:20% -> ... -> P7:60%)
+%                               if the percentage is positive, the order of the mixture is from P1 to P7
+%                               if the percentage is negative, the mixing order is from P7 to P1
+%    -> H=<color>,La=<color>,Lanta=<color>,Ac=<color>,Actin=<color>
+% ---------------------------------------------------------------------------------------
+\newif\ifpgfPTgradient@TI\newif\ifpgfPTgradient@TII%
+\newif\ifpgfPTusecolor@H%
+\newif\ifpgfPTusecolor@La\newif\ifpgfPTusecolor@Lanta%
+\newif\ifpgfPTusecolor@Ac\newif\ifpgfPTusecolor@Actin%
+\newif\ifpgfPT@blending%
+%
+\def\pgfPTGroupColors{\@ifnextchar[\pgfPT@GroupColors{\pgfPT@GroupColors[white]}}%
+\def\pgfPT@GroupColors[#1]#2#3{\ignorespaces%
+\pgfPTgradient@TIfalse\pgfPTgradient@TIIfalse%
+\pgfPTusecolor@Hfalse%
+\pgfPTusecolor@Lafalse\pgfPTusecolor@Lantafalse%
+\pgfPTusecolor@Acfalse\pgfPTusecolor@Actinfalse%
+\pgfPT@blendingfalse%
+\edef\pgfPTCScolorLEFT{#1}%
+\edef\pgfPTCScolorMIDDLE{}%
+\edef\pgfPTCScolorRIGHT{#1}%
+\edef\pgfPTCScolorH{#1}%
+\edef\pgfPTCScolorGI{#1}%
+\edef\pgfPTCScolorGII{#1}%
+\edef\pgfPTCScolorGIII{#1}%
+\edef\pgfPTCScolorGIV{#1}%
+\edef\pgfPTCScolorGV{#1}%
+\edef\pgfPTCScolorGVI{#1}%
+\edef\pgfPTCScolorGVII{#1}%
+\edef\pgfPTCScolorGVIII{#1}%
+\edef\pgfPTCScolorGIX{#1}%
+\edef\pgfPTCScolorGX{#1}%
+\edef\pgfPTCScolorGXI{#1}%
+\edef\pgfPTCScolorGXII{#1}%
+\edef\pgfPTCScolorGXIII{#1}%
+\edef\pgfPTCScolorGXIV{#1}%
+\edef\pgfPTCScolorGXV{#1}%
+\edef\pgfPTCScolorGXVI{#1}%
+\edef\pgfPTCScolorGXVII{#1}%
+\edef\pgfPTCScolorGXVIII{#1}%
+\edef\pgfPTCScolorLa{#1}%
+\edef\pgfPTCScolorLanta{#1}%
+\edef\pgfPTCScolorAc{#1}%
+\edef\pgfPTCScolorActin{#1}%
+\@for\@pgfPT@tmp:=#3\do{%
+\ifx\@pgfPT@tmp\pgfPT@relax\relax\else\ifx\@pgfPT@tmp\pgfPT@space\relax\else%
+    \edef\pgfPT@handlert@test{period blending}\ifx\@pgfPT@tmp\pgfPT@handlert@test\edef\@pgfPT@tmp{period blending={}}\fi%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{gradient}% gradient... type 1
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TItrue\pgfPTgradient@TIIfalse\edef\pgfPTCScolorGRADIENT{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{leftcolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorLEFT{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{middlecolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorMIDDLE{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{rightcolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorRIGHT{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G1}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G2}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G3}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGIII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G4}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGIV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G5}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G6}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGVI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G7}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGVII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G8}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGVIII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G9}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGIX{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G10}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGX{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G11}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G12}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G13}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXIII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G14}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXIV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G15}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G16}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXVI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G17}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXVII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{G18}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorGXVIII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{H}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Htrue\edef\pgfPTCScolorH{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{La}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Latrue\edef\pgfPTCScolorLa{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Lanta}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Lantatrue\edef\pgfPTCScolorLanta{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Ac}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Actrue\edef\pgfPTCScolorAc{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Actin}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Actintrue\edef\pgfPTCScolorActin{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{periodblending}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPT@blendingtrue\edef\pgfPTblending{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{\textbackslash pgfPTGroupColors: '\pgfPT@handler'\space in '\detokenize{#3}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+\fi\fi}% end do
+\ifpgfPTgradient@TI\relax%
+\expandafter\pgfPT@dogradient@TI[1]\pgfPTCScolorGRADIENT\relax%
+\else\ifpgfPTgradient@TII\relax%
+\pgfPT@dogradient@TII[1](\pgfPTCScolorLEFT,\pgfPTCScolorMIDDLE,\pgfPTCScolorRIGHT)%
+\fi\fi%
+\pgfPT@assign@color{\pgfPTCScolorGI}\colorlet{pgfPTinnerGcolorI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGII}\colorlet{pgfPTinnerGcolorII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGIII}\colorlet{pgfPTinnerGcolorIII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGIV}\colorlet{pgfPTinnerGcolorIV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGV}\colorlet{pgfPTinnerGcolorV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGVI}\colorlet{pgfPTinnerGcolorVI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGVII}\colorlet{pgfPTinnerGcolorVII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGVIII}\colorlet{pgfPTinnerGcolorVIII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGIX}\colorlet{pgfPTinnerGcolorIX}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGX}\colorlet{pgfPTinnerGcolorX}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXI}\colorlet{pgfPTinnerGcolorXI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXII}\colorlet{pgfPTinnerGcolorXII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXIII}\colorlet{pgfPTinnerGcolorXIII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXIV}\colorlet{pgfPTinnerGcolorXIV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXV}\colorlet{pgfPTinnerGcolorXV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXVI}\colorlet{pgfPTinnerGcolorXVI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXVII}\colorlet{pgfPTinnerGcolorXVII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorGXVIII}\colorlet{pgfPTinnerGcolorXVIII}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@H\pgfPT@assign@color{\pgfPTCScolorH}\else\pgfPT@assign@color{\pgfPTCScolorGI}\fi%
+\colorlet{pgfPTinnerGcolorH}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@La\pgfPT@assign@color{\pgfPTCScolorLa}\else\pgfPT@assign@color{\pgfPTCScolorGIII}\fi%
+\colorlet{pgfPTinnerGcolorLa}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Lanta\pgfPT@assign@color{\pgfPTCScolorLanta}\else\pgfPT@assign@color{\pgfPTCScolorGIII}\fi%
+\colorlet{pgfPTinnerGcolorLanta}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Ac\pgfPT@assign@color{\pgfPTCScolorAc}\else\pgfPT@assign@color{\pgfPTCScolorGIII}\fi%
+\colorlet{pgfPTinnerGcolorAc}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Actin\pgfPT@assign@color{\pgfPTCScolorActin}\else\pgfPT@assign@color{\pgfPTCScolorGIII}\fi%
+\colorlet{pgfPTinnerGcolorActin}{pgfPTassignedcolor}%
+\ifpgfPT@blending%
+    % blending={color=<color>,percentage=<positive or negative integer>,mode=<add|sub|linear>}
+    \edef\pgfPTblending@color@r{1}%
+    \edef\pgfPTblending@color@g{1}%
+    \edef\pgfPTblending@color@b{1}%
+    \edef\pgfPTblending@percentage@step{10}%
+    \edef\pgfPTblending@percentage@sign{1}%
+    \edef\pgfPTblending@mode{2}%
+    \ifx\pgfPTblending\pgfPT@relax\relax\else%
+    \@for\@pgfPT@tmp:=\pgfPTblending\do{%
+                \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+                \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+                \edef\pgfPT@handlert@test{color}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \colorlet{pgfPTtmpc@lor}[rgb]{\pgfPT@handlervalue}
+                    \pgfPT@extract@rgb@fill{pgfPTtmpc@lor}%
+                    \edef\pgfPTblending@color@r{\pgfPT@rf}%
+                    \edef\pgfPTblending@color@g{\pgfPT@gf}%
+                    \edef\pgfPTblending@color@b{\pgfPT@bf}%
+                \else%
+                \edef\pgfPT@handlert@test{percentage}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \pgfmathparse{int(abs(\pgfPT@handlervalue))}\edef\pgfPTblending@percentage{\pgfmathresult}%
+                    \ifnum\pgfPTblending@percentage>100\relax%
+                        \PackageError{pgfPT}{\textbackslash pgfPTGroupColors::period blending percentage: '\pgfPT@handlervalue'\space in '\detokenize{\pgfPTblending}'\space to high! Default blending percentage (60) will be used...}{}\relax%
+                        \edef\pgfPT@handlervalue{60}%
+                    \fi%
+                    \pgfmathparse{int(abs(\pgfPT@handlervalue/6))}\edef\pgfPTblending@percentage@step{\pgfmathresult}%
+                    \pgfmathparse{sign(\pgfPT@handlervalue)}\edef\pgfPTblending@percentage@sign{\pgfmathresult}%
+                \else%
+                \edef\pgfPT@handlert@test{mode}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \edef\pgfPTblending@mode@tmp{add}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{0}%
+                    \else%
+                    \edef\pgfPTblending@mode@tmp{sub}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{1}%
+                    \else%
+                    \edef\pgfPTblending@mode@tmp{linear}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{2}%
+                    \else%
+                        \PackageError{pgfPT}{\textbackslash pgfPTGroupColors::period blending mode: '\pgfPT@handlervalue'\space in '\detokenize{\pgfPTblending}'\space not known! Default blending mode (add) will be used...}{}\relax%
+                    \fi\fi\fi%
+                \else%handler not found
+                    \ifpgfPT@temp\PackageError{pgfPT}{\textbackslash pgfPTGroupColors::period blending: '\pgfPT@handler'\space in '\detokenize{\pgfPTblending}'\space not known! Default value will be used...}{}\fi\relax%
+                \fi\fi\fi%
+                }% end do
+    \fi% \ifx\pgfPTblending\pgfPT@relax
+\fi%
+\@for\@pgfPT@tmp:={I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,H,La,Lanta,Ac,Actin}%
+\do{%
+        \pgfPT@extract@rgb@fill{pgfPTinnerGcolor\@pgfPT@tmp}%
+        \edef\pgfPTinnercolor@r{\pgfPT@rf}%
+        \edef\pgfPTinnercolor@g{\pgfPT@gf}%
+        \edef\pgfPTinnercolor@b{\pgfPT@bf}%
+        \expandafter\edef\csname pgfPTinnerGcolor\@pgfPT@tmp\endcsname{\pgfPTinnercolor@r/\pgfPTinnercolor@g/\pgfPTinnercolor@b}%
+        }%
+\edef\pgfPT@backCS@GroupColorsList{BEGIN}%
+\pgfPT@countf=1%
+\def\pgfPT@get@rgb##1/##2/##3\relax{\edef\pgfPT@tmpc@lor@r{##1}\edef\pgfPT@tmpc@lor@g{##2}\edef\pgfPT@tmpc@lor@b{##3}}%
+\@for\@pgfPT@tmp:={H,XVIII,I,II,XIII,XIV,XV,XVI,XVII,XVIII,I,II,XIII,XIV,XV,XVI,XVII,XVIII,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,I,II,La,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,I,II,Ac,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII}%
+\do{%
+    \ifpgfPT@blending\relax% blending
+        \ifnum\pgfPTblending@percentage@sign=1\relax%
+            \ifnum\pgfPT@countf<3\relax% P1
+                \edef\pgfPT@blending@prop@i{100}%
+                \edef\pgfPT@blending@prop@ii{0}%
+            \else\ifnum\pgfPT@countf<11\relax% P2
+                \pgfmathparse{int(100-\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \edef\pgfPT@blending@prop@ii{\pgfPTblending@percentage@step}%
+            \else\ifnum\pgfPT@countf<19\relax% P3
+                \pgfmathparse{int(100-2*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(2*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<37\relax% P4
+                \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<55\relax% P5
+                \pgfmathparse{int(100-4*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(4*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<87\relax% P6
+                \ifnum\pgfPT@countf<57\relax%
+                \pgfmathparse{int(100-5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=57\relax% La
+                    \ifpgfPTusecolor@La%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else\ifnum\pgfPT@countf<72\relax% Lanta
+                    \ifpgfPTusecolor@Lanta%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else%
+                \pgfmathparse{int(100-5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi\fi\fi%
+            \else% P7
+                \ifnum\pgfPT@countf<89\relax%
+                \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=89\relax% Ac
+                    \ifpgfPTusecolor@Ac%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else\ifnum\pgfPT@countf<104\relax% Actin
+                    \ifpgfPTusecolor@Actin%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else%
+                \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi\fi\fi%
+                \fi\fi\fi\fi\fi\fi%
+        \else% \pgfPTblending@percentage@sign=-1
+            \ifnum\pgfPT@countf<3\relax% P1
+                \ifnum\pgfPT@countf<2\relax% H
+                    \ifpgfPTusecolor@H%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                    \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else%
+                \pgfmathparse{int(100-6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(6*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<11\relax% P2
+                \pgfmathparse{int(100-5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(5*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<19\relax% P3
+                \pgfmathparse{int(100-4*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(4*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<37\relax% P4
+                \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<55\relax% P5
+                \pgfmathparse{int(100-2*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(2*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<87\relax% P6
+                \ifnum\pgfPT@countf<57\relax%
+                \pgfmathparse{int(100-\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=57\relax% La
+                    \ifpgfPTusecolor@La%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else\ifnum\pgfPT@countf<72\relax% Lanta
+                    \ifpgfPTusecolor@Lanta%
+                        \edef\pgfPT@blending@prop@i{100}%
+                        \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                        \pgfmathparse{int(100-\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                        \pgfmathparse{int(\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else%
+                \pgfmathparse{int(100-\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi\fi\fi%
+            \else% P7
+                \edef\pgfPT@blending@prop@i{100}%
+                \edef\pgfPT@blending@prop@ii{0}%
+            \fi\fi\fi\fi\fi\fi%
+        \fi% END \pgfPTblending@percentage@sign
+        \edef\pgfPT@tmpc@lor{\csname pgfPTinnerGcolor\@pgfPT@tmp\endcsname}%
+        \expandafter\pgfPT@get@rgb\pgfPT@tmpc@lor\relax%
+        \ifcase\pgfPTblending@mode\relax%
+        % 0 -> add
+            \@pgfPT@mix@additive[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \or% 1 -> sub
+            \@pgfPT@mix@subtractive[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \or% 2 -> linear
+            \@pgfPT@mix@linear[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \fi% end ifcase
+        \pgfPT@extract@rgb@fill{pgfPTmixedcolor}%
+        \edef\pgfPT@backCS@GroupColorsList{\pgfPT@backCS@GroupColorsList,\pgfPT@rf/\pgfPT@gf/\pgfPT@bf}%
+    \else% no blending
+        \edef\pgfPT@backCS@GroupColorsList{\pgfPT@backCS@GroupColorsList,\csname pgfPTinnerGcolor\@pgfPT@tmp\endcsname}%
+    \fi%
+    \advance\pgfPT@countf by1\relax%
+    }% end do
+\expandafter\@pgfPT@list@purge \pgfPT@backCS@GroupColorsList[pgfPT@backCS@GroupColorsList]\relax%
+\pgfPTnewColorScheme{#2}{\pgfPT@backCS@GroupColorsList}%
+}% END \pgfPTGroupColors
+%
+%\pgfPTPeriodColors{name of color scheme}{list}
+% ---------------------------------------------------------------------------------------
+% list:
+% top color=<color>,bottom color=<color>,middle color=<color>
+% or
+% P1=<color>,P2=<color>, ... , P7=<color>
+% or
+% gradient={P<n>=<color>,P<n>=<color>,...,P<n>=<color>}
+%
+% with options:
+%    -> group blending={color=<color>,percentage=<positive or negative integer>,mode=<add|sub|linear>}
+%                   NOTES: the percentage refers to how much of the color, in total, was mixed at the end of the 7 periods;
+%                                               for example 68% adds 4% to each period (G1:0% -> G2:4% -> G3:8% -> ... -> G18:68%)
+%                               if the percentage is positive, the order of the mixture is from G1 to G18
+%                               if the percentage is negative, the mixing order is from G18 to G1
+%    -> H=<color>,La=<color>,Lanta=<color>,Ac=<color>,Actin=<color>
+% ---------------------------------------------------------------------------------------
+\def\pgfPTPeriodColors{\@ifnextchar[\pgfPT@PeriodColors{\pgfPT@PeriodColors[white]}}%
+\def\pgfPT@PeriodColors[#1]#2#3{\ignorespaces%
+\pgfPTgradient@TIfalse\pgfPTgradient@TIIfalse%
+\pgfPTusecolor@Hfalse%
+\pgfPTusecolor@Lafalse\pgfPTusecolor@Lantafalse%
+\pgfPTusecolor@Acfalse\pgfPTusecolor@Actinfalse%
+\edef\pgfPTCScolorTOP{#1}%
+\edef\pgfPTCScolorMIDDLE{}%
+\edef\pgfPTCScolorBOTTOM{#1}%
+\edef\pgfPTCScolorH{#1}%
+\edef\pgfPTCScolorPI{#1}%
+\edef\pgfPTCScolorPII{#1}%
+\edef\pgfPTCScolorPIII{#1}%
+\edef\pgfPTCScolorPIV{#1}%
+\edef\pgfPTCScolorPV{#1}%
+\edef\pgfPTCScolorPVI{#1}%
+\edef\pgfPTCScolorPVII{#1}%
+\edef\pgfPTCScolorLa{#1}%
+\edef\pgfPTCScolorLanta{#1}%
+\edef\pgfPTCScolorAc{#1}%
+\edef\pgfPTCScolorActin{#1}%
+\@for\@pgfPT@tmp:=#3\do{%
+\ifx\@pgfPT@tmp\pgfPT@relax\relax\else\ifx\@pgfPT@tmp\pgfPT@space\relax\else%
+    \edef\pgfPT@handlert@test{group blending}\ifx\@pgfPT@tmp\pgfPT@handlert@test\edef\@pgfPT@tmp{group blending={}}\fi%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{gradient}% gradient... type 1
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TItrue\pgfPTgradient@TIIfalse\edef\pgfPTCScolorGRADIENT{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{topcolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorTOP{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{middlecolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorMIDDLE{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{bottomcolor}% gradient... type 2
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTgradient@TIItrue\pgfPTgradient@TIfalse\edef\pgfPTCScolorBOTTOM{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P1}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P2}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P3}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPIII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P4}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPIV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P5}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPV{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P6}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPVI{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{P7}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \edef\pgfPTCScolorPVII{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{H}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Htrue\edef\pgfPTCScolorH{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{La}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Latrue\edef\pgfPTCScolorLa{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Lanta}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Lantatrue\edef\pgfPTCScolorLanta{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Ac}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Actrue\edef\pgfPTCScolorAc{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Actin}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPTusecolor@Actintrue\edef\pgfPTCScolorActin{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{groupblending}%
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+            \pgfPT@blendingtrue\edef\pgfPTblending{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{\textbackslash pgfPTGroupColors: '\pgfPT@handler'\space in '\detokenize{#2}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+\fi\fi}% end do
+\ifpgfPTgradient@TI\relax%
+\expandafter\pgfPT@dogradient@TI[0]\pgfPTCScolorGRADIENT\relax%
+\else\ifpgfPTgradient@TII\relax%
+\pgfPT@dogradient@TII[0](\pgfPTCScolorTOP,\pgfPTCScolorMIDDLE,\pgfPTCScolorBOTTOM)%
+\fi\fi%
+\pgfPT@assign@color{\pgfPTCScolorPI}\colorlet{pgfPTinnerPcolorI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPII}\colorlet{pgfPTinnerPcolorII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPIII}\colorlet{pgfPTinnerPcolorIII}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPIV}\colorlet{pgfPTinnerPcolorIV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPV}\colorlet{pgfPTinnerPcolorV}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPVI}\colorlet{pgfPTinnerPcolorVI}{pgfPTassignedcolor}%
+\pgfPT@assign@color{\pgfPTCScolorPVII}\colorlet{pgfPTinnerPcolorVII}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@H\pgfPT@assign@color{\pgfPTCScolorH}\else\pgfPT@assign@color{\pgfPTCScolorPI}\fi%
+\colorlet{pgfPTinnerPcolorH}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@La\pgfPT@assign@color{\pgfPTCScolorLa}\else\pgfPT@assign@color{\pgfPTCScolorPVI}\fi%
+\colorlet{pgfPTinnerPcolorLa}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Lanta\pgfPT@assign@color{\pgfPTCScolorLanta}\else\pgfPT@assign@color{\pgfPTCScolorPVI}\fi%
+\colorlet{pgfPTinnerPcolorLanta}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Ac\pgfPT@assign@color{\pgfPTCScolorAc}\else\pgfPT@assign@color{\pgfPTCScolorPVII}\fi%
+\colorlet{pgfPTinnerPcolorAc}{pgfPTassignedcolor}%
+\ifpgfPTusecolor@Actin\pgfPT@assign@color{\pgfPTCScolorActin}\else\pgfPT@assign@color{\pgfPTCScolorPVII}\fi%
+\colorlet{pgfPTinnerPcolorActin}{pgfPTassignedcolor}%
+\ifpgfPT@blending%
+    % blending={color=<color>,percentage=<positive or negative integer>,mode=<add|sub|linear>}
+    \edef\pgfPTblending@color@r{1}%
+    \edef\pgfPTblending@color@g{1}%
+    \edef\pgfPTblending@color@b{1}%
+    \edef\pgfPTblending@percentage@step{4}%
+    \edef\pgfPTblending@percentage@sign{1}%
+    \edef\pgfPTblending@mode{2}%
+    \ifx\pgfPTblending\pgfPT@relax\relax\else%
+    \@for\@pgfPT@tmp:=\pgfPTblending\do{%
+                \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+                \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+                \edef\pgfPT@handlert@test{color}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \colorlet{pgfPTtmpc@lor}[rgb]{\pgfPT@handlervalue}
+                    \pgfPT@extract@rgb@fill{pgfPTtmpc@lor}%
+                    \edef\pgfPTblending@color@r{\pgfPT@rf}%
+                    \edef\pgfPTblending@color@g{\pgfPT@gf}%
+                    \edef\pgfPTblending@color@b{\pgfPT@bf}%
+                \else%
+                \edef\pgfPT@handlert@test{percentage}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \pgfmathparse{int(abs(\pgfPT@handlervalue))}\edef\pgfPTblending@percentage{\pgfmathresult}%
+                    \ifnum\pgfPTblending@percentage>100\relax%
+                        \PackageError{pgfPT}{\textbackslash pgfPTPeriodColors::group blending percentage: '\pgfPT@handlervalue'\space in '\detokenize{\pgfPTblending}'\space to high! Default blending percentage (68) will be used...}{}\relax%
+                        \edef\pgfPT@handlervalue{68}%
+                    \fi%
+                    \pgfmathparse{int(abs(\pgfPT@handlervalue/17))}\edef\pgfPTblending@percentage@step{\pgfmathresult}%
+                    \pgfmathparse{sign(\pgfPT@handlervalue)}\edef\pgfPTblending@percentage@sign{\pgfmathresult}%
+                \else%
+                \edef\pgfPT@handlert@test{mode}%
+                \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                    \edef\pgfPTblending@mode@tmp{add}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{0}%
+                    \else%
+                    \edef\pgfPTblending@mode@tmp{sub}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{1}%
+                    \else%
+                    \edef\pgfPTblending@mode@tmp{linear}%
+                    \ifx\pgfPTblending@mode@tmp\pgfPT@handlervalue%
+                        \edef\pgfPTblending@mode{2}%
+                    \else%
+                        \PackageError{pgfPT}{\textbackslash pgfPTPeriodColors::group blending mode: '\pgfPT@handlervalue'\space in '\detokenize{\pgfPTblending}'\space not known! Default blending mode (add) will be used...}{}\relax%
+                    \fi\fi\fi%
+                \else%handler not found
+                    \ifpgfPT@temp\PackageError{pgfPT}{\textbackslash pgfPTPeriodColors::group blending: '\pgfPT@handler'\space in '\detokenize{\pgfPTblending}'\space not known! Default value will be used...}{}\fi\relax%
+                \fi\fi\fi%
+                }% end do
+    \fi% \ifx\pgfPTblending\pgfPT@relax
+\fi%
+\@for\@pgfPT@tmp:={I,II,III,IV,V,VI,VII,H,La,Lanta,Ac,Actin}%
+\do{%
+        \pgfPT@extract@rgb@fill{pgfPTinnerPcolor\@pgfPT@tmp}%
+        \edef\pgfPTinnercolor@r{\pgfPT@rf}%
+        \edef\pgfPTinnercolor@g{\pgfPT@gf}%
+        \edef\pgfPTinnercolor@b{\pgfPT@bf}%
+        \expandafter\edef\csname pgfPTinnerPcolor\@pgfPT@tmp\endcsname{\pgfPTinnercolor@r/\pgfPTinnercolor@g/\pgfPTinnercolor@b}%
+        }%
+\edef\pgfPT@backCS@PeriodColorsList{BEGIN}%
+\pgfPT@countf=1%
+\def\pgfPT@get@rgb##1/##2/##3\relax{\edef\pgfPT@tmpc@lor@r{##1}\edef\pgfPT@tmpc@lor@g{##2}\edef\pgfPT@tmpc@lor@b{##3}}%
+\@for\@pgfPT@tmp:={H,I,II,II,II,II,II,II,II,II,III,III,III,III,III,III,III,III,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,IV,V,V,V,V,V,V,V,V,V,V,V,V,V,V,V,V,V,V,VI,VI,La,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,Lanta,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VI,VII,VII,Ac,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,Actin,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII,VII}%
+\do{%
+    \ifpgfPT@blending\relax% blending
+        \ifnum\pgfPTblending@percentage@sign=1\relax%
+            \ifnum\pgfPT@countf<3\relax% P1
+                \ifnum\pgfPT@countf=1\relax% H
+                    \ifpgfPTusecolor@H%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                    \else%
+                    \pgfmathparse{int(100-17*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(17*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                    \fi%
+                \else% He
+                \pgfmathparse{int(100-17*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int(17*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<11\relax% P2
+                \ifnum\pgfPT@countf<5\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-3)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-3)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else%
+                \pgfmathparse{int(100-(7+\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((7+\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<19\relax% P3
+                \ifnum\pgfPT@countf<13\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-11)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-11)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-1)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-1)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<37\relax% P4
+                \pgfmathparse{int(100-(\the\pgfPT@countf-19)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-19)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<55\relax% P5
+                \pgfmathparse{int(100-(\the\pgfPT@countf-37)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-37)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<87\relax% P6
+                \ifnum\pgfPT@countf<57\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-55)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-55)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf>71\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-68)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-68)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=57\relax% La
+                \ifpgfPTusecolor@La%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \else% lanthanoids
+                \ifpgfPTusecolor@Lanta%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \fi\fi\fi%
+            \else% P7
+                \ifnum\pgfPT@countf<89\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-87)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-87)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf>103\relax%
+                \pgfmathparse{int(100-(\the\pgfPT@countf-100)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((\the\pgfPT@countf-100)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=89\relax% Ac
+                \ifpgfPTusecolor@Ac%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \else% actinoids
+                \ifpgfPTusecolor@Actin%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(3*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \fi\fi\fi%
+            \fi\fi\fi\fi\fi\fi%
+        \else% \pgfPTblending@percentage@sign=-1
+            \ifnum\pgfPT@countf<3\relax% P1
+                \edef\pgfPT@blending@prop@i{100}%
+                \edef\pgfPT@blending@prop@ii{0}%
+            \else\ifnum\pgfPT@countf<11\relax% P2
+                \ifnum\pgfPT@countf<5\relax%
+                \pgfmathparse{int(100-(20-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((20-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else%
+                \pgfmathparse{int(100-(10-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((10-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<19\relax% P3
+                \ifnum\pgfPT@countf<13\relax%
+                \pgfmathparse{int(100-(28-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((28-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else%
+                \pgfmathparse{int(100-(18-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((18-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+            \else\ifnum\pgfPT@countf<37\relax% P4
+                \pgfmathparse{int(100-(36-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((36-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<55\relax% P5
+                \pgfmathparse{int(100-(54-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((54-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+            \else\ifnum\pgfPT@countf<87\relax% P6
+                \ifnum\pgfPT@countf<57\relax%
+                \pgfmathparse{int(100-(72-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((72-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf>71\relax%
+                \pgfmathparse{int(100-(85-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((85-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=57\relax% La
+                \ifpgfPTusecolor@La%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \else% lanthanoids
+                \ifpgfPTusecolor@Lanta%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \fi\fi\fi%
+            \else% P7
+                \ifnum\pgfPT@countf<89\relax%
+                \pgfmathparse{int(100-(104-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((104-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf>103\relax%
+                \pgfmathparse{int(100-(118-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                \pgfmathparse{int((118-\the\pgfPT@countf)*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \else\ifnum\pgfPT@countf=89\relax% Ac
+                \ifpgfPTusecolor@Ac%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \else% actinoids
+                \ifpgfPTusecolor@Actin%
+                    \edef\pgfPT@blending@prop@i{100}%
+                    \edef\pgfPT@blending@prop@ii{0}%
+                \else%
+                    \pgfmathparse{int(100-14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@i{\pgfmathresult}%
+                    \pgfmathparse{int(14*\pgfPTblending@percentage@step)}\edef\pgfPT@blending@prop@ii{\pgfmathresult}%
+                \fi%
+                \fi\fi\fi%
+            \fi\fi\fi\fi\fi\fi%
+        \fi% END \pgfPTblending@percentage@sign
+        \edef\pgfPT@tmpc@lor{\csname pgfPTinnerPcolor\@pgfPT@tmp\endcsname}%
+        \expandafter\pgfPT@get@rgb\pgfPT@tmpc@lor\relax%
+        \ifcase\pgfPTblending@mode\relax%
+        % 0 -> add
+            \@pgfPT@mix@additive[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \or% 1 -> sub
+            \@pgfPT@mix@subtractive[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \or% 2 -> linear
+            \@pgfPT@mix@linear[\pgfPT@blending@prop@i:\pgfPT@blending@prop@ii](\pgfPT@tmpc@lor@r/\pgfPT@tmpc@lor@g/\pgfPT@tmpc@lor@b,\pgfPTblending@color@r/\pgfPTblending@color@g/\pgfPTblending@color@b)%
+        \fi% end ifcase
+        \pgfPT@extract@rgb@fill{pgfPTmixedcolor}%
+        \edef\pgfPT@backCS@PeriodColorsList{\pgfPT@backCS@PeriodColorsList,\pgfPT@rf/\pgfPT@gf/\pgfPT@bf}%
+    \else% no blending
+        \edef\pgfPT@backCS@PeriodColorsList{\pgfPT@backCS@PeriodColorsList,\csname pgfPTinnerPcolor\@pgfPT@tmp\endcsname}%
+    \fi%
+    \advance\pgfPT@countf by1\relax%
+    }% end do
+\expandafter\@pgfPT@list@purge \pgfPT@backCS@PeriodColorsList[pgfPT@backCS@PeriodColorsList]\relax%
+\pgfPTnewColorScheme{#2}{\pgfPT@backCS@PeriodColorsList}%
+}% END \pgfPTPeriodColors
+%
+%
+% THE GRADIENT MACROS
+% \pgfPT@dogradient@TI[0 or 1]{list}\relax % 0->P or 1->G
+\def\pgfPT@dogradient@TI[#1]#2\relax{%
+\ignorespaces%
+\pgfPT@counta=0\pgfPT@countb=0\pgfPT@countc=0%
+\def\@pgfPT@gradientTI@list{BEGIN}%
+\ifnum#1=0\relax% Period
+    \edef\@pgfPT@gradientTI@PorG{7}%
+    \@for\@pgfPT@tmp:=#2\do{%
+        \expandafter\@pgfPT@grad@get@n@Pcolor \@pgfPT@tmp\relax%
+        \advance\pgfPT@counta by1\relax%
+        \edef\@pgfPT@gradientTI@list{\@pgfPT@gradientTI@list,\@pgfPT@grad@ntmp}%
+        \expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\@pgfPT@grad@ntmp\endcsname{\@pgfPT@grad@colortmp}%
+        \expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\@pgfPT@grad@ntmp\endcsname{\@pgfPT@grad@ntmp}%
+        }%
+\else% Group
+    \edef\@pgfPT@gradientTI@PorG{18}%
+    \@for\@pgfPT@tmp:=#2\do{%
+        \expandafter\@pgfPT@grad@get@n@Gcolor \@pgfPT@tmp\relax%
+        \advance\pgfPT@counta by1\relax%
+        \edef\@pgfPT@gradientTI@list{\@pgfPT@gradientTI@list,\@pgfPT@grad@ntmp}%
+        \expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\@pgfPT@grad@ntmp\endcsname{\@pgfPT@grad@colortmp}%
+        \expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\@pgfPT@grad@ntmp\endcsname{\@pgfPT@grad@ntmp}%
+        }%
+\fi%
+\expandafter\@pgfPT@list@purge \@pgfPT@gradientTI@list[@pgfPT@gradientTI@list]\relax%
+\edef\@pgfPT@gradientTI@unsortedlist{\@pgfPT@gradientTI@list}%
+\expandafter\pgfPT@bubblesort\@pgfPT@gradientTI@list\relax%
+\pgfPT@countc=0\pgfPT@counte=0%
+\@for\@pgfPT@tmp:=\pgfPT@sortedlist\do{%
+\pgfmathparse{array({\pgfPT@sortedlist},\the\pgfPT@countc)}%
+\ifnum\pgfPT@countc=0\relax\edef\pgfPT@sortedlist@first{\pgfmathresult}\fi%
+\advance\pgfPT@countc by1\relax%
+\ifnum\pgfPT@countc=\pgfPT@counta\relax\edef\pgfPT@sortedlist@last{\pgfmathresult}\fi%
+\expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@n\@Roman\pgfmathresult\endcsname}%
+\expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@color\@Roman\pgfmathresult\endcsname}%
+}%
+\ifnum\pgfPT@sortedlist@first>1\relax%
+\pgfPT@countc=1%
+\@for\@pgfPT@tmp:=\pgfPT@sortedlist\do{%
+\expandafter\edef\csname @pgfPT@gradientTI@ncopy\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countc\endcsname}%
+\expandafter\edef\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countc\endcsname}%
+\advance\pgfPT@countc by1\relax%
+}%
+\pgfPT@countc=1\pgfPT@countd=1%
+\@for\@pgfPT@tmp:=\pgfPT@sortedlist\do{%
+\ifnum\pgfPT@countd=1\relax%
+\expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countc\endcsname{1}%
+\expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countd\endcsname}%
+\advance\pgfPT@countd by1\relax%
+\expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countd\endcsname{\csname @pgfPT@gradientTI@ncopy\@Roman\pgfPT@countc\endcsname}%
+\expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countd\endcsname{\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countc\endcsname}%
+\else%
+\expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countd\endcsname{\csname @pgfPT@gradientTI@ncopy\@Roman\pgfPT@countc\endcsname}%
+\expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countd\endcsname{\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countc\endcsname}%
+\fi%
+\advance\pgfPT@countd by1\relax%
+\advance\pgfPT@countc by1\relax%
+}%
+\advance\pgfPT@counta by1\relax%
+\pgfPT@counte=1\relax%
+\edef\pgfPT@sortedlist{1,\pgfPT@sortedlist}%
+\fi% \ifnum\pgfPT@sortedlist@first>1
+\ifnum\pgfPT@sortedlist@last<\@pgfPT@gradientTI@PorG\relax%
+\ifnum\pgfPT@sortedlist@first=1\relax%
+\pgfPT@countc=1%
+\@for\@pgfPT@tmp:=\pgfPT@sortedlist\do{%
+\expandafter\edef\csname @pgfPT@gradientTI@ncopy\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countc\endcsname}%
+\expandafter\edef\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countc\endcsname{\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countc\endcsname}%
+\advance\pgfPT@countc by1\relax%
+}%
+\fi%
+\pgfPT@countc=\pgfPT@counta\ifnum\pgfPT@counte=1\relax\advance\pgfPT@countc by-1\relax\fi%
+\pgfPT@countd=\pgfPT@counta\advance\pgfPT@countd by1\relax%
+\expandafter\edef\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countd\endcsname{\@pgfPT@gradientTI@PorG}%
+\expandafter\edef\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countd\endcsname{\csname @pgfPT@gradientTI@colorcopy\@Roman\pgfPT@countc\endcsname}%
+\edef\pgfPT@sortedlist{\pgfPT@sortedlist,\@pgfPT@gradientTI@PorG}%
+\advance\pgfPT@counta by1\relax%
+\fi% \ifnum\pgfPT@sortedlist@last<\@pgfPT@gradientTI@PorG
+\edef\@pgfPT@gradientTI@list{\pgfPT@sortedlist}%
+\edef\@pgfPT@gradientTI@foreachlist{}%
+\@for\@pgfPT@tmp:=\@pgfPT@gradientTI@list\do{%
+        \advance\pgfPT@countb by1\relax%
+        \ifnum\pgfPT@countb<\pgfPT@counta\relax%
+            \edef\@pgfPT@gradientTI@foreachlist@n{\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countb\endcsname}%
+            \pgfmathsetcount{\pgfPT@countc}{\pgfPT@countb+1}%
+            \edef\@pgfPT@gradientTI@foreachlist@nf{\csname @pgfPT@gradientTI@n\@Roman\pgfPT@countc\endcsname}%
+            \pgfmathparse{int(\@pgfPT@gradientTI@foreachlist@nf-\@pgfPT@gradientTI@foreachlist@n+1)}%
+            \edef\@pgfPT@gradientTI@foreachlist@steps{\pgfmathresult}%
+            \edef\@pgfPT@gradientTI@foreachlist@coli{\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countb\endcsname}%
+            \edef\@pgfPT@gradientTI@foreachlist@colf{\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countc\endcsname}%
+            \edef\@pgfPT@gradientTI@foreachlist{\@pgfPT@gradientTI@foreachlist\@pgfPT@gradientTI@foreachlist@n/\@pgfPT@gradientTI@foreachlist@steps/\@pgfPT@gradientTI@foreachlist@coli/\@pgfPT@gradientTI@foreachlist@colf,}%
+        \else%
+            \edef\@pgfPT@gradientTI@foreachlist@n{\@pgfPT@gradientTI@PorG}%
+            \edef\@pgfPT@gradientTI@foreachlist@steps{2}%
+            \edef\@pgfPT@gradientTI@foreachlist@coli{\csname @pgfPT@gradientTI@color\@Roman\pgfPT@countb\endcsname}%
+            \edef\@pgfPT@gradientTI@foreachlist@colf{\@pgfPT@gradientTI@foreachlist@coli}%
+            \edef\@pgfPT@gradientTI@foreachlist{\@pgfPT@gradientTI@foreachlist\@pgfPT@gradientTI@foreachlist@n/\@pgfPT@gradientTI@foreachlist@steps/\@pgfPT@gradientTI@foreachlist@coli/\@pgfPT@gradientTI@foreachlist@colf}%
+        \fi%
+        }% end do
+\ifnum#1=0\relax\def\@pgfPT@PorG{P}\else\def\@pgfPT@PorG{G}\fi%
+\foreach \pgfPTx/\pgfPTsteps/\pgfPTcoli/\pgfPTcolf in \@pgfPT@gradientTI@foreachlist {%
+        \@pgfPT@gradient[\@pgfPT@PorG,\pgfPTx,\pgfPTsteps](\pgfPTcoli;\pgfPTcolf)%
+        }%
+}% end \pgfPT@dogradient@TI
+%
+% \pgfPT@dogradient@TII[0 or 1](top or left color,middle color,bottom or right color)
+\def\pgfPT@dogradient@TII[#1](#2,#3,#4){%
+\edef\pgfPT@test{#3}%
+\ifx\pgfPT@test\pgfPT@relax\relax%
+\ifnum#1=0\relax\@pgfPT@gradient[P,1,7](#2;#4)\else\@pgfPT@gradient[G,1,18](#2;#4)\fi%
+\else%
+\ifnum#1=0\relax\@pgfPT@gradient[P,1,4](#2;#3)\@pgfPT@gradient[P,4,4](#3;#4)%
+\else\@pgfPT@gradient[G,1,9](#2;#3)\@pgfPT@gradient[G,9,10](#3;#4)\fi%
+\fi%
+}%
+%
+% \@pgfPT@gradient[P or G,n_initial,steps](start_color; end_color)
+% color-> named color OR named color a!##!named color b OR *[model:values], e.g. *[rgb:.5;.2;.3] ->
+%                             --> (see Table 3: Supported color models on page 10 of the documentation of xcolor v2.14 (2022/06/12)
+\def\@pgfPT@gradient[#1,#2,#3](#4;#5){\ignorespaces%
+\edef\pgfPTgrad@steps{#3}%
+\pgfPT@assign@color{#4}%
+\colorlet{pgfPTgradstartcolor}[rgb]{pgfPTassignedcolor}%
+\pgfPT@assign@color{#5}%
+\colorlet{pgfPTgradendcolor}[rgb]{pgfPTassignedcolor}%
+\pgfPT@extract@rgb@fill{pgfPTgradstartcolor}%
+\edef\pgfPTgradstartcolor@r{\pgfPT@rf}%
+\edef\pgfPTgradstartcolor@g{\pgfPT@gf}%
+\edef\pgfPTgradstartcolor@b{\pgfPT@bf}%
+\pgfPT@extract@rgb@fill{pgfPTgradendcolor}%
+\edef\pgfPTgradendcolor@r{\pgfPT@rf}%
+\edef\pgfPTgradendcolor@g{\pgfPT@gf}%
+\edef\pgfPTgradendcolor@b{\pgfPT@bf}%
+\pgfmathparse{\pgfPTgradendcolor@r-\pgfPTgradstartcolor@r}\edef\pgfPTgrad@delta@r{\pgfmathresult}%
+\pgfmathparse{\pgfPTgradendcolor@g-\pgfPTgradstartcolor@g}\edef\pgfPTgrad@delta@g{\pgfmathresult}%
+\pgfmathparse{\pgfPTgradendcolor@b-\pgfPTgradstartcolor@b}\edef\pgfPTgrad@delta@b{\pgfmathresult}%
+\pgfmathparse{sign(\pgfPTgrad@delta@r)}\edef\pgfPTgrad@delta@r@sign{\pgfmathresult}%
+\pgfmathparse{sign(\pgfPTgrad@delta@g)}\edef\pgfPTgrad@delta@g@sign{\pgfmathresult}%
+\pgfmathparse{sign(\pgfPTgrad@delta@b)}\edef\pgfPTgrad@delta@b@sign{\pgfmathresult}%
+\foreach \n in {1,...,\pgfPTgrad@steps}{%
+    \pgfmathparse{\pgfPTgradstartcolor@r+\pgfPTgrad@delta@r*(\n-1)/(\pgfPTgrad@steps-1)}\edef\pgfPTgrad@red{\pgfmathresult}%
+    \pgfmathparse{\pgfPTgradstartcolor@g+\pgfPTgrad@delta@g*(\n-1)/(\pgfPTgrad@steps-1)}\edef\pgfPTgrad@green{\pgfmathresult}%
+    \pgfmathparse{\pgfPTgradstartcolor@b+\pgfPTgrad@delta@b*(\n-1)/(\pgfPTgrad@steps-1)}\edef\pgfPTgrad@blue{\pgfmathresult}%
+    \pgfmathparse{int(\n-1+#2)}\edef\pgfPT@niplusstep{\pgfmathresult}%
+    \expandafter\xdef\csname pgfPTCScolor#1\@Roman\pgfPT@niplusstep\endcsname{*[rgb:\pgfPTgrad@red,\pgfPTgrad@green,\pgfPTgrad@blue]}%
+    }%
+}%
+%
+%
+% AUX MACRO FOR «CLEANING» LISTS
+\def\@pgfPT@list@purge BEGIN,#1[#2]\relax{\expandafter\edef\csname#2\endcsname{#1}}%
+%
+%
+% BUBBLE SORT
+% adapted from https://tex.stackexchange.com/questions/481678/apply-a-numeric-bubble-sort-to-output-strings-which-are-specified-by-names-code
+\def\pgfPT@listterminator{-1}%
+\def\pgfPT@bubblesort#1\relax{\def\pgfPT@sortedlist{}\pgfPT@sortlist#1,\pgfPT@listterminator,\relax}%
+\def\pgfPT@sortlist#1,#2,#3\relax{%
+  \ifnum#2=\pgfPT@listterminator\relax%
+    \edef\pgfPT@sortedlist{\pgfPT@sortedlist#1}%
+  \else
+    \ifnum#1<#2\relax%
+      \edef\pgfPT@sortedlist{\pgfPT@sortedlist#1,}%
+      \pgfPT@sortlist#2,#3\relax%
+    \else%
+      \let\pgfPT@tmplist\pgfPT@sortedlist%
+      \def\pgfPT@sortedlist{}%
+      \expandafter\pgfPT@sortlist\pgfPT@tmplist#2,#1,#3\relax%
+    \fi%
+  \fi%
+}%
+%
+%
+% THE COLOR MACROS
+\def\@pgfPT@grad@get@n@Gcolor G#1=#2\relax{\edef\@pgfPT@grad@ntmp{#1}\edef\@pgfPT@grad@colortmp{#2}}%
+\def\@pgfPT@grad@get@n@Pcolor P#1=#2\relax{\edef\@pgfPT@grad@ntmp{#1}\edef\@pgfPT@grad@colortmp{#2}}%
+%
+\def\pgfPT@assign@color#1{\expandafter\pgfPT@teststar#1\relax}%
+\def\pgfPT@teststar#1#2\relax{\edef\pgfPT@test{#1}\edef\pgfPT@charstar{*}%
+\ifx\pgfPT@test\pgfPT@charstar\relax\pgfPT@assign@color@bymodel{#2}\else\pgfPT@assign@color@byname{#1#2}\fi%
+}%
+\def\pgfPT@assign@color@bymodel#1{\expandafter\@pgfPT@assign@color@bymodel#1\relax}%
+\def\@pgfPT@assign@color@bymodel[#1:#2]\relax{%
+\edef\@pgfPT@assign@color@bymodel@arg{BEGIN}\expandafter\@pgfPT@assign@color@bymodel@process@arg#2;\relax%
+\expandafter\@pgfPT@list@purge \@pgfPT@assign@color@bymodel@arg[@pgfPT@assign@color@bymodel@arg]\relax%
+\definecolor{pgfPTtmpassignedcolor}{#1}{\@pgfPT@assign@color@bymodel@arg}\colorlet{pgfPTassignedcolor}[rgb]{pgfPTtmpassignedcolor}%
+}%
+\def\@pgfPT@assign@color@bymodel@process@arg#1;#2\relax{%
+\edef\teste{#2}%
+\ifx\teste\pgfPT@relax\edef\@pgfPT@assign@color@bymodel@arg{\@pgfPT@assign@color@bymodel@arg,#1}\else%
+\edef\@pgfPT@assign@color@bymodel@arg{\@pgfPT@assign@color@bymodel@arg,#1}\expandafter\@pgfPT@assign@color@bymodel@process@arg#2\relax\fi%
+}%
+\def\pgfPT@assign@color@byname#1{\colorlet{pgfPTassignedcolor}[rgb]{#1}}%
+%
+%
+% COMBINE TWO CS
+%          mode: 0 -> add ; 1 -> sub ; 2 -> linear
+\def\pgfPTCScombine{\@ifnextchar[\pgfPT@CS@combine{\@pgfPT@CS@combine@nooptions}}%
+\def\@pgfPT@CS@combine@nooptions#1{%
+\edef\pgfPT@CS@combine@options@mode{2}%
+\edef\pgfPT@CS@combine@options@prop@i{1}%
+\edef\pgfPT@CS@combine@options@prop@ii{1}%
+\expandafter\@pgfPT@CS@combine[1:1,2]#1\relax%
+}%
+\def\pgfPT@CS@combine[#1]#2{\ignorespaces%
+\edef\pgfPT@CS@combine@options@prop@i{1}%
+\edef\pgfPT@CS@combine@options@prop@ii{1}%
+\edef\pgfPT@CS@combine@options@mode{2}% linear
+\def\pgfPT@CS@combine@options@firstchar##1##2\relax{\edef\pgfPT@tmp{##1}}%
+\@for\@pgfPT@tmp:=#1\do{%
+        \expandafter\pgfPT@CS@combine@options@firstchar\@pgfPT@tmp\relax%
+        \ifcat1\pgfPT@tmp\relax\pgfPT@temptrue%
+            \def\pgfPT@CS@combine@options@ispropOK##1##2##3##4##5 \relax{\edef\pgfPT@proptestOK{:}%
+                  \edef\pgfPT@proptotest{##2}\ifx\pgfPT@proptestOK\pgfPT@proptotest\pgfPT@tempfalse%
+                  \else\edef\pgfPT@proptotest{##3}\ifx\pgfPT@proptestOK\pgfPT@proptotest\pgfPT@tempfalse%
+                  \else\edef\pgfPT@proptotest{##4}\ifx\pgfPT@proptestOK\pgfPT@proptotest\pgfPT@tempfalse%
+                  \else\edef\pgfPT@proptotest{##5}\ifx\pgfPT@proptestOK\pgfPT@proptotest\pgfPT@tempfalse%
+                  \else\ifpgfPT@temp\PackageError{pgfPT}{\string\pgfPTCScombine: something went wrong in '\detokenize{#1}'\space: did you use the proportion sign ':'? The maximum value of proportion is 999... Default value '1:1' will be used...}{}\fi\relax%
+                  \fi\fi\fi\fi%
+                  }%
+            \expandafter\pgfPT@CS@combine@options@ispropOK\@pgfPT@tmp END \relax%
+            \ifpgfPT@temp\else\def\pgfPT@CS@combine@options@getprop##1:##2\relax{\edef\pgfPT@CS@combine@options@prop@i{##1}\edef\pgfPT@CS@combine@options@prop@ii{##2}}%
+            \expandafter\pgfPT@CS@combine@options@getprop\@pgfPT@tmp\relax\fi%
+        \else%
+            \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+            \edef\pgfPT@CS@combine@options@tmpmode{add}%
+            \ifx\@pgfPT@tmp\pgfPT@CS@combine@options@tmpmode\pgfPT@tempfalse%
+                \edef\pgfPT@CS@combine@options@mode{0}%
+            \else%
+            \edef\pgfPT@CS@combine@options@tmpmode{sub}%
+            \ifx\@pgfPT@tmp\pgfPT@CS@combine@options@tmpmode\pgfPT@tempfalse%
+                \edef\pgfPT@CS@combine@options@mode{1}%
+            \else%
+            \edef\pgfPT@CS@combine@options@tmpmode{linear}%
+            \ifx\@pgfPT@tmp\pgfPT@CS@combine@options@tmpmode\pgfPT@tempfalse%
+                \edef\pgfPT@CS@combine@options@mode{2}%
+            \else%handler not found
+            \ifpgfPT@temp\PackageError{pgfPT}{\string\pgfPTCScombine: '\@pgfPT@tmp'\space in '\detokenize{#1}'\space not known! Default value 'linear' will be used...}{}\fi\relax%
+            \fi\fi\fi%
+        \fi%
+        }%
+\expandafter\@pgfPT@CS@combine[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii,\pgfPT@CS@combine@options@mode]#2\relax%
+}%
+\def\@pgfPT@CS@combine[#1:#2,#3]#4\relax{\ignorespaces%
+\def\@pgfPT@CS@getNames##1,##2,##3\relax{\edef\@pgfPT@CS@name@i{##1}\edef\@pgfPT@CS@name@ii{##2}\edef\@pgfPT@CS@name@iii{##3}}%
+\expandafter\@pgfPT@CS@getNames#4\relax%
+\edef\pgfPT@CStmp@one{\csname pgfPT@backColorsScheme@\@pgfPT@CS@name@i\endcsname}
+\edef\pgfPT@CStmp@two{\csname pgfPT@backColorsScheme@\@pgfPT@CS@name@ii\endcsname}
+\if\pgfPT@CStmp@one\pgfPT@relax%
+\PackageError{pgfPT}{\string\pgfPTCScombine: the color scheme '\@pgfPT@CS@name@i'\space is not defined! A full white color scheme will be used...}{}%
+\pgfPTnewColorScheme[1/1/1]{pgfPTCSnameerror}{1/1/1}%
+\edef\pgfPT@CStmp@one{pgfPT@backColorsScheme@pgfPTCSnameerror}%
+\fi%
+\if\pgfPT@CStmp@two\pgfPT@relax%
+\PackageError{pgfPT}{\string\pgfPTCScombine: the color scheme '\@pgfPT@CS@name@ii'\space is not defined! A full white color scheme will be used...}{}%
+\pgfPTnewColorScheme[1/1/1]{pgfPTCSnameerror}{1/1/1}%
+\edef\pgfPT@CStmp@two{pgfPT@backColorsScheme@pgfPTCSnameerror}%\fi%
+\fi%
+% sum...
+\edef\@pgfPT@listtosum{(\pgfPT@CStmp@one+\pgfPT@CStmp@two)}%
+\expandafter\pgfPT@somalistas\@pgfPT@listtosum\relax%
+% DO THE NEW CS
+\pgfPTnewColorScheme[1/1/1]{\@pgfPT@CS@name@iii}{\pgfPT@sum@list}%
+}% END \pgfPTCScombine
+%
+% SUM TWO LISTS
+\edef\@pgfPT@ENDLIST{ENDLIST}%
+\def\pgfPT@somalistas(#1+#2){%
+\edef\pgfPT@lista@i{0}\edef\pgfPT@lista@ii{0}\edef\pgfPT@lista@control{0}\edef\pgfPT@somafeita{0}%
+\edef\pgfPT@sum@list{BEGIN}%
+\edef\pgfPT@listas{#1,\@pgfPT@ENDLIST+#2,\@pgfPT@ENDLIST}\expandafter\@pgfPT@somalistas\pgfPT@listas\relax%
+}%
+\def\@pgfPT@somalistas#1,#2+#3,#4\relax{\ignorespaces%
+\ifcase\pgfPT@lista@control\relax%
+% case 0: both have values
+\expandafter\pgfPT@lista@i@rgb#1\relax%
+\expandafter\pgfPT@lista@ii@rgb#3\relax%
+\ifcase\pgfPT@CS@combine@options@mode\relax%
+% 0 -> add
+\@pgfPT@mix@additive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\or% 1 -> sub
+\@pgfPT@mix@subtractive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\or% 2 -> linear
+\@pgfPT@mix@linear[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\fi%
+\or% case 1: list one ended
+\expandafter\pgfPT@lista@ii@rgb#1#3\relax%
+\ifcase\pgfPT@CS@combine@options@mode\relax%
+% 0 -> add
+\@pgfPT@mix@additive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@lastval@r/\pgfPT@lista@i@lastval@g/\pgfPT@lista@i@lastval@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\or% 1 -> sub
+\@pgfPT@mix@subtractive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@lastval@r/\pgfPT@lista@i@lastval@g/\pgfPT@lista@i@lastval@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\or% 2 -> linear
+\@pgfPT@mix@linear[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@lastval@r/\pgfPT@lista@i@lastval@g/\pgfPT@lista@i@lastval@b,\pgfPT@lista@ii@r/\pgfPT@lista@ii@g/\pgfPT@lista@ii@b)%
+\fi%
+\or% case 2: list two ended
+\expandafter\pgfPT@lista@i@rgb#1\relax%
+\ifcase\pgfPT@CS@combine@options@mode\relax%
+% 0 -> add
+\@pgfPT@mix@additive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@lastval@r/\pgfPT@lista@ii@lastval@g/\pgfPT@lista@ii@lastval@b)%
+\or% 1 -> sub
+\@pgfPT@mix@subtractive[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@lastval@r/\pgfPT@lista@ii@lastval@g/\pgfPT@lista@ii@lastval@b)%
+\or% 2 -> linear
+\@pgfPT@mix@linear[\pgfPT@CS@combine@options@prop@i:\pgfPT@CS@combine@options@prop@ii](\pgfPT@lista@i@r/\pgfPT@lista@i@g/\pgfPT@lista@i@b,\pgfPT@lista@ii@lastval@r/\pgfPT@lista@ii@lastval@g/\pgfPT@lista@ii@lastval@b)%
+\fi%
+\or% case 3: both lists ended
+\expandafter\@pgfPT@list@purge \pgfPT@sum@list[pgfPT@sum@list]\relax%
+\edef\pgfPT@somafeita{1}%
+\fi%
+\edef\pgfPT@teste{#2}\ifx\pgfPT@teste\@pgfPT@ENDLIST\edef\pgfPT@lista@i{1}\fi%
+\edef\pgfPT@teste{#4}\ifx\pgfPT@teste\@pgfPT@ENDLIST\edef\pgfPT@lista@ii{2}\fi%
+\ifnum\pgfPT@lista@i=1\relax\ifnum\pgfPT@lista@control=0\relax\edef\pgfPT@lista@i@lastval@r{\pgfPT@lista@i@r}%
+\edef\pgfPT@lista@i@lastval@g{\pgfPT@lista@i@g}\edef\pgfPT@lista@i@lastval@b{\pgfPT@lista@i@b}\fi%
+\edef\pgfPT@lista@i@remainder{,\@pgfPT@ENDLIST}\else\edef\pgfPT@lista@i@remainder{#2}\fi%
+\ifnum\pgfPT@lista@ii=2\relax\ifnum\pgfPT@lista@control=0\relax\edef\pgfPT@lista@ii@lastval@r{\pgfPT@lista@ii@r}%
+\edef\pgfPT@lista@ii@lastval@g{\pgfPT@lista@ii@g}\edef\pgfPT@lista@ii@lastval@b{\pgfPT@lista@ii@b}\fi%
+\edef\pgfPT@lista@ii@remainder{,\@pgfPT@ENDLIST}\else\edef\pgfPT@lista@ii@remainder{#4}\fi%
+\pgfmathparse{int(\pgfPT@lista@i+\pgfPT@lista@ii)}\edef\pgfPT@lista@control{\pgfmathresult}%
+\ifnum\pgfPT@somafeita=0\relax\edef\pgfPT@sum@list{\pgfPT@sum@list,\pgfPT@CS@mix@r/\pgfPT@CS@mix@g/\pgfPT@CS@mix@b}%
+\edef\pgfPT@listas{\pgfPT@lista@i@remainder+\pgfPT@lista@ii@remainder}\expandafter\@pgfPT@somalistas\pgfPT@listas\relax\fi%
+}%
+\def\pgfPT@lista@i@rgb#1/#2/#3\relax{\edef\pgfPT@lista@i@r{#1}\edef\pgfPT@lista@i@g{#2}\edef\pgfPT@lista@i@b{#3}}%
+\def\pgfPT@lista@ii@rgb#1/#2/#3\relax{\edef\pgfPT@lista@ii@r{#1}\edef\pgfPT@lista@ii@g{#2}\edef\pgfPT@lista@ii@b{#3}}%
+%
+%
+% ---- Adding two colors (subtractive) with n parts of color one and k parts of color two ----
+% Actually, you get green from mixing (subtractively) yellow and cyan.
+% Yellow is red + green (255, 255, 0), cyan is green + blue (0, 255, 255).
+% Now make their opposite colors: blue (0, 0, 255) and red (255, 0, 0).
+% Mix them additively and you get purple (255, 0, 255).
+% Make its opposite and you get green (0, 255, 0).
+% In other words, you can get a subtractive mix as the opposite of the additive mix of the opposites of your two colors.
+% Finding a complementary color is very simple in the RGB model:
+% For any given color, for example, red (#FF0000), you need to find the color, which, after being added to red, creates white (0xFFFFFF).
+% Naturally, all you need to do, is subtract red from white and get cyan (0xFFFFFF - 0xFF0000 = 0x00FFFF).
+\def\pgfPT@mix@subtractive{\@ifnextchar[\@pgfPT@mix@subtractive{\@pgfPT@mix@subtractive[1:1]}}%
+\def\@pgfPT@mix@subtractive[#1:#2](#3/#4/#5,#6/#7/#8){%
+% color one -> opposite(color one) = (1-red)/(1-green)/(1-blue)
+\pgfmathparse{1-#3}\edef\pgfPT@CS@colorone@not@r{\pgfmathresult}%
+\pgfmathparse{1-#4}\edef\pgfPT@CS@colorone@not@g{\pgfmathresult}%
+\pgfmathparse{1-#5}\edef\pgfPT@CS@colorone@not@b{\pgfmathresult}%
+% color two -> opposite(color two) = (1-red)/(1-green)/(1-blue)
+\pgfmathparse{1-#6}\edef\pgfPT@CS@colortwo@not@r{\pgfmathresult}%
+\pgfmathparse{1-#7}\edef\pgfPT@CS@colortwo@not@g{\pgfmathresult}%
+\pgfmathparse{1-#8}\edef\pgfPT@CS@colortwo@not@b{\pgfmathresult}%
+% sum opposite(color one) + opposite(color two)
+\pgfmathparse{#1*\pgfPT@CS@colorone@not@r+#2*\pgfPT@CS@colortwo@not@r}\edef\pgfPT@CS@sum@r{\pgfmathresult}%
+\pgfmathparse{#1*\pgfPT@CS@colorone@not@g+#2*\pgfPT@CS@colortwo@not@g}\edef\pgfPT@CS@sum@g{\pgfmathresult}%
+\pgfmathparse{#1*\pgfPT@CS@colorone@not@b+#2*\pgfPT@CS@colortwo@not@b}\edef\pgfPT@CS@sum@b{\pgfmathresult}%
+%
+\pgfmathparse{max(\pgfPT@CS@sum@r,\pgfPT@CS@sum@g,\pgfPT@CS@sum@b)}\edef\pgfPT@CS@sum@max{\pgfmathresult}%
+\pgfmathgreater{\pgfPT@CS@sum@max}{1}\edef\pgfPT@CS@sum@maxIsGreater{\pgfmathresult}%
+\ifnum\pgfPT@CS@sum@maxIsGreater=1\relax%
+\pgfmathparse{\pgfPT@CS@sum@r/\pgfPT@CS@sum@max}\edef\pgfPT@CS@sum@r{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@sum@g/\pgfPT@CS@sum@max}\edef\pgfPT@CS@sum@g{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@sum@b/\pgfPT@CS@sum@max}\edef\pgfPT@CS@sum@b{\pgfmathresult}%
+\fi%
+% opposite sum
+\pgfmathparse{1-\pgfPT@CS@sum@r}\edef\pgfPT@CS@mix@r{\pgfmathresult}%
+\pgfmathparse{1-\pgfPT@CS@sum@g}\edef\pgfPT@CS@mix@g{\pgfmathresult}%
+\pgfmathparse{1-\pgfPT@CS@sum@b}\edef\pgfPT@CS@mix@b{\pgfmathresult}%
+%
+\definecolor{pgfPTmixedcolor}{rgb}{\pgfPT@CS@mix@r,\pgfPT@CS@mix@g,\pgfPT@CS@mix@b}%
+}%
+%
+% ---- Adding two colors (additive) with n parts of color one and k parts of color two ----
+\def\pgfPT@mix@additive{\@ifnextchar[\@pgfPT@mix@additive{\@pgfPT@mix@additive[1:1]}}%
+\def\@pgfPT@mix@additive[#1:#2](#3/#4/#5,#6/#7/#8){%
+\pgfmathparse{#1*#3+#2*#6}\edef\pgfPT@CS@mix@r{\pgfmathresult}%
+\pgfmathparse{#1*#4+#2*#7}\edef\pgfPT@CS@mix@g{\pgfmathresult}%
+\pgfmathparse{#1*#5+#2*#8}\edef\pgfPT@CS@mix@b{\pgfmathresult}%
+\pgfmathparse{max(\pgfPT@CS@mix@r,\pgfPT@CS@mix@g,\pgfPT@CS@mix@b)}\edef\pgfPT@CS@sum@max{\pgfmathresult}%
+\pgfmathgreater{\pgfPT@CS@sum@max}{1}\edef\pgfPT@CS@sum@maxIsGreater{\pgfmathresult}%
+\ifnum\pgfPT@CS@sum@maxIsGreater=1\relax%
+\pgfmathparse{\pgfPT@CS@mix@r/\pgfPT@CS@sum@max}\edef\pgfPT@CS@mix@r{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@mix@g/\pgfPT@CS@sum@max}\edef\pgfPT@CS@mix@g{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@mix@b/\pgfPT@CS@sum@max}\edef\pgfPT@CS@mix@b{\pgfmathresult}%
+\fi%
+\definecolor{pgfPTmixedcolor}{rgb}{\pgfPT@CS@mix@r,\pgfPT@CS@mix@g,\pgfPT@CS@mix@b}%
+}%
+%
+% Color mixing (as in xcolor)
+%           « In general, we use linear interpolation for color mixing: mix(C1, C2, p) = p * C1 + (1 - p) * C2 »
+\def\pgfPT@mix@linear{\@ifnextchar[\@pgfPT@mix@linear{\@pgfPT@mix@linear[1:1]}}%
+\def\@pgfPT@mix@linear[#1:#2](#3/#4/#5,#6/#7/#8){%
+\pgfmathparse{#1/(#1+#2)}\edef\pgfPT@CS@mix@p{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@mix@p*#3+(1-\pgfPT@CS@mix@p)*#6}\edef\pgfPT@CS@mix@r{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@mix@p*#4+(1-\pgfPT@CS@mix@p)*#7}\edef\pgfPT@CS@mix@g{\pgfmathresult}%
+\pgfmathparse{\pgfPT@CS@mix@p*#5+(1-\pgfPT@CS@mix@p)*#8}\edef\pgfPT@CS@mix@b{\pgfmathresult}%
+\definecolor{pgfPTmixedcolor}{rgb}{\pgfPT@CS@mix@r,\pgfPT@CS@mix@g,\pgfPT@CS@mix@b}%
+}%
+%
+%
+% \pgfPTCSwrite[filename]{List of CSNames}
+\begingroup%
+\catcode`\|=0%
+\catcode`\\=11%
+|gdef|pgfPTCSwrite{|@ifnextchar[|pgfPT@CSwrite{|pgfPT@CSwrite[]}}%
+|gdef|pgfPT@CSwrite[#1]#2{%
+|pgfPT@tempfalse%
+|edef|pgfPT@CSnamesprovided{#2}%
+|ifx|pgfPT@CSnamesprovided|pgfPT@relax%
+|PackageError{pgfPT}{\pgfPTCSwrite: no Color Scheme names provided. No file will be written...}{}|relax%
+|else%
+|pgfPT@temptrue|relax%
+|xdef|pgfPT@filenameprovided{#1}%
+|ifx|pgfPT@filenameprovided|pgfPT@relax|relax%
+% setting the file name with the first name of the list
+|def|pgfPT@setfilename##1,##2 |relax{|edef|pgfPT@filename{##1}}%
+|expandafter|pgfPT@setfilename#2, |relax%
+|else%
+|edef|pgfPT@filename{#1}%
+|fi|fi%
+|ifpgfPT@temp%
+|immediate|newwrite|pgfPT@CSfile%
+|immediate|openout|pgfPT@CSfile=|pgfPT@filename.tex%
+|@for|@pgfPT@tmp:=#2|do{%
+|edef|pgfPT@CS@contents{|csname pgfPT@backColorsScheme@|@pgfPT@tmp|endcsname}%
+|if|pgfPT@CS@contents|relax%
+|PackageError{pgfPT}{\pgfPTCSwrite: the named Color Scheme you provided ('|@pgfPT@tmp') doesn't exist. It will not be written to file...}{}|relax%
+|else%
+|immediate|write|pgfPT@CSfile{%
+\pgfPTnewColorScheme{|@pgfPT@tmp}{|pgfPT@CS@contents}%
+}%
+|fi%
+}% end do
+|immediate|closeout|pgfPT@CSfile%
+|fi% pgfPT@temp
+}%
+|endgroup%
+%
+%
+\makeatother%
+\endinput

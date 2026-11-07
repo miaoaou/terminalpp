@@ -1,0 +1,18 @@
+name outlining
+category Package
+revision 45601
+shortdesc Create outlines for scientific documents
+relocated 1
+longdesc Every scientifc document requires outlining before it is
+longdesc written. This package adds simple macros for your LaTeX
+longdesc document.
+runfiles size=1
+ RELOC/tex/latex/outlining/outlining.sty
+catalogue-contact-announce https://github.com/dimitriblock/latex-outlining/releases
+catalogue-contact-bugs https://github.com/dimitriblock/latex-outlining/issues
+catalogue-contact-repository https://github.com/dimitriblock/latex-outlining
+catalogue-ctan /macros/latex/contrib/outlining
+catalogue-date 2017-10-27 05:58:14 +0200
+catalogue-license lppl1.3
+catalogue-topics outline
+catalogue-version 0.1

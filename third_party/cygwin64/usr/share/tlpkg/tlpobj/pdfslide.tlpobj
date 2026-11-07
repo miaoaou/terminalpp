@@ -1,0 +1,30 @@
+name pdfslide
+category Package
+revision 15878
+shortdesc Presentation slides using pdfTeX
+relocated 1
+longdesc This is a package for use with pdfTeX, to make nice
+longdesc presentation slides. Its aims are: to devise a method for
+longdesc easier technical presentation; to help the mix of mathematical
+longdesc formulae with text and graphics which other present day
+longdesc document processing tools fail to accomplish; to exploit the
+longdesc platform independence of TeX so that presentation documents
+longdesc become portable; and to offer the freedom and possibilities of
+longdesc using various backgrounds and other embellishments that a user
+longdesc can imagine to have in as presentation. The package can make
+longdesc use of the facilities of the PPower4 post-processor.
+runfiles size=25
+ RELOC/tex/latex/pdfslide/bg.jpg
+ RELOC/tex/latex/pdfslide/d12.jpg
+ RELOC/tex/latex/pdfslide/metablue.pdf
+ RELOC/tex/latex/pdfslide/metagray.pdf
+ RELOC/tex/latex/pdfslide/metagreen.pdf
+ RELOC/tex/latex/pdfslide/metalgray.pdf
+ RELOC/tex/latex/pdfslide/pdfslide.cfg
+ RELOC/tex/latex/pdfslide/pdfslide.sty
+ RELOC/tex/latex/pdfslide/slide.clo
+catalogue-also prosper
+catalogue-ctan /macros/latex/contrib/pdfslide
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation

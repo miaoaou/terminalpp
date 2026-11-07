@@ -1,0 +1,14 @@
+name simplecv
+category Package
+revision 35537
+shortdesc A simple class for writing curricula vitae
+relocated 1
+longdesc A derivative of the cv class available to lyx users (renamed to
+longdesc avoid the existing cv package).
+runfiles size=2
+ RELOC/tex/latex/simplecv/simplecv.cls
+catalogue-ctan /macros/latex/contrib/simplecv
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics cv lyx class
+catalogue-version 1.6a

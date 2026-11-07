@@ -1,0 +1,19 @@
+name addfont
+category Package
+revision 58559
+shortdesc Easier use of fonts without LaTeX support
+relocated 1
+longdesc This package is intended for use by users who know about fonts.
+longdesc It is a quick-fix for fonts which do not have genuine LaTeX
+longdesc support. It is not meant as a replacement of the LaTeX font
+longdesc definition files. It is meant as something more useable for
+longdesc LaTeX users than the \newfont command. With addfont the loaded
+longdesc font scales along with the usual LaTeX size selection. Using
+longdesc this package still requires some knowledge on how to use fonts
+longdesc with LaTeX.
+runfiles size=1
+ RELOC/tex/latex/addfont/addfont.sty
+catalogue-ctan /macros/latex/contrib/addfont
+catalogue-license gpl3+
+catalogue-topics font-use font-mgmt
+catalogue-version 1.1

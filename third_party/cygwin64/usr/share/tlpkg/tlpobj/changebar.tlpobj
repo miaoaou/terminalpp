@@ -1,0 +1,17 @@
+name changebar
+category Package
+revision 69367
+shortdesc Generate changebars in LaTeX documents
+relocated 1
+longdesc Identify areas of text to be marked with changebars with the
+longdesc \cbstart and \cbend commands; the bars may be coloured. The
+longdesc package uses 'drivers' to place the bars; the available drivers
+longdesc can work with dvitoln03, dvitops, dvips, the emTeX and TeXtures
+longdesc DVI drivers, and VTeX and pdfTeX.
+runfiles size=10
+ RELOC/tex/latex/changebar/changebar.sty
+catalogue-also chbar xechangebar backgrnd
+catalogue-ctan /macros/latex/contrib/changebar
+catalogue-license lppl1.3
+catalogue-topics editorial
+catalogue-version 3.7d

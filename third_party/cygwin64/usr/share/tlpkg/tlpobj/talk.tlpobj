@@ -1,0 +1,32 @@
+name talk
+category Package
+revision 42428
+shortdesc A LaTeX class for presentations
+relocated 1
+longdesc The talk document class allows you to create slides for screen
+longdesc presentations or printing on transparencies. It also allows you
+longdesc to print personal notes for your talk. You can create overlays
+longdesc and display structure information (current section /
+longdesc subsection, table of contents) on your slides. The main feature
+longdesc that distinguishes talk from other presentation classes like
+longdesc beamer or prosper is that it allows the user to define an
+longdesc arbitrary number of slide styles and switch between these
+longdesc styles from slide to slide. This way the slide layout can be
+longdesc adapted to the slide content. For example, the title or
+longdesc contents page of a talk can be given a slightly different
+longdesc layout than the other slides. The talk class makes no
+longdesc restrictions on the slide design whatsoever. The entire look
+longdesc and feel of the presentation can be defined by the user. The
+longdesc style definitions should be put in a separate sty file.
+longdesc Currently the package comes with only one set of pre-defined
+longdesc slide styles (greybars.sty). Contributions from people who are
+longdesc artistically more gifted than the author are more than welcome!
+runfiles size=5
+ RELOC/tex/latex/talk/sidebars.sty
+ RELOC/tex/latex/talk/talk.cls
+catalogue-also seminar foiltex
+catalogue-ctan /macros/latex/contrib/talk
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 1.1

@@ -1,0 +1,54 @@
+%%
+%% This is file `memoizable.code.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% memoize.dtx  (with options: `mmzable,generic')
+%% 
+%% This file is a part of Memoize, a TeX package for externalization of
+%% graphics and memoization of compilation results in general, available at
+%% https://ctan.org/pkg/memoize and https://github.com/sasozivanovic/memoize.
+%%
+%% Copyright (c) 2020- Saso Zivanovic <saso.zivanovic@guest.arnes.si>
+%%                     (Sa\v{s}o \v{Z}ivanovi\'{c})
+%%
+%% This work may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License, either version 1.3c of this license or (at
+%% your option) any later version.  The latest version of this license is in
+%% https://www.latex-project.org/lppl.txt and version 1.3c or later is part of
+%% all distributions of LaTeX version 2008 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Saso Zivanovic.
+%%
+%% The files belonging to this work and covered by LPPL are listed in
+%% (<texmf>/doc/generic/memoize/)FILES.
+\ifcsname mmz@loadstatus\endcsname\endinput\fi
+\def\mmz@loadstatus{2}%
+\def\mmzset#1{\ignorespaces}
+\def\nommzkeys{\pgfqkeys{/mmz}}
+\pgfqkeys{/mmz}{.unknown/.code={\pgfkeysdef{\pgfkeyscurrentkey}{}}}
+\newif\ifmemoize
+\newif\ifmemoizing
+\newif\ifinmemoize
+\pgfkeys{%
+  /handlers/.meaning to context/.code={},
+  /handlers/.value to context/.code={},
+}
+\let\mmzAbort\relax
+\let\mmzUnmemoizable\relax
+\newcommand\IfMemoizing[2][]{\@secondoftwo}
+\let\mmzNoRef\@gobble
+\let\mmzForceNoRef\@gobble
+\newtoks\mmzContext
+\newtoks\mmzContextExtra
+\newtoks\mmzCMemo
+\newtoks\mmzCCMemo
+\newcount\mmzExternPages
+\newcount\mmzExtraPages
+\let\mmzTracingOn\relax
+\let\mmzTracingOff\relax
+\endinput
+%%
+%% End of file `memoizable.code.tex'.

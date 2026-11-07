@@ -1,0 +1,17 @@
+name hypernat
+category Package
+revision 17358
+shortdesc Allow hyperref and natbib to work together
+relocated 1
+longdesc Allows hyperref package and the natbib package with options
+longdesc 'numbers' and 'sort&compress' to work together. This means that
+longdesc multiple sequential citations (e.g [3,2,1]) will be compressed
+longdesc to [1-3], where the '1' and the '3' are (color-)linked to the
+longdesc bibliography.
+runfiles size=2
+ RELOC/tex/latex/hypernat/hypernat.sty
+catalogue-ctan /macros/latex/contrib/hypernat
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics hyper cite-supp
+catalogue-version 1.0b

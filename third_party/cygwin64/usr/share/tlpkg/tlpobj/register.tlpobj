@@ -1,0 +1,22 @@
+name register
+category Package
+revision 54485
+shortdesc Typeset programmable elements in digital hardware (registers)
+relocated 1
+longdesc This package is designed for typesetting the programmable
+longdesc elements in digital hardware, i.e., registers. Such registers
+longdesc typically have many fields and can be quite wide; they are thus
+longdesc a challenge to typeset in a consistent manner. Register is
+longdesc similar in some aspects to the bytefield and bitpattern
+longdesc packages. Anyone doing hardware documentation using LaTeX
+longdesc should examine those packages. Register requires version
+longdesc 2001/07/25 or newer of the float package. An example Perl
+longdesc module and script are provided, to convert the register
+longdesc specifications into structures suitable for, say, a pre-silicon
+longdesc test environment.
+runfiles size=5
+ RELOC/tex/latex/register/register.sty
+catalogue-ctan /macros/latex/contrib/register
+catalogue-license lppl1.3
+catalogue-topics engineering comp-sci comp-net
+catalogue-version 2.0

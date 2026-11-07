@@ -1,0 +1,17 @@
+name picture
+category Package
+revision 54867
+shortdesc Dimens for picture macros
+relocated 1
+longdesc There are macro and environment arguments that expect numbers
+longdesc that will internally be multiplied by \unitlength. This package
+longdesc extends the syntax of these arguments, so that dimensions with
+longdesc calculation support may be used for these arguments.
+runfiles size=2
+ RELOC/tex/latex/picture/picture.sty
+catalogue-contact-bugs https://github.com/ho-tex/picture/issues
+catalogue-contact-repository https://github.com/ho-tex/picture
+catalogue-ctan /macros/latex/contrib/picture
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 1.6

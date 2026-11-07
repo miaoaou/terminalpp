@@ -1,0 +1,8 @@
+name mptopdf.doc
+category Package
+revision 69363
+shortdesc doc files of mptopdf
+docfiles size=6
+ texmf-dist/doc/context/scripts/mkii/mptopdf.man
+ texmf-dist/doc/man/man1/mptopdf.1
+ texmf-dist/doc/man/man1/mptopdf.man1.pdf

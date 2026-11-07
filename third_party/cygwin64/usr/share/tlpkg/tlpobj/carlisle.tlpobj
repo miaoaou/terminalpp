@@ -1,0 +1,26 @@
+name carlisle
+category Package
+revision 59577
+shortdesc David Carlisle's small packages
+relocated 1
+longdesc Many of David Carlisle's more substantial packages stand on
+longdesc their own, or as part of the LaTeX latex-tools set; this set
+longdesc contains: Making dotless 'j' characters for fonts that don't
+longdesc have them; A method for combining the capabilities of longtable
+longdesc and tabularx; An environment for including Plain TeX in LaTeX
+longdesc documents; A jiffy to remove counters from other counters'
+longdesc reset lists (now obsolete as it has been incorporated into the
+longdesc LaTeX format); A jiffy to create 'slashed' characters for
+longdesc physicists.
+runfiles size=8
+ RELOC/tex/latex/carlisle/dotlessj.sty
+ RELOC/tex/latex/carlisle/ltxtable.sty
+ RELOC/tex/latex/carlisle/plain.sty
+ RELOC/tex/latex/carlisle/remreset.sty
+ RELOC/tex/latex/carlisle/scalefnt.sty
+ RELOC/tex/latex/carlisle/slashed.sty
+catalogue-contact-bugs https://github.com/davidcarlisle/dpctex/issues
+catalogue-contact-repository https://github.com/davidcarlisle/dpctex
+catalogue-ctan /macros/latex/contrib/carlisle
+catalogue-license lppl
+catalogue-topics collection

@@ -1,0 +1,17 @@
+name metastr
+category Package
+revision 56246
+shortdesc Store and compose strings
+relocated 1
+longdesc This is a package to store and compose strings in a structured
+longdesc way. This can serve various purposes, for example: manage and
+longdesc write document metadata; use templates for formatting document
+longdesc data; assist in assembling and displaying document license
+longdesc information; facilitate basic internationalisation and
+longdesc localisation.
+runfiles size=9
+ RELOC/tex/latex/metastr/metastr.sty
+catalogue-ctan /macros/latex/contrib/metastr
+catalogue-license lppl1.3
+catalogue-topics metadata string licence-mgmt
+catalogue-version 1.1.2

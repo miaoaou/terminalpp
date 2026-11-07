@@ -1,0 +1,33 @@
+name media9
+category Package
+revision 64047
+shortdesc Multimedia inclusion package with Adobe Reader-9/X compatibility
+relocated 1
+longdesc The package provides an interface to embed interactive Flash
+longdesc (SWF) and 3D objects (Adobe U3D & PRC), as well as video and
+longdesc sound files or streams in the popular MP4, FLV and MP3 formats
+longdesc into PDF documents with Acrobat-9/X compatibility. Playback of
+longdesc multimedia files uses the built-in Flash Player of Adobe Reader
+longdesc and does, therefore, not depend on external plug-ins. Flash
+longdesc Player supports the efficient H.264 codec for video
+longdesc compression. The package is based on the RichMedia Annotation,
+longdesc an Adobe addition to the PDF specification. It replaces the now
+longdesc obsolete movie15 package.
+runfiles size=535
+ RELOC/tex/latex/media9/javascript/3Dmenu.js
+ RELOC/tex/latex/media9/javascript/3Dspintool.js
+ RELOC/tex/latex/media9/javascript/animation.js
+ RELOC/tex/latex/media9/javascript/asylabels.js
+ RELOC/tex/latex/media9/media9.sty
+ RELOC/tex/latex/media9/pdfbase.sty
+ RELOC/tex/latex/media9/players/APlayer.swf
+ RELOC/tex/latex/media9/players/APlayer9.swf
+ RELOC/tex/latex/media9/players/SlideShow.swf
+ RELOC/tex/latex/media9/players/StrobeMediaPlayback.swf
+ RELOC/tex/latex/media9/players/VPlayer.swf
+ RELOC/tex/latex/media9/players/VPlayer9.swf
+catalogue-contact-repository https://gitlab.com/agrahn/media9
+catalogue-ctan /macros/latex/contrib/media9
+catalogue-license lppl
+catalogue-topics multimedia expl3
+catalogue-version 1.25

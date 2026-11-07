@@ -1,0 +1,53 @@
+name datatool
+category Package
+revision 52663
+shortdesc Tools to load and manipulate data
+relocated 1
+longdesc The tools comprise six packages: datatool.sty: databases may be
+longdesc created using LaTeX commands or by importing external files;
+longdesc they may be sorted numerically or alphabetically; repetitive
+longdesc operations (such as mail merging) may be performed on each row
+longdesc of a database, subject to conditions to exclude particular
+longdesc rows; commands are provided to examine database elements, and
+longdesc to convert formats (for example, to convert a numeric element
+longdesc to a format compatible with the fp package; datapie.sty: a
+longdesc database may be represented as a pie chart; flexible options
+longdesc allow colouring of the chart, and annotation hooks are
+longdesc available; dataplot.sty: a database may be represented as a
+longdesc 2-dimensional scatter or line plot; flexible options control of
+longdesc the plot's overall appearance, and of legends and other extra
+longdesc information; databar.sty: a database may be represented as a
+longdesc bar chart; overall appearance, colouring and annotation are
+longdesc controllable; datagidx.sty: provides a way of indexing or
+longdesc creating glossaries/lists of acronyms that uses TeX to do the
+longdesc sorting and collating instead of using an external indexing
+longdesc application, such as xindy or makeindex; databib.sty: a
+longdesc bibliography may be loaded into a datatool database, and
+longdesc manipulated there before being printed (this permits a
+longdesc LaTeX-based route to printing bibliographies in formats for
+longdesc which no BibTeX style is available); and person.sty: provides
+longdesc support for displaying a person's name and pronoun in a
+longdesc document, thus avoiding cumbersome use of "he/she", etc. The
+longdesc drawing packages make use of PGF/TikZ for their output. The
+longdesc bundle supersedes and replaces the author's csvtools bundle.
+depend fp
+depend substr
+depend xfor
+depend xkeyval
+runfiles size=119
+ RELOC/bibtex/bst/datatool/databib.bst
+ RELOC/tex/latex/datatool/databar.sty
+ RELOC/tex/latex/datatool/databib.sty
+ RELOC/tex/latex/datatool/datagidx.sty
+ RELOC/tex/latex/datatool/datapie.sty
+ RELOC/tex/latex/datatool/dataplot.sty
+ RELOC/tex/latex/datatool/datatool-base.sty
+ RELOC/tex/latex/datatool/datatool-fp.sty
+ RELOC/tex/latex/datatool/datatool-pgfmath.sty
+ RELOC/tex/latex/datatool/datatool.sty
+ RELOC/tex/latex/datatool/person.sty
+catalogue-ctan /macros/latex/contrib/datatool
+catalogue-date 2019-09-27 21:27:57 +0200
+catalogue-license lppl1.3
+catalogue-topics data-import data-disp data-manip
+catalogue-version 2.32

@@ -1,0 +1,22 @@
+name lt3rawobjects
+category Package
+revision 66619
+shortdesc Objects and proxies in LaTeX3
+relocated 1
+longdesc This package introduces a new mechanism to create objects like
+longdesc the well known C structures. The functions exported by this
+longdesc package are quite low level, and many important mechanisms like
+longdesc member protection and name resolution aren't already defined
+longdesc and should be introduced by intermediate packages.
+runfiles size=9
+ RELOC/tex/latex/lt3rawobjects/lt3rawobjects.sty
+catalogue-contact-announce https://github.com/Loara/lt3rawobjects/releases
+catalogue-contact-bugs https://github.com/Loara/lt3rawobjects/issues
+catalogue-contact-development https://github.com/Loara/lt3rawobjects/pulls
+catalogue-contact-home https://github.com/Loara/lt3rawobjects
+catalogue-contact-repository https://github.com/Loara/lt3rawobjects.git
+catalogue-contact-support https://github.com/Loara/lt3rawobjects/discussions
+catalogue-ctan /macros/latex/contrib/lt3rawobjects
+catalogue-license gpl3+
+catalogue-topics macro-supp expl3
+catalogue-version 2.3

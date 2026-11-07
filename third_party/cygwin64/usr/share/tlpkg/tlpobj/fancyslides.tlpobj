@@ -1,0 +1,18 @@
+name fancyslides
+category Package
+revision 36263
+shortdesc Custom presentation class built upon LaTeX Beamer
+relocated 1
+longdesc This class is prepared for short presentations with a modern
+longdesc look & feel. It offers the following features: custom
+longdesc background for each slide, predefined types of slides,
+longdesc simplified commands (e.g. for starting and ending slide). The
+longdesc class is built upon LaTeX beamer, so all beamer commands should
+longdesc work.
+runfiles size=1
+ RELOC/tex/latex/fancyslides/fancyslides.cls
+catalogue-ctan /macros/latex/contrib/fancyslides
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics presentation class
+catalogue-version 1.0

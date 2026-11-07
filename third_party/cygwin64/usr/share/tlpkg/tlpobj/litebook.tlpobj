@@ -1,0 +1,21 @@
+name litebook
+category Package
+revision 70579
+shortdesc A fresh cover and chapter design for books
+relocated 1
+longdesc This template provides a fresh cover and chapter design for
+longdesc books. It was originally used for the reformatting of the
+longdesc textbook General Relativity by R. Wald which you can download
+longdesc from
+longdesc https://github.com/xiamyphys/LaTeX-General-Relativity-R.Wald
+longdesc Welcome to feedback bugs or ideas via email
+longdesc xiamyphys@gmail.com.
+runfiles size=2
+ RELOC/tex/latex/litebook/litebook.cls
+catalogue-contact-bugs https://github.com/xiamyphys/LiteBook/issues
+catalogue-contact-repository https://github.com/xiamyphys/LiteBook
+catalogue-contact-support https://qm.qq.com/q/RGFmHwBecC
+catalogue-ctan /macros/latex/contrib/litebook
+catalogue-license lppl1.3c
+catalogue-topics book-pub class doc-templ
+catalogue-version 0.1c

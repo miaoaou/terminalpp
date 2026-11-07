@@ -1,0 +1,17 @@
+name fewerfloatpages
+category Package
+revision 58058
+shortdesc Reduce the number of unnecessary float pages
+relocated 1
+longdesc This package implements a float algorithm extension for
+longdesc handling float pages. It attempts to reduce the number of
+longdesc unnecessary (fairly empty) float pages while making sure that
+longdesc floats nevertheless stay close to their call-outs. Several
+longdesc aspects of the algorithm behavior are adjustable.
+runfiles size=2
+ RELOC/tex/latex/fewerfloatpages/fewerfloatpages.sty
+catalogue-contact-repository https://github.com/FrankMittelbach/fmitex-fewerfloatpages
+catalogue-ctan /macros/latex/contrib/fewerfloatpages
+catalogue-license lppl1.3c
+catalogue-topics float
+catalogue-version 1.0b

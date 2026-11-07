@@ -1,0 +1,21 @@
+name tikz-3dplot
+category Package
+revision 25087
+shortdesc Coordinate transformation styles for 3d plotting in TikZ
+relocated 1
+longdesc The package provides straightforward ways to define
+longdesc three-dimensional coordinate frames through which to plot in
+longdesc TikZ. The user can specify the orientation of the main
+longdesc coordinate frame, and use standard TikZ commands and
+longdesc coordinates to render their tikzfigure. A secondary coordinate
+longdesc frame is provided to allow rotations and translations with
+longdesc respect to the main coordinate frame. In addition, the package
+longdesc can also handle plotting user-specified functions in spherical
+longdesc polar coordinates, where both the radius and fill color can be
+longdesc expressed as parametric functions of polar angles.
+runfiles size=8
+ RELOC/tex/latex/tikz-3dplot/tikz-3dplot.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-3dplot
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-use graphics-3d pgf-tikz

@@ -1,0 +1,17 @@
+name latex-firstaid-dev
+category Package
+revision 68730
+shortdesc Development pre-release of the LaTeX firstaid package
+relocated 1
+longdesc This is a pre-release version of the standard LaTeX firstaid
+longdesc package. It accompanies the pre-testing kernel code
+longdesc (latex-base-dev), and is intended for testing by knowledgeable
+longdesc users.
+runfiles size=4
+ RELOC/tex/latex-dev/firstaid/filehook-ltx.sty
+ RELOC/tex/latex-dev/firstaid/latex2e-first-aid-for-external-files.ltx
+ RELOC/tex/latex-dev/firstaid/underscore-ltx.sty
+catalogue-ctan /macros/latex-dev/required/firstaid
+catalogue-license lppl1.3c
+catalogue-topics format bugfix latex-devel
+catalogue-version 1.1b

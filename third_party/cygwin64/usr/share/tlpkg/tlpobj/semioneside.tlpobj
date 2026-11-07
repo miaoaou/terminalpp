@@ -1,0 +1,17 @@
+name semioneside
+category Package
+revision 15878
+shortdesc Put only special contents on left-hand pages in two sided layout
+relocated 1
+longdesc This package supports the preparation of semi one sided
+longdesc documents. That is, two sided documents, where all text is
+longdesc output on right-hand pages--as in a one-sided documents--and
+longdesc only special contents are output on left-hand pages on user
+longdesc request, e.g., floating objects.
+runfiles size=1
+ RELOC/tex/latex/semioneside/semioneside.sty
+catalogue-ctan /macros/latex/contrib/semioneside
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics layout
+catalogue-version 0.41

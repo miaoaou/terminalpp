@@ -1,0 +1,23 @@
+name graphics-pln
+category Package
+revision 68760
+shortdesc LaTeX-style graphics for Plain TeX users
+relocated 1
+longdesc The Plain TeX graphics package is mostly a thin shell around
+longdesc the LaTeX graphicx and color packages, with support of the
+longdesc LaTeX-isms in those packages provided by miniltx (which is the
+longdesc largest part of the bundle). The bundle also contains a file
+longdesc "picture.tex", which is a wrapper around the autopict.sty, and
+longdesc provides the LaTeX picture mode to Plain TeX users.
+runfiles size=12
+ RELOC/tex/plain/graphics-pln/autopict.sty
+ RELOC/tex/plain/graphics-pln/color.tex
+ RELOC/tex/plain/graphics-pln/graphicx.tex
+ RELOC/tex/plain/graphics-pln/miniltx.tex
+ RELOC/tex/plain/graphics-pln/picture.tex
+ RELOC/tex/plain/graphics-pln/psfrag.tex
+catalogue-contact-bugs https://github.com/davidcarlisle/graphics-pln/issues
+catalogue-contact-repository https://github.com/davidcarlisle/graphics-pln
+catalogue-ctan /macros/plain/graphics
+catalogue-license lppl1
+catalogue-topics graphics-incl plain-ext

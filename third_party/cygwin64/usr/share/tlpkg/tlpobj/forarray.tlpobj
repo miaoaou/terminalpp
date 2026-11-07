@@ -1,0 +1,21 @@
+name forarray
+category Package
+revision 15878
+shortdesc Using array structures in LaTeX
+relocated 1
+longdesc The package provides functionality for processing lists and
+longdesc array structures in LaTeX. Arrays can contain characters as
+longdesc well as TeX and LaTeX commands, nesting of arrays is possible,
+longdesc and arrays are processed within the same brace level as their
+longdesc surrounding environment. Array levels can be delimited by
+longdesc characters or control sequences defined by the user. Practical
+longdesc uses of this package include data management, construction of
+longdesc lists and tables, and calculations based on the contents of
+longdesc lists and arrays.
+runfiles size=5
+ RELOC/tex/latex/forarray/forarray.sty
+catalogue-ctan /macros/latex/contrib/forarray
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 1.01

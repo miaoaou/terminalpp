@@ -1,0 +1,28 @@
+name fp
+category Package
+revision 49719
+shortdesc Fixed point arithmetic
+relocated 1
+longdesc An extensive collection of arithmetic operations for fixed
+longdesc point real numbers of high precision.
+runfiles size=37
+ RELOC/tex/latex/fp/defpattern.sty
+ RELOC/tex/latex/fp/fp-addons.sty
+ RELOC/tex/latex/fp/fp-basic.sty
+ RELOC/tex/latex/fp/fp-eqn.sty
+ RELOC/tex/latex/fp/fp-eval.sty
+ RELOC/tex/latex/fp/fp-exp.sty
+ RELOC/tex/latex/fp/fp-pas.sty
+ RELOC/tex/latex/fp/fp-random.sty
+ RELOC/tex/latex/fp/fp-snap.sty
+ RELOC/tex/latex/fp/fp-trigo.sty
+ RELOC/tex/latex/fp/fp-upn.sty
+ RELOC/tex/latex/fp/fp.sty
+ RELOC/tex/latex/fp/lfp.sty
+ RELOC/tex/plain/fp/fp.tex
+catalogue-also fltpoint
+catalogue-ctan /macros/latex/contrib/fp
+catalogue-date 2019-01-14 22:49:01 +0100
+catalogue-license lppl
+catalogue-topics arithmetic calculation
+catalogue-version 2.1d

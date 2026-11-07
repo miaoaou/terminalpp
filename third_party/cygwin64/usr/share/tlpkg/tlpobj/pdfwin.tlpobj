@@ -1,0 +1,9 @@
+name pdfwin
+category Package
+revision 68667
+shortdesc customizable windows for screen viewing of TeX documents
+relocated 1
+longdesc Inspired by the pdfscreen package.
+runfiles size=20
+ RELOC/tex/latex/pdfwin/pdfwin.cfg
+ RELOC/tex/latex/pdfwin/pdfwin.sty

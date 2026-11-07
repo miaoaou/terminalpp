@@ -1,0 +1,21 @@
+name pdfmarginpar
+category Package
+revision 23492
+shortdesc Generate marginpar-equivalent PDF annotations
+relocated 1
+longdesc The package provides the \pdfmarginpar command which is similar
+longdesc in spirit to \marginpar. However, it creates PDF annotations
+longdesc which may be viewed with Adobe Reader in place of marginal
+longdesc texts. Small icons indicate the in-text position where the
+longdesc message originates, popups provide the messages themselves.
+longdesc Thus bugfixes and other such communications are clearly visible
+longdesc together when viewing the document, while the document itself
+longdesc is not obscured.
+runfiles size=2
+ RELOC/tex/latex/pdfmarginpar/pdfmarginpar.sty
+catalogue-also pdfcomment
+catalogue-ctan /macros/latex/contrib/pdfmarginpar
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics pdf-feat
+catalogue-version 0.92

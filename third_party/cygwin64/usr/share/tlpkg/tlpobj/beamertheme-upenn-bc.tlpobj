@@ -1,0 +1,22 @@
+name beamertheme-upenn-bc
+category Package
+revision 29937
+shortdesc Beamer themes for Boston College and the University of Pennsylvania
+relocated 1
+longdesc Beamer themes in the colors of the University of Pennsylvania,
+longdesc USA, and Boston College, USA. Both were tested for the
+longdesc presentation theme 'Warsaw'. Please note that these color
+longdesc themes are neither official nor exact! The colours are
+longdesc approximated from the universities' style guidelines and
+longdesc websites, and slightly modified where necessary to generate an
+longdesc appealing look. The universities neither endorse, nor provide
+longdesc any support for, these color themes. I give no warranty for the
+longdesc code.
+runfiles size=2
+ RELOC/tex/latex/beamertheme-upenn-bc/beamercolorthemegoeagles.sty
+ RELOC/tex/latex/beamertheme-upenn-bc/beamercolorthemepenn.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/upenn-bc
+catalogue-date 2017-11-20 21:38:25 +0100
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 1.0

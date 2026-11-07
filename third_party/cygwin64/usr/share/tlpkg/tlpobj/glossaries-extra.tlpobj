@@ -1,0 +1,51 @@
+name glossaries-extra
+category Package
+revision 68409
+shortdesc An extension to the glossaries package
+relocated 1
+longdesc This package provides improvements and extra features to the
+longdesc glossaries package. Some of the default glossaries.sty
+longdesc behaviour is changed by glossaries-extra.sty. See the user
+longdesc manual glossaries-extra-manual.pdf for further details.
+longdesc glossaries-extra.sty requires the glossaries package and,
+longdesc naturally, all packages required by glossaries.sty.
+runfiles size=417
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-acronym-desc.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-acronym.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-acronyms-lang.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-brief.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-childmultipar.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-childnoname.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-cite.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-images.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-long.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-longchild.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-multipar.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-parent.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-symbolnames.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-symbols.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-url.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-user.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-utf8.bib
+ RELOC/bibtex/bib/glossaries-extra/example-glossaries-xr.bib
+ RELOC/tex/latex/glossaries-extra/example-glossaries-xr.tex
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-abbrstyles.def
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-bib2gls-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-bib2gls.sty
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-stylemods-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossaries-extra-stylemods.sty
+ RELOC/tex/latex/glossaries-extra/glossaries-extra.sty
+ RELOC/tex/latex/glossaries-extra/glossary-bookindex-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossary-bookindex.sty
+ RELOC/tex/latex/glossaries-extra/glossary-longextra-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossary-longextra.sty
+ RELOC/tex/latex/glossaries-extra/glossary-table.sty
+ RELOC/tex/latex/glossaries-extra/glossary-topic-2021-11-22.sty
+ RELOC/tex/latex/glossaries-extra/glossary-topic.sty
+catalogue-also glossaries
+catalogue-contact-bugs https://www.dickimaw-books.com/bugtracker.php?category=glossaries-extra
+catalogue-ctan /macros/latex/contrib/glossaries-extra
+catalogue-license lppl1.3
+catalogue-topics glossary acronym
+catalogue-version 1.53

@@ -1,0 +1,17 @@
+name tikz-mirror-lens
+category Package
+revision 65500
+shortdesc Spherical mirrors and lenses in TikZ
+relocated 1
+longdesc This package allows the automatic drawing of the image of
+longdesc objects in spherical mirrors and lenses from the data of the
+longdesc focus, from the position and height of the object. It
+longdesc calculates the position and height of the image, and also
+longdesc displays the notable rays.
+runfiles size=6
+ RELOC/tex/latex/tikz-mirror-lens/tikz-mirror-lens.cwl
+ RELOC/tex/latex/tikz-mirror-lens/tikz-mirror-lens.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-mirror-lens
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz diagram physics optics
+catalogue-version 1.0.2

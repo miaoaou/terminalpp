@@ -1,0 +1,17 @@
+name circledtext
+category Package
+revision 63166
+shortdesc Create circled text
+relocated 1
+longdesc This LaTeX package provides a macro \circledtext to typeset
+longdesc circled text. Its starred version can produce an inverted
+longdesc version.
+runfiles size=9
+ RELOC/tex/latex/circledtext/circledtext.sty
+catalogue-also circledsteps
+catalogue-contact-bugs https://github.com/registor/circledtext/issues
+catalogue-contact-repository https://github.com/registor/circledtext
+catalogue-ctan /macros/latex/contrib/circledtext
+catalogue-license lppl1.3c
+catalogue-topics graphics-symb expl3
+catalogue-version 1.1.0

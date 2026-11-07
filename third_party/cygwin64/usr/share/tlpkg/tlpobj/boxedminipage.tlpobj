@@ -1,0 +1,22 @@
+name boxedminipage
+category Package
+revision 54827
+shortdesc Framed minipages of a specified total width (text and frame combined)
+relocated 1
+longdesc The package essentially just wraps a minipage within an \fbox.
+longdesc However, while
+longdesc \fbox{\begin{minipage}{\linewidth}...\end{minipage}} juts out
+longdesc into the margin, \begin{boxedminipage}...\end{boxedminipage}
+longdesc does not. Instead, it subtracts the frame's dimensions from the
+longdesc specified dimensions of the minipage before typesetting the
+longdesc minipage. Note: The package was formerly known as
+longdesc boxedminipage2e and now replaces Mario Wolczko's earlier
+longdesc boxedminipage package.
+runfiles size=2
+ RELOC/tex/latex/boxedminipage/boxedminipage.sty
+ RELOC/tex/latex/boxedminipage/boxedminipage2e.sty
+catalogue-alias boxedminipage2e
+catalogue-ctan /macros/latex/contrib/boxedminipage
+catalogue-license lppl1.3c
+catalogue-topics boxing
+catalogue-version 1.1

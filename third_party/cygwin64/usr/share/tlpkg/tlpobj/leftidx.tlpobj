@@ -1,0 +1,13 @@
+name leftidx
+category Package
+revision 15878
+shortdesc Left and right subscripts and superscripts in math mode
+relocated 1
+longdesc Left and right subscripts and superscripts are automatically
+longdesc raised for better fitting to the symbol they belong to.
+runfiles size=1
+ RELOC/tex/latex/leftidx/leftidx.sty
+catalogue-ctan /macros/latex/contrib/leftidx
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics subsup-pos maths

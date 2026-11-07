@@ -1,0 +1,30 @@
+% -------------------------------------------------------------
+% Philippines:
+% ---------------------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{red}{RGB}{191,13,55}
+\definecolor{blue}{RGB}{0,51,160}
+\definecolor{gold}{RGB}{254,209,65}
+\hstripesII{blue}{red}
+\fill [white] (0,0)--(30:1)--(0,1)--cycle;
+\starV{gold}{(60:14/90)}{5/90*\flagwidth}{150}
+\starV{gold}{($(0,1)+(-60:14/90)$)}{5/90*\flagwidth}{30}
+\starV{gold}{($(30:1)+(-180:14/90)$)}{5/90*\flagwidth}{-90}
+\coordinate (h) at (28/90,0.5);
+\begin{scope}[shift=(h),fill=gold]
+\fill (0,0) circle (0.1);
+\clip (0:0.21111)--(90:0.21111)--(180:0.21111)--(270:0.21111)--cycle;
+\foreach \w in {0,90,180,270}{
+  \fill (h)--(\w+3.75:0.5)--(\w-3.75:0.5)--cycle;
+  \fill (h)--(\w+7.5:0.5)--(\w+11.25:0.5)--cycle;
+  \fill (h)--(\w-7.5:0.5)--(\w-11.25:0.5)--cycle;}
+\end{scope}
+\begin{scope}[shift=(h),fill=gold]
+\clip (45:0.21111)--(135:0.21111)--(225:0.21111)--(315:0.21111)--cycle;
+\foreach \w in {45,135,225,315}{
+  \fill (h)--(\w+3.75:0.5)--(\w-3.75:0.5)--cycle;
+  \fill (h)--(\w+7.5:0.5)--(\w+11.25:0.5)--cycle;
+  \fill (h)--(\w-7.5:0.5)--(\w-11.25:0.5)--cycle;}
+\end{scope}
+\framecode{}
+\end{flagdescription}

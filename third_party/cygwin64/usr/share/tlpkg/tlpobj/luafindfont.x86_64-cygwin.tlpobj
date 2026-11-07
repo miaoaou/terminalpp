@@ -1,0 +1,6 @@
+name luafindfont.x86_64-cygwin
+category Package
+revision 61207
+shortdesc x86_64-cygwin files of luafindfont
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/luafindfont

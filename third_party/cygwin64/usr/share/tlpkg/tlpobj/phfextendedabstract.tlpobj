@@ -1,0 +1,26 @@
+name phfextendedabstract
+category Package
+revision 60732
+shortdesc Typeset extended abstracts for conferences, such as often encountered in quantum information theory
+relocated 1
+longdesc Several conferences in various fields (such as quantum
+longdesc information theory) require the submission of extended
+longdesc abstracts. An extended abstract is a summary of a scientific
+longdesc result, presented at a high level, and consisting of at most a
+longdesc small handful of pages. The phfextendedabstract LaTeX class
+longdesc provides a simple style for such abstracts. There are only two
+longdesc sectioning levels, sections and paragraphs, and the style is
+longdesc optimized to save space as well as to guide the reader's eye
+longdesc through the overall structure of the document. An option will
+longdesc try to compress all vertical space to save some space, in case
+longdesc you need to satisfy page constraints. The style builds upon the
+longdesc powerful RevTeX class, so you can use all of RevTeX's features
+longdesc such as author affiliations, etc.
+runfiles size=3
+ RELOC/tex/latex/phfextendedabstract/phfextendedabstract.cls
+catalogue-contact-home https://github.com/phfaist/phfqitltx
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfextendedabstract
+catalogue-license lppl1.3
+catalogue-topics physics
+catalogue-version 1.0

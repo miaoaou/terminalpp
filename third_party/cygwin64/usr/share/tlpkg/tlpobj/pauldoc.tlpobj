@@ -1,0 +1,14 @@
+name pauldoc
+category Package
+revision 16005
+shortdesc German LaTeX package documentation
+relocated 1
+longdesc The package provides helpers for German language package
+longdesc documentation.
+runfiles size=1
+ RELOC/tex/latex/pauldoc/pauldoc.sty
+catalogue-ctan /macros/latex/contrib/pauldoc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-supp german-doc
+catalogue-version 0.5

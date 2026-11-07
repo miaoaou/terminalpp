@@ -1,0 +1,16 @@
+name pictochrono
+category Package
+revision 69855
+shortdesc Insert "chronometer pictograms" with a duration
+relocated 1
+longdesc Small package to insert, inline with automatic height and
+longdesc vertical offset, small "pictogram chronometers" to indicate a
+longdesc duration.
+runfiles size=2
+ RELOC/tex/latex/pictochrono/pictochrono.sty
+catalogue-contact-bugs https://github.com/cpierquet/pictochrono/issues
+catalogue-contact-repository https://github.com/cpierquet/pictochrono
+catalogue-ctan /graphics/pgf/contrib/pictochrono
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz
+catalogue-version 0.1.0

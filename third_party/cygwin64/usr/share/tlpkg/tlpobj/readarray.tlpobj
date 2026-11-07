@@ -1,0 +1,20 @@
+name readarray
+category Package
+revision 60540
+shortdesc Read, store and recall array-formatted data
+relocated 1
+longdesc The package allows the user to input formatted data into
+longdesc elements of a 2-D or 3-D array and to recall that data at will
+longdesc by individual cell number. The data can be but need not be
+longdesc numerical in nature. It can be, for example, formatted text.
+longdesc While the package can be used for any application where indexed
+longdesc data is called for, the package proves particularly useful when
+longdesc elements of multiple arrays must be recallable and dynamically
+longdesc combined at time of compilation, rather than in advance.
+runfiles size=6
+ RELOC/tex/latex/readarray/readarray.sty
+catalogue-also getargs
+catalogue-ctan /macros/latex/contrib/readarray
+catalogue-license lppl1.3
+catalogue-topics data-manip
+catalogue-version 3.1

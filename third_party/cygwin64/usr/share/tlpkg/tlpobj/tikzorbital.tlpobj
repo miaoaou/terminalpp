@@ -1,0 +1,14 @@
+name tikzorbital
+category Package
+revision 36439
+shortdesc Atomic and molecular orbitals using TikZ
+relocated 1
+longdesc Atomic s, p and d orbitals may be drawn, as well as molecular
+longdesc orbital diagrams.
+runfiles size=5
+ RELOC/tex/latex/tikzorbital/tikzorbital.sty
+catalogue-also modiagram
+catalogue-ctan /graphics/pgf/contrib/tikzorbital
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics chemistry diagram

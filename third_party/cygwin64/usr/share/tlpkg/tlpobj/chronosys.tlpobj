@@ -1,0 +1,17 @@
+name chronosys
+category Package
+revision 26700
+shortdesc Drawing time-line diagrams
+relocated 1
+longdesc Macros to produce time line diagrams. Interfaces for Plain TeX,
+longdesc ConTeXt and LaTeX are provided.
+runfiles size=12
+ RELOC/tex/generic/chronosys/chronosys.sty
+ RELOC/tex/generic/chronosys/chronosys.tex
+ RELOC/tex/generic/chronosys/chronosyschr.tex
+ RELOC/tex/generic/chronosys/x-chronosys.tex
+catalogue-ctan /macros/latex/contrib/chronosys
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram
+catalogue-version 1.2

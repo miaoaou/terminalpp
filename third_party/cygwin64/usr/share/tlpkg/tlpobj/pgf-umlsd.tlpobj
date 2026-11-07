@@ -1,0 +1,18 @@
+name pgf-umlsd
+category Package
+revision 55342
+shortdesc Draw UML Sequence Diagrams
+relocated 1
+longdesc LaTeX macros to draw UML diagrams using pgf
+depend latex
+depend pgf
+runfiles size=3
+ RELOC/tex/latex/pgf-umlsd/pgf-umlsd.sty
+catalogue-also pst-uml uml
+catalogue-contact-bugs https://github.com/pgf-tikz/pgf-umlsd/issues
+catalogue-contact-repository https://github.com/pgf-tikz/pgf-umlsd
+catalogue-contact-support https://tug.org/mailman/listinfo/pgf-tikz
+catalogue-ctan /graphics/pgf/contrib/pgf-umlsd
+catalogue-license gpl
+catalogue-topics uml pgf-tikz
+catalogue-version 0.7

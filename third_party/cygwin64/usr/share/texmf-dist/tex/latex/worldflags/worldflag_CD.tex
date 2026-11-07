@@ -1,0 +1,23 @@
+% --------------------------------------------------------------------------
+% Congo (Democratic Republic):
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/4}
+\definecolor{red}{RGB}{249,66,58}
+\definecolor{blue}{RGB}{0,163,224}
+\definecolor{gold}{RGB}{255,215,0}
+\fill [blue] (0,0) rectangle (\flaglength,1);
+\starV{gold}{(0.24*\stretchfactor,0.742)}{0.1893*\flagwidth}{0}
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\newdimen\dd\dd=0.00148\flagwidth
+\newdimen\bb\bb=0.01\flaglength
+\newdimen\hh\hh=0.01\flagwidth
+\pgfmathparse{50*(\bb*\dd*sqrt(\hh^2+\bb^2-\dd^2)-\hh*\dd^2)/(\bb^2-\dd^2)}
+\edef\x{\pgfmathresult}
+\coordinate (c1) at (0,\x*1pt);
+\coordinate (c2) at (\flaglength,\flagwidth-\x*1pt);
+\draw [gold,line width=133.33\dd,line cap=rect] (c1)--(c2);
+\draw [red,line width=100\dd,line cap=rect] (c1)--(c2);
+\end{scope}
+\framecode{}
+\end{flagdescription}

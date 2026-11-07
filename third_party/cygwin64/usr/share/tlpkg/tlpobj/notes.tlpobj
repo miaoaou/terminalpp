@@ -1,0 +1,25 @@
+name notes
+category Package
+revision 42428
+shortdesc Mark sections of a document
+relocated 1
+longdesc The package provides environments to highlight significant
+longdesc portions of text within a document, by putting the text in a
+longdesc box and adding an icon in the margin. (The icons are provided
+longdesc as 'fig' sources, processable by xfig.)
+runfiles size=11
+ RELOC/tex/latex/notes/hand.eps
+ RELOC/tex/latex/notes/hand.pdf
+ RELOC/tex/latex/notes/hand.png
+ RELOC/tex/latex/notes/info.eps
+ RELOC/tex/latex/notes/info.pdf
+ RELOC/tex/latex/notes/info.png
+ RELOC/tex/latex/notes/notes.sty
+ RELOC/tex/latex/notes/warn.eps
+ RELOC/tex/latex/notes/warn.pdf
+ RELOC/tex/latex/notes/warn.png
+catalogue-ctan /macros/latex/contrib/notes
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics decoration
+catalogue-version 1.0.1

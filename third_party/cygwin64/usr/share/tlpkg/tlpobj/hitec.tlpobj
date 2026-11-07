@@ -1,0 +1,14 @@
+name hitec
+category Package
+revision 15878
+shortdesc Class for documentation
+relocated 1
+longdesc An article-based class designed for use for documentation in
+longdesc high-technology companies.
+runfiles size=6
+ RELOC/tex/latex/hitec/hitec.cls
+catalogue-ctan /macros/latex/contrib/hitec
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics class
+catalogue-version 0.0(beta)

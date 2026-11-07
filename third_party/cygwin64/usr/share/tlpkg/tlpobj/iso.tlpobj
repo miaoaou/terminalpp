@@ -1,0 +1,24 @@
+name iso
+category Package
+revision 15878
+shortdesc Generic ISO standards typesetting macros
+relocated 1
+longdesc Generic class and package files for typesetting ISO
+longdesc International Standard documents. Several standard documents
+longdesc have been printed by ISO from camera-ready copy prepared using
+longdesc LaTeX and these files. The class makes use of the isorot
+longdesc package, rather than use other mechanisms directly.
+runfiles size=27
+ RELOC/makeindex/iso/iso.ist
+ RELOC/tex/latex/iso/askincv1.sty
+ RELOC/tex/latex/iso/iso10.clo
+ RELOC/tex/latex/iso/iso11.clo
+ RELOC/tex/latex/iso/iso9.clo
+ RELOC/tex/latex/iso/isov2.4ht
+ RELOC/tex/latex/iso/isov2.cls
+catalogue-also iso10303
+catalogue-ctan /macros/latex/contrib/isostds/iso
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics typeset-std
+catalogue-version 2.4

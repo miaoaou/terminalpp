@@ -1,0 +1,26 @@
+name jmsdelim
+category Package
+revision 62630
+shortdesc A package for compositional delimiter sizing
+relocated 1
+longdesc Correctly sizing delimiters is very difficult, particularly in
+longdesc well-architected documents: a correctly engineered mathematical
+longdesc document will include macros for all operations, and these
+longdesc macros necessarily will include delimiters (such as
+longdesc parentheses). However, the correct size for the delimiter
+longdesc cannot be chosen ahead of time, because it will depend on the
+longdesc arguments; two options are available: Provide optional
+longdesc arguments to each notation macro for choosing delimiter sizes.
+longdesc This is nearly intractable to do in practice. Ignore delimiter
+longdesc sizes. With jmsdelim we offer an alternative: the correct
+longdesc delimiter sizes can be set at the leaf nodes of a mathematical
+longdesc expression, and magically bubble upward through the delimiters.
+runfiles size=2
+ RELOC/tex/latex/jmsdelim/jmsdelim.sty
+catalogue-contact-bugs https://github.com/jonsterling/latex3-jmsdelim/issues/6
+catalogue-contact-home https://github.com/jonsterling/latex3-jmsdelim
+catalogue-contact-repository https://github.com/jonsterling/latex3-jmsdelim
+catalogue-ctan /macros/latex/contrib/jmsdelim
+catalogue-license lppl1.3c
+catalogue-topics maths
+catalogue-version 0.2.0

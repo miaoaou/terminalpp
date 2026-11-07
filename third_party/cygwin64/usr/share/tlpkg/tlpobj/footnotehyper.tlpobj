@@ -1,0 +1,15 @@
+name footnotehyper
+category Package
+revision 60374
+shortdesc hyperref aware footnote.sty
+relocated 1
+longdesc The footnote package by Mark Wooding dates back to 1997 and has
+longdesc not been made hyperref compatible. The aim of the present
+longdesc package is to do that.
+runfiles size=3
+ RELOC/tex/latex/footnotehyper/footnotehyper.sty
+catalogue-also footnote
+catalogue-ctan /macros/latex/contrib/footnotehyper
+catalogue-license lppl1.3c
+catalogue-topics footnote macro-supp
+catalogue-version 1.1e

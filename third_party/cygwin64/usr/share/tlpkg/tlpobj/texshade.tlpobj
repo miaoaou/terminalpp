@@ -1,0 +1,23 @@
+name texshade
+category Package
+revision 69371
+shortdesc Package for setting nucleotide and peptide alignments
+relocated 1
+longdesc TeXshade is alignment shading software completely written in
+longdesc TeX/LaTeX; it can process multiple sequence alignments in the
+longdesc .MSF and the .ALN file formats. In addition to common shading
+longdesc algorithms, it provides special shading modes showing
+longdesc functional aspects, e.g. charge or hydropathy, and a wide range
+longdesc of commands for handling shading colours, text styles, labels,
+longdesc legends; it even allows the user to define completely new
+longdesc shading modes. TeXshade combines highest flexibility with TeX
+longdesc output quality -- all in a bundle that does not demand
+longdesc excessive development time of the user.
+runfiles size=168
+ RELOC/tex/latex/texshade/texshade.def
+ RELOC/tex/latex/texshade/texshade.sty
+catalogue-contact-home https://www.pharmazie.uni-kiel.de/en/pharmceitica/prof-dr-eric-beitz/biotex
+catalogue-ctan /macros/latex/contrib/texshade
+catalogue-license gpl2
+catalogue-topics chemistry molbio
+catalogue-version 1.28

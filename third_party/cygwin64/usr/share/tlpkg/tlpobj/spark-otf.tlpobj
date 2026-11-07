@@ -1,0 +1,31 @@
+name spark-otf
+category Package
+revision 62481
+shortdesc Support OpenType Spark fonts
+relocated 1
+longdesc The package supports the free fonts from "After the Flood"
+longdesc which are available from AtF Spark. The following fonts are
+longdesc supported: Spark -- Bar -- Medium Spark -- Bar -- Narrow Spark
+longdesc -- Bar -- Thin Spark -- Dot-line -- Medium Spark -- Dot --
+longdesc Medium Spark -- Dot -- Small
+runfiles size=594
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Bar-Extranarrow.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Bar-Extrawide.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Bar-Medium.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Bar-Narrow.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Bar-Wide.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dot-Extralarge.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dot-Extrasmall.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dot-Large.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dot-Medium.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dot-Small.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dotline-Extrathick.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dotline-Extrathin.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dotline-Medium.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dotline-Thick.otf
+ RELOC/fonts/opentype/public/spark-otf/Sparks-Dotline-Thin.otf
+ RELOC/tex/latex/spark-otf/spark-otf.sty
+catalogue-ctan /fonts/spark-otf
+catalogue-license ofl lppl1.3
+catalogue-topics font-absent font-symbol font-otf font-use
+catalogue-version 0.05a

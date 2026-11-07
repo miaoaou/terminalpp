@@ -1,0 +1,33 @@
+name tabu
+category Package
+revision 61719
+shortdesc Flexible LaTeX tabulars
+relocated 1
+longdesc The package provides an environment, tabu, which will make any
+longdesc sort of tabular (that doesn't need to split across pages), and
+longdesc an environment longtabu which provides the facilities of tabu
+longdesc in a modified longtable environment. (Note that this latter
+longdesc offers an enhancement of ltxtable.) The package requires the
+longdesc array package, and needs e-TeX to run (since array.sty is
+longdesc present in every conforming distribution of LaTeX, and since
+longdesc every publicly available LaTeX format is built using e-TeX, the
+longdesc requirements are provided by default on any reasonable system).
+longdesc The package also requires xcolor for coloured rules in tables,
+longdesc and colortbl for coloured cells. The longtabu environment
+longdesc further requires that longtable be loaded. The package itself
+longdesc does not load any of these packages for the user. The tabu
+longdesc environment may be used in place of tabular, tabular* and
+longdesc tabularx environments, as well as the array environment in
+longdesc maths mode. It overloads tabularx's X-column specification,
+longdesc allowing a width specification, alignment (l, r, c and j) and
+longdesc column type indication (p, m and b). \begin{tabu} to <dimen>
+longdesc specifies a target width, and \begin{tabu} spread <dimen>
+longdesc enlarges the environment's "natural" width.
+depend varwidth
+runfiles size=29
+ RELOC/tex/latex/tabu/tabu.sty
+catalogue-contact-repository https://github.com/tabu-issues-for-future-maintainer/tabu
+catalogue-ctan /macros/latex/contrib/tabu
+catalogue-license lppl1.3
+catalogue-topics table table-long
+catalogue-version 2.9

@@ -1,0 +1,23 @@
+name midnight
+category Package
+revision 15878
+shortdesc A set of useful macro tools
+relocated 1
+longdesc Included are: quire: making booklets, etc.; gloss: vertically
+longdesc align words in consecutive sentences; loop: a looping
+longdesc construct; dolines: 'meta'-macros to separate arguments by
+longdesc newlines; labels: address labels and bulk mail letters;
+longdesc styledef: selectively input part of a file; and border: borders
+longdesc around boxes.
+runfiles size=17
+ RELOC/tex/generic/midnight/border.tex
+ RELOC/tex/generic/midnight/dolines.tex
+ RELOC/tex/generic/midnight/gloss.tex
+ RELOC/tex/generic/midnight/labels.tex
+ RELOC/tex/generic/midnight/loop.tex
+ RELOC/tex/generic/midnight/quire.tex
+ RELOC/tex/generic/midnight/styledef.tex
+catalogue-ctan /macros/generic/midnight
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics linguistic macro-supp letter

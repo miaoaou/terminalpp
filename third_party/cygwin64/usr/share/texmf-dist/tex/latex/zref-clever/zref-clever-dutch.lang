@@ -1,0 +1,259 @@
+%%
+%% This is file `zref-clever-dutch.lang',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% zref-clever.dtx  (with options: `lang-dutch')
+%% 
+%% This file was generated from file(s) of the LaTeX package "zref-clever".
+%% 
+%% Copyright (C) 2021-2023  gusbrs
+%% 
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file:
+%% 
+%%    https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by gusbrs.
+%% 
+%% This work consists of the files zref-clever.dtx,
+%%                                 zref-clever.ins,
+%%                                 zref-clever-doc.tex,
+%%                                 zref-clever-code.tex,
+%%                   and the files generated from them.
+%% 
+%% The released version of this package is available from CTAN.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+%% The development version of the package can be found at
+%% 
+%%    https://github.com/gusbrs/zref-clever
+%% 
+%% for those people who are interested.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+namesep   = {\nobreakspace} ,
+pairsep   = {~en\nobreakspace} ,
+listsep   = {,~} ,
+lastsep   = {~en\nobreakspace} ,
+tpairsep  = {~en\nobreakspace} ,
+tlistsep  = {,~} ,
+tlastsep  = {,~en\nobreakspace} ,
+notesep   = {~} ,
+rangesep  = {~t/m\nobreakspace} ,
+
+type = book ,
+  gender = n ,
+  Name-sg = Boek ,
+  name-sg = boek ,
+  Name-pl = Boeken ,
+  name-pl = boeken ,
+
+type = part ,
+  gender = n ,
+  Name-sg = Deel ,
+  name-sg = deel ,
+  Name-pl = Delen ,
+  name-pl = delen ,
+
+type = chapter ,
+  gender = n ,
+  Name-sg = Hoofdstuk ,
+  name-sg = hoofdstuk ,
+  Name-pl = Hoofdstukken ,
+  name-pl = hoofdstukken ,
+
+type = section ,
+  gender = m ,
+  Name-sg = Paragraaf ,
+  name-sg = paragraaf ,
+  Name-pl = Paragrafen ,
+  name-pl = paragrafen ,
+
+type = paragraph ,
+  gender = f ,
+  Name-sg = Alinea ,
+  name-sg = alinea ,
+  Name-pl = Alinea's ,
+  name-pl = alinea's ,
+
+type = appendix ,
+  gender = { f, m } ,
+  Name-sg = Bĳlage ,
+  name-sg = bĳlage ,
+  Name-pl = Bĳlagen ,
+  name-pl = bĳlagen ,
+
+type = page ,
+  gender = { f , m } ,
+  Name-sg = Pagina ,
+  name-sg = pagina ,
+  Name-pl = Pagina's ,
+  name-pl = pagina's ,
+  rangesep = {\textendash} ,
+  rangetopair = false ,
+
+type = line ,
+  gender = m ,
+  Name-sg = Regel ,
+  name-sg = regel ,
+  Name-pl = Regels ,
+  name-pl = regels ,
+
+type = figure ,
+  gender = { n , f , m } ,
+  Name-sg = Figuur ,
+  name-sg = figuur ,
+  Name-pl = Figuren ,
+  name-pl = figuren ,
+
+type = table ,
+  gender = { f , m } ,
+  Name-sg = Tabel ,
+  name-sg = tabel ,
+  Name-pl = Tabellen ,
+  name-pl = tabellen ,
+
+type = item ,
+  gender = n ,
+  Name-sg = Punt ,
+  name-sg = punt ,
+  Name-pl = Punten ,
+  name-pl = punten ,
+
+type = footnote ,
+  gender = { f , m } ,
+  Name-sg = Voetnoot ,
+  name-sg = voetnoot ,
+  Name-pl = Voetnoten ,
+  name-pl = voetnoten ,
+
+type = endnote ,
+  gender = { f , m } ,
+  Name-sg = Eindnoot ,
+  name-sg = eindnoot ,
+  Name-pl = Eindnoten ,
+  name-pl = eindnoten ,
+
+type = note ,
+  gender = f ,
+  Name-sg = Opmerking ,
+  name-sg = opmerking ,
+  Name-pl = Opmerkingen ,
+  name-pl = opmerkingen ,
+
+type = equation ,
+  gender = f ,
+  Name-sg = Vergelĳking ,
+  name-sg = vergelĳking ,
+  Name-pl = Vergelĳkingen ,
+  name-pl = vergelĳkingen ,
+  Name-sg-ab = Vgl. ,
+  name-sg-ab = vgl. ,
+  Name-pl-ab = Vgl.'s ,
+  name-pl-ab = vgl.'s ,
+  refbounds-first-sg = {,(,),} ,
+  refbounds = {(,,,)} ,
+
+type = theorem ,
+  gender = f ,
+  Name-sg = Stelling ,
+  name-sg = stelling ,
+  Name-pl = Stellingen ,
+  name-pl = stellingen ,
+
+type = lemma ,
+  gender = n ,
+  Name-sg = Lemma ,
+  name-sg = lemma ,
+  Name-pl = Lemma's ,
+  name-pl = lemma's ,
+
+type = corollary ,
+  gender = n ,
+  Name-sg = Gevolg ,
+  name-sg = gevolg ,
+  Name-pl = Gevolgen ,
+  name-pl = gevolgen ,
+
+type = proposition ,
+  gender = f ,
+  Name-sg = Propositie ,
+  name-sg = propositie ,
+  Name-pl = Proposities ,
+  name-pl = proposities ,
+
+type = definition ,
+  gender = f ,
+  Name-sg = Definitie ,
+  name-sg = definitie ,
+  Name-pl = Definities ,
+  name-pl = definities ,
+
+type = proof ,
+  gender = n ,
+  Name-sg = Bewĳs ,
+  name-sg = bewĳs ,
+  Name-pl = Bewĳzen ,
+  name-pl = bewĳzen ,
+
+type = result ,
+  gender = n ,
+  Name-sg = Resultaat ,
+  name-sg = resultaat ,
+  Name-pl = Resultaten ,
+  name-pl = resultaten ,
+
+type = remark ,
+  gender = f ,
+  Name-sg = Opmerking ,
+  name-sg = opmerking ,
+  Name-pl = Opmerkingen ,
+  name-pl = opmerkingen ,
+
+type = example ,
+  gender = n ,
+  Name-sg = Voorbeeld ,
+  name-sg = voorbeeld ,
+  Name-pl = Voorbeelden ,
+  name-pl = voorbeelden ,
+
+type = algorithm ,
+  gender = { n , f , m } ,
+  Name-sg = Algoritme ,
+  name-sg = algoritme ,
+  Name-pl = Algoritmen ,
+  name-pl = algoritmen ,
+
+type = listing ,
+  gender = m ,
+  Name-sg = Listing ,
+  name-sg = listing ,
+  Name-pl = Listings ,
+  name-pl = listings ,
+
+type = exercise ,
+  gender = { f , m } ,
+  Name-sg = Opgave ,
+  name-sg = opgave ,
+  Name-pl = Opgaven ,
+  name-pl = opgaven ,
+
+type = solution ,
+  gender = f ,
+  Name-sg = Oplossing ,
+  name-sg = oplossing ,
+  Name-pl = Oplossingen ,
+  name-pl = oplossingen ,
+%% 
+%%
+%% End of file `zref-clever-dutch.lang'.

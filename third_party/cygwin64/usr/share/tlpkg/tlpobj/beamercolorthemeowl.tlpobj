@@ -1,0 +1,23 @@
+name beamercolorthemeowl
+category Package
+revision 40105
+shortdesc A flexible beamer color theme to maximize visibility
+relocated 1
+longdesc This package provides a flexible dark or light colour theme
+longdesc designed for maximum readability in environments where most
+longdesc themes fall flat. Main features: Dark color theme for
+longdesc presenting in low-light conditions. Optional light color theme
+longdesc for presenting in bright ambient light. Redefines color names
+longdesc "red", "green", "blue", "yellow" to values that are visible
+longdesc when displayed by certain projectors, particularly those with a
+longdesc very bright green channel and dim red and blue channels. This
+longdesc behaviour can be optionally disabled, with the provided colours
+longdesc also available as "OwlRed", "OwlGreen", etc.
+runfiles size=2
+ RELOC/tex/latex/beamercolorthemeowl/beamercolorthemeowl.sty
+catalogue-contact-repository https://github.com/rchurchley/beamercolortheme-owl
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamercolorthemeowl
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics presentation
+catalogue-version 0.1.1

@@ -1,0 +1,124 @@
+%%
+%% This is file `lwarp-minted.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lwarp.dtx  (with options: `minted')
+%% This is a generated file.
+%% Copyright 2016-2022 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+\LWR@ProvidesPackagePass{minted}[2023/09/12]
+\renewcommand{\setminted}[2][]{%
+  \ifthenelse{\equal{#1}{}}%
+    {\setkeys{minted@opt@g}{%
+        #2,
+        mathescape=false,breaklines,texcomments=false,highlightlines={}% lwarp
+    }}%
+    {\minted@configlang{#1}%
+      \setkeys{minted@opt@lang}{%
+        #2,
+        mathescape=false,breaklines,texcomments=false,highlightlines={}% lwarp
+    }}}
+
+\renewcommand{\setmintedinline}[2][]{%
+  \ifthenelse{\equal{#1}{}}%
+    {\setkeys{minted@opt@g@i}{%
+        #2,
+        mathescape=false,breaklines,texcomments=false,highlightlines={}% lwarp
+    }}%
+    {\minted@configlang{#1}%
+      \setkeys{minted@opt@lang@i}{%
+        #2,
+        mathescape=false,breaklines,texcomments=false,highlightlines={}% lwarp
+    }}}
+\xpatchcmd{\RobustMintInlineProcess}
+    {\setkeys{minted@opt@cmd}{#1}}
+    {%
+        \setkeys{minted@opt@cmd}{%
+            #1,%
+            mathescape=false,breaklines,texcomments=false,highlightlines={}%
+        }%
+        \ifbool{minted@draft}%
+            {\booltrue{LWR@HTMLsanitize@tmpb@enable}}%
+            {\boolfalse{LWR@HTMLsanitize@tmpb@enable}}%
+    }
+    {}
+    {\LWR@patcherror{minted}{minted}}
+
+\xpatchcmd{\RobustMintProcess}
+    {\setkeys{minted@opt@cmd}{#1}}
+    {%
+        \setkeys{minted@opt@cmd}{%
+            #1,%
+            mathescape=false,breaklines,texcomments=false,highlightlines={}%
+        }%
+        \ifbool{minted@draft}%
+            {\booltrue{LWR@HTMLsanitize@tmpb@enable}}%
+            {\boolfalse{LWR@HTMLsanitize@tmpb@enable}}%
+    }
+    {}
+    {\LWR@patcherror{minted}{minted}}
+
+\xpatchcmd{\minted}
+    {\setkeys{minted@opt@cmd}{#1}}
+    {%
+        \setkeys{minted@opt@cmd}{%
+            #1,%
+            mathescape=false,breaklines,texcomments=false,highlightlines={}%
+        }%
+        \ifbool{minted@draft}%
+            {\booltrue{LWR@HTMLsanitize@tmpb@enable}}%
+            {\boolfalse{LWR@HTMLsanitize@tmpb@enable}}%
+    }
+    {}
+    {\LWR@patcherror{minted}{minted}}
+
+\xpatchcmd{\inputminted}
+    {\setkeys{minted@opt@cmd}{#1}}
+    {\setkeys{minted@opt@cmd}{%
+            #1,%
+            mathescape=false,breaklines,texcomments=false,highlightlines={}%
+        }%
+        \ifbool{minted@draft}%
+            {\booltrue{LWR@HTMLsanitize@tmpb@enable}}%
+            {\boolfalse{LWR@HTMLsanitize@tmpb@enable}}%
+    }
+    {}
+    {\LWR@patcherror{minted}{inputminted}}
+
+\renewenvironment{minted@snugshade*}[1]%
+{%
+    \colorlet{shadecolor}{#1}%
+    \begin{snugshade*}%
+}
+{%
+    \end{snugshade*}%
+}
+
+\xpatchcmd{\minted@input}
+    {\input{#1}}
+    {%
+        \LWR@minted@overrides%
+        \input{#1}%
+    }
+    {}
+    {\LWR@patcherror{minted}{minted@input}}
+
+\newcommand*{\LWR@minted@overrides}{
+\def\PYGZam{\char`\&amp;}
+\def\PYGZlt{\char`\&lt;}
+\def\PYGZgt{\char`\&gt;}
+\def\PYGZsq{\char`\&apos;}
+}
+
+\endinput
+%%
+%% End of file `lwarp-minted.sty'.

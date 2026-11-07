@@ -1,0 +1,23 @@
+name typoaid
+category Package
+revision 44238
+shortdesc Macros for font diagnostics
+relocated 1
+longdesc This package provides macros for measuring alphabet lengths
+longdesc (i.e. the length occupied by the characters "abcd...xyz"),
+longdesc em-widths and ex-heights, which may help in making typesetting
+longdesc decisions. The package is compatible with pdfLaTeX, LuaLaTeX,
+longdesc and XeLaTeX, and will accept font family switches defined via
+longdesc the fontspec package. The plan is that future versions shall be
+longdesc able to provide even more diagnostic tools, and some
+longdesc LuaTeX-specific special commands, too. The package relies on
+longdesc the following other LaTeX packages: expl3, array, booktabs, and
+longdesc siunitx.
+runfiles size=7
+ RELOC/tex/latex/typoaid/typoaid.sty
+catalogue-contact-repository https://github.com/ilFuria/typoaid
+catalogue-ctan /macros/latex/contrib/typoaid
+catalogue-date 2017-06-06 19:56:03 +0200
+catalogue-license lppl1.3c
+catalogue-topics font-devel typeset-tool
+catalogue-version 0.4.7

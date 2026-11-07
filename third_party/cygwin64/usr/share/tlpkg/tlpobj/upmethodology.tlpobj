@@ -1,0 +1,31 @@
+name upmethodology
+category Package
+revision 64613
+shortdesc Writing specifications such as for UP-based methodologies
+relocated 1
+longdesc The bundle allows the user to create Unified Process
+longdesc methodology (UP or RUP) based documents. The style provides
+longdesc document versioning, document history, document authors,
+longdesc document validators, specification description, task
+longdesc management, and several helping macros.
+runfiles size=49
+ RELOC/bibtex/bst/upmethodology/upmplainnat.bst
+ RELOC/tex/latex/upmethodology/UPMVERSION.def
+ RELOC/tex/latex/upmethodology/upmethodology-backpage.sty
+ RELOC/tex/latex/upmethodology/upmethodology-code.sty
+ RELOC/tex/latex/upmethodology/upmethodology-document.cls
+ RELOC/tex/latex/upmethodology/upmethodology-document.sty
+ RELOC/tex/latex/upmethodology/upmethodology-extension.sty
+ RELOC/tex/latex/upmethodology/upmethodology-fmt.sty
+ RELOC/tex/latex/upmethodology/upmethodology-frontpage.sty
+ RELOC/tex/latex/upmethodology/upmethodology-p-common.sty
+ RELOC/tex/latex/upmethodology/upmethodology-spec.sty
+ RELOC/tex/latex/upmethodology/upmethodology-task.sty
+ RELOC/tex/latex/upmethodology/upmethodology-version.sty
+catalogue-contact-bugs https://github.com/gallandarakhneorg/tex-upmethodology/issues
+catalogue-contact-home http://www.arakhne.org/tex-upmethodology
+catalogue-contact-repository https://github.com/gallandarakhneorg/tex-upmethodology
+catalogue-ctan /macros/latex/contrib/upmethodology
+catalogue-license lgpl3
+catalogue-topics doc-mgmt
+catalogue-version 20221004

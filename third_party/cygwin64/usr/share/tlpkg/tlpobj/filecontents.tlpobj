@@ -1,0 +1,28 @@
+name filecontents
+category Package
+revision 66740
+shortdesc Create an external file from within a LaTeX document
+relocated 1
+longdesc LaTeX2e's filecontents and filecontents* environments enable a
+longdesc LaTeX source file to generate external files as it runs through
+longdesc LaTeX. However, there are two limitations of these
+longdesc environments: they refuse to overwrite existing files, and they
+longdesc can only be used in the preamble of a document. The
+longdesc filecontents package removes these limitations, letting you
+longdesc overwrite existing files and letting you use
+longdesc filecontents/filecontents* anywhere. As of September 2019 the
+longdesc author tells us: "This package is no longer necessary due to
+longdesc its functionality having moved into recent LaTeX kernels. It's
+longdesc probably better not to move the package to obsolete because
+longdesc users may need it to rebuild old documents. Version 1.5
+longdesc provides full functionality when run with an older kernel but
+longdesc issues a warning message and disables itself when run with a
+longdesc newer kernel." Supply the overwrite option to LaTeX's built-in
+longdesc filecontents environment to mimic this package's behavior:
+longdesc \begin{filecontents}[overwrite]{my-file}...\end{filecontents}
+runfiles size=1
+ RELOC/tex/latex/filecontents/filecontents.sty
+catalogue-ctan /macros/latex/contrib/filecontents
+catalogue-license lppl1.3c
+catalogue-topics file-mgmt
+catalogue-version 1.5a

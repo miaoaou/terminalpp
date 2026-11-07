@@ -1,0 +1,41 @@
+name tkz-elements
+category Package
+revision 69715
+shortdesc A Lua library for drawing Euclidean geometry with TikZ or tkz-euclide
+relocated 1
+longdesc This package provides a library written in Lua, allowing to
+longdesc make all the necessary calculations to define the objects of a
+longdesc Euclidean geometry figure. You need to compile with LuaLaTeX.
+longdesc The definitions and calculations are only done with Lua. The
+longdesc main possibility of programmation proposed is oriented "object
+longdesc programming" with object classes like point, line, triangle,
+longdesc circle and ellipse. For the moment, once the calculations are
+longdesc done, it is tkz-euclide or TikZ which allows the drawings.
+runfiles size=35
+ RELOC/tex/latex/tkz-elements/tkz-elements.sty
+ RELOC/tex/latex/tkz-elements/tkz_elements_circle.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_class.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_ellipse.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_circles.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_intersections.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_lines.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_maths.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_points.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_regular.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_functions_triangles.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_line.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_main.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_misc.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_parallelogram.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_point.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_quadrilateral.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_rectangle.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_regular.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_square.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_triangle.lua
+ RELOC/tex/latex/tkz-elements/tkz_elements_vector.lua
+catalogue-contact-home https://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-elements
+catalogue-license lppl1.3
+catalogue-topics maths calculation luatex
+catalogue-version 2.00c

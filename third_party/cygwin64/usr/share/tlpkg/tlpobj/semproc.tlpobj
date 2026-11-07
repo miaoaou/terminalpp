@@ -1,0 +1,21 @@
+name semproc
+category Package
+revision 37568
+shortdesc Seminar proceedings
+relocated 1
+longdesc The package provides functionality for typesetting seminar
+longdesc proceedings based on KOMA-Script's scrreprt class and etoc. It
+longdesc offers an alternative to \chapter that typesets the speaker and
+longdesc if necessary the typist of the notes for the talk in question.
+longdesc Moreover, the class provides two types of table of contents. A
+longdesc global table of contents showing only the talks of the seminar
+longdesc and the respective speakers and a local table of contents for
+longdesc each talk showing the sections and subsections of the
+longdesc respective talk.
+runfiles size=2
+ RELOC/tex/latex/semproc/semproc.cls
+catalogue-ctan /macros/latex/contrib/semproc
+catalogue-date 2017-11-12 11:01:19 +0100
+catalogue-license lppl1.3
+catalogue-topics semproc
+catalogue-version 0.1

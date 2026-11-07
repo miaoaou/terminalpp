@@ -1,0 +1,19 @@
+name pgfmorepages
+category Package
+revision 54770
+shortdesc Assemble multiple logical pages onto a physical page
+relocated 1
+longdesc This package replaces and extends the pgfpages sub-package of
+longdesc the PGF system. It provides the capability to arrange multiple
+longdesc "logical" pages on multiple "physical" pages, for example as
+longdesc for arranging pages to make booklets.
+runfiles size=17
+ RELOC/tex/latex/pgfmorepages/pgfmorepages.sty
+ RELOC/tex/latex/pgfmorepages/pgfmorepageslayouts.code.tex
+catalogue-contact-bugs https://github.com/loopspace/pgfmorepages/issues
+catalogue-contact-home https://github.com/loopspace/pgfmorepages
+catalogue-contact-repository https://github.com/loopspace/pgfmorepages
+catalogue-ctan /graphics/pgf/contrib/pgfmorepages
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz
+catalogue-version 1.20

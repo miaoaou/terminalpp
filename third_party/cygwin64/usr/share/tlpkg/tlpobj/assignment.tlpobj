@@ -1,0 +1,12 @@
+name assignment
+category Package
+revision 20431
+shortdesc A class file for typesetting homework and lab assignments
+relocated 1
+longdesc A class file for typesetting homework and lab assignments.
+runfiles size=2
+ RELOC/tex/latex/assignment/assignment.cls
+catalogue-ctan /macros/latex/contrib/assignment
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics essay class

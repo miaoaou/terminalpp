@@ -1,0 +1,21 @@
+name cntperchap
+category Package
+revision 37572
+shortdesc Store counter values per chapter
+relocated 1
+longdesc This package stores values of counters (which have been
+longdesc registered beforehand) on a per chapter base and provides the
+longdesc values on demand in the 2nd LaTeX compilation run. In this way
+longdesc it is possible to know how many sections etc. there are lying
+longdesc ahead and to react to these counter values, if needed. This is
+longdesc a preliminary version that has been tested with book.cls,
+longdesc memoir.cls, and scrbook.cls. The packages assoccnt (by the same
+longdesc author) and xparse are needed as well.
+runfiles size=3
+ RELOC/tex/latex/cntperchap/cntperchap.sty
+catalogue-also xcntperchap
+catalogue-ctan /macros/latex/contrib/cntperchap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics counter-mgmt macro-supp
+catalogue-version 0.3

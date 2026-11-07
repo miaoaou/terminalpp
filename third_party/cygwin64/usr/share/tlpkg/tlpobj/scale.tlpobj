@@ -1,0 +1,16 @@
+name scale
+category Package
+revision 15878
+shortdesc Scale document by sqrt(2) or magstep(2)
+relocated 1
+longdesc A package to scale a document by sqrt(2) (or by \magstep{2}).
+longdesc This is useful if you are preparing a document on, for example,
+longdesc A5 paper and want to print on A4 paper to achieve a better
+longdesc resolution.
+runfiles size=1
+ RELOC/tex/latex/scale/scale.sty
+catalogue-ctan /macros/latex/contrib/scale
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics geometry
+catalogue-version 1.1.2

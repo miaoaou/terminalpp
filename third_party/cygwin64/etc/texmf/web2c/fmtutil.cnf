@@ -1,0 +1,17 @@
+luahbtex luahbtex language.def,language.dat.lua luatex.ini
+dviluatex luatex language.def,language.dat.lua dviluatex.ini
+luatex luatex language.def,language.dat.lua luatex.ini
+mf mf-nowin - -translate-file=cp227.tcx mf.ini
+etex pdftex language.def -translate-file=cp227.tcx *etex.ini
+pdfetex pdftex language.def -translate-file=cp227.tcx *pdfetex.ini
+pdftex pdftex language.def -translate-file=cp227.tcx *pdfetex.ini
+tex tex - tex.ini
+dvilualatex luatex language.dat,language.dat.lua dvilualatex.ini
+latex pdftex language.dat -translate-file=cp227.tcx *latex.ini
+lualatex luahbtex language.dat,language.dat.lua lualatex.ini
+pdflatex pdftex language.dat -translate-file=cp227.tcx *pdflatex.ini
+mptopdf pdftex - -translate-file=cp227.tcx mptopdf.tex
+dvilualatex-dev luatex language.dat,language.dat.lua dvilualatex.ini
+latex-dev pdftex language.dat -translate-file=cp227.tcx *latex.ini
+lualatex-dev luahbtex language.dat,language.dat.lua lualatex.ini
+pdflatex-dev pdftex language.dat -translate-file=cp227.tcx *pdflatex.ini

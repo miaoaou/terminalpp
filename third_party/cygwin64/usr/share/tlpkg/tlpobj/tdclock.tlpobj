@@ -1,0 +1,15 @@
+name tdclock
+category Package
+revision 33043
+shortdesc A ticking digital clock package for PDF output
+relocated 1
+longdesc A ticking digital clock package to be used in Pdf-LaTeX
+longdesc documents, for example in presentations.
+runfiles size=5
+ RELOC/tex/latex/tdclock/tdclock.sty
+catalogue-also analogclock
+catalogue-ctan /macros/latex/contrib/tdclock
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl2
+catalogue-topics date-time
+catalogue-version 2.5

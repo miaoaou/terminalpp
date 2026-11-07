@@ -1,0 +1,16 @@
+name mi-solns
+category Package
+revision 49651
+shortdesc Extract solutions from exercises and quizzes
+relocated 1
+longdesc This package is designed to mark a solution environment of an
+longdesc exercise or quiz and insert it into the same or a different
+longdesc document. Solutions are ones created by either the exerquiz or
+longdesc eqexam package. All PDF creators are supported.
+runfiles size=2
+ RELOC/tex/latex/mi-solns/mi-solns.sty
+catalogue-ctan /macros/latex/contrib/mi-solns
+catalogue-date 2019-01-12 06:10:36 +0100
+catalogue-license lppl1.2
+catalogue-topics exercise exam
+catalogue-version 0.6

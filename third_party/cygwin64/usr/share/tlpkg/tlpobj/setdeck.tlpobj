@@ -1,0 +1,13 @@
+name setdeck
+category Package
+revision 40613
+shortdesc Typeset cards for Set
+relocated 1
+longdesc The package will typeset cards for use in a game of Set.
+runfiles size=12
+ RELOC/tex/latex/setdeck/setdeck.sty
+catalogue-ctan /graphics/pgf/contrib/setdeck
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics games pgf-tikz
+catalogue-version 0.1

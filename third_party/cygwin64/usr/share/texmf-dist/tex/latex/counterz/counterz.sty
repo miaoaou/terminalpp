@@ -1,0 +1,322 @@
+%%
+%% This is file `counterz.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% counterz.dtx  (with options: `package')
+%% ----------------------------------------------------------------------
+%% `counterz' --- 2023/06/05 Version 1.1.1 Additional tools for counters
+%% E-mail: christopher.mcclain@mail.wvu.edu
+%% Released under the LaTeX Project Public License v1.3c or later
+%% See https://www.latex-project.org/lppl.txt
+%% ----------------------------------------------------------------------
+%% 
+
+
+
+
+
+
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{counterz}[%
+   2023/06/05 v1.1.1 Additional tools for counters
+]%
+\RequirePackage{etoolbox,makecmds}
+\newcommand{\@counterz@counterprefix}{}
+\newcommand{\setcounterprefix}[1]{%
+   \renewcommand{\@counterz@counterprefix}{#1}
+}%
+\newcommand{\clearcounterprefix}{%
+   \setcounterprefix{}
+}%
+\newcommand{\xnewcounter}[1]{%
+   \newcounter{\@counterz@counterprefix #1}
+}%
+\newcommand{\xprovidecounter}[1]{%
+   \providecounter{\@counterz@counterprefix #1}
+}%
+\newcommand{\xsetcounter}[2]{%
+   \setcounter{\@counterz@counterprefix #1}{#2}
+}%
+\newcommand{\xaddtocounter}[2]{%
+   \addtocounter{\@counterz@counterprefix #1}{#2}
+}%
+\newcommand{\xvalue}[1]{%
+   \value{\@counterz@counterprefix #1}
+}%
+\newcommand{\ifctrequal}[4]{%
+   \ifnumequal{\xvalue{#1}}{\xvalue{#2}}{#3}{#4}
+}%
+\newcommand{\ifctrless}[4]{%
+   \ifnumless{\xvalue{#1}}{\xvalue{#2}}{#3}{#4}
+}%
+\newcommand{\ifctrmore}[4]{%
+   \ifnumless{\xvalue{#2}}{\xvalue{#1}}{#3}{#4}
+}%
+\newcommand{\ifctrzero}[3]{%
+   \ifnumequal{\xvalue{#1}}{0}{#2}{#3}
+}%
+\newcommand{\ifctrneg}[3]{%
+   \ifnumless{\xvalue{#1}}{0}{#2}{#3}
+}%
+\newcommand{\ifctrpos}[3]{%
+   \ifnumless{\xvalue{#1}}{1}{#3}{#2}
+}%
+\newcommand{\xarabic}[1]{\arabic{\@counterz@counterprefix #1}}
+\newcommand{\xroman}[1]{\roman{\@counterz@counterprefix #1}}
+\newcommand{\xRoman}[1]{\Roman{\@counterz@counterprefix #1}}
+\newcommand{\xalph}[1]{\alph{\@counterz@counterprefix #1}}
+\newcommand{\xAlph}[1]{\Alph{\@counterz@counterprefix #1}}
+\newcommand{\xfnsymbol}[1]{\fnsymbol{\@counterz@counterprefix #1}}
+\newcommand{\xabsof}[1]{%
+   \ifctrneg{#1}{%
+      \the \numexpr 0 - \xvalue{#1} \relax%
+   }{%
+      \xarabic{#1}%
+   }%
+}
+\newcommand{\xsignof}[1]{%
+   \ifctrneg{#1}{-}{+}
+}%
+\newcommand{\xnegsignof}[1]{%
+   \ifctrneg{#1}{+}{-}
+}%
+\newcommand{\xsigned}[1]{%
+   \xsignof{#1} \xabsof{#1}
+}%
+\newcommand{\xsignednz}[1]{%
+   \ifctrzero{#1}{}{\xsigned{#1}}
+}%
+\newcommand{\xarabicnz}[1]{%
+   \ifctrzero{#1}{}{\xarabic{#1}}
+}%
+\newcommand{\xnegsigned}[1]{%
+   \xnegsignof{#1} \xabsof{#1}
+}%
+\newcommand{\xnegsignednz}[1]{%
+   \ifctrzero{#1}{}{\xnegsigned{#1}}
+}%
+\newcommand{\xnegof}[1]{%
+   \ifctrpos{#1}{-}{}\xabsof{#1}
+}%
+\newcommand{\xnegofnz}[1]{%
+   \ifctrzero{#1}{}{\xnegof{#1}}
+}%
+\newcommand{\xcoef}[1]{%
+   \ifboolexpr{%
+      test {\ifnumless{\xvalue{#1}}{-1}}
+      or test {\ifnumgreater{\xvalue{#1}}{1}}
+   }{%
+      \xarabic{#1}
+   }{%
+   }%
+   \ifnumequal{\xvalue{#1}}{-1}{-}{}
+}%
+\newcommand{\xnegcoef}[1]{%
+   \ifboolexpr{%
+      test {\ifnumless{\xvalue{#1}}{-1}}
+      or test {\ifnumgreater{\xvalue{#1}}{1}}
+   }{%
+      \xnegof{#1}
+   }{%
+   }%
+   \ifnumequal{\xvalue{#1}}{1}{-}{}
+}%
+\newcommand{\xabsofcoef}[1]{%
+   \ifboolexpr{%
+      test {\ifnumless{\xvalue{#1}}{-1}}
+      or test {\ifnumgreater{\xvalue{#1}}{1}}
+   }{%
+      \xabsof{#1}
+   }{%
+   }%
+}%
+\newcommand{\xsignofcoef}[1]{%
+   \ifctrzero{#1}{}{\xsignof{#1}}
+}%
+\newcommand{\xnegsignofcoef}[1]{%
+   \ifctrzero{#1}{}{\xnegsignof{#1}}
+}%
+\newcommand{\xsignedcoef}[1]{%
+   \xsignofcoef{#1} \xabsofcoef{#1}
+}%
+\newcommand{\xnegsignedcoef}[1]{%
+   \xnegsignofcoef{#1} \xabsofcoef{#1}
+}%
+\newbool{@counterz@random}
+\booltrue{@counterz@random}
+\newcommand{\randomizectr}{\booltrue{@counterz@random}}
+\newcommand{\norandomizectr}{\boolfalse{@counterz@random}}
+\newcommand{\ifrandomizectr}[2]{%
+   \ifbool{@counterz@random}{#1}{#2}
+}%
+\newcommand{\promptrandomizectr}[3][\@typein]{%
+   \typein[#1]{#2}
+   \ifdefstring{#1}{#3}{%
+      \randomizectr
+   }{%
+      \norandomizectr
+   }%
+}%
+\newcommand{\randsetcounter}[3]{%
+   \ifrandomizectr{%
+      \setcounter{#1}{%
+         \the \numexpr #2+\pdfuniformdeviate \numexpr #3-#2+1 \relax
+      }%
+   }{%
+      % Do Nothing
+   }%
+}%
+\newcommand{\xrandsetcounter}[3]{%
+   \randsetcounter{\@counterz@counterprefix#1}{#2}{#3}
+}%
+\newcommand{\randaddtocounter}[3]{%
+   \ifrandomizectr{%
+      \addtocounter{#1}{%
+         \the \numexpr #2+\pdfuniformdeviate \numexpr #3-#2+1 \relax
+      }%
+   }{%
+      % Do Nothing
+   }%
+}%
+\newcommand{\xrandaddtocounter}[3]{%
+   \randaddtocounter{\@counterz@counterprefix#1}{#2}{#3}
+}%
+\newbool{@counterz@fileISopen}
+\boolfalse{@counterz@fileISopen}
+\newcommand{\opencountersfile}{%
+   \ifbool{@counterz@fileISopen}{%
+      \PackageError{counterz}{%
+         The write stream is already open!
+         \MessageBreak Process interrupted to prevent overwriting
+         \MessageBreak \jobname.counters.tex
+      }{%
+         Be sure to include only one instance of
+         \protect\opencountersfile.
+      }%
+   }{%
+      \ifrandomizectr{%
+         \newwrite\countersfile
+         \immediate\openout\countersfile=\jobname.counters.tex
+         \booltrue{@counterz@fileISopen}
+      }{%
+         \PackageError{counterz}{%
+            \protect\opencountersfile\space requires
+            \protect\randomizectr
+            \MessageBreak Process interrupted to prevent overwriting
+            \MessageBreak \jobname.counters.tex
+         }{%
+            \protect\opencountersfile\space is designed to open a file
+            for saving newly randomized counters. See the Random
+            Counters section of the counterz package documentation for
+            details.
+         }%
+      }%
+   }%
+}
+\newcommand{\inputcountersfile}{%
+   \InputIfFileExists{\jobname.counters}{%
+   }{%
+      \PackageError{counterz}{%
+         The file \jobname.counters.tex does not exist.
+      }{%
+         See the Random Counters section of the counterz package
+         documentation.
+      }%
+   }%
+}%
+\begingroup
+   \catcode`<=1 \catcode`>=2
+   \catcode`{=12 \catcode`}=12
+   \gdef\@counterz@openbrace<{>
+   \gdef\@counterz@closebrace<}>
+\endgroup
+\newcommand{\savecounter}[1]{%
+   \ifbool{@counterz@fileISopen}{%
+      \immediate\write\countersfile{%
+         \unexpanded{\providecounter}
+         \@counterz@openbrace#1\@counterz@closebrace
+         \unexpanded{\setcounter}
+         \@counterz@openbrace#1\@counterz@closebrace
+         \@counterz@openbrace\arabic{#1}\@counterz@closebrace
+      }%
+   }{%
+      \PackageError{counterz}{%
+         The write stream to the file \jobname.counters.tex must be
+         opened before \protect\savecounter\space can be executed.
+      }{%
+         See \protect\opencountersfile\space and
+         \protect\savecounter\space in the counterz package
+         documentation.
+      }%
+   }%
+}%
+
+\newcommand{\xsavecounter}[1]{%
+   \savecounter{\@counterz@counterprefix#1}%
+}%
+\newcommand{\randprovidecounter}[3]{%
+   \ifltxcounter{#1}{%
+      \@ifnextchar]{%
+         \m@k@gobbleendoptarg
+      }{%
+      }%
+   }{%
+      \newcounter{#1}
+      \ifrandomizectr{%
+         \randsetcounter{#1}{#2}{#3}
+         \savecounter{#1}
+      }{%
+      }%
+   }%
+}%
+\newcommand{\xrandprovidecounter}[3]{%
+   \randprovidecounter{\@counterz@counterprefix#1}{#2}{#3}
+}%
+\newcommand{\randprovidecounternz}[3]{%
+   \ifltxcounter{#1}{%
+      \@ifnextchar]{%
+         \m@k@gobbleendoptarg
+      }{%
+      }%
+   }{%
+      \newcounter{#1}
+      \ifrandomizectr{%
+         \setcounter{#1}{0}
+         \whileboolexpr{test {\ifnumequal{\value{#1}}{0}}}{%
+            \randsetcounter{#1}{#2}{#3}
+         }%
+         \savecounter{#1}
+      }{%
+      }%
+   }%
+}%
+\newcommand{\xrandprovidecounternz}[3]{%
+   \randprovidecounternz{\@counterz@counterprefix#1}{#2}{#3}
+}%
+%% 
+%% Copyright (C) 2023 by Christopher McClain
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or (at your option) any later
+%% version. The latest version of this license is in the file:
+%% 
+%% https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all  distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Christopher McClain.
+%% 
+%% This work consists of the file  counterz.dtx
+%% and the derived files           counterz.ins,
+%%                                 counterz.pdf and
+%%                                 counterz.sty.
+%% 
+%%
+%% End of file `counterz.sty'.

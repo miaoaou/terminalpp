@@ -1,0 +1,14 @@
+name beamertheme-phnompenh
+category Package
+revision 39100
+shortdesc A simple beamer theme
+relocated 1
+longdesc The package provides a simple theme, similar to some others,
+longdesc but designed to be attractive.
+runfiles size=1
+ RELOC/tex/latex/beamertheme-phnompenh/beamerthemePhnomPenh.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/phnompenh
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics presentation
+catalogue-version 1.0

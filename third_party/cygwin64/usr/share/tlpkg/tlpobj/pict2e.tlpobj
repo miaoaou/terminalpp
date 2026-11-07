@@ -1,0 +1,36 @@
+name pict2e
+category Package
+revision 56504
+shortdesc New implementation of picture commands
+relocated 1
+longdesc This package was described in the 2nd edition of 'LaTeX: A
+longdesc Document Preparation System', but the LaTeX project team
+longdesc declined to produce the package. For a long time, LaTeX
+longdesc included a 'pict2e package' that merely produced an apologetic
+longdesc error message. The new package extends the existing LaTeX
+longdesc picture environment, using the familiar technique (cf. the
+longdesc graphics and color packages) of driver files (at present,
+longdesc drivers for dvips, pdfTeX, LuaTeX, XeTeX, VTeX, dvipdfm, and
+longdesc dvipdfmx are available). The package documentation has a fair
+longdesc number of examples of use, showing where things are improved by
+longdesc comparison with the LaTeX picture environment.
+runfiles size=19
+ RELOC/tex/latex/pict2e/p2e-dvipdfm.def
+ RELOC/tex/latex/pict2e/p2e-dvipdfmx.def
+ RELOC/tex/latex/pict2e/p2e-dvips.def
+ RELOC/tex/latex/pict2e/p2e-luatex.def
+ RELOC/tex/latex/pict2e/p2e-pctex32.def
+ RELOC/tex/latex/pict2e/p2e-pctexps.def
+ RELOC/tex/latex/pict2e/p2e-pdftex.def
+ RELOC/tex/latex/pict2e/p2e-textures.def
+ RELOC/tex/latex/pict2e/p2e-vtex.def
+ RELOC/tex/latex/pict2e/p2e-xetex.def
+ RELOC/tex/latex/pict2e/pict2e.cfg
+ RELOC/tex/latex/pict2e/pict2e.sty
+catalogue-also curve2e xpicture
+catalogue-contact-bugs https://github.com/rolfn/pict2e/issues
+catalogue-contact-home https://github.com/rolfn/pict2e
+catalogue-ctan /macros/latex/contrib/pict2e
+catalogue-license lppl1.3
+catalogue-topics graphics graphics-in-tex
+catalogue-version 0.4b

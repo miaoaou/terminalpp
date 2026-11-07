@@ -1,0 +1,22 @@
+name atenddvi
+category Package
+revision 56922
+shortdesc Provides the \AtEndDvi command
+relocated 1
+longdesc This package is unneeded and does nothing when used with a
+longdesc LaTeX format 2020-10-01 or newer as in this case the format
+longdesc provides the \AtEndDvi command. For older formats it implements
+longdesc \AtEndDvi, a counterpart to \AtBeginDvi. The execution of its
+longdesc argument is delayed to the end of the document at the end of
+longdesc the last page. Thus \special and \write remain effective,
+longdesc because they are put into the last page. This is the main
+longdesc difference to \AtEndDocument.
+runfiles size=2
+ RELOC/tex/latex/atenddvi/atenddvi-2019-12-11.sty
+ RELOC/tex/latex/atenddvi/atenddvi.sty
+catalogue-contact-bugs https://github.com/ho-tex/atenddvi/issues
+catalogue-contact-repository https://github.com/ho-tex/atenddvi
+catalogue-ctan /macros/latex/contrib/atenddvi
+catalogue-license lppl1.3c
+catalogue-topics defer-stuff
+catalogue-version 1.5

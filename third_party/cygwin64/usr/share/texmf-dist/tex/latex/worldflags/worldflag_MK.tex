@@ -1,0 +1,22 @@
+% --------------------------------------------------------------------------
+% North Macedonia:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{gold}{RGB}{255,209,0}
+\definecolor{red}{RGB}{200,16,46}
+\fill [red] (0,0) rectangle (\flaglength,1);
+\fill [gold] (126/280*\flaglength,0)--(154/280*\flaglength,0)--(0.5\flaglength,6/14*\flagwidth)--cycle;
+\fill [gold] (126/280*\flaglength,1)--(154/280*\flaglength,1)--(0.5\flaglength,8/14*\flagwidth)--cycle;
+\fill [gold] (0,56/140*\flagwidth)--(0,84/140*\flagwidth)--(\flaglength,56/140*\flagwidth)--(\flaglength,84/140*\flagwidth)--cycle;
+\pgfmathparse{(\flaglength/10)/(7*sqrt(0.01*\flagwidth*\flagwidth+0.01*\flaglength*\flaglength))}
+\edef\x{\pgfmathresult}
+\pgfmathparse{(\flagwidth/10)/(7*sqrt(0.01*\flagwidth*\flagwidth+0.01*\flaglength*\flaglength))}
+\edef\y{\pgfmathresult}
+\fill [gold] (0,0)--(0.15\flaglength,0)--($(\flaglength/2,\flagwidth/2)+(\x*\flagwidth,\y*\flagwidth)$);
+\fill [gold] (0,\flagwidth)--++(0.15\flaglength,0)--($(\flaglength/2,\flagwidth/2)+(\x*\flagwidth,-\y*\flagwidth)$);
+\fill [gold] (\flaglength,\flagwidth)--++(-0.15\flaglength,0)--($(\flaglength/2,\flagwidth/2)-(\x*\flagwidth,\y*\flagwidth)$);
+\fill [gold] (\flaglength,0)--++(-0.15\flaglength,0)--($(\flaglength/2,\flagwidth/2)-(\x*\flagwidth,-\y*\flagwidth)$);
+\fill [red] (\flaglength/2,\flagwidth/2) circle (1.25\flagwidth/7);
+\fill [gold] (\flaglength/2,\flagwidth/2) circle (\flagwidth/7);
+\framecode{}
+\end{flagdescription}

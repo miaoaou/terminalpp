@@ -1,0 +1,17 @@
+name treetex
+category Package
+revision 28176
+catalogue treetex-plain
+shortdesc Draw trees
+relocated 1
+longdesc Macros to draw trees, within TeX (or LaTeX). The algorithm used
+longdesc is discussed in an accompanying paper (written using LaTeX
+longdesc 2.09).
+runfiles size=41
+ RELOC/tex/plain/treetex/classes.tex
+ RELOC/tex/plain/treetex/l_pic.tex
+ RELOC/tex/plain/treetex/treetex.tex
+catalogue-ctan /macros/plain/contrib/treetex
+catalogue-date 2016-07-19 10:27:54 +0200
+catalogue-license pd
+catalogue-topics tree

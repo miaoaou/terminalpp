@@ -1,0 +1,23 @@
+name exsol
+category Package
+revision 69343
+shortdesc Exercises and solutions from the same source, into a book
+relocated 1
+longdesc This package provides macros to allow for embedding exercises
+longdesc and solutions in the LaTeX source of an instructional text
+longdesc (e.g., a book or a course text) while generating the following
+longdesc separate documents: your original text that only contains the
+longdesc exercises, and a solution book that contains only the solutions
+longdesc to the exercises (optionally, the exercises themselves can also
+longdesc be copied to the solution book). The exercise data are
+longdesc generated when running LaTeX on your document; the first run
+longdesc also writes the solutions to a secondary file that may be
+longdesc included in a simple document harness, may be processed by
+longdesc LaTeX, to generate a nice solution book. The code of the
+longdesc package was derived (in large part) from fancyvrb.
+runfiles size=4
+ RELOC/tex/latex/exsol/exsol.sty
+catalogue-ctan /macros/latex/contrib/exsol
+catalogue-license lppl1.3
+catalogue-topics exercise
+catalogue-version 1.6

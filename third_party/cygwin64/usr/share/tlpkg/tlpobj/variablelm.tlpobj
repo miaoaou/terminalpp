@@ -1,0 +1,30 @@
+name variablelm
+category Package
+revision 60014
+shortdesc Font definitions for the variable Latin Modern fonts
+relocated 1
+longdesc This package provides a mechanism for scaling a typeface. It is
+longdesc directed at the Latin Modern fonts and provides the font
+longdesc definitions and the corresponding style file. This mechanism is
+longdesc useful in mixed text compositions, for example Japanese-Latin.
+runfiles size=14
+ RELOC/tex/latex/variablelm/omlvlmm.fd
+ RELOC/tex/latex/variablelm/omlvlmr.fd
+ RELOC/tex/latex/variablelm/omsvlmr.fd
+ RELOC/tex/latex/variablelm/omsvlmsy.fd
+ RELOC/tex/latex/variablelm/omxvlmex.fd
+ RELOC/tex/latex/variablelm/ot1vlmr.fd
+ RELOC/tex/latex/variablelm/ot1vlmtt.fd
+ RELOC/tex/latex/variablelm/t1vlmr.fd
+ RELOC/tex/latex/variablelm/t1vlmss.fd
+ RELOC/tex/latex/variablelm/t1vlmssq.fd
+ RELOC/tex/latex/variablelm/t1vlmtt.fd
+ RELOC/tex/latex/variablelm/t1vlmvtt.fd
+ RELOC/tex/latex/variablelm/ts1vlmr.fd
+ RELOC/tex/latex/variablelm/variablelm.sty
+catalogue-also lm
+catalogue-contact-repository https://github.com/yuw/texmf-variablelm
+catalogue-ctan /fonts/variablelm
+catalogue-license gfl
+catalogue-topics font-cm font-virtual font-t1enc
+catalogue-version 1.2

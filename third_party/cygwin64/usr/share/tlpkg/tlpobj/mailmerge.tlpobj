@@ -1,0 +1,19 @@
+name mailmerge
+category Package
+revision 15878
+shortdesc Repeating text field substitution
+relocated 1
+longdesc The package mailmerge provides an interface to produce text
+longdesc from a template, where fields are replaced by actual data, as
+longdesc in a database. The package may be used to produce several
+longdesc letters from a template, certificates or other such documents.
+longdesc It allows access to the entry number, number of entries and so
+longdesc on.
+runfiles size=1
+ RELOC/tex/latex/mailmerge/mailmerge.sty
+catalogue-also mailing merge postcards
+catalogue-ctan /macros/latex/contrib/mailmerge
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics mailing
+catalogue-version 1.0

@@ -1,0 +1,15 @@
+name fontscale
+category Package
+revision 70540
+shortdesc A flexible interface for setting font sizes
+relocated 1
+longdesc This package provides an interface for selecting (arbitrary)
+longdesc font sizes and associated values.
+runfiles size=11
+ RELOC/tex/latex/fontscale/fontscale.sty
+catalogue-also fix-cm scrartcl
+catalogue-contact-repository https://github.com/beeryoliver/fontscale
+catalogue-ctan /macros/latex/contrib/fontscale
+catalogue-license lppl1.3c
+catalogue-topics expl3 font-sel
+catalogue-version 1.0.1

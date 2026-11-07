@@ -1,0 +1,32 @@
+name pwebmac
+category Package
+revision 69027
+shortdesc Consolidated WEB macros for DVI and PDF output
+relocated 1
+longdesc The original WEB system by Donald Knuth has the macros
+longdesc webmac.tex that produce DVI output only; for historic reasons,
+longdesc it will never be modified (apart from catastrophic errors). Han
+longdesc The Thanh has modified these macros in his pdfwebmac.tex for
+longdesc PDF output (only) with pdfTeX. Jonathan Kew's XeTeX has similar
+longdesc macros xewebmac.tex by Khaled Hosny that modify webmac.tex for
+longdesc PDF output; these macros can only be used with a specific "TeX
+longdesc engine" each. The present pwebmac package integrates these
+longdesc three WEB macro files similar to cwebmac.tex in Silvio Levy's
+longdesc and Don Knuth's CWEB system, so pwebmac.tex can be used with
+longdesc "plain TeX", pdfTeX, and XeTeX alike. Its initial application
+longdesc is the production of PDF files for all major WEB programs for
+longdesc "TeX and friends" as distributed in TeX Live. For this purpose,
+longdesc the shell script makeall was whipped together; it provides
+longdesc various commandline options and works around several "quirks"
+longdesc in the WEB sources. WEB programmers who want to use pwebmac.tex
+longdesc instead of the default webmac.tex in their programs have to
+longdesc change the first line in the TeX file created by weave. From
+longdesc there, all depends on the "TeX engine" you use.
+runfiles size=6
+ RELOC/tex/plain/pwebmac/pwebmac.tex
+catalogue-contact-repository https://github.com/ascherer/web
+catalogue-contact-support https://lists.tug.org/tex-k
+catalogue-ctan /web/pwebmac
+catalogue-license pd
+catalogue-topics litprog
+catalogue-version 4.11

@@ -1,0 +1,16 @@
+name tutodoc
+category Package
+revision 69343
+shortdesc Typeset tutorial-like documentations
+relocated 1
+longdesc This package provides some macros to write documentation of
+longdesc LaTeX packages in a tutorial style.
+runfiles size=9
+ RELOC/tex/latex/tutodoc/tutodoc-locale-main-english.cfg.sty
+ RELOC/tex/latex/tutodoc/tutodoc-locale-main-french.cfg.sty
+ RELOC/tex/latex/tutodoc/tutodoc.sty
+catalogue-contact-repository https://github.com/bc-tools/for-latex
+catalogue-ctan /macros/latex/contrib/tutodoc
+catalogue-license gpl3
+catalogue-topics doc-tool expl3
+catalogue-version 1.1.0

@@ -1,0 +1,16 @@
+name stackengine
+category Package
+revision 60019
+shortdesc Highly customised stacking of objects, insets, baseline changes, etc
+relocated 1
+longdesc The package provides a versatile way to stack objects
+longdesc vertically in a variety of customizable ways. A number of
+longdesc useful macros are provided, all of which make use of the
+longdesc stackengine core.
+depend listofitems
+runfiles size=5
+ RELOC/tex/latex/stackengine/stackengine.sty
+catalogue-ctan /macros/latex/contrib/stackengine
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 4.11

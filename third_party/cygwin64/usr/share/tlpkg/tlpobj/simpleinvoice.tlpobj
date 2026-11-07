@@ -1,0 +1,16 @@
+name simpleinvoice
+category Package
+revision 45673
+shortdesc Easy typesetting of invoices
+relocated 1
+longdesc This package lets you easily typeset professional-looking
+longdesc invoices. The user specifies the content of the invoice by
+longdesc different \setPROPERTY commands, and an invoice is generated
+longdesc automatically with the \makeinvoice command.
+runfiles size=2
+ RELOC/tex/latex/simpleinvoice/simpleinvoice.sty
+catalogue-contact-repository https://github.com/mathialo/simpleinvoice/
+catalogue-ctan /macros/latex/contrib/simpleinvoice
+catalogue-date 2017-11-04 06:13:45 +0100
+catalogue-license gpl3
+catalogue-topics invoice

@@ -1,0 +1,35 @@
+name thmtools
+category Package
+revision 67018
+shortdesc Extensions to theorem environments
+relocated 1
+longdesc The bundle provides several packages for commonly-needed
+longdesc support for typesetting theorems. The packages should work with
+longdesc kernel theorems (theorems 'out of the box' with LaTeX), and the
+longdesc theorem and amsthm packages. Features of the bundle include: a
+longdesc key-value interface to \newtheorem; a \listoftheorems command;
+longdesc hyperref and autoref compatibility; a mechanism for restating
+longdesc entire theorems in a single macro call.
+runfiles size=23
+ RELOC/tex/latex/thmtools/aliasctr.sty
+ RELOC/tex/latex/thmtools/parseargs.sty
+ RELOC/tex/latex/thmtools/thm-amsthm.sty
+ RELOC/tex/latex/thmtools/thm-autoref.sty
+ RELOC/tex/latex/thmtools/thm-beamer.sty
+ RELOC/tex/latex/thmtools/thm-kv.sty
+ RELOC/tex/latex/thmtools/thm-listof.sty
+ RELOC/tex/latex/thmtools/thm-llncs.sty
+ RELOC/tex/latex/thmtools/thm-ntheorem.sty
+ RELOC/tex/latex/thmtools/thm-patch.sty
+ RELOC/tex/latex/thmtools/thm-restate.sty
+ RELOC/tex/latex/thmtools/thmdef-mdframed.sty
+ RELOC/tex/latex/thmtools/thmdef-shaded.sty
+ RELOC/tex/latex/thmtools/thmdef-thmbox.sty
+ RELOC/tex/latex/thmtools/thmtools.sty
+ RELOC/tex/latex/thmtools/unique.sty
+catalogue-contact-bugs https://github.com/muzimuzhi/thmtools/issues
+catalogue-contact-repository https://github.com/muzimuzhi/thmtools
+catalogue-ctan /macros/latex/contrib/thmtools
+catalogue-license lppl1.3c
+catalogue-topics maths maths-theorem
+catalogue-version 76

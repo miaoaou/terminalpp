@@ -1,0 +1,17 @@
+name sillypage
+category Package
+revision 66349
+shortdesc John Cleese's Silly Walk as page numbering style
+relocated 1
+longdesc This simple LaTeX package provides John Cleese's iconic silly
+longdesc walk routine as a page numbering style. Other counters, as well
+longdesc as integers, can be typeset in this "silly" style, too.
+runfiles size=8
+ RELOC/tex/latex/sillypage/sillypage.sty
+ RELOC/tex/latex/sillypage/sillywalk-map.pdf
+catalogue-contact-bugs https://github.com/cereda/sillypage/issues
+catalogue-contact-repository https://github.com/cereda/sillypage
+catalogue-ctan /macros/latex/contrib/sillypage
+catalogue-license cc-by-sa-4 lppl1.3c
+catalogue-topics amusements page-nos numbers
+catalogue-version 1.6

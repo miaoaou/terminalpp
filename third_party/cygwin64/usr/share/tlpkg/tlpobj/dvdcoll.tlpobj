@@ -1,0 +1,53 @@
+name dvdcoll
+category Package
+revision 15878
+shortdesc A class for typesetting DVD archives
+relocated 1
+longdesc Having lost the overview of my DVD archives, I simply could not
+longdesc remember if I already recorded the documentary running on TV
+longdesc that day. I chose to recreate the index using LaTeX: the design
+longdesc aim was a hyperlinked and fully searchable PDF-document,
+longdesc listing my DVDs with all titles, lengths and so on. Further
+longdesc requirements were support for seasons of tv series and a list
+longdesc with all faulty or missing programs for rerecording. The
+longdesc dvdcoll class supports all these requirements. dvdcoll.cls
+longdesc follows the structure <number><title><length>. As a result, the
+longdesc class is not limited to DVDs--you can of course typeset
+longdesc archives of CD-ROMs, Audio-CDs and so on. Supported languages
+longdesc at the moment: English, French, German, Italian, Polish,
+longdesc Portuguese, Spanish. Some help is needed for other languages!
+runfiles size=42
+ RELOC/bibtex/bst/dvdcoll/dcbib.bst
+ RELOC/tex/latex/dvdcoll/dcl/UKenglish.dcl
+ RELOC/tex/latex/dvdcoll/dcl/USenglish.dcl
+ RELOC/tex/latex/dvdcoll/dcl/acadian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/american.dcl
+ RELOC/tex/latex/dvdcoll/dcl/australian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/austrian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/brazil.dcl
+ RELOC/tex/latex/dvdcoll/dcl/brazilian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/british.dcl
+ RELOC/tex/latex/dvdcoll/dcl/canadian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/canadien.dcl
+ RELOC/tex/latex/dvdcoll/dcl/english.dcl
+ RELOC/tex/latex/dvdcoll/dcl/francais.dcl
+ RELOC/tex/latex/dvdcoll/dcl/french.dcl
+ RELOC/tex/latex/dvdcoll/dcl/frenchb.dcl
+ RELOC/tex/latex/dvdcoll/dcl/german.dcl
+ RELOC/tex/latex/dvdcoll/dcl/germanb.dcl
+ RELOC/tex/latex/dvdcoll/dcl/italian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/naustrian.dcl
+ RELOC/tex/latex/dvdcoll/dcl/newzealand.dcl
+ RELOC/tex/latex/dvdcoll/dcl/ngerman.dcl
+ RELOC/tex/latex/dvdcoll/dcl/polish.dcl
+ RELOC/tex/latex/dvdcoll/dcl/portuges.dcl
+ RELOC/tex/latex/dvdcoll/dcl/portuguese.dcl
+ RELOC/tex/latex/dvdcoll/dcl/spanish.dcl
+ RELOC/tex/latex/dvdcoll/dcwrtbib.sty
+ RELOC/tex/latex/dvdcoll/dvdcoll.cls
+ RELOC/tex/latex/dvdcoll/pdfnotiz.sty
+catalogue-ctan /macros/latex/contrib/dvdcoll
+catalogue-date 2016-08-23 21:10:12 +0200
+catalogue-license lppl
+catalogue-topics catalogue class
+catalogue-version 1.1a

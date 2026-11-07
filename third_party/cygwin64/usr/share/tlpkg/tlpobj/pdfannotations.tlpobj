@@ -1,0 +1,16 @@
+name pdfannotations
+category Package
+revision 68958
+shortdesc Annotate PDF slides
+relocated 1
+longdesc This is a package for annotating PDF slides with LaTeX
+longdesc elements, and for inserting code snippets.
+runfiles size=3
+ RELOC/tex/latex/pdfannotations/pdfannotations.cls
+ RELOC/tex/latex/pdfannotations/pdfannotations.sty
+catalogue-also pdfcomment
+catalogue-contact-home https://github.com/chevannanayakkara/pdfannotations
+catalogue-ctan /macros/latex/contrib/pdfannotations
+catalogue-license lppl1.3c
+catalogue-topics pdf-feat
+catalogue-version 3.1

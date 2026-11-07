@@ -1,0 +1,19 @@
+name manyind
+category Package
+revision 49874
+shortdesc Provides support for many indexes
+relocated 1
+longdesc This package provides support for many indexes, leaving all the
+longdesc bookkeeping to LaTeX and makeindex. No extra programs or files
+longdesc are needed. One runs latex and makeindex as if there is just
+longdesc one index. In the main file one puts commands like
+longdesc \setindex{main} to steer the flow. Some features of makeindex
+longdesc may no longer work.
+runfiles size=2
+ RELOC/tex/latex/manyind/manyind.sty
+catalogue-also multind splitindex
+catalogue-contact-home https://www.staff.science.uu.nl/~kalle101/mind.html
+catalogue-ctan /macros/latex/contrib/manyind
+catalogue-date 2019-01-30 10:53:39 +0100
+catalogue-license lppl1.2
+catalogue-topics index-multi

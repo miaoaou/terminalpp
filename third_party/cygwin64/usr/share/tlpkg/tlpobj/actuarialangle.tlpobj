@@ -1,0 +1,18 @@
+name actuarialangle
+category Package
+revision 67201
+shortdesc Angle symbol denoting a duration in actuarial and financial notation
+relocated 1
+longdesc This package provides commands to typeset the "angle" symbol
+longdesc denoting a duration in actuarial notation, such as in symbols
+longdesc for the present value of certain or life annuities, and an over
+longdesc angle square bracket used to emphasize joint status in symbols
+longdesc of life contingencies.
+runfiles size=2
+ RELOC/tex/latex/actuarialangle/actuarialangle.sty
+catalogue-contact-bugs https://gitlab.com/vigou3/actuarialangle/-/issues
+catalogue-contact-repository https://gitlab.com/vigou3/actuarialangle
+catalogue-ctan /macros/latex/contrib/actuarialangle
+catalogue-license lppl1.3c
+catalogue-topics graphics-symb
+catalogue-version 2.1

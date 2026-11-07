@@ -1,0 +1,19 @@
+name binarytree
+category Package
+revision 41777
+shortdesc Drawing binary trees using TikZ
+relocated 1
+longdesc This package provides an easy but flexible way to draw binary
+longdesc trees using TikZ. A path specification and the setting of
+longdesc various options determine the style for each edge of the tree.
+longdesc There is support for the external library of TikZ which does
+longdesc not affect externalization of the rest of the TikZ figures in
+longdesc the document. There is an option to use automatic file naming:
+longdesc useful if the trees are often moved around.
+runfiles size=7
+ RELOC/tex/latex/binarytree/binarytree.sty
+catalogue-ctan /graphics/pgf/contrib/binarytree
+catalogue-date 2016-09-17 10:33:12 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-in-tex pgf-tikz tree
+catalogue-version 1.01

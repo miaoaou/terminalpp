@@ -1,0 +1,17 @@
+name pygmentex
+category Package
+revision 64131
+shortdesc Use Pygments to format code listings in documents
+longdesc PygmenTeX is a Python-based LaTeX package that can be used for
+longdesc typesetting code listings in a LaTeX document using Pygments.
+longdesc Pygments is a generic syntax highlighter for general use in all
+longdesc kinds of software such as forum systems, wikis or other
+longdesc applications that need to prettify source code.
+depend pygmentex.ARCH
+runfiles size=7
+ texmf-dist/scripts/pygmentex/pygmentex.py
+ texmf-dist/tex/latex/pygmentex/pygmentex.sty
+catalogue-ctan /macros/latex/contrib/pygmentex
+catalogue-license lppl1.3
+catalogue-topics listing synt-hlt
+catalogue-version 0.11

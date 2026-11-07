@@ -1,0 +1,18 @@
+name exam-lite
+category Package
+revision 65754
+shortdesc Quicker preparation of exams in LaTeX
+relocated 1
+longdesc This template is devoted to the quicker preparation of exams in
+longdesc LaTeX. Its main features are: Minimalistic design. Include the
+longdesc custom logo of the affiliation. Predefined commands for a
+longdesc subject, study year, study program, exam type, place of exam,
+longdesc date. Many macros contained in this package speed up the
+longdesc process of preparing the necessary ingredients for the exam.
+longdesc Automatic calculation of total points.
+runfiles size=3
+ RELOC/tex/latex/exam-lite/exam-lite.cls
+catalogue-contact-repository https://github.com/firefly-cpp/exam-lite-latex
+catalogue-ctan /macros/latex/contrib/exam-lite
+catalogue-license cc-by-sa-4
+catalogue-topics exam class doc-templ

@@ -1,0 +1,16 @@
+name nonumonpart
+category Package
+revision 22114
+shortdesc Prevent page numbers on part pages
+relocated 1
+longdesc The package bundles the answer to the long-standing FAQ about
+longdesc removing page numbers on \part pages. The package accepts no
+longdesc options and defines no user commands; the user needs only to
+longdesc load it, and the requirement is met.
+runfiles size=1
+ RELOC/tex/latex/nonumonpart/nonumonpart.sty
+catalogue-ctan /macros/latex/contrib/nonumonpart
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics page-nos
+catalogue-version 1

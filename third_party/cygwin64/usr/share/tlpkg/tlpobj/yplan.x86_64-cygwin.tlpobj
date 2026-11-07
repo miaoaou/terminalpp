@@ -1,0 +1,6 @@
+name yplan.x86_64-cygwin
+category Package
+revision 34398
+shortdesc x86_64-cygwin files of yplan
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/yplan

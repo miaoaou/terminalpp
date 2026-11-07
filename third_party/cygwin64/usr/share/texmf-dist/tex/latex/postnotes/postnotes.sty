@@ -1,0 +1,1243 @@
+%%
+%% This is file `postnotes.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% postnotes.dtx  (with options: `package')
+%% 
+%% This file was generated from file(s) of the LaTeX package "postnotes".
+%% 
+%% Copyright (C) 2022-2023  gusbrs
+%% 
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file:
+%% 
+%%    https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by gusbrs.
+%% 
+%% This work consists of the files postnotes.dtx,
+%%                                 postnotes.ins,
+%%                                 postnotes-doc.tex,
+%%                                 postnotes-code.tex,
+%%                   and the files generated from them.
+%% 
+%% The released version of this package is available from CTAN.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+%% The development version of the package can be found at
+%% 
+%%    https://github.com/gusbrs/postnotes
+%% 
+%% for those people who are interested.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+\def\postnotes@required@kernel{2023-11-01}
+\NeedsTeXFormat{LaTeX2e}[\postnotes@required@kernel]
+\providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+\IfFormatAtLeastTF{\postnotes@required@kernel}
+  {}
+  {%
+    \PackageError{postnotes}{LaTeX kernel too old}
+      {%
+        'postnotes' requires a LaTeX kernel \postnotes@required@kernel\space or newer.%
+      }%
+  }%
+\ProvidesExplPackage {postnotes} {2023-12-12} {0.2.8}
+  {Endnotes for LaTeX}
+\tl_new:N \l__postnotes_tmpa_tl
+\tl_new:N \l__postnotes_tmpb_tl
+\seq_new:N \l__postnotes_tmpa_seq
+\box_new:N \l__postnotes_tmpa_box
+\cs_new:Npn \__postnotes_data_name:n #1
+  { g__postnotes_ #1 _data_prop }
+\cs_generate_variant:Nn \__postnotes_data_name:n { e }
+\NewHook { postnotes/note/store }
+\cs_new_protected:Npn \__postnotes_store:nn #1#2
+  {
+    \prop_new:c { \__postnotes_data_name:e {#1} }
+    \prop_gput:cnn { \__postnotes_data_name:e {#1} } { type } { note }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { mark }
+      { \l__postnotes_mark_tl }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { counter }
+      { \int_use:N \c@postnote }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { sortnum }
+      {
+        \bool_if:NTF \l__postnotes_manual_sortnum_bool
+          { \fp_use:N \l__postnotes_sort_num_fp }
+          { \int_use:N \c@postnote }
+      }
+    \cs_if_exist:cT { chapter }
+      {
+        \prop_gput:cne { \__postnotes_data_name:e {#1} }
+          { thechapter } { \thechapter }
+      }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { thesection }
+      { \thesection }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { pnsectname }
+      { \g__postnotes_section_name_tl }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { pnsectid }
+      { \int_use:N \g__postnotes_sectid_int }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { multibool }
+      { \bool_to_str:N \l__postnotes_maybe_multi_bool }
+    \prop_gput:cnn { \__postnotes_data_name:e {#1} } { content } {#2}
+    \UseHook { postnotes/note/store }
+  }
+\cs_new_protected:Npn \__postnotes_store_section:nn #1#2
+  {
+    \prop_new:c { \__postnotes_data_name:e {#1} }
+    \prop_gput:cnn { \__postnotes_data_name:e {#1} } { type } { section }
+    \cs_if_exist:cT { chapter }
+      {
+        \prop_gput:cne { \__postnotes_data_name:e {#1} }
+          { thechapter } { \thechapter }
+      }
+    \prop_gput:cne { \__postnotes_data_name:e {#1} } { thesection }
+      { \thesection }
+    \prop_gput:cnn { \__postnotes_data_name:e {#1} } { content } {#2}
+  }
+\cs_generate_variant:Nn \__postnotes_store_section:nn { ne }
+\cs_new_protected:Npn \__postnotes_prop_get:nnN #1#2#3
+  {
+    \prop_get:cnNF { \__postnotes_data_name:e {#1} } {#2} #3
+      { \tl_clear:N #3 }
+  }
+\cs_new:Npn \__postnotes_prop_item:nn #1#2
+  { \prop_item:cn { \__postnotes_data_name:e {#1} } {#2} }
+\cs_new_protected:Npn \__postnotes_prop_gclear:n #1
+  { \prop_gclear:c { \__postnotes_data_name:e {#1} } }
+\tl_const:Nn \c__postnotes_ref_prefix_tl { postnote@r }
+\cs_new_protected:Npe \post@note #1#2
+  { \exp_not:N \@newl@bel { \c__postnotes_ref_prefix_tl } {#1} {#2} }
+\AddToHook { begindocument }
+  {
+    \legacy_if:nT { @filesw }
+      {
+        \iow_now:Ne \@mainaux
+          { \token_to_str:N \providecommand \token_to_str:N \post@note [2]{} }
+      }
+  }
+\AddToHook { include/before }
+  {
+    \legacy_if:nT { @filesw }
+      {
+        \iow_now:Ne \@partaux
+          { \token_to_str:N \providecommand \token_to_str:N \post@note [2]{} }
+      }
+  }
+\cs_new_protected:Npn \__postnotes_set_label:nn #1#2
+  {
+    \legacy_if:nT { @filesw }
+      {
+        \iow_shipout_x:Nn \@auxout
+          { \token_to_str:N \post@note { #1 } { #2 } }
+      }
+  }
+\cs_new_protected:Npn \__postnotes_set_mark_page_label:n #1
+  { \__postnotes_set_label:nn { mark@ #1 } { \thepage } }
+\cs_generate_variant:Nn \__postnotes_set_mark_page_label:n { e }
+\cs_new_protected:Npn \__postnotes_set_text_page_label:n #1
+  { \__postnotes_set_label:nn { text@ #1 } { \int_use:N \c@page } }
+\cs_generate_variant:Nn \__postnotes_set_text_page_label:n { e }
+\cs_new_protected:Npn \__postnotes_set_print_page_label:n #1
+  { \__postnotes_set_label:nn { print@ #1 } { \int_use:N \c@page } }
+\cs_generate_variant:Nn \__postnotes_set_print_page_label:n { e }
+\cs_new_protected:Npn \__postnotes_get_pageref:Nn #1#2
+  {
+    \cs_if_exist:cTF { \c__postnotes_ref_prefix_tl @ #2 }
+      { \tl_set:Nv #1 { \c__postnotes_ref_prefix_tl @ #2 } }
+      { \tl_clear:N #1 }
+  }
+\cs_generate_variant:Nn \__postnotes_get_pageref:Nn { Ne }
+\cs_new:Npn \__postnotes_extract_pageref:n #1
+  {
+    \cs_if_exist:cTF { \c__postnotes_ref_prefix_tl @ #1 }
+      { \exp_not:v { \c__postnotes_ref_prefix_tl @ #1 } }
+      { \c_empty_tl }
+  }
+\cs_generate_variant:Nn \__postnotes_extract_pageref:n { e }
+\keys_define:nn { postnotes/setup }
+  {
+    heading .cs_set_protected:Np = \pnheading ,
+    heading .value_required:n = true ,
+  }
+\cs_if_exist:cTF { chapter }
+  {
+    \cs_new_protected:Npn \pnheading
+      {
+        \chapter*{\pntitle}
+        \@mkboth{\pnheaderdefault}{\pnheaderdefault}
+      }
+  }
+  {
+    \cs_new_protected:Npn \pnheading
+      {
+        \section*{\pntitle}
+        \@mkboth{\pnheaderdefault}{\pnheaderdefault}
+      }
+  }
+\tl_new:N \l__postnotes_print_format_tl
+\keys_define:nn { postnotes/setup }
+  {
+    format .tl_set:N = \l__postnotes_print_format_tl ,
+    format .initial:n = { \small } ,
+    format .value_required:n = true ,
+  }
+\tl_new:N \l__postnotes_print_env_tl
+\bool_new:N \l__postnotes_print_as_list_bool
+\keys_define:nn { postnotes/setup }
+  {
+    listenv .code:n =
+      {
+        \tl_if_eq:nnTF {#1} { none }
+          {
+            \bool_set_false:N \l__postnotes_print_as_list_bool
+            \tl_set:Nn \l__postnotes_post_printnote_tl { \par }
+            \tl_set:Nn \l__postnotes_print_env_tl { itemize }
+          }
+          {
+            \bool_set_true:N \l__postnotes_print_as_list_bool
+            \tl_set:Nn \l__postnotes_print_env_tl {#1}
+          }
+      } ,
+    listenv .initial:n = { postnoteslist } ,
+    listenv .value_required:n = true ,
+  }
+\NewDocumentEnvironment { postnoteslist } { }
+  {
+    \list { }
+      {
+        \setlength { \leftmargin }    { 0pt }
+        \setlength { \labelwidth }    { 0pt }
+        \setlength { \itemindent }    { .5\parindent }
+        \cs_set_eq:NN \makelabel \__postnotes_list_makelabel:n
+        \setlength { \rightmargin }   { 0pt }
+        \setlength { \listparindent } { \parindent }
+        \setlength { \parsep }    { \parskip }
+        \setlength { \itemsep }   { 0pt }
+        \setlength { \topsep }    { .5\topsep }
+        \setlength { \partopsep } { .5\partopsep }
+      }
+  }
+  { \endlist }
+\NewDocumentEnvironment { postnoteslisthang } { }
+  {
+    \list { }
+      {
+        \setlength { \leftmargin }    { 1em }
+        \setlength { \labelwidth }    { -\leftmargin }
+        \setlength { \itemindent }    { -2\leftmargin }
+        \cs_set_eq:NN \makelabel \__postnotes_list_makelabel:n
+        \setlength { \rightmargin }   { 0pt }
+        \setlength { \listparindent } { \parindent }
+        \setlength { \parsep }    { \parskip }
+        \setlength { \itemsep }   { 0pt }
+        \setlength { \topsep }    { .5\topsep }
+        \setlength { \partopsep } { .5\partopsep }
+      }
+  }
+  { \endlist }
+\cs_new:Npn \__postnotes_list_makelabel:n #1
+  { \hspace { \labelsep } \normalfont ~ #1 }
+\keys_define:nn { postnotes/setup }
+  {
+    makemark .cs_set:Np = \__postnotes_make_mark:nnn #1#2#3 ,
+    makemark .value_required:n = true ,
+    makemark .initial:n =
+      { #2 \hbox { \@textsuperscript { \normalfont #1 } } #3 } ,
+    maketextmark .cs_set:Np = \__postnotes_make_text_mark:nnn #1#2#3  ,
+    maketextmark .value_required:n = true ,
+    maketextmark .initial:n = { #2 #1 . #3 } ,
+  }
+\tl_new:N \l__postnotes_pre_textmark_tl
+\tl_new:N \l__postnotes_post_textmark_tl
+\tl_new:N \l__postnotes_post_printnote_tl
+\keys_define:nn { postnotes/setup }
+  {
+    pretextmark .tl_set:N = \l__postnotes_pre_textmark_tl ,
+    pretextmark .value_required:n = true ,
+    posttextmark .tl_set:N = \l__postnotes_post_textmark_tl ,
+    posttextmark .value_required:n = true ,
+    postprintnote .tl_set:N = \l__postnotes_post_printnote_tl ,
+    postprintnote .value_required:n = true ,
+  }
+\bool_new:N \l__postnotes_hyperlink_bool
+\bool_new:N \l__postnotes_hyperref_warn_bool
+\bool_new:N \l__postnotes_backlink_bool
+\keys_define:nn { postnotes/setup }
+  {
+    hyperref .choice: ,
+    hyperref / auto .code:n =
+      {
+        \bool_set_true:N \l__postnotes_hyperlink_bool
+        \bool_set_false:N \l__postnotes_hyperref_warn_bool
+      } ,
+    hyperref / true .code:n =
+      {
+        \bool_set_true:N \l__postnotes_hyperlink_bool
+        \bool_set_true:N \l__postnotes_hyperref_warn_bool
+      } ,
+    hyperref / false .code:n =
+      {
+        \bool_set_false:N \l__postnotes_hyperlink_bool
+        \bool_set_false:N \l__postnotes_hyperref_warn_bool
+      } ,
+    hyperref .initial:n = auto ,
+    hyperref .default:n = true ,
+    backlink .bool_set:N = \l__postnotes_backlink_bool ,
+    backlink .initial:n = true ,
+    backlink .default:n = true ,
+  }
+\AddToHook { begindocument }
+  {
+    \IfPackageLoadedTF { hyperref }
+      { }
+      {
+        \bool_if:NT \l__postnotes_hyperref_warn_bool
+          { \msg_warning:nn { postnotes } { missing-hyperref } }
+        \bool_set_false:N \l__postnotes_hyperlink_bool
+      }
+    \keys_define:nn { postnotes/setup }
+      {
+        hyperref .code:n =
+          {
+            \msg_warning:nnn { postnotes }
+              { option-preamble-only } { hyperref }
+          } ,
+        backlink .code:n =
+          {
+            \msg_warning:nnn { postnotes }
+              { option-preamble-only } { backlink }
+          } ,
+      }
+  }
+\msg_new:nnn { postnotes } { option-preamble-only }
+  { Option~'#1'~only~available~in~the~preamble~\msg_line_context:. }
+\msg_new:nnn { postnotes } { missing-hyperref }
+  { Missing~'hyperref'~package.~Setting~'hyperref=false'. }
+\bool_new:N \l__postnotes_sort_bool
+\keys_define:nn { postnotes/setup }
+  {
+    sort .bool_set:N = \l__postnotes_sort_bool ,
+    sort .initial:n = true ,
+    sort .default:n = true ,
+  }
+\keys_define:nn { postnotes/setup }
+  {
+    style .choice: ,
+    style / endnotes .meta:n =
+      {
+        listenv = none ,
+        format =
+          {
+            \footnotesize
+            \setlength { \rightskip } { 0pt   }
+            \setlength { \leftskip  } { 0pt   }
+            \setlength { \parindent } { 1.8em }
+          } ,
+        pretextmark = { \par } ,
+        maketextmark =
+         {
+           \hbox_set:Nn \l__postnotes_tmpa_box
+             { \@textsuperscript { \normalfont ##1 } }
+           \skip_horizontal:n { - \box_wd:N \l__postnotes_tmpa_box }
+           ##2 \box_use:N \l__postnotes_tmpa_box ##3
+         } ,
+      } ,
+    style / pagenote .meta:n =
+      {
+        listenv = none ,
+        format = { } ,
+        pretextmark = { \par\noindent } ,
+        maketextmark = { { \normalfont ##2 ##1 . ##3 } } ,
+        posttextmark = { ~ } ,
+      } ,
+  }
+\NewDocumentCommand \postnotesetup { m }
+  { \keys_set:nn { postnotes/setup } {#1} }
+\newcounter { postnote }
+\int_new:N \g__postnotes_note_id_int
+\tl_new:N \l_postnotes_note_id_tl
+\tl_set:Nn \l_postnotes_note_id_tl { \int_use:N \g__postnotes_note_id_int }
+\seq_new:N \g__postnotes_queue_seq
+\NewDocumentCommand \postnote { O { } +m }
+  { \__postnotes_note:nn {#1} {#2} }
+\NewHook { postnotes/note/begin }
+\cs_new_protected:Npn \__postnotes_note:nn #1#2
+  {
+    \group_begin:
+    \keys_set:nn { postnotes/note } {#1}
+    \__postnotes_inhibit_note:F
+      {
+        \int_gincr:N \g__postnotes_note_id_int
+        \tl_if_empty:NT \l__postnotes_mark_tl
+          {
+            \stepcounter { postnote }
+            \tl_set:Ne \l__postnotes_mark_tl { \thepostnote }
+          }
+        \seq_gput_right:Ne \g__postnotes_queue_seq
+          { \l_postnotes_note_id_tl }
+        \UseHook { postnotes/note/begin }
+        \cs_set:Npn \@currentcounter { postnote }
+        \cs_set:Npe \@currentlabel { \p@postnote \l__postnotes_mark_tl }
+        \MakeLinkTarget* { postnote. \l_postnotes_note_id_tl .mark }
+        \__postnotes_set_mark_page_label:e { \l_postnotes_note_id_tl }
+        \__postnotes_set_user_labels:
+        \bool_if:NF \l__postnotes_nomark_bool
+          {
+            \__postnotes_typeset_mark:eV
+              { \l_postnotes_note_id_tl } \l__postnotes_mark_tl
+          }
+        \__postnotes_store:nn { \l_postnotes_note_id_tl } {#2}
+      }
+    \group_end:
+  }
+\tl_new:N \l__postnotes_mark_tl
+\bool_new:N \l__postnotes_nomark_bool
+\fp_new:N \l__postnotes_sort_num_fp
+\tl_new:N \l__postnotes_note_label_tl
+\bool_new:N \l__postnotes_manual_sortnum_bool
+\bool_new:N \l__postnotes_maybe_multi_bool
+\keys_define:nn { postnotes/note }
+  {
+    markstr .tl_set:N = \l__postnotes_mark_tl ,
+    markstr .value_required:n = true ,
+    sortnum .code:n =
+      {
+        \fp_set:Nn \l__postnotes_sort_num_fp {#1}
+        \bool_set_true:N \l__postnotes_manual_sortnum_bool
+      } ,
+    sortnum .value_required:n = true ,
+    mark .meta:n =
+      {
+        markstr = {#1} ,
+        sortnum = {#1} ,
+      } ,
+    mark .value_required:n = true ,
+    nomark .bool_set:N = \l__postnotes_nomark_bool ,
+    nomark .default:n = true ,
+    label .tl_set:N = \l__postnotes_note_label_tl ,
+    label .value_required:n = true ,
+  }
+\bool_new:N \l__postnotes_inhibit_note_bool
+\bool_new:N \l__postnotes_print_plain_mark_bool
+\bool_new:N \l__postnotes_print_plain_mark_stepcounter_bool
+\NewHook { postnotes/note/inhibit }
+\prg_new_protected_conditional:Npnn \__postnotes_inhibit_note: { F }
+  {
+    \bool_set_false:N \l__postnotes_inhibit_note_bool
+    \bool_set_false:N \l__postnotes_print_plain_mark_bool
+    \bool_set_false:N \l__postnotes_print_plain_mark_stepcounter_bool
+    \UseHook { postnotes/note/inhibit }
+    \bool_if:NT \l__postnotes_print_plain_mark_bool
+      {
+        \tl_if_empty:NT \l__postnotes_mark_tl
+          {
+            \bool_if:NTF \l__postnotes_print_plain_mark_stepcounter_bool
+              {
+                \stepcounter { postnote }
+                \tl_set:Ne \l__postnotes_mark_tl { \thepostnote }
+              }
+              {
+                \group_begin:
+                \int_incr:N \c@postnote
+                \exp_args:NNNe
+                  \group_end:
+                  \tl_set:Nn \l__postnotes_mark_tl { \thepostnote }
+              }
+          }
+        \__postnotes_typeset_mark_wrapper:n
+          { \__postnotes_make_mark:nnn { \l__postnotes_mark_tl } { } { } }
+      }
+    \bool_if:NTF \l__postnotes_inhibit_note_bool
+      { \prg_return_true:  }
+      { \prg_return_false: }
+  }
+\cs_new_protected:Npn \__postnotes_typeset_mark:nn #1#2
+  {
+    \__postnotes_typeset_mark_wrapper:n
+      {
+        \bool_if:NTF \l__postnotes_hyperlink_bool
+          {
+            \__postnotes_make_mark:nnn {#2}
+              { \hyper@linkstart { link } { postnote. #1 .text } }
+              { \hyper@linkend }
+          }
+          { \__postnotes_make_mark:nnn {#2} { } { } }
+      }
+  }
+\cs_generate_variant:Nn \__postnotes_typeset_mark:nn { eV }
+\tl_new:N \l__postnotes_saved_spacefactor_tl
+\cs_new_protected:Npn \__postnotes_typeset_mark_wrapper:n #1
+  {
+    \mode_leave_vertical:
+    \mode_if_horizontal:T
+      {
+        \tl_set:Ne \l__postnotes_saved_spacefactor_tl { \the\spacefactor }
+        \nobreak
+      }
+    #1
+    \mode_if_horizontal:T
+      { \spacefactor \l__postnotes_saved_spacefactor_tl }
+    \scan_stop:
+  }
+\cs_new_protected:Npn \__postnotes_set_user_labels:
+  {
+    \tl_if_empty:NF \l__postnotes_note_label_tl
+      { \exp_args:NV \label \l__postnotes_note_label_tl }
+   \tl_if_empty:NF \l__postnotes_note_zlabel_tl
+      { \exp_args:NV \zlabel \l__postnotes_note_zlabel_tl }
+  }
+\NewDocumentCommand \postnoteref { s m }
+  { \__postnotes_note_ref:nn {#1} {#2} }
+\cs_new_protected:Npn \__postnotes_note_ref:nn #1#2
+  {
+    \group_begin:
+    \__postnotes_typeset_mark_wrapper:n
+      {
+        \bool_lazy_and:nnTF
+          { ! #1 }
+          { \l__postnotes_hyperlink_bool }
+          {
+            \hyperref [#2]
+              { \__postnotes_make_mark:nnn { \ref*{#2} } { } { } }
+          }
+          { \__postnotes_make_mark:nnn { \ref*{#2} } { } { } }
+      }
+    \group_end:
+  }
+\NewDocumentCommand \postnotesection { O { } +m }
+  { \__postnotes_section:nn {#1} {#2} }
+\NewDocumentCommand \postnotesectionx { O { } +m }
+  {
+    % NOTE Command deprecated in 2022-12-27 for v0.2.0.
+    \msg_warning:nn { postnotes } { postnotesectionx-deprecated }
+    \postnotesection [ #1 , exp ] {#2}
+  }
+\msg_new:nnn { postnotes } { postnotesectionx-deprecated }
+  {
+    '\iow_char:N\\postnotesectionx'~is~deprecated~\msg_line_context:.~
+    Use~the~'exp'~option~of~'\iow_char:N\\postnotesection'~instead.
+  }
+\int_new:N \g__postnotes_sectid_int
+\cs_new_protected:Npn \__postnotes_section:nn #1#2
+  {
+    \group_begin:
+    \int_gincr:N \g__postnotes_sectid_int
+    \int_gincr:N \g__postnotes_note_id_int
+    \seq_gput_right:Ne \g__postnotes_queue_seq { \l_postnotes_note_id_tl }
+    \tl_gclear:N \g__postnotes_section_name_tl
+    \keys_set:nn { postnotes/section } {#1}
+    \bool_if:NTF \l__postnotes_section_exp_bool
+      { \__postnotes_store_section:ne { \l_postnotes_note_id_tl } {#2} }
+      { \__postnotes_store_section:nn { \l_postnotes_note_id_tl } {#2} }
+    \group_end:
+  }
+\tl_new:N \g__postnotes_section_name_tl
+\bool_new:N \l__postnotes_section_exp_bool
+\keys_define:nn { postnotes/section }
+  {
+    name .tl_gset:N = \g__postnotes_section_name_tl ,
+    name .value_required:n = true ,
+    exp .bool_set:N = \l__postnotes_section_exp_bool ,
+    exp .initial:n = false ,
+    exp .default:n = true ,
+  }
+\NewDocumentCommand \printpostnotes { }
+  { \__postnotes_print_notes: }
+\tl_new:N \pnthechapter
+\tl_new:N \pnthesection
+\tl_new:N \pnidnextnote
+\tl_new:N \pnthechapternextnote
+\tl_new:N \pnthesectionnextnote
+\tl_new:N \pnthepage
+\int_new:N \g__postnotes_print_postnotes_int
+\tl_new:N \l_postnotes_print_note_id_tl
+\tl_new:N \l__postnotes_print_note_id_next_tl
+\tl_new:N \l__postnotes_print_counter_tl
+\tl_new:N \l__postnotes_print_mark_tl
+\tl_new:N \l__postnotes_print_type_curr_tl
+\tl_new:N \l__postnotes_print_type_next_tl
+\tl_new:N \l__postnotes_print_type_prev_tl
+\tl_new:N \l__postnotes_print_content_tl
+\seq_new:N \l__postnotes_clear_queue_seq
+\NewHook { postnotes/print/begin }
+\NewHook { postnotes/print/note/begin }
+\newcounter { postnotetext }
+\newcounter { postnotesection }
+\setcounter { postnotesection } { 10000 }
+\cs_new_protected:Npn \__postnotes_print_notes:
+  {
+    \group_begin:
+    \int_gincr:N \g__postnotes_print_postnotes_int
+    \seq_if_empty:NTF \g__postnotes_queue_seq
+      { \msg_warning:nn { postnotes } { empty-printpostnotes } }
+      {
+        \pnheading
+        \UseHook { postnotes/print/begin }
+        \tl_set:Nn \l__postnotes_print_type_prev_tl { open }
+        \seq_set_eq:NN \l__postnotes_clear_queue_seq \g__postnotes_queue_seq
+        \__postnotes_verify_multipass:N \g__postnotes_queue_seq
+        \bool_if:NT \l__postnotes_sort_bool
+          { \__postnotes_sort_queue:N \g__postnotes_queue_seq }
+        \bool_gset_true:N \g__postnotes_header_vars_next_bool
+        \__postnotes_get_headers_data:N \g__postnotes_queue_seq
+        \__postnotes_set_headers_vars_first:
+        \bool_if:NF \l__postnotes_print_as_list_bool
+          {
+            \cs_set_eq:NN \@afterindentfalse \@afterindenttrue
+            \@afterindenttrue
+          }
+        \bool_until_do:nn { \seq_if_empty_p:N \g__postnotes_queue_seq }
+          {
+            \seq_gpop_left:NN \g__postnotes_queue_seq
+              \l_postnotes_print_note_id_tl
+            \__postnotes_prop_get:nnN { \l_postnotes_print_note_id_tl }
+              { type } \l__postnotes_print_type_curr_tl
+            \tl_if_eq:NnTF \l__postnotes_print_type_curr_tl { section }
+              { % type_curr = `section'
+                \seq_if_empty:NTF \g__postnotes_queue_seq
+                  {
+                    \tl_set:Nn \l__postnotes_print_note_id_next_tl { noid }
+                    \tl_set:Nn \l__postnotes_print_type_next_tl { close }
+                  }
+                  {
+                    \seq_get_left:NN \g__postnotes_queue_seq
+                      \l__postnotes_print_note_id_next_tl
+                    \__postnotes_prop_get:nnN
+                      { \l__postnotes_print_note_id_next_tl }
+                      { type } \l__postnotes_print_type_next_tl
+                  }
+                \tl_if_eq:NnT \l__postnotes_print_type_next_tl { note }
+                  {
+                    \stepcounter { postnotesection }
+                    \group_begin:
+                    \__postnotes_prop_get:nnN
+                      { \l_postnotes_print_note_id_tl }
+                      { thechapter } \pnthechapter
+                    \__postnotes_prop_get:nnN
+                      { \l_postnotes_print_note_id_tl }
+                      { thesection } \pnthesection
+                    \tl_set:NV \pnidnextnote \l__postnotes_print_note_id_next_tl
+                    \__postnotes_prop_get:nnN
+                      { \l__postnotes_print_note_id_next_tl }
+                      { thechapter } \pnthechapternextnote
+                    \__postnotes_prop_get:nnN
+                      { \l__postnotes_print_note_id_next_tl }
+                      { thesection } \pnthesectionnextnote
+                    \__postnotes_prop_get:nnN
+                      { \l_postnotes_print_note_id_tl }
+                      { content } \l__postnotes_print_content_tl
+                    \l__postnotes_print_content_tl
+                    \group_end:
+                    \tl_set:NV \l__postnotes_print_type_prev_tl
+                      \l__postnotes_print_type_curr_tl
+                  }
+              }
+              { % type_curr = `note'
+                \tl_if_eq:NnF \l__postnotes_print_type_prev_tl { note }
+                  {
+                    \bool_if:NTF \l__postnotes_print_as_list_bool
+                      { \exp_args:Ne \begin { \l__postnotes_print_env_tl } }
+                      { \group_begin: }
+                    \l__postnotes_print_format_tl
+                  }
+                \group_begin:
+                \UseHook { postnotes/print/note/begin }
+                \__postnotes_get_pageref:Ne \pnthepage
+                  { mark@ \l_postnotes_print_note_id_tl }
+                \__postnotes_prop_get:nnN
+                  { \l_postnotes_print_note_id_tl }
+                  { mark } \l__postnotes_print_mark_tl
+                \__postnotes_prop_get:nnN
+                  { \l_postnotes_print_note_id_tl }
+                  { counter } \l__postnotes_print_counter_tl
+                \__postnotes_prop_get:nnN
+                  { \l_postnotes_print_note_id_tl }
+                  { content } \l__postnotes_print_content_tl
+                \cs_set:Npn \@currentcounter { postnotetext }
+                \int_set:Nn \c@postnotetext
+                  { \l__postnotes_print_counter_tl }
+                \cs_set:Npe \@currentlabel
+                  { \p@postnote \l__postnotes_print_mark_tl }
+                \__postnotes_text_mark_wrapper:n
+                  {
+                    \MakeLinkTarget*
+                      { postnote. \l_postnotes_print_note_id_tl .text }
+                    \__postnotes_set_text_page_label:e
+                      { \l_postnotes_print_note_id_tl }
+                    \__postnotes_typeset_text_mark:eV
+                      { \l_postnotes_print_note_id_tl }
+                      \l__postnotes_print_mark_tl
+                  }
+                \l__postnotes_print_content_tl
+                \l__postnotes_post_printnote_tl
+                \group_end:
+                \seq_if_empty:NTF \g__postnotes_queue_seq
+                  {
+                    \tl_set:Nn \l__postnotes_print_note_id_next_tl { noid }
+                    \tl_set:Nn \l__postnotes_print_type_next_tl { close }
+                  }
+                  {
+                    \seq_get_left:NN \g__postnotes_queue_seq
+                      \l__postnotes_print_note_id_next_tl
+                    \__postnotes_prop_get:nnN
+                      { \l__postnotes_print_note_id_next_tl }
+                      { type } \l__postnotes_print_type_next_tl
+                  }
+                \tl_if_eq:NnF \l__postnotes_print_type_next_tl { note }
+                  {
+                    \bool_if:NTF \l__postnotes_print_as_list_bool
+                      { \exp_args:Ne \end { \l__postnotes_print_env_tl } }
+                      { \group_end: }
+                    \par
+                  }
+                \tl_set:NV \l__postnotes_print_type_prev_tl
+                  \l__postnotes_print_type_curr_tl
+              }
+          }
+        \AddToHookNext { shipout/after }
+          { \bool_gset_false:N \g__postnotes_header_vars_next_bool }
+        \seq_map_inline:Nn \l__postnotes_clear_queue_seq
+          { \__postnotes_prop_gclear:n { ##1 } }
+      }
+    \group_end:
+  }
+\msg_new:nnn { postnotes } { empty-printpostnotes }
+  { Empty~'\iow_char:N\\printpostnotes'~\msg_line_context:. }
+\cs_new_protected:Npn \__postnotes_typeset_text_mark:nn #1#2
+  {
+    \bool_lazy_and:nnTF
+      { \l__postnotes_hyperlink_bool }
+      { \l__postnotes_backlink_bool  }
+      {
+        \__postnotes_make_text_mark:nnn {#2}
+          { \hyper@linkstart { link } { postnote. #1 .mark } }
+          { \hyper@linkend }
+      }
+      { \__postnotes_make_text_mark:nnn {#2} { } { } }
+  }
+\cs_generate_variant:Nn \__postnotes_typeset_text_mark:nn { eV }
+\cs_new_protected:Npn \__postnotes_text_mark_wrapper:n #1
+  {
+    \bool_if:NTF \l__postnotes_print_as_list_bool
+      {
+        \item [ \l__postnotes_pre_textmark_tl #1 \l__postnotes_post_textmark_tl ]
+        \mode_leave_vertical:
+      }
+      { \l__postnotes_pre_textmark_tl #1 \l__postnotes_post_textmark_tl }
+  }
+\cs_new_protected:Npn \__postnotes_verify_multipass:N #1
+  {
+    \group_begin:
+    \seq_clear:N \l__postnotes_tmpa_seq
+    \seq_map_inline:Nn #1
+      {
+        \__postnotes_prop_get:nnN {##1} { multibool } \l__postnotes_tmpa_tl
+        \str_if_eq:VnTF \l__postnotes_tmpa_tl { true }
+          {
+            \cs_if_exist:cT
+              { \c__postnotes_ref_prefix_tl @ mark@ ##1 }
+              { \seq_put_right:Nn \l__postnotes_tmpa_seq {##1} }
+          }
+          { \seq_put_right:Nn \l__postnotes_tmpa_seq {##1} }
+      }
+    \seq_gset_eq:NN #1 \l__postnotes_tmpa_seq
+    \group_end:
+  }
+\cs_new_protected:Npn \__postnotes_sort_queue:N #1
+  {
+    \group_begin:
+    \seq_gsort:Nn #1
+      {
+        \__postnotes_prop_get:nnN {##1} { pnsectid } \l__postnotes_tmpa_tl
+        \__postnotes_prop_get:nnN {##2} { pnsectid } \l__postnotes_tmpb_tl
+        \tl_if_eq:NNTF \l__postnotes_tmpa_tl \l__postnotes_tmpb_tl
+          {
+            \__postnotes_prop_get:nnN {##1} { type } \l__postnotes_tmpa_tl
+            \__postnotes_prop_get:nnN {##2} { type } \l__postnotes_tmpb_tl
+            \bool_lazy_and:nnTF
+              { \str_if_eq_p:Vn \l__postnotes_tmpa_tl { note } }
+              { \str_if_eq_p:Vn \l__postnotes_tmpb_tl { note } }
+              {
+                \__postnotes_prop_get:nnN {##1} { sortnum } \l__postnotes_tmpa_tl
+                \__postnotes_prop_get:nnN {##2} { sortnum } \l__postnotes_tmpb_tl
+                \fp_compare:nNnTF
+                  { \l__postnotes_tmpa_tl } > { \l__postnotes_tmpb_tl }
+                  { \sort_return_swapped: }
+                  { \sort_return_same:    }
+              }
+              { \sort_return_same: }
+          }
+          { \sort_return_same: }
+      }
+    \group_end:
+  }
+\tl_new:N \pnhdpagefirst
+\tl_new:N \pnhdpagelast
+\tl_new:N \pnhdchapfirst
+\tl_new:N \pnhdchaplast
+\tl_new:N \pnhdsectfirst
+\tl_new:N \pnhdsectlast
+\tl_new:N \pnhdnamefirst
+\tl_new:N \pnhdnamelast
+\prop_new:N \g__postnotes_header_page_first_prop
+\prop_new:N \g__postnotes_header_page_last_prop
+\prop_new:N \g__postnotes_header_chap_first_prop
+\prop_new:N \g__postnotes_header_chap_last_prop
+\prop_new:N \g__postnotes_header_sect_first_prop
+\prop_new:N \g__postnotes_header_sect_last_prop
+\prop_new:N \g__postnotes_header_name_first_prop
+\prop_new:N \g__postnotes_header_name_last_prop
+\tl_new:N \g__postnotes_header_prev_last_page_tl
+\tl_new:N \g__postnotes_header_prev_last_chap_tl
+\tl_new:N \g__postnotes_header_prev_last_sect_tl
+\tl_new:N \g__postnotes_header_prev_last_name_tl
+\tl_new:N \l__postnotes_prev_text_page_tl
+\tl_new:N \l__postnotes_curr_text_page_tl
+\tl_new:N \l__postnotes_prev_mark_page_tl
+\tl_new:N \l__postnotes_prev_mark_chap_tl
+\tl_new:N \l__postnotes_prev_mark_sect_tl
+\tl_new:N \l__postnotes_prev_mark_name_tl
+\cs_new_protected:Npn \__postnotes_get_headers_data:N #1
+  {
+    \group_begin:
+    \tl_gclear:N \pnhdpagefirst
+    \tl_gclear:N \pnhdpagelast
+    \tl_gclear:N \pnhdchapfirst
+    \tl_gclear:N \pnhdchaplast
+    \tl_gclear:N \pnhdsectfirst
+    \tl_gclear:N \pnhdsectlast
+    \tl_gclear:N \pnhdnamefirst
+    \tl_gclear:N \pnhdnamelast
+    \prop_gclear:N \g__postnotes_header_page_first_prop
+    \prop_gclear:N \g__postnotes_header_page_last_prop
+    \prop_gclear:N \g__postnotes_header_chap_first_prop
+    \prop_gclear:N \g__postnotes_header_chap_last_prop
+    \prop_gclear:N \g__postnotes_header_sect_first_prop
+    \prop_gclear:N \g__postnotes_header_sect_last_prop
+    \prop_gclear:N \g__postnotes_header_name_first_prop
+    \prop_gclear:N \g__postnotes_header_name_last_prop
+    \tl_gclear:N \g__postnotes_header_prev_last_page_tl
+    \tl_gclear:N \g__postnotes_header_prev_last_chap_tl
+    \tl_gclear:N \g__postnotes_header_prev_last_sect_tl
+    \tl_gclear:N \g__postnotes_header_prev_last_name_tl
+    \tl_clear:N \l__postnotes_prev_text_page_tl
+    \tl_clear:N \l__postnotes_curr_text_page_tl
+    \tl_clear:N \l__postnotes_prev_mark_page_tl
+    \tl_clear:N \l__postnotes_prev_mark_chap_tl
+    \tl_clear:N \l__postnotes_prev_mark_sect_tl
+    \tl_clear:N \l__postnotes_prev_mark_name_tl
+    \seq_map_inline:Nn #1
+      {
+        \exp_args:Ne \tl_if_eq:nnT
+          { \__postnotes_prop_item:nn {##1} { type } }
+          { note }
+          {
+            \__postnotes_get_pageref:Nn
+              \l__postnotes_curr_text_page_tl { text@ ##1 }
+            \tl_if_empty:NF \l__postnotes_curr_text_page_tl
+              {
+                \tl_if_eq:NNTF
+                  \l__postnotes_prev_text_page_tl
+                  \l__postnotes_curr_text_page_tl
+                  {
+                    \__postnotes_get_pageref:Nn
+                      \l__postnotes_prev_mark_page_tl { mark@ ##1 }
+                    \__postnotes_prop_get:nnN {##1} { thechapter }
+                      \l__postnotes_prev_mark_chap_tl
+                    \__postnotes_prop_get:nnN {##1} { thesection }
+                      \l__postnotes_prev_mark_sect_tl
+                    \__postnotes_prop_get:nnN {##1} { pnsectname }
+                      \l__postnotes_prev_mark_name_tl
+                  }
+                  {
+                    \tl_if_empty:NF \l__postnotes_prev_text_page_tl
+                      {
+                        \prop_gput:Nee \g__postnotes_header_page_last_prop
+                          { \l__postnotes_prev_text_page_tl }
+                          { \l__postnotes_prev_mark_page_tl }
+                        \prop_gput:Nee \g__postnotes_header_chap_last_prop
+                          { \l__postnotes_prev_text_page_tl }
+                          { \l__postnotes_prev_mark_chap_tl }
+                        \prop_gput:Nee \g__postnotes_header_sect_last_prop
+                          { \l__postnotes_prev_text_page_tl }
+                          { \l__postnotes_prev_mark_sect_tl }
+                        \prop_gput:Nee \g__postnotes_header_name_last_prop
+                          { \l__postnotes_prev_text_page_tl }
+                          { \l__postnotes_prev_mark_name_tl }
+                      }
+                    \prop_gput:Nee \g__postnotes_header_page_first_prop
+                      { \l__postnotes_curr_text_page_tl }
+                      { \__postnotes_extract_pageref:n { mark@ ##1 } }
+                    \prop_gput:Nee \g__postnotes_header_chap_first_prop
+                      { \l__postnotes_curr_text_page_tl }
+                      { \__postnotes_prop_item:nn {##1} { thechapter } }
+                    \prop_gput:Nee \g__postnotes_header_sect_first_prop
+                      { \l__postnotes_curr_text_page_tl }
+                      { \__postnotes_prop_item:nn {##1} { thesection } }
+                    \prop_gput:Nee \g__postnotes_header_name_first_prop
+                      { \l__postnotes_curr_text_page_tl }
+                      { \__postnotes_prop_item:nn {##1} { pnsectname } }
+                    \__postnotes_get_pageref:Nn
+                      \l__postnotes_prev_mark_page_tl { mark@ ##1 }
+                    \__postnotes_prop_get:nnN {##1} { thechapter }
+                      \l__postnotes_prev_mark_chap_tl
+                    \__postnotes_prop_get:nnN {##1} { thesection }
+                      \l__postnotes_prev_mark_sect_tl
+                    \__postnotes_prop_get:nnN {##1} { pnsectname }
+                      \l__postnotes_prev_mark_name_tl
+                    \tl_set:NV \l__postnotes_prev_text_page_tl
+                      \l__postnotes_curr_text_page_tl
+                  }
+              }
+          }
+      }
+    \tl_if_empty:NF \l__postnotes_prev_text_page_tl
+      {
+        \prop_gput:Nee \g__postnotes_header_page_last_prop
+          { \l__postnotes_prev_text_page_tl }
+          { \l__postnotes_prev_mark_page_tl }
+        \prop_gput:Nee \g__postnotes_header_chap_last_prop
+          { \l__postnotes_prev_text_page_tl }
+          { \l__postnotes_prev_mark_chap_tl }
+        \prop_gput:Nee \g__postnotes_header_sect_last_prop
+          { \l__postnotes_prev_text_page_tl }
+          { \l__postnotes_prev_mark_sect_tl }
+        \prop_gput:Nee \g__postnotes_header_name_last_prop
+          { \l__postnotes_prev_text_page_tl }
+          { \l__postnotes_prev_mark_name_tl }
+      }
+    \group_end:
+  }
+\cs_new_protected:Npn \__postnotes_set_headers_vars:n #1
+  {
+    \group_begin:
+    \prop_get:NnNTF \g__postnotes_header_page_first_prop
+      {#1} \l__postnotes_tmpa_tl
+      { \tl_gset:NV \pnhdpagefirst \l__postnotes_tmpa_tl }
+      { \tl_gset:NV \pnhdpagefirst \g__postnotes_header_prev_last_page_tl }
+    \prop_get:NnNTF \g__postnotes_header_page_last_prop
+      {#1} \l__postnotes_tmpa_tl
+      {
+        \tl_gset:NV \pnhdpagelast \l__postnotes_tmpa_tl
+        \tl_gset:NV \g__postnotes_header_prev_last_page_tl
+          \l__postnotes_tmpa_tl
+      }
+      { \tl_gset:NV \pnhdpagelast \g__postnotes_header_prev_last_page_tl }
+    \prop_get:NnNTF \g__postnotes_header_chap_first_prop
+      {#1} \l__postnotes_tmpa_tl
+      { \tl_gset:NV \pnhdchapfirst \l__postnotes_tmpa_tl }
+      { \tl_gset:NV \pnhdchapfirst \g__postnotes_header_prev_last_chap_tl }
+    \prop_get:NnNTF \g__postnotes_header_chap_last_prop
+      {#1} \l__postnotes_tmpa_tl
+      {
+        \tl_gset:NV \pnhdchaplast \l__postnotes_tmpa_tl
+        \tl_gset:NV \g__postnotes_header_prev_last_chap_tl
+          \l__postnotes_tmpa_tl
+      }
+      { \tl_gset:NV \pnhdchaplast \g__postnotes_header_prev_last_chap_tl }
+    \prop_get:NnNTF \g__postnotes_header_sect_first_prop
+      {#1} \l__postnotes_tmpa_tl
+      { \tl_gset:NV \pnhdsectfirst \l__postnotes_tmpa_tl }
+      { \tl_gset:NV \pnhdsectfirst \g__postnotes_header_prev_last_sect_tl }
+    \prop_get:NnNTF \g__postnotes_header_sect_last_prop
+      {#1} \l__postnotes_tmpa_tl
+      {
+        \tl_gset:NV \pnhdsectlast \l__postnotes_tmpa_tl
+        \tl_gset:NV \g__postnotes_header_prev_last_sect_tl
+          \l__postnotes_tmpa_tl
+      }
+      { \tl_gset:NV \pnhdsectlast \g__postnotes_header_prev_last_sect_tl }
+    \prop_get:NnNTF \g__postnotes_header_name_first_prop
+      {#1} \l__postnotes_tmpa_tl
+      { \tl_gset:NV \pnhdnamefirst \l__postnotes_tmpa_tl }
+      { \tl_gset:NV \pnhdnamefirst \g__postnotes_header_prev_last_name_tl }
+    \prop_get:NnNTF \g__postnotes_header_name_last_prop
+      {#1} \l__postnotes_tmpa_tl
+      {
+        \tl_gset:NV \pnhdnamelast \l__postnotes_tmpa_tl
+        \tl_gset:NV \g__postnotes_header_prev_last_name_tl
+          \l__postnotes_tmpa_tl
+      }
+      { \tl_gset:NV \pnhdnamelast \g__postnotes_header_prev_last_name_tl }
+    \group_end:
+  }
+\cs_generate_variant:Nn \__postnotes_set_headers_vars:n { e }
+\AddToHook { shipout/before } [ postnotes/header ]
+  { \__postnotes_set_headers_vars_next: }
+\bool_new:N \g__postnotes_header_vars_next_bool
+\cs_new_protected:Npn \__postnotes_set_headers_vars_next:
+  {
+    \bool_if:NT \g__postnotes_header_vars_next_bool
+      { \__postnotes_set_headers_vars:e { \int_eval:n { \c@page + 1 } } }
+  }
+\cs_new_protected:Npn \__postnotes_set_headers_vars_first:
+  {
+    \__postnotes_set_print_page_label:e
+      { \int_use:N \g__postnotes_print_postnotes_int }
+    \__postnotes_set_headers_vars:e
+      {
+        \__postnotes_extract_pageref:e
+          { print@ \int_use:N \g__postnotes_print_postnotes_int }
+      }
+  }
+\NewDocumentCommand \pnheaderdefault {}
+  {
+    \tl_if_eq:NNTF \pnhdpagefirst \pnhdpagelast
+      { \pnhdnotes{} ~ \pnhdtopage{} ~ \pnhdpagefirst }
+      { \pnhdnotes{} ~ \pnhdtopages{} ~ \pnhdpagefirst -- \pnhdpagelast }
+  }
+\tl_new:N \l__postnotes_restore_tmp_tl
+\AddToHook { postnotes/note/begin } [ postnotes ]
+  {
+    \cs_if_exist:NT \@captype
+      { \bool_set_true:N \l__postnotes_maybe_multi_bool }
+  }
+\AddToHook { package/biblatex/after }
+  {
+    \AddToHook { postnotes/print/begin } [ postnotes ]
+      { \toggletrue { blx@footnote } }
+    \AddToHook { begindocument/before } [ postnotes/mkbibendnote ]
+      {
+        \cs_set:Npn \blx@theendnote { \postnote }
+        \cs_set:Npn \blx@theendnotetext
+          { \blx@err@endnote \footnotetext }
+      }
+  }
+\tl_new:N \l__postnotes_note_zlabel_tl
+\AddToHook { package/zref-user/after }
+  {
+    \keys_define:nn { postnotes/note }
+      {
+        zlabel .tl_set:N = \l__postnotes_note_zlabel_tl ,
+        zlabel .value_required:n = true ,
+      }
+    \NewDocumentCommand \postnotezref { s m }
+      { \__postnotes_note_zref:nn {#1} {#2} }
+    \cs_new_protected:Npn \__postnotes_note_zref:nn #1#2
+      {
+        \group_begin:
+        \__postnotes_typeset_mark_wrapper:n
+          {
+            \bool_lazy_all:nTF
+              {
+                { ! #1 }
+                { \l__postnotes_hyperlink_bool }
+                { \l__postnotes_zrefhyperref_bool }
+              }
+              {
+                \hyperlink
+                  { \zref@extractdefault {#2} { anchor } { } }
+                  { \__postnotes_make_mark:nnn { \zref{#2} } { } { } }
+              }
+              { \__postnotes_make_mark:nnn { \zref{#2} } { } { } }
+          }
+        \group_end:
+      }
+  }
+\bool_new:N \l__postnotes_zrefhyperref_bool
+\AddToHook { package/zref-hyperref/after }
+  { \bool_set_true:N \l__postnotes_zrefhyperref_bool }
+\AddToHook { package/zref-clever/after }
+  {
+    \zcsetup
+      {
+        countertype = { postnote = endnote } ,
+        countertype = { postnotetext = endnote } ,
+      }
+    \AddToHook { postnotes/print/begin } [ postnotes ]
+      { \zcsetup { counterresetby = { postnotetext = postnotesection } } }
+  }
+\AddToHook { package/zref-check/after }
+  {
+    \IfPackageAtLeastTF { zref-check } { 2022-07-05 }
+      {
+        \AddToHook { postnotes/note/store } [ postnotes ]
+          {
+            \prop_gput:cne { \__postnotes_data_name:e { \l_postnotes_note_id_tl } }
+              { zref-check@abschap } { \int_use:N \c@zc@abschap }
+            \prop_gput:cne { \__postnotes_data_name:e { \l_postnotes_note_id_tl } }
+              { zref-check@abssec } { \int_use:N \c@zc@abssec }
+          }
+        \AddToHook { postnotes/print/note/begin } [ postnotes ]
+          {
+            \__postnotes_prop_get:nnN { \l_postnotes_print_note_id_tl }
+              { zref-check@abschap } \l__postnotes_restore_tmp_tl
+            \int_set:Nn \c@zc@abschap { \l__postnotes_restore_tmp_tl }
+            \__postnotes_prop_get:nnN { \l_postnotes_print_note_id_tl }
+              { zref-check@abssec } \l__postnotes_restore_tmp_tl
+            \int_set:Nn \c@zc@abssec { \l__postnotes_restore_tmp_tl }
+          }
+      }
+      { }
+  }
+\AddToHook { package/amsmath/after }
+  {
+    \AddToHook { postnotes/note/inhibit } [ postnotes ]
+      {
+        \legacy_if:nT { measuring@ }
+          {
+            \bool_set_true:N \l__postnotes_inhibit_note_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_stepcounter_bool
+          }
+      }
+    \AddToHook { postnotes/note/begin } [ postnotes ]
+      {
+        \legacy_if:nF { firstchoice@ }
+          { \bool_set_true:N \l__postnotes_maybe_multi_bool }
+      }
+  }
+\AddToHook { package/csquotes/after }
+  {
+    \bool_new:N \l__postnotes_csquotes_measuring_bool
+    \BlockquoteDisable
+      { \bool_set_true:N \l__postnotes_csquotes_measuring_bool }
+    \AddToHook { postnotes/note/inhibit } [ postnotes ]
+      {
+        \bool_if:NT \l__postnotes_csquotes_measuring_bool
+          {
+            \bool_set_true:N \l__postnotes_inhibit_note_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_stepcounter_bool
+          }
+      }
+  }
+\AddToHook { package/tabularx/after }
+  {
+    \bool_new:N \l__postnotes_tabularx_inside_env_bool
+    \AddToHook { env/tabularx/begin } [ postnotes ]
+      {
+        \bool_set_true:N \l__postnotes_tabularx_inside_env_bool
+        \cs_set_eq:NN \__postnotes_tabularx_saved_write:Nn \write
+      }
+    \AddToHook { postnotes/note/inhibit } [ postnotes ]
+      {
+        \bool_lazy_and:nnT
+          { \l__postnotes_tabularx_inside_env_bool }
+          { ! \cs_if_eq_p:NN \write \__postnotes_tabularx_saved_write:Nn }
+          {
+            \bool_set_true:N \l__postnotes_inhibit_note_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_bool
+            \bool_set_true:N \l__postnotes_print_plain_mark_stepcounter_bool
+          }
+      }
+  }
+\AddToHook { package/tabularray/after }
+  {
+    \bool_if_exist:NTF \lTblrMeasuringBool
+      {
+        \AddToHook { postnotes/note/inhibit } [ postnotes ]
+          {
+            \bool_if:NT \lTblrMeasuringBool
+              {
+                \bool_set_true:N \l__postnotes_inhibit_note_bool
+                \bool_set_true:N \l__postnotes_print_plain_mark_bool
+                \bool_set_true:N \l__postnotes_print_plain_mark_stepcounter_bool
+              }
+          }
+      }
+      {
+        \clist_map_inline:nn
+          {
+            tblr , longtblr , talltblr , booktabs ,
+            longtabs , talltabs , +array
+          }
+          {
+            \AddToHook { env/#1/begin } [ postnotes ]
+              { \bool_set_true:N \l__postnotes_maybe_multi_bool }
+          }
+      }
+  }
+\tl_new:N \pntitle
+\tl_new:N \pnhdnotes
+\tl_new:N \pnhdtopage
+\tl_new:N \pnhdtopages
+\tl_set:Nn \pntitle { Notes }
+\tl_set:Nn \pnhdnotes { Notes }
+\tl_set:Nn \pnhdtopage { to~page }
+\tl_set:Nn \pnhdtopages { to~pages }
+\cs_new_protected:Npn \__postnotes_define_language:nn #1#2
+  {
+    \tl_new:c { g__postnotes_language_ #1 _tl }
+    \tl_gset:cn { g__postnotes_language_ #1 _tl } {#2}
+  }
+\cs_new_protected:Npn \__postnotes_set_babel_language:nn #1#2
+  {
+    \ActivateGenericHook { babel/#1/beforeextras }
+    \exp_args:Nnv \AddToHook { babel/#1/beforeextras }
+      { g__postnotes_language_ #2 _tl }
+  }
+\cs_new_protected:Npn \__postnotes_set_polyglossia_language:nn #1#2
+  {
+    \AddToHook { package/polyglossia/after }
+      {
+        \exp_args:Nnv \csgappto { captions #1 }
+          { g__postnotes_language_ #2 _tl }
+      }
+  }
+\__postnotes_define_language:nn { english }
+  {
+    \tl_set:Nn \pntitle     { Notes }
+    \tl_set:Nn \pnhdnotes   { Notes }
+    \tl_set:Nn \pnhdtopage  { to~page }
+    \tl_set:Nn \pnhdtopages { to~pages }
+  }
+\__postnotes_set_babel_language:nn { english }    { english }
+\__postnotes_set_babel_language:nn { british }    { english }
+\__postnotes_set_babel_language:nn { american }   { english }
+\__postnotes_set_babel_language:nn { canadian }   { english }
+\__postnotes_set_babel_language:nn { australian } { english }
+\__postnotes_set_babel_language:nn { newzealand } { english }
+\__postnotes_set_babel_language:nn { UKenglish }  { english }
+\__postnotes_set_babel_language:nn { USenglish }  { english }
+\__postnotes_set_polyglossia_language:nn { english } { english }
+\__postnotes_define_language:nn { portuguese }
+  {
+    \tl_set:Nn \pntitle     { Notas }
+    \tl_set:Nn \pnhdnotes   { Notas }
+    \tl_set:Nn \pnhdtopage  { da~página }
+    \tl_set:Nn \pnhdtopages { das~páginas }
+  }
+\__postnotes_set_babel_language:nn { portuguese } { portuguese }
+\__postnotes_set_babel_language:nn { brazilian }  { portuguese }
+\__postnotes_set_babel_language:nn { portuges }   { portuguese }
+\__postnotes_set_babel_language:nn { brazil }     { portuguese }
+\__postnotes_set_polyglossia_language:nn { portuguese } { portuguese }
+\__postnotes_define_language:nn { french }
+  {
+    \tl_set:Nn \pntitle     { Notes }
+    \tl_set:Nn \pnhdnotes   { Notes }
+    \tl_set:Nn \pnhdtopage  { de~la~page }
+    \tl_set:Nn \pnhdtopages { des~pages }
+  }
+\__postnotes_set_babel_language:nn { french }  { french }
+\__postnotes_set_babel_language:nn { acadian } { french }
+\__postnotes_set_polyglossia_language:nn { french } { french }
+\__postnotes_define_language:nn { german }
+  {
+    \tl_set:Nn \pntitle     { Endnoten }
+    \tl_set:Nn \pnhdnotes   { Endnoten }
+    \tl_set:Nn \pnhdtopage  { zu~Seite }
+    \tl_set:Nn \pnhdtopages { zu~Seiten }
+  }
+\__postnotes_set_babel_language:nn { german }       { german }
+\__postnotes_set_babel_language:nn { ngerman }      { german }
+\__postnotes_set_babel_language:nn { austrian }     { german }
+\__postnotes_set_babel_language:nn { naustrian }    { german }
+\__postnotes_set_babel_language:nn { swissgerman }  { german }
+\__postnotes_set_babel_language:nn { nswissgerman } { german }
+\__postnotes_set_polyglossia_language:nn { german } { german }
+%% 
+%%
+%% End of file `postnotes.sty'.

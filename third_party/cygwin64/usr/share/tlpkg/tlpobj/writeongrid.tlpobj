@@ -1,0 +1,15 @@
+name writeongrid
+category Package
+revision 68863
+shortdesc Write on grid lines
+relocated 1
+longdesc An environment to create grids (type 5x5 or Seyes or Ruled) and
+longdesc commands to write texts "right" on the lines.
+runfiles size=8
+ RELOC/tex/latex/writeongrid/WriteOnGrid.sty
+catalogue-contact-bugs https://github.com/cpierquet/WriteOnGrid/issues
+catalogue-contact-repository https://github.com/cpierquet/WriteOnGrid
+catalogue-ctan /macros/latex/contrib/writeongrid
+catalogue-license lppl1.3c
+catalogue-topics typeset-grid pgf-tikz
+catalogue-version 0.1.5

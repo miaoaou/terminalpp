@@ -1,0 +1,18 @@
+name handin
+category Package
+revision 48255
+shortdesc Light weight template for creating school submissions using LaTeX
+relocated 1
+longdesc This package is for students creating school submissions using
+longdesc LaTeX. It is especially suitable for math, physics, statistics
+longdesc and the like. It can easily be used for creating exercises,
+longdesc too.
+runfiles size=3
+ RELOC/tex/latex/handin/handin.sty
+catalogue-contact-bugs https://github.com/Strauman/Handin-LaTeX-template/issues
+catalogue-contact-repository https://github.com/Strauman/Handin-LaTeX-template
+catalogue-ctan /macros/latex/contrib/handin
+catalogue-date 2018-07-22 22:21:50 +0200
+catalogue-license lppl1.3c
+catalogue-topics doc-templ
+catalogue-version 0.1.1

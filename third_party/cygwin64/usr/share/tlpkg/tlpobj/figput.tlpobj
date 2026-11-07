@@ -1,0 +1,17 @@
+name figput
+category Package
+revision 63957
+shortdesc Create interactive figures in LaTeX
+relocated 1
+longdesc FigPut allows figures to be specified using JavaScript. The
+longdesc resulting document can be viewed as a static PDF, as usual, or
+longdesc the document can be viewed in a web-browser, in which case the
+longdesc figures are interactive. A variety of interactive widgets are
+longdesc included.
+runfiles size=7
+ RELOC/tex/latex/figput/figput.sty
+catalogue-contact-repository https://github.com/rsfairman/figput
+catalogue-ctan /graphics/figput
+catalogue-license cc-by-sa-4
+catalogue-topics graphics callback cgi-latex expl3 pgf-tikz
+catalogue-version 0.90

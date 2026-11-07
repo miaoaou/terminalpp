@@ -1,0 +1,22 @@
+name media4svg
+category Package
+revision 64686
+shortdesc Multimedia inclusion for the dvisvgm backend
+relocated 1
+longdesc This package implements an interface for embedding video and
+longdesc audio files in SVG (Scalable Vector Graphics) output. SVG with
+longdesc embedded media is very portable, as it is supported by all
+longdesc modern Web browsers across a variety of operating systems and
+longdesc platforms, including portable devices. All DVI producing TeX
+longdesc engines can be used. The dvisvgm utility, which is part of all
+longdesc major TeX distributions, converts the intermediate DVI to SVG.
+longdesc By default, media files are embedded into the SVG output to
+longdesc make self-sufficient SVG files.
+runfiles size=9
+ RELOC/tex/latex/media4svg/media4svg.lua
+ RELOC/tex/latex/media4svg/media4svg.sty
+catalogue-contact-repository https://gitlab.com/agrahn/media4svg
+catalogue-ctan /macros/latex/contrib/media4svg
+catalogue-license lppl
+catalogue-topics multimedia expl3
+catalogue-version 0.13

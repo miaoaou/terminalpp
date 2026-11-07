@@ -1,0 +1,15 @@
+name xoptarg
+category Package
+revision 15878
+shortdesc Expandable macros that take an optional argument
+relocated 1
+longdesc Commands that take an optional argument are not ordinarily
+longdesc expandable; this package allows such commands to be expandable
+longdesc provided that they have at least one mandatory argument.
+runfiles size=2
+ RELOC/tex/latex/xoptarg/xoptarg.sty
+catalogue-ctan /macros/latex/contrib/xoptarg
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-def
+catalogue-version 1.0

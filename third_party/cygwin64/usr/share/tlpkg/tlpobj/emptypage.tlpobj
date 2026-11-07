@@ -1,0 +1,14 @@
+name emptypage
+category Package
+revision 18064
+shortdesc Make empty pages really empty
+relocated 1
+longdesc This package prevents page numbers and headings from appearing
+longdesc on empty pages.
+runfiles size=1
+ RELOC/tex/latex/emptypage/emptypage.sty
+catalogue-ctan /macros/latex/contrib/emptypage
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics layout
+catalogue-version 1.2

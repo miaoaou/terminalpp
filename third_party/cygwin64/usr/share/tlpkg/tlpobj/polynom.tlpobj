@@ -1,0 +1,16 @@
+name polynom
+category Package
+revision 44832
+shortdesc Macros for manipulating polynomials
+relocated 1
+longdesc The polynom package implements macros for manipulating
+longdesc polynomials, for example it can typeset long polynomial
+longdesc divisions. The main test case and application is the polynomial
+longdesc ring in one variable with rational coefficients.
+runfiles size=16
+ RELOC/tex/latex/polynom/polynom.sty
+catalogue-ctan /macros/latex/contrib/polynom
+catalogue-date 2017-07-17 15:20:36 +0200
+catalogue-license lppl1.3
+catalogue-topics maths
+catalogue-version 0.19

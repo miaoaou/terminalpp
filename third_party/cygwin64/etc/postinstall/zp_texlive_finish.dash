@@ -1,0 +1,42 @@
+#! /bin/dash
+
+markerdir=/var/lib/texmf/postinstall
+
+# Update the font map files if necessary.
+for f in ${markerdir}/*.map
+do
+    if [ -f ${f} ]
+    then
+	maps=$(cat ${markerdir}/*.map)
+    fi
+    break
+done
+if [ -n "${maps}" ]
+then
+    map_status=0
+    if [ ! -x /usr/bin/updmap-sys ]
+    then
+	map_status=1
+    else
+	/usr/bin/updmap-sys --nohash --nomkmap ${maps} || map_status=1
+	echo y | /usr/bin/updmap-sys --syncwithtrees || map_status=1
+	/usr/bin/updmap-sys || map_status=1
+    fi
+    if [ ${map_status} = 0 ]
+    then
+	for f in ${markerdir}/*.map
+	do
+	    mv -f ${f} ${f}.done
+	done
+    fi
+    [ -f /usr/share/tlpkg/tlpostcode/dvipdfmx.pl ] \
+	&& perl /usr/share/tlpkg/tlpostcode/dvipdfmx.pl install /usr/share
+fi
+
+# Rebuild all formats if necessary.
+if [ -f ${markerdir}/texlive.rebuild_all_fmts ]
+then
+    [ -x /usr/bin/fmtutil-sys ] && /usr/bin/fmtutil-sys --all \
+	&& mv -f ${markerdir}/texlive.rebuild_all_fmts \
+	      ${markerdir}/texlive.rebuild_all_fmts.done
+fi

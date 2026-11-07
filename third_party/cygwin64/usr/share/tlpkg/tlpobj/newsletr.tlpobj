@@ -1,0 +1,11 @@
+name newsletr
+category Package
+revision 15878
+shortdesc Macros for making newsletters with Plain TeX
+relocated 1
+runfiles size=14
+ RELOC/tex/plain/newsletr/newsletr.tex
+catalogue-ctan /macros/plain/contrib/newsletr
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license other-free
+catalogue-topics magazine

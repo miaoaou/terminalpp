@@ -1,0 +1,16 @@
+name beamersubframe
+category Package
+revision 23510
+shortdesc Reorder frames in the PDF file
+relocated 1
+longdesc The package provides a method to reorder frames in the PDF file
+longdesc without reordering the source. Its principal use is to embed or
+longdesc append frames with details on some subject. The author
+longdesc describes the package as "experimental".
+runfiles size=4
+ RELOC/tex/latex/beamersubframe/beamersubframe.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/beamersubframe
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 0.2

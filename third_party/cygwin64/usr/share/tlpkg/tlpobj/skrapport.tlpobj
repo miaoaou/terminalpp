@@ -1,0 +1,27 @@
+name skrapport
+category Package
+revision 52412
+shortdesc 'Simple' class for reports, etc.
+relocated 1
+longdesc The class is intended for simple documents (e.g., reports
+longdesc handed in as coursework and the like). The class is small and
+longdesc straightforward; its design was inspired by that of the PracTeX
+longdesc journal style.
+runfiles size=26
+ RELOC/tex/latex/skrapport/skrapport-colortheme-cruelwater.sty
+ RELOC/tex/latex/skrapport/skrapport-colortheme-default.sty
+ RELOC/tex/latex/skrapport/skrapport-colortheme-skdoc.sty
+ RELOC/tex/latex/skrapport/skrapport-colortheme-unscathed.sty
+ RELOC/tex/latex/skrapport/skrapport-colortheme-violet.sty
+ RELOC/tex/latex/skrapport/skrapport-size-common.sty
+ RELOC/tex/latex/skrapport/skrapport-size10pt.clo
+ RELOC/tex/latex/skrapport/skrapport-size11pt.clo
+ RELOC/tex/latex/skrapport/skrapport-size12pt.clo
+ RELOC/tex/latex/skrapport/skrapport.cls
+catalogue-contact-bugs https://github.com/urdh/skrapport/issues
+catalogue-contact-repository https://github.com/urdh/skrapport
+catalogue-ctan /macros/latex/contrib/skrapport
+catalogue-date 2019-10-16 21:10:34 +0200
+catalogue-license lppl1.3
+catalogue-topics class
+catalogue-version 0.12k

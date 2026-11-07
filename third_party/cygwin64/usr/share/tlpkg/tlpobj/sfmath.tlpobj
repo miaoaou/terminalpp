@@ -1,0 +1,16 @@
+name sfmath
+category Package
+revision 15878
+shortdesc Sans-serif mathematics
+relocated 1
+longdesc sfmath is a simple package for sans serif maths in documents.
+longdesc After including the package, all maths of the current document
+longdesc is displayed with sans serif fonts.
+runfiles size=5
+ RELOC/tex/latex/sfmath/sfmath.sty
+catalogue-also sansmath
+catalogue-ctan /macros/latex/contrib/sfmath/sfmath.sty
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-maths maths
+catalogue-version 0.8

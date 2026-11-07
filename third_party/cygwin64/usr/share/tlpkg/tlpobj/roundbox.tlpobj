@@ -1,0 +1,17 @@
+name roundbox
+category Package
+revision 29675
+shortdesc Round boxes in LaTeX
+relocated 1
+longdesc This package implements a command \roundbox that can be used,
+longdesc in LaTeX, for producing boxes, framed with rounded corners.
+runfiles size=1
+ RELOC/tex/latex/roundbox/roundbox.sty
+catalogue-also fancybox
+catalogue-contact-bugs https://github.com/bidi-tex/roundbox/issues
+catalogue-contact-repository https://github.com/bidi-tex/roundbox
+catalogue-ctan /macros/latex/contrib/roundbox
+catalogue-date 2018-11-28 20:44:34 +0100
+catalogue-license lppl1.3
+catalogue-topics boxing decoration
+catalogue-version 0.2

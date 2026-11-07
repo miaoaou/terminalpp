@@ -1,0 +1,223 @@
+% tkz-obj-lua-circles.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-obj-lua-circles.tex} 
+\makeatletter
+%<--------------------------------------------------------------------------–>
+%            tkzCircle center and one point 
+%<--------------------------------------------------------------------------–>
+% attention radius circle is defined by center and a point on the circle
+% R defined by center and the value of the radius
+% no need to define a circle with R tikz uses this method.
+% through instead of radius
+\def\tkz@numc{0}
+\pgfkeys{/tkzcircle/.cd,
+      R/.code                                   = \def\tkz@numc{0},
+      diameter/.code                            = \def\tkz@numc{1},
+      circum/.code                              = \def\tkz@numc{2},
+      in/.code                                  = \def\tkz@numc{3},
+      ex/.code                                  = \def\tkz@numc{4},
+      euler/.code                               = \def\tkz@numc{5},
+      nine/.code                                = \def\tkz@numc{5},
+      apollonius/.code                          = \def\tkz@numc{6},
+      spieker/.code                             = \def\tkz@numc{7},
+      orthogonal from/.code args                = {#1}{\gdef\tkz@numc{8}
+                                                   \def\tkz@ptfrom{#1}}, 
+      orthogonal through/.code args             = {#1 and #2}{\gdef\tkz@numc{9}
+                                                   \def\tkz@ptone{#1}
+                                                   \def\tkz@pttwo{#2}},
+      K/.code                                   = \def\tkz@koeff{#1},
+      K                                         =  1,
+      circum
+      } 
+\def\tkzDefCircle{\pgfutil@ifnextchar[{\tkz@DefCircle}{\tkz@DefCircle[]}}
+\def\tkz@DefCircle[#1](#2){% 
+\begingroup  
+\pgfqkeys{/tkzcircle}{#1}  
+\ifcase\tkz@numc%
+  \tkzDefCircleR(#2)
+  \or% 1 
+  \tkzDefCircleD(#2)  
+  \or% 2
+  \tkzDefCircumCircle(#2) 
+  \or% 3
+  \tkzDefInCircle(#2) 
+  \or% 4
+  \tkzDefExCircle(#2) 
+  \or% 5
+  \tkzDefEulerCircle(#2)
+  \or% 6
+  \tkzDefApolloniusCircle(#2) 
+  \or% 7
+  \tkzDefSpiekerCircle(#2)
+   \or% 8
+  \tkzDefOrthogonalCircle(#2,\tkz@ptfrom)
+   \or% 9
+  \tkzDefOrthoThroughCircle(#2,\tkz@ptone,\tkz@pttwo)
+     \fi    
+\endgroup
+}
+%for compatibility
+%<--------------------------------------------------------------------------–>
+%                     R
+%<--------------------------------------------------------------------------–>
+\def\tkzDefCircleR(#1,#2){% 
+\begingroup 
+   \edef\tkzLengthResult{\fpeval{round(#2,5)}}
+   \global\let\tkzLengthResult\tkzLengthResult
+   \path (#1)--++(\tkzLengthResult,0) coordinate (tkzSecondPointResult);
+   \tkzRenamePoint(tkzSecondPointResult){tkzPointResult}
+\endgroup
+} 
+
+%<--------------------------------------------------------------------------–>
+%              Diameter Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefCircleD(#1,#2){% 
+\begingroup
+  \tkzDefMidPoint(#1,#2)
+  \pgfnodealias{tkzFirstPointResult}{tkzPointResult}
+  \pgfnodealias{tkzSecondPointResult}{#2}
+  \tkz@@CalcLengthcm(#1,tkzPointResult){tkzLengthResult}
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+%              Circum Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefCircumCircle(#1,#2,#3){%
+\begingroup
+  \tkzCircumCenter(#1,#2,#3)
+  \tkzRenamePoint(tkzPointResult){tkzFirstPointResult}
+  \tkzRenamePoint(#1){tkzSecondPointResult}
+  \tkz@@CalcLengthcm(#1,tkzPointResult){tkzLengthResult}%3.06 add [cm]
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+%              In(scribe) Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefInCircle(#1,#2,#3){%
+\begingroup
+  \tkzInCenter(#1,#2,#3) 
+  \pgfnodealias{tkz@incenter}{tkzPointResult}
+  \tkzUProjection(#1,#3)(tkz@incenter) 
+  \pgfnodealias{tkzSecondPointResult}{tkzPointResult}
+  \tkz@@CalcLengthcm(tkzPointResult,tkz@incenter){tkzLengthResult}
+  \pgfnodealias{tkzPointResult}{tkz@incenter}
+  \pgfnodealias{tkzFirstPointResult}{tkz@incenter}
+\endgroup
+}  
+%<--------------------------------------------------------------------------–>
+%              Ex(scribe) Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefExCircle(#1,#2,#3){%
+\begingroup
+  \tkzExCenter(#1,#2,#3) 
+  \pgfnodealias{tkz@excenter}{tkzPointResult}
+  \tkzUProjection(#1,#3)(tkz@excenter)
+  \pgfnodealias{tkzSecondPointResult}{tkzPointResult}
+  \tkz@@CalcLengthcm(tkzPointResult,tkz@excenter){tkzLengthResult}% for tkzGetLength
+  \pgfnodealias{tkzPointResult}{tkz@excenter}
+  \pgfnodealias{tkzFirstPointResult}{tkz@excenter}  
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%              Radius Ex Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefExRadius(#1,#2,#3){%
+\begingroup
+   \tkzExCenter(#1,#2,#3)
+   \tkzUProjection(#1,#3)(tkzPointResult)
+\endgroup
+}    
+%<--------------------------------------------------------------------------–>
+% The nine-point circle, also called Euler's circle or the Feuerbach circle  
+% best way Ma,Mb,Mc circum center  2020
+%<--------------------------------------------------------------------------–>
+\def\tkzDefEulerCircle(#1,#2,#3){%
+\begingroup
+ \tkzDefMidPoint(#1,#2) \pgfnodealias{tkz@e1}{tkzPointResult}
+ \tkzDefMidPoint(#2,#3) \pgfnodealias{tkz@e2}{tkzPointResult}
+ \tkzDefMidPoint(#1,#3) \pgfnodealias{tkz@e3}{tkzPointResult}
+ \tkzCircumCenter(tkz@e1,tkz@e2,tkz@e3) 
+  \pgfnodealias{tkzFirstPointResult}{tkzPointResult}  
+ \tkzRenamePoint(tkz@e1){tkzSecondPointResult}
+ \tkz@@CalcLengthcm(tkzPointResult,tkz@e1){tkzLengthResult}
+\endgroup
+} 
+\let\tkzDefNinePointsCircle\tkzEulerCircle%
+\let\tkzFeuerBachCircle\tkzEulerCircle%  
+
+\def\tkzDefEulerRadius(#1,#2,#3){%
+\begingroup
+   \tkzEulerCenter(#1,#2,#3)
+   \pgfnodealias{eur@pta}{tkzPointResult}   
+   \tkzDefMidPoint(#1,#2)  
+   \tkz@@CalcLengthcm(eur@pta,tkzPointResult){tkzLengthResult}
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+%                     Apollonius circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefApolloniusCircle(#1,#2){%
+\begingroup
+  \tkzDefBarycentricPointTwo(#1,1,#2,\tkz@koeff)   
+  \pgfnodealias{apo@pta}{tkzPointResult} 
+  \pgfnodealias{tkzSecondPointResult}{tkzPointResult}  
+  \tkzDefBarycentricPointTwo(#1,1,#2,-\tkz@koeff)  
+  \pgfnodealias{apo@ptb}{tkzPointResult} 
+  \tkzDefMidPoint(apo@pta,apo@ptb)  
+  \pgfnodealias{tkzFirstPointResult}{tkzPointResult} 
+  \tkz@@CalcLengthcm(tkzFirstPointResult,apo@pta){tkzLengthResult}  
+  \pgfnodealias{tkzThirdPointResult}{apo@ptb} 
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzDefOrthogonalCircle(#1,#2,#3){%   
+\begingroup
+   \tkzTgtFromP(#1,#2)(#3)
+   \tkz@@CalcLengthcm(#1,tkzFirstPointResult){tkzLengthResult}
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+\def\tkzDefOrthoThroughCircle(#1,#2,#3,#4){%  
+\begingroup
+  \tkz@@CalcLengthcm(#1,#3){tkz@lnb}%
+  \edef\tkz@lnc{\fpeval{1/\tkz@lnb}}
+  \tkzVecKNorm[\tkz@lnc](#1,#3) 
+  \pgfnodealias{tkz@PointResult}{tkzPointResult}
+  \tkzCircumCenter(tkz@PointResult,#3,#4)
+  \tkz@@CalcLengthcm(tkzPointResult,#3){tkzLengthResult}
+  \pgfnodealias{tkzFirstPointResult}{tkzPointResult}
+  \pgfnodealias{tkzSecondPointResult}{#3}
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+%              Spieker Circle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefSpiekerCircle(#1,#2,#3){%
+\begingroup
+  \tkzSpiekerCenter(#1,#2,#3)
+  \pgfnodealias{tkzFirstPointResult}{tkzPointResult}
+  \tkzUProjection(tkz@m1,tkz@m2)(tkzPointResult)
+  \pgfnodealias{tkzSecondPointResult}{tkzPointResult}
+  \tkz@@CalcLength(tkzSecondPointResult,tkzFirstPointResult){tkzLengthResult}
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+
+%<--------------------------------------------------------------------------–>
+%              End Def Circle
+%<--------------------------------------------------------------------------–>  
+\makeatother 
+\endinput

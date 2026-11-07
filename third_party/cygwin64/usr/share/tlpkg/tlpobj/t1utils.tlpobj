@@ -1,0 +1,17 @@
+name t1utils
+category TLCore
+revision 57972
+shortdesc Simple Type 1 font manipulation programs
+longdesc A collection of simple programs for manipulating Adobe Type 1
+longdesc fonts, comprising: - t1ascii: convert PFB (binary) to PFA
+longdesc (ascii) fonts; - t1binary: convert PFA to PFB fonts; -
+longdesc t1disasm: convert PFA or PFB fonts to human-readable and
+longdesc -editable format; - t1asm: reassemble such editable formats to
+longdesc a font; - t1unmac: extract font resources from a Macintosh font
+longdesc file; and - t1mac: generate a Macintosh font from a Type 1
+longdesc font.
+depend t1utils.ARCH
+catalogue-contact-home http://www.lcdf.org/~eddietwo/type/#t1utils
+catalogue-ctan /fonts/utilities/t1utils
+catalogue-license pd
+catalogue-topics ps-manip

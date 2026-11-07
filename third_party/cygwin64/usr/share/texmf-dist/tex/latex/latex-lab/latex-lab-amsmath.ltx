@@ -1,0 +1,64 @@
+%%
+%% This is file `latex-lab-amsmath.ltx',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% latex-lab-amsmath.dtx  (with options: `kernel')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright 2021-2023 LaTeX Project
+%% 
+%% This file was generated from file(s) of the  `LaTeX-lab Bundle'.
+%% ------------------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `LaTeX-lab Bundle'. You may however distribute the `LaTeX-lab Bundle'
+%% without such generated files.
+%% 
+%% The newest sources can be found below
+%% 
+%%    https://github.com/latex3/latex2e/required/latex-lab
+%% 
+%% where one can also log issues in case there are any.
+%% 
+%% 
+%% File: latex-lab-amsmath.dtx
+\ProvidesFile{latex-lab-amsmath.ltx}
+        [2023-01-05 v0.1a amsmath adaptions]
+\RequirePackage{tagpdf-base}
+\ExplSyntaxOn
+\AddToHook{package/amsmath/after}
+ {
+    \def\intertext@{%
+      \def\intertext##1{%
+        \ifvmode\else\\\@empty\fi
+        \noalign{%
+          \penalty\postdisplaypenalty\vskip\belowdisplayskip
+          \vbox{
+           \ifmeasuring@\tag_stop:\fi
+           \normalbaselines
+            \ifdim\linewidth=\columnwidth
+            \else \parshape\@ne \@totalleftmargin \linewidth
+            \fi
+            \tag_mc_end_push:
+            \tagpdfsetup{paratag=Span}%
+            \noindent\ignorespaces##1\par
+            \tag_mc_begin_pop:n{}}%
+          \penalty\predisplaypenalty\vskip\abovedisplayskip%
+        }%
+    }}
+  }
+\ExplSyntaxOff
+\endinput
+%%
+%% End of file `latex-lab-amsmath.ltx'.

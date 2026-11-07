@@ -1,0 +1,522 @@
+% -*- Mode: latex; indent-tabs-mode: nil; c-basic-offset: 4; tab-width: 4 -*-
+%
+%
+% hereapplies.sty
+%
+% A LaTeX package for referencing groups of pages that share something in
+% common
+%
+% https://github.com/madmurphy/hereapplies.sty
+%
+% Version 1.0.2
+%
+% Copyright (C) 2022 madmurphy <madmurphy333@gmail.com>
+%
+% **Here Applies** is free software: you can redistribute it and/or modify it
+% under the terms of the GNU Affero General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
+%
+% **Here Applies** is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+% FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License
+% for more details.
+%
+% You should have received a copy of the GNU Affero General Public License
+% along with this program. If not, see <http://www.gnu.org/licenses/>.
+%
+%
+%
+% Example usage:
+%
+%     \documentclass{article}
+%
+%     \usepackage{hereapplies}
+%
+%     \begin{document}
+%
+%     \title{Some title}
+%
+%     \author{Some author}
+%
+%     \maketitle
+%
+%     This is concept one. To find this concept applied, please
+%     see \whereapplies{conceptOne}.
+%
+%     This is concept two. To find this concept applied, please
+%     see \whereapplies{conceptTwo}.\newpage
+%
+%     \hereapplies{conceptOne} This is page \thepage. As you can see,
+%     ``concept one'' applies here.\newpage
+%
+%     \hereapplies{conceptTwo} This is page \thepage. As you can see,
+%     ``concept two'' applies here.\newpage
+%
+%     \hereapplies{conceptOne, conceptTwo} This is page \thepage. As you
+%     can see, both ``concept one'' and ``concept two'' apply here.\newpage
+%
+%     \hereapplies{conceptTwo} This is page \thepage. As you can see,
+%     ``concept two'' applies here.\newpage
+%
+%     \hereapplies[myref]{conceptOne} This is page \thepage. As you can
+%     see, ``concept one'' applies here. This point in the document is
+%     labeled \texttt{myref}.
+%
+%     \end{document}
+%
+%
+\ProvidesPackage{hereapplies}[2023/10/24 Here Applies]
+\RequirePackage{hyperref}
+\RequirePackage{refcount}
+%
+%
+%
+%         TRANSLATABLE STRINGS
+%         ====================
+%
+%
+% The abbreviation of one single page
+\providecommand*{\hapage}{p.\ }
+% The abbreviation of two or more pages
+\providecommand*{\hapages}{pp.\ }
+% The delimiter between page numbers
+\providecommand*{\hadelimiter}{,\ }
+% The delimiter before the last page number
+\providecommand*{\halastdelimiter}{\ and\ }
+%
+%
+%
+%         ABSTRACT UTILITIES
+%         ==================
+%
+% The following macros are not strictly related to this package, but the latter
+% requires them.
+%
+%
+% Macro: `\@ha@ifcomma text to check,\@then{if yes}{if no}`
+% *****************************************************************************
+%
+% Check if a string contains a comma
+%
+% This macro is mainly for internal purposes (but nothing forbids invoking it
+% directly). When invoked it checks whether a comma is present in `text to
+% check`, then expands to `if yes` or `if no` accordingly.
+%
+% Please do not put curly brackets around the text to check. The comma at the
+% end of the text is mandatory.
+%
+\long\gdef\@ha@ifcomma#1,#2\@then#3#4{%
+    \if\relax\detokenize{#2}\relax#4\else#3\fi%
+}
+%
+%
+% Macro: `\ha@trim{text}`
+% *****************************************************************************
+%
+% Trim leading and trailing spaces from a string
+%
+% This macro is mainly for internal purposes (but nothing forbids invoking it
+% directly).
+%
+\begingroup
+% Temporarily change the categories of `<` and `>`, for trimming safely
+\catcode`\<=4\catcode`\>=3
+% Helper macro
+\long\gdef\@ha@trm< #1 >< #2 >< #3 >< #4 >< #5 >< #6 >< #7 >< #8 >< #9 >/{%
+    \ifcase\numexpr2#3#8\relax\or#2\or#7\or#5\or#1\fi%
+}
+% Usable macro
+\long\gdef\ha@trim#1{%
+    \@ha@trm< #1 >< #1>< - >< + >< ? ><#1 ><#1>< 0 >< 2 >< 1 >< 3 >< 2 >< ! >/%
+}
+\endgroup
+%
+%
+%
+%         PRIVATE ENVIRONMENT
+%         ===================
+%
+% The following macros regulate the internal functioning of the package and
+% should not be invoked directly.
+%
+%
+% Assign a unique number to each unlabeled occurrence of an identifier
+\newcounter{@ha@unlabeled@counter}
+% Populate the .hax file when the document reaches the end
+\AtEndDocument{%
+    % Do we have any content?
+    \ifdefined\@ha@commons@@haxcontent%
+        % We do - export it
+        \addtocontents{hax}{\@ha@commons@@haxcontent}%
+    \fi%
+}
+%
+%
+% Macro `\@ha@makepagelist{hypermacro}{labels}`
+% *****************************************************************************
+%
+% Generate the list of page numbers (with page range support)
+%
+% This macro is for internal purposes only. When invoked, it scans the
+% comma-separated list of labels provided (`labels`), checks which labels refer
+% to duplicate page numbers and which page numbers can be grouped together, and
+% finally prints a list.
+%
+% The `hypermacro` argument is the macro (usually from the `hyperref` package)
+% that will process the label name.
+%
+% The `labels` argument must be a comma-separated list of labels.
+%
+\gdef\@ha@makepagelist#1#2{%
+    \begingroup%
+    % Reset the current page number
+    \def\@ha@tmp@@currp{-1}%
+    % Reset the current range offset
+    \def\@ha@tmp@@prangeoffs{-1}%
+    % Ensure no comma before the first page number
+    \def\@ha@tmp@@psep{}%
+    % Ensure no text before the last number if it is also the first one
+    \def\@ha@tmp@@lastpsep{}%
+    % Iterate through the `labels` argument
+    \@for\@ha@tmp@@thislabel:=#2\do{%
+        % Store the page number associated with this label
+        \edef\@ha@tmp@@nextp{\getpagerefnumber{\@ha@tmp@@thislabel}}%
+        % Check that we are not on the same page as in the last iteration
+        \ifnum\@ha@tmp@@currp=\@ha@tmp@@nextp\else%
+            % This is not the same page as in the last iteration
+            % Is this the first page in which this identifier appears?
+            \ifnum\@ha@tmp@@currp>-1%
+                % We have already met pages in which this identifiers appears
+                % Does this page follow immediately the previous page?
+                \ifnum\numexpr\@ha@tmp@@currp+1=\@ha@tmp@@nextp%
+                    % This page follows immediately the previous page
+                    % Are these the first two contiguous pages of the range?
+                    \ifnum\@ha@tmp@@prangeoffs=-1%
+                        % These are the first two contiguous pages of the range
+                        % Store the first page number of the pair
+                        \let\@ha@tmp@@prangeoffs\@ha@tmp@@currp%
+                        % Store the first label of the pair
+                        \let\@ha@tmp@@currrangelbl\@ha@tmp@@currlbl%
+                    \fi%
+                \else%
+                    % This page is far from the previous label's page
+                    % Was the previous page part of a contiguous range?
+                    \ifnum\@ha@tmp@@prangeoffs=-1%
+                        % The previous page was a standalone page
+                        % Print "[, ]<p>"
+                        {\@ha@tmp@@psep\csname
+                            #1\expandafter\endcsname%
+                            \expandafter{\@ha@tmp@@currlbl}}%
+                    \else%
+                        % The previous page was part of a contiguous range
+                        % Print "[, ]<p--q>"
+                        {\@ha@tmp@@psep\csname
+                            #1\expandafter\endcsname%
+                            \expandafter{\@ha@tmp@@currrangelbl}--\csname
+                            #1\expandafter\endcsname%
+                            \expandafter{\@ha@tmp@@currlbl}}%
+                        % Reset the current range offset
+                        \def\@ha@tmp@@prangeoffs{-1}%
+                    \fi%
+                    % Ensure a comma before the next page number
+                    \let\@ha@tmp@@psep\hadelimiter%
+                    % Ensure " and " before the last page number
+                    \let\@ha@tmp@@lastpsep\halastdelimiter%
+                \fi%
+            \fi%
+            % Prepare the next page number
+            \let\@ha@tmp@@currp\@ha@tmp@@nextp%
+            % Prepare the next label
+            \let\@ha@tmp@@currlbl\@ha@tmp@@thislabel%
+        \fi%
+    }%
+    % Print the last page number
+    % Is there at least one page to print?
+    \ifnum\@ha@tmp@@currp>-1%
+        % There is at least one page to print
+        % Was the previous page part of a contiguous range?
+        \ifnum\@ha@tmp@@prangeoffs=-1%
+            % The previous page was a standalone page
+            % Print "[ and ]<p>"
+            {\@ha@tmp@@lastpsep\csname
+                #1\expandafter\endcsname%
+                \expandafter{\@ha@tmp@@currlbl}}%
+        \else%
+            % The previous page was part of a contiguous range
+            % Print "[ and ]<p--q>"
+            {\@ha@tmp@@lastpsep\csname
+                #1\expandafter\endcsname%
+                \expandafter{\@ha@tmp@@currrangelbl}--\csname
+                #1\expandafter\endcsname%
+                \expandafter{\@ha@tmp@@currlbl}}%
+        \fi%
+    \fi%
+    \endgroup%
+}
+%
+%
+% Macro `\@ha@makeoutputstrings{identifier}{preamble}{labels}`
+% *****************************************************************************
+%
+% Generate the output strings of `\whereapplies` and `\whereapplies*`
+%
+% This macro is for internal purposes only. When invoked, it updates the two
+% macros `@ha@prop@@soutput@...` and `@ha@prop@@doutput@...`.
+%
+% The `identifier` argument remains confined within the internal scope of the
+% package and does not create conflicts with possible macros or labels of the
+% same name. Leading and trailing spaces around this string will **not** be
+% ignored.
+%
+% The `preamble` argument is the text that will be expanded before the page
+% list (usually "p." or "pp.").
+%
+% The `labels` argument must be a comma-separated list of labels.
+%
+\gdef\@ha@makeoutputstrings#1#2#3{%
+    % Write "p./pp. \pageref..." to the output
+    \expandafter\gdef\csname @ha@prop@@doutput@#1\endcsname{%
+        % `\T@pageref` is a synonym of `\pageref`
+        #2\@ha@makepagelist{T@pageref}{#3}%
+    }%
+    % Write "p./pp. \pageref*..." to the starred output
+    \expandafter\gdef\csname @ha@prop@@soutput@#1\endcsname{%
+        % `\@pagerefstar` is a synonym of `\pageref*`
+        #2\@ha@makepagelist{@pagerefstar}{#3}%
+    }%
+    % Make the list of labels available to the API (via `\get@hainfo`)
+    \expandafter\gdef\csname @ha@prop@@labels@#1\endcsname{#3}%
+}
+%
+%
+% Macro `\@ha@newidentifier{identifier}`
+% *****************************************************************************
+%
+% Initialize a new identifier
+%
+% This macro is for internal purposes only. When invoked, it sets up the helper
+% macros, counters and auxiliary files needed for keeping track of an
+% identifier. If the identifier was already initialized the macro will be no
+% op.
+%
+% The `identifier` argument remains confined within the internal scope of the
+% package and does not create conflicts with possible macros or labels of the
+% same name. Leading and trailing spaces around this string will **not** be
+% ignored.
+%
+\gdef\@ha@newidentifier#1{%
+    % Was this identifier already initialized?
+    \ifcsname @ha@iter@@preamble@#1\endcsname\else%
+        % The identifier was never initialized
+        % Was the .hax input already initialized during this run?
+        \ifdefined\@ha@commons@@haxcontent\else%
+            % The .hax input was never initialized
+            % Previous versions created unwanted whitespaces; I am thankful to
+            % David Carlisle for suggesting `\endlinechar=\m@ne`
+            {\endlinechar=\m@ne\@starttoc{hax}}%
+            % Initialize the content to export to the .hax file
+            \gdef\@ha@commons@@haxcontent{}%
+        \fi%
+        % Was a .hax file already exported during a previous run?
+        \ifcsname @ha@prop@@labels@#1\endcsname\else%
+            % This is the first run
+            % Set the output to "??" - to be updated by the .hax file
+            \expandafter\gdef\csname
+                @ha@prop@@doutput@#1\endcsname{\textbf{??}}%
+            % Set the starred output to "??" - to be updated by the .hax file
+            \expandafter\gdef\csname
+                @ha@prop@@soutput@#1\endcsname{\textbf{??}}%
+            % Set the list of labels to an empty value
+            \expandafter\gdef\csname @ha@prop@@labels@#1\endcsname{}%
+        \fi%
+        % Use "p." for the preamble when there is only one occurrence
+        \global\expandafter\let\csname @ha@iter@@preamble@#1\endcsname\hapage%
+        % Generate the output strings
+        \g@addto@macro\@ha@commons@@haxcontent{%
+            % Make sure that there are occurrences
+            \ifcsname @ha@iter@@labels@#1\endcsname%
+                % There are occurrences
+                % Generate the output strings
+                \protect\@ha@makeoutputstrings{#1}{\csname
+                    @ha@iter@@preamble@#1\endcsname}{\csname
+                    @ha@iter@@labels@#1\endcsname}%
+            \fi%
+        }%
+    \fi%
+}
+%
+%
+%
+%         LIBRARY ENVIRONMENT
+%         ===================
+%
+% The following macros are not directly available to the user, but are callable
+% by other packages, if needed.
+%
+%
+% Macro: `\starred@nochecks@hereapplies{label}{identifiers}`
+% *****************************************************************************
+%
+% Similar to `\hereapplies*`, but without checks and with two mandatory
+% arguments
+%
+% This macro is mainly for internal purposes (but nothing forbids invoking it
+% directly). Here the two arguments are both mandatory and there will be no
+% checks that first argument does not contain a comma. See the documentation of
+% `\hereapplies` for more information.
+%
+\newcommand*{\starred@nochecks@hereapplies}[2]{%
+    % Assign a label to this occurrence
+    \label{#1}%
+    % Iterate through the comma-separated list `identifiers`
+    \@for\@ha@tmp@@litem:=#2\do{%
+        % Remove trailing and leading spaces
+        \edef\@ha@tmp@@id{\expandafter\ha@trim\expandafter{\@ha@tmp@@litem}}%
+        % Make sure that the identifier is initialized
+        \expandafter\@ha@newidentifier\expandafter{\@ha@tmp@@id}%
+        % Is this the first time this identifier is mentioned?
+        \ifcsname @ha@iter@@labels@\@ha@tmp@@id\endcsname%
+            % This is *not* the first time this identifier is mentioned
+            % Add this label to the list
+            \expandafter\g@addto@macro\csname
+                @ha@iter@@labels@\@ha@tmp@@id\endcsname{,#1}%
+            % Use "pp." for the preamble when there are multiple occurrences
+            \global\expandafter\let\csname
+                @ha@iter@@preamble@\@ha@tmp@@id\endcsname\hapages%
+        \else%
+            % This is the first time this identifier is mentioned
+            % Set up the list with this label as value
+            \expandafter\gdef\csname
+                @ha@iter@@labels@\@ha@tmp@@id\endcsname{#1}%
+        \fi%
+    }%
+    % Clean the environment
+    \let\@ha@tmp@@id\undefined%
+}
+%
+%
+% Macro: `\starred@hereapplies[label]{identifiers}`
+% *****************************************************************************
+%
+% Identical to `\hereapplies*`
+%
+% This macro is mainly for internal purposes (but nothing forbids invoking it
+% directly). See the documentation of `\hereapplies` for more information.
+%
+\newcommand*{\starred@hereapplies}[2][]{%
+    % Check whether the macro has been called with one or two arguments
+    \if\relax\detokenize{#1}\relax%
+        % The macro has been called with only one argument
+        % Assign a unique number to the unnamed occurrence
+        \stepcounter{@ha@unlabeled@counter}%
+        % Create an opaque label
+        \edef\@ha@tmp@@lbl{hereapplies:unnamed\the@ha@unlabeled@counter}%
+    \else%
+        % The macro has been called with two arguments
+        % Expand the first argument for checking properly
+        \edef\@ha@tmp@@lbl{#1}%
+        % Make sure that there are no commas in the `label` argument
+        \expandafter\@ha@ifcomma\@ha@tmp@@lbl,\@then{%
+            \PackageError{hereapplies}{Comma detected in "\@ha@tmp@@lbl"}{%
+                It is possible to assign only one single label.%
+            }%
+        }{}%
+    \fi%
+    % Call `\starred@nochecks@hereapplies`
+    \expandafter\starred@nochecks@hereapplies\expandafter{\@ha@tmp@@lbl}{#2}%
+    % Clean the environment
+    \let\@ha@tmp@@lbl\undefined%
+    % Ignore the spaces that might follow
+    \ignorespaces%
+}
+%
+%
+% Macro: `\get@hainfo[property]{identifier}`
+% *****************************************************************************
+%
+% Get the value of an identifier's property
+%
+% This macro is mainly for internal purposes (but nothing forbids invoking it
+% directly). If the identifier was never initialized the macro will initialize
+% it.
+%
+% Possible values for the `property` argument are: `doutput`, `labels` and
+% `soutput`. When omitted it defaults to `labels`.
+%
+% The `identifier` argument remains confined within the internal scope of the
+% package and does not create conflicts with possible macros or labels of the
+% same name. Leading and trailing spaces around this string will be ignored.
+%
+\newcommand*{\get@hainfo}[2][labels]{%
+    % Trim leading and trailing spaces from the identifier
+    \edef\@ha@tmp@@id{\ha@trim{#2}}%
+    % Make sure that there are no commas
+    \expandafter\@ha@ifcomma\@ha@tmp@@id,\@then{%
+        \PackageError{hereapplies}{Comma detected in "\@ha@tmp@@id"}{%
+            It is possible to query only one single identifier at a time.%
+        }%
+    }{}%
+    % Make sure that the identifier is initialized
+    \expandafter\@ha@newidentifier\expandafter{\@ha@tmp@@id}%
+    % Print the identifier's property
+    \csname @ha@prop@@#1@\@ha@tmp@@id\endcsname%
+    % Clean the environment
+    \let\@ha@tmp@@id\undefined%
+}
+%
+%
+%
+%         USER ENVIRONMENT
+%         ================
+%
+% The following macros are available to the user.
+%
+%
+% Macro: `\hereapplies[label]{identifiers}`
+% *****************************************************************************
+%
+% Notify the document that one or more identifiers apply to a particular point
+% and add a label to it
+%
+% If the optional argument is passed the label created will be named
+% accordingly, otherwise an opaque name will be chosen. This argument may
+% contain only what is legal for `\pageref`.
+%
+% The `identifiers` argument must be a comma-separated list of identifiers
+% (leading and trailing spaces around each member will be ignored). Each of
+% these strings will remain confined within the internal scope of the package
+% and will not create conflicts with possible macros or labels of the same
+% names.
+%
+% The starred version of this command (`\hereapplies*`) will not invoke the
+% `\phantomsection` directive.
+%
+\newcommand*{\hereapplies}{%
+    % Check if a star is present in the invocation of the command
+    \@ifstar{\starred@hereapplies}{\phantomsection\starred@hereapplies}%
+}
+%
+%
+% Macro: `\whereapplies{identifier}`
+% *****************************************************************************
+%
+% Print all occurrences of an identifier in the form "p. ..." or "pp. ..."
+% (with page range support)
+%
+% The `identifier` argument remains confined within the internal scope of the
+% package and does not create conflicts with possible macros or labels of the
+% same name. Leading and trailing spaces around this string will be ignored.
+%
+% If the same `identifier` is not passed to `\hereapplies` at least once
+% throughout the document, `\whereapplies` will print "??".
+%
+% The starred version of this command (`\whereapplies*`) will use `\pageref*`
+% instead of `\pageref` for generating the page list.
+%
+\newcommand*{\whereapplies}{%
+    % Check if a star is present in the invocation of the command
+    \@ifstar{\get@hainfo[soutput]}{\get@hainfo[doutput]}%
+}%
+% EOF
+

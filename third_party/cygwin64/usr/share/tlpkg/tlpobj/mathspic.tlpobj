@@ -1,0 +1,26 @@
+name mathspic
+category Package
+revision 31957
+shortdesc A Perl filter program for use with PiCTeX
+longdesc MathsPIC(Perl) is a development of the earlier MathsPIC(DOS)
+longdesc program, now implemented as a Perl script, being much more
+longdesc portable than the earlier program. MathsPIC parses a plain text
+longdesc input file and generates a plain text output-file containing
+longdesc commands for drawing a diagram. Version 1.0 produces output
+longdesc containing PiCTeX and (La)TeX commands, which may then be
+longdesc processed by plain TeX or LaTeX in the usual way. MathsPIC also
+longdesc outputs a comprehensive log-file. MathsPIC facilitates creating
+longdesc figures using PiCTeX by providing an environment for
+longdesc manipulating named points and also allows the use of variables
+longdesc and maths (advance, multiply, and divide)--in short--it takes
+longdesc the pain out of PiCTeX. Both the original DOS version and the
+longdesc new Perl version are available.
+depend mathspic.ARCH
+runfiles size=33
+ texmf-dist/scripts/mathspic/mathspic.pl
+ texmf-dist/tex/latex/mathspic/mathspic.sty
+catalogue-ctan /graphics/mathspic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-prep
+catalogue-version 1.13

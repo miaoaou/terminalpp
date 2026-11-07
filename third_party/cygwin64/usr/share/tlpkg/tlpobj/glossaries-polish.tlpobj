@@ -1,0 +1,16 @@
+name glossaries-polish
+category Package
+revision 35665
+shortdesc Polish language module for glossaries package
+relocated 1
+longdesc Polish language module for the glossaries package.
+runfiles size=3
+ RELOC/tex/latex/glossaries-polish/glossaries-polish-noenc.ldf
+ RELOC/tex/latex/glossaries-polish/glossaries-polish-utf8.ldf
+ RELOC/tex/latex/glossaries-polish/glossaries-polish.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-polish
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.0

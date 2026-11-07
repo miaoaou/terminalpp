@@ -1,0 +1,1031 @@
+2024/08/17 13:06:54 Starting cygwin install, version 2.932
+2024/08/17 13:06:54 User has backup/restore rights
+2024/08/17 13:06:54 User has symlink creation right
+2024/08/17 13:06:54 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2024/08/17 13:06:54 Current Directory: C:\Users\dell\Downloads
+2024/08/17 13:06:58 source: network install
+2024/08/17 13:07:01 root: C:\cygwin64 system
+2024/08/17 13:07:01 Changing gid to Administrators
+2024/08/17 13:07:01 Selected local directory: C:\Users\dell\Downloads
+2024/08/17 13:07:03 net: Preconfig
+2024/08/17 13:07:10 site: https://mirrors.163.com/cygwin/
+2024/08/17 13:07:15 io_stream_cygfile: fopen(/etc/setup/timestamp) failed 2 No such file or directory
+2024/08/17 13:07:15 io_stream_cygfile: fopen(/etc/setup/installed.db) failed 2 No such file or directory
+2024/08/17 13:07:15 solving: 38 tasks, update: yes, use test packages: no
+2024/08/17 13:08:10 solving: 75 tasks, update: no, use test packages: no
+2024/08/17 13:08:10 Augmented Transaction List:
+2024/08/17 13:08:10    0 install libpopt-common  1.19-1                   
+2024/08/17 13:08:10    1 install terminfo        6.5+20240427-1           
+2024/08/17 13:08:10    2 install tzdata          2024a-1                  
+2024/08/17 13:08:10    3 install cygwin          3.5.3-1                  
+2024/08/17 13:08:10    4 install libiconv2       1.17-1                   
+2024/08/17 13:08:10    5 install libintl8        0.22.4-1                 
+2024/08/17 13:08:10    6 install libncursesw10   6.5+20240427-1           
+2024/08/17 13:08:10    7 install libreadline7    8.2-2                    
+2024/08/17 13:08:10    8 install bash            5.2.21-1                 
+2024/08/17 13:08:10    9 install libgcc1         12.4.0-3                 
+2024/08/17 13:08:10   10 install crypto-policies 20190218-1               
+2024/08/17 13:08:10   11 install base-cygwin     3.8-2                    
+2024/08/17 13:08:10   12 install libzstd1        1.5.6-1                  
+2024/08/17 13:08:10   13 install zlib0           1.3.1-1                  
+2024/08/17 13:08:10   14 install which           2.20-2                   
+2024/08/17 13:08:10   15 install vim-minimal     9.0.2155-2               
+2024/08/17 13:08:10   16 install tzcode          2024a-1                  
+2024/08/17 13:08:10   17 install sed             4.9-1                    
+2024/08/17 13:08:10   18 install run             1.3.4-2                  
+2024/08/17 13:08:10   19 install ncurses         6.5+20240427-1           
+2024/08/17 13:08:10   20 install mintty          3.7.4-1                  
+2024/08/17 13:08:10   21 install login           1.13-1                   
+2024/08/17 13:08:10   22 install libuuid1        2.39.3-2                 
+2024/08/17 13:08:10   23 install libtasn1_6      4.14-1                   
+2024/08/17 13:08:10   24 install libstdc++6      12.4.0-3                 
+2024/08/17 13:08:10   25 install libsmartcols1   2.39.3-2                 
+2024/08/17 13:08:10   26 install libpopt0        1.19-1                   
+2024/08/17 13:08:10   27 install libpipeline1    1.5.6-1                  
+2024/08/17 13:08:10   28 install libpcre2_8_0    10.44-1                  
+2024/08/17 13:08:10   29 install libpcre1        8.45-1                   
+2024/08/17 13:08:10   30 install liblzma5        5.6.2-1                  
+2024/08/17 13:08:10   31 install liblz4_1        1.9.4-1                  
+2024/08/17 13:08:10   32 install libgmp10        6.3.0-1                  
+2024/08/17 13:08:10   33 install libgdbm6        1.18.1-1                 
+2024/08/17 13:08:10   34 install libffi6         3.2.1-2                  
+2024/08/17 13:08:10   35 install libbz2_1        1.0.8-1                  
+2024/08/17 13:08:10   36 install libblkid1       2.39.3-2                 
+2024/08/17 13:08:10   37 install libattr1        2.5.1-1.20.g0981a7bfe487 
+2024/08/17 13:08:10   38 install libargp         20230708-2               
+2024/08/17 13:08:10   39 install ipc-utils       1.1-1                    
+2024/08/17 13:08:10   40 install hostname        3.13-1                   
+2024/08/17 13:08:10   41 install gzip            1.13-1                   
+2024/08/17 13:08:10   42 install editrights      1.04-1                   
+2024/08/17 13:08:10   43 install diffutils       3.10-1                   
+2024/08/17 13:08:10   44 install dash            0.5.12-5                 
+2024/08/17 13:08:10   45 install alternatives    1.26-1                   
+2024/08/17 13:08:10   46 install libuchardet0    0.0.8-1                  
+2024/08/17 13:08:10   47 install cygutils        1.4.17-1                 
+2024/08/17 13:08:10   48 install grep            3.11-1                   
+2024/08/17 13:08:10   49 install less            643-1                    
+2024/08/17 13:08:10   50 install xz              5.6.2-1                  
+2024/08/17 13:08:10   51 install zstd            1.5.6-1                  
+2024/08/17 13:08:10   52 install libmpfr6        4.2.1-1                  
+2024/08/17 13:08:10   53 install libp11-kit0     0.23.20-1                
+2024/08/17 13:08:10   54 install file            5.44-1                   
+2024/08/17 13:08:10   55 install bzip2           1.0.8-1                  
+2024/08/17 13:08:10   56 install libfdisk1       2.39.3-2                 
+2024/08/17 13:08:10   57 install coreutils       9.0-1                    
+2024/08/17 13:08:10   58 install getent          2.18.90-5                
+2024/08/17 13:08:10   59 install rebase          4.6.6-1                  
+2024/08/17 13:08:10   60 install info            7.1-1                    
+2024/08/17 13:08:10   61 install _autorebase     001091-1                 
+2024/08/17 13:08:10   62 install groff           1.23.0-1                 
+2024/08/17 13:08:10   63 install gawk            5.3.0-1                  
+2024/08/17 13:08:10   64 install p11-kit-trust   0.23.20-1                
+2024/08/17 13:08:10   65 install p11-kit         0.23.20-1                
+2024/08/17 13:08:10   66 install tar             1.35-2                   
+2024/08/17 13:08:10   67 install util-linux      2.39.3-2                 
+2024/08/17 13:08:10   68 install findutils       4.10.0-1                 
+2024/08/17 13:08:10   69 install ca-certificates 2024.2.66_v8.0.302-1     
+2024/08/17 13:08:10   70 install man-db          2.12.1-1                 
+2024/08/17 13:08:10   71 install base-files      4.3-3                    
+2024/08/17 13:08:10   72 install libssl3         3.0.14-1                 
+2024/08/17 13:08:10   73 install libssl1.1       1.1.1w-1                 
+2024/08/17 13:08:10   74 install openssl         3.0.14-1                 
+2024/08/17 13:08:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/popt/libpopt-common/libpopt-common-1.19-1.tar.xz
+2024/08/17 13:08:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/terminfo/terminfo-6.5+20240427-1.tar.xz
+2024/08/17 13:08:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/tzdata/tzdata-2024a-1.tar.xz
+2024/08/17 13:08:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cygwin/cygwin-3.5.3-1.tar.xz
+2024/08/17 13:08:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libiconv/libiconv2/libiconv2-1.17-1.tar.xz
+2024/08/17 13:08:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gettext/libintl8/libintl8-0.22.4-1.tar.xz
+2024/08/17 13:08:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/libncursesw10/libncursesw10-6.5+20240427-1.tar.xz
+2024/08/17 13:08:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/readline/libreadline7/libreadline7-8.2-2.tar.xz
+2024/08/17 13:08:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bash/bash-5.2.21-1.tar.xz
+2024/08/17 13:08:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libgcc1/libgcc1-12.4.0-3.tar.zst
+2024/08/17 13:08:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/crypto-policies/crypto-policies-20190218-1.tar.xz
+2024/08/17 13:08:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/base-cygwin/base-cygwin-3.8-2.tar.xz
+2024/08/17 13:08:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zstd/libzstd1/libzstd1-1.5.6-1.tar.zst
+2024/08/17 13:08:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zlib/zlib0/zlib0-1.3.1-1.tar.zst
+2024/08/17 13:08:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/which/which-2.20-2.tar.bz2
+2024/08/17 13:08:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/vim/vim-minimal/vim-minimal-9.0.2155-2.tar.xz
+2024/08/17 13:08:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tzcode/tzcode-2024a-1.tar.xz
+2024/08/17 13:08:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/sed/sed-4.9-1.tar.xz
+2024/08/17 13:08:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/run/run-1.3.4-2.tar.xz
+2024/08/17 13:08:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/ncurses-6.5+20240427-1.tar.xz
+2024/08/17 13:08:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mintty/mintty-3.7.4-1.tar.xz
+2024/08/17 13:08:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/login/login-1.13-1.tar.xz
+2024/08/17 13:08:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libuuid1/libuuid1-2.39.3-2.tar.xz
+2024/08/17 13:08:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libtasn1/libtasn1_6/libtasn1_6-4.14-1.tar.xz
+2024/08/17 13:08:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libstdc++6/libstdc++6-12.4.0-3.tar.zst
+2024/08/17 13:08:21 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libsmartcols1/libsmartcols1-2.39.3-2.tar.xz
+2024/08/17 13:08:21 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/popt/libpopt0/libpopt0-1.19-1.tar.xz
+2024/08/17 13:08:21 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpipeline/libpipeline1/libpipeline1-1.5.6-1.tar.xz
+2024/08/17 13:08:22 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pcre2/libpcre2_8_0/libpcre2_8_0-10.44-1.tar.zst
+2024/08/17 13:08:22 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pcre/libpcre1/libpcre1-8.45-1.tar.zst
+2024/08/17 13:08:22 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xz/liblzma5/liblzma5-5.6.2-1.tar.zst
+2024/08/17 13:08:23 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/lz4/liblz4_1/liblz4_1-1.9.4-1.tar.xz
+2024/08/17 13:08:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gmp/libgmp10/libgmp10-6.3.0-1.tar.zst
+2024/08/17 13:08:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdbm/libgdbm6/libgdbm6-1.18.1-1.tar.xz
+2024/08/17 13:08:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libffi/libffi6/libffi6-3.2.1-2.tar.xz
+2024/08/17 13:08:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bzip2/libbz2_1/libbz2_1-1.0.8-1.tar.xz
+2024/08/17 13:08:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libblkid1/libblkid1-2.39.3-2.tar.xz
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/attr/libattr1/libattr1-2.5.1-1.20.g0981a7bfe487.tar.xz
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libargp/libargp-20230708-2.tar.xz
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ipc-utils/ipc-utils-1.1-1.tar.xz
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/hostname/hostname-3.13-1.tar.bz2
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gzip/gzip-1.13-1.tar.xz
+2024/08/17 13:08:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/editrights/editrights-1.04-1.tar.xz
+2024/08/17 13:08:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/diffutils/diffutils-3.10-1.tar.xz
+2024/08/17 13:08:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dash/dash-0.5.12-5.tar.xz
+2024/08/17 13:08:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/alternatives/alternatives-1.26-1.tar.xz
+2024/08/17 13:08:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/uchardet/libuchardet0/libuchardet0-0.0.8-1.tar.zst
+2024/08/17 13:08:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cygutils/cygutils-1.4.17-1.tar.xz
+2024/08/17 13:08:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/grep/grep-3.11-1.tar.xz
+2024/08/17 13:08:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/less/less-643-1.tar.xz
+2024/08/17 13:08:28 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xz/xz-5.6.2-1.tar.zst
+2024/08/17 13:08:28 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zstd/zstd-1.5.6-1.tar.zst
+2024/08/17 13:08:28 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mpfr/libmpfr6/libmpfr6-4.2.1-1.tar.zst
+2024/08/17 13:08:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/libp11-kit0/libp11-kit0-0.23.20-1.tar.xz
+2024/08/17 13:08:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/file/file-5.44-1.tar.xz
+2024/08/17 13:08:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bzip2/bzip2-1.0.8-1.tar.xz
+2024/08/17 13:08:30 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libfdisk1/libfdisk1-2.39.3-2.tar.xz
+2024/08/17 13:08:31 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/coreutils/coreutils-9.0-1.tar.xz
+2024/08/17 13:08:31 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/getent/getent-2.18.90-5.tar.xz
+2024/08/17 13:08:31 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/rebase/rebase-4.6.6-1.tar.xz
+2024/08/17 13:08:32 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texinfo/info/info-7.1-1.tar.xz
+2024/08/17 13:08:32 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/_autorebase/_autorebase-001091-1.tar.zst
+2024/08/17 13:08:35 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/groff/groff-1.23.0-1.tar.zst
+2024/08/17 13:08:36 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gawk/gawk-5.3.0-1.tar.xz
+2024/08/17 13:08:36 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/p11-kit-trust/p11-kit-trust-0.23.20-1.tar.xz
+2024/08/17 13:08:36 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/p11-kit-0.23.20-1.tar.xz
+2024/08/17 13:08:36 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tar/tar-1.35-2.tar.zst
+2024/08/17 13:08:37 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/util-linux-2.39.3-2.tar.xz
+2024/08/17 13:08:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/findutils/findutils-4.10.0-1.tar.xz
+2024/08/17 13:08:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/ca-certificates/ca-certificates-2024.2.66_v8.0.302-1.tar.zst
+2024/08/17 13:08:39 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/man-db/man-db-2.12.1-1.tar.zst
+2024/08/17 13:08:39 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/base-files/base-files-4.3-3.tar.zst
+2024/08/17 13:08:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/libssl3/libssl3-3.0.14-1.tar.zst
+2024/08/17 13:08:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/libssl1.1/libssl1.1-1.1.1w-1.tar.zst
+2024/08/17 13:08:41 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/openssl-3.0.14-1.tar.zst
+2024/08/17 13:08:41 Registry value set: HKEY_LOCAL_MACHINE\Software\Cygwin\setup\rootdir = "C:\cygwin64"
+2024/08/17 13:08:41 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/popt/libpopt-common/libpopt-common-1.19-1.tar.xz
+2024/08/17 13:08:41 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/terminfo/terminfo-6.5+20240427-1.tar.xz
+2024/08/17 13:08:41 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/tzdata/tzdata-2024a-1.tar.xz
+2024/08/17 13:08:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cygwin/cygwin-3.5.3-1.tar.xz
+2024/08/17 13:08:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libiconv/libiconv2/libiconv2-1.17-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gettext/libintl8/libintl8-0.22.4-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/libncursesw10/libncursesw10-6.5+20240427-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/readline/libreadline7/libreadline7-8.2-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bash/bash-5.2.21-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libgcc1/libgcc1-12.4.0-3.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/crypto-policies/crypto-policies-20190218-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/base-cygwin/base-cygwin-3.8-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zstd/libzstd1/libzstd1-1.5.6-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zlib/zlib0/zlib0-1.3.1-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/which/which-2.20-2.tar.bz2
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/vim/vim-minimal/vim-minimal-9.0.2155-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tzcode/tzcode-2024a-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/sed/sed-4.9-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/run/run-1.3.4-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ncurses/ncurses-6.5+20240427-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mintty/mintty-3.7.4-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/login/login-1.13-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libuuid1/libuuid1-2.39.3-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libtasn1/libtasn1_6/libtasn1_6-4.14-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libstdc++6/libstdc++6-12.4.0-3.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libsmartcols1/libsmartcols1-2.39.3-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/popt/libpopt0/libpopt0-1.19-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpipeline/libpipeline1/libpipeline1-1.5.6-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pcre2/libpcre2_8_0/libpcre2_8_0-10.44-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pcre/libpcre1/libpcre1-8.45-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xz/liblzma5/liblzma5-5.6.2-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/lz4/liblz4_1/liblz4_1-1.9.4-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gmp/libgmp10/libgmp10-6.3.0-1.tar.zst
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdbm/libgdbm6/libgdbm6-1.18.1-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libffi/libffi6/libffi6-3.2.1-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bzip2/libbz2_1/libbz2_1-1.0.8-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libblkid1/libblkid1-2.39.3-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/attr/libattr1/libattr1-2.5.1-1.20.g0981a7bfe487.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libargp/libargp-20230708-2.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ipc-utils/ipc-utils-1.1-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/hostname/hostname-3.13-1.tar.bz2
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gzip/gzip-1.13-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/editrights/editrights-1.04-1.tar.xz
+2024/08/17 13:08:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/diffutils/diffutils-3.10-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dash/dash-0.5.12-5.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/alternatives/alternatives-1.26-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/uchardet/libuchardet0/libuchardet0-0.0.8-1.tar.zst
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cygutils/cygutils-1.4.17-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/grep/grep-3.11-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/less/less-643-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xz/xz-5.6.2-1.tar.zst
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zstd/zstd-1.5.6-1.tar.zst
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mpfr/libmpfr6/libmpfr6-4.2.1-1.tar.zst
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/libp11-kit0/libp11-kit0-0.23.20-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/file/file-5.44-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/bzip2/bzip2-1.0.8-1.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/libfdisk1/libfdisk1-2.39.3-2.tar.xz
+2024/08/17 13:08:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/coreutils/coreutils-9.0-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/getent/getent-2.18.90-5.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/rebase/rebase-4.6.6-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texinfo/info/info-7.1-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/_autorebase/_autorebase-001091-1.tar.zst
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/groff/groff-1.23.0-1.tar.zst
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gawk/gawk-5.3.0-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/p11-kit-trust/p11-kit-trust-0.23.20-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/p11-kit/p11-kit-0.23.20-1.tar.xz
+2024/08/17 13:08:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tar/tar-1.35-2.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/util-linux/util-linux-2.39.3-2.tar.xz
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/findutils/findutils-4.10.0-1.tar.xz
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/ca-certificates/ca-certificates-2024.2.66_v8.0.302-1.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/man-db/man-db-2.12.1-1.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/base-files/base-files-4.3-3.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/libssl3/libssl3-3.0.14-1.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/libssl1.1/libssl1.1-1.1.1w-1.tar.zst
+2024/08/17 13:08:46 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openssl/openssl-3.0.14-1.tar.zst
+2024/08/17 13:08:46 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2024/08/17 13:08:47 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_update-info-dir.dash"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/000-cygwin-post-install.sh"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/p11-kit.sh"
+2024/08/17 13:08:48 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
+2024/08/17 13:08:49 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/crypto-policies.sh"
+2024/08/17 13:08:50 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/openssl.sh"
+2024/08/17 13:08:50 can't run /etc/postinstall/openssl.sh: No such file
+2024/08/17 13:08:50 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
+2024/08/17 13:08:50 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/mintty.sh"
+2024/08/17 13:08:50 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_man-db-update-index.dash"
+2024/08/17 13:09:03 note: Installation Complete
+2024/08/17 13:09:03 Ending cygwin install
+2024/08/17 13:11:15 Starting cygwin install, version 2.932
+2024/08/17 13:11:15 User has backup/restore rights
+2024/08/17 13:11:15 User has symlink creation right
+2024/08/17 13:11:15 Current Directory: C:\Users\dell\Downloads
+2024/08/17 13:11:18 source: network install
+2024/08/17 13:11:20 root: C:\cygwin64 system
+2024/08/17 13:11:20 Changing gid to Administrators
+2024/08/17 13:11:22 Selected local directory: C:\Users\dell\Downloads
+2024/08/17 13:11:23 net: Preconfig
+2024/08/17 13:11:26 site: https://mirrors.163.com/cygwin/
+2024/08/17 13:11:27 solving: 0 tasks, update: yes, use test packages: no
+2024/08/17 13:11:45 solving: 0 tasks, update: no, use test packages: no
+2024/08/17 13:11:45 Augmented Transaction List: is empty
+2024/08/17 13:12:23 solving: 1 tasks, update: no, use test packages: no
+2024/08/17 13:12:23 Augmented Transaction List:
+2024/08/17 13:12:23    0 install libffi8                    3.4.6-1    
+2024/08/17 13:12:23    1 install binutils                   2.43-1     
+2024/08/17 13:12:23    2 install libcrypt2                  4.4.20-1   
+2024/08/17 13:12:23    3 install libexpat1                  2.6.2-1    
+2024/08/17 13:12:23    4 install libgdbm_compat4            1.18.1-1   
+2024/08/17 13:12:23    5 install libsqlite3_0               3.34.0-1   
+2024/08/17 13:12:23    6 install gsettings-desktop-schemas  3.24.1-1   
+2024/08/17 13:12:23    7 install libpixman1_0               0.43.4-1   
+2024/08/17 13:12:23    8 install libpng16                   1.6.42-1   
+2024/08/17 13:12:23    9 install libxml2                    2.10.4-2   
+2024/08/17 13:12:23   10 install libXau6                    1.0.11-1   
+2024/08/17 13:12:23   11 install libXdmcp6                  1.1.5-1    
+2024/08/17 13:12:23   12 install iso-codes                  4.3-1      
+2024/08/17 13:12:23   13 install libhunspell1.6_0           1.6.1-1    
+2024/08/17 13:12:23   14 install libgtkspell3-common        3.0.9-1    
+2024/08/17 13:12:23   15 install libgtksourceview3.0-common 3.24.6-1   
+2024/08/17 13:12:23   16 install libfribidi0                1.0.15-1   
+2024/08/17 13:12:23   17 install libjpeg8                   3.0.3-1    
+2024/08/17 13:12:23   18 install dejavu-fonts               2.37-1     
+2024/08/17 13:12:23   19 install libfontconfig-common       2.15.0-3   
+2024/08/17 13:12:23   20 install libaspell15                0.60.8-1   
+2024/08/17 13:12:23   21 install libbrotlicommon1           1.1.0-1    
+2024/08/17 13:12:23   22 install libdbus1_3                 1.14.10-1  
+2024/08/17 13:12:23   23 install hicolor-icon-theme         0.15-1     
+2024/08/17 13:12:23   24 install suomi-malaga               1.19-1     
+2024/08/17 13:12:23   25 install libdeflate0                1.21-1     
+2024/08/17 13:12:23   26 install libjbig2                   2.1-2      
+2024/08/17 13:12:23   27 install libwebp7                   1.4.0-1    
+2024/08/17 13:12:23   28 install libgraphite2_3             1.3.14-1   
+2024/08/17 13:12:23   29 install libglapi0                  19.1.6-1   
+2024/08/17 13:12:23   30 install libX11-xcb1                1.8.9-1    
+2024/08/17 13:12:23   31 install libdatrie1                 0.2.13-1   
+2024/08/17 13:12:23   32 install libedit0                   20221030-4 
+2024/08/17 13:12:23   33 install python37                   3.7.12-1   
+2024/08/17 13:12:23   34 install python37-setuptools        59.5.0-1   
+2024/08/17 13:12:23   35 install python37-pip               21.3.1-3   
+2024/08/17 13:12:23   36 install libglib2.0_0               2.64.6-1   
+2024/08/17 13:12:23   37 install desktop-file-utils         0.23-1     
+2024/08/17 13:12:23   38 install libxcb1                    1.17.0-1   
+2024/08/17 13:12:23   39 install libjasper4                 2.0.14-1   
+2024/08/17 13:12:23   40 install libbrotlidec1              1.1.0-1    
+2024/08/17 13:12:23   41 install adwaita-icon-theme         3.26.1-1   
+2024/08/17 13:12:23   42 install libvoikko1                 3.8-1      
+2024/08/17 13:12:23   43 install libtiff6                   4.4.0-1    
+2024/08/17 13:12:23   44 install libthai0                   0.1.29-1   
+2024/08/17 13:12:23   45 install libllvm8                   8.0.1-1    
+2024/08/17 13:12:23   46 install python37-xdg               0.26-1     
+2024/08/17 13:12:23   47 install gamin                      0.1.10-15  
+2024/08/17 13:12:23   48 install libfam0                    0.1.10-15  
+2024/08/17 13:12:23   49 install libxcb-glx0                1.17.0-1   
+2024/08/17 13:12:23   50 install libxcb-shm0                1.17.0-1   
+2024/08/17 13:12:23   51 install libxcb-render0             1.17.0-1   
+2024/08/17 13:12:23   52 install libX11_6                   1.8.9-1    
+2024/08/17 13:12:23   53 install libfreetype6               2.13.2-1   
+2024/08/17 13:12:23   54 install dri-drivers                19.1.6-1   
+2024/08/17 13:12:23   55 install shared-mime-info           2.4-1      
+2024/08/17 13:12:23   56 install libXfixes3                 6.0.1-1    
+2024/08/17 13:12:23   57 install libXdamage1                1.1.6-1    
+2024/08/17 13:12:23   58 install libXcomposite1             0.4.6-1    
+2024/08/17 13:12:23   59 install libXrender1                0.9.11-1   
+2024/08/17 13:12:23   60 install libXext6                   1.3.6-1    
+2024/08/17 13:12:23   61 install libfontconfig1             2.15.0-3   
+2024/08/17 13:12:23   62 install libcroco0.6_3              0.6.12-1   
+2024/08/17 13:12:23   63 install libharfbuzz0               8.3.0-1    
+2024/08/17 13:12:23   64 install dconf-service              0.26.1-1   
+2024/08/17 13:12:23   65 install libenchant1                1.6.1-1    
+2024/08/17 13:12:23   66 install libatk1.0_0                2.38.0-2   
+2024/08/17 13:12:23   67 install libgdk_pixbuf2.0_0         2.36.11-1  
+2024/08/17 13:12:23   68 install libgirepository1.0_1       1.54.1-4   
+2024/08/17 13:12:23   69 install girepository-GLib2.0       1.54.1-4   
+2024/08/17 13:12:23   70 install libXcursor1                1.2.2-1    
+2024/08/17 13:12:23   71 install libXtst6                   1.2.4-1    
+2024/08/17 13:12:23   72 install libGL1                     19.1.6-1   
+2024/08/17 13:12:23   73 install libXrandr2                 1.5.4-1    
+2024/08/17 13:12:23   74 install libXinerama1               1.1.5-1    
+2024/08/17 13:12:23   75 install libXi6                     1.8.1-1    
+2024/08/17 13:12:23   76 install libXft2                    2.3.7-1    
+2024/08/17 13:12:23   77 install libcairo2                  1.17.4-1   
+2024/08/17 13:12:23   78 install libharfbuzz-gobject0       8.3.0-1    
+2024/08/17 13:12:23   79 install gtk-update-icon-cache      3.24.43-1  
+2024/08/17 13:12:23   80 install girepository-x11           1.54.1-4   
+2024/08/17 13:12:23   81 install girepository-GdkPixbuf2.0  2.36.11-1  
+2024/08/17 13:12:23   82 install girepository-Atk1.0        2.38.0-2   
+2024/08/17 13:12:23   83 install libatspi0                  2.26.2-1   
+2024/08/17 13:12:23   84 install at-spi2-core               2.26.2-1   
+2024/08/17 13:12:23   85 install libepoxy0                  1.4.3-1    
+2024/08/17 13:12:23   86 install libpango1.0_0              1.54.0-1   
+2024/08/17 13:12:23   87 install girepository-cairo1.0      1.54.1-4   
+2024/08/17 13:12:23   88 install python37-cairo             1.20.1-1   
+2024/08/17 13:12:23   89 install girepository-HarfBuzz0.0   8.3.0-1    
+2024/08/17 13:12:23   90 install libatk-bridge2.0_0         2.26.1-1   
+2024/08/17 13:12:23   91 install librsvg2_2                 2.40.20-1  
+2024/08/17 13:12:23   92 install python37-gi                3.36.1-3   
+2024/08/17 13:12:23   93 install girepository-Pango1.0      1.54.0-1   
+2024/08/17 13:12:23   94 install gdk-pixbuf2.0-svg          2.40.20-1  
+2024/08/17 13:12:23   95 install libgtk3_0                  3.24.43-1  
+2024/08/17 13:12:23   96 install libgtksourceview3.0_1      3.24.6-1   
+2024/08/17 13:12:23   97 install libgtkspell3_3_0           3.0.9-1    
+2024/08/17 13:12:23   98 install girepository-Gtk3.0        3.24.43-1  
+2024/08/17 13:12:23   99 install girepository-GtkSpell3.0   3.0.9-1    
+2024/08/17 13:12:23  100 install girepository-GtkSource3.0  3.24.6-1   
+2024/08/17 13:12:23  101 install zim                        0.72.1-1   
+2024/08/17 13:12:34 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libffi/libffi8/libffi8-3.4.6-1.tar.xz
+2024/08/17 13:12:37 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/binutils/binutils-2.43-1.tar.zst
+2024/08/17 13:12:37 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcrypt/libcrypt2/libcrypt2-4.4.20-1.tar.xz
+2024/08/17 13:12:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/expat/libexpat1/libexpat1-2.6.2-1.tar.xz
+2024/08/17 13:12:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdbm/libgdbm_compat4/libgdbm_compat4-1.18.1-1.tar.xz
+2024/08/17 13:12:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/sqlite3/libsqlite3_0/libsqlite3_0-3.34.0-1.tar.xz
+2024/08/17 13:12:39 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/gsettings-desktop-schemas/gsettings-desktop-schemas-3.24.1-1.tar.xz
+2024/08/17 13:12:39 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pixman/libpixman1_0/libpixman1_0-0.43.4-1.tar.xz
+2024/08/17 13:12:39 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpng/libpng16/libpng16-1.6.42-1.tar.xz
+2024/08/17 13:12:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxml2/libxml2-2.10.4-2.tar.xz
+2024/08/17 13:12:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXau/libXau6/libXau6-1.0.11-1.tar.xz
+2024/08/17 13:12:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXdmcp/libXdmcp6/libXdmcp6-1.1.5-1.tar.xz
+2024/08/17 13:12:41 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/iso-codes/iso-codes-4.3-1.tar.xz
+2024/08/17 13:12:41 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/hunspell/libhunspell1.6_0/libhunspell1.6_0-1.6.1-1.tar.xz
+2024/08/17 13:12:41 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/libgtkspell3-common/libgtkspell3-common-3.0.9-1.tar.xz
+2024/08/17 13:12:42 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/libgtksourceview3.0-common/libgtksourceview3.0-common-3.24.6-1.tar.xz
+2024/08/17 13:12:42 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fribidi/libfribidi0/libfribidi0-1.0.15-1.tar.xz
+2024/08/17 13:12:42 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libjpeg-turbo/libjpeg8/libjpeg8-3.0.3-1.tar.xz
+2024/08/17 13:12:43 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/dejavu-fonts/dejavu-fonts-2.37-1.tar.xz
+2024/08/17 13:12:43 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fontconfig/libfontconfig-common/libfontconfig-common-2.15.0-3.tar.xz
+2024/08/17 13:12:44 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/aspell/libaspell15/libaspell15-0.60.8-1.tar.xz
+2024/08/17 13:12:44 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/brotli/libbrotlicommon1/libbrotlicommon1-1.1.0-1.tar.xz
+2024/08/17 13:12:44 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dbus/libdbus1_3/libdbus1_3-1.14.10-1.tar.xz
+2024/08/17 13:12:45 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/hicolor-icon-theme/hicolor-icon-theme-0.15-1.tar.xz
+2024/08/17 13:12:45 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/suomi-malaga/suomi-malaga-1.19-1.tar.xz
+2024/08/17 13:12:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libdeflate/libdeflate0/libdeflate0-1.21-1.tar.xz
+2024/08/17 13:12:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/jbigkit/libjbig2/libjbig2-2.1-2.tar.xz
+2024/08/17 13:12:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebp7/libwebp7-1.4.0-1.tar.xz
+2024/08/17 13:12:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/graphite2/libgraphite2_3/libgraphite2_3-1.3.14-1.tar.xz
+2024/08/17 13:12:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/libglapi0/libglapi0-19.1.6-1.tar.xz
+2024/08/17 13:12:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libX11/libX11-xcb1/libX11-xcb1-1.8.9-1.tar.xz
+2024/08/17 13:12:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libdatrie/libdatrie1/libdatrie1-0.2.13-1.tar.xz
+2024/08/17 13:12:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libedit/libedit0/libedit0-20221030-4.tar.xz
+2024/08/17 13:12:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python37/python37-3.7.12-1.tar.xz
+2024/08/17 13:12:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-setuptools/python37-setuptools/python37-setuptools-59.5.0-1.tar.xz
+2024/08/17 13:12:53 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pip/python37-pip/python37-pip-21.3.1-3.tar.xz
+2024/08/17 13:12:54 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/glib2.0/libglib2.0_0/libglib2.0_0-2.64.6-1.tar.xz
+2024/08/17 13:12:54 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/desktop-file-utils/desktop-file-utils-0.23-1.tar.xz
+2024/08/17 13:12:55 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb1/libxcb1-1.17.0-1.tar.xz
+2024/08/17 13:12:55 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/jasper/libjasper4/libjasper4-2.0.14-1.tar.xz
+2024/08/17 13:12:55 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/brotli/libbrotlidec1/libbrotlidec1-1.1.0-1.tar.xz
+2024/08/17 13:13:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.26.1-1.tar.xz
+2024/08/17 13:13:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libvoikko/libvoikko1/libvoikko1-3.8-1.tar.xz
+2024/08/17 13:13:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tiff/libtiff6/libtiff6-4.4.0-1.tar.xz
+2024/08/17 13:13:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libthai/libthai0/libthai0-0.1.29-1.tar.xz
+2024/08/17 13:13:08 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/llvm/libllvm8/libllvm8-8.0.1-1.tar.xz
+2024/08/17 13:13:08 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-xdg/python37-xdg/python37-xdg-0.26-1.tar.xz
+2024/08/17 13:13:08 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gamin/gamin-0.1.10-15.tar.xz
+2024/08/17 13:13:08 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gamin/libfam0/libfam0-0.1.10-15.tar.xz
+2024/08/17 13:13:08 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-glx0/libxcb-glx0-1.17.0-1.tar.xz
+2024/08/17 13:13:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-shm0/libxcb-shm0-1.17.0-1.tar.xz
+2024/08/17 13:13:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-render0/libxcb-render0-1.17.0-1.tar.xz
+2024/08/17 13:13:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libX11/libX11_6/libX11_6-1.8.9-1.tar.xz
+2024/08/17 13:13:10 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/freetype2/libfreetype6/libfreetype6-2.13.2-1.tar.xz
+2024/08/17 13:13:10 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/dri-drivers/dri-drivers-19.1.6-1.tar.xz
+2024/08/17 13:13:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/shared-mime-info/shared-mime-info-2.4-1.tar.xz
+2024/08/17 13:13:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXfixes/libXfixes3/libXfixes3-6.0.1-1.tar.xz
+2024/08/17 13:13:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXdamage/libXdamage1/libXdamage1-1.1.6-1.tar.xz
+2024/08/17 13:13:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXcomposite/libXcomposite1/libXcomposite1-0.4.6-1.tar.xz
+2024/08/17 13:13:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXrender/libXrender1/libXrender1-0.9.11-1.tar.xz
+2024/08/17 13:13:12 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXext/libXext6/libXext6-1.3.6-1.tar.xz
+2024/08/17 13:13:12 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fontconfig/libfontconfig1/libfontconfig1-2.15.0-3.tar.xz
+2024/08/17 13:13:12 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libcroco0.6/libcroco0.6_3/libcroco0.6_3-0.6.12-1.tar.xz
+2024/08/17 13:13:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/libharfbuzz0/libharfbuzz0-8.3.0-1.tar.xz
+2024/08/17 13:13:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dconf/dconf-service/dconf-service-0.26.1-1.tar.xz
+2024/08/17 13:13:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/enchant/libenchant1/libenchant1-1.6.1-1.tar.xz
+2024/08/17 13:13:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/atk1.0/libatk1.0_0/libatk1.0_0-2.38.0-2.tar.xz
+2024/08/17 13:13:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdk-pixbuf2.0/libgdk_pixbuf2.0_0/libgdk_pixbuf2.0_0-2.36.11-1.tar.xz
+2024/08/17 13:13:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/libgirepository1.0_1/libgirepository1.0_1-1.54.1-4.tar.xz
+2024/08/17 13:13:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-GLib2.0/girepository-GLib2.0-1.54.1-4.tar.xz
+2024/08/17 13:13:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXcursor/libXcursor1/libXcursor1-1.2.2-1.tar.xz
+2024/08/17 13:13:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXtst/libXtst6/libXtst6-1.2.4-1.tar.xz
+2024/08/17 13:13:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/libGL1/libGL1-19.1.6-1.tar.xz
+2024/08/17 13:13:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXrandr/libXrandr2/libXrandr2-1.5.4-1.tar.xz
+2024/08/17 13:13:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXinerama/libXinerama1/libXinerama1-1.1.5-1.tar.xz
+2024/08/17 13:13:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXi/libXi6/libXi6-1.8.1-1.tar.xz
+2024/08/17 13:13:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXft/libXft2/libXft2-2.3.7-1.tar.xz
+2024/08/17 13:13:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cairo/libcairo2/libcairo2-1.17.4-1.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/libharfbuzz-gobject0/libharfbuzz-gobject0-8.3.0-1.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/gtk-update-icon-cache/gtk-update-icon-cache-3.24.43-1.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-x11/girepository-x11-1.54.1-4.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdk-pixbuf2.0/girepository-GdkPixbuf2.0/girepository-GdkPixbuf2.0-2.36.11-1.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/atk1.0/girepository-Atk1.0/girepository-Atk1.0-2.38.0-2.tar.xz
+2024/08/17 13:13:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-core/libatspi0/libatspi0-2.26.2-1.tar.xz
+2024/08/17 13:13:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-core/at-spi2-core-2.26.2-1.tar.xz
+2024/08/17 13:13:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libepoxy/libepoxy0/libepoxy0-1.4.3-1.tar.xz
+2024/08/17 13:13:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pango1.0/libpango1.0_0/libpango1.0_0-1.54.0-1.tar.xz
+2024/08/17 13:13:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-cairo1.0/girepository-cairo1.0-1.54.1-4.tar.xz
+2024/08/17 13:13:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-cairo/python37-cairo/python37-cairo-1.20.1-1.tar.xz
+2024/08/17 13:13:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/girepository-HarfBuzz0.0/girepository-HarfBuzz0.0-8.3.0-1.tar.xz
+2024/08/17 13:13:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-atk/libatk-bridge2.0_0/libatk-bridge2.0_0-2.26.1-1.tar.xz
+2024/08/17 13:13:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/librsvg2/librsvg2_2/librsvg2_2-2.40.20-1.tar.xz
+2024/08/17 13:13:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-gi/python37-gi/python37-gi-3.36.1-3.tar.xz
+2024/08/17 13:13:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pango1.0/girepository-Pango1.0/girepository-Pango1.0-1.54.0-1.tar.xz
+2024/08/17 13:13:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/librsvg2/gdk-pixbuf2.0-svg/gdk-pixbuf2.0-svg-2.40.20-1.tar.xz
+2024/08/17 13:13:22 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/libgtk3_0/libgtk3_0-3.24.43-1.tar.xz
+2024/08/17 13:13:23 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/libgtksourceview3.0_1/libgtksourceview3.0_1-3.24.6-1.tar.xz
+2024/08/17 13:13:23 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/libgtkspell3_3_0/libgtkspell3_3_0-3.0.9-1.tar.xz
+2024/08/17 13:13:23 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/girepository-Gtk3.0/girepository-Gtk3.0-3.24.43-1.tar.xz
+2024/08/17 13:13:23 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/girepository-GtkSpell3.0/girepository-GtkSpell3.0-3.0.9-1.tar.xz
+2024/08/17 13:13:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/girepository-GtkSource3.0/girepository-GtkSource3.0-3.24.6-1.tar.xz
+2024/08/17 13:13:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/zim/zim-0.72.1-1.tar.xz
+2024/08/17 13:13:24 Registry value set: HKEY_LOCAL_MACHINE\Software\Cygwin\setup\rootdir = "C:\cygwin64"
+2024/08/17 13:13:24 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libffi/libffi8/libffi8-3.4.6-1.tar.xz
+2024/08/17 13:13:24 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/binutils/binutils-2.43-1.tar.zst
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcrypt/libcrypt2/libcrypt2-4.4.20-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/expat/libexpat1/libexpat1-2.6.2-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdbm/libgdbm_compat4/libgdbm_compat4-1.18.1-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/sqlite3/libsqlite3_0/libsqlite3_0-3.34.0-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/gsettings-desktop-schemas/gsettings-desktop-schemas-3.24.1-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pixman/libpixman1_0/libpixman1_0-0.43.4-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpng/libpng16/libpng16-1.6.42-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxml2/libxml2-2.10.4-2.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXau/libXau6/libXau6-1.0.11-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXdmcp/libXdmcp6/libXdmcp6-1.1.5-1.tar.xz
+2024/08/17 13:13:25 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/iso-codes/iso-codes-4.3-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/hunspell/libhunspell1.6_0/libhunspell1.6_0-1.6.1-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/libgtkspell3-common/libgtkspell3-common-3.0.9-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/libgtksourceview3.0-common/libgtksourceview3.0-common-3.24.6-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fribidi/libfribidi0/libfribidi0-1.0.15-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libjpeg-turbo/libjpeg8/libjpeg8-3.0.3-1.tar.xz
+2024/08/17 13:13:26 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/dejavu-fonts/dejavu-fonts-2.37-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fontconfig/libfontconfig-common/libfontconfig-common-2.15.0-3.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/aspell/libaspell15/libaspell15-0.60.8-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/brotli/libbrotlicommon1/libbrotlicommon1-1.1.0-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dbus/libdbus1_3/libdbus1_3-1.14.10-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/hicolor-icon-theme/hicolor-icon-theme-0.15-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/suomi-malaga/suomi-malaga-1.19-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libdeflate/libdeflate0/libdeflate0-1.21-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/jbigkit/libjbig2/libjbig2-2.1-2.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebp7/libwebp7-1.4.0-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/graphite2/libgraphite2_3/libgraphite2_3-1.3.14-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/libglapi0/libglapi0-19.1.6-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libX11/libX11-xcb1/libX11-xcb1-1.8.9-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libdatrie/libdatrie1/libdatrie1-0.2.13-1.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libedit/libedit0/libedit0-20221030-4.tar.xz
+2024/08/17 13:13:27 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python37/python37-3.7.12-1.tar.xz
+2024/08/17 13:13:29 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-setuptools/python37-setuptools/python37-setuptools-59.5.0-1.tar.xz
+2024/08/17 13:13:30 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pip/python37-pip/python37-pip-21.3.1-3.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/glib2.0/libglib2.0_0/libglib2.0_0-2.64.6-1.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/desktop-file-utils/desktop-file-utils-0.23-1.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb1/libxcb1-1.17.0-1.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/jasper/libjasper4/libjasper4-2.0.14-1.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/brotli/libbrotlidec1/libbrotlidec1-1.1.0-1.tar.xz
+2024/08/17 13:13:31 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.26.1-1.tar.xz
+2024/08/17 13:13:36 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libvoikko/libvoikko1/libvoikko1-3.8-1.tar.xz
+2024/08/17 13:13:36 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tiff/libtiff6/libtiff6-4.4.0-1.tar.xz
+2024/08/17 13:13:36 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libthai/libthai0/libthai0-0.1.29-1.tar.xz
+2024/08/17 13:13:36 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/llvm/libllvm8/libllvm8-8.0.1-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-xdg/python37-xdg/python37-xdg-0.26-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gamin/gamin-0.1.10-15.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gamin/libfam0/libfam0-0.1.10-15.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-glx0/libxcb-glx0-1.17.0-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-shm0/libxcb-shm0-1.17.0-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libxcb/libxcb-render0/libxcb-render0-1.17.0-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libX11/libX11_6/libX11_6-1.8.9-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/freetype2/libfreetype6/libfreetype6-2.13.2-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/dri-drivers/dri-drivers-19.1.6-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/shared-mime-info/shared-mime-info-2.4-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXfixes/libXfixes3/libXfixes3-6.0.1-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXdamage/libXdamage1/libXdamage1-1.1.6-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXcomposite/libXcomposite1/libXcomposite1-0.4.6-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXrender/libXrender1/libXrender1-0.9.11-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXext/libXext6/libXext6-1.3.6-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/fontconfig/libfontconfig1/libfontconfig1-2.15.0-3.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libcroco0.6/libcroco0.6_3/libcroco0.6_3-0.6.12-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/libharfbuzz0/libharfbuzz0-8.3.0-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dconf/dconf-service/dconf-service-0.26.1-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/enchant/libenchant1/libenchant1-1.6.1-1.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/atk1.0/libatk1.0_0/libatk1.0_0-2.38.0-2.tar.xz
+2024/08/17 13:13:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdk-pixbuf2.0/libgdk_pixbuf2.0_0/libgdk_pixbuf2.0_0-2.36.11-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/libgirepository1.0_1/libgirepository1.0_1-1.54.1-4.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-GLib2.0/girepository-GLib2.0-1.54.1-4.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXcursor/libXcursor1/libXcursor1-1.2.2-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXtst/libXtst6/libXtst6-1.2.4-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/mesa/libGL1/libGL1-19.1.6-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXrandr/libXrandr2/libXrandr2-1.5.4-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXinerama/libXinerama1/libXinerama1-1.1.5-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXi/libXi6/libXi6-1.8.1-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXft/libXft2/libXft2-2.3.7-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cairo/libcairo2/libcairo2-1.17.4-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/libharfbuzz-gobject0/libharfbuzz-gobject0-8.3.0-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/gtk-update-icon-cache/gtk-update-icon-cache-3.24.43-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-x11/girepository-x11-1.54.1-4.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gdk-pixbuf2.0/girepository-GdkPixbuf2.0/girepository-GdkPixbuf2.0-2.36.11-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/atk1.0/girepository-Atk1.0/girepository-Atk1.0-2.38.0-2.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-core/libatspi0/libatspi0-2.26.2-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-core/at-spi2-core-2.26.2-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libepoxy/libepoxy0/libepoxy0-1.4.3-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pango1.0/libpango1.0_0/libpango1.0_0-1.54.0-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gobject-introspection/girepository-cairo1.0/girepository-cairo1.0-1.54.1-4.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-cairo/python37-cairo/python37-cairo-1.20.1-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/harfbuzz/girepository-HarfBuzz0.0/girepository-HarfBuzz0.0-8.3.0-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/at-spi2-atk/libatk-bridge2.0_0/libatk-bridge2.0_0-2.26.1-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/librsvg2/librsvg2_2/librsvg2_2-2.40.20-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-gi/python37-gi/python37-gi-3.36.1-3.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pango1.0/girepository-Pango1.0/girepository-Pango1.0-1.54.0-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/librsvg2/gdk-pixbuf2.0-svg/gdk-pixbuf2.0-svg-2.40.20-1.tar.xz
+2024/08/17 13:13:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/libgtk3_0/libgtk3_0-3.24.43-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/libgtksourceview3.0_1/libgtksourceview3.0_1-3.24.6-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/libgtkspell3_3_0/libgtkspell3_3_0-3.0.9-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtk3/girepository-Gtk3.0/girepository-Gtk3.0-3.24.43-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtkspell3/girepository-GtkSpell3.0/girepository-GtkSpell3.0-3.0.9-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gtksourceview3.0/girepository-GtkSource3.0/girepository-GtkSource3.0-3.24.6-1.tar.xz
+2024/08/17 13:13:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/zim/zim-0.72.1-1.tar.xz
+2024/08/17 13:13:41 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2024/08/17 13:13:42 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_update-info-dir.dash"
+2024/08/17 13:13:42 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/adwaita-icon-theme.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/librsvg2.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/hicolor-icon-theme.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/gdk-pixbuf2.0.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/gtk3.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/libxml2.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/python37.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/python37-pip.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zim.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_adwaita-icon-theme.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_desktop-file-utils.sh"
+2024/08/17 13:13:43 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_fontconfig_cache_1.sh"
+2024/08/17 13:13:45 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_fontconfig_dtd.dash"
+2024/08/17 13:13:46 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_glib2.0.sh"
+2024/08/17 13:13:46 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_hicolor-icon-theme.sh"
+2024/08/17 13:13:46 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_man-db-update-index.dash"
+2024/08/17 13:13:46 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_shared-mime-info.sh"
+2024/08/17 13:13:53 note: Installation Complete
+2024/08/17 13:13:53 Ending cygwin install
+2024/08/17 13:14:32 Starting cygwin install, version 2.932
+2024/08/17 13:14:32 User has backup/restore rights
+2024/08/17 13:14:32 User has symlink creation right
+2024/08/17 13:14:32 Current Directory: C:\Users\dell\Downloads
+2024/08/17 13:14:34 source: network install
+2024/08/17 13:14:34 root: C:\cygwin64 system
+2024/08/17 13:14:34 Changing gid to Administrators
+2024/08/17 13:14:34 Selected local directory: C:\Users\dell\Downloads
+2024/08/17 13:14:35 net: Preconfig
+2024/08/17 13:14:38 site: https://mirrors.163.com/cygwin/
+2024/08/17 13:14:40 solving: 0 tasks, update: yes, use test packages: no
+2024/08/17 13:15:37 solving: 1 tasks, update: no, use test packages: no
+2024/08/17 13:15:37 Augmented Transaction List:
+2024/08/17 13:15:37    0 install libicu74                               74.2-1         
+2024/08/17 13:15:37    1 install libxapian30                            1.4.23-1       
+2024/08/17 13:15:37    2 install perl_base                              5.36.3-1       
+2024/08/17 13:15:37    3 install ed                                     1.20.1-1       
+2024/08/17 13:15:37    4 install ghostscript-fonts-other                6.0-1          
+2024/08/17 13:15:37    5 install libnettle8                             3.9.1-1        
+2024/08/17 13:15:37    6 install libpotrace0                            1.16-1         
+2024/08/17 13:15:37    7 install libteckit0                             2.5.12-1       
+2024/08/17 13:15:37    8 install libXpm4                                3.5.17-1       
+2024/08/17 13:15:37    9 install libzzip0.13                            0.13.72-1      
+2024/08/17 13:15:37   10 install libXss1                                1.2.4-1        
+2024/08/17 13:15:37   11 install tcl                                    8.6.12-1       
+2024/08/17 13:15:37   12 install python39                               3.9.16-1       
+2024/08/17 13:15:37   13 install python39-platformdirs                  4.2.0-1        
+2024/08/17 13:15:37   14 install python39-setuptools                    69.2.0-1       
+2024/08/17 13:15:37   15 install liblcms2_2                             2.16-1         
+2024/08/17 13:15:37   16 install libraqm0                               0.7.0-1        
+2024/08/17 13:15:37   17 install libwebpdemux2                          1.4.0-1        
+2024/08/17 13:15:37   18 install libwebpmux3                            1.4.0-1        
+2024/08/17 13:15:37   19 install libdb5.3                               5.3.28-2       
+2024/08/17 13:15:37   20 install libICE6                                1.1.1-1        
+2024/08/17 13:15:37   21 install libpaper-common                        1.1.29-1       
+2024/08/17 13:15:37   22 install libgomp1                               12.4.0-3       
+2024/08/17 13:15:37   23 install libidn12                               1.42-1         
+2024/08/17 13:15:37   24 install libtiff7                               4.6.0-1        
+2024/08/17 13:15:37   25 install poppler-data                           0.4.10-1       
+2024/08/17 13:15:37   26 install urw-base35-fonts                       20170801-5     
+2024/08/17 13:15:37   27 install libdialog15                            1.3+20240619-1 
+2024/08/17 13:15:37   28 install libcares2                              1.14.0-1       
+2024/08/17 13:15:37   29 install libidn2_0                              2.3.7-1        
+2024/08/17 13:15:37   30 install libmetalink3                           0.1.3-1        
+2024/08/17 13:15:37   31 install libunistring5                          1.2-1          
+2024/08/17 13:15:37   32 install publicsuffix-list-dafsa                20240531-1     
+2024/08/17 13:15:37   33 install libgpg-error0                          1.50-2         
+2024/08/17 13:15:37   34 install libnpth0                               1.7-1          
+2024/08/17 13:15:37   35 install libusb1.0                              1.0.21-1       
+2024/08/17 13:15:37   36 install libcom_err2                            1.44.5-1       
+2024/08/17 13:15:37   37 install libkrb5support0                        1.15.2-2       
+2024/08/17 13:15:37   38 install doxygen                                1.10.0-1       
+2024/08/17 13:15:37   39 install libhogweed6                            3.9.1-1        
+2024/08/17 13:15:37   40 install tcl-tk                                 8.6.12-1       
+2024/08/17 13:15:37   41 install python39-iniconfig                     2.0.0-1        
+2024/08/17 13:15:37   42 install python39-six                           1.16.0-1       
+2024/08/17 13:15:37   43 install python39-idna                          3.3-1          
+2024/08/17 13:15:37   44 install python39-toml                          0.10.2-2       
+2024/08/17 13:15:37   45 install python39-pluggy                        1.0.0-1        
+2024/08/17 13:15:37   46 install python39-babel                         2.12.1-1       
+2024/08/17 13:15:37   47 install python39-markupsafe                    2.1.2-1        
+2024/08/17 13:15:37   48 install python39-snowballstemmer               2.2.0-1        
+2024/08/17 13:15:37   49 install python39-imagesize                     1.3.0-1        
+2024/08/17 13:15:37   50 install python39-railroad-diagrams             3.0.1-1        
+2024/08/17 13:15:37   51 install python39-olefile                       0.46-3         
+2024/08/17 13:15:37   52 install python39-chardet                       4.0.0-2        
+2024/08/17 13:15:37   53 install perl                                   5.36.3-1       
+2024/08/17 13:15:37   54 install libSM6                                 1.2.4-1        
+2024/08/17 13:15:37   55 install libpaper1                              1.1.29-1       
+2024/08/17 13:15:37   56 install libimagequant0                         2.10.0-1       
+2024/08/17 13:15:37   57 install dialog                                 1.3+20240619-1 
+2024/08/17 13:15:37   58 install libpsl5                                0.21.5-1       
+2024/08/17 13:15:37   59 install libksba8                               1.6.7-1        
+2024/08/17 13:15:37   60 install libgcrypt20                            1.11.0-1       
+2024/08/17 13:15:37   61 install libassuan0                             2.5.7-1        
+2024/08/17 13:15:37   62 install libk5crypto3                           1.15.2-2       
+2024/08/17 13:15:37   63 install libgnutls30                            3.8.6-1        
+2024/08/17 13:15:37   64 install python39-urllib3                       1.26.7-1       
+2024/08/17 13:15:37   65 install python39-jinja2                        3.1.2-1        
+2024/08/17 13:15:37   66 install perl-JSON-PP                           4.16-2         
+2024/08/17 13:15:37   67 install libXt6                                 1.3.0-1        
+2024/08/17 13:15:37   68 install libgd3                                 2.3.3-1        
+2024/08/17 13:15:37   69 install pinentry                               1.1.1-1        
+2024/08/17 13:15:37   70 install libkrb5_3                              1.15.2-2       
+2024/08/17 13:15:37   71 install python39-requests                      2.31.0-1       
+2024/08/17 13:15:37   72 install python39-pyparsing                     3.0.6-1        
+2024/08/17 13:15:37   73 install perl_autorebase                        5.36.3-1       
+2024/08/17 13:15:37   74 install libXmu6                                1.2.1-1        
+2024/08/17 13:15:37   75 install libgs10                                10.01.2-1      
+2024/08/17 13:15:37   76 install libgssapi_krb5_2                       1.15.2-2       
+2024/08/17 13:15:37   77 install python39-packaging                     21.3-1         
+2024/08/17 13:15:37   78 install perl-HTML-Tagset                       3.24-1         
+2024/08/17 13:15:37   79 install perl-URI                               5.28-1         
+2024/08/17 13:15:37   80 install perl-Try-Tiny                          0.31-2         
+2024/08/17 13:15:37   81 install perl-LWP-MediaTypes                    6.04-4         
+2024/08/17 13:15:37   82 install perl-IO-HTML                           1.004-3        
+2024/08/17 13:15:37   83 install perl-Encode-Locale                     1.05-5         
+2024/08/17 13:15:37   84 install perl-Clone                             0.46-2         
+2024/08/17 13:15:37   85 install perl-File-Which                        1.27-2         
+2024/08/17 13:15:37   86 install perl-IO-String                         1.08-9         
+2024/08/17 13:15:37   87 install perl-TimeDate                          2.33-3         
+2024/08/17 13:15:37   88 install perl-Tk                                804.036-2      
+2024/08/17 13:15:37   89 install libXaw7                                1.0.16-1       
+2024/08/17 13:15:37   90 install ghostscript                            10.01.2-1      
+2024/08/17 13:15:37   91 install libsasl2_3                             2.1.27-1       
+2024/08/17 13:15:37   92 install python39-pytest                        7.3.0-1        
+2024/08/17 13:15:37   93 install perl-Net-HTTP                          6.23-1         
+2024/08/17 13:15:37   94 install perl-WWW-RobotRules                    6.02-9         
+2024/08/17 13:15:37   95 install perl-HTTP-Date                         6.06-1         
+2024/08/17 13:15:37   96 install libopenldap2                           2.6.8-1        
+2024/08/17 13:15:37   97 install perl-File-Listing                      6.16-1         
+2024/08/17 13:15:37   98 install perl-HTTP-Message                      6.46-1         
+2024/08/17 13:15:37   99 install libopenldap2_4_2                       2.6.8-1        
+2024/08/17 13:15:37  100 install gnupg2                                 2.4.5-1        
+2024/08/17 13:15:37  101 install perl-HTTP-Cookies                      6.11-1         
+2024/08/17 13:15:37  102 install perl-HTML-Parser                       3.83-1         
+2024/08/17 13:15:37  103 install perl-HTTP-Negotiate                    6.01-9         
+2024/08/17 13:15:37  104 install libgpgme11                             1.9.0-1        
+2024/08/17 13:15:37  105 install perl-libwww-perl                       6.77-1         
+2024/08/17 13:15:37  106 install wget                                   1.24.5-1       
+2024/08/17 13:15:37  107 install perl-XML-Parser                        2.47-1         
+2024/08/17 13:15:37  108 install texlive-collection-basic               20240312-1     
+2024/08/17 13:15:37  109 install texlive                                20240312-1     
+2024/08/17 13:15:37  110 install libkpathsea6                           20240312-1     
+2024/08/17 13:15:37  111 install texlive-collection-plaingeneric        20240312-1     
+2024/08/17 13:15:37  112 install texlive-collection-latex               20240312-1     
+2024/08/17 13:15:37  113 install texlive-collection-fontutils           20240312-1     
+2024/08/17 13:15:37  114 install texlive-collection-fontsrecommended    20240312-1     
+2024/08/17 13:15:37  115 install libptexenc1                            20240312-1     
+2024/08/17 13:15:37  116 install texlive-collection-latexrecommended    20240312-1     
+2024/08/17 13:15:37  117 install libsynctex2                            20240312-1     
+2024/08/17 13:15:37  118 install preview-latex                          13.3-1         
+2024/08/17 13:15:37  119 install libtexlua53_5                          20240312-1     
+2024/08/17 13:15:37  120 install libtexluajit2                          20240312-1     
+2024/08/17 13:15:37  121 install python39-imaging                       8.4.0-1        
+2024/08/17 13:15:37  122 install python39-pygments                      2.10.0-1       
+2024/08/17 13:15:37  123 install python39-docutils                      0.18.1-1       
+2024/08/17 13:15:37  124 install python39-sphinx                        4.4.0-1        
+2024/08/17 13:15:37  125 install python39-pip                           24.0-1         
+2024/08/17 13:15:37  126 install python39-sphinxcontrib-serializinghtml 1.1.5-1        
+2024/08/17 13:15:37  127 install python3                                3.9.16-1       
+2024/08/17 13:15:37  128 install texlive-collection-pictures            20240312-1     
+2024/08/17 13:15:37  129 install texlive-collection-latexextra          20240312-1     
+2024/08/17 13:15:37  130 install doxygen-latex                          1.9.6-1        
+2024/08/17 13:15:43 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/icu/libicu74/libicu74-74.2-1.tar.xz
+2024/08/17 13:15:44 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xapian-core/libxapian30/libxapian30-1.4.23-1.tar.xz
+2024/08/17 13:15:45 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl_base/perl_base-5.36.3-1.tar.zst
+2024/08/17 13:15:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ed/ed-1.20.1-1.tar.xz
+2024/08/17 13:15:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/ghostscript-fonts-other/ghostscript-fonts-other-6.0-1.tar.bz2
+2024/08/17 13:15:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/nettle/libnettle8/libnettle8-3.9.1-1.tar.xz
+2024/08/17 13:15:46 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/potrace/libpotrace0/libpotrace0-1.16-1.tar.xz
+2024/08/17 13:15:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/teckit/libteckit0/libteckit0-2.5.12-1.tar.xz
+2024/08/17 13:15:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXpm/libXpm4/libXpm4-3.5.17-1.tar.xz
+2024/08/17 13:15:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zziplib/libzzip0.13/libzzip0.13-0.13.72-1.tar.xz
+2024/08/17 13:15:47 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXScrnSaver/libXss1/libXss1-1.2.4-1.tar.xz
+2024/08/17 13:15:48 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tcl/tcl-8.6.12-1.tar.xz
+2024/08/17 13:15:50 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python39/python39-3.9.16-1.tar.xz
+2024/08/17 13:15:50 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-platformdirs/python39-platformdirs/python39-platformdirs-4.2.0-1.tar.xz
+2024/08/17 13:15:50 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-setuptools/python39-setuptools/python39-setuptools-69.2.0-1.tar.xz
+2024/08/17 13:15:51 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/lcms2/liblcms2_2/liblcms2_2-2.16-1.tar.xz
+2024/08/17 13:15:51 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/raqm/libraqm0/libraqm0-0.7.0-1.tar.xz
+2024/08/17 13:15:51 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebpdemux2/libwebpdemux2-1.4.0-1.tar.xz
+2024/08/17 13:15:51 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebpmux3/libwebpmux3-1.4.0-1.tar.xz
+2024/08/17 13:15:51 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/db/libdb5.3/libdb5.3-5.3.28-2.tar.xz
+2024/08/17 13:15:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libICE/libICE6/libICE6-1.1.1-1.tar.xz
+2024/08/17 13:15:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpaper/libpaper-common/libpaper-common-1.1.29-1.tar.xz
+2024/08/17 13:15:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libgomp1/libgomp1-12.4.0-3.tar.zst
+2024/08/17 13:15:52 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libidn/libidn12/libidn12-1.42-1.tar.xz
+2024/08/17 13:15:53 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tiff/libtiff7/libtiff7-4.6.0-1.tar.xz
+2024/08/17 13:15:53 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/poppler-data/poppler-data-0.4.10-1.tar.xz
+2024/08/17 13:15:55 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/urw-base35-fonts/urw-base35-fonts-20170801-5.tar.xz
+2024/08/17 13:15:56 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dialog/libdialog15/libdialog15-1.3+20240619-1.tar.xz
+2024/08/17 13:15:56 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/c-ares/libcares2/libcares2-1.14.0-1.tar.xz
+2024/08/17 13:15:56 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libidn2/libidn2_0/libidn2_0-2.3.7-1.tar.xz
+2024/08/17 13:15:56 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libmetalink/libmetalink3/libmetalink3-0.1.3-1.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libunistring/libunistring5/libunistring5-1.2-1.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/publicsuffix-list/publicsuffix-list-dafsa/publicsuffix-list-dafsa-20240531-1.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libgpg-error/libgpg-error0/libgpg-error0-1.50-2.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/npth/libnpth0/libnpth0-1.7-1.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libusb1.0/libusb1.0-1.0.21-1.tar.xz
+2024/08/17 13:15:57 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/e2fsprogs/libcom_err2/libcom_err2-1.44.5-1.tar.xz
+2024/08/17 13:15:58 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libkrb5support0/libkrb5support0-1.15.2-2.tar.xz
+2024/08/17 13:15:59 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/doxygen/doxygen-1.10.0-1.tar.xz
+2024/08/17 13:15:59 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/nettle/libhogweed6/libhogweed6-3.9.1-1.tar.xz
+2024/08/17 13:16:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tcl-tk/tcl-tk-8.6.12-1.tar.xz
+2024/08/17 13:16:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-iniconfig/python39-iniconfig/python39-iniconfig-2.0.0-1.tar.xz
+2024/08/17 13:16:00 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-six/python39-six/python39-six-1.16.0-1.tar.xz
+2024/08/17 13:16:01 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-idna/python39-idna/python39-idna-3.3-1.tar.xz
+2024/08/17 13:16:01 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-toml/python39-toml/python39-toml-0.10.2-2.tar.xz
+2024/08/17 13:16:01 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pluggy/python39-pluggy/python39-pluggy-1.0.0-1.tar.xz
+2024/08/17 13:16:03 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-babel/python39-babel/python39-babel-2.12.1-1.tar.xz
+2024/08/17 13:16:03 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-markupsafe/python39-markupsafe/python39-markupsafe-2.1.2-1.tar.xz
+2024/08/17 13:16:03 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-snowballstemmer/python39-snowballstemmer/python39-snowballstemmer-2.2.0-1.tar.xz
+2024/08/17 13:16:04 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-imagesize/python39-imagesize/python39-imagesize-1.3.0-1.tar.xz
+2024/08/17 13:16:04 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-railroad-diagrams/python39-railroad-diagrams/python39-railroad-diagrams-3.0.1-1.tar.xz
+2024/08/17 13:16:04 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-olefile/python39-olefile/python39-olefile-0.46-3.tar.xz
+2024/08/17 13:16:04 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-chardet/python39-chardet/python39-chardet-4.0.0-2.tar.xz
+2024/08/17 13:16:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl-5.36.3-1.tar.zst
+2024/08/17 13:16:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libSM/libSM6/libSM6-1.2.4-1.tar.xz
+2024/08/17 13:16:09 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpaper/libpaper1/libpaper1-1.1.29-1.tar.xz
+2024/08/17 13:16:10 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libimagequant/libimagequant0/libimagequant0-2.10.0-1.tar.xz
+2024/08/17 13:16:10 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dialog/dialog-1.3+20240619-1.tar.xz
+2024/08/17 13:16:10 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpsl/libpsl5/libpsl5-0.21.5-1.tar.xz
+2024/08/17 13:16:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libksba/libksba8/libksba8-1.6.7-1.tar.xz
+2024/08/17 13:16:12 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libgcrypt/libgcrypt20/libgcrypt20-1.11.0-1.tar.xz
+2024/08/17 13:16:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libassuan/libassuan0/libassuan0-2.5.7-1.tar.xz
+2024/08/17 13:16:13 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libk5crypto3/libk5crypto3-1.15.2-2.tar.xz
+2024/08/17 13:16:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gnutls/libgnutls30/libgnutls30-3.8.6-1.tar.xz
+2024/08/17 13:16:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-urllib3/python39-urllib3/python39-urllib3-1.26.7-1.tar.xz
+2024/08/17 13:16:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-jinja2/python39-jinja2/python39-jinja2-3.1.2-1.tar.xz
+2024/08/17 13:16:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-JSON-PP/perl-JSON-PP-4.16-2.tar.zst
+2024/08/17 13:16:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXt/libXt6/libXt6-1.3.0-1.tar.xz
+2024/08/17 13:16:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gd/libgd3/libgd3-2.3.3-1.tar.xz
+2024/08/17 13:16:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pinentry/pinentry-1.1.1-1.tar.xz
+2024/08/17 13:16:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libkrb5_3/libkrb5_3-1.15.2-2.tar.xz
+2024/08/17 13:16:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-requests/python39-requests/python39-requests-2.31.0-1.tar.xz
+2024/08/17 13:16:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pyparsing/python39-pyparsing/python39-pyparsing-3.0.6-1.tar.xz
+2024/08/17 13:16:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl_autorebase/perl_autorebase-5.36.3-1.tar.zst
+2024/08/17 13:16:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXmu/libXmu6/libXmu6-1.2.1-1.tar.xz
+2024/08/17 13:16:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ghostscript/libgs10/libgs10-10.01.2-1.tar.xz
+2024/08/17 13:16:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.15.2-2.tar.xz
+2024/08/17 13:16:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-packaging/python39-packaging/python39-packaging-21.3-1.tar.xz
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTML-Tagset/perl-HTML-Tagset-3.24-1.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-URI/perl-URI-5.28-1.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Try-Tiny/perl-Try-Tiny-0.31-2.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-LWP-MediaTypes/perl-LWP-MediaTypes-6.04-4.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-IO-HTML/perl-IO-HTML-1.004-3.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Encode-Locale/perl-Encode-Locale-1.05-5.tar.zst
+2024/08/17 13:16:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-Clone/perl-Clone-0.46-2.tar.zst
+2024/08/17 13:16:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-File-Which/perl-File-Which-1.27-2.tar.zst
+2024/08/17 13:16:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-IO-String/perl-IO-String-1.08-9.tar.zst
+2024/08/17 13:16:20 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-TimeDate/perl-TimeDate-2.33-3.tar.zst
+2024/08/17 13:16:21 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-Tk/perl-Tk-804.036-2.tar.zst
+2024/08/17 13:16:21 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXaw/libXaw7/libXaw7-1.0.16-1.tar.xz
+2024/08/17 13:16:25 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ghostscript/ghostscript-10.01.2-1.tar.xz
+2024/08/17 13:16:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cyrus-sasl/libsasl2_3/libsasl2_3-2.1.27-1.tar.xz
+2024/08/17 13:16:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pytest/python39-pytest/python39-pytest-7.3.0-1.tar.xz
+2024/08/17 13:16:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Net-HTTP/perl-Net-HTTP-6.23-1.tar.zst
+2024/08/17 13:16:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-WWW-RobotRules/perl-WWW-RobotRules-6.02-9.tar.zst
+2024/08/17 13:16:26 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Date/perl-HTTP-Date-6.06-1.tar.zst
+2024/08/17 13:16:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openldap/libopenldap2/libopenldap2-2.6.8-1.tar.zst
+2024/08/17 13:16:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-File-Listing/perl-File-Listing-6.16-1.tar.zst
+2024/08/17 13:16:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Message/perl-HTTP-Message-6.46-1.tar.zst
+2024/08/17 13:16:27 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.6.8-1.tar.zst
+2024/08/17 13:16:28 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gnupg2/gnupg2-2.4.5-1.tar.xz
+2024/08/17 13:16:28 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Cookies/perl-HTTP-Cookies-6.11-1.tar.zst
+2024/08/17 13:16:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-HTML-Parser/perl-HTML-Parser-3.83-1.tar.zst
+2024/08/17 13:16:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Negotiate/perl-HTTP-Negotiate-6.01-9.tar.zst
+2024/08/17 13:16:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gpgme/libgpgme11/libgpgme11-1.9.0-1.tar.xz
+2024/08/17 13:16:29 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-libwww-perl/perl-libwww-perl-6.77-1.tar.zst
+2024/08/17 13:16:30 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/wget/wget-1.24.5-1.tar.xz
+2024/08/17 13:16:30 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-XML-Parser/perl-XML-Parser-2.47-1.tar.zst
+2024/08/17 13:16:32 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-basic/texlive-collection-basic-20240312-1.tar.xz
+2024/08/17 13:16:36 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/texlive-20240312-1.tar.xz
+2024/08/17 13:16:37 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libkpathsea6/libkpathsea6-20240312-1.tar.xz
+2024/08/17 13:16:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-plaingeneric/texlive-collection-plaingeneric-20240312-1.tar.xz
+2024/08/17 13:16:38 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latex/texlive-collection-latex-20240312-1.tar.xz
+2024/08/17 13:16:40 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-fontutils/texlive-collection-fontutils-20240312-1.tar.xz
+2024/08/17 13:17:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-fontsrecommended/texlive-collection-fontsrecommended-20240312-1.tar.xz
+2024/08/17 13:17:11 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libptexenc1/libptexenc1-20240312-1.tar.xz
+2024/08/17 13:17:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latexrecommended/texlive-collection-latexrecommended-20240312-1.tar.xz
+2024/08/17 13:17:14 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libsynctex2/libsynctex2-20240312-1.tar.xz
+2024/08/17 13:17:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/emacs-auctex/preview-latex/preview-latex-13.3-1.tar.xz
+2024/08/17 13:17:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libtexlua53_5/libtexlua53_5-20240312-1.tar.xz
+2024/08/17 13:17:15 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libtexluajit2/libtexluajit2-20240312-1.tar.xz
+2024/08/17 13:17:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-imaging/python39-imaging/python39-imaging-8.4.0-1.tar.xz
+2024/08/17 13:17:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pygments/python39-pygments/python39-pygments-2.10.0-1.tar.xz
+2024/08/17 13:17:16 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-docutils/python39-docutils/python39-docutils-0.18.1-1.tar.xz
+2024/08/17 13:17:17 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-sphinx/python39-sphinx/python39-sphinx-4.4.0-1.tar.xz
+2024/08/17 13:17:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pip/python39-pip/python39-pip-24.0-1.tar.xz
+2024/08/17 13:17:18 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-sphinxcontrib-serializinghtml/python39-sphinxcontrib-serializinghtml/python39-sphinxcontrib-serializinghtml-1.1.5-1.tar.xz
+2024/08/17 13:17:19 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python3/python3-3.9.16-1.tar.xz
+2024/08/17 13:17:24 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-pictures/texlive-collection-pictures-20240312-1.tar.xz
+2024/08/17 13:17:32 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latexextra/texlive-collection-latexextra-20240312-1.tar.xz
+2024/08/17 13:17:33 Downloaded C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/doxygen/doxygen-latex/doxygen-latex-1.9.6-1.tar.xz
+2024/08/17 13:17:33 Registry value set: HKEY_LOCAL_MACHINE\Software\Cygwin\setup\rootdir = "C:\cygwin64"
+2024/08/17 13:17:33 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/icu/libicu74/libicu74-74.2-1.tar.xz
+2024/08/17 13:17:33 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/xapian-core/libxapian30/libxapian30-1.4.23-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl_base/perl_base-5.36.3-1.tar.zst
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ed/ed-1.20.1-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/ghostscript-fonts-other/ghostscript-fonts-other-6.0-1.tar.bz2
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/nettle/libnettle8/libnettle8-3.9.1-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/potrace/libpotrace0/libpotrace0-1.16-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/teckit/libteckit0/libteckit0-2.5.12-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXpm/libXpm4/libXpm4-3.5.17-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/zziplib/libzzip0.13/libzzip0.13-0.13.72-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXScrnSaver/libXss1/libXss1-1.2.4-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tcl/tcl-8.6.12-1.tar.xz
+2024/08/17 13:17:34 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python39/python39-3.9.16-1.tar.xz
+2024/08/17 13:17:36 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-platformdirs/python39-platformdirs/python39-platformdirs-4.2.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-setuptools/python39-setuptools/python39-setuptools-69.2.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/lcms2/liblcms2_2/liblcms2_2-2.16-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/raqm/libraqm0/libraqm0-0.7.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebpdemux2/libwebpdemux2-1.4.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libwebp/libwebpmux3/libwebpmux3-1.4.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/db/libdb5.3/libdb5.3-5.3.28-2.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libICE/libICE6/libICE6-1.1.1-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpaper/libpaper-common/libpaper-common-1.1.29-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gcc/libgomp1/libgomp1-12.4.0-3.tar.zst
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libidn/libidn12/libidn12-1.42-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tiff/libtiff7/libtiff7-4.6.0-1.tar.xz
+2024/08/17 13:17:37 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/poppler-data/poppler-data-0.4.10-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/urw-base35-fonts/urw-base35-fonts-20170801-5.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dialog/libdialog15/libdialog15-1.3+20240619-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/c-ares/libcares2/libcares2-1.14.0-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libidn2/libidn2_0/libidn2_0-2.3.7-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libmetalink/libmetalink3/libmetalink3-0.1.3-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libunistring/libunistring5/libunistring5-1.2-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/publicsuffix-list/publicsuffix-list-dafsa/publicsuffix-list-dafsa-20240531-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libgpg-error/libgpg-error0/libgpg-error0-1.50-2.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/npth/libnpth0/libnpth0-1.7-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libusb1.0/libusb1.0-1.0.21-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/e2fsprogs/libcom_err2/libcom_err2-1.44.5-1.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libkrb5support0/libkrb5support0-1.15.2-2.tar.xz
+2024/08/17 13:17:38 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/doxygen/doxygen-1.10.0-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/nettle/libhogweed6/libhogweed6-3.9.1-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/tcl-tk/tcl-tk-8.6.12-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-iniconfig/python39-iniconfig/python39-iniconfig-2.0.0-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-six/python39-six/python39-six-1.16.0-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-idna/python39-idna/python39-idna-3.3-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-toml/python39-toml/python39-toml-0.10.2-2.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pluggy/python39-pluggy/python39-pluggy-1.0.0-1.tar.xz
+2024/08/17 13:17:39 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-babel/python39-babel/python39-babel-2.12.1-1.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-markupsafe/python39-markupsafe/python39-markupsafe-2.1.2-1.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-snowballstemmer/python39-snowballstemmer/python39-snowballstemmer-2.2.0-1.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-imagesize/python39-imagesize/python39-imagesize-1.3.0-1.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-railroad-diagrams/python39-railroad-diagrams/python39-railroad-diagrams-3.0.1-1.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-olefile/python39-olefile/python39-olefile-0.46-3.tar.xz
+2024/08/17 13:17:40 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-chardet/python39-chardet/python39-chardet-4.0.0-2.tar.xz
+2024/08/17 13:17:41 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl-5.36.3-1.tar.zst
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libSM/libSM6/libSM6-1.2.4-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpaper/libpaper1/libpaper1-1.1.29-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libimagequant/libimagequant0/libimagequant0-2.10.0-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/dialog/dialog-1.3+20240619-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libpsl/libpsl5/libpsl5-0.21.5-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libksba/libksba8/libksba8-1.6.7-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libgcrypt/libgcrypt20/libgcrypt20-1.11.0-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libassuan/libassuan0/libassuan0-2.5.7-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libk5crypto3/libk5crypto3-1.15.2-2.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gnutls/libgnutls30/libgnutls30-3.8.6-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-urllib3/python39-urllib3/python39-urllib3-1.26.7-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-jinja2/python39-jinja2/python39-jinja2-3.1.2-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-JSON-PP/perl-JSON-PP-4.16-2.tar.zst
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXt/libXt6/libXt6-1.3.0-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gd/libgd3/libgd3-2.3.3-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/pinentry/pinentry-1.1.1-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libkrb5_3/libkrb5_3-1.15.2-2.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-requests/python39-requests/python39-requests-2.31.0-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pyparsing/python39-pyparsing/python39-pyparsing-3.0.6-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl/perl_autorebase/perl_autorebase-5.36.3-1.tar.zst
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXmu/libXmu6/libXmu6-1.2.1-1.tar.xz
+2024/08/17 13:17:42 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ghostscript/libgs10/libgs10-10.01.2-1.tar.xz
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.15.2-2.tar.xz
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-packaging/python39-packaging/python39-packaging-21.3-1.tar.xz
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTML-Tagset/perl-HTML-Tagset-3.24-1.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-URI/perl-URI-5.28-1.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Try-Tiny/perl-Try-Tiny-0.31-2.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-LWP-MediaTypes/perl-LWP-MediaTypes-6.04-4.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-IO-HTML/perl-IO-HTML-1.004-3.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Encode-Locale/perl-Encode-Locale-1.05-5.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-Clone/perl-Clone-0.46-2.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-File-Which/perl-File-Which-1.27-2.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-IO-String/perl-IO-String-1.08-9.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-TimeDate/perl-TimeDate-2.33-3.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-Tk/perl-Tk-804.036-2.tar.zst
+2024/08/17 13:17:43 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/libXaw/libXaw7/libXaw7-1.0.16-1.tar.xz
+2024/08/17 13:17:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/ghostscript/ghostscript-10.01.2-1.tar.xz
+2024/08/17 13:17:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/cyrus-sasl/libsasl2_3/libsasl2_3-2.1.27-1.tar.xz
+2024/08/17 13:17:44 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pytest/python39-pytest/python39-pytest-7.3.0-1.tar.xz
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-Net-HTTP/perl-Net-HTTP-6.23-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-WWW-RobotRules/perl-WWW-RobotRules-6.02-9.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Date/perl-HTTP-Date-6.06-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openldap/libopenldap2/libopenldap2-2.6.8-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-File-Listing/perl-File-Listing-6.16-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Message/perl-HTTP-Message-6.46-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.6.8-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gnupg2/gnupg2-2.4.5-1.tar.xz
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Cookies/perl-HTTP-Cookies-6.11-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-HTML-Parser/perl-HTML-Parser-3.83-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-HTTP-Negotiate/perl-HTTP-Negotiate-6.01-9.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/gpgme/libgpgme11/libgpgme11-1.9.0-1.tar.xz
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/perl-libwww-perl/perl-libwww-perl-6.77-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/wget/wget-1.24.5-1.tar.xz
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/perl-XML-Parser/perl-XML-Parser-2.47-1.tar.zst
+2024/08/17 13:17:45 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-basic/texlive-collection-basic-20240312-1.tar.xz
+2024/08/17 13:17:47 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/texlive-20240312-1.tar.xz
+2024/08/17 13:17:49 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libkpathsea6/libkpathsea6-20240312-1.tar.xz
+2024/08/17 13:17:49 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-plaingeneric/texlive-collection-plaingeneric-20240312-1.tar.xz
+2024/08/17 13:17:55 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latex/texlive-collection-latex-20240312-1.tar.xz
+2024/08/17 13:17:57 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-fontutils/texlive-collection-fontutils-20240312-1.tar.xz
+2024/08/17 13:17:57 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-fontsrecommended/texlive-collection-fontsrecommended-20240312-1.tar.xz
+2024/08/17 13:18:06 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libptexenc1/libptexenc1-20240312-1.tar.xz
+2024/08/17 13:18:06 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latexrecommended/texlive-collection-latexrecommended-20240312-1.tar.xz
+2024/08/17 13:18:07 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libsynctex2/libsynctex2-20240312-1.tar.xz
+2024/08/17 13:18:07 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/emacs-auctex/preview-latex/preview-latex-13.3-1.tar.xz
+2024/08/17 13:18:07 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libtexlua53_5/libtexlua53_5-20240312-1.tar.xz
+2024/08/17 13:18:07 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/texlive/libtexluajit2/libtexluajit2-20240312-1.tar.xz
+2024/08/17 13:18:07 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python-imaging/python39-imaging/python39-imaging-8.4.0-1.tar.xz
+2024/08/17 13:18:08 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pygments/python39-pygments/python39-pygments-2.10.0-1.tar.xz
+2024/08/17 13:18:09 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-docutils/python39-docutils/python39-docutils-0.18.1-1.tar.xz
+2024/08/17 13:18:09 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-sphinx/python39-sphinx/python39-sphinx-4.4.0-1.tar.xz
+2024/08/17 13:18:10 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-pip/python39-pip/python39-pip-24.0-1.tar.xz
+2024/08/17 13:18:12 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/python-sphinxcontrib-serializinghtml/python39-sphinxcontrib-serializinghtml/python39-sphinxcontrib-serializinghtml-1.1.5-1.tar.xz
+2024/08/17 13:18:12 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/x86_64/release/python3/python3-3.9.16-1.tar.xz
+2024/08/17 13:18:12 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-pictures/texlive-collection-pictures-20240312-1.tar.xz
+2024/08/17 13:18:16 Extracting from file://C:\Users\dell\Downloads/https%3a%2f%2fmirrors.163.com%2fcygwin%2f/noarch/release/texlive-collection-latexextra/texlive-collection-latexextra-20240312-1.tar.xz
+2024/08/17 13:18:22 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2024/08/17 13:18:23 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_texlive_prep.dash"
+2024/08/17 13:18:26 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/0p_update-info-dir.dash"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/libpaper.sh"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/libsasl2_3.sh"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/preview-latex.sh"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/python39.sh"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/python39-pip.sh"
+2024/08/17 13:18:27 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/python39-sphinx.sh"
+2024/08/17 13:18:28 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/texlive-collection-basic.sh"
+2024/08/17 13:18:32 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/texlive-collection-latex.sh"
+2024/08/17 13:18:34 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/texlive-collection-latexextra.sh"
+2024/08/17 13:18:36 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/wget.sh"
+2024/08/17 13:18:36 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_adwaita-icon-theme.sh"
+2024/08/17 13:18:36 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_desktop-file-utils.sh"
+2024/08/17 13:18:36 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_fontconfig_cache_1.sh"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_fontconfig_dtd.dash"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_glib2.0.sh"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_hicolor-icon-theme.sh"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_man-db-update-index.dash"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_shared-mime-info.sh"
+2024/08/17 13:18:37 running: C:\cygwin64\bin\dash.exe "/etc/postinstall/zp_texlive_finish.dash"
+2024/08/17 13:28:59 note: Installation Complete
+2024/08/17 13:28:59 Ending cygwin install

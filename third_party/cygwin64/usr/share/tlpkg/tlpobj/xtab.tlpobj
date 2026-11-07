@@ -1,0 +1,16 @@
+name xtab
+category Package
+revision 23347
+shortdesc Break tables across pages
+relocated 1
+longdesc Xtab is an extended and somewhat improved version of
+longdesc supertabular; its xtabular environment provides tables that
+longdesc break across pages.
+runfiles size=5
+ RELOC/tex/latex/xtab/xtab.sty
+catalogue-also longtable
+catalogue-ctan /macros/latex/contrib/xtab
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics table table-long
+catalogue-version 2.3f

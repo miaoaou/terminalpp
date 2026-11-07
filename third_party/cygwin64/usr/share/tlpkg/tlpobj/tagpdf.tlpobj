@@ -1,0 +1,38 @@
+name tagpdf
+category Package
+revision 70256
+shortdesc Tools for experimenting with tagging using pdfLaTeX and LuaLaTeX
+relocated 1
+longdesc The package offers tools to experiment with tagging and
+longdesc accessibility using pdfLaTeX and LuaTeX. It isn't meant for
+longdesc production but allows the user to try out how difficult it is
+longdesc to tag some structures; to try out how much tagging is really
+longdesc needed; to test what else is needed so that a pdf works e.g.
+longdesc with a screen reader. Its goal is to get a feeling for what has
+longdesc to be done, which kernel changes are needed, how packages
+longdesc should be adapted.
+runfiles size=72
+ RELOC/tex/latex/tagpdf/tagpdf-base.sty
+ RELOC/tex/latex/tagpdf/tagpdf-debug-generic.sty
+ RELOC/tex/latex/tagpdf/tagpdf-debug-lua.sty
+ RELOC/tex/latex/tagpdf/tagpdf-debug.sty
+ RELOC/tex/latex/tagpdf/tagpdf-luatex.def
+ RELOC/tex/latex/tagpdf/tagpdf-mc-code-generic.sty
+ RELOC/tex/latex/tagpdf/tagpdf-mc-code-lua.sty
+ RELOC/tex/latex/tagpdf/tagpdf-ns-latex-book.def
+ RELOC/tex/latex/tagpdf/tagpdf-ns-latex-inline.def
+ RELOC/tex/latex/tagpdf/tagpdf-ns-latex.def
+ RELOC/tex/latex/tagpdf/tagpdf-ns-mathml.def
+ RELOC/tex/latex/tagpdf/tagpdf-ns-pdf.def
+ RELOC/tex/latex/tagpdf/tagpdf-ns-pdf2.def
+ RELOC/tex/latex/tagpdf/tagpdf-parent-child-2.csv
+ RELOC/tex/latex/tagpdf/tagpdf-parent-child.csv
+ RELOC/tex/latex/tagpdf/tagpdf.lua
+ RELOC/tex/latex/tagpdf/tagpdf.sty
+ RELOC/tex/latex/tagpdf/tagpdfdocu-patches.sty
+catalogue-contact-repository https://github.com/latex3/tagpdf
+catalogue-contact-support https://github.com/latex3/tagpdf/issues
+catalogue-ctan /macros/latex/contrib/tagpdf
+catalogue-license lppl1.3c
+catalogue-topics tagged-pdf accessible expl3
+catalogue-version 0.98x

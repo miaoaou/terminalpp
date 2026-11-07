@@ -1,0 +1,14 @@
+name properties
+category Package
+revision 15878
+shortdesc Load properties from a file
+relocated 1
+longdesc The package loads properties (key, value) from a properties
+longdesc file, e.g. \jobname.properties.
+runfiles size=1
+ RELOC/tex/latex/properties/properties.sty
+catalogue-ctan /macros/latex/contrib/properties
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 0.2

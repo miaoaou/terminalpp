@@ -1,0 +1,18 @@
+name draftcopy
+category Package
+revision 15878
+shortdesc Identify draft copies
+relocated 1
+longdesc Places the word DRAFT (or other words) in light grey diagonally
+longdesc across the background (or at the bottom) of each (or selected)
+longdesc pages of the document. The package uses PostScript \special
+longdesc commands, and may not therefore be used with pdfLaTeX. For that
+longdesc usage, consider the wallpaper or draftwatermark packages.
+runfiles size=5
+ RELOC/tex/latex/draftcopy/draftcopy.cfg
+ RELOC/tex/latex/draftcopy/draftcopy.sty
+catalogue-ctan /macros/latex/contrib/draftcopy
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics editorial
+catalogue-version 2.16

@@ -1,0 +1,22 @@
+name mandi
+category Package
+revision 70231
+shortdesc Macros for introductory physics and astronomy
+relocated 1
+longdesc The package contains commands for students and teachers of
+longdesc introductory physics. Commands for physical quantities
+longdesc intelligently handle SI units so the user need not do so. There
+longdesc are other features that should make LaTeX easy for introductory
+longdesc physics students. The name of the package can be pronounced as
+longdesc "M&I" and refers to the physics textbook Matter & Interactions.
+runfiles size=17
+ RELOC/tex/latex/mandi/mandi.sty
+ RELOC/tex/latex/mandi/mandiexp.sty
+ RELOC/tex/latex/mandi/mandistudent.sty
+catalogue-also siunitx
+catalogue-contact-bugs https://github.com/heafnerj/mandi/issues
+catalogue-contact-repository https://github.com/heafnerj/mandi
+catalogue-ctan /macros/latex/contrib/mandi
+catalogue-license lppl1.3c
+catalogue-topics physics expl3
+catalogue-version 3.2.2

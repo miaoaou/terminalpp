@@ -1,0 +1,150 @@
+ % tkz-draw-points.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”. 
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c  tkz-draw-eu-points.tex} 
+\makeatletter
+%<--------------------------------------------------------------------------->
+%                    tkzSetUpPoint  définit la forme d'un point
+%<--------------------------------------------------------------------------->
+\pgfkeys{/tkzsetuppt/.cd,
+      size/.store in       =  \tkz@pt@size,
+      color/.store in      =  \tkz@pt@color,
+      fill/.store in       =  \tkz@pt@fill, 
+      shape/.store in      =  \tkz@pt@shape,
+      size                 =  \tkz@euc@pointsize,
+      color                =  \tkz@euc@pointcolor,
+      fill                 =  \tkz@euc@pointfillcolor,
+      shape                =  \tkz@euc@pointshape,
+   /tkzsetuppt/.search also  = {/tikz},
+ } 
+\def\tkzSetUpPoint{\pgfutil@ifnextchar[{\tkz@SetUpPoint}{%
+                                        \tkz@SetUpPoint[]}}
+\def\tkz@SetUpPoint[#1]{%
+\pgfqkeys{/tkzsetuppt}{#1}
+% redefine point style with new values
+\tikzset{point style/.style={draw         = \tkz@pt@color,
+                             inner sep    = 0pt,
+                             shape        = \tkz@pt@shape,
+                             minimum size = \tkz@pt@size,
+                             fill         = \tkz@pt@fill}}
+}% end setup
+%<--------------------------------------------------------------------------->
+%                       Draw Point   
+%<--------------------------------------------------------------------------->
+\pgfkeys{/tkzdrawpt/.cd, 
+  size/.code   = {\tikzset{point style/.append style={minimum size = #1}}},
+  size         = \tkz@euc@pointsize,
+  /tkzdrawpt/.search also  = {/tikz},
+}
+%<--------------------------------------------------------------------------    
+\def\tkzDrawPoint{\pgfutil@ifnextchar[{\tkz@DrawPoint}{\tkz@DrawPoint[]}} 
+\def\tkz@DrawPoint[#1](#2){%
+\begingroup 
+    \pgfqkeys{/tkzdrawpt}{#1}    
+    \node[point style,/tkzdrawpt/.cd,#1] at (#2) {};%2016
+\endgroup
+}
+%<---------------------------------------------------------------------------> 
+\def\tkzDrawPoints{\pgfutil@ifnextchar[{\tkz@drawpts}{\tkz@drawpts[]}} 
+%<---------------------------------------------------------------------------> 
+\def\tkz@drawpts[#1](#2){%
+\begingroup
+   \pgfqkeys{/tkzdrawpt}{#1}        
+   \foreach \point in {#2}{\node[point style,/tkzdrawpt/.cd,#1] at (\point) {};} %2016
+\endgroup 
+}
+%<-------------------------------------------------------------------------->
+%                   tkzLabelPoint          Affichage des LABELS pour un point
+%<-------------------------------------------------------------------------->  
+\def\tkzLabelPoint{\pgfutil@ifnextchar[{\tkz@LabelPoint}{\tkz@LabelPoint[]}} 
+\def\tkz@LabelPoint[#1](#2)#3{%
+      \node[label style,#1] at (#2) {#3};}%
+%<--------------------------------------------------------------------------->
+
+\def\tkzLabelPoints{\pgfutil@ifnextchar[{\tkz@LabelPoints}{\tkz@LabelPoints[]}}% 
+\def\tkz@LabelPoints[#1](#2){%
+ \foreach \point in {#2}{
+      \node[label style,#1] at (\point) {$\point$};}
+}%
+%<--------------------------------------------------------------------------->
+%<--------------------------------------------------------------------------->
+%
+%<--------------------------------------------------------------------------->
+\def\tkzSetUpLabel{\pgfutil@ifnextchar[{\tkz@SetUpLabel}{%
+                                        \tkz@SetUpLabel[]}}
+\def\tkz@SetUpLabel[#1]{%
+\tikzset{label style/.style={#1}}
+}% end setup
+%<--------------------------------------------------------------------------->
+
+\pgfkeys{/tkzautolab/.cd,
+    center/.store in           = \tkz@center,
+    dist/.store in             = \tkz@dist,
+    dist                       = 0.15,
+   /tkzautolab/.search also   = {/tikz},
+}
+\def\tkzAutoLabelPoints{\pgfutil@ifnextchar[{\tkz@AutoLabelPoints}{\tkz@AutoLabelPoints[]}}% 
+\def\tkz@AutoLabelPoints[#1](#2){%
+\begingroup 
+\pgfqkeys{/tkzautolab}{#1} 
+ \foreach \point in {#2}{
+ \path (\tkz@center) -- ($ (\point) + \tkz@dist*($(\point)-(\tkz@center)$) $) node[/tkzautolab/.cd,label style,#1]{$\point$};}
+\endgroup
+}%
+%<--------------------------------------------------------------------------->
+%                                 PointShowCoord  
+%<--------------------------------------------------------------------------->
+\pgfkeys{/tkzprcoord/.cd,
+          xlabel/.store in    = \tkz@xlabel,
+          ylabel/.store in    = \tkz@ylabel, 
+          xstyle/.code        = {\tikzset{xcoord style/.append style={#1}}},
+          ystyle/.code        = {\tikzset{ycoord style/.append style={#1}}},
+          noxdraw/.is if      = tkz@coord@noxdraw,
+          noxdraw/.default    = true,
+          noydraw/.is if      = tkz@coord@noydraw,
+          noydraw/.default    = true,
+          xlabel              = {},
+          ylabel              = {},
+          xstyle              = {},
+          ystyle              = {},
+          noxdraw             = false,
+          noydraw             = false,    
+  /tkzprcoord/.search also   = {/tikz},
+}
+\def\tkzPointShowCoord{\pgfutil@ifnextchar[{\tkz@PointShowCoord}{\tkz@PointShowCoord[]}}     
+\def\tkz@PointShowCoord[#1](#2){%
+\begingroup 
+\pgfqkeys{/tkzprcoord}{#1} 
+% 2019 for showcoord
+ \iftkznodedefined{tkz@xline}{}{%
+ \path (0,0) --(1,0) node(tkz@xline){};
+ \path (0,0) --(0,1) node(tkz@yline){};
+ }
+\iftkz@coord@noxdraw\else\draw[arrow coord style,/tkzprcoord/.cd,#1] (#2)--(#2 |- tkz@xline);\fi 
+\iftkz@coord@noydraw\else\draw[arrow coord style,/tkzprcoord/.cd,#1] (#2)--(#2 -| tkz@yline);\fi   
+\ifx\tkzutil@empty\tkz@xlabel
+\else
+\path (#2)--(#2 |- tkz@xline)
+  node[xcoord style] {\tkz@xlabel};
+\fi
+\ifx\tkzutil@empty\tkz@ylabel
+\else
+ \path (#2)--(#2 -| tkz@yline)
+   node[ycoord style] {\tkz@ylabel};
+\fi    
+\endgroup
+}
+\let\tkzShowPointCoord\tkzPointShowCoord
+\makeatother  
+\endinput

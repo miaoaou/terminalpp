@@ -1,0 +1,20 @@
+name modular
+category Package
+revision 44142
+shortdesc Relative section headings for modular documents
+relocated 1
+longdesc LaTeX sections have absolute depth, e.g. \section, \subsection,
+longdesc etc. When composing modular documents, we want relative depths.
+longdesc The coseoul package provides relative headings, but does not
+longdesc get things right when composing a document modularly from
+longdesc multiple parts. This package provides the missing piece.
+longdesc modular relies on coseoul, import, and ifthen.
+runfiles size=1
+ RELOC/tex/latex/modular/modular.sty
+catalogue-also coseoul
+catalogue-contact-bugs https://github.com/danielsank/tex-modular/issues
+catalogue-contact-repository https://github.com/danielsank/tex-modular
+catalogue-ctan /macros/latex/contrib/modular
+catalogue-date 2017-06-05 06:58:27 +0200
+catalogue-license lppl1.3
+catalogue-topics headings file-control

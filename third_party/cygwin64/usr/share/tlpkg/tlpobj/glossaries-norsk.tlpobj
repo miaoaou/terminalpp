@@ -1,0 +1,17 @@
+name glossaries-norsk
+category Package
+revision 67141
+shortdesc Norsk Bokmal language module for the glossaries Package
+relocated 1
+longdesc This package adds Norwegian Bokmal translations for the
+longdesc glossaries package. These will be loaded automatically when the
+longdesc babel package is loaded with the option norsk.
+runfiles size=1
+ RELOC/tex/latex/glossaries-norsk/glossaries-norsk.ldf
+catalogue-contact-bugs https://github.com/JakobST1n/glossaries-norsk/issues
+catalogue-contact-home https://github.com/JakobST1n/glossaries-norsk
+catalogue-contact-repository https://github.com/JakobST1n/glossaries-norsk.git
+catalogue-ctan /macros/latex/contrib/glossaries-norsk
+catalogue-license lppl1.3
+catalogue-topics glossary norwegian
+catalogue-version 1.0

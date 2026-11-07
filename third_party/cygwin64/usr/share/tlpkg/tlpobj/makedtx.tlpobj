@@ -1,0 +1,23 @@
+name makedtx
+category Package
+revision 46702
+shortdesc Perl script to help generate dtx and ins files
+longdesc The makedtx bundle is provided to help LaTeX2e developers to
+longdesc write the code and documentation in separate files, and then
+longdesc combine them into a single .dtx file for distribution. It
+longdesc automatically generates the character table, and also writes
+longdesc the associated installation (.ins) script.
+depend makedtx.ARCH
+runfiles size=8
+ texmf-dist/scripts/makedtx/makedtx.pl
+ texmf-dist/tex/latex/makedtx/createdtx.sty
+catalogue-also sty2dtx
+catalogue-contact-bugs https://puszcza.gnu.org.ua/bugs/?group=latex-makedtx
+catalogue-contact-development https://puszcza.gnu.org.ua/project/memberlist.php?group=latex-makedtx
+catalogue-contact-home https://puszcza.gnu.org.ua/projects/latex-makedtx
+catalogue-contact-repository https://puszcza.gnu.org.ua/svn/?group=latex-makedtx
+catalogue-ctan /support/makedtx
+catalogue-date 2018-02-21 20:29:09 +0100
+catalogue-license lppl
+catalogue-topics package-devel
+catalogue-version 1.2

@@ -1,0 +1,18 @@
+name datetime2-spanish
+category Package
+revision 45785
+shortdesc Spanish language module for the datetime2 package
+relocated 1
+longdesc This module provides the "spanish" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-spanish/datetime2-spanish-ascii.ldf
+ RELOC/tex/latex/datetime2-spanish/datetime2-spanish-utf8.ldf
+ RELOC/tex/latex/datetime2-spanish/datetime2-spanish.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-spanish
+catalogue-date 2017-11-13 15:03:30 +0100
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

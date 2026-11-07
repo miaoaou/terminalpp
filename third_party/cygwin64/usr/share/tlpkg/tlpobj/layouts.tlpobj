@@ -1,0 +1,18 @@
+name layouts
+category Package
+revision 42428
+shortdesc Display various elements of a document's layout
+relocated 1
+longdesc Display information about a document, including: text
+longdesc positioning on a page; disposition of floats; layout of
+longdesc paragraphs, lists, footnotes, table of contents, and sectional
+longdesc headings; font boxes. Facilities are provided for a document
+longdesc designer to experiment with the layout parameters.
+runfiles size=26
+ RELOC/tex/latex/layouts/layouts.sty
+catalogue-also layout
+catalogue-ctan /macros/latex/contrib/layouts
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics geometry layout-show
+catalogue-version 2.6d

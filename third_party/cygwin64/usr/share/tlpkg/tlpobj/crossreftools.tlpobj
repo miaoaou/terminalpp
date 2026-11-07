@@ -1,0 +1,15 @@
+name crossreftools
+category Package
+revision 55879
+shortdesc Expandable extraction of cleveref data
+relocated 1
+longdesc This package extracts information from cross-referencing
+longdesc labels, especially those from cleveref, in an expandable
+longdesc manner.
+runfiles size=4
+ RELOC/tex/latex/crossreftools/crossreftools.sty
+catalogue-also cleveref
+catalogue-ctan /macros/latex/contrib/crossreftools
+catalogue-license lppl1.3
+catalogue-topics label-ref
+catalogue-version 1.0

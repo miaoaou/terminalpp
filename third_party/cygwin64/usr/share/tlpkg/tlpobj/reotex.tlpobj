@@ -1,0 +1,14 @@
+name reotex
+category Package
+revision 34924
+shortdesc Draw Reo Channels and Circuits
+relocated 1
+longdesc The package defines macros and other utilities to design Reo
+longdesc Circuits. The package requires PGF/TikZ support.
+runfiles size=6
+ RELOC/tex/latex/reotex/reotex.sty
+catalogue-ctan /graphics/pgf/contrib/reotex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics diagram pgf-tikz
+catalogue-version 1.1

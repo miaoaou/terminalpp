@@ -1,0 +1,14 @@
+name rescansync
+category Package
+revision 63856
+shortdesc Re-scan tokens with synctex information
+relocated 1
+longdesc Allow users to execute saved code to typeset text while
+longdesc preserving SyncTeX information.
+runfiles size=2
+ RELOC/tex/latex/rescansync/rescansync.sty
+catalogue-contact-repository https://github.com/user202729/TeXlib
+catalogue-ctan /macros/latex/contrib/rescansync
+catalogue-license lppl1.3c
+catalogue-topics expl3 macro-supp
+catalogue-version 0.0.0

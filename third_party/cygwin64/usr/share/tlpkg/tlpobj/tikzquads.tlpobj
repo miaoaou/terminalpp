@@ -1,0 +1,16 @@
+name tikzquads
+category Package
+revision 69409
+shortdesc A few shapes designed to be used with CircuiTikZ
+relocated 1
+longdesc This package defines a few extra shapes, Quadripoles and single
+longdesc port, which can be used 'standalone', but are mainly meant to
+longdesc be used with CircuiTikZ.
+runfiles size=18
+ RELOC/tex/latex/tikzquads/tikzquads.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/tikzquads/issues
+catalogue-contact-repository https://github.com/alceu-frigeri/tikzquads
+catalogue-ctan /graphics/pgf/contrib/tikzquads
+catalogue-license lppl1.3c other-free
+catalogue-topics graphics diagram-circ pgf-tikz electronic
+catalogue-version 1.0

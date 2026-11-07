@@ -1,0 +1,14 @@
+name callouts
+category Package
+revision 44899
+shortdesc Put simple annotations and notes inside a picture
+relocated 1
+longdesc The package defines the annotation environment in which
+longdesc callouts, notes, arrows, and the like can be placed to describe
+longdesc certain parts of a picture.
+runfiles size=1
+ RELOC/tex/latex/callouts/callouts.sty
+catalogue-ctan /graphics/pgf/contrib/callouts
+catalogue-date 2017-07-27 16:25:55 +0200
+catalogue-license lppl
+catalogue-topics graphics pgf-tikz

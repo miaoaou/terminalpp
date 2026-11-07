@@ -1,0 +1,18 @@
+name datetime2-lsorbian
+category Package
+revision 47749
+shortdesc Lower Sorbian language module for the datetime2 package
+relocated 1
+longdesc This module provides the "lsorbian" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-lsorbian/datetime2-lsorbian-ascii.ldf
+ RELOC/tex/latex/datetime2-lsorbian/datetime2-lsorbian-utf8.ldf
+ RELOC/tex/latex/datetime2-lsorbian/datetime2-lsorbian.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-lsorbian
+catalogue-date 2018-05-18 15:18:08 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

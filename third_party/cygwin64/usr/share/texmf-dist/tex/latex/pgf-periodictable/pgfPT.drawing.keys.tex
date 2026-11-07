@@ -1,0 +1,1619 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% «The keys for the layout and drawing the Periodic Table» ------------------------------------
+% --------------------------------------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+languages/.code=\pgfPT@otherlanguages{#1},% v2.1.0
+languages/.default=\pgfPT@defaultLanguage,% v2.1.0
+other languages font/.get=\pgfPTotherLangFont,%
+other languages font/.store in=\pgfPTotherLangFont,%
+other languages font/.default=\tiny,%
+other languages color/.get=\pgfPTotherLangColor,%
+other languages color/.store in=\pgfPTotherLangColor,%
+other languages color/.default=black!70,%
+other lang/.code=\pgfPT@otherlangstyle{#1},%
+other lang/.default={f=\tiny,c=black!70}%
+}%
+% replace user ISO flag, if found, with 'user' (v2.1.0) -------------------------------------
+\newcount\pgfPT@nlang@count%
+\def\pgfPT@otherlanguages#1{%
+\pgfPT@nlang@count=0\relax%
+\edef\pgfPTlanguages{}%
+\@for\pgfPT@tmp:=#1\do{\advance\pgfPT@nlang@count by1\relax%
+\ifnum\pgfPT@nlang@count=1\relax%
+\ifx\pggPT@userlanguage@ISOcode\pgfPT@tmp\relax\edef\pgfPTlanguages{user}%
+\else\edef\pgfPTlanguages{\pgfPT@tmp}\fi%
+\else%
+\ifx\pggPT@userlanguage@ISOcode\pgfPT@tmp\relax\edef\pgfPTlanguages{\pgfPTlanguages,user}%
+\else\edef\pgfPTlanguages{\pgfPTlanguages,\pgfPT@tmp}\fi%
+\fi}%
+}% -------------------------------------------------------------------------------------------------
+% setting key with default value -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,languages,other languages font,other languages color}%
+% end !! PGF keys: language to use in the Periodic Table ---------------------------------------
+%
+% --------------------------------------------------------------------------------------------------
+% defining PGF keys: font family to use in the Periodic Table -----------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+font/.get=\pgfPTglobalfont,%
+font/.store in=\pgfPTglobalfont,%
+font/.default=phv%
+}%
+% setting key with default value ------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,font}%
+% end !! PGF keys: font family to use in the Periodic Table --------------------------------------
+%
+% ---------------------------------------------------------------------------------------------------
+% defining PGF keys: IUPAC -> draws the periodic table with or without La & Ac in group 3 ---
+% capitalize element names -> false: names in lower case (hydrogen);
+%                                           true: capitalize names (Hydrogen)
+%                                           TRUE: capitalize names (HYDROGEN) v1.0.1
+\newif\ifpgfPTIUPACMMIX%
+%\newif\ifpgfPTNames% v1.0.1
+\pgfkeys{/pgfPerTable/.cd,%
+IUPAC/.is if=pgfPTIUPACMMIX,%
+%capitalize element names/.is if=pgfPTNames,% v1.0.1
+capitalize element names/.get=\pgfPTNames,%
+capitalize element names/.store in=\pgfPTNames,%
+capitalize element names/.default=false,%
+name/.style={capitalize element names=false},%
+Name/.style={capitalize element names=true},%
+NAME/.style={capitalize element names=TRUE}% v1.0.1
+}%
+% setting keys with default values ---------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,IUPAC,capitalize element names}%
+% end !! PGF keys: draws the periodic table with or without La & Ac in group 3 ---------------
+%
+% defining PGF keys: title; legend & visualization options --------------------------------------
+\newif\ifpgfPTtitulo%
+\newif\ifpgfPTlegenda%
+\newif\ifpgfPTlegacro%
+\newif\ifpgfPTlegendapins%
+\newif\ifpgfPTlegendaextra%
+\newif\ifpgfPTblocos%
+\newif\ifpgfPTfamilias%
+\newif\ifpgfPTMNMline%
+\newif\ifpgfPTvariations%
+\newif\ifpgfPTperlabels%
+\newif\ifpgfPTgrlabels%
+\newif\ifpgfPTLaAclabels%
+\pgfkeys{/pgfPerTable/.cd,%
+show title/.is if=pgfPTtitulo,%
+show period numbers/.is if=pgfPTperlabels,%
+show group numbers/.is if=pgfPTgrlabels,%
+show legend pins/.is if=pgfPTlegendapins,%
+show legend/.is if=pgfPTlegenda,%
+legend acronyms/.is if=pgfPTlegacro,%
+legend back color/.get=\pgfPTlegendbackcolor,%
+legend back color/.store in=\pgfPTlegendbackcolor,%
+legend back color/.default=white,%
+show extra legend/.is if=pgfPTlegendaextra,%
+legend radio color/.get=\pgfPTlegendradiocolor,%
+legend radio color/.store in=\pgfPTlegendradiocolor,%
+legend radio color/.default=black,%
+legend CS color/.get=\pgfPTlegendCScolor,%
+legend CS color/.store in=\pgfPTlegendCScolor,%
+legend CS color/.default=black!50,%
+legend Z color/.get=\pgfPTlegendZcolor,%
+legend Z color/.store in=\pgfPTlegendZcolor,%
+legend Z color/.default={},%
+show blocks/.is if=pgfPTblocos,%
+show families/.is if=pgfPTfamilias,%
+show MNM line/.is if=pgfPTMNMline,%
+show periodic variations/.is if=pgfPTvariations,%
+%show label LaAc/. is if=pgfPTLaAclabels,%
+show label LaAc/.get=\pgfPTLaAclabelsUSER,%
+show label LaAc/.store in=\pgfPTLaAclabelsUSER,%
+show label LaAc/.default={},%
+title font/.get=\pgfPTtitlefont,%
+title font/.store in=\pgfPTtitlefont,%
+title font/.default=\Large\bfseries,%
+title color/.get=\pgfPTtitlecolor,%
+title color/.store in=\pgfPTtitlecolor,%
+title color/.default=black,%
+legend/.code=\pgfPT@legendstyle{#1},%
+legend/.default={bc=red,pins=true,extra=true,acro=true},%
+title/.code=\pgfPT@titlestyle{#1},%
+title/.default={f=\Large\bfseries,c=black}%
+}%
+% setting key with default value -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,show title,show period numbers,show group numbers,show legend,legend acronyms,legend back color,%
+show legend pins,show extra legend,legend radio color,legend CS color,legend Z color,show blocks=false,show families=false,%
+show MNM line,show periodic variations=false,show label LaAc,title font,title color}%
+% «mixed styles»
+\pgfkeys{/pgfPerTable/.cd,legend box/.code=\pgfPT@legendbox#1\relax,legend box/.default={left color=black!20,right color=black!10,draw=black!30}}%
+\def\pgfPT@legendbox#1\relax{\relax\pgfkeys{/tikz/.cd,legendbox/.style={#1}}}%
+\pgfkeys{/pgfPerTable/.cd,legend box}%
+\pgfkeys{/pgfPerTable/.cd,legend pins/.code=\pgfPT@legendpins#1\relax,legend pins/.default={line width=.05pt,rounded corners=2pt,right color=black!5,left color=white,draw=black!50}}%
+\def\pgfPT@legendpins#1\relax{\relax\pgfkeys{/tikz/.cd,legendpins/.style={#1}}}%
+\pgfkeys{/pgfPerTable/.cd,legend pins}%
+\pgfkeys{/pgfPerTable/.cd,extra legend/.code=\pgfPT@extralegend#1\relax,extra legend/.default={draw=black!50,fill=black!10,line width=.05pt,rounded corners=2pt}}%
+\def\pgfPT@extralegend#1\relax{\relax\pgfkeys{/tikz/.cd,extralegend/.style={#1}}}%
+\pgfkeys{/pgfPerTable/.cd,extra legend}%
+\pgfkeys{/pgfPerTable/.cd,background/.code=\pgfPT@background{#1},background/.default={}}%
+\def\pgfPT@background#1{\relax\pgfkeys{/tikz/.cd,thebackground/.style={#1}}}%
+\pgfkeys{/pgfPerTable/.cd,background}%
+% end !! PGF keys: title, legend & visualization options ----------------------------------------
+%
+% defining PGF keys: width and height of each base cell of the periodic table ----------------
+% cell line width & color -------------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+cell width/.get=\pgfPTcellwd,%
+cell width/.store in=\pgfPTcellwd,%
+cell width/.default=34pt,%
+cell height/.get=\pgfPTcellht,%
+cell height/.store in=\pgfPTcellht,%
+cell height/.default=38.25pt,%
+cell line width/.get=\pgfPTcelllinewd,%
+cell line width/.store in=\pgfPTcelllinewd,%
+cell line width/.default=.4pt,%
+cell line color/.get=\pgfPTcelllinecolor,%
+cell line color/.store in=\pgfPTcelllinecolor,%
+cell line color/.default=black,%
+cell size/.style={cell width=#1,cell height=#1},%
+cell size/.default=38.25pt,%
+cell font/.style={name font=#1,Ar font=#1,R font=#1,Rcov font=#1,Rion font=#1,Ei font=#1,eneg font=#1,eaff font=#1,O font=#1,Tmelt font=#1,TmeltC font=#1,Tboil font=#1,TboilC font=#1,eDist font=#1,eConfign font=#1,eConfignl font=#1,d font=#1,Cp font=#1,kT font=#1,ls font=#1,lsa font=#1,lsb font=#1,lsc font=#1,lsca font=#1,DiscY font=#1,DiscC font=#1,spectra font=#1},%
+cell font/.default=\bfseries\tiny,%
+cell color/.style={name color=#1,Ar color=#1,R color=#1,Rcov color=#1,Rion color=#1,Ei color=#1,eneg color=#1,eaff color=#1,O color=#1,Tmelt color=#1,TmeltC color=#1,Tboil color=#1,TboilC color=#1,eDist color=#1,eConfign color=#1,eConfignl color=#1,d color=#1,Cp color=#1,kT color=#1,ls color=#1,lsa color=#1,lsb color=#1,lsc color=#1,lsca color=#1,DiscY color=#1,DiscC color=#1,spectra color=#1},%
+cell color/.default=black,%
+cell/.code=\pgfPT@cellstyle{#1},%
+cell/.default={w=34pt,h=38.25pt,lw=.4pt,lc=black}%
+}%
+% setting keys with default values --------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,cell width,cell height,cell line width,cell line color}%
+% end !! PGF keys: width and height of each base cell of the periodic table ------------------
+%
+% defining PGF keys: named cell style (built via \pgfPTbuildcellstyle} ------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+cell style/.get=\pgfPTcellstyle,%
+cell style/.store in=\pgfPTcellstyle,%
+cell style/.default={}%
+}%
+% setting key with default value ----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,cell style}%
+% end !! PGF keys: named cell style -------------------------------------------------------------
+%
+% defining PGF keys: labels of periods and groups ----------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+label font/.get=\pgfPTlabfont,%
+label font/.store in=\pgfPTlabfont,%
+label font/.default=\small\bfseries,%
+period label color/.get=\pgfPTlabpercolor,%
+period label color/.store in=\pgfPTlabpercolor,%
+period label color/.default=red!50!black,%
+group label color/.get=\pgfPTlabgrcolor,%
+group label color/.store in=\pgfPTlabgrcolor,%
+group label color/.default=blue!50!black,%
+label LaAc font/.get=\pgfPTlabLaAcfont,%
+label LaAc font/.store in=\pgfPTlabLaAcfont,%
+label LaAc font/.default=\footnotesize\itshape,%
+LaAc/.code=\pgfPT@LaAcstyle{#1},%
+LaAc/.default={s=true,f=\footnotesize\itshape},%
+per/.code=\pgfPT@perstyle{#1},%
+per/.default={gr=true,c=red!50!black,f=\small\bfseries},%
+gr/.code=\pgfPT@grstyle{#1},%
+gr/.default={per=true,c=blue!50!black,f=\small\bfseries},%
+per+gr/.code=\pgfPT@pergrstyle{#1},%
+per+gr/.default={pc=red!50!black,gc=blue!50!black,f=\small\bfseries}%
+}%
+% setting keys with default values ---------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,label font,period label color,group label color,label LaAc font}%
+% end !! PGF keys: labels of periods and groups ------------------------------------------------
+%
+% defining PGF keys: the cells of the periodic table to be drawn -------------------------------
+% list names available to use in key 'Z list', e.g. «Z list=spd» or «Z list=G1» -----------------
+\def\pgfPT@cells@all{1,...,118}%
+\def\pgfPT@cells@spd{1,...,57,72,73,...,89,104,105,...,118}%
+\def\pgfPT@cells@spdwLaAc{1,...,56,72,73,...,88,104,105,...,118}%
+\def\pgfPT@cells@s{1,3,11,19,37,55,87,4,12,20,38,56,88}%
+\def\pgfPT@cells@p{5,13,31,49,81,113,6,14,32,50,82,114,7,15,33,51,83,115,8,16,34,52,84,116,9,17,35,53,85,117,2,10,18,36,54,86,118}%
+\def\pgfPT@cells@d{21,39,57,89,22,40,72,104,23,41,73,105,24,42,74,106,25,43,75,107,26,44,76,108,27,45,77,109,28,46,78,110,29,47,79,111,30,48,80,112}%
+\def\pgfPT@cells@dwLaAc{21,39,22,40,72,104,23,41,73,105,24,42,74,106,25,43,75,107,26,44,76,108,27,45,77,109,28,46,78,110,29,47,79,111,30,48,80,112}%
+\def\pgfPT@cells@f{58,59,60,61,62,63,64,65,66,67,68,69,70,71,90,91,92,93,94,95,96,97,98,99,100,101,102,103}%
+\def\pgfPT@cells@sp{1,3,11,19,37,55,87,4,12,20,38,56,88,5,13,31,49,81,113,6,14,32,50,82,114,7,15,33,51,83,115,8,16,34,52,84,116,9,17,35,53,85,117,2,10,18,36,54,86,118}%
+\def\pgfPT@cells@La{58,59,60,61,62,63,64,65,66,67,68,69,70,71}%
+\def\pgfPT@cells@lanthanoids{57,58,59,60,61,62,63,64,65,66,67,68,69,70,71}%
+\def\pgfPT@cells@Ac{90,91,92,93,94,95,96,97,98,99,100,101,102,103}%
+\def\pgfPT@cells@actinoids{89,90,91,92,93,94,95,96,97,98,99,100,101,102,103}%
+\def\pgfPT@cells@names@list{G1*,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10,G11,G12,G13,G14,G15,G16,G17,G18,P1,P2,P3,P4,P5,P6,P7,P6*,P7*}%
+\def\pgfPT@cells@GI{1,3,11,19,37,55,87}%
+\def\pgfPT@cells@GIwH{3,11,19,37,55,87}% Group 1 without H
+\def\pgfPT@cells@GII{4,12,20,38,56,88}%
+\def\pgfPT@cells@GIII{21,39,57,89}%
+\def\pgfPT@cells@GIIILaAc{21,39}%
+\def\pgfPT@cells@GIV{22,40,72,104}%
+\def\pgfPT@cells@GV{23,41,73,105}%
+\def\pgfPT@cells@GVI{24,42,74,106}%
+\def\pgfPT@cells@GVII{25,43,75,107}%
+\def\pgfPT@cells@GVIII{26,44,76,108}%
+\def\pgfPT@cells@GIX{27,45,77,109}%
+\def\pgfPT@cells@GX{28,46,78,110}%
+\def\pgfPT@cells@GXI{29,47,79,111}%
+\def\pgfPT@cells@GXII{30,48,80,112}%
+\def\pgfPT@cells@GXIII{5,13,31,49,81,113}%
+\def\pgfPT@cells@GXIV{6,14,32,50,82,114}%
+\def\pgfPT@cells@GXV{7,15,33,51,83,115}%
+\def\pgfPT@cells@GXVI{8,16,34,52,84,116}%
+\def\pgfPT@cells@GXVII{9,17,35,53,85,117}%
+\def\pgfPT@cells@GXVIII{2,10,18,36,54,86,118}%
+\def\pgfPT@cells@PI{1,2}%
+\def\pgfPT@cells@PII{3,4,5,6,7,8,9,10}%
+\def\pgfPT@cells@PIII{11,12,13,14,15,16,17,18}%
+\def\pgfPT@cells@PIV{19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36}%
+\def\pgfPT@cells@PV{37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54}%
+\def\pgfPT@cells@PVI{55,56,57,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86}%
+\def\pgfPT@cells@PVIwLa{55,56,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86}%
+\def\pgfPT@cells@PVII{87,88,89,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118}%
+\def\pgfPT@cells@PVIIwAc{87,88,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118}%
+\def\pgfPT@cells@PVIfull{55,56,57,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,58,59,60,61,62,63,64,65,66,67,68,69,70,71}%
+\def\pgfPT@cells@PVIIfull{87,88,89,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,90,91,92,93,94,95,96,97,98,99,100,101,102,103}%
+% user defined list(s):  \pgfPTnewcellslist{name}{list} ------------------------------------------
+\def\pgfPTnewZlist#1#2{\expandafter\def\csname pgfPT@cells@#1\endcsname{#2}}%
+% ----------------------------------------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+Z list/.get=\pgfPTcells,%
+Z list/.store in=\pgfPTcells,%
+Z list/.default=all%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Z list}%
+% end !! PGF keys: the cells of the periodic table to be drawn ------------------------------------
+%
+% defining PGF keys: colors of the chemical symbols by physical state ---------------------------
+\definecolor{solido}{rgb}{1,.65,.2}%solido->laranja 255,166,51
+\definecolor{gasoso}{rgb}{0,.4,.6}%gasoso->azul 0,102,153
+\definecolor{liquido}{rgb}{0,.8,.8}%liquido->verde azulado 0,204,204
+\definecolor{sintetico}{rgb}{.925,.925,.925}%sintetico->cinza 236,236,236
+\pgfkeys{/pgfPerTable/.cd,%
+CS solid/.get=\pgfPTcSQsol,%
+CS solid/.store in=\pgfPTcSQsol,%
+CS solid/.default=solido,%
+CS liquid/.get=\pgfPTcSQliq,%
+CS liquid/.store in=\pgfPTcSQliq,%
+CS liquid/.default=liquido,%
+CS gas/.get=\pgfPTcSQgas,%
+CS gas/.store in=\pgfPTcSQgas,%
+CS gas/.default=gasoso,%
+CS synt/.get=\pgfPTcSQsint,%
+CS synt/.store in=\pgfPTcSQsint,%
+CS synt/.default=sintetico,%
+CS all/.style={CS solid=#1,CS liquid=#1,CS gas=#1,CS synt=#1},%
+CS all/.default=black%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,CS solid, CS liquid,CS gas,CS synt}%
+% end !! PGF keys: width and height of each base cell of the periodic table ---------------------
+%
+% setting the rest of the style for the chemical symbol of the element ---------------------------
+% overrides xcolor colors from gray model to rgb model ---->
+\definecolor{black}{rgb}{0,0,0}%
+\definecolor{darkgray}{rgb}{.25,.25,.25}%
+\definecolor{gray}{rgb}{.5,.5,.5}%
+\definecolor{lightgray}{rgb}{.75,.75,.75}%
+\definecolor{white}{rgb}{1,1,1}%
+\pgfkeys{/pgfPerTable/.cd,%
+CS font/.get=\pgfPTCSfont,%
+CS font/.store in=\pgfPTCSfont,%
+CS font/.default=\small\bfseries,%
+CS render mode/.get=\pgfPTCSrender,%
+CS render mode/.store in=\pgfPTCSrender,%
+CS render mode/.default=fill and outline,%
+CS outline color/.get=\pgfPTCSolc,%
+CS outline color/.store in=\pgfPTCSolc,%
+CS outline color/.default=black,%
+CS outline width/.get=\pgfPTCSolwd,%
+CS outline width/.store in=\pgfPTCSolwd,%
+CS outline width/.default=.05,%
+CS/.code=\pgfPT@CSstyle{#1},%
+CS/.default={r=fill and outline,c=black,w=.05,f=\small\bfseries,s=solido,l=liquido,g=gasoso,sy=sintetico}%
+}
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,CS font,CS render mode,CS outline color,CS outline width}%
+% end !! PGF keys: style for the chemical symbol  of the element --------------------------------
+%
+% setting the style for the atomic number box -----------------------------------------------------
+\newif\ifpgfZuseboxwidth%
+\pgfkeys{/pgfPerTable/.cd,%
+Z backcolor/.get=\pgfPTZback,%
+Z backcolor/.store in=\pgfPTZback,%
+Z backcolor/.default=black,%
+Z color/.get=\pgfPTZcolor,%
+Z color/.store in=\pgfPTZcolor,%
+Z color/.default=white,%
+Z font/.get=\pgfPTZfont,%
+Z font/.store in=\pgfPTZfont,%
+Z font/.default=\tiny\bfseries,%
+Z align/.get=\pgfPTZalign,%
+Z align/.store in=\pgfPTZalign,%
+Z align/.default=left,% left|center|right
+Z padding/.get=\pgfPTZspace,%
+Z padding/.store in=\pgfPTZspace,%
+Z padding/.default=.25ex,% space to the margins of the Zbox
+Z use box width/.is if=pgfZuseboxwidth,%
+Z box/.style={Z use box width=true},%
+Z/.code=\pgfPT@Zstyle{#1},%
+Z/.default={bc=black,c=white,f=\tiny\bfseries,boxwd=false,align=left,pad=.25ex}%
+}
+% setting keys with default values ------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Z backcolor,Z color,Z font,Z align,Z padding,Z use box width=false}%
+% end !! PGF keys: style for the atomic number box -----------------------------------------------
+%
+% setting the style for the name of the element ----------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+name color/.get=\pgfPTnamecolor,%
+name color/.store in=\pgfPTnamecolor,%
+name color/.default=black,%
+name font/.get=\pgfPTnamefont,%
+name font/.store in=\pgfPTnamefont,%
+name font/.default=\fontseries{l}\selectfont\tiny,%
+name align/.get=\pgfPTnamealign,% new v1.0.0
+name align/.store in=\pgfPTnamealign,% left|center|right
+name align/.default=center%
+}
+% setting keys with default values ------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,name color,name font,name align}%
+% end !! PGF keys: style for the name of the element ---------------------------------------------
+%
+% setting the style for atomic weight of the element ----------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+Ar color/.get=\pgfPTArcolor,%
+Ar color/.store in=\pgfPTArcolor,%
+Ar color/.default=black,%
+Ar font/.get=\pgfPTArfont,%
+Ar font/.store in=\pgfPTArfont,%
+Ar font/.default=\tiny\bfseries,%
+Ar label/.get=\pgfPTArlabel,%
+Ar label/.store in=\pgfPTArlabel,%
+Ar label/.default=m,%
+Ar precision/.get=\pgfPTArprecision,%
+Ar precision/.store in=\pgfPTArprecision,%
+Ar precision/.default=-1,%
+Ar/.code=\pgfPT@Arstyle{#1},%
+Ar/.default={c=black,f=\tiny\bfseries,l=m,p=-1}%
+}
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Ar color,Ar font,Ar precision,Ar label}%
+% end !! PGF keys: style for the atomic weight of the element -----------------------------------
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfkeys{/pgfPerTable/.cd,%
+R color/.get=\pgfPTRcolor,%
+R color/.store in=\pgfPTRcolor,%
+R color/.default=black,%
+R font/.get=\pgfPTRfont,%
+R font/.store in=\pgfPTRfont,%
+R font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,R color,R font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Rcov color/.get=\pgfPTRcovcolor,%
+Rcov color/.store in=\pgfPTRcovcolor,%
+Rcov color/.default=black,%
+Rcov font/.get=\pgfPTRcovfont,%
+Rcov font/.store in=\pgfPTRcovfont,%
+Rcov font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Rcov color,Rcov font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Rion color/.get=\pgfPTRioncolor,%
+Rion color/.store in=\pgfPTRioncolor,%
+Rion color/.default=black,%
+Rion font/.get=\pgfPTRionfont,%
+Rion font/.store in=\pgfPTRionfont,%
+Rion font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Rion color,Rion font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Ei color/.get=\pgfPTEicolor,%
+Ei color/.store in=\pgfPTEicolor,%
+Ei color/.default=black,%
+Ei font/.get=\pgfPTEifont,%
+Ei font/.store in=\pgfPTEifont,%
+Ei font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Ei color,Ei font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+eneg color/.get=\pgfPTenegcolor,%
+eneg color/.store in=\pgfPTenegcolor,%
+eneg color/.default=black,%
+eneg font/.get=\pgfPTenegfont,%
+eneg font/.store in=\pgfPTenegfont,%
+eneg font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,eneg color,eneg font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+eaff color/.get=\pgfPTeaffcolor,%
+eaff color/.store in=\pgfPTeaffcolor,%
+eaff color/.default=black,%
+eaff font/.get=\pgfPTeafffont,%
+eaff font/.store in=\pgfPTeafffont,%
+eaff font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,eaff color,eaff font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+O color/.get=\pgfPTOcolor,%
+O color/.store in=\pgfPTOcolor,%
+O color/.default=black,%
+O font/.get=\pgfPTOfont,%
+O font/.store in=\pgfPTOfont,%
+O font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,O color,O font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Tmelt color/.get=\pgfPTTmeltcolor,%
+Tmelt color/.store in=\pgfPTTmeltcolor,%
+Tmelt color/.default=black,%
+Tmelt font/.get=\pgfPTTmeltfont,%
+Tmelt font/.store in=\pgfPTTmeltfont,%
+Tmelt font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Tmelt color,Tmelt font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+TmeltC color/.get=\pgfPTTmeltCcolor,%
+TmeltC color/.store in=\pgfPTTmeltCcolor,%
+TmeltC color/.default=black,%
+TmeltC font/.get=\pgfPTTmeltCfont,%
+TmeltC font/.store in=\pgfPTTmeltCfont,%
+TmeltC font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,TmeltC color,TmeltC font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Tboil color/.get=\pgfPTTboilcolor,%
+Tboil color/.store in=\pgfPTTboilcolor,%
+Tboil color/.default=black,%
+Tboil font/.get=\pgfPTTboilfont,%
+Tboil font/.store in=\pgfPTTboilfont,%
+Tboil font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Tboil color,Tboil font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+TboilC color/.get=\pgfPTTboilCcolor,%
+TboilC color/.store in=\pgfPTTboilCcolor,%
+TboilC color/.default=black,%
+TboilC font/.get=\pgfPTTboilCfont,%
+TboilC font/.store in=\pgfPTTboilCfont,%
+TboilC font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,TboilC color,TboilC font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+eDist color/.get=\pgfPTeDistcolor,%
+eDist color/.store in=\pgfPTeDistcolor,%
+eDist color/.default=black,%
+eDist font/.get=\pgfPTeDistfont,%
+eDist font/.store in=\pgfPTeDistfont,%
+eDist font/.default=\tiny\bfseries,%
+eDist sep/.get=\pgfPTeDistsep,%
+eDist sep/.store in=\pgfPTeDistsep,%
+eDist sep/.default=:%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,eDist color,eDist font,eDist sep}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+eConfign color/.get=\pgfPTeConfigncolor,%
+eConfign color/.store in=\pgfPTeConfigncolor,%
+eConfign color/.default=black,%
+eConfign font/.get=\pgfPTeConfignfont,%
+eConfign font/.store in=\pgfPTeConfignfont,%
+eConfign font/.default=\tiny%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,eConfign color,eConfign font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+eConfignl color/.get=\pgfPTeConfignlcolor,%
+eConfignl color/.store in=\pgfPTeConfignlcolor,%
+eConfignl color/.default=black,%
+eConfignl font/.get=\pgfPTeConfignlfont,%
+eConfignl font/.store in=\pgfPTeConfignlfont,%
+eConfignl font/.default=\tiny%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,eConfignl color,eConfignl font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+d color/.get=\pgfPTdcolor,%
+d color/.store in=\pgfPTdcolor,%
+d color/.default=black,%
+d font/.get=\pgfPTdfont,%
+d font/.store in=\pgfPTdfont,%
+d font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,d color,d font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+Cp color/.get=\pgfPTCpcolor,%
+Cp color/.store in=\pgfPTCpcolor,%
+Cp color/.default=black,%
+Cp font/.get=\pgfPTCpfont,%
+Cp font/.store in=\pgfPTCpfont,%
+Cp font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Cp color,Cp font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+kT color/.get=\pgfPTkTcolor,%
+kT color/.store in=\pgfPTkTcolor,%
+kT color/.default=black,%
+kT font/.get=\pgfPTkTfont,%
+kT font/.store in=\pgfPTkTfont,%
+kT font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,kT color,kT font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+ls color/.get=\pgfPTlscolor,%
+ls color/.store in=\pgfPTlscolor,%
+ls color/.default=black,%
+ls font/.get=\pgfPTlsfont,%
+ls font/.store in=\pgfPTlsfont,%
+ls font/.default=\tiny,%
+ls align/.get=\pgfPTlsalign,%
+ls align/.store in=\pgfPTlsalign,%
+ls align/.default=right,%
+ls/.get=\pgfPTlstxtfig,%
+ls/.store in=\pgfPTlstxtfig,%
+ls/.default=fig% fig,txt,fig+txt,txt+fig
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,ls color,ls font,ls align,ls}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+lsa color/.get=\pgfPTlsacolor,%
+lsa color/.store in=\pgfPTlsacolor,%
+lsa color/.default=black,%
+lsa font/.get=\pgfPTlsafont,%
+lsa font/.store in=\pgfPTlsafont,%
+lsa font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,lsa color,lsa font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+lsb color/.get=\pgfPTlsbcolor,%
+lsb color/.store in=\pgfPTlsbcolor,%
+lsb color/.default=black,%
+lsb font/.get=\pgfPTlsbfont,%
+lsb font/.store in=\pgfPTlsbfont,%
+lsb font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,lsb color,lsb font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+lsc color/.get=\pgfPTlsccolor,%
+lsc color/.store in=\pgfPTlsccolor,%
+lsc color/.default=black,%
+lsc font/.get=\pgfPTlscfont,%
+lsc font/.store in=\pgfPTlscfont,%
+lsc font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,lsc color,lsc font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+lsca color/.get=\pgfPTlscacolor,%
+lsca color/.store in=\pgfPTlscacolor,%
+lsca color/.default=black,%
+lsca font/.get=\pgfPTlscafont,%
+lsca font/.store in=\pgfPTlscafont,%
+lsca font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,lsca color,lsca font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+DiscY color/.get=\pgfPTDiscYcolor,%
+DiscY color/.store in=\pgfPTDiscYcolor,%
+DiscY color/.default=black,%
+DiscY font/.get=\pgfPTDiscYfont,%
+DiscY font/.store in=\pgfPTDiscYfont,%
+DiscY font/.default=\tiny\bfseries,%
+DiscY BC scale/.get=\pgfPTDiscYBCscale,%
+DiscY BC scale/.store in=\pgfPTDiscYBCscale,%
+DiscY BC scale/.default=1%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,DiscY color,DiscY font,DiscY BC scale}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+DiscC color/.get=\pgfPTDiscCcolor,%
+DiscC color/.store in=\pgfPTDiscCcolor,%
+DiscC color/.default=black,%
+DiscC font/.get=\pgfPTDiscCfont,%
+DiscC font/.store in=\pgfPTDiscCfont,%
+DiscC font/.default=\tiny\bfseries%,%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,DiscC color,DiscC font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+spectra color/.get=\pgfPTspectracolor,%
+spectra color/.store in=\pgfPTspectracolor,%
+spectra color/.default=black,%
+spectra font/.get=\pgfPTspectrafont,%
+spectra font/.store in=\pgfPTspectrafont,%
+spectra font/.default=\tiny\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,spectra color,spectra font}%
+% end !!
+% d unit - new v1.0.1
+% d precision (afeta d)
+% E precision (afeta Ei,Eaff)
+% ls unit - new v1.0.1
+% ls precision (afeta lsa,lsb,lsc,lsca)
+% T precision (afeta Tmelt,TmeltC,Tboil,TboilC)
+% Cp precision
+% kT precision
+\pgfkeys{/pgfPerTable/.cd,%
+d unit/.get=\pgfPTdunit,% v1.0.1
+d unit/.store in=\pgfPTdunit,% g/cm3|g/dm3|both
+d unit/.default=both,%
+d precision/.get=\pgfPTdprecision,%
+d precision/.store in=\pgfPTdprecision,%
+d precision/.default=-1,%
+E precision/.get=\pgfPTEprecision,%
+E precision/.store in=\pgfPTEprecision,%
+E precision/.default=-1,%
+ls unit/.get=\pgfPTlsunit,% v1.0.1
+ls unit/.store in=\pgfPTlsunit,% A|pm (A->angstrom)
+ls unit/.default=pm,%
+ls precision/.get=\pgfPTlsprecision,%
+ls precision/.store in=\pgfPTlsprecision,%
+ls precision/.default=-1,%
+T precision/.get=\pgfPTTprecision,%
+T precision/.store in=\pgfPTTprecision,%
+T precision/.default=-1,%
+Cp precision/.get=\pgfPTCpprecision,%
+Cp precision/.store in=\pgfPTCpprecision,%
+Cp precision/.default=-1,%
+kT precision/.get=\pgfPTkTprecision,%
+kT precision/.store in=\pgfPTkTprecision,%
+kT precision/.default=-1,%
+d/.code=\pgfPT@dstyle{#1},%
+d/.default={c=black,f=\tiny\bfseries,p=-1,u=both},%
+lat/.code=\pgfPT@latstyle{#1},%
+lat/.default={ls=fig,c=black,f=\tiny,align=right,p=-1,u=pm}%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,d unit,d precision,E precision,ls unit,ls precision,T precision,Cp precision,kT precision}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+MNM line color/.get=\pgfPTMNMlinecolor,%
+MNM line color/.store in=\pgfPTMNMlinecolor,%
+MNM line color/.default=red!80!black,%
+MNM line width/.get=\pgfPTMNMlinewidth,%
+MNM line width/.store in=\pgfPTMNMlinewidth,%
+MNM line width/.default=.8pt,%
+MNM/.code=\pgfPT@MNMstyle{#1},%
+MNM/.default={c=red!80!black,w=.8pt}%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,MNM line color,MNM line width}%
+% end !!
+\definecolor{blocos}{RGB}{255,231,132}%s laranja
+\definecolor{blocop}{RGB}{170,255,172}%p verde
+\definecolor{blocod}{RGB}{255,187,187}%d rosa
+\definecolor{blocof}{RGB}{177,203,228}%f azul
+%
+\pgfkeys{/pgfPerTable/.cd,%
+blocks font/.get=\pgfPTblocksfont,%
+blocks font/.store in=\pgfPTblocksfont,%
+blocks font/.default=\small\bfseries%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,blocks font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+s block color/.get=\pgfPTsblockcolor,%
+s block color/.store in=\pgfPTsblockcolor,%
+s block color/.default=blocos,%
+s block font color/.get=\pgfPTsblockfontcolor,%
+s block font color/.store in=\pgfPTsblockfontcolor,%
+s block font color/.default={},%
+s block line width/.get=\pgfPTsblocklinewidth,%
+s block line width/.store in=\pgfPTsblocklinewidth,%
+s block line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,s block color,s block line width,s block font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+p block color/.get=\pgfPTpblockcolor,%
+p block color/.store in=\pgfPTpblockcolor,%
+p block color/.default=blocop,%
+p block font color/.get=\pgfPTpblockfontcolor,%
+p block font color/.store in=\pgfPTpblockfontcolor,%
+p block font color/.default={},%
+p block line width/.get=\pgfPTpblocklinewidth,%
+p block line width/.store in=\pgfPTpblocklinewidth,%
+p block line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,p block color,p block line width,p block font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+d block color/.get=\pgfPTdblockcolor,%
+d block color/.store in=\pgfPTdblockcolor,%
+d block color/.default=blocod,%
+d block font color/.get=\pgfPTdblockfontcolor,%
+d block font color/.store in=\pgfPTdblockfontcolor,%
+d block font color/.default={},%
+d block line width/.get=\pgfPTdblocklinewidth,%
+d block line width/.store in=\pgfPTdblocklinewidth,%
+d block line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,d block color,d block line width,d block font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+f block color/.get=\pgfPTfblockcolor,%
+f block color/.store in=\pgfPTfblockcolor,%
+f block color/.default=blocof,%
+f block font color/.get=\pgfPTfblockfontcolor,%
+f block font color/.store in=\pgfPTfblockfontcolor,%
+f block font color/.default={},%
+f block line width/.get=\pgfPTfblocklinewidth,%
+f block line width/.store in=\pgfPTfblocklinewidth,%
+f block line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,f block color,f block line width,f block font color}%
+% end !!
+% blocks colors and line width ----------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+blocks/.code=\pgfPT@blocksstyle{#1},%
+blocks/.default={s=blocos,p=blocop,d=blocod,f=blocof,lw=.8pt,font=\small\bfseries},%
+blocks line width/.style={show blocks,s block line width=#1,p block line width=#1,d block line width=#1,f block line width=#1},%
+blocks line width/.default=.8pt,%
+blocks font color/.style={show blocks,s block font color=#1,p block font color=#1,d block font color=#1,f block font color=#1},%
+blocks font color/.default=black%
+}%
+% end !!
+\definecolor{blocor}{RGB}{170,255,172}%representativos verde
+\definecolor{blocot}{RGB}{255,187,187}%metais transicao rosa
+\definecolor{blocoi}{RGB}{177,203,228}%metais transicao internos azul
+%
+\pgfkeys{/pgfPerTable/.cd,%
+families font/.get=\pgfPTfamiliesfont,%
+families font/.store in=\pgfPTfamiliesfont,%
+families font/.default=\small\bfseries,%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,families font}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+r family color/.get=\pgfPTrblockcolor,%
+r family color/.store in=\pgfPTrblockcolor,%
+r family color/.default=blocor,%
+r family font color/.get=\pgfPTrblockfontcolor,%
+r family font color/.store in=\pgfPTrblockfontcolor,%
+r family font color/.default={},%
+r family line width/.get=\pgfPTrblocklinewidth,%
+r family line width/.store in=\pgfPTrblocklinewidth,%
+r family line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,r family color,r family line width,r family font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+tm family color/.get=\pgfPTtblockcolor,%
+tm family color/.store in=\pgfPTtblockcolor,%
+tm family color/.default=blocot,%
+tm family font color/.get=\pgfPTtblockfontcolor,%
+tm family font color/.store in=\pgfPTtblockfontcolor,%
+tm family font color/.default={},%
+tm family line width/.get=\pgfPTtblocklinewidth,%
+tm family line width/.store in=\pgfPTtblocklinewidth,%
+tm family line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,tm family color,tm family line width,tm family font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+itm family color/.get=\pgfPTiblockcolor,%
+itm family color/.store in=\pgfPTiblockcolor,%
+itm family color/.default=blocoi,%
+itm family font color/.get=\pgfPTiblockfontcolor,%
+itm family font color/.store in=\pgfPTiblockfontcolor,%
+itm family font color/.default={},%
+itm family line width/.get=\pgfPTiblocklinewidth,%
+itm family line width/.store in=\pgfPTiblocklinewidth,%
+itm family line width/.default=.8pt%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,itm family color,itm family line width,itm family font color}%
+% end !!
+% families colors and line width --------------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+families/.code=\pgfPT@familiesstyle{#1},%
+families/.default={r=blocor,tm=blocot,itm=blocoi,lw=.8pt,f=\small\bfseries},%
+families line width/.style={show families,r family line width=#1,tm family line width=#1,itm family line width=#1},%
+families line width/.default=.8pt,%
+families font color/.style={show families,r family font color=#1,tm family font color=#1,itm family font color=#1},%
+families font color/.default=black%
+}%
+% end !!
+\definecolor{colorvariations}{RGB}{128,191,191}%
+\pgfkeys{/pgfPerTable/.cd,%
+varR color/.get=\pgfPTvarRcolor,%
+varR color/.store in=\pgfPTvarRcolor,%
+varR color/.default=colorvariations,%
+varR font/.get=\pgfPTvarRfont,%
+varR font/.store in=\pgfPTvarRfont,%
+varR font/.default=\footnotesize\bfseries,%
+varR font color/.get=\pgfPTvarRfontcolor,%
+varR font color/.store in=\pgfPTvarRfontcolor,%
+varR font color/.default=\pgfPTvarRcolor!50!black,%
+varR/.code=\pgfPT@varRstyle{#1},%
+varR/.default={c=colorvariations,f=\footnotesize\bfseries}%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,varR color,varR font,varR font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+varEi color/.get=\pgfPTvarEicolor,%
+varEi color/.store in=\pgfPTvarEicolor,%
+varEi color/.default=colorvariations,%
+varEi font/.get=\pgfPTvarEifont,%
+varEi font/.store in=\pgfPTvarEifont,%
+varEi font/.default=\footnotesize\bfseries,%
+varEi font color/.get=\pgfPTvarEifontcolor,%
+varEi font color/.store in=\pgfPTvarEifontcolor,%
+varEi font color/.default=\pgfPTvarEicolor!50!black,%
+varEi/.code=\pgfPT@varEistyle{#1},%
+varEi/.default={c=colorvariations,f=\footnotesize\bfseries}%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,varEi color,varEi font,varEi font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+vareaff color/.get=\pgfPTvareaffcolor,%
+vareaff color/.store in=\pgfPTvareaffcolor,%
+vareaff color/.default=colorvariations,%
+vareaff font/.get=\pgfPTvareafffont,%
+vareaff font/.store in=\pgfPTvareafffont,%
+vareaff font/.default=\footnotesize\bfseries,%
+vareaff font color/.get=\pgfPTvareafffontcolor,%
+vareaff font color/.store in=\pgfPTvareafffontcolor,%
+vareaff font color/.default=\pgfPTvareaffcolor!50!black,%
+vareaff/.code=\pgfPT@vareaffstyle{#1},%
+vareaff/.default={c=colorvariations,f=\footnotesize\bfseries}%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,vareaff color,vareaff font,vareaff font color}%
+% end !!
+\pgfkeys{/pgfPerTable/.cd,%
+var font/.style={varR font=#1,varEi font=#1,vareaff font=#1},%
+var color/.style={varR color=#1,varEi color=#1,vareaff color=#1},%
+var font/.default=\footnotesize\bfseries,%
+var color/.default=colorvariations%
+}%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% ############ fake styles
+% defining keys for the styles: ----------------------------------------------------------------------
+%       - 'only cells'
+\newif\ifpgfPTonlycells%
+%       - 'only cells plus Z'
+\newif\ifpgfPTonlycellsZ%
+%       - 'only cells with periods and group numbers'
+\newif\ifpgfPTonlycellsPerAndGroupNum%
+%       - 'only cells with periods and group numbers plus Z'
+\newif\ifpgfPTonlycellsPerAndGroupNumZ%
+\pgfkeys{/pgfPerTable/.cd,%
+only cells/.is if=pgfPTonlycells,%
+only cells plus Z/.is if=pgfPTonlycellsZ,%
+only cells with periods and group numbers/.is if=pgfPTonlycellsPerAndGroupNum,%
+only cells with periods and group numbers plus Z/.is if=pgfPTonlycellsPerAndGroupNumZ%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,only cells=false,only cells plus Z=false,only cells with periods and group numbers=false,only cells with periods and group numbers plus Z=false}%
+% end !! PGF keys: fake styles ----------------------------------------------------------------------
+% exercise...
+\newif\ifpgfPTexCapitals%
+\newif\ifpgfPTexMode%
+\pgfkeys{/pgfPerTable/.cd,%
+Z exercise list/.get=\pgfPTZexlist,%
+Z exercise list/.store in=\pgfPTZexlist,%
+Z exercise list/.default={},%
+exercise list in capitals/.is if=pgfPTexCapitals,%
+exercise list color/.get=\pgfPTZexlistcolor,%
+exercise list color/.store in=\pgfPTZexlistcolor,%
+exercise list color/.default=black,%
+exercise list font/.get=\pgfPTZexlistfont,%
+exercise list font/.store in=\pgfPTZexlistfont,%
+exercise list font/.default=\bfseries\large%
+}%
+% setting keys with default values -----------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,Z exercise list,exercise list in capitals,exercise list color,exercise list font}%
+% end !! PGF keys: exercise -------------------------------------------------------------------------
+%
+% STYLES: cells+Z,cells+p+g,cells+p+g+Z,exCap,exColor,exFont
+\pgfkeys{/pgfPerTable/.cd,%
+cells+Z/.style={only cells plus Z=true},%
+cells+p+g/.style={only cells with periods and group numbers=true},%
+cells+p+g+Z/.style={only cells with periods and group numbers plus Z},%
+exnocaps/.style={exercise list in capitals=false},%
+exColor/.style={exercise list color=#1},%
+exColor/.default=black,%
+exFont/.style={exercise list font=#1},%
+exFont/.default=\bfseries\large,%
+ex/.code=\pgfPT@exstyle{#1},%
+ex/.default={caps=true,c=black,f=\bfseries\large}%
+}%
+% STYLE: dark mode ---------------------------------------------------------------------------------
+\pgfkeys{/pgfPerTable/.cd,%
+dark mode/.style={back color scheme=solid,back color=black!80,cell line color=black!10,CS outline color=white,cell color=white,Z backcolor=black!30,Z color=black,background={fill=black},varR font color=black!20,varEi font color=black!20,vareaff font color=black!20,per+gr={c=white},title color=white,other languages color=black!40,legend={bc=black!70,radio=white,CS=white,Z=white,pins style={draw=white,right color=black!75,left color=black!60,line width=.05pt,rounded corners=2pt},extra style={draw=white,fill=black!70,line width=.05pt,rounded corners=2pt},box={left color=black!70,right color=black!40,draw=white}}}%
+}%
+% ------------------------------------------------------------------------------------------------------
+% PSEUDO STYLES ------------------------------------------------------------------------------------
+% ------------------------ .code macros ---------------------------------------------------------------
+% aux macros ->
+\newtoks\pgfPT@toks@keyhandler\newtoks\pgfPT@toks@keyhandlerValue%
+\def\pgfPT@keys@setNameValue#1=#2\relax{%
+\pgfPT@toks@keyhandler={#1}\pgfPT@toks@keyhandlerValue={#2}%
+\expandafter\pgfPT@handler@removesp@ces\the\pgfPT@toks@keyhandler\relax%
+\edef\pgfPT@tmpa{f}%
+\ifx\pgfPT@handler\pgfPT@tmpa\relax%
+\else%
+\expandafter\pgfPT@handlervalue@removesp@ces\the\pgfPT@toks@keyhandlerValue\relax%
+\fi}%
+\def\pgfPT@handler@removesp@ces#1\relax{\edef\pgfPT@handler{\zap@space#1 \@empty}}%
+\def\pgfPT@handlervalue@removesp@ces#1\relax{\edef\pgfPT@handlervalue{\zap@space#1 \@empty}}%
+%
+\def\pgfPT@keys@setStyleValue#1=#2\relax{\edef\pgfPT@handlervalue{#2}}%
+%%%%%%%%%%%%%%%%
+% the pseudo style macros ->
+%%%%%%%%%%%%%%%%
+%
+% CS={r=??,c=??,w=??,f=??,s=??,l=??,g=??,sy=??}
+\def\pgfPT@CSstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{r}%render mode
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTCSrender{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{olc}%outline color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTCSolc{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{olw}%outline width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTCSolwd{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}%font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTCSfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{s}% CS solid
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcSQsol{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{l}% CS liquid
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcSQliq{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{g}% CS gas
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcSQgas{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{sy}% CS synt
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcSQsint{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{all}% CS all
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcSQsol{\pgfPT@handlervalue}%
+                \edef\pgfPTcSQliq{\pgfPT@handlervalue}%
+                \edef\pgfPTcSQgas{\pgfPT@handlervalue}%
+                \edef\pgfPTcSQsint{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@CSstyle
+%
+% MNM={c=??,w=??}
+\def\pgfPT@MNMstyle#1{\ignorespaces\pgfPTMNMlinetrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}%line color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTMNMlinecolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{w}%line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTMNMlinewidth{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi%
+    }% end do
+}% end \pgfPT@MNMstyle
+%
+% cell={w=??,h=??,s=??,lw=??,lc=??,style=??}
+\def\pgfPT@cellstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{w}%cell width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcellwd{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{h}%cell height
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcellht{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{s}%cell size
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcellwd{\pgfPT@handlervalue}%
+                \edef\pgfPTcellht{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{lw}%cell line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcellinewd{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{lc}%cell line color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcelllinecolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{style}%cell style
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTcellstyle{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@cellstyle
+%
+% blocks={sc=??,pc=??,dc=??,fc=??,lw=??,slw=??,plw=??,dlw=??,flw=??,font=??,sfc=??,pfc=??,dfc=??,ffc=??}
+\def\pgfPT@blocksstyle#1{\ignorespaces\pgfPTblocostrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{sc}% s color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTsblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pc}% p color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTpblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{dc}% d color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{fc}% f color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTfblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{lw}%blocks line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTsblocklinewidth{\pgfPT@handlervalue}%
+                \edef\pgfPTpblocklinewidth{\pgfPT@handlervalue}%
+                \edef\pgfPTdblocklinewidth{\pgfPT@handlervalue}%
+                \edef\pgfPTfblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{slw}% s block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTsblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{plw}% p block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTpblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{dlw}% d block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{flw}% f block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTfblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% blocks font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTblocksfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{sfc}% s block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTsblockfontcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pfc}% p block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTpblockfontcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{dfc}% d block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdblockfontcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{ffc}% f block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTfblockfontcolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@blocksstyle
+%
+% families={rc=??,tc=??,ic=??,lw=??,rlw=??,tlw=??,ilw=??,f=??,rfc=??,tfc=??,ifc=??}
+\def\pgfPT@familiesstyle#1{\ignorespaces\pgfPTfamiliastrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{rc}% r color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTrblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{tc}% tm color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTtblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{ic}% itm color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTiblockcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{lw}%families line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTrblocklinewidth{\pgfPT@handlervalue}%
+                \edef\pgfPTtblocklinewidth{\pgfPT@handlervalue}%
+                \edef\pgfPTiblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{rlw}% r block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTrblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{tlw}% tm block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTtblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{ilw}% itm block line width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTiblocklinewidth{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% families font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTfamiliesfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{rfc}% r block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTrblockfontcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{tfc}% tm block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTtblockfontcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{ifc}% itm block font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTiblockfontcolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@familiesstyle
+%
+% legend={bc=??,pins=??,extra=??,acro=??,radio=??,CS=??,Z=??,pins style=??,extra style=??}
+\def\pgfPT@legendstyle#1{\ignorespaces\pgfPTlegendatrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{bc}%legend back color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlegendbackcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pins}%show legend pins
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTlegendapinstrue\else\pgfPTlegendapinsfalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{extra}%show extra legend
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTlegendaextratrue\else\pgfPTlegendaextrafalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{acro}%legend acronyms
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTlegacrotrue\else\pgfPTlegacrofalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{radio}%legend radio color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlegendradiocolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{CS}%legend CS color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlegendCScolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{Z}%legend Z color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlegendZcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pinsstyle}%legend pins (style)
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \expandafter\pgfPT@keys@setStyleValue\@pgfPT@tmp\relax%
+                \expandafter\pgfPT@legendpins\pgfPT@handlervalue\relax%
+        \else%
+        \edef\pgfPT@handlert@test{extrastyle}%extra legend (style)
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \expandafter\pgfPT@keys@setStyleValue\@pgfPT@tmp\relax%
+                \expandafter\pgfPT@extralegend\pgfPT@handlervalue\relax%
+        \else%
+        \edef\pgfPT@handlert@test{box}%legend box (style)
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \expandafter\pgfPT@keys@setStyleValue\@pgfPT@tmp\relax%
+                \expandafter\pgfPT@legendbox\pgfPT@handlervalue\relax%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@legendstyle
+%
+% LaAc={s=true,f=??}
+\def\pgfPT@LaAcstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{s}% show label LaAc
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTLaAclabelsUSER{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% label LaAc font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabLaAcfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi%
+    }% end do
+}% end \pgfPT@LaAcstyle
+%
+% other lang={f=??,c=??}
+\def\pgfPT@otherlangstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{f}% other languages font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTotherLangFont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{c}% other languages color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTotherLangColor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi%
+    }% end do
+}% end \pgfPT@otherlangstyle
+%
+% title={f=??,c=??} -> auto sets 'show title =true'
+\def\pgfPT@titlestyle#1{\ignorespaces\pgfPTtitulotrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{f}% title font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTtitlefont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{c}% title color\pgfPTtitlecolor
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTtitlecolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi%
+    }% end do
+}% end \pgfPT@titlestyle
+%
+% per={gr=??,c=??,f=??} -> auto sets 'show period numbers=true'; 'show group numbers' can be set to 'false' by the user
+\def\pgfPT@perstyle#1{\ignorespaces\pgfPTperlabelstrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{gr}% show group numbers
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTgrlabelstrue\else\pgfPTgrlabelsfalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{c}% period label color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabpercolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% label font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@perstyle
+%
+% gr={per=??,c=??,f=??} -> auto sets 'show groups numbers=true'; 'show period numbers' can be set to 'false' by the user
+\def\pgfPT@grstyle#1{\ignorespaces\pgfPTgrlabelstrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{per}% show period numbers
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTperlabelstrue\else\pgfPTperlabelsfalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{c}% group label color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabgrcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% label font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@grstyle
+%
+% per+gr={c=??,pc=??,gc=??,f=??} -> auto sets 'show period numbers=true' & 'show groups numbers=true'
+\def\pgfPT@pergrstyle#1{\ignorespaces\pgfPTperlabelstrue\pgfPTgrlabelstrue%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% period label color and group label color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabpercolor{\pgfPT@handlervalue}%
+                \edef\pgfPTlabgrcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pc}% period label color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabpercolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{gc}% group label color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabgrcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% label font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlabfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@pergrstyle
+%
+% varR={c=??,f=??,fc=??}
+\def\pgfPT@varRstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% varR color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarRcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% varR font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarRfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{fc}% varR font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarRfontcolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@varRstyle
+%
+% varEi={c=??,f=??,fc=??}
+\def\pgfPT@varEistyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% varEi color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarEicolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% varEi font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarEifont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{fc}% varEi font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvarEifontcolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@varEistyle
+%
+% vareaff={c=??,f=??,fc=??}
+\def\pgfPT@vareaffstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% vareaff color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvareaffcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% vareaff font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvareafffont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{fc}% vareaff font color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTvareafffontcolor{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@vareaffstyle
+%
+% ex={caps=??,c=??,f=??}
+\def\pgfPT@exstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{caps}% exercise list in capitals
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfPTexCapitalstrue\else\pgfPTexCapitalsfalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{c}% exercise list color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZexlistcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% exercise list font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZexlistfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi%
+    }% end do
+}% end \pgfPT@exstyle
+%
+% Z={bc=??,c=??,f=??,boxwd=??,align=??,pad=??}
+\def\pgfPT@Zstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{bc}% Z backcolor
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZback{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{c}% Z color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% Z font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{boxwd}% Z use box width
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPT@handlervalue{\pgfPT@handlervalue}%
+                \ifx\pgfPT@handlervalue\pgfPT@true\relax\pgfZuseboxwidthtrue\else\pgfZuseboxwidthfalse\fi%
+        \else%
+        \edef\pgfPT@handlert@test{align}% Z align
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZalign{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{pad}% Z padding
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTZspace{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@Zstyle
+%
+% Ar={c=??,f=??,p=??,l=??}
+\def\pgfPT@Arstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% Ar color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTArcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% Ar font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTArfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{p}% Ar precision
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTArprecision{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{l}% Ar label
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTArlabel{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@Arstyle
+%
+% d={c=??,f=??,p=??,u=??}
+\def\pgfPT@dstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{c}% d color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdcolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% d font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{p}% d precision
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdprecision{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{u}% d unit
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTdunit{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@dstyle
+%
+% lat={ls=??,c=??,f=??,align=??,p=??,u=??}%
+\def\pgfPT@latstyle#1{\ignorespaces%
+\@for\@pgfPT@tmp:=#1\do{%
+    \pgfPT@temptrue% se acabar os ifx sem encontrar o handler gera a msg de erro...
+    \expandafter\pgfPT@keys@setNameValue\@pgfPT@tmp\relax%
+        \edef\pgfPT@handlert@test{ls}% ls (txt,fig,txt+fig,fig+txt)
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlstxtfig{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{c}% ls color
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlscolor{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{f}% ls font
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlsfont{\ignorespaces\the\pgfPT@toks@keyhandlerValue}%
+        \else%
+        \edef\pgfPT@handlert@test{align}% ls align
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlsalign{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{p}% ls precision
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlsprecision{\pgfPT@handlervalue}%
+        \else%
+        \edef\pgfPT@handlert@test{u}% ls unit
+        \ifx\pgfPT@handler\pgfPT@handlert@test\pgfPT@tempfalse%
+                \edef\pgfPTlsunit{\pgfPT@handlervalue}%
+        \else%handler not found
+        \ifpgfPT@temp\PackageError{pgfPT}{shortcut '\pgfPT@handler'\space in '\detokenize{#1}'\space not known! It will be ignored...}{}\fi\relax%
+        \fi\fi\fi\fi\fi\fi%
+    }% end do
+}% end \pgfPT@latstyle
+%
+% end .code macros -----------------------------------------------------------------------------
+\endinput

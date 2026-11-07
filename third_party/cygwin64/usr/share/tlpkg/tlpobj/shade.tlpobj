@@ -1,0 +1,18 @@
+name shade
+category Package
+revision 22212
+shortdesc Shade pieces of text
+relocated 1
+longdesc The package provides a shaded backdrop to a box of text. It
+longdesc uses a Metafont font (provided) which generates to appropriate
+longdesc shading dependent on the resolution used in the Metafont
+longdesc printer parameters.
+runfiles size=2
+ RELOC/fonts/source/public/shade/shade.mf
+ RELOC/tex/generic/shade/shade.tex
+catalogue-also shadebox
+catalogue-ctan /macros/generic/shade
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl1
+catalogue-topics decoration
+catalogue-version 1

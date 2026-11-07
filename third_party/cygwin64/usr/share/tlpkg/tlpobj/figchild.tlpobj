@@ -1,0 +1,20 @@
+name figchild
+category Package
+revision 62945
+shortdesc Pictures for creating children's activities
+relocated 1
+longdesc This package was created with the aim of facilitating the work
+longdesc of Elementary School teachers who need to create colorful and
+longdesc attractive activities for their students. It is a product of
+longdesc the Computational Mathematics discipline offered at the Federal
+longdesc University of Vicosa -- Campus UFV -- Florestal by professor
+longdesc Fernando de Souza Bastos. It makes use of the TikZ and xcolor
+longdesc packages.
+runfiles size=508
+ RELOC/tex/latex/figchild/figchild.sty
+catalogue-contact-home https://github.com/fsbmat-ufv/figchild
+catalogue-contact-repository https://github.com/fsbmat-ufv/figchild
+catalogue-ctan /graphics/pgf/contrib/figchild
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz teaching amusements
+catalogue-version 2.1.1

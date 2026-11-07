@@ -109,6 +109,17 @@ elseif(ARCH_UNIX)
     endif()
 endif()
 
+if(ARCH_WINDOWS)
+    add_custom_command(TARGET terminalpp POST_BUILD
+        COMMAND "${CMAKE_COMMAND}"
+            "-DSOURCE_DIR=${CMAKE_SOURCE_DIR}/third_party/cygwin64"
+            "-DDEST_DIR=$<TARGET_FILE_DIR:terminalpp>/cygwin64"
+            -P "${CMAKE_SOURCE_DIR}/scripts/copy_cygwin_runtime.cmake"
+        COMMENT "Copying bundled Cygwin runtime beside terminalpp.exe"
+        VERBATIM
+    )
+endif()
+
 if(RENDERER_NATIVE OR RENDERER_QT)
     # On all platforms, terminalpp links against the ui and terminal libraries from the root folder.
     target_link_libraries(terminalpp ${TPP_LINK_LIBRARIES})

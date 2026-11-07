@@ -1,0 +1,16 @@
+name getitems
+category Package
+revision 39365
+shortdesc Gathering items from a list-like environment
+relocated 1
+longdesc This package provides a \gatheritems command to parse a list of
+longdesc data separated by \item tokens. This makes it easier to define
+longdesc custom environments which structure their data in the same way
+longdesc that itemize or enumerate do.
+runfiles size=1
+ RELOC/tex/latex/getitems/getitems.sty
+catalogue-ctan /macros/latex/contrib/getitems
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics text-manip macro-supp
+catalogue-version 1.0

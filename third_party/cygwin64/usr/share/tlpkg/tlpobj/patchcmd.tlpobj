@@ -1,0 +1,17 @@
+name patchcmd
+category Package
+revision 41379
+shortdesc Change the definition of an existing command
+relocated 1
+longdesc The package provides a command \patchcommand that can be used
+longdesc to add material at the beginning and/or the end of the
+longdesc replacement text of an existing macro. It works for macros with
+longdesc any number of normal arguments, including those that were
+longdesc defined with \DeclareRobustCommand.
+runfiles size=1
+ RELOC/tex/latex/patchcmd/patchcmd.sty
+catalogue-ctan /macros/latex/contrib/patchcmd
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 1.05

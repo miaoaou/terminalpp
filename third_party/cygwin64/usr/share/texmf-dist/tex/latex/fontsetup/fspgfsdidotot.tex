@@ -1,0 +1,21 @@
+\setmainfont[ItalicFont=GFSOlgaGrDidotItEn,
+            BoldFont=GFSDidotBold,
+            BoldItalicFont=GFSDidotBoldItalic,SlantedFont=GFSDidotItalic,
+            SmallCapsFeatures={Numbers=OldStyle}]{GFSDidot.otf}
+\setmathfont{NewCMMath-Book.otf}
+\setmathfont[range=\mathup/{num,latin,Latin,greek,Greek}]{GFSDidot.otf} 
+\setmathfont[range=\mathbfup/{num,latin,Latin,greek,Greek}]{GFSDidotBold.otf} 
+\setmathfont[range=\mathit/{greek,Greek}]{GFSOlga.otf}
+\setmathfont[range=\mathit/{num,latin,Latin}]{GFSDidotItalic.otf}
+\setmathfont[range=\mathbfit/{num,latin,Latin,greek,Greek}]{GFSDidotBoldItalic.otf}
+
+%%%%%%%%%% Fix epsilons %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginDocument{\renewcommand*{\epsilon}{\textit{ε}}
+\renewcommand*{\varepsilon}{\textsl{ε}}}
+%%%%%%%%% Fix phi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newfontfamily\phifix[Scale=1.2]{GFSDidotItalic.otf}
+\AtBeginDocument{\renewcommand*{\phi}{\textrm{\phifix\char"03D5}}}
+%%%%%%%%% Fix theta %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginDocument{\renewcommand*{\theta}{\textsl{θ}}
+\renewcommand*{\vartheta}{\textit{θ}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

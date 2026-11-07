@@ -1,0 +1,22 @@
+name sauerj
+category Package
+revision 15878
+shortdesc A bundle of utilities by Jonathan Sauer
+relocated 1
+longdesc The bundle consists of: a tool for collecting text for later
+longdesc re-use, a tool for typesetting the "meta-information" within a
+longdesc text, a tool for use in constructing macros with multiple
+longdesc optional parameters, a package for multiple column parallel
+longdesc texts, a tool for processing key-value structured lists, and
+longdesc macros for typesetting a number as a German-language string.
+runfiles size=8
+ RELOC/tex/latex/sauerj/collect.sty
+ RELOC/tex/latex/sauerj/metainfo.sty
+ RELOC/tex/latex/sauerj/optparams.sty
+ RELOC/tex/latex/sauerj/parcolumns.sty
+ RELOC/tex/latex/sauerj/processkv.sty
+ RELOC/tex/latex/sauerj/zahl2string.sty
+catalogue-ctan /macros/latex/contrib/sauerj
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics collection

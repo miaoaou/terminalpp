@@ -1,0 +1,14 @@
+name harveyballs
+category Package
+revision 32003
+shortdesc Create Harvey Balls using TikZ
+relocated 1
+longdesc The package provides 5 commands (giving symbols that indicate
+longdesc values from "none" to "full").
+runfiles size=1
+ RELOC/tex/latex/harveyballs/harveyballs.sty
+catalogue-ctan /graphics/pgf/contrib/harveyballs
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics graphics-symb pgf-tikz
+catalogue-version 1.1

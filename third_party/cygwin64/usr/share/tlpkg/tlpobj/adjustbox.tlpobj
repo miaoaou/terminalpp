@@ -1,0 +1,37 @@
+name adjustbox
+category Package
+revision 64967
+shortdesc Graphics package-alike macros for "general" boxes
+relocated 1
+longdesc The package provides several macros to adjust boxed content.
+longdesc One purpose is to supplement the standard graphics package,
+longdesc which defines the macros \resizebox, \scalebox and \rotatebox ,
+longdesc with the macros\trimbox and \clipbox. The main feature is the
+longdesc general \adjustbox macro which extends the "key=value"
+longdesc interface of \includegraphics from the graphics package and
+longdesc applies it to general text content. Additional provided box
+longdesc macros are \lapbox, \marginbox, \minsizebox, \maxsizebox and
+longdesc \phantombox. All macros use the collectbox package to read the
+longdesc content as a box and not as a macro argument. This allows for
+longdesc all forms of content including special material like verbatim
+longdesc content. A special feature of collectbox is used to provide
+longdesc matching environments with the identical names as the macros.
+depend collectbox
+depend graphics
+depend xkeyval
+runfiles size=24
+ RELOC/tex/latex/adjustbox/adjcalc.sty
+ RELOC/tex/latex/adjustbox/adjustbox.sty
+ RELOC/tex/latex/adjustbox/tc-dvips.def
+ RELOC/tex/latex/adjustbox/tc-pdftex.def
+ RELOC/tex/latex/adjustbox/tc-pgf.def
+ RELOC/tex/latex/adjustbox/tc-xetex.def
+ RELOC/tex/latex/adjustbox/trimclip.sty
+catalogue-also gincltex collectbox realboxes
+catalogue-contact-bugs https://github.com/MartinScharrer/adjustbox/issues
+catalogue-contact-home https://github.com/MartinScharrer/adjustbox
+catalogue-contact-repository https://github.com/MartinScharrer/adjustbox.git
+catalogue-ctan /macros/latex/contrib/adjustbox
+catalogue-license lppl1.3
+catalogue-topics typesetting box-manip
+catalogue-version 1.3a

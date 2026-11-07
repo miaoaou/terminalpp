@@ -1,0 +1,19 @@
+name codesection
+category Package
+revision 34481
+shortdesc Provides an environment that may be conditionally included
+relocated 1
+longdesc This package provides an environment to switch a section of
+longdesc code on or off. The code may be placed anywhere in the file (it
+longdesc is not limited to the document or the preamble). The motivation
+longdesc for this package was to have commands which allow preselection
+longdesc based on whether sections of code in a preamble of a template
+longdesc are executed.
+runfiles size=2
+ RELOC/tex/latex/codesection/codesection.sty
+catalogue-also comment optional version
+catalogue-ctan /macros/latex/contrib/codesection
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics cond-comp
+catalogue-version 0.1

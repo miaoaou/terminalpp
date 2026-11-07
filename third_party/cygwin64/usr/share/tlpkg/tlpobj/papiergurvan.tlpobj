@@ -1,0 +1,17 @@
+name papiergurvan
+category Package
+revision 68239
+shortdesc Commands to work with Gurvan Paper
+relocated 1
+longdesc This package provides commands to display Gurvan grids or
+longdesc Gurvan full pages, and also the possibility to write on lines.
+longdesc The source for the design of the paper can be found at
+longdesc http://www.sos-ecriture.fr/2014/10/papier-gurvan.html.
+runfiles size=4
+ RELOC/tex/latex/papiergurvan/PapierGurvan.sty
+catalogue-contact-bugs https://github.com/cpierquet/papiergurvan/issues
+catalogue-contact-repository https://github.com/cpierquet/papiergurvan
+catalogue-ctan /graphics/pgf/contrib/papiergurvan
+catalogue-license lppl1.3c
+catalogue-topics typeset-grid pgf-tikz french
+catalogue-version 0.1.0

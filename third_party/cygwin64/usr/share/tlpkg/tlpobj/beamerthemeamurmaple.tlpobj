@@ -1,0 +1,17 @@
+name beamerthemeamurmaple
+category Package
+revision 69742
+shortdesc A new modern beamer theme
+relocated 1
+longdesc This Beamer theme is a suitable theme for my use of Beamer in
+longdesc applied mathematics research. It meets my needs in my work.
+longdesc However, if you like this theme, and if you want to ask for or
+longdesc make improvements, don't hesitate to write to me!
+runfiles size=7
+ RELOC/tex/latex/beamerthemeamurmaple/beamerthemeAmurmaple.sty
+catalogue-contact-bugs https://gitlab.gutenberg-asso.fr/mchupin/amurmaple/-/issues
+catalogue-contact-repository https://gitlab.gutenberg-asso.fr/mchupin/amurmaple
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerthemeamurmaple
+catalogue-license lppl1.3
+catalogue-topics presentation
+catalogue-version 1.3

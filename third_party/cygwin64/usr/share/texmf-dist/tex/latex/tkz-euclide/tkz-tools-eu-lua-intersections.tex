@@ -1,0 +1,525 @@
+% tkz-tools-lua-intersections.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status “maintained”.
+% 
+% The Current Maintainer of this work is Alain Matthes.
+%  utf8 encoding
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-tools-lua-intersections.tex}   
+\makeatletter
+%<--------------------------------------------------------------------------–>
+%                 intersection  de deux lignes
+%<--------------------------------------------------------------------------–>
+\def\tkzInterLL(#1,#2)(#3,#4){% méthode avec xfp
+\tkz@InterLL(#1,#2)(#3,#4){tkzPointResult}
+}
+
+\def\tkz@InterLL(#1,#2)(#3,#4)#5{%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}%
+\tkz@ax\pgf@x%
+\tkz@ay\pgf@y%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#2}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#2}{center}}
+\tkz@bx\pgf@x%
+\tkz@by\pgf@y%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#3}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#3}{center}}%
+\tkz@cx\pgf@x%
+\tkz@cy\pgf@y%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#4}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#4}{center}}%
+\tkz@dx\pgf@x%
+\tkz@dy\pgf@y%
+\edef\tkzax{\strip@pt\tkz@ax}%
+\edef\tkzay{\strip@pt\tkz@ay}%
+\edef\tkzbx{\strip@pt\tkz@bx}%
+\edef\tkzby{\strip@pt\tkz@by}%
+\edef\tkzcx{\strip@pt\tkz@cx}%
+\edef\tkzcy{\strip@pt\tkz@cy}%
+\edef\tkzdx{\strip@pt\tkz@dx}%
+\edef\tkzdy{\strip@pt\tkz@dy}%
+\edef\tkz@deltax{\tkz@Dec{(\tkzax-(\tkzbx))/(28.45274)}}
+\edef\tkz@deltaxx{\tkz@Dec{(\tkzcx-(\tkzdx))/(28.45274)}}
+\edef\tkz@deltay{\tkz@Dec{(\tkzay-(\tkzby))/(28.45274)}}
+\edef\tkz@deltayy{\tkz@Dec{(\tkzcy-(\tkzdy))/(28.45274)}}
+\edef\tkz@deltaxy{\tkz@Dec{((\tkzax*\tkzby)-(\tkzay*\tkzbx))/(809.55841)}}
+\edef\tkz@deltaxxyy{\tkz@Dec{((\tkzcx*\tkzdy)-(\tkzcy*\tkzdx))/(809.55841)}}
+\edef\tkz@div{\tkz@Dec{(\tkz@deltax*\tkz@deltayy)-(\tkz@deltay*\tkz@deltaxx)}}
+\edef\tkz@numx{\tkz@Dec{(\tkz@deltaxy*\tkz@deltaxx)-(\tkz@deltax*\tkz@deltaxxyy)}}
+\edef\tkz@numy{\tkz@Dec{(\tkz@deltaxy*\tkz@deltayy)-(\tkz@deltay*\tkz@deltaxxyy)}}
+\edef\tkz@xs{\tkz@Dec{\tkz@numx/\tkz@div}}
+\edef\tkz@ys{\tkz@Dec{\tkz@numy/\tkz@div}}
+\edef\tkz@xs{\tkz@Round{\tkz@xs}{5}}
+\edef\tkz@ys{\tkz@Round{\tkz@ys}{5}}
+\path[coordinate](\tkz@xs,\tkz@ys) coordinate (#5);
+}
+
+
+% méthode with coordinates
+\def\tkzInterLLxy(#1,#2,#3,#4)(#5,#6,#7,#8){%
+%\path (intersection of #1--#2 and #3--#4) coordinate(#5);%
+\tkz@ax#1%
+\tkz@ay#2%
+\tkz@bx#3%
+\tkz@by#4%
+\tkz@cx#5%
+\tkz@cy#6%
+\tkz@dx#7%
+\tkz@dy#8%
+\edef\tkzax{\strip@pt\tkz@ax}%
+\edef\tkzay{\strip@pt\tkz@ay}%
+\edef\tkzbx{\strip@pt\tkz@bx}%
+\edef\tkzby{\strip@pt\tkz@by}%
+\edef\tkzcx{\strip@pt\tkz@cx}%
+\edef\tkzcy{\strip@pt\tkz@cy}%
+\edef\tkzdx{\strip@pt\tkz@dx}%
+\edef\tkzdy{\strip@pt\tkz@dy}%
+\edef\tkz@deltax{\tkz@Dec{(\tkzax-(\tkzbx))/(28.45274)}}
+\edef\tkz@deltaxx{\tkz@Dec{(\tkzcx-(\tkzdx))/(28.45274)}}
+\edef\tkz@deltay{\tkz@Dec{(\tkzay-(\tkzby))/(28.45274)}}
+\edef\tkz@deltayy{\tkz@Dec{(\tkzcy-(\tkzdy))/(28.45274)}}
+\edef\tkz@deltaxy{\tkz@Dec{((\tkzax*\tkzby)-(\tkzay*\tkzbx))/(809.55841)}}
+\edef\tkz@deltaxxyy{\tkz@Dec{((\tkzcx*\tkzdy)-(\tkzcy*\tkzdx))/(809.55841)}}
+\edef\tkz@div{\tkz@Dec{(\tkz@deltax*\tkz@deltayy)-(\tkz@deltay*\tkz@deltaxx)}}
+\edef\tkz@numx{\tkz@Dec{(\tkz@deltaxy*\tkz@deltaxx)-(\tkz@deltax*\tkz@deltaxxyy)}}
+\edef\tkz@numy{\tkz@Dec{(\tkz@deltaxy*\tkz@deltayy)-(\tkz@deltay*\tkz@deltaxxyy)}}
+\edef\tkz@xs{\tkz@Dec{\tkz@numx/\tkz@div}}
+\edef\tkz@ys{\tkz@Dec{\tkz@numy/\tkz@div}}
+\edef\tkz@xs{\tkz@Round{\tkz@xs}{5}}
+\edef\tkz@ys{\tkz@Round{\tkz@ys}{5}}
+\path[coordinate](\tkz@xs,\tkz@ys) coordinate (tkzPointResult);
+}
+
+%<--------------------------------------------------------------------------–>
+%                 intersection  de Ligne Cercle rayon connu
+%<--------------------------------------------------------------------------–>
+% /*
+%    Calculate the intersection of a ray and a sphere
+%    The line segment is defined from p1 to p2
+%    The sphere is of radius r and centered at sc
+%    There are potentially two points of intersection given by
+%    p = p1 + mu1 (p2 - p1)
+%    p = p1 + mu2 (p2 - p1)
+%    Return FALSE if the ray doesn't intersect the sphere.
+% */
+% int RaySphere(XYZ p1,XYZ p2,XYZ sc,double r,double *mu1,double *mu2)
+% {
+%    double a,b,c;
+%    double bb4ac;
+%    XYZ dp;
+% 
+%    dp.x = p2.x - p1.x;
+%    dp.y = p2.y - p1.y;
+%    dp.z = p2.z - p1.z;
+%    a = dp.x * dp.x + dp.y * dp.y + dp.z * dp.z;
+%    b = 2 * (dp.x * (p1.x - sc.x) + dp.y * (p1.y - sc.y) + dp.z * (p1.z - sc.z));
+%    c = sc.x * sc.x + sc.y * sc.y + sc.z * sc.z;
+%    c += p1.x * p1.x + p1.y * p1.y + p1.z * p1.z;
+%    c -= 2 * (sc.x * p1.x + sc.y * p1.y + sc.z * p1.z);
+%    c -= r * r;
+%    bb4ac = b * b - 4 * a * c;
+%    if (ABS(a) < EPS || bb4ac < 0) {
+%       *mu1 = 0;
+%       *mu2 = 0;
+%       return(FALSE);
+%    }
+% 
+%    *mu1 = (-b + sqrt(bb4ac)) / (2 * a);
+%    *mu2 = (-b - sqrt(bb4ac)) / (2 * a);
+% 
+%    return(TRUE);
+% }
+%<---------- test ------------------------------------------------------–>
+\def\tkzTestInterLC(#1,#2)(#3,#4){%
+\begingroup
+\tkz@Projection(#1,#2)(#3){tkz@pth}% distance centre à la ligne
+\tkz@@CalcLength(#3,tkz@pth){tkz@mathLen}%  
+\tkz@@CalcLength(#3,#4){tkzLengthResult}%calcul du rayon
+\ifdim\tkz@mathLen pt>\tkzLengthResult pt\relax%
+\global\tkzFlagLCfalse
+\else
+\global\tkzFlagLCtrue
+\fi
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+\def\tkz@numlc{0}
+\pgfkeys{/linecircle/.cd,
+  node/.code               = \def\tkz@numlc{0},
+  R/.code                  = \def\tkz@numlc{1}, 
+  with nodes/.code         = \def\tkz@numlc{2},
+  common/.store in         = \tkz@common,
+  common                   = {},
+  near/.is if              =  tkz@near,
+  near/.default            =  true,
+  near                     =  false,
+  next to/.store in        = \tkz@nextto,
+  next to/.initial         = {},
+  next/.default            = {},
+  next to                  = {},
+  next to/.value required,
+  node  
+ }
+%<--------------------------------------------------------------------------–>
+\def\tkzInterLC{\pgfutil@ifnextchar[{\tkz@InterLC}{\tkz@InterLC[]}}
+\def\tkz@InterLC[#1](#2,#3)(#4,#5){%
+\begingroup      
+\pgfqkeys{/linecircle}{#1}
+ \pgfinterruptboundingbox 
+\ifcase\tkz@numlc%
+    % first case 0
+  \tkz@@CalcLength(#4,#5){tkzLengthResult}
+  \tkzInterLCR(#2,#3)(#4,\tkzLengthResult pt){tkzFirstPointResult}%
+                         {tkzSecondPointResult}
+\or% 1
+    \tkzInterLCR(#2,#3)(#4,#5 cm){tkzFirstPointResult}
+                   {tkzSecondPointResult}%
+\or% 2
+    \tkzInterLCWithNodes(#2,#3)(#4,#5){tkzFirstPointResult}%
+                        {tkzSecondPointResult}%
+\fi
+\iftkz@near
+  \tkz@@CalcLength(#2,tkzFirstPointResult){tkzLengthFirst}
+  \tkz@@CalcLength(#2,tkzSecondPointResult){tkzLengthSecond}
+      \ifdim \tkzLengthFirst pt < \tkzLengthSecond pt\relax%
+      \else
+       \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+       \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+       \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+      \fi
+\else
+    \ifx\tkz@common\tkzutil@empty 
+      \ifx\tkz@nextto\tkzutil@empty 
+         \tkzFindAngle(tkzSecondPointResult,tkzFirstPointResult,#4)   
+         \tkzGetAngle{tkz@an}
+          \ifdim\tkz@an pt<180 pt\relax%
+          \else
+           \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+           \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+           \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+          \fi
+      \else
+         \tkz@@CalcLength(\tkz@nextto,tkzFirstPointResult){tkzLengthFirst}
+         \tkz@@CalcLength(\tkz@nextto,tkzSecondPointResult){tkzLengthSecond}
+             \ifdim \tkzLengthFirst pt < \tkzLengthSecond pt\relax%
+             \else
+              \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+              \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+              \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+             \fi
+       \fi
+    \else 
+         \tkz@@CalcLength(\tkz@common,tkzSecondPointResult){tkz@mathLen}
+         \ifdim\tkz@mathLen pt<1pt\relax%
+         \else
+          \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+          \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+          \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+         \fi
+     \fi
+\fi%near
+\endpgfinterruptboundingbox    
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%<--------------------------------------------------------------------------–>
+\def\tkzInterLCR(#1,#2)(#3,#4)#5#6{%
+\begingroup
+\tkz@radi=#4%
+\tkz@@extractxy{#3}
+\tkz@bx =\pgf@x\relax%
+\tkz@by =\pgf@y\relax%
+\tkz@Projection(#1,#2)(#3){tkz@pth}
+\tkz@@CalcLength(#3,tkz@pth){tkz@mathLen}
+ \ifdim\tkz@mathLen pt<0.05pt\relax%
+        \pgfpointdiff{\pgfpointanchor{#1}{center}}%
+                     {\pgfpointanchor{#2}{center}}%
+        \tkz@ax=\pgf@x%
+        \tkz@ay=\pgf@y%
+        \pgfpointborderellipse{\pgfpoint{\tkz@ax}{\tkz@ay}}%
+                              {\pgfpoint{\tkz@radi}{\tkz@radi}}
+        \tkz@ax=\pgf@x\relax%
+        \tkz@ay=\pgf@y\relax%
+        \advance\tkz@bx by\tkz@ax\relax%
+        \advance\tkz@by by\tkz@ay\relax%
+        \pgfcoordinate{#6}{\pgfqpoint{\tkz@bx}{\tkz@by}}
+        \tkzCSym(#3)(#6){#5}
+  \else
+       \edef\pgfmathresult{\fpeval{\tkz@mathLen/\tkz@radi}}
+      % \edef\tkz@angle{\fpeval{acosd(\pgfmathresult)}}
+        \pgfmathacos@{\pgfmathresult}%
+        \let\tkz@angle\pgfmathresult%
+        \pgfpointdiff{\pgfpointanchor{#3}{center}}%
+                     {\pgfpointanchor{tkz@pth}{center}}%
+        \tkz@ax=\pgf@x%
+        \tkz@ay=\pgf@y%
+        \pgfpointborderellipse{\pgfpoint{\tkz@ax}{\tkz@ay}}%
+                              {\pgfpoint{\tkz@radi}{\tkz@radi}}
+        \tkz@ax =\pgf@x\relax%
+        \tkz@ay =\pgf@y\relax%
+        \advance\tkz@bx by\tkz@ax\relax%
+        \advance\tkz@by by\tkz@ay\relax%
+        \tkz@@extractxy{#3}
+        \tkz@ax =\pgf@x\relax%
+        \tkz@ay =\pgf@y\relax%
+        \tkz@@extractxy{tkz@pth}
+        \pgfmathrotatepointaround{\pgfpoint{\tkz@bx}{\tkz@by}}%
+                                 {\pgfpoint{\tkz@ax}{\tkz@ay}}%
+                                 {\tkz@angle}
+         \pgfcoordinate{#5}{\pgfqpoint{\pgf@x}{\pgf@y}}
+        \pgfmathrotatepointaround{\pgfpoint{\tkz@bx}{\tkz@by}}%
+                                 {\pgfpoint{\tkz@ax}{\tkz@ay}}%
+                                 {-\tkz@angle}
+  \pgfcoordinate{#6}{\pgfqpoint{\pgf@x}{\pgf@y}}
+
+\fi   
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                 intersection  de Ligne Cercle 
+% #4 center #5 point sur le cercle
+%<--------------------------------------------------------------------------–>
+% \def\tkzInterLC(#1,#2)(#3,#4)#5#6{%
+%     \begingroup
+%     \tkz@@CalcLength(#3,#4){tkz@rad}
+%     \tkzInterLCR(#1,#2)(#3,\tkz@rad pt){#5}{#6}
+% \endgroup
+% } 
+%<--------------------------------------------------------------------------–>
+%                 intersection  de Ligne Cercle rayon inconnu
+%<--------------------------------------------------------------------------–>
+\def\tkzInterLCWithNodes(#1,#2)(#3,#4,#5)#6#7{%
+\begingroup
+    \tkz@@CalcLength(#4,#5){tkz@radius}
+    \tkzInterLCR(#1,#2)(#3,\tkz@radius pt){#6}{#7}
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%  Intersection of 2 circles
+%<--------------------------------------------------------------------------–>
+%<--------------------------------------------------------------------------–>
+% méthode
+% /* circle_circle_intersection() *
+%  * Determine the points where 2 circles in a common plane intersect.
+%  *
+%  * int circle_circle_intersection(
+%  *                                // center and radius of 1st circle
+%  *                                double x0, double y0, double r0,
+%  *                                // center and radius of 2nd circle
+%  *                                double x1, double y1, double r1,
+%  *                                // 1st intersection point      
+%  *                                // 2nd intersection point
+%  *
+%  * This is a public domain work. 3/26/2005 Tim Voght
+%  *
+% int circle_circle_intersection(double x0, double y0, double r0,
+%                                double x1, double y1, double r1,
+%                                double *xi, double *yi,
+%                                double *xi_prime, double *yi_prime)
+% {
+%   double a, dx, dy, d, h, rx, ry;
+%   double x2, y2;
+% 
+%   /* dx and dy are the vertical and horizontal distances between
+%    * the circle centers.
+%    */
+%   dx = x1 - x0;
+%   dy = y1 - y0;
+% 
+%   /* Determine the straight-line distance between the centers. */
+%   //d = sqrt((dy*dy) + (dx*dx));
+%   d = hypot(dx,dy); // Suggested by Keith Briggs
+% 
+%   /* Check for solvability. */
+%   if (d > (r0 + r1))
+%   {
+%     /* no solution. circles do not intersect. */
+%     return 0;
+%   }
+%   if (d < fabs(r0 - r1))
+%   {
+%     /* no solution. one circle is contained in the other */
+%     return 0;
+%   }
+% 
+%   /* 'point 2' is the point where the line through the circle
+%    * intersection points crosses the line between the circle
+%    * centers.  
+%    */
+% 
+%   /* Determine the distance from point 0 to point 2. */
+%   a = ((r0*r0) - (r1*r1) + (d*d)) / (2.0 * d) ;
+% 
+%   /* Determine the coordinates of point 2. */
+%   x2 = x0 + (dx * a/d);
+%   y2 = y0 + (dy * a/d);
+% 
+%   /* Determine the distance from point 2 to either of the
+%    * intersection points.
+%    */
+%   h = sqrt((r0*r0) - (a*a));
+% 
+%   /* Now determine the offsets of the intersection points from
+%    * point 2.
+%    */
+%   rx = -dy * (h/d);
+%   ry = dx * (h/d);
+% 
+%   /* Determine the absolute intersection points. */
+%   *xi = x2 + rx;
+%   *xi_prime = x2 - rx;
+%   *yi = y2 + ry;
+%   *yi_prime = y2 - ry;
+% 
+%   return 1;
+% } 
+%<--------------------------------------------------------------------------–>
+%    Intersection de deux cercles  
+%<--------------------------------------------------------------------------–>
+%<---------- test ------------------------------------------------------–>
+% test avec des nodes  R-r <= d <= R+r
+\def\tkzTestInterCC(#1,#2)(#3,#4){%
+\begingroup
+\tkz@@CalcLength(#1,#3){tkz@mathLen}% distance entre les centres  
+\tkz@@CalcLength(#2,#1){tkz@rA}%calcul du rayon
+\tkz@@CalcLength(#4,#3){tkz@rB}%calcul du rayon
+% test if d <= rA + rB ?
+\edef\tkz@rS{\fpeval{\tkz@rA+\tkz@rB}}
+\ifdim\tkz@mathLen pt > \tkz@rS pt\relax%
+\global\tkzFlagCCfalse
+\else
+% now test if d>= rA - rB or rB-rA
+  \ifdim \tkz@rA pt >  \tkz@rB pt\relax%
+       \edef\tkz@rD{\fpeval{\tkz@rA-\tkz@rB}}
+   \else
+       \edef\tkz@rD{\fpeval{\tkz@rB-\tkz@rA}}
+   \fi
+\ifdim  \tkz@rD pt > \tkz@mathLen pt\relax%
+ \global\tkzFlagCCfalse
+\else
+\global\tkzFlagCCtrue
+\fi
+\fi
+\endgroup
+}
+
+\def\tkz@numcc{0}
+\pgfkeys{
+/circlecircle/.cd,
+  node/.code           = \def\tkz@numcc{0},
+  R/.code              = \def\tkz@numcc{1},
+  with nodes/.code     = \def\tkz@numcc{2},
+  common/.store in     = \tkz@common,
+  common               = {},
+  node
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzInterCC{\pgfutil@ifnextchar[{\tkz@InterCC}{\tkz@InterCC[]}}
+\def\tkz@InterCC[#1](#2,#3)(#4,#5){%
+\begingroup      
+\pgfqkeys{/circlecircle}{#1}
+\ifcase\tkz@numcc%
+ % first case 0 
+  \tkz@save@length 
+  \tkz@@CalcLengthcm(#2,#3){tkz@rayA}
+  \tkz@@CalcLengthcm(#4,#5){tkz@rayB}
+   \tkz@restore@length
+\tkzInterCCR(#2,\tkz@rayA)(#4,\tkz@rayB){tkzFirstPointResult}{tkzSecondPointResult}
+  \or% 1
+ \tkzInterCCR(#2,#3)(#4,#5){tkzFirstPointResult}{tkzSecondPointResult}%
+  \or%2
+ \tkzInterCCWithNodes(#2,#3)(#4,#5){tkzFirstPointResult}{tkzSecondPointResult}
+\fi
+ \ifx\tkz@common\tkzutil@empty
+ \tkzFindAngle(#2,tkzFirstPointResult,#4)   \tkzGetAngle{tkz@an}
+ \ifdim\tkz@an pt<180 pt\relax%
+ \else
+ \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+  \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+ \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+ \fi
+ \else
+\tkz@@CalcLength(\tkz@common,tkzSecondPointResult){tkz@mathLen}
+ \ifdim\tkz@mathLen pt<0.05pt\relax%
+ \else
+  \pgfnodealias{tkzPointTmp}{tkzSecondPointResult}
+   \pgfnodealias{tkzSecondPointResult}{tkzFirstPointResult}
+  \pgfnodealias{tkzFirstPointResult}{tkzPointTmp}
+  \fi
+  \fi
+\endgroup
+} 
+%<--------------------------------------------------------------------------–>
+
+\def\tkzInterCCR(#1,#2)(#3,#4)#5#6{%
+\begingroup
+\pgfinterruptboundingbox  
+\tkz@save@length  
+\tkz@@CalcLength(#1,#3){tkz@dd}
+\tkz@restore@length 
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}
+\tkz@ax\pgf@x %
+\tkz@ay\pgf@y %
+\edef\tkzcax{\strip@pt\tkz@ax}%
+\edef\tkzcay{\strip@pt\tkz@ay}%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#3}{center}}
+\pgfextracty{\pgf@y}{\pgfpointanchor{#3}{center}}
+\tkz@bx\pgf@x %
+\tkz@by\pgf@y %
+\edef\tkzcbx{\strip@pt\tkz@bx}%
+\edef\tkzcby{\strip@pt\tkz@by}%
+\tkz@cx#2cm %
+\tkz@cy#4cm %
+\edef\tkzccx{\strip@pt\tkz@cx}%
+\edef\tkzccy{\strip@pt\tkz@cy}%
+\edef\tkz@aa{\tkz@Dec{((\tkzccx+\tkzccy)/(2*\tkz@dd))*(\tkzccx-(\tkzccy))+\tkz@dd/2}}
+\edef\tkz@xx{\tkz@Dec{\tkzcax+\tkz@aa/\tkz@dd*(\tkzcbx - (\tkzcax))}}
+\edef\tkz@yy{\tkz@Dec{\tkzcay+\tkz@aa/\tkz@dd*(\tkzcby - (\tkzcay))}}
+\path[coordinate](\tkz@xx pt,\tkz@yy pt) coordinate (tkzRadialCenter);
+\edef\tkz@hh{\tkz@Abs{(\tkzccx+\tkz@aa)*(\tkzccx-(\tkz@aa))}}
+\edef\tkz@hh{\tkz@Dec{\tkz@Sqrt{\tkz@hh}}}
+ \edef\tkz@rx{\tkz@Dec{\tkz@hh / \tkz@dd * (\tkzcay - (\tkzcby))}}
+\edef\tkz@ry{\tkz@Dec{\tkz@hh / \tkz@dd * (\tkzcbx - (\tkzcax))}}
+\edef\tkz@xs{\tkz@Dec{\tkz@xx + \tkz@rx}}
+\edef\tkz@ys{\tkz@Dec{\tkz@yy + \tkz@ry}}
+\path[coordinate](\tkz@xs pt,\tkz@ys pt) coordinate (#5);
+\edef\tkz@xss{\tkz@Dec{\tkz@xx - \tkz@rx}}
+\edef\tkz@yss{\tkz@Dec{\tkz@yy - \tkz@ry}}
+\path[coordinate](\tkz@xss pt,\tkz@yss pt) coordinate (#6);
+\endpgfinterruptboundingbox   
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+% #2 node #3 node #4 node #5 node
+% \def\tkzInterCC(#1,#2)(#3,#4)#5#6{%
+% \begingroup
+%   \tkz@@CalcLength(#1,#2){tkz@rayA}
+%   \tkz@@CalcLength(#3,#4){tkz@rayB}
+%   \tkzInterCCR(#1,\tkz@rayA pt)(#3,\tkz@rayB pt){#5}{#6}
+% \endgroup
+% }  
+%<--------------------------------------------------------------------------–>
+%    Intersection de deux cercles   Avec deux points
+%<--------------------------------------------------------------------------–>
+% la première variante devrait être #2 #3  avec #4 #5
+\def\tkzInterCCWithNodes(#1,#2,#3)(#4,#5,#6)#7#8{%
+\begingroup
+  \tkz@@CalcLengthcm(#2,#3){tkz@rayA}
+  \tkz@@CalcLengthcm(#5,#6){tkz@rayB}
+  \tkzInterCCR(#1,\tkz@rayA)(#4,\tkz@rayB){#7}{#8}
+\endgroup
+} 
+\makeatother
+\endinput

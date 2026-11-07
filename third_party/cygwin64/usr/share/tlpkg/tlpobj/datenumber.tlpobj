@@ -1,0 +1,21 @@
+name datenumber
+category Package
+revision 61761
+shortdesc Convert a date into a number and vice versa
+relocated 1
+longdesc This package provides commands to convert a date into a number
+longdesc and vice versa. Additionally there are commands for
+longdesc incrementing and decrementing a date. Leap years and the
+longdesc Gregorian calendar reform are considered.
+runfiles size=8
+ RELOC/tex/latex/datenumber/datenumber.sty
+ RELOC/tex/latex/datenumber/datenumberUSenglish.ldf
+ RELOC/tex/latex/datenumber/datenumberdummy.ldf
+ RELOC/tex/latex/datenumber/datenumberenglish.ldf
+ RELOC/tex/latex/datenumber/datenumberfrench.ldf
+ RELOC/tex/latex/datenumber/datenumbergerman.ldf
+ RELOC/tex/latex/datenumber/datenumberspanish.ldf
+catalogue-ctan /macros/latex/contrib/datenumber
+catalogue-license lppl1.2
+catalogue-topics date-time
+catalogue-version 0.03

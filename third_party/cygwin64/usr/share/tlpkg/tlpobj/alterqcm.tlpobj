@@ -1,0 +1,17 @@
+name alterqcm
+category Package
+revision 59265
+shortdesc Multiple choice questionnaires in two column tables
+relocated 1
+longdesc The alterqcm package is a LaTeX2e package, for making multiple
+longdesc choices questionnaires in a table with two columns. The aim is
+longdesc to provide some useful macros to build QCM in tables. These
+longdesc macros may be used by only LaTeX TeX users. The package works
+longdesc with utf8, pdfLaTeX, LuaLaTeX and XeLaTeX (with some
+longdesc languages). The documentation is in English.
+runfiles size=7
+ RELOC/tex/latex/alterqcm/alterqcm.sty
+catalogue-ctan /macros/latex/contrib/alterqcm
+catalogue-license lppl1.3
+catalogue-topics exam
+catalogue-version 4.42c

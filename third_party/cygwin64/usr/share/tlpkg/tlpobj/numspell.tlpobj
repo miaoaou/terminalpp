@@ -1,0 +1,21 @@
+name numspell
+category Package
+revision 61132
+shortdesc Spelling cardinal and ordinal numbers
+relocated 1
+longdesc This package supports the spelling of cardinal and ordinal
+longdesc numbers. Supported languages are English, French, German,
+longdesc Hungarian, Italian, and Latin. The package requires xstring and
+longdesc iflang.
+runfiles size=34
+ RELOC/tex/latex/numspell/numspell-english.sty
+ RELOC/tex/latex/numspell/numspell-french.sty
+ RELOC/tex/latex/numspell/numspell-german.sty
+ RELOC/tex/latex/numspell/numspell-italian.sty
+ RELOC/tex/latex/numspell/numspell-latin.sty
+ RELOC/tex/latex/numspell/numspell-magyar.sty
+ RELOC/tex/latex/numspell/numspell.sty
+catalogue-ctan /macros/latex/contrib/numspell
+catalogue-license lppl1.3
+catalogue-topics numbers multilingual english french german hungarian italian
+catalogue-version 1.5

@@ -1,0 +1,16 @@
+name graphpaper
+category Package
+revision 63116
+shortdesc A LaTeX class to generate several types of graph papers
+relocated 1
+longdesc Graphpaper is a LaTeX document class which allows to print
+longdesc several types of graph papers: bilinear (millimeter paper),
+longdesc semilogarithmic, bilogarithmic, polar, log-polar, Smith charts.
+longdesc It is based on the picture environment and its extensions.
+runfiles size=5
+ RELOC/tex/latex/graphpaper/graphpaper.cls
+catalogue-also gridpapers
+catalogue-ctan /macros/latex/contrib/graphpaper
+catalogue-license lppl1.3c
+catalogue-topics class macro-supp
+catalogue-version 1.1

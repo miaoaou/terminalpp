@@ -1,0 +1,23 @@
+name makerobust
+category Package
+revision 52811
+shortdesc Making a macro robust (legacy package)
+relocated 1
+longdesc Heiko Oberdiek's makerobust package defined a command with name
+longdesc \MakeRobustCommand that could be used to make fragile commands
+longdesc robust. The LaTeX format has, since 2015, included a command
+longdesc \MakeRobust with the same syntax and behaviour. Also by 2019,
+longdesc almost all commands in LaTeX that may be used in a moving
+longdesc argument are already robust. This package is now just a simple
+longdesc one-liner defining the name \MakeRobustCommand as an alias for
+longdesc \MakeRobust. This package should not be used in any new
+longdesc documents.
+runfiles size=1
+ RELOC/tex/latex/makerobust/makerobust.sty
+catalogue-contact-bugs https://github.com/ho-tex/makerobust/issues
+catalogue-contact-repository https://github.com/ho-tex/makerobust
+catalogue-ctan /macros/latex/contrib/makerobust
+catalogue-date 2019-11-15 11:16:57 +0100
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 2.0

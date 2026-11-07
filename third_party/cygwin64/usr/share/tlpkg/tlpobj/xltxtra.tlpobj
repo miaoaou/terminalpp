@@ -1,0 +1,21 @@
+name xltxtra
+category Package
+revision 56594
+shortdesc "Extras" for LaTeX users of XeTeX
+relocated 1
+longdesc This package was previously used to provide a number of
+longdesc features that were useful for typesetting documents with
+longdesc XeLaTeX. Many of those features have now been incorporated into
+longdesc the fontspec package and other packages, but the package
+longdesc persists for backwards compatibility. Nowadays, loading xltxtra
+longdesc will: load the fontspec, metalogo, and realscripts packages;
+longdesc redefine \showhyphens so it works correctly; and define two
+longdesc extra commands: \vfrac and \namedglyph.
+depend metalogo
+runfiles size=2
+ RELOC/tex/xelatex/xltxtra/xltxtra.sty
+catalogue-contact-repository https://github.com/wspr/will2e/
+catalogue-ctan /macros/unicodetex/latex/xltxtra
+catalogue-license lppl1.3c
+catalogue-topics xetex
+catalogue-version 0.7

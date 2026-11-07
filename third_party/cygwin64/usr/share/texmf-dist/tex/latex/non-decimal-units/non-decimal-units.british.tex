@@ -1,0 +1,28 @@
+%%% CURRENCY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% https://en.wikipedia.org/wiki/£sd
+
+\nduNewBaseUnit { pound~sterling } {
+	symbol = { £ } ,
+	factor = { 20~shilling } ,
+	format = { \SYMBOL\VALUE } ,
+}
+
+\nduNewBaseUnit { shilling } {
+	symbol = { s } ,
+	factor = { 12~penny } ,
+	format = { \VALUE\SYMBOL } ,
+}
+
+\nduNewBaseUnit { penny } {
+	symbol = { d } ,
+	format = { \VALUE\SYMBOL } ,
+}
+
+\nduNewUnitGroup { british~pound~sterling~lsd } [
+	unit~separator = {.~} ,
+] {
+	pound~sterling ,
+	shilling ,
+	penny
+}

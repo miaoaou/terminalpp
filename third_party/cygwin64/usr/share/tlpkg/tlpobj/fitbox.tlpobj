@@ -1,0 +1,19 @@
+name fitbox
+category Package
+revision 50088
+shortdesc Fit graphics on a page
+relocated 1
+longdesc The package allows a box (usually an \includegraphics box) to
+longdesc fit on the page. It scales the box to the maximal allowed size
+longdesc within the user-set limits. If there is not enough space on the
+longdesc page, the box is moved to the next one.
+runfiles size=2
+ RELOC/tex/latex/fitbox/fitbox.sty
+catalogue-contact-bugs https://github.com/borisveytsman/fitbox/issues
+catalogue-contact-home https://github.com/borisveytsman/fitbox
+catalogue-contact-repository https://github.com/borisveytsman/fitbox/
+catalogue-ctan /macros/latex/contrib/fitbox
+catalogue-date 2019-02-21 19:23:28 +0100
+catalogue-license lppl1.3
+catalogue-topics boxing
+catalogue-version 1.02

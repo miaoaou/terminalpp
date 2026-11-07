@@ -1,0 +1,17 @@
+name coseoul
+category Package
+revision 23862
+shortdesc Context sensitive outline elements
+relocated 1
+longdesc The package provides "relative" commands that may be used in
+longdesc place of \chapter, \section, etc. The documentation shows a
+longdesc number of document-management scenarios in which such commands
+longdesc are valuable.
+runfiles size=1
+ RELOC/tex/latex/coseoul/coseoul.sty
+catalogue-also modular
+catalogue-ctan /macros/latex/contrib/coseoul
+catalogue-date 2017-05-01 08:28:39 +0200
+catalogue-license lppl1.3
+catalogue-topics headings
+catalogue-version 1.1

@@ -1,0 +1,15 @@
+name liftarm
+category Package
+revision 62981
+shortdesc Draw liftarms
+relocated 1
+longdesc This package can be used to draw liftarms with TikZ. It
+longdesc provides several options for the appearance of the liftarms, a
+longdesc command which connects two liftarms and an environment to
+longdesc describe a construction.
+runfiles size=4
+ RELOC/tex/latex/liftarm/liftarm.sty
+catalogue-ctan /graphics/pgf/contrib/liftarm
+catalogue-license lppl1.3
+catalogue-topics graphics pgf-tikz
+catalogue-version 2.0

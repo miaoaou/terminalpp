@@ -1,0 +1,25 @@
+name beamertheme-pure-minimalistic
+category Package
+revision 56934
+shortdesc A minimalistic presentation theme for LaTeX Beamer
+relocated 1
+longdesc The main features of this minimalistic Beamer theme are: Easily
+longdesc use own logos. Customizable. Looks good in a 4:3 and 16:9
+longdesc aspect ratio, without the need to change anything. Provides an
+longdesc environment for vertically-spaced items. Provides light and
+longdesc dark mode. Is designed to be purely minimalistic without any
+longdesc distractions.
+runfiles size=6
+ RELOC/tex/latex/beamertheme-pure-minimalistic/beamercolorthemepureminimalistic.sty
+ RELOC/tex/latex/beamertheme-pure-minimalistic/beamerfontthemepureminimalistic.sty
+ RELOC/tex/latex/beamertheme-pure-minimalistic/beamerinnerthemepureminimalistic.sty
+ RELOC/tex/latex/beamertheme-pure-minimalistic/beamerouterthemepureminimalistic.sty
+ RELOC/tex/latex/beamertheme-pure-minimalistic/beamerthemepureminimalistic.sty
+catalogue-also beamertheme-focus
+catalogue-contact-announce https://github.com/kai-tub/latex-beamer-pure-minimalistic/releases
+catalogue-contact-bugs https://github.com/kai-tub/latex-beamer-pure-minimalistic/issues
+catalogue-contact-repository https://github.com/kai-tub/latex-beamer-pure-minimalistic
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-pure-minimalistic
+catalogue-license gpl3+
+catalogue-topics presentation
+catalogue-version 2.0.0

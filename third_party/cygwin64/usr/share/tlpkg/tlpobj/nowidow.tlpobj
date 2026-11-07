@@ -1,0 +1,14 @@
+name nowidow
+category Package
+revision 24066
+shortdesc Avoid widows
+relocated 1
+longdesc This package provides a useful macro to manage widow lines.
+runfiles size=1
+ RELOC/tex/latex/nowidow/nowidow.sty
+catalogue-contact-repository https://github.com/raphink/nowidow
+catalogue-ctan /macros/latex/contrib/nowidow
+catalogue-date 2018-01-31 08:51:50 +0100
+catalogue-license lppl1.3
+catalogue-topics layout
+catalogue-version 1.0

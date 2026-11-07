@@ -1,0 +1,52 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-spectra package -----------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% Macro for loading pgf-spectra libraries --------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+%
+%
+% Taken and adapted from pgf ---------------->
+% Library files inclusion
+% Include a library file.
+%
+% #1 = List of names of library file.
+%
+% Description:
+%
+% This command includes a list of library files. For each file X in the
+% list, the file pgf-spectra.library.X.tex is included, provided this has
+% not been done earlier.
+%
+% \usepgfspectralibrary{data}
+% \usepgfspectralibrary{data,CIE]
+%
+\def\usepgfspectralibrary#1{\ignorespaces%
+  \edef\pgfspectra@list{#1}%
+  \@for\pgfspectra@temp:=\pgfspectra@list\do{%
+    \ifx\pgfspectra@temp\@empty\relax%
+    \else%
+      \expandafter\ifx\csname pgfspectra@library@\pgfspectra@temp @loaded\endcsname\relax%
+      \expandafter\let\csname pgfspectra@library@\pgfspectra@temp @loaded\endcsname=\@empty%
+      \expandafter\edef\csname pgfspectra@library@#1@atcode\endcsname{\the\catcode`\@}%
+      \expandafter\edef\csname pgfspectra@library@#1@barcode\endcsname{\the\catcode`\|}%
+      \expandafter\edef\csname pgfspectra@library@#1@dollarcode\endcsname{\the\catcode`\$}%
+      \catcode`\@=11%
+      \catcode`\|=12%
+      \catcode`\$=3%
+      \pgfutil@InputIfFileExists{pgf-spectra.library.\pgfspectra@temp.tex}{}{%
+          \PackageError{pgf-spectra}{I did not find the pgf-spectra library
+            '\pgfspectra@temp'. I looked for the file named
+            pgf-spectra.library.\pgfspectra@temp.tex, but could not find it in in
+            the current texmf trees.}
+        }%
+      \catcode`\@=\csname pgfspectra@library@#1@atcode\endcsname%
+      \catcode`\|=\csname pgfspectra@library@#1@barcode\endcsname%
+      \catcode`\$=\csname pgfspectra@library@#1@dollarcode\endcsname%
+      \fi%
+    \fi%
+  }%
+}%
+% <---------------- Taken and adapted from pgf (pgfutil-common.tex)
+\endinput

@@ -1,0 +1,16 @@
+name parskip
+category Package
+revision 58358
+shortdesc Layout with zero \parindent, non-zero \parskip
+relocated 1
+longdesc Simply changing \parskip and \parindent leaves a layout that is
+longdesc untidy; this package (though it is no substitute for a
+longdesc properly-designed class) helps alleviate this untidiness.
+runfiles size=3
+ RELOC/tex/latex/parskip/parskip-2001-04-09.sty
+ RELOC/tex/latex/parskip/parskip.sty
+catalogue-contact-repository https://github.com/FrankMittelbach/fmitex-parskip
+catalogue-ctan /macros/latex/contrib/parskip
+catalogue-license lppl1.3c
+catalogue-topics layout parshape
+catalogue-version 2.0h

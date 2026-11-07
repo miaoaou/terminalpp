@@ -1,0 +1,20 @@
+name subeqnarray
+category Package
+revision 15878
+shortdesc Equation array with sub numbering
+relocated 1
+longdesc This package defines the subeqnarray and subeqnarray*
+longdesc environments, which behave like the corresponding eqnarray and
+longdesc eqnarray* environments, except that the individual lines are
+longdesc numbered like 1a, 1b, 1c, etc. To refer to these numbers an
+longdesc extra label command \slabel is provided. Users are urged to
+longdesc consider the alignment capabilities of the amsmath bundle,
+longdesc which produce better results than eqnarray-related macros.
+runfiles size=2
+ RELOC/tex/latex/subeqnarray/subeqnarray.sty
+catalogue-also subeqn
+catalogue-ctan /macros/latex/contrib/subeqnarray
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics maths-syseqn
+catalogue-version 2.1c

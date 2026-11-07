@@ -1,0 +1,30 @@
+% --------------------------------------------------------------------------
+% Georgia:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{228,0,43}
+\fill  [white] (0,0) rectangle (\flaglength,\flagwidth);
+\hbar{red}{0.5}{0.2}
+\vbar{red}{0.5\flaglength}{0.2}
+\edef\x{6.6398mm}
+\edef\y{18.395mm}
+\def\cross#1{%
+\begin{scope} [fill=red,shift=#1,,scale=0.001757\flagwidth]
+\pgfpathmoveto{\pgfpoint{\x}{-\y}}
+\pgfpatharcto{104mm}{104mm}{0}{0}{0}{\pgfpoint{\x}{\y}}
+\pgfpatharcto{56mm}{56mm}{0}{0}{0}{\pgfpoint{-\x}{\y}}
+\pgfpatharcto{104mm}{104mm}{0}{0}{0}{\pgfpoint{-\x}{-\y}}
+\pgfpatharcto{56mm}{56mm}{0}{0}{0}{\pgfpoint{\x}{-\y}}
+\pgfusepath{fill}
+\pgfpathmoveto{\pgfpoint{\y}{-\x}}
+\pgfpatharcto{104mm}{104mm}{0}{0}{0}{\pgfpoint{\y}{\x}}
+\pgfpatharcto{56mm}{56mm}{0}{0}{0}{\pgfpoint{-\y}{\x}}
+\pgfpatharcto{104mm}{104mm}{0}{0}{0}{\pgfpoint{-\y}{-\x}}
+\pgfpatharcto{56mm}{56mm}{0}{0}{0}{\pgfpoint{\y}{-\x}}
+\pgfusepath{fill}\end{scope}}
+\coordinate (p) at ($(0.25\flaglength,0.25)+(-0.05,-0.05)$);\cross{(p)}
+\coordinate (p) at ($(0.75\flaglength,0.25)+(0.05,-0.05)$);\cross{(p)}
+\coordinate (p) at ($(0.25\flaglength,0.75)+(-0.05,0.05)$);\cross{(p)}
+\coordinate (p) at ($(0.75\flaglength,0.75)+(0.05,0.05)$);\cross{(p)}
+\framecode{}
+\end{flagdescription}

@@ -1,0 +1,72 @@
+%%
+%% Project: warning
+%% Version: 2023-03-18 v0.10
+%% Info: Global warnings at the end of the screen output and the logfile
+%%
+%% Copyright © 2001, 2023 Harald Harders (harald.harders@gmx.de; inactive)
+%% (2023-03-18 update done by H.-Martin Münch, <Martin dot Muench at Uni-Bonn dot de>)
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    https://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005-12-01 or later.
+%%
+%% Note: This package is obsolete. For LaTeX-format 2020-10-01 and newer:
+%% Instead of \addglobalwarning{ something } use
+%% \AddToHook{enddocument/info}{ something }
+%% and do not load the warning package.
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{warning}[2023/03/18 v0.10 Global warnings at end of logfile]
+
+\providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+\IfFormatAtLeastTF{2020/10/01}{
+  \NewDocumentCommand\addglobalwarning{m}{\AddToHook{enddocument/info}{#1}}
+  \addglobalwarning{%
+    \PackageWarningNoLine{warning}{Package warning is obsolete.\MessageBreak%
+      Instead of \string\addglobalwarning{ something } use \MessageBreak%
+      \string\AddToHook{enddocument/info}{ something }\MessageBreak%
+      and do not load the warning package}
+    }
+  \def\wrn@warning{\endinput}
+  }{\let\wrn@warning\relax
+    \AtBeginDocument{\addglobalwarning{\PackageWarningNoLine{warning}{%
+      Used LaTeX-format: \fmtversion, more recent LaTeX-format is available}}}
+   }
+
+\wrn@warning% is \endinput for LaTeX since 2020-10-01 and \relax for older LaTeX.
+
+% Define a command that adds new warnings to the list of warnings.
+% Modification of the \addto command provided by babel.def.
+\def\addglobalwarning#1{%
+  {\toks@\expandafter{\wrn@warning#1}%
+   \xdef\wrn@warning{\the\toks@}}%
+}
+
+% Expand \@dofilelist
+\AtBeginDocument{%
+  \let\wrn@dofilelist\@dofilelist%
+  \def\@dofilelist{\wrn@dofilelist\wrn@warning}%
+}
+\endinput
+% This works with or without \listfiles because \listfile has to be
+% used in the preamble and therefor is executed before this definition.
+%
+% Expand \@@end command
+% I have the feeling that is not too stable. Thus not used.
+%\let\wrn@end\@@end
+%\def\@@end{\wrn@warning\wrn@end}
+%
+% Expand \@refundefined command
+% This does not work if undefined references appear after the execution
+% of \AtEndDocument which can happen. Thus not used.
+%\AtEndDocument{%
+%  \let\wrn@refundefined=\@refundefined
+%  \def\@refundefined{\wrn@refundefined\wrn@warning}}
+%
+%% EOF

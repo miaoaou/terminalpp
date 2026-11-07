@@ -1,0 +1,17 @@
+name tkz-doc
+category Package
+revision 68665
+shortdesc Documentation macros for the TKZ series of packages
+relocated 1
+longdesc This bundle offers a documentation class (tkz-doc) and a
+longdesc package (tkzexample). These files are used in the documentation
+longdesc of the author's packages tkz-base, tkz-euclide, tkz-fct,
+longdesc tkz-linknodes, and tkz-tab.
+runfiles size=6
+ RELOC/tex/latex/tkz-doc/tkz-doc.cfg
+ RELOC/tex/latex/tkz-doc/tkz-doc.cls
+catalogue-contact-home http://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz-doc
+catalogue-license lppl1.3
+catalogue-topics doc-supp class macro-demo
+catalogue-version 1.45c

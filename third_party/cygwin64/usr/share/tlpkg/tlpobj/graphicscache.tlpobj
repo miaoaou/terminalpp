@@ -1,0 +1,24 @@
+name graphicscache
+category Package
+revision 65318
+shortdesc Cache includegraphics calls
+relocated 1
+longdesc This LaTeX package provides caching of \includegraphics calls,
+longdesc with several useful effects: Recompilations are much faster
+longdesc (10x speedup observed). Images can be postprocessed with
+longdesc ghostscript before inclusion, thus: Automatic downscaling to
+longdesc specified DPI Automatic JPEG compression with configurable
+longdesc quality Much smaller files (e.g. 10MB instead of 150MB)! Note:
+longdesc Due to the one-by-one invocation of pdflatex and ghostscript
+longdesc for each graphics element, the first compilation is typically
+longdesc slower than usual. Note: graphicscache needs the \write18 call
+longdesc (also called shell escape). This is a security risk if you have
+longdesc untrusted TeX sources. graphicscache supports pdfLaTeX and
+longdesc LuaLaTeX; XeLaTeX is not supported.
+runfiles size=4
+ RELOC/tex/latex/graphicscache/graphicscache.sty
+catalogue-contact-repository https://github.com/xqms/graphicscache
+catalogue-ctan /macros/latex/contrib/graphicscache
+catalogue-license bsd3
+catalogue-topics graphics compilation cond-comp ext-code
+catalogue-version 0.4

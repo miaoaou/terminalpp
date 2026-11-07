@@ -1,0 +1,19 @@
+name magicnum
+category Package
+revision 52983
+shortdesc Access TeX systems' "magic numbers"
+relocated 1
+longdesc This package allows access to the various parameter values in
+longdesc TeX (catcode values), e-TeX (group, if and node types, and
+longdesc interaction mode), and LuaTeX (pdfliteral mode) by a
+longdesc hierarchical name system.
+runfiles size=5
+ RELOC/scripts/magicnum/magicnum.lua
+ RELOC/tex/generic/magicnum/magicnum.sty
+catalogue-contact-bugs https://github.com/ho-tex/magicnum/issues
+catalogue-contact-repository https://github.com/ho-tex/magicnum
+catalogue-ctan /macros/latex/contrib/magicnum
+catalogue-date 2019-11-30 11:10:53 +0100
+catalogue-license lppl1.3c
+catalogue-topics debug-supp
+catalogue-version 1.7

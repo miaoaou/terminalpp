@@ -1,0 +1,42 @@
+name ncclatex
+category Package
+revision 15878
+shortdesc An extended general-purpose class
+relocated 1
+longdesc The ncc class provides a framework for a common class to
+longdesc replace the standard article, book and report classes, and
+longdesc providing a "preprint" class. The class's extensions are
+longdesc provided in a number of small packages, some of which may also
+longdesc be used with the standard classes. The ncclatex package also
+longdesc loads many of the packages of, and requires the latest version
+longdesc of the ncctools bundle.
+runfiles size=30
+ RELOC/tex/latex/ncclatex/cp1251-light.def
+ RELOC/tex/latex/ncclatex/ncc.cls
+ RELOC/tex/latex/ncclatex/ncc10.clo
+ RELOC/tex/latex/ncclatex/ncc11.clo
+ RELOC/tex/latex/ncclatex/ncc12.clo
+ RELOC/tex/latex/ncclatex/ncc14.clo
+ RELOC/tex/latex/ncclatex/nccart.clo
+ RELOC/tex/latex/ncclatex/nccbiblist.sty
+ RELOC/tex/latex/ncclatex/nccbook.clo
+ RELOC/tex/latex/ncclatex/nccdefaults.sty
+ RELOC/tex/latex/ncclatex/nccfit.clo
+ RELOC/tex/latex/ncclatex/ncchdr.sty
+ RELOC/tex/latex/ncclatex/nccheadings.sty
+ RELOC/tex/latex/ncclatex/nccindex.sty
+ RELOC/tex/latex/ncclatex/ncclatex.sty
+ RELOC/tex/latex/ncclatex/nccltrus.sty
+ RELOC/tex/latex/ncclatex/nccold.sty
+ RELOC/tex/latex/ncclatex/nccproc.cls
+ RELOC/tex/latex/ncclatex/nccsections.sty
+ RELOC/tex/latex/ncclatex/ncctheorems.sty
+ RELOC/tex/latex/ncclatex/ncctitle.clo
+ RELOC/tex/latex/ncclatex/ncctitle.sty
+ RELOC/tex/latex/ncclatex/ncctitlepage.sty
+ RELOC/tex/latex/ncclatex/sibjnm.cls
+catalogue-ctan /macros/latex/contrib/ncclatex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics class
+catalogue-version 1.5

@@ -1,0 +1,19 @@
+name clock
+category Package
+revision 15878
+shortdesc Graphical and textual clocks for TeX and LaTeX
+relocated 1
+longdesc Features graphical clocks (with a classical 12h dial and two
+longdesc hands) and text clocks (in 24h format) which can show system
+longdesc time or any time the user desires. Works with both TeX and
+longdesc LaTeX. The clock faces (appearances of the dial) are easily
+longdesc expandable; the default uses a custom Metafont font.
+runfiles size=4
+ RELOC/fonts/source/public/clock/clock.mf
+ RELOC/fonts/tfm/public/clock/clock.tfm
+ RELOC/tex/latex/clock/clock.sty
+ RELOC/tex/latex/clock/clock.tex
+catalogue-ctan /macros/latex/contrib/clock
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics date-time

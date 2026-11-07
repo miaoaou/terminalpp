@@ -1,0 +1,25 @@
+name rtkinenc
+category Package
+revision 20003
+shortdesc Input encoding with fallback procedures
+relocated 1
+longdesc The rtkinenc package is functionally similar to the standard
+longdesc LaTeX package inputenc: both set up active characters so that
+longdesc an input character outside the range of 7-bit visible ASCII is
+longdesc coverted into one or more corresponding LaTeX commands. The
+longdesc main difference lies in that rtkinenc allows the user to
+longdesc specify a fallback procedure to use when the text command
+longdesc corresponding to some input character isn't available. Names of
+longdesc commands in rtkinenc have been selected so that it can read
+longdesc inputenc encoding definition files, and the aim is that
+longdesc rtkinenc should be backwards compatible with inputenc. rtkinenc
+longdesc is not a new version of inputenc though, nor is it part of
+longdesc standard LaTeX. For an example of how rtkinenc is used, the
+longdesc user may look at the tclldoc class.
+runfiles size=2
+ RELOC/tex/latex/rtkinenc/rtkinenc.sty
+catalogue-ctan /macros/latex/contrib/rtkinenc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics inputenc
+catalogue-version 1.0

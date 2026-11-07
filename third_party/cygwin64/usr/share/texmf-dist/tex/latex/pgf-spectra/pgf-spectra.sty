@@ -1,0 +1,1324 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hugo Gomes @ 15/04/2016 (v1.0)
+% Hugo Gomes @ 15/03/2021 (v2.0.0)
+% Hugo Gomes @ 12/05/2021 (v2.1.0)
+% Hugo Gomes @ 27/06/2021 (v2.1.1)
+% Hugo Gomes @ 03/07/2021 (v2.1.2)
+% Hugo Gomes @ 21/02/2023 (v2.2.0)
+% Hugo Gomes @ 25/04/2023 (v3.0.0)
+% Hugo Gomes @ 27/04/2023 (v3.0.1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}%
+\ProvidesPackage{pgf-spectra}[27/04/2023 pgf-spectra v3.0.1]%
+\RequirePackage{tikz}%
+\DeclareOption{LSE}{\input{pgf-spectra.data.LSE.tex}\xdef\pgfspectra@DATASET{1}}%
+\DeclareOption{NIST}{\input{pgf-spectra.data.NIST.tex}\xdef\pgfspectra@DATASET{0}}%
+\ExecuteOptions{NIST}%
+\ProcessOptions\relax%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{pgf-spectra.input.library.tex}% Loading the input library mechanism (new v3.0.0)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{pgfspectraIRcolor}{rgb}{.3157,.2373,.2373}% NEW v2.0.0
+\definecolor{pgfspectraUVcolor}{rgb}{.3,.2568,.3}% NEW v2.0.0
+%
+\newcount\pgfspectra@counta% tmp counter
+\newcount\pgfspectra@countb% tmp counter
+\newcount\pgfspectra@countc% tmp counter
+\newcount\pgfspectra@countd% tmp counter
+%
+\newif\ifpgfspectra@absorption%
+\newif\ifpgfspectra@cur@elem@exist%
+\newif\ifpgfspectra@drawaxis%
+\newif\ifpgfspectra@axislabel% spectra label !
+\newif\ifpgfspectra@axisunitlabel% NEW v3.0.0
+\newif\ifpgfspectra@intensity%
+\newif\ifpgfspectra@redshift% NEW v2.0.0
+\newif\ifpgfspectra@RSvalue% NEW v2.0.0
+\newif\ifpgfspectra@usevisibleshade% NEW v2.1.0
+\newif\ifpgfspectra@visibleRangeOnly% NEW v2.2.0
+\newif\ifpgfspectra@UVRangeOnly% NEW v2.2.0
+\newif\ifpgfspectra@IRRangeOnly% NEW v2.2.0
+\newif\ifpgfspectra@datanotfound% NEW v2.2.0
+\newif\ifpgfspectra@band% NEW v3.0.0
+\def\@pgfspectra@list@purge BEGIN,#1[#2]\relax{\expandafter\edef\csname#2\endcsname{#1}}% NEW v3.0.0
+% defining PGF keys
+\pgfkeys{/pgfspectra/.cd,%
+element/.get=\pgfspectra@element,%
+element/.store in=\pgfspectra@element,%
+element/.default=NONE,%
+width/.get=\pgfspectra@width,%
+width/.store in=\pgfspectra@width,%
+width/.default={0.9\textwidth},%
+height/.get=\pgfspectra@height,%
+height/.store in=\pgfspectra@height,%
+height/.default=1cm,%
+back/.get=\pgfspectra@back,%
+back/.store in=\pgfspectra@back,%
+back/.default=black,%
+backIRUV/.get=\pgfspectra@backnotvisible,% NEW v2.0.0
+backIRUV/.store in=\pgfspectra@backnotvisible,% NEW v2.0.0
+backIRUV/.default=black,% NEW v2.0.0
+backVIS/.get=\pgfspectra@backvisible,% NEW v2.1.0
+backVIS/.store in=\pgfspectra@backvisible,% NEW v2.1.0
+backVIS/.default=black,% NEW v2.1.0
+IRcolor/.get=\pgfspectra@IRcolor,% NEW v2.0.0
+IRcolor/.store in=\pgfspectra@IRcolor,% NEW v2.0.0
+IRcolor/.default=pgfspectraIRcolor,% NEW v2.0.0
+UVcolor/.get=\pgfspectra@UVcolor,% NEW v2.0.0
+UVcolor/.store in=\pgfspectra@UVcolor,% NEW v2.0.0
+UVcolor/.default=pgfspectraUVcolor,% NEW v2.0.0
+charge/.get=\pgfspectra@charge,%
+charge/.store in=\pgfspectra@charge,%
+charge/.default=0,%
+Imin/.get=\pgfspectra@intmin,%
+Imin/.store in=\pgfspectra@intmin,%
+Imin/.default=0,%
+lines/.get=\pgfspectra@lines,%
+lines/.store in=\pgfspectra@lines,%
+lines/.default={},%
+line width/.get=\pgfspectra@linewidth,%
+line width/.store in=\pgfspectra@linewidth,%
+line width/.default=1pt,%
+begin/.get=\pgfspectra@begin,%
+begin/.store in=\pgfspectra@begin,%
+begin/.default=380,%
+end/.get=\pgfspectra@end,%
+end/.store in=\pgfspectra@end,%
+end/.default=780,%
+axis step/.get=\pgfspectra@axisstep,%
+axis step/.store in=\pgfspectra@axisstep,%
+axis step/.default=20,%
+axis unit/.get=\pgfspectra@axisunit,% NEW v2.1.0
+axis unit/.store in=\pgfspectra@axisunit,% NEW v2.1.0
+axis unit/.default=nm,% NEW v2.1.0
+axis unit precision/.get=\pgfspectra@axisunitprecision,% NEW v2.1.0
+axis unit precision/.store in=\pgfspectra@axisunitprecision,% NEW v2.1.0
+axis unit precision/.default=3,% NEW v2.1.0
+axis ticks/.get=\pgfspectra@axisticks,% NEW v2.0.0
+axis ticks/.store in=\pgfspectra@axisticks,% NEW v2.0.0
+axis ticks/.default=0,% NEW v2.0.0
+axis label text/.get=\pgfspectra@axislabeltxt,% NEW v3.0.0
+axis label text/.store in=\pgfspectra@axislabeltxt,% NEW v3.0.0
+axis label text/.default={},% NEW v3.0.0
+axis label position/.get=\pgfspectra@axislabelposition,% NEW v3.0.0
+axis label position/.store in=\pgfspectra@axislabelposition,% NEW v3.0.0
+axis label position/.default=center,% NEW v3.0.0
+axis color/.get=\pgfspectra@axiscolor,%
+axis color/.store in=\pgfspectra@axiscolor,%
+axis color/.default=black,%
+axis font/.get=\pgfspectra@axisfont,%
+axis font/.store in=\pgfspectra@axisfont,%
+axis font/.default={\tiny},%
+axis font color/.get=\pgfspectra@axisfontcolor,%
+axis font color/.store in=\pgfspectra@axisfontcolor,%
+axis font color/.default=white,%
+label position/.get=\pgfspectra@labelposition,%
+label position/.store in=\pgfspectra@labelposition,%
+label position/.default={west},%
+label before text/.get=\pgfspectra@labelbtext,%
+label before text/.store in=\pgfspectra@labelbtext,%
+label before text/.default={},%
+label after text/.get=\pgfspectra@labelatext,%
+label after text/.store in=\pgfspectra@labelatext,%
+label after text/.default={},%
+label font/.get=\pgfspectra@labelfont,%
+label font/.store in=\pgfspectra@labelfont,%
+label font/.default={\bfseries\small},%
+label font color/.get=\pgfspectra@labelfontcolor,%
+label font color/.store in=\pgfspectra@labelfontcolor,%
+label font color/.default=black,%
+gamma/.get=\pgfspectra@gamma,%
+gamma/.store in=\pgfspectra@gamma,%
+gamma/.default=0.8,%
+brightness/.get=\pgfspectra@brightness,%
+brightness/.store in=\pgfspectra@brightness,%
+brightness/.default=1,%
+line intensity/.get=\pgfspectra@lineint,%
+line intensity/.store in=\pgfspectra@lineint,%
+line intensity/.default=100,%
+relative intensity threshold/.get=\pgfspectra@relintthresh,%
+relative intensity threshold/.store in=\pgfspectra@relintthresh,%
+relative intensity threshold/.default=0.25,%
+absorption/.is if=pgfspectra@absorption,%
+axis/.is if=pgfspectra@drawaxis,%
+axis label/.is if=pgfspectra@axisunitlabel,% NEW v2.0.0
+label/.is if=pgfspectra@axislabel,%
+relative intensity/.is if=pgfspectra@intensity,%
+redshift/.get=\pgfspectra@redshift,% NEW v2.0.0
+redshift/.store in=\pgfspectra@redshift,% NEW v2.0.0
+redshift/.default={},% NEW v2.0.0
+show redshift value/.is if=pgfspectra@RSvalue,% NEW v2.0.0
+use visible shading/.is if=pgfspectra@usevisibleshade,% NEW v2.1.0
+precision/.get=\pgfspectra@precision,% NEW v3.0.0 (for data library)
+precision/.store in=\pgfspectra@precision,% NEW v3.0.0 (for data library)
+precision/.default=1,% NEW v3.0.0 (for data library)
+unit/.get=\pgfspectra@unit,% NEW v3.0.0 (for data library)
+unit/.store in=\pgfspectra@unit,% NEW v3.0.0 (for data library)
+unit/.default={}% NEW v3.0.0 (for data library)
+}%
+% setting keys with default values
+\pgfkeys{/pgfspectra/.cd,element,width,height,back,backIRUV,IRcolor,UVcolor,charge,Imin,lines,line width,begin,end,% NEW v2.0.0 -> backIRUV,IRcolor,UVcolor
+axis color,axis font,axis font color,axis step,axis unit,axis unit precision,axis ticks,%  NEW v2.1.0 -> axis unit,axis unit precision
+axis label=false,axis label text,axis label position,% NEW v3.0.0 ->axis label,axis label text,axis label position
+label position,label before text,label after text,label font,label font color,gamma,brightness,line intensity,%
+relative intensity threshold,absorption=false,axis=false,label=false,relative intensity=false,redshift,show redshift value=false,% NEW v2.0.0 -> redshift, show redshift value
+use visible shading,backVIS,% NEW v2.1.0 -> use visible shading
+precision,unit% NEW v3.0.0 (for data library)
+}%
+% strings for \ifx tests
+\def\pgfspectra@wlN@NE{NONE}%
+\def\pgfspectra@ll{all}%
+\def\pgfspectra@visible{visible}%
+\def\pgfspectra@visible@list{visible,visible5,visible10,visible15,visible20,visible25,visible30,visible35,visible40,visible45,visible50,visible55,visible60,visible65,visible70,visible75,visible80,visible85,visible90,visible95,visible100}%
+\def\pgfspectra@label@position@list{west,north west,north,north east,east,south east,south,south west}%
+\def\pgfspectra@redshift@D{D}% NEW v2.0.0
+\def\pgfspectra@axisunit@nm{nm}% NEW v2.1.0
+\def\pgfspectra@axisunit@um{micron}% NEW v2.1.0
+\def\pgfspectra@axisunit@A{A}% NEW v2.1.0
+%%%% COMMANDS ------------------------------------------------------------------------------>
+% commands ##################################################
+\newif\ifpgfspectra@StyleIsDef\pgfspectra@StyleIsDeffalse% NEW v2.0.0
+% \pgfspectraStyle[options]% NEW v2.0.0
+\def\pgfspectraStyle[#1]{\pgfspectraStyleReset\pgfspectra@StyleIsDeftrue\relax\tikzset{/pgfspectra/.cd,#1}%
+\def\pgfspectra@DoStyle{\tikzset{/pgfspectra/.cd,#1}}% applies storing user style for future use
+}% NEW v2.0.0
+% \pgfspectraStyleReset% NEW v2.0.0
+\def\pgfspectraStyleReset{\pgfspectra@StyleIsDeffalse\tikzset{/pgfspectra/.cd,%
+element=NONE,width=0.9\textwidth,height=1cm,back=black,backIRUV=black,IRcolor=pgfspectraIRcolor,UVcolor=pgfspectraUVcolor,%
+charge=0,Imin=0,lines={},line width=1pt,begin=380,end=780,axis color=black,axis font=\tiny,axis font color=white,axis step=20,axis unit=nm,axis unit precision=3,axis ticks=0,label position=west,% NEW v2.1.0 -> axis unit,axis unit precision
+axis label=false,axis label text={},axis label position=center,% NEW v3.0.0 ->axis label,axis label text,axis label position
+label before text={},label after text={},label font=\bfseries\small,label font color=black,gamma=0.8,brightness=1,line intensity=100,%
+relative intensity threshold=0.25,absorption=false,axis=false,label=false,relative intensity=false,redshift={},show redshift value=false,% NEW v2.0.0 -> redshift, show redshift value
+use visible shading,backVIS=black,% NEW v2.1.0 -> use visible shading
+precision=1,unit={}% NEW v3.0.0 (for data library)
+}}%
+% --------------- The main command to draw the spectra ----------------------------------------
+% \pgfspectra[options]
+\def\pgfspectra{\@ifnextchar[\pgfspectra@withoptions{\pgfspectra@nooptions}}%
+\def\pgfspectra@nooptions{\pgfspectra@continuous(0.9\textwidth,1cm)}%
+% #########################################################
+\def\pgfspectra@continuous(#1,#2){\ignorespaces%
+\ifpgfspectra@usevisibleshade% NEW v2.1.0
+\pgfspectrashade(380,780){pgfspectra@visibleshade}%
+\tikz{\fill[shading=pgfspectra@visibleshade] (0,0) rectangle (#1,#2);}%
+\else%
+\begin{tikzpicture}%
+\pgfmathparse{#1/400}\edef\pgfspectra@xscale{\pgfmathresult}
+\pgfmathparse{1.4*\pgfspectra@xscale+.09*\linewidth/\pgfspectra@width}\edef\pgfspectra@linewidth{\pgfmathresult}% NEW v2.0.0 {\pgfspectra@xscale} -> {1.4*\pgfspectra@xscale+.09*\linewidth/\pgfspectra@width}
+\foreach \x in {380,...,780}%
+        {%
+        \wlcolor{\x}%
+        \pgfmathparse{(\x-380)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+        \draw[pgfspectra@temp,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,#2);%
+        }%
+\end{tikzpicture}%
+\fi%
+}%
+% #########################################################
+\def\pgfspectra@withoptions[#1]{\ignorespaces%
+% setting default values or user style
+\ifpgfspectra@StyleIsDef\pgfspectraStyleReset\pgfspectra@DoStyle\pgfspectra@StyleIsDeftrue\relax\else\pgfspectraStyleReset\relax\fi% NEW v2.0.0
+% process options (key values)
+\pgfkeys{/pgfspectra/.cd,#1}%
+% axis height
+\setbox0=\hbox{\pgfspectra@axisfont\selectfont380}\edef\@pgfspectra@axis@height{\the\ht0}%
+% process visible background (visible+opacity)
+\pgfspectra@counta=0%
+\pgfspectra@countb=-1%
+\@for\@myarg:=\pgfspectra@visible@list\do{%
+            \ifx\pgfspectra@back\@myarg\pgfspectra@countb=\pgfspectra@counta\fi%
+            \advance\pgfspectra@counta by1%
+            }%
+\ifnum\pgfspectra@countb=-1\edef\@visible@opacity{1}\else% NEW v2.0.0
+\ifnum\pgfspectra@countb=0\let\pgfspectra@back\pgfspectra@visible\edef\@visible@opacity{.5}\else%
+\ifnum\pgfspectra@countb>0\let\pgfspectra@back\pgfspectra@visible\pgfmathparse{.05*\pgfspectra@countb}\edef\@visible@opacity{\pgfmathresult}\fi\fi\fi%
+% ----------------------------------------------------------------------------------------------------
+% check limits... % NEW v2.0.0
+\ifnum\pgfspectra@end<10\relax\def\wldez{10}\let\pgfspectra@end\wldez\fi%
+\ifnum\pgfspectra@end>4000\relax\def\wlquatromil{4000}\let\pgfspectra@end\wlquatromil\fi%
+\ifnum\pgfspectra@begin<10\relax\def\wldez{10}\let\pgfspectra@begin\wldez\fi%
+\ifnum\pgfspectra@begin>4000\relax\def\wlquatromil{4000}\let\pgfspectra@begin\wlquatromil\fi%
+% ----------------------------------------------------------------------------------------------------
+% verifying redshift key
+\ifx\pgfspectra@redshift\@empty\relax%
+\pgfspectra@redshiftfalse%
+\else%
+\pgfspectra@processredshiftkey\pgfspectra@redshift\relax%
+\fi%
+% ----------------------------------------------------------------------------------------------------
+% check if is only in visible range... or in UV... or in IV % NEW v2.2.0
+\pgfspectra@visibleRangeOnlyfalse%
+\pgfspectra@UVRangeOnlyfalse%
+\pgfspectra@IRRangeOnlyfalse%
+\ifnum\pgfspectra@end>\pgfspectra@begin\relax%
+    \ifnum\pgfspectra@end<380\relax% UV
+        \pgfspectra@UVRangeOnlytrue%
+    \else% VIS or IV
+        \ifnum\pgfspectra@end<781\relax%
+            \ifnum\pgfspectra@begin>379\relax\pgfspectra@visibleRangeOnlytrue\fi% VIS
+        \else%
+            \ifnum\pgfspectra@begin>780\relax\pgfspectra@IRRangeOnlytrue\fi% IR
+        \fi%
+    \fi%
+\else%
+    \ifnum\pgfspectra@begin<380\relax% UV
+        \pgfspectra@UVRangeOnlytrue%
+    \else% VIS or IV
+        \ifnum\pgfspectra@begin<781\relax%
+            \ifnum\pgfspectra@end>379\relax\pgfspectra@visibleRangeOnlytrue\fi% VIS
+        \else%
+            \ifnum\pgfspectra@end>780\relax\pgfspectra@IRRangeOnlytrue\fi% IR
+        \fi%
+    \fi%
+\fi%
+%  ---------------------------------------------------------------------------------------------------
+% check if the axis are labeled and if true sets \ifpgfspectra@drawaxis to true % NEW v3.0.0
+\ifpgfspectra@axisunitlabel\pgfspectra@drawaxistrue\fi%
+\edef\pgfspectra@testa{\pgfspectra@axislabeltxt}\edef\pgfspectra@testb{}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\else\pgfspectra@drawaxistrue\pgfspectra@axisunitlabeltrue\fi%
+%  ---------------------------------------------------------------------------------------------------
+% if no element provided draws continuous spectrum with options or user list of lines
+\ifx\pgfspectra@element\pgfspectra@wlN@NE%no element by the user
+    \ifx\pgfspectra@elt@chemsym\undefined\else\let\pgfspectra@elt@chemsym\undefined\fi%
+    \ifx\pgfspectra@lines\@empty%no lines by the user => continuous spectrum
+    % draws the continuous spectrum width options (default or by the user)
+    \begin{tikzpicture}%
+        \pgfkeys{/pgfspectra/.cd,#1}% NEW v2.0.0
+        \pgfmathparse{\pgfspectra@width/(abs(\pgfspectra@end-\pgfspectra@begin))}\edef\pgfspectra@xscale{\pgfmathresult}%
+        \ifpgfspectra@drawaxis%draws the axis
+        \pgfspectra@utils@draw@axis%
+        \fi%\ifpgfspectra@drawaxis
+        \ifpgfspectra@axislabel%put the label
+        \pgfspectra@utils@put@label%
+        \fi%\ifpgfspectra@axislabel
+        \let\pgfspectra@back\pgfspectra@visible%
+        \let\pgfspectra@background@UVcolor\pgfspectra@backnotvisible\let\pgfspectra@background@IRcolor\pgfspectra@backnotvisible\relax%
+        \pgfspectra@utils@drawbackground{\@visible@opacity*\pgfspectra@brightness}%
+    \end{tikzpicture}%
+    \let\pgfspectra@list@@\@empty%
+    \else% lines by the user
+    % NEW v3.0.0: lines={wl_1,wl_2,wl_3 to wl_4,wl_5 to wl_6,...,wl_n}
+    \def\pgfspectrag@bblespaces##1\relax{\edef\pgfspectra@lines{\zap@space##1 \@empty}}%
+    \def\pgfspectra@isband##1to##2\relax{\edef\pgfspectra@testa{##2}\edef\pgfspectra@testb{}%
+            \ifx\pgfspectra@testa\pgfspectra@testb\pgfspectra@bandfalse\else\pgfspectra@bandtrue\fi}%
+    \expandafter\pgfspectrag@bblespaces\pgfspectra@lines\relax%
+    \expandafter\pgfspectra@isband\pgfspectra@lines to\relax%
+    \ifpgfspectra@band% BAND
+        \def\pgfspectra@getband##1to##2\relax{\edef\pgfspectra@band@start{##1}\edef\pgfspectra@band@end{##2}}%
+        \edef\pgfspectra@lines@tmp{BEGIN}%
+        \@for\pgfspectra@tmp:=\pgfspectra@lines\do{%
+                \expandafter\pgfspectra@isband\pgfspectra@tmp to\relax%
+                \ifpgfspectra@band%
+                \expandafter\pgfspectra@getband\pgfspectra@tmp\relax%
+                \pgfmathparse{\pgfspectra@band@start+.5*\pgfspectra@linewidth}\edef\pgfspectra@band@step{\pgfmathresult}%
+                \foreach \x in {\pgfspectra@band@start,\pgfspectra@band@step,...,\pgfspectra@band@end}{\xdef\pgfspectra@lines@tmp{\pgfspectra@lines@tmp,\x}}%
+                \else\xdef\pgfspectra@lines@tmp{\pgfspectra@lines@tmp,\pgfspectra@tmp}\fi%
+                }%
+        \expandafter\@pgfspectra@list@purge \pgfspectra@lines@tmp[pgfspectra@list@@]\relax%
+    \else%NOT BAND
+        \edef\pgfspectra@list@@{\pgfspectra@lines}%
+    \fi%
+    \let\pgfspectra@background@UVcolor\pgfspectra@backnotvisible\let\pgfspectra@background@IRcolor\pgfspectra@backnotvisible\relax%
+    \fi%\pgfspectra@lines\@empty
+\else%\pgfspectra@element\pgfspectra@wlN@NE
+    % else get element(s) data
+    \pgfspectra@countc=0%
+    \pgfspectra@countd=1%
+    \@for\@myarg:=\pgfspectra@element\do{\advance\pgfspectra@countc by1}%count number of elements
+    \pgfspectra@addt@list{}{}%
+    \@for\@myarg:=\pgfspectra@element\do{%
+            \pgfspectra@cur@elem@existtrue%
+            \def\pgfspectra@elt@chemsym{NOT FOUND!}%
+            \def\@search@result@err{NOT FOUND!}%
+            \pgfspectra@elt@data{\@myarg}\relax%
+            % check if element provided exists
+            \ifx\@search@result@err\pgfspectra@elt@chemsym Element\ ``\@myarg'' with charge ``\pgfspectra@charge'' not found!\pgfspectra@cur@elem@existfalse\else%
+            % if exists, set the wavelength's list
+                % CHANGED IN v2.2.0 to better accommodate relative intensities (also considering charges...) ---->
+                \ifpgfspectra@UVRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@UV\relax%
+                    \pgfspectra@setmaxint{UV}%
+                \else\ifpgfspectra@visibleRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@VIS\relax%
+                    \pgfspectra@setmaxint{VIS}%
+                \else\ifpgfspectra@IRRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@IR\relax%
+                    \pgfspectra@setmaxint{IR}%
+                \else%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@ALL\relax%
+                    \pgfspectra@setmaxint{ALL}%
+                \fi\fi\fi%
+                % <----- v2.0.0
+                \pgfspectra@set@element@list{\pgfspectra@elt@elemdata}{\pgfspectra@elt@Imax}%
+            \fi%\@search@result@err\pgfspectra@elt@chemsym
+            \ifpgfspectra@cur@elem@exist\ifnum\pgfspectra@countd<\pgfspectra@countc\pgfspectra@addt@list{\pgfspectra@list@@}{,}\fi\fi%
+            \advance\pgfspectra@countd by1%
+            }%end do
+\fi%\pgfspectra@element\pgfspectra@wlN@NE
+% check if there are lines to draw and make the spectrum
+    \ifx\pgfspectra@list@@\@empty\ifx\pgfspectra@element\pgfspectra@wlN@NE\else Element\ ``\pgfspectra@element'' with charge ``\pgfspectra@charge'' have no lines to display.\fi\else%
+        \ifpgfspectra@absorption%absortion spectrum
+        \begin{tikzpicture}%
+                \pgfkeys{/pgfspectra/.cd,#1}% NEW v2.0.0
+                \pgfmathparse{\pgfspectra@width/(abs(\pgfspectra@end-\pgfspectra@begin))}\edef\pgfspectra@xscale{\pgfmathresult}%
+                \ifpgfspectra@drawaxis%draws the axis
+                \pgfspectra@utils@draw@axis%
+                \fi%\ifpgfspectra@drawaxis
+                \ifpgfspectra@axislabel%put the label
+                \pgfspectra@utils@put@label%
+                \fi%\ifpgfspectra@axislabel
+                \let\pgfspectra@back\pgfspectra@visible%
+                \let\pgfspectra@background@UVcolor\pgfspectra@UVcolor\let\pgfspectra@background@IRcolor\pgfspectra@IRcolor\relax%
+                \pgfspectra@utils@drawbackground{\pgfspectra@brightness}%
+                % draws the lines
+                \pgfspectra@utils@drawabsorptionlines%
+        \end{tikzpicture}%
+        \else%emission spectrum
+        % draws the spectrum
+        \ifx\pgfspectra@back\pgfspectra@visible%visible background
+        \begin{tikzpicture}%
+                \pgfkeys{/pgfspectra/.cd,#1}% NEW v2.0.0
+                \pgfmathparse{\pgfspectra@width/(abs(\pgfspectra@end-\pgfspectra@begin))}\edef\pgfspectra@xscale{\pgfmathresult}%
+                \ifpgfspectra@drawaxis%draws the axis
+                \pgfspectra@utils@draw@axis%
+                \fi%\ifpgfspectra@drawaxis
+                \ifpgfspectra@axislabel%put the label
+                \pgfspectra@utils@put@label%
+                \fi%\ifpgfspectra@axislabel
+                \let\pgfspectra@background@UVcolor\pgfspectra@backnotvisible\let\pgfspectra@background@IRcolor\pgfspectra@backnotvisible\relax%
+                \pgfspectra@utils@drawbackground{\@visible@opacity*\pgfspectra@brightness}%
+                \pgfspectra@utils@drawemissionlines% emission lines
+        \end{tikzpicture}%
+        \else%without visible background
+        \begin{tikzpicture}%
+                \pgfkeys{/pgfspectra/.cd,#1}% NEW v2.0.0
+                \pgfmathparse{\pgfspectra@width/(abs(\pgfspectra@end-\pgfspectra@begin))}\edef\pgfspectra@xscale{\pgfmathresult}%
+                \ifpgfspectra@drawaxis%draws the axis
+                \pgfspectra@utils@draw@axis%
+                \fi%\ifpgfspectra@drawaxis
+                \ifpgfspectra@axislabel%put the label
+                \pgfspectra@utils@put@label%
+                \fi%\ifpgfspectra@axislabel
+                \let\pgfspectra@background@UVcolor\pgfspectra@backnotvisible\let\pgfspectra@background@IRcolor\pgfspectra@backnotvisible\relax%
+                \pgfspectra@utils@drawbackground{0}% dummy argument
+                \pgfspectra@utils@drawemissionlines% emission lines
+        \end{tikzpicture}%
+        \fi%\pgfspectra@back\@visible
+        \fi%\ifpgfspectra@absorption
+    \fi% \pgfspectra@list@@\@empty
+}%
+% #########################################################
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% get individual line data from one element of the array data
+\def\pgfspectra@get@line@info[#1 #2 #3]{%
+\def\pgfspectra@currentline@wl{#1}% return
+\def\pgfspectra@currentline@int{#2}% return
+\def\pgfspectra@currentline@charge{#3}% return
+}%
+% #########################################################
+% ################### \pgfspectra@set@element@list ##################
+% #########################################################
+%
+% \pgfspectra@set@element@list{\pgfspectra@elt@elemdata}{\pgfspectra@elt@Imax}
+% RETURN: \pgfspectra@list@@ -> (wl1,wl2,...)
+%           or if relative intensity true (between 0 and 1)
+%                \pgfspectra@list@@ -> (wl1/int1,wl2/int2,...)
+%
+\newif\ifpgfspectra@first% for first ocurrence of Imin
+\def\pgfspectra@set@element@list#1#2{\ignorespaces% \pgfspectra@elt@Imax
+\pgfspectra@firsttrue%
+\pgfspectra@counta=0%
+\pgfspectra@countb=1%
+\pgfmathparse{int(\pgfspectra@intmin*100)}\edef\@pgfspectra@intmin{\pgfmathresult}%intensity percentage
+\ifnum\@pgfspectra@intmin=0% include all intensities
+\ifx\pgfspectra@ll\pgfspectra@charge%ALL lines
+\@for\@myarg:=#1\do{\advance\pgfspectra@counta by1}%count all entries
+        \ifpgfspectra@intensity%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \pgfmathparse{\pgfspectra@relintthresh+(1-\pgfspectra@relintthresh)*\pgfspectra@currentline@int/#2}\edef\pgfspectra@intensity@to@list{\pgfmathresult}%
+        \ifnum\pgfspectra@countb<\pgfspectra@counta\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list,}\else%
+        \pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\fi%
+        \advance\pgfspectra@countb by1%
+        }%END do
+        \else%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \ifnum\pgfspectra@countb<\pgfspectra@counta\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl,}\else%
+        \pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl}\fi%
+        \advance\pgfspectra@countb by1%
+        }%END do
+        \fi%
+\else% lines for one specific charge
+\@for\@myarg:=#1\do{\expandafter\pgfspectra@get@line@info\@myarg\ifx\pgfspectra@currentline@charge\pgfspectra@charge\advance\pgfspectra@counta by 1\fi}%count only if is the desired charge
+        \ifpgfspectra@intensity%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \pgfmathparse{\pgfspectra@relintthresh+(1-\pgfspectra@relintthresh)*\pgfspectra@currentline@int/#2}\edef\pgfspectra@intensity@to@list{\pgfmathresult}%
+        \ifx\pgfspectra@currentline@charge\pgfspectra@charge%add to list if is the desired charge
+            \ifnum\pgfspectra@countb<\pgfspectra@counta\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list,}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\fi%
+        \advance\pgfspectra@countb by 1%
+        \fi%
+        }%END do
+        \else%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \ifx\pgfspectra@currentline@charge\pgfspectra@charge%add to list if is the desired charge
+            \ifnum\pgfspectra@countb<\pgfspectra@counta\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl,}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl}\fi%
+        \advance\pgfspectra@countb by 1%
+        \fi%
+        }%END do
+        \fi%
+\fi%
+\else%\pgfspectra@intmin>0 & \pgfspectra@intmin<1
+\ifnum\@pgfspectra@intmin>100\else%
+\pgfmathparse{\pgfspectra@intmin*#2}\edef\pgfspectra@actual@int{\pgfmathresult}%
+\ifx\pgfspectra@ll\pgfspectra@charge%ALL lines
+\@for\@myarg:=#1\do{\advance\pgfspectra@counta by 1}%count all entries
+        \ifpgfspectra@intensity%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \pgfmathparse{notless(\pgfspectra@currentline@int,\pgfspectra@actual@int)}\relax\edef\pgfspectra@int@result{\pgfmathresult}%
+        \ifnum\pgfspectra@int@result=1%
+            \pgfmathparse{\pgfspectra@relintthresh+(1-\pgfspectra@relintthresh)*\pgfspectra@currentline@int/#2}\edef\pgfspectra@intensity@to@list{\pgfmathresult}%
+            \ifpgfspectra@first\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\fi%
+            \ifpgfspectra@first\pgfspectra@firstfalse\fi%
+        \fi%
+        \advance\pgfspectra@countb by 1%
+        }%END do
+        \else%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \pgfmathparse{notless(\pgfspectra@currentline@int,\pgfspectra@actual@int)}\relax\edef\pgfspectra@int@result{\pgfmathresult}%
+        \ifnum\pgfspectra@int@result=1%
+            \ifpgfspectra@first\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl}\fi%
+            \ifpgfspectra@first\pgfspectra@firstfalse\fi%
+        \fi%
+        \advance\pgfspectra@countb by 1%
+        }%END do
+        \fi%
+\else% lines for one specific charge
+\@for\@myarg:=#1\do{\expandafter\pgfspectra@get@line@info\@myarg\ifx\pgfspectra@currentline@charge\pgfspectra@charge\advance\pgfspectra@counta by 1\fi}%count only if is the desired charge
+        \ifpgfspectra@intensity%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \ifx\pgfspectra@currentline@charge\pgfspectra@charge%add to list if is the desired charge
+            \pgfmathparse{notless(\pgfspectra@currentline@int,\pgfspectra@actual@int)}\edef\pgfspectra@int@result{\pgfmathresult}%
+            \ifnum\pgfspectra@int@result=1%
+            \pgfmathparse{\pgfspectra@relintthresh+(1-\pgfspectra@relintthresh)*\pgfspectra@currentline@int/#2}\edef\pgfspectra@intensity@to@list{\pgfmathresult}%
+            \ifpgfspectra@first\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl/\pgfspectra@intensity@to@list}\fi%
+            \ifpgfspectra@first\pgfspectra@firstfalse\fi%
+        \fi%
+        \advance\pgfspectra@countb by 1%
+        \fi%
+        }%END do
+        \else%
+        \@for\@myarg:=#1%
+        \do{%
+        \expandafter\pgfspectra@get@line@info\@myarg%
+        \ifx\pgfspectra@currentline@charge\pgfspectra@charge%add to list if is the desired charge
+            \pgfmathparse{notless(\pgfspectra@currentline@int,\pgfspectra@actual@int)}\edef\pgfspectra@int@result{\pgfmathresult}%
+            \ifnum\pgfspectra@int@result=1%
+            \ifpgfspectra@first\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl}\else%
+            \pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl}\fi%
+            \ifpgfspectra@first\pgfspectra@firstfalse\fi%
+        \fi%
+        \advance\pgfspectra@countb by 1%
+        \fi%
+        }%END do
+        \fi%
+\fi%
+\fi%
+\fi%
+}%
+% add to list
+\def\pgfspectra@addt@list#1#2{\edef\pgfspectra@list@@{#1#2}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% internal utils
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\pgfspectra@utils@draw@axis{\ignorespaces%
+                % axis unit -> NEW v2.1.0
+                \pgfkeys{/pgf/number format/.cd,fixed,precision=\pgfspectra@axisunitprecision,set thousands separator={},assume math mode=true}%
+                \ifx\pgfspectra@axisunit\pgfspectra@axisunit@nm\relax%
+                    \def\pgfspectra@axisunit@scale{1}\def\pgfspectra@axisunit@addzeros{}%
+                    \ifpgfspectra@axisunitlabel\def\pgfspectra@axilabelsunit{$nm$}\fi%
+                \else\ifx\pgfspectra@axisunit\pgfspectra@axisunit@um\relax%
+                    \def\pgfspectra@axisunit@scale{1000}\def\pgfspectra@axisunit@addzeros{}\pgfkeys{/pgf/number format/.cd,fixed zerofill}%
+                    \ifpgfspectra@axisunitlabel\def\pgfspectra@axilabelsunit{$\mu m$}\fi%
+                \else\ifx\pgfspectra@axisunit\pgfspectra@axisunit@A\relax%
+                    \def\pgfspectra@axisunit@scale{1}\def\pgfspectra@axisunit@addzeros{0}% probably not the best solution to overcome the TeX dimension limit values (16384pt)... but works!
+                    \ifpgfspectra@axisunitlabel\edef\pgfspectra@axilabelsunit{\AA}\fi%
+                \fi\fi\fi%
+                \ifnum\pgfspectra@begin>\pgfspectra@end%
+                % New xshift={-2.5*\@pgfspectra@axis@height} to hold bigger numbers, e.g. 2500
+                \draw[draw=none,fill=\pgfspectra@axiscolor] ([xshift={2.5*\@pgfspectra@axis@height}]0,\pgfspectra@height+2.5pt) rectangle ([xshift={-2.5*\@pgfspectra@axis@height}]-\pgfspectra@width,-2.5*\@pgfspectra@axis@height);%
+                        % minor ticks -> NEW v2.0.0 -> improved in v3.0.0 -> the width of ticks is now dependent of \pgfspectra@linewidth
+                        \ifnum\pgfspectra@axisticks>0\relax%
+                        \pgfmathparse{\pgfspectra@end+\pgfspectra@axisstep/(\pgfspectra@axisticks+1)}\pgfmathparse{int(\pgfmathresult)}%
+                        \edef\@axis@list{\pgfspectra@end,\pgfmathresult,...,\pgfspectra@begin}%
+                        \foreach \x in \@axis@list%
+                        {%
+                        \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \draw[\pgfspectra@axisfontcolor!80!transparent,line width={.25*\pgfspectra@linewidth}] (\pgfspectra@currentx,-.375*\@pgfspectra@axis@height) -- ++(0,.375*\@pgfspectra@axis@height);%
+                        }%
+                        \fi%
+                \pgfmathparse{\pgfspectra@end+\pgfspectra@axisstep}\pgfmathparse{int(\pgfmathresult)}%
+                \edef\@axis@list{\pgfspectra@end,\pgfmathresult,...,\pgfspectra@begin}%
+                \foreach \x in \@axis@list%
+                {%
+                \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                \draw[\pgfspectra@axisfontcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,-.75*\@pgfspectra@axis@height) -- ++(0,.75*\@pgfspectra@axis@height);%
+                \pgfmathparse{\x/\pgfspectra@axisunit@scale}\edef\pgfspectra@xscaledvalue{\pgfmathresult}% NEW v2.1.0
+                \node[\pgfspectra@axisfontcolor,font=\pgfspectra@axisfont,above,inner sep=0pt] at (\pgfspectra@currentx,-2.25*\@pgfspectra@axis@height) {\pgfmathprintnumber{\pgfspectra@xscaledvalue}\pgfspectra@axisunit@addzeros};%
+                }%
+                \else%
+                \draw[draw=none,fill=\pgfspectra@axiscolor] ([xshift={-2.5*\@pgfspectra@axis@height}]0,\pgfspectra@height+2.5pt) rectangle ([xshift={2.5*\@pgfspectra@axis@height}]\pgfspectra@width,-2.5*\@pgfspectra@axis@height);%
+                        % minor ticks -> NEW v2.0.0
+                        \ifnum\pgfspectra@axisticks>0\relax%
+                        \pgfmathparse{\pgfspectra@begin+\pgfspectra@axisstep/(\pgfspectra@axisticks+1)}\pgfmathparse{int(\pgfmathresult)}%
+                        \edef\@axis@list{\pgfspectra@begin,\pgfmathresult,...,\pgfspectra@end}%
+                        \foreach \x in \@axis@list%
+                        {%
+                        \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \draw[\pgfspectra@axisfontcolor!80!transparent,line width={.25*\pgfspectra@linewidth}] (\pgfspectra@currentx,-.375*\@pgfspectra@axis@height) -- ++(0,.375*\@pgfspectra@axis@height);%
+                        }%
+                        \fi%
+                \pgfmathparse{\pgfspectra@begin+\pgfspectra@axisstep}\pgfmathparse{int(\pgfmathresult)}%
+                \edef\@axis@list{\pgfspectra@begin,\pgfmathresult,...,\pgfspectra@end}%
+                \foreach \x in \@axis@list%
+                {%
+                \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                \draw[\pgfspectra@axisfontcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,-.75*\@pgfspectra@axis@height) -- ++(0,.75*\@pgfspectra@axis@height);%
+                \pgfmathparse{\x/\pgfspectra@axisunit@scale}\edef\pgfspectra@xscaledvalue{\pgfmathresult}% NEW v2.1.0
+                \node[\pgfspectra@axisfontcolor,font=\pgfspectra@axisfont,above,inner sep=0pt] at (\pgfspectra@currentx,-2.25*\@pgfspectra@axis@height) {\pgfmathprintnumber{\pgfspectra@xscaledvalue}\pgfspectra@axisunit@addzeros};%
+                }%
+                \fi%
+                % axis label -> NEW v3.0.0
+                \ifpgfspectra@axisunitlabel%
+                    \edef\pgfspectra@testa{\pgfspectra@axislabeltxt}%
+                    \ifx\pgfspectra@testa\@empty\relax%
+                        \edef\pgfspectra@axislabeltxt{$\lambda\,($\pgfspectra@axilabelsunit$)$}%
+                    \fi%
+                    \edef\pgfspectra@testa{\pgfspectra@axislabelposition}%
+                    \edef\pgfspectra@testb{center}%
+                    \ifx\pgfspectra@testa\pgfspectra@testb\relax%
+                        \pgfmathparse{sign(\pgfspectra@end-\pgfspectra@begin)*0.5*\pgfspectra@width}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \edef\pgfspectra@currentpos{below}%
+                        \edef\pgfspectra@currentxshift{0pt}%
+                    \else\edef\pgfspectra@testb{right}%
+                    \ifx\pgfspectra@testa\pgfspectra@testb\relax%
+                         \pgfmathparse{sign(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@width}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                         \edef\pgfspectra@currentpos{below left}
+                         \pgfmathparse{2.5*\@pgfspectra@axis@height}\edef\pgfspectra@currentxshift{\pgfmathresult pt}%
+                    \else\edef\pgfspectra@testb{left}%
+                    \ifx\pgfspectra@testa\pgfspectra@testb\relax%
+                        \edef\pgfspectra@currentx{0pt}%
+                        \edef\pgfspectra@currentpos{below right}%
+                        \pgfmathparse{-2.5*\@pgfspectra@axis@height}\edef\pgfspectra@currentxshift{\pgfmathresult pt}%
+                    \else%
+                        \PackageError{pgf-spectra}{Unknown '\pgfspectra@testa' axis label position. Default (center) will be used...}{}%
+                        \pgfmathparse{sign(\pgfspectra@end-\pgfspectra@begin)*0.5*\pgfspectra@width}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \edef\pgfspectra@currentpos{below}%
+                        \edef\pgfspectra@currentxshift{0pt}%
+                    \fi\fi\fi%
+                    {\pgfspectra@axisfont\selectfont\pgfmathparse{ceil(4/3*height("()"))}\xdef\pgfspectra@axisfont@ht{\pgfmathresult pt}}%
+                    \fill[\pgfspectra@axiscolor] (-2.5*\@pgfspectra@axis@height,-2.5*\@pgfspectra@axis@height) rectangle %
+                    ++(\pgfspectra@width+5*\@pgfspectra@axis@height,-\pgfspectra@axisfont@ht-4pt);%
+                    \node[\pgfspectra@currentpos,\pgfspectra@axisfontcolor,font=\pgfspectra@axisfont,inner ysep=2pt,inner xsep=1pt] at ([xshift=\pgfspectra@currentxshift]\pgfspectra@currentx,-2.5*\@pgfspectra@axis@height) {\pgfspectra@axislabeltxt};%
+                \fi%
+}%
+\def\pgfspectra@utils@put@label{\ignorespaces%
+                \ifx\pgfspectra@elt@chemsym\undefined\def\pgfspectra@elt@chemsym{}\fi%
+                \pgfspectra@get@label@position%
+                \ifnum\pgfspectra@begin>\pgfspectra@end%
+                        \ifcase\pgfspectra@label@position%
+                        %west
+                            \ifpgfspectra@drawaxis%\ifpgfspectra@axislabel%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,left,minimum width=2em,align=right] at (-2.5*\@pgfspectra@axis@height-\pgfspectra@width,0.5*\pgfspectra@height-1.25*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,left,minimum width=2em,align=right] at (-\pgfspectra@width,0.5*\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%north west
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above right,inner xsep=0pt] at (-2.5*\@pgfspectra@axis@height-\pgfspectra@width,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above right,inner xsep=0pt] at (-\pgfspectra@width,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%north
+                        \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above] at (-0.5*\pgfspectra@width,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                        \or%north east
+                        \ifpgfspectra@drawaxis%
+                        \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above left,inner xsep=0pt] at (2.5*\@pgfspectra@axis@height,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                        \else%
+                        \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above left,inner xsep=0pt] at (0,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                        \fi
+                        \or%east
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,right] at (2.5*\@pgfspectra@axis@height,0.5*\pgfspectra@height-1.25*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,right] at (0,0.5*\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south east
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below left,inner xsep=0pt] at (2.5*\@pgfspectra@axis@height,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below left,inner xsep=0pt] at (0,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below] at (-0.5*\pgfspectra@width,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below] at (-0.5*\pgfspectra@width,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south west
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below right,inner xsep=0pt] at (-2.5*\@pgfspectra@axis@height-\pgfspectra@width,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below right,inner xsep=0pt] at (-\pgfspectra@width,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \fi%
+                \else%
+                        \ifcase\pgfspectra@label@position%
+                        %west
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,left,minimum width=2em,align=right] at (-2.5*\@pgfspectra@axis@height,0.5*\pgfspectra@height-1.25*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,left,minimum width=2em,align=right] at (0,0.5*\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%north west
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above right,inner xsep=0pt] at (-2.5*\@pgfspectra@axis@height,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above right,inner xsep=0pt] at (0,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%north
+                        \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above] at (0.5*\pgfspectra@width,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                        \or%north east
+                        \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above left,inner xsep=0pt] at (\pgfspectra@width+2.5*\@pgfspectra@axis@height,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,above left,inner xsep=0pt] at (\pgfspectra@width,\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%east
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,right] at ([xshift={2.5*\@pgfspectra@axis@height}]\pgfspectra@width,0.5*\pgfspectra@height-1.25*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,right] at (\pgfspectra@width,0.5*\pgfspectra@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south east
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below left,inner xsep=0pt] at (\pgfspectra@width+2.5*\@pgfspectra@axis@height,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below left,inner xsep=0pt] at (\pgfspectra@width,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below] at (0.5*\pgfspectra@width,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below] at (0.5*\pgfspectra@width,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \or%south west
+                            \ifpgfspectra@drawaxis%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below right,inner xsep=0pt] at (-2.5*\@pgfspectra@axis@height,-2.5*\@pgfspectra@axis@height) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \else%
+                            \node[\pgfspectra@labelfontcolor,font=\pgfspectra@labelfont,below right,inner xsep=0pt] at (0,0) {\pgfspectra@labelbtext\pgfspectra@elt@chemsym\pgfspectra@labelatext};%
+                            \fi%
+                        \fi%
+                \fi%
+}%
+\def\pgfspectra@utils@drawbackground#1{\ignorespaces% NEW v2.0.0 - in this version draws from UV, VIS to IV -> replaces \pgfspectra@utils@visiblespectrum#1
+% reprocess visible background (only visible) -> needed because of the override in keys
+    \pgfspectra@counta=0%
+    \pgfspectra@countb=-1%
+    \@for\@myarg:=\pgfspectra@visible@list\do{%
+            \ifx\pgfspectra@back\@myarg\pgfspectra@countb=\pgfspectra@counta\fi%
+            \advance\pgfspectra@counta by1%
+            }%
+        \ifnum\pgfspectra@countb>-1\let\pgfspectra@back\pgfspectra@visible\fi%
+            \ifpgfspectra@usevisibleshade\relax% NEW v2.1.0
+                \pgfmathparse{int(#1*100)}\edef\pgfspectra@bright{\pgfmathresult}%
+                \ifnum\pgfspectra@begin>\pgfspectra@end% 0
+                    \ifnum\pgfspectra@end<380\relax% 1
+                        \pgfmathparse{(\pgfspectra@end-380)*\pgfspectra@xscale}\edef\pgfspectra@pointA{\pgfmathresult pt}%
+                        \ifnum\pgfspectra@begin>780\relax% 2
+                            \pgfmathparse{(\pgfspectra@end-780)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (-\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(380,780){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade,shading angle=180] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(380,\pgfspectra@begin){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade,shading angle=180] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \else% 1
+                        \ifnum\pgfspectra@begin>780\relax% 2
+                            \pgfmathparse{(\pgfspectra@end-780)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (-\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(\pgfspectra@end,780){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade,shading angle=180] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(\pgfspectra@end,\pgfspectra@begin){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade,shading angle=180] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \fi% 1
+                \else% 0
+                    \ifnum\pgfspectra@begin<380\relax% 1
+                        \pgfmathparse{(380-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointA{\pgfmathresult pt}%
+                        \ifnum\pgfspectra@end>780\relax% 2
+                            \pgfmathparse{(780-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(380,780){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(380,\pgfspectra@end){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \else% 1
+                        \ifnum\pgfspectra@end>780\relax% 2
+                            \pgfmathparse{(780-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(\pgfspectra@begin,780){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \pgfspectrashade(\pgfspectra@begin,\pgfspectra@end){pgfspectra@visibleshade}%
+                                    \fill[shading=pgfspectra@visibleshade] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \fi% 1
+                \fi%0
+            \else% pgfspectra@usevisibleshade (don't use shading, draw line by line...)
+                \pgfmathparse{int(#1*100)}\edef\pgfspectra@bright{\pgfmathresult}%
+                \pgfmathparse{1.4*\pgfspectra@xscale+.09*\linewidth/\pgfspectra@width}\edef\@pgfspectra@linewidth{\pgfmathresult}% NEW v2.0.0 {\pgfspectra@xscale} -> {1.4*\pgfspectra@xscale+.09*\linewidth/\pgfspectra@width}
+                \ifnum\pgfspectra@begin>\pgfspectra@end% 0
+                    \ifnum\pgfspectra@end<380\relax% 1
+                        \pgfmathparse{(\pgfspectra@end-380)*\pgfspectra@xscale}\edef\pgfspectra@pointA{\pgfmathresult pt}%
+                        \ifnum\pgfspectra@begin>780\relax% 2
+                            \pgfmathparse{(\pgfspectra@end-780)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (-\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {780,...,380}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB+(780-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {\pgfspectra@begin,...,380}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB+(\pgfspectra@begin-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \else% 1
+                        \ifnum\pgfspectra@begin>780\relax% 2
+                            \pgfmathparse{(\pgfspectra@end-780)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (-\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {780,...,\pgfspectra@end}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB+(780-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {\pgfspectra@begin,...,\pgfspectra@end}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB+(\pgfspectra@begin-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \fi% 1
+                \else% 0
+                    \ifnum\pgfspectra@begin<380\relax% 1
+                        \pgfmathparse{(380-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointA{\pgfmathresult pt}%
+                        \ifnum\pgfspectra@end>780\relax% 2
+                            \pgfmathparse{(780-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {380,...,780}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB-(780-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@UVcolor] (0,0) rectangle (\pgfspectra@pointA,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {\pgfspectra@end,...,380}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\pgfspectra@pointB-(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (\pgfspectra@pointA,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \else% 1
+                        \ifnum\pgfspectra@end>780\relax% 2
+                            \pgfmathparse{(780-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                            \draw[draw=none,fill=\pgfspectra@background@IRcolor] (\pgfspectra@pointB,0) rectangle (\pgfspectra@width,\pgfspectra@height);%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {\pgfspectra@begin,...,780}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \else% 2
+                            \pgfmathparse{(\pgfspectra@end-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@pointB{\pgfmathresult pt}%
+                                \ifx\pgfspectra@back\pgfspectra@visible% 3 visible background
+                                    \foreach \x in {\pgfspectra@begin,...,\pgfspectra@end}{%
+                                    \wlcolor{\x}%
+                                    \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}% CHANGED v2.1.0
+                                    \pgfmathparse{\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                                    \draw[wlcolor,line width=\@pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);}%
+                                \else% 3
+                                    \draw[draw=none,fill=\pgfspectra@back] (0,0) rectangle (\pgfspectra@pointB,\pgfspectra@height);%
+                                \fi% 3
+                        \fi% 2
+                    \fi% 1
+                \fi%0
+            \fi% pgfspectra@usevisibleshade
+}%
+\def\pgfspectra@utils@drawabsorptionlines{\ignorespaces%
+                \ifnum\pgfspectra@begin>\pgfspectra@end%
+                    \ifpgfspectra@intensity%
+                        \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x/\y in \pgfspectra@list@@%
+                        {%
+                        \pgfmathparse{notless(\x,\pgfspectra@end)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@begin)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \pgfmathparse{int(\y*100)}\edef\pgfspectra@black{\pgfmathresult}%
+                        \wlcolor{\x}%
+                        \colorlet{wlcolor}{black!\pgfspectra@black!pgfspectra@temp}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                    \else%
+                        \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x in \pgfspectra@list@@%
+                        {%
+                        \pgfmathparse{notless(\x,\pgfspectra@end)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@begin)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \wlcolor{\x}%
+                        \colorlet{wlcolor}{black!\pgfspectra@lineint!pgfspectra@temp}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                    \fi%
+                \else%
+                    \ifpgfspectra@intensity%
+                        \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x/\y in \pgfspectra@list@@%
+                        {%
+                        \pgfmathparse{notless(\x,\pgfspectra@begin)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@end)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \pgfmathparse{int(\y*100)}\edef\pgfspectra@black{\pgfmathresult}%
+                        \wlcolor{\x}%
+                        \colorlet{wlcolor}{black!\pgfspectra@black!pgfspectra@temp}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                    \else%
+                        \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x in \pgfspectra@list@@%
+                        {%
+                        \pgfmathparse{notless(\x,\pgfspectra@begin)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@end)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \wlcolor{\x}%
+                        \colorlet{wlcolor}{black!\pgfspectra@lineint!pgfspectra@temp}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                    \fi%
+                \fi%
+\ifpgfspectra@RSvalue% NEW v2.0.0
+\ifnum\pgfspectra@begin>\pgfspectra@end%
+\ifpgfspectra@drawaxis\pgfmathparse{-\pgfspectra@width-2.5*\@pgfspectra@axis@height}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}%
+\else\pgfmathparse{-\pgfspectra@width}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}\fi%
+\else%
+\ifpgfspectra@drawaxis\pgfmathparse{-2.5*\@pgfspectra@axis@height}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}%
+\else\edef\pgfspectra@redshiftinfo@x{0pt}\fi%
+\fi%
+\ifpgfspectra@drawaxis\pgfmathparse{-.75*\@pgfspectra@axis@height-1.3*\ht0-2pt}\edef\pgfspectra@redshiftinfo@y{\pgfmathresult pt}\else\edef\pgfspectra@redshiftinfo@y{0pt}\fi%
+\node[below right,inner xsep=0pt,font=\pgfspectra@axisfont] at (\pgfspectra@redshiftinfo@x,\pgfspectra@redshiftinfo@y) {\pgfspectra@redshiftinfo};%
+\fi% NEW v2.0.0
+}%
+\def\pgfspectra@utils@drawemissionlines{\ignorespaces%
+                \ifnum\pgfspectra@begin>\pgfspectra@end%
+                \ifpgfspectra@intensity%
+                    \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x/\y in \pgfspectra@list@@%
+                        {%
+                        \wlcolor{\x}%
+                        \pgfmathparse{notless(\x,\pgfspectra@end)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@begin)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \pgfmathparse{int(\y*100)}\edef\pgfspectra@black{\pgfmathresult}%
+                        \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@black!black}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                \else%
+                    \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x in \pgfspectra@list@@%
+                        {%
+                        \wlcolor{\x}%
+                        \pgfmathparse{notless(\x,\pgfspectra@end)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@begin)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\pgfspectra@end-\x)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@lineint!black}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                \fi%
+                \else%
+                \ifpgfspectra@intensity%
+                    \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x/\y in \pgfspectra@list@@%
+                        {%
+                        \wlcolor{\x}%
+                        \pgfmathparse{notless(\x,\pgfspectra@begin)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@end)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \pgfmathparse{int(\y*100)}\edef\pgfspectra@black{\pgfmathresult}%
+                        \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@black!black}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                \else%
+                    \ifpgfspectra@redshift\pgfspectra@utils@redshift\fi% NEW v2.0.0
+                        \foreach \x in \pgfspectra@list@@%
+                        {%
+                        \wlcolor{\x}%
+                        \pgfmathparse{notless(\x,\pgfspectra@begin)}\edef\pgfspectra@x@nl{\pgfmathresult}%
+                        \pgfmathparse{notgreater(\x,\pgfspectra@end)}\edef\pgfspectra@x@ng{\pgfmathresult}%
+                        \pgfmathparse{and(\pgfspectra@x@nl,\pgfspectra@x@ng)}\edef\pgfspectra@plot@point{\pgfmathresult}%
+                        \ifnum\pgfspectra@plot@point=1%
+                        \pgfmathparse{(\x-\pgfspectra@begin)*\pgfspectra@xscale}\edef\pgfspectra@currentx{\pgfmathresult pt}%
+                        \colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@lineint!black}%
+                        \draw[wlcolor,line width=\pgfspectra@linewidth] (\pgfspectra@currentx,0) -- ++(0,\pgfspectra@height);%
+                        \fi%
+                        }%
+                \fi%
+                \fi%
+\ifpgfspectra@RSvalue% NEW v2.0.0
+\ifnum\pgfspectra@begin>\pgfspectra@end%
+\ifpgfspectra@drawaxis\pgfmathparse{-\pgfspectra@width-2.5*\@pgfspectra@axis@height}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}%
+\else\pgfmathparse{-\pgfspectra@width}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}\fi%
+\else%
+\ifpgfspectra@drawaxis\pgfmathparse{-2.5*\@pgfspectra@axis@height}\edef\pgfspectra@redshiftinfo@x{\pgfmathresult pt}%
+\else\edef\pgfspectra@redshiftinfo@x{0pt}\fi%
+\fi%
+\ifpgfspectra@drawaxis\pgfmathparse{-.75*\@pgfspectra@axis@height-1.3*\ht0-2pt}\edef\pgfspectra@redshiftinfo@y{\pgfmathresult pt}\else\edef\pgfspectra@redshiftinfo@y{0pt}\fi%
+\node[below right,inner xsep=0pt,font=\pgfspectra@axisfont] at (\pgfspectra@redshiftinfo@x,\pgfspectra@redshiftinfo@y) {\pgfspectra@redshiftinfo};%
+\fi% NEW v2.0.0
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% return: integer with position (e.g. '0' for west, ... )
+\def\pgfspectra@get@label@position{\ignorespaces%
+\pgfspectra@countc=0%
+\@for\@mylabel:=\pgfspectra@label@position@list%
+            \do{%
+            \ifx\@mylabel\pgfspectra@labelposition\edef\pgfspectra@label@position{\the\pgfspectra@countc}\fi%
+            \advance\pgfspectra@countc by1%
+            }%
+}%
+% NEW v2.0.0 ----------------------
+% redshift: lambda(obs)=lambda(emit)*{(1+v/c*cos(theta))/sqrt(1-v^2/c^2)} ---> Relativistic Doppler
+% vbar-> v/c -> normalized velocity of the source (e.g. '0.9' for v=0.9c )
+% theta ->angle between the direction of relative motion of the source and the direction of emission in the observer's frame (zero angle is directly away from the observer)
+\def\pgfspectra@processredshiftkey#1{\ignorespaces%
+\pgfspectra@redshiftfalse%
+\edef\pgfspectra@redshiftkey@expand{#1}% to expand a value passed by a macro (not necessary if the user provided a number...)
+\expandafter\pgfspectra@redshiftkey@firstchar\pgfspectra@redshiftkey@expand\relax%
+\ifcat1\pgfspectra@@RedShift\relax%
+\pgfmathparse{1+#1}\relax%
+\edef\pgfspectra@UMMAISZ{\pgfmathresult}\pgfspectra@redshifttrue%
+\edef\pgfspectra@redshiftinfo{redshift: z=#1}%
+\edef\pgfspectra@write@redshiftinfo{redshift: z=#1}%
+\else%
+\edef\pgfspectra@redshiftkey@expand{#1}%
+\expandafter\pgfspectra@process@redshift\pgfspectra@redshiftkey@expand\relax%
+\fi%
+}%
+\def\pgfspectra@redshiftkey@firstchar#1#2\relax{\edef\pgfspectra@@RedShift{#1}}%
+\def\pgfspectra@process@redshift#1=#2/#3\relax{%
+\edef\pgfspectra@redshifttest{#1}%
+\ifx\pgfspectra@redshifttest\pgfspectra@redshift@D\relax%
+\pgfmathparse{(1+#2*cos(#3))/sqrt(1-#2*#2)}%
+\edef\pgfspectra@UMMAISZ{\pgfmathresult}\pgfspectra@redshifttrue%
+\pgfmathparse{#2*cos(#3))/sqrt(1-#2*#2)}%
+\edef\pgfspectra@redshiftinfo{Relativistic Doppler redshift: z=\pgfmathresult\ (\mbox{v\hskip.1ex=\hskip.1ex#2\hskip.1exc\hskip.5ex;\hskip.5ex\ensuremath{\theta}\hskip.1ex=\hskip.1ex#3\ensuremath{^\circ}})}%
+\edef\pgfspectra@write@space{ }%
+\edef\pgfspectra@write@redshiftinfo{Relativistic Doppler redshift: z=\pgfmathresult\pgfspectra@write@space(v=#2c ; theta=#3 degrees)}%
+\fi%
+}%
+% \pgfspectra@utils@redshift ---------------------------------------------------------------------
+% returns the wllist with the shift computed
+\def\pgfspectra@utils@redshift{\ignorespaces%
+    \let\wt@backlist@@\pgfspectra@list@@\relax%
+    \let\pgfspectra@list@@\@empty\relax%
+    \pgfspectra@firsttrue\relax%
+    \ifpgfspectra@intensity% list (lambda/intensity)
+        \foreach \x/\y in \wt@backlist@@{%
+            \pgfmathparse{\x*\pgfspectra@UMMAISZ}\edef\pgfspectra@currentline@wl{\pgfmathresult}%
+            \ifpgfspectra@first\global\pgfspectra@addt@list{\pgfspectra@list@@}{\pgfspectra@currentline@wl/\y}\else%
+                \global\pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl/\y}\fi%
+            \ifpgfspectra@first\global\pgfspectra@firstfalse\fi%
+        }%
+    \else% list (lambda)
+        \foreach \x in \wt@backlist@@{%
+            \pgfmathparse{\x*\pgfspectra@UMMAISZ}\edef\pgfspectra@currentline@wl{\pgfmathresult}%
+            \ifpgfspectra@first\global\pgfspectra@addt@list{}{\pgfspectra@currentline@wl}\else%
+                \global\pgfspectra@addt@list{\pgfspectra@list@@}{,\pgfspectra@currentline@wl}\fi%
+            \ifpgfspectra@first\global\pgfspectra@firstfalse\fi%
+        }%
+    \fi%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NEW v2.1.0 ---------------------->
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pgfspectrashade[type=<h|v>](start,end){name} ---> type: h-horizontal (default) | v-vertical
+\def\pgfspectrashade{\ignorespaces\@ifnextchar[\pgfspectra@pgfspectrashade{\pgfspectra@pgfspectrashade[h]}}%
+\def\pgfspectra@pgfspectrashade[#1](#2,#3)#4{\ignorespaces%
+\ifnum#2>#3\relax\PackageError{pgf-spectra}%
+{in \textbackslash pgfspectrashade the starting wavelength (#2) must be lesser then the finishing wavelength (#3)}%
+{Try typing the wavelengths in the correct order: \textbackslash pgfspectrashade(#3,#2)...}\else%
+\ifnum#3<381\relax\PackageError{pgf-spectra}{in \textbackslash pgfspectrashade the finishing wavelength (#3) must be at least 381...}%
+{Please type a finishing wavelength greater then 380...}\else%
+\ifnum#2<380\relax\def\pgfspectra@shade@begin{380}\else\pgfmathparse{int(#2)}\edef\pgfspectra@shade@begin{\pgfmathresult}\fi%
+\ifnum#3>780\relax\def\pgfspectra@shade@end{780}\else\pgfmathparse{int(#3)}\edef\pgfspectra@shade@end{\pgfmathresult}\fi%
+\pgfmathparse{(\pgfspectra@shade@end-\pgfspectra@shade@begin)/50}\edef\pgfspectra@shadecolor@step{\pgfmathresult}%
+%\foreach \n in {1,...,51}{%
+\@for\n:={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,%
+                21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,%
+                39,40,41,42,43,44,45,46,47,48,49,50,51}\do{%
+\pgfmathparse{\pgfspectra@shade@begin+(\n-1)*\pgfspectra@shadecolor@step}\edef\pgfspectra@currentwl{\pgfmathresult}%
+\wlcolor{\pgfspectra@currentwl}%
+\edef\pgfspectra@colorname{wlshcol\@Roman\n}\relax\colorlet{\pgfspectra@colorname}{wlcolor}%%
+}%
+\def\pgfspectra@test{#1}\def\pgfspectra@v{v}\def\pgfspectra@h{h}%
+\ifx\pgfspectra@test\pgfspectra@h\relax%
+% the horizontal pgfshading
+\pgfdeclarehorizontalshading{#4}{100bp}{color(0bp)=(wlshcolI); color(25bp)=(wlshcolI); color(26bp)=(wlshcolII); color(27bp)=(wlshcolIII); color(28bp)=(wlshcolIV); color(29bp)=(wlshcolV); color(30bp)=(wlshcolVI); color(31bp)=(wlshcolVII); color(32bp)=(wlshcolVIII); color(33bp)=(wlshcolIX); color(34bp)=(wlshcolX); color(35bp)=(wlshcolXI); color(36bp)=(wlshcolXII); color(37bp)=(wlshcolXIII); color(38bp)=(wlshcolXIV); color(39bp)=(wlshcolXV); color(40bp)=(wlshcolXVI); color(41bp)=(wlshcolXVII); color(42bp)=(wlshcolXVIII); color(43bp)=(wlshcolXIX); color(44bp)=(wlshcolXX); color(45bp)=(wlshcolXXI); color(46bp)=(wlshcolXXII); color(47bp)=(wlshcolXXIII); color(48bp)=(wlshcolXXIV); color(49bp)=(wlshcolXXV); color(50bp)=(wlshcolXXVI); color(51bp)=(wlshcolXXVII); color(52bp)=(wlshcolXXVIII); color(53bp)=(wlshcolXXIX); color(54bp)=(wlshcolXXX); color(55bp)=(wlshcolXXXI); color(56bp)=(wlshcolXXXII); color(57bp)=(wlshcolXXXIII); color(58bp)=(wlshcolXXXIV); color(59bp)=(wlshcolXXXV); color(60bp)=(wlshcolXXXVI); color(61bp)=(wlshcolXXXVII); color(62bp)=(wlshcolXXXVIII); color(63bp)=(wlshcolXXXIX); color(64bp)=(wlshcolXL); color(65bp)=(wlshcolXLI); color(66bp)=(wlshcolXLII); color(67bp)=(wlshcolXLIII); color(68bp)=(wlshcolXLIV); color(69bp)=(wlshcolXLV); color(70bp)=(wlshcolXLVI); color(71bp)=(wlshcolXLVII); color(72bp)=(wlshcolXLVIII); color(73bp)=(wlshcolXLIX); color(74bp)=(wlshcolL); color(75bp)=(wlshcolLI); color(100bp)=(wlshcolLI)}%
+\else\ifx\pgfspectra@test\pgfspectra@v\relax%
+% the vertical pgfshading
+\pgfdeclareverticalshading{#4}{100bp}{color(0bp)=(wlshcolI); color(25bp)=(wlshcolI); color(26bp)=(wlshcolII); color(27bp)=(wlshcolIII); color(28bp)=(wlshcolIV); color(29bp)=(wlshcolV); color(30bp)=(wlshcolVI); color(31bp)=(wlshcolVII); color(32bp)=(wlshcolVIII); color(33bp)=(wlshcolIX); color(34bp)=(wlshcolX); color(35bp)=(wlshcolXI); color(36bp)=(wlshcolXII); color(37bp)=(wlshcolXIII); color(38bp)=(wlshcolXIV); color(39bp)=(wlshcolXV); color(40bp)=(wlshcolXVI); color(41bp)=(wlshcolXVII); color(42bp)=(wlshcolXVIII); color(43bp)=(wlshcolXIX); color(44bp)=(wlshcolXX); color(45bp)=(wlshcolXXI); color(46bp)=(wlshcolXXII); color(47bp)=(wlshcolXXIII); color(48bp)=(wlshcolXXIV); color(49bp)=(wlshcolXXV); color(50bp)=(wlshcolXXVI); color(51bp)=(wlshcolXXVII); color(52bp)=(wlshcolXXVIII); color(53bp)=(wlshcolXXIX); color(54bp)=(wlshcolXXX); color(55bp)=(wlshcolXXXI); color(56bp)=(wlshcolXXXII); color(57bp)=(wlshcolXXXIII); color(58bp)=(wlshcolXXXIV); color(59bp)=(wlshcolXXXV); color(60bp)=(wlshcolXXXVI); color(61bp)=(wlshcolXXXVII); color(62bp)=(wlshcolXXXVIII); color(63bp)=(wlshcolXXXIX); color(64bp)=(wlshcolXL); color(65bp)=(wlshcolXLI); color(66bp)=(wlshcolXLII); color(67bp)=(wlshcolXLIII); color(68bp)=(wlshcolXLIV); color(69bp)=(wlshcolXLV); color(70bp)=(wlshcolXLVI); color(71bp)=(wlshcolXLVII); color(72bp)=(wlshcolXLVIII); color(73bp)=(wlshcolXLIX); color(74bp)=(wlshcolL); color(75bp)=(wlshcolLI); color(100bp)=(wlshcolLI)}%
+\fi\fi%
+\fi\fi%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% nm2rgb convert nanometre wavelength to rgb
+% (380 <= Lambda <= 780 ) -> r,g,b on stack
+%
+% BASED on FORTRAN Code
+% RGB VALUES FOR VISIBLE WAVELENGTHS by Dan Bruton (astro@tamu.edu)
+% This program can be found at
+% http://www.physics.sfasu.edu/astro/color.html
+% and was last updated on February 20, 1996.
+% The spectrum is generated using approximate RGB values for visible
+% wavelengths between 380 nm and 780 nm.
+% The red, green and blue values (RGB) are
+% assumed to vary linearly with wavelength (for GAMMA=1).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newdimen\pgfspectrawl%wavelength
+\newdimen\pgfspectra@i%intensity
+\newdimen\@pgfspectra@gamma%gamma
+\newdimen\wlc@lorr%red (0. - 1)
+\newdimen\wlc@lorg%green (0. - 1)
+\newdimen\wlc@lorb%blue (0. - 1) % wavelength to rgb values
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \wlcolor{wavelength}
+\def\wlcolor#1{\ignorespaces%
+\ifx\pgfspectra@bright\undefined\relax\def\pgfspectra@bright{100}\fi% NEW v2.1.0
+\pgfspectrawl=#1pt%
+\@pgfspectra@gamma=\pgfspectra@gamma pt%
+% compute the rgb components
+\ifdim\pgfspectrawl<10pt\relax\PackageWarning{pgf-spectra}{(#1nm) wavelength out of range ignored. The wavelength must be greater or equal to 10nm (EUV)...}\else% NEW v2.0.0
+\ifdim\pgfspectrawl<379.99999pt\relax\else%% NEW v2.0.0
+\ifdim\pgfspectrawl<440pt\wlc@lorr=440pt\advance\wlc@lorr by-\pgfspectrawl\divide\wlc@lorr by60\wlc@lorg=0pt\wlc@lorb=1pt\else%
+\ifdim\pgfspectrawl<490pt\wlc@lorr=0pt\wlc@lorg=\pgfspectrawl\advance\wlc@lorg by-440pt\divide\wlc@lorg by50\wlc@lorb=1pt\else%
+\ifdim\pgfspectrawl<510pt\wlc@lorr=0pt\wlc@lorg=1pt\wlc@lorb=510pt\advance\wlc@lorb by-\pgfspectrawl\divide\wlc@lorb by20\else%
+\ifdim\pgfspectrawl<580pt\wlc@lorr=\pgfspectrawl\advance\wlc@lorr by-510pt\divide\wlc@lorr by70\wlc@lorg=1pt\wlc@lorb=0pt\else%
+\ifdim\pgfspectrawl<645pt\wlc@lorr=1pt\wlc@lorg=645pt\advance\wlc@lorg by-\pgfspectrawl\divide\wlc@lorg by65\wlc@lorb=0pt\else%
+\ifdim\pgfspectrawl<780.00001pt\wlc@lorr=1pt\wlc@lorg=0pt\wlc@lorb=0pt\else%
+\ifdim\pgfspectrawl>4000pt\relax\PackageWarning{pgf-spectra}{invalid wavelength (#1nm). The wavelength must be lesser or equal to 4000nm (NIR)...}% NEW v2.0.0
+\relax%
+\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+% intensity correction at vision limits
+\ifdim\pgfspectrawl>700pt\ifdim\pgfspectrawl<780.00001pt\pgfspectra@i=780pt\advance\pgfspectra@i by-\pgfspectrawl\divide\pgfspectra@i by80\multiply\pgfspectra@i by7\advance\pgfspectra@i by3pt\divide\pgfspectra@i by10\fi\else%  NEW
+\ifdim\pgfspectrawl<420pt\ifdim\pgfspectrawl>379.99999pt\pgfspectra@i=\pgfspectrawl\advance\pgfspectra@i by-380pt\divide\pgfspectra@i by40\multiply\pgfspectra@i by7\advance\pgfspectra@i by3pt\divide\pgfspectra@i by10\fi\else%
+\pgfspectra@i=1pt%
+\fi\fi%
+%apply intensity at vision limits correction and  gamma
+\ifdim\pgfspectrawl<380pt\colorlet{pgfspectra@temp}{\pgfspectra@UVcolor}\else\ifdim\pgfspectrawl>780pt\colorlet{pgfspectra@temp}{\pgfspectra@IRcolor}\else% NEW v2.0.0
+\pgfmathparse{\wlc@lorr*\pgfspectra@i^\@pgfspectra@gamma}\edef\pgfspectra@red{\pgfmathresult}%
+\pgfmathparse{\wlc@lorg*\pgfspectra@i^\@pgfspectra@gamma}\edef\pgfspectra@green{\pgfmathresult}%
+\pgfmathparse{\wlc@lorb*\pgfspectra@i^\@pgfspectra@gamma}\edef\pgfspectra@blue{\pgfmathresult}%
+\definecolor{pgfspectra@temp}{rgb}{\pgfspectra@red,\pgfspectra@green,\pgfspectra@blue}%
+\fi\fi% NEW v2.0.0
+\ifpgfspectra@usevisibleshade\relax% NEW v2.1.0
+\colorlet{wlcolor}{pgfspectra@temp!\pgfspectra@bright!\pgfspectra@backvisible}%
+\else%
+\colorlet{wlcolor}{pgfspectra@temp}%
+\fi%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\pgfspectra@elt@search#1#2#3#4#5#6#7{\ignorespaces%
+% #1 Chemical Symbol, entered by USER
+% #2 Chemical Symbol to compare to, e.g. Na
+% #3 Emission Lines Data (or error message)
+% #4 Imax@ALL (changed in v2.2.0)
+% #5 Imax@UV (NEW v2.2.0)
+% #6 Imax@VIS (NEW v2.2.0)
+% #7 Imax@IR (NEW v2.2.0)
+\ifpgfspectra@datanotfound\relax%
+\edef\pgfspectra@CS@user{#1}\edef\pgfspectra@CS@comp{#2}\relax%
+\ifx\pgfspectra@CS@user\pgfspectra@CS@comp\relax%
+\global\pgfspectra@datanotfoundfalse\relax%
+\def\pgfspectra@elt@chemsym{#2}%  set chemical symbol
+\def\pgfspectra@elt@elemdata{#3}%  set element lines data
+\def\pgfspectra@elt@Imax@ALL{#4}%  set element Imax: ALL range
+\def\pgfspectra@elt@Imax@UV{#5}%  set element Imax: UV range
+\def\pgfspectra@elt@Imax@VIS{#6}%  set element Imax: VIS range
+\def\pgfspectra@elt@Imax@IR{#7}%  set element Imax: IR range
+\fi%
+\fi%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NEW v2.2.0
+% \pgfspectra@setmaxin{UV or VIS or IR or ALL} -> OUTPUT: \pgfspectra@elt@Imax
+\def\pgfspectra@setmaxint#1{\ignorespaces%
+\edef\pgfspectra@qALL{all}\edef\pgfspectra@qO{0}\edef\pgfspectra@qI{1}\edef\pgfspectra@qII{2}\edef\pgfspectra@qIII{3}\edef\pgfspectra@qIV{4}%
+\ifnum\pgfspectra@DATASET=0\relax% NIST
+    \ifx\pgfspectra@charge\pgfspectra@qO\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qO\endcsname}%
+    \else\ifx\pgfspectra@charge\pgfspectra@qI\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qI\endcsname}%
+    \else%
+        \edef\pgfspectra@elt@Imax{\csname int#1qALL\endcsname}%
+    \fi\fi%
+\else% LSE
+    \ifx\pgfspectra@charge\pgfspectra@qO\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qO\endcsname}%
+    \else\ifx\pgfspectra@charge\pgfspectra@qI\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qI\endcsname}%
+    \else\ifx\pgfspectra@charge\pgfspectra@qII\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qII\endcsname}%
+    \else\ifx\pgfspectra@charge\pgfspectra@qIII\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qIII\endcsname}%
+    \else\ifx\pgfspectra@charge\pgfspectra@qIV\relax%
+        \edef\pgfspectra@elt@Imax{\csname int#1qIV\endcsname}%
+    \else%
+        \edef\pgfspectra@elt@Imax{\csname int#1qALL\endcsname}%
+    \fi\fi\fi\fi\fi%
+\fi%
+}%
+% NEW v2.2.0
+%USAGE \expandafter\pgfspectra@getmaxint#1x#2x#3x#4x#5x#6x#7x#8\relax
+\def\pgfspectra@getmaxint#1x#2x#3x#4x#5x#6x#7x#8\relax{%
+\expandafter\edef\csname int#1qALL\endcsname{#2}% all charges
+\expandafter\edef\csname int#1qO\endcsname{#3}% charge 0 (neutral atom)
+\expandafter\edef\csname int#1qI\endcsname{#4}% charge +1
+\expandafter\edef\csname int#1qII\endcsname{#5}% charge +2
+\expandafter\edef\csname int#1qIII\endcsname{#6}% charge +3
+\expandafter\edef\csname int#1qIV\endcsname{#7}% charge +4
+%\expandafter\edef\csname int#1qU\endcsname{#8}% charge Unknown
+}%
+\endinput

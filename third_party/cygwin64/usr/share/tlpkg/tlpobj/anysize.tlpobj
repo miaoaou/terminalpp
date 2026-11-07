@@ -1,0 +1,14 @@
+name anysize
+category Package
+revision 15878
+shortdesc A simple package to set up document margins
+relocated 1
+longdesc This package is considered obsolete; alternatives are the
+longdesc typearea package from the koma-script bundle, or the geometry
+longdesc package.
+runfiles size=1
+ RELOC/tex/latex/anysize/anysize.sty
+catalogue-ctan /macros/latex/contrib/anysize
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics geometry

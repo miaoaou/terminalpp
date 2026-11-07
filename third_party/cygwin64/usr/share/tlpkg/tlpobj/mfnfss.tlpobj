@@ -1,0 +1,25 @@
+name mfnfss
+category Package
+revision 46036
+shortdesc Packages to typeset oldgerman and pandora fonts in LaTeX
+relocated 1
+longdesc This bundle contains two packages: - oldgerm, a package to
+longdesc typeset with old german fonts designed by Yannis Haralambous. -
+longdesc pandora, a package to typeset with Pandora fonts designed by
+longdesc Neena Billawala. Note that support for the Pandora fonts is
+longdesc also available via the pandora-latex package.
+runfiles size=8
+ RELOC/tex/latex/mfnfss/oldgerm.sty
+ RELOC/tex/latex/mfnfss/ot1panr.fd
+ RELOC/tex/latex/mfnfss/ot1pss.fd
+ RELOC/tex/latex/mfnfss/pandora.sty
+ RELOC/tex/latex/mfnfss/uyfrak.fd
+ RELOC/tex/latex/mfnfss/uygoth.fd
+ RELOC/tex/latex/mfnfss/uyinit.fd
+ RELOC/tex/latex/mfnfss/uyswab.fd
+catalogue-contact-bugs https://github.com/FrankMittelbach/historical-fmitex/issues
+catalogue-contact-repository https://github.com/FrankMittelbach/historical-fmitex/tree/master/mfnfss
+catalogue-ctan /macros/latex/contrib/mfnfss
+catalogue-date 2017-12-10 23:04:16 +0100
+catalogue-license lppl
+catalogue-topics font-supp

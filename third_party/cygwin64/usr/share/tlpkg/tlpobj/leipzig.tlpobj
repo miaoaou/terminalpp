@@ -1,0 +1,20 @@
+name leipzig
+category Package
+revision 52450
+shortdesc Typeset and index linguistic gloss abbreviations
+relocated 1
+longdesc The leipzig package provides a set of macros for standard
+longdesc glossing abbreviations, with options to create new ones. They
+longdesc are mnemonic (e.g. \Acc{} for accusative, abbreviated acc).
+longdesc These abbre can be used alone or on top of the glossaries
+longdesc package for easy indexing and glossary printing.
+runfiles size=7
+ RELOC/makeindex/leipzig/leipzig.ist
+ RELOC/tex/latex/leipzig/leipzig.sty
+ RELOC/tex/latex/leipzig/leipzig.tex
+catalogue-contact-repository https://github.com/natalieweber/leipzig
+catalogue-ctan /macros/latex/contrib/leipzig
+catalogue-date 2019-10-18 21:58:43 +0200
+catalogue-license lppl1.3
+catalogue-topics linguistic
+catalogue-version 2.3

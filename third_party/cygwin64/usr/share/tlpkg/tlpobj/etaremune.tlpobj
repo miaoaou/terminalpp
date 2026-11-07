@@ -1,0 +1,17 @@
+name etaremune
+category Package
+revision 15878
+shortdesc Reverse-counting enumerate environment
+relocated 1
+longdesc The package implements the etaremune environment which is an
+longdesc enumerate environment in which the labels decrease instead of
+longdesc increasing. The package is noticeably more efficient than the
+longdesc revnum package, which uses painfully many counters.
+runfiles size=1
+ RELOC/tex/latex/etaremune/etaremune.sty
+catalogue-also revnum
+catalogue-ctan /macros/latex/contrib/etaremune
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics list list-enum
+catalogue-version 1.2

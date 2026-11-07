@@ -1,0 +1,8 @@
+name fontools.x86_64-cygwin
+category Package
+revision 33557
+shortdesc x86_64-cygwin files of fontools
+binfiles arch=x86_64-cygwin size=3
+ bin/x86_64-cygwin/afm2afm
+ bin/x86_64-cygwin/autoinst
+ bin/x86_64-cygwin/ot2kpx

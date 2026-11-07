@@ -1,0 +1,25 @@
+name bitelist
+category Package
+revision 25779
+shortdesc Split list, in TeX's mouth
+relocated 1
+longdesc The package provides commands for "splitting" a token list at
+longdesc the first occurrence of another (specified) token list. I.e.,
+longdesc for given token lists s, t return b and the shortest a, such
+longdesc that t = a s b. The package's mechanism differs from those of
+longdesc packages providing similar features, in the following ways: the
+longdesc method uses TeX's mechanism of reading delimited macro
+longdesc parameters; splitting macros work by pure expansion, without
+longdesc assignments; the operation is carried out in a single macro
+longdesc call. A variant of the operation is provided, that retains
+longdesc outer braces.
+runfiles size=4
+ RELOC/tex/generic/bitelist/bitedemo.tex
+ RELOC/tex/generic/bitelist/bitelist.sty
+catalogue-also datatool stringstrings ted texapi xstring
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/generic/bitelist
+catalogue-date 2017-05-05 20:23:26 +0200
+catalogue-license lppl1.3
+catalogue-topics text-manip macro-supp
+catalogue-version 0.1

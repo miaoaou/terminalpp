@@ -1,0 +1,18 @@
+name datetime2-polish
+category Package
+revision 48456
+shortdesc Polish language module for the datetime2 package
+relocated 1
+longdesc This module provides the "polish" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-polish/datetime2-polish-ascii.ldf
+ RELOC/tex/latex/datetime2-polish/datetime2-polish-utf8.ldf
+ RELOC/tex/latex/datetime2-polish/datetime2-polish.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-polish
+catalogue-date 2018-08-21 21:59:42 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

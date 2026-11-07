@@ -1,0 +1,23 @@
+name gensymb
+category Package
+revision 64740
+shortdesc Generic symbols for both text and math mode
+relocated 1
+longdesc Provides generic commands \degree, \celsius, \perthousand,
+longdesc \micro and \ohm which work both in text and maths mode. Various
+longdesc means are provided to fake the symbols or take them from
+longdesc particular symbol fonts, if they are not available in the
+longdesc default fonts used in the document. This should be perfectly
+longdesc transparent at user level, so that one can apply the same
+longdesc notation for units of measurement in text and math mode and
+longdesc with arbitrary typefaces. Note that the package has been
+longdesc designed to work in conjunction with units.sty. This package
+longdesc used to be part of the was bundle, but has now become a package
+longdesc in its own right.
+runfiles size=2
+ RELOC/tex/latex/gensymb/gensymb.sty
+catalogue-contact-repository https://gitlab.com/kjhtex/gensymb
+catalogue-ctan /macros/latex/contrib/gensymb
+catalogue-license lppl1.3
+catalogue-topics maths text-symbol
+catalogue-version 1.0.2

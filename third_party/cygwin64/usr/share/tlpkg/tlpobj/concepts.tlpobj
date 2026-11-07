@@ -1,0 +1,22 @@
+name concepts
+category Package
+revision 29020
+shortdesc Keeping track of formal 'concepts' for a particular field
+relocated 1
+longdesc The package helps to keep track of formal 'concepts' for a
+longdesc specific field or document. This is particularly useful for
+longdesc scientific papers (for example, in physics, mathematics or
+longdesc computer science), which may introduce several concepts (with
+longdesc their own symbols). The package's commands allow the user to
+longdesc define a concept (typically, near its first use), and will
+longdesc ensure consistent use throughout the document. The package
+longdesc depends on several other packages; while these are fairly
+longdesc common packages, the user should check the package's README
+longdesc file for the complete list.
+runfiles size=7
+ RELOC/tex/latex/concepts/concepts.sty
+catalogue-ctan /macros/latex/contrib/concepts
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics editorial-consistency
+catalogue-version 0.0.5-r1

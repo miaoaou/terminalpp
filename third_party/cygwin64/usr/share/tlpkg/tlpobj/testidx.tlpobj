@@ -1,0 +1,34 @@
+name testidx
+category Package
+revision 60966
+shortdesc Dummy text for testing index styles and indexing applications
+relocated 1
+longdesc This is a LaTeX package that provides a command to produce
+longdesc dummy text interspersed with \index commands to test an index
+longdesc style or indexing application. The dummy text is mostly in
+longdesc English, but includes extended Latin characters provided either
+longdesc through LaTeX accent commands or directly with UTF-8
+longdesc characters, depending on the setup, to allow for testing
+longdesc extended Latin alphabets. The supplementary package
+longdesc testidx-glossaries.sty uses the indexing interface provided by
+longdesc the glossaries package.
+runfiles size=90
+ RELOC/bibtex/bib/testidx/testidx-glossaries-diglyphs-utf8.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-markers.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-mathsym.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-nodiglyphs-utf8.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-nodiglyphs.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-numbers.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-samples-ascii.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-samples-utf8.bib
+ RELOC/bibtex/bib/testidx/testidx-glossaries-samples.bib
+ RELOC/tex/latex/testidx/testidx-glossaries-diglyphs.tex
+ RELOC/tex/latex/testidx/testidx-glossaries-nodiglyphs.tex
+ RELOC/tex/latex/testidx/testidx-glossaries-samples.tex
+ RELOC/tex/latex/testidx/testidx-glossaries.sty
+ RELOC/tex/latex/testidx/testidx.sty
+catalogue-also blindtext
+catalogue-ctan /macros/latex/contrib/testidx
+catalogue-license lppl1.3
+catalogue-topics index dummy-gen
+catalogue-version 1.2

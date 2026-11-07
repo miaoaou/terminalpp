@@ -1,0 +1,45 @@
+name webquiz
+category Package
+revision 58808
+shortdesc Write interactive web based quizzes
+longdesc WebQuiz makes it possible to use LaTeX to write interactive web
+longdesc based quizzes. The quizzes are first written in LaTeX and then
+longdesc converted into HTML files using WebQuiz, which is written in
+longdesc Python3. The conversion from LaTeX to HTML is done behind the
+longdesc scenes using TeX4ht.
+depend webquiz.ARCH
+runfiles size=76
+ texmf-dist/scripts/webquiz/CHANGES.rst
+ texmf-dist/scripts/webquiz/LICENCE
+ texmf-dist/scripts/webquiz/README-scripts
+ texmf-dist/scripts/webquiz/webquiz
+ texmf-dist/scripts/webquiz/webquiz.bat
+ texmf-dist/scripts/webquiz/webquiz.py
+ texmf-dist/scripts/webquiz/webquiz_layout.py
+ texmf-dist/scripts/webquiz/webquiz_makequiz.py
+ texmf-dist/scripts/webquiz/webquiz_templates.py
+ texmf-dist/scripts/webquiz/webquiz_util.py
+ texmf-dist/scripts/webquiz/webquiz_xml.py
+ texmf-dist/tex/latex/webquiz/webquiz-czech.lang
+ texmf-dist/tex/latex/webquiz/webquiz-doc.code.tex
+ texmf-dist/tex/latex/webquiz/webquiz-english.lang
+ texmf-dist/tex/latex/webquiz/webquiz-french.lang
+ texmf-dist/tex/latex/webquiz/webquiz-german.lang
+ texmf-dist/tex/latex/webquiz/webquiz-greek.lang
+ texmf-dist/tex/latex/webquiz/webquiz-ini.code.tex
+ texmf-dist/tex/latex/webquiz/webquiz-italian.lang
+ texmf-dist/tex/latex/webquiz/webquiz-japanese.lang
+ texmf-dist/tex/latex/webquiz/webquiz-mandarin.lang
+ texmf-dist/tex/latex/webquiz/webquiz-russian.lang
+ texmf-dist/tex/latex/webquiz/webquiz-spanish.lang
+ texmf-dist/tex/latex/webquiz/webquiz-swedish.lang
+ texmf-dist/tex/latex/webquiz/webquiz.cfg
+ texmf-dist/tex/latex/webquiz/webquiz.cls
+ texmf-dist/tex/latex/webquiz/webquiz.ini
+catalogue-also tex4ht
+catalogue-contact-bugs https://github.com/AndrewAtLarge/WebQuiz/issues
+catalogue-contact-repository https://github.com/AndrewAtLarge/WebQuiz
+catalogue-ctan /macros/latex/contrib/webquiz
+catalogue-license gpl3+
+catalogue-topics exam cvt-html
+catalogue-version 5.2

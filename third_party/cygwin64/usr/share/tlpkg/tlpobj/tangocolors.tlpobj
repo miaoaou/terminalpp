@@ -1,0 +1,19 @@
+name tangocolors
+category Package
+revision 66733
+shortdesc Use colors from the Tango color palette
+relocated 1
+longdesc The Tango color palette defines some color names and their RGB
+longdesc codes. This LaTeX macro package implements these color names,
+longdesc so one can easily access these colors by their names. The
+longdesc package relies on the xcolor package, so please refer to the
+longdesc documentation to that package to learn how to access the
+longdesc defined colors.
+runfiles size=1
+ RELOC/tex/latex/tangocolors/tangocolors.sty
+catalogue-contact-bugs https://github.com/dgsiegel/latex-tangocolors/issues
+catalogue-contact-home https://github.com/dgsiegel/latex-tangocolors
+catalogue-ctan /macros/latex/contrib/tangocolors
+catalogue-license lppl1.3 gpl
+catalogue-topics colour
+catalogue-version 0.3

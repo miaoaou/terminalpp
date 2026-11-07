@@ -1,0 +1,24 @@
+name etoc
+category Package
+revision 69343
+shortdesc Completely customisable TOCs
+relocated 1
+longdesc With etoc loaded, \tableofcontents can be used multiple times,
+longdesc and an added command \localtableofcontents allows to typeset
+longdesc "local" tables of contents, i.e. TOCs having their scope
+longdesc limited to the last sectioning command encountered. Since
+longdesc release 1.2, also \locallistoffigures and \locallistoftables
+longdesc are available. Loading etoc per itself does not modify the
+longdesc "contents lines" inherited from the class default or changed
+longdesc via other packages. But full usage of the package allows
+longdesc spectacular effects such as displaying TOCs as trees or mind
+longdesc maps.
+runfiles size=19
+ RELOC/tex/latex/etoc/etoc.sty
+catalogue-also titletoc tocbasic
+catalogue-contact-bugs https://github.com/jfbu/etoc/issues
+catalogue-contact-repository https://github.com/jfbu/etoc
+catalogue-ctan /macros/latex/contrib/etoc
+catalogue-license lppl1.3c
+catalogue-topics toc-etc etex
+catalogue-version 1.2d

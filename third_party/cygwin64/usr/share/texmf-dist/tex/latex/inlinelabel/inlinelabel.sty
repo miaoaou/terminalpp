@@ -1,0 +1,102 @@
+%%
+%% inlinelabel.sty
+%%
+%% Copyright (C) 2022 Yukoh KUSAKABE (screen-name)
+%%   https://www.metaphysica.info/
+%%   https://twitter.com/metaphysicainfo
+%%
+%% This package released under
+%% [the MIT license](https://ctan.org/license/mit).
+%%
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{inlinelabel}[2022/07/08 v1.2.1]
+%
+% When you meet ''Package pxufont Error: You must load this package
+% after 'otf'.'', move \usepackage{otf} to a forward row.
+%
+%% \if@inlinelabel@nospace
+\newif\if@inlinelabel@nospace
+\@inlinelabel@nospacefalse
+%
+%% [nospace]
+\DeclareOption{nospace}{\@inlinelabel@nospacetrue}
+%
+%% \if@inlinelabel@circled
+\newif\if@inlinelabel@circled
+\@inlinelabel@circledfalse
+%
+%% [circled]
+\DeclareOption{circled}{\@inlinelabel@circledtrue}
+%
+%% \if@inlinelabel@luacircled
+\newif\if@inlinelabel@luacircled
+\@inlinelabel@luacircledfalse
+%
+%% [luacircled]
+\DeclareOption{luacircled}{\@inlinelabel@luacircledtrue}
+%
+%
+\ExecuteOptions{}
+\ProcessOptions\relax
+%
+% for \tagform@ \maketag@@@
+\RequirePackage{amsmath}
+%
+%% When [circled]
+\if@inlinelabel@circled
+%
+% for \ajMaru
+\RequirePackage{otf}
+% for \getrefnumber
+\RequirePackage{refcount}
+%
+% renew tagform
+\def\tagform@#1{\maketag@@@{\ldots\ignorespaces\ajMaru{#1}\unskip\@@italiccorr}}%
+%
+%% \circledref{<label>}
+%% \equationref{<label>}
+\DeclareRobustCommand{\circledref}[1]{\mbox{\ajMaru{\getrefnumber{#1}}}}
+\DeclareRobustCommand{\equationref}[1]{\mbox{\ajMaru{\getrefnumber{#1}}}}
+%
+\fi
+%%
+%
+%% When [luacircled]
+\if@inlinelabel@luacircled
+%
+% for \ajMaru
+\RequirePackage{luatexja-otf}
+% for \getrefnumber
+\RequirePackage{refcount}
+%
+% renew tagform
+\def\tagform@#1{\maketag@@@{$\ldots\hspace*{-0.075em}$\ignorespaces\ajMaru{#1}\unskip\@@italiccorr}}%
+%
+%% \circledref{<label>}
+%% \equationref{<label>}
+\DeclareRobustCommand{\circledref}[1]{\mbox{\ajMaru{\getrefnumber{#1}}}}
+\DeclareRobustCommand{\equationref}[1]{\mbox{\ajMaru{\getrefnumber{#1}}}}
+%
+\fi
+%
+\if@inlinelabel@nospace
+%
+%% [nospace]\inlinelabel{<label>}
+\DeclareRobustCommand{\inlinelabel}{\@ifstar{\@inlinelabelstar}{\@inlinelabelnostar}}
+\DeclareRobustCommand{\@inlinelabelnostar}[1]{\refstepcounter{equation}\tagform@\theequation\expandafter\label{#1}}
+\DeclareRobustCommand{\@inlinelabelstar}[1]{\hspace{0.5em}\refstepcounter{equation}\tagform@\theequation\expandafter\label{#1}\hspace{0.5em}}
+%
+\else
+%
+%% \inlinelabel{<label>}
+\DeclareRobustCommand{\inlinelabel}{\@ifstar{\@inlinelabelstar}{\@inlinelabelnostar}}
+\DeclareRobustCommand{\@inlinelabelstar}[1]{\refstepcounter{equation}\tagform@\theequation\expandafter\label{#1}}
+\DeclareRobustCommand{\@inlinelabelnostar}[1]{\hspace{0.5em}\refstepcounter{equation}\tagform@\theequation\expandafter\label{#1}\hspace{0.5em}}
+%
+\fi
+%
+%% \equationreset
+\DeclareRobustCommand{\equationreset}{\setcounter{equation}{0}}
+%
+%% EOF

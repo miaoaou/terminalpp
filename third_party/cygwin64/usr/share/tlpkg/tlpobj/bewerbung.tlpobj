@@ -1,0 +1,23 @@
+name bewerbung
+category Package
+revision 61632
+shortdesc Typesetting job applications
+relocated 1
+longdesc The package provides packages and classes for typesetting
+longdesc applications with titlepage, cover letter, cv and additional
+longdesc documents in just a single document. There is also a class for
+longdesc printing a table of the latest applications that can be shown
+longdesc to the German authorities. The data for these applications can
+longdesc be maintained in a simple CSV file.
+runfiles size=18
+ RELOC/tex/latex/bewerbung/argetabelle.cls
+ RELOC/tex/latex/bewerbung/bewerbung-cv-casual.sty
+ RELOC/tex/latex/bewerbung/bewerbung-cv-classic.sty
+ RELOC/tex/latex/bewerbung/bewerbung-cv-oldstyle.sty
+ RELOC/tex/latex/bewerbung/bewerbung-cv.sty
+ RELOC/tex/latex/bewerbung/bewerbung.cls
+ RELOC/tex/latex/bewerbung/bewerbung.sty
+catalogue-ctan /macros/latex/contrib/bewerbung
+catalogue-license lppl1.3
+catalogue-topics cv class german
+catalogue-version 1.3

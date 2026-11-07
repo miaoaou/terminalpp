@@ -1,0 +1,21 @@
+name tucv
+category Package
+revision 20680
+shortdesc Support for typesetting a CV or resumee
+relocated 1
+longdesc The package provides commands for typesetting a CV or resume.
+longdesc It provides commands for general-purpose headings, entries, and
+longdesc item/description pairs, as well as more specific commands for
+longdesc formatting sections, with explicit inclusion of school, degree,
+longdesc employer, job, conference, and publications entries. It tends
+longdesc to produce a somewhat long and quite detailed document but may
+longdesc also be suitable to support a shorter resume. The package
+longdesc relies on a 'sufficiently recent' copy of the l3kernel and
+longdesc l3packages bundles.
+runfiles size=1
+ RELOC/tex/latex/tucv/tucv.sty
+catalogue-ctan /macros/latex/contrib/tucv
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics cv
+catalogue-version 1.0

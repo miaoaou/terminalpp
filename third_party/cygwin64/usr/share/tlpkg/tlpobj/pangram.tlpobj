@@ -1,0 +1,17 @@
+name pangram
+category Package
+revision 66300
+shortdesc A LaTeX package for testing fonts
+relocated 1
+longdesc This package provides a simple way for font designers and users
+longdesc to test their fonts in different sizes without much input.
+runfiles size=2
+ RELOC/tex/latex/pangram/pangram.sty
+catalogue-contact-bugs https://github.com/AlphaZTX/pangram/issues
+catalogue-contact-development https://github.com/AlphaZTX
+catalogue-contact-repository https://github.com/AlphaZTX/pangram
+catalogue-contact-support https://github.com/CTeX-org/forum
+catalogue-ctan /macros/latex/contrib/pangram
+catalogue-license lppl1.3c
+catalogue-topics dummy-gen expl3
+catalogue-version 0.0c

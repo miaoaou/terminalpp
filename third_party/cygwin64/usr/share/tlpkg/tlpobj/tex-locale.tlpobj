@@ -1,0 +1,25 @@
+name tex-locale
+category Package
+revision 48500
+shortdesc Localisation support for TeX and LaTeX documents
+relocated 1
+longdesc This package uses both tracklang and texosquery to look up the
+longdesc locale information from the operating system and provide
+longdesc commands that can access locale-dependent information, such as
+longdesc the currency symbol and decimal separator. The file
+longdesc tex-locale.tex provides generic TeX code. The LaTeX package
+longdesc tex-locale.sty can additionally load babel or polyglossia with
+longdesc the locale's language setting, as well as various other
+longdesc packages such as fontspec (XeLaTeX/LuaLaTeX) or fontenc +
+longdesc inputenc (pdfLaTeX).
+runfiles size=23
+ RELOC/tex/generic/tex-locale/tex-locale.tex
+ RELOC/tex/latex/tex-locale/tex-locale-encodings.def
+ RELOC/tex/latex/tex-locale/tex-locale-scripts-enc.def
+ RELOC/tex/latex/tex-locale/tex-locale-support.def
+ RELOC/tex/latex/tex-locale/tex-locale.sty
+catalogue-ctan /macros/generic/tex-locale
+catalogue-date 2018-08-28 05:08:56 +0200
+catalogue-license lppl1.3
+catalogue-topics env-query sys-supp
+catalogue-version 1.0

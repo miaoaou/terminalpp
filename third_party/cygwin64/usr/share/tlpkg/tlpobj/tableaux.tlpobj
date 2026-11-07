@@ -1,0 +1,17 @@
+name tableaux
+category Package
+revision 42413
+shortdesc Construct tables of signs and variations
+relocated 1
+longdesc The package uses PSTricks; the user may define the width of the
+longdesc table, the number of lines and the height of each line.
+longdesc Placement of labels within the boxes may be absolute, or as a
+longdesc percentage of the width; various other controls are available.
+runfiles size=3
+ RELOC/tex/latex/tableaux/minimum.sty
+ RELOC/tex/latex/tableaux/tableau.sty
+catalogue-also tablor tkz-tab tableauvariations tabvar
+catalogue-ctan /macros/latex/contrib/tableaux
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics maths-tabvar

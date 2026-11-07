@@ -1,0 +1,17 @@
+name tikz-truchet
+category Package
+revision 50020
+shortdesc Draw Truchet tiles
+relocated 1
+longdesc This is a package for LaTeX that draws Truchet tiles, as used
+longdesc in Colin Beveridge's article Too good to be Truchet in issue 08
+longdesc of Chalkdust.
+runfiles size=3
+ RELOC/tex/latex/tikz-truchet/tikz-truchet.sty
+catalogue-also truchet
+catalogue-contact-bugs https://github.com/mscroggs/truchet/issues
+catalogue-contact-home https://github.com/mscroggs/truchet
+catalogue-ctan /graphics/pgf/contrib/tikz-truchet
+catalogue-date 2019-02-17 05:29:19 +0100
+catalogue-license mit
+catalogue-topics pgf-tikz

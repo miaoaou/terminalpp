@@ -1,0 +1,14 @@
+name precattl
+category Package
+revision 63967
+shortdesc Prepare special catcodes from token list
+relocated 1
+longdesc Allow users to write code that contains tokens with unusual
+longdesc catcodes.
+runfiles size=4
+ RELOC/tex/latex/precattl/precattl.sty
+catalogue-contact-repository https://github.com/user202729/TeXlib
+catalogue-ctan /macros/latex/contrib/precattl
+catalogue-license lppl1.3c
+catalogue-topics expl3 debug-supp
+catalogue-version 0.0.0

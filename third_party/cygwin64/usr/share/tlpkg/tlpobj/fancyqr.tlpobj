@@ -1,0 +1,25 @@
+name fancyqr
+category Package
+revision 64182
+shortdesc Fancy QR-Codes with TikZ
+relocated 1
+longdesc A simple package to create fancy QR-codes with the help of the
+longdesc qrcode package.
+runfiles size=9
+ RELOC/tex/latex/fancyqr/fancyqr-style-blobs.code
+ RELOC/tex/latex/fancyqr/fancyqr-style-dots.code
+ RELOC/tex/latex/fancyqr/fancyqr-style-flat.code
+ RELOC/tex/latex/fancyqr/fancyqr-style-frame.code
+ RELOC/tex/latex/fancyqr/fancyqr-style-glitch.code
+ RELOC/tex/latex/fancyqr/fancyqr-style-swift.code
+ RELOC/tex/latex/fancyqr/fancyqr.sty
+catalogue-also qrcode
+catalogue-contact-announce https://github.com/EagleoutIce/fancyqr/releases
+catalogue-contact-bugs https://github.com/EagleoutIce/fancyqr/issues
+catalogue-contact-development https://github.com/EagleoutIce
+catalogue-contact-home https://github.com/EagleoutIce/fancyqr
+catalogue-contact-repository https://github.com/EagleoutIce/fancyqr
+catalogue-ctan /graphics/pgf/contrib/fancyqr
+catalogue-license gpl3
+catalogue-topics qrcode pgf-tikz
+catalogue-version 1.1

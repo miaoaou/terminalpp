@@ -1,0 +1,16 @@
+name flacards
+category Package
+revision 19440
+shortdesc Generate flashcards for printing
+relocated 1
+longdesc The flacards class provides an easy interface to produce
+longdesc flashcards. It will print several cards per page, on both sides
+longdesc of the paper.
+runfiles size=2
+ RELOC/tex/latex/flacards/flacards.cls
+catalogue-also flashcard flashcards
+catalogue-ctan /macros/latex/contrib/flacards
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics card-flash class
+catalogue-version 0.1.1b

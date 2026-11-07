@@ -1,0 +1,15 @@
+name datetime2-french
+category Package
+revision 56393
+shortdesc French language module for the datetime2 package
+relocated 1
+longdesc This module provides the "french" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty.
+runfiles size=7
+ RELOC/tex/latex/datetime2-french/datetime2-french-ascii.ldf
+ RELOC/tex/latex/datetime2-french/datetime2-french-utf8.ldf
+ RELOC/tex/latex/datetime2-french/datetime2-french.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-french
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.03

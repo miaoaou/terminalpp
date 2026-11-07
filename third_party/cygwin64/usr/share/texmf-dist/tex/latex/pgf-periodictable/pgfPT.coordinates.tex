@@ -1,0 +1,171 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% «Coordinate system» for the cells of all elements --------------------------------------------
+% --------------------------------------------------------------------------------------------------
+%
+% coordinate for the title -------------------------------------------------------------------------
+\coordinate (title) at (0,.5*\pgfPTcellht);
+% coordinate for the legend ----------------------------------------------------------------------
+\coordinate (0) at (3.25*\pgfPTcellwd,-.25*\pgfPTcellht);
+% coordinate for the extra legend ----------------------------------------------------------------
+\coordinate (EXTRA) at (7.25*\pgfPTcellwd,-.25*\pgfPTcellht);
+% the coordinates of the cells named by Z -------------------------------------------------------
+% H -> Z=1 top left vertex (0,0) ; bottom right vertex (\pgfPTcellwd,-\pgfPTcellht)
+\coordinate (1) at (0,0);
+\coordinate (2) at (17*\pgfPTcellwd,0);
+\coordinate (3) at (0,-\pgfPTcellht);
+\coordinate (4) at (\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (5) at (12*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (6) at (13*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (7) at (14*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (8) at (15*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (9) at (16*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (10) at (17*\pgfPTcellwd,-\pgfPTcellht);
+\coordinate (11) at (0,-2*\pgfPTcellht);
+\coordinate (12) at (\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (13) at (12*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (14) at (13*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (15) at (14*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (16) at (15*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (17) at (16*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (18) at (17*\pgfPTcellwd,-2*\pgfPTcellht);
+\coordinate (19) at (0,-3*\pgfPTcellht);
+\coordinate (20) at (\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (21) at (2*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (22) at (3*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (23) at (4*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (24) at (5*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (25) at (6*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (26) at (7*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (27) at (8*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (28) at (9*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (29) at (10*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (30) at (11*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (31) at (12*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (32) at (13*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (33) at (14*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (34) at (15*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (35) at (16*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (36) at (17*\pgfPTcellwd,-3*\pgfPTcellht);
+\coordinate (37) at (0,-4*\pgfPTcellht);
+\coordinate (38) at (\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (39) at (2*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (40) at (3*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (41) at (4*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (42) at (5*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (43) at (6*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (44) at (7*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (45) at (8*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (46) at (9*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (47) at (10*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (48) at (11*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (49) at (12*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (50) at (13*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (51) at (14*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (52) at (15*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (53) at (16*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (54) at (17*\pgfPTcellwd,-4*\pgfPTcellht);
+\coordinate (55) at (0,-5*\pgfPTcellht);
+\coordinate (56) at (\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (72) at (3*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (73) at (4*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (74) at (5*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (75) at (6*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (76) at (7*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (77) at (8*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (78) at (9*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (79) at (10*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (80) at (11*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (81) at (12*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (82) at (13*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (83) at (14*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (84) at (15*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (85) at (16*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (86) at (17*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (87) at (0,-6*\pgfPTcellht);
+\coordinate (88) at (\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (104) at (3*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (105) at (4*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (106) at (5*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (107) at (6*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (108) at (7*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (109) at (8*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (110) at (9*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (111) at (10*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (112) at (11*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (113) at (12*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (114) at (13*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (115) at (14*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (116) at (15*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (117) at (16*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (118) at (17*\pgfPTcellwd,-6*\pgfPTcellht);
+\ifpgfPTIUPACMMIX%
+% Labels 'lanthanoids' & 'actinoids' in Group 3 ---------------------------------------------------
+\coordinate (xLa) at (2*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (57) at (2*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (58) at (3*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (59) at (4*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (60) at (5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (61) at (6*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (62) at (7*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (63) at (8*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (64) at (9*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (65) at (10*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (66) at (11*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (67) at (12*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (68) at (13*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (69) at (14*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (70) at (15*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (71) at (16*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (xAc) at (2*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (89) at (2*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (90) at (3*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (91) at (4*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (92) at (5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (93) at (6*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (94) at (7*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (95) at (8*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (96) at (9*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (97) at (10*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (98) at (11*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (99) at (12*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (100) at (13*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (101) at (14*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (102) at (15*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (103) at (16*\pgfPTcellwd,-8.5*\pgfPTcellht);
+% La & Ac in Group 3 ------------------------------------------------------------------------------
+\else%
+\coordinate (57) at (2*\pgfPTcellwd,-5*\pgfPTcellht);
+\coordinate (58) at (2.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (59) at (3.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (60) at (4.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (61) at (5.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (62) at (6.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (63) at (7.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (64) at (8.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (65) at (9.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (66) at (10.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (67) at (11.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (68) at (12.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (69) at (13.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (70) at (14.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (71) at (15.5*\pgfPTcellwd,-7.5*\pgfPTcellht);
+\coordinate (89) at (2*\pgfPTcellwd,-6*\pgfPTcellht);
+\coordinate (90) at (2.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (91) at (3.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (92) at (4.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (93) at (5.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (94) at (6.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (95) at (7.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (96) at (8.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (97) at (9.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (98) at (10.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (99) at (11.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (100) at (12.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (101) at (13.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (102) at (14.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\coordinate (103) at (15.5*\pgfPTcellwd,-8.5*\pgfPTcellht);
+\fi%
+% end coordinates ---------------------------------------------------------------------------------
+\endinput

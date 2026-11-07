@@ -1,0 +1,34 @@
+name sidenotesplus
+category Package
+revision 69176
+shortdesc Place referenced notes, alerts, figures and tables into the document margin
+relocated 1
+longdesc Sidenotesplus is a comprehensive package for placing labeled or
+longdesc referenced notes, temporary alerts, bibliography references,
+longdesc figures and tables into the margin. Marginals can be either
+longdesc floated or at fixed positions relative to the text. Twoside
+longdesc symmetry is preserved. For BibLaTeX users, macros for side
+longdesc references are provided. Three margin styles are provided.
+longdesc Two-page symmetric layouts either as (i) Ragged outer with note
+longdesc reverences in the margin separator or (ii) justified with last
+longdesc line ragged outer. And (iii) a classic look, justified with
+longdesc last line ragged right and note reference to the left of the
+longdesc note, but two-page symmetry is lost. The command \sidenote
+longdesc mimics the \footnote command and provides labelled (numbers,
+longdesc alphabetic, roman) references. However, un-numbered and custom
+longdesc symbols can also be specified. Temporary sidealerts are
+longdesc rendered only if the package option alerton is specified.
+longdesc Alerts are useful as to do reminders during document
+longdesc development. Furthermore, captions for figures and tables can
+longdesc also be placed into margin. Also, full width environments for
+longdesc figures, tables and text are provided. The text environment can
+longdesc be partially widened, suitable if that extra space for an
+longdesc equation is required.
+runfiles size=6
+ RELOC/tex/latex/sidenotesplus/sidenotesplus.sty
+catalogue-contact-bugs https://github.com/anton-vrba/sidenotesplus
+catalogue-contact-repository https://github.com/anton-vrba/sidenotesplus
+catalogue-ctan /macros/latex/contrib/sidenotesplus
+catalogue-license lppl1.3c
+catalogue-topics marginal
+catalogue-version 1.04

@@ -1,0 +1,124 @@
+%%
+%% This is file `emo.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% emo.dtx  (with options: `package')
+%% 
+%% emo•ji for all (LaTeX engines)
+%% (C) Copyright 2023 by Robert Grimm
+%% Released under LPPL v1.3c or later
+%% <https://github.com/apparebit/emo>
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{emo}
+    [2023/04/26 v0.4 emo•ji for all (LaTeX engines)]
+\newif\ifemo@extra\emo@extrafalse
+\DeclareOption{extra}{\emo@extratrue}
+\newif\ifemo@indexing\emo@indexingfalse
+\DeclareOption{index}{\emo@indexingtrue}
+\newif\ifemo@debug\emo@debugfalse
+\DeclareOption{debug}{\emo@debugtrue}
+\ProcessOptions\relax
+\RequirePackage[utf8]{inputenc}
+\def\emo@use@unicode{backend:unicode}
+\def\emo@use@font{backend:font+unicode}
+\def\emo@use@pdf{backend:pdf}
+\RequirePackage{iftex}
+\ifdefined\HCode
+    \let\emo@backend=\emo@use@unicode
+\else
+\ifluatex
+    \let\emo@backend=\emo@use@font
+\else
+    \let\emo@backend=\emo@use@pdf
+\fi
+\fi
+\ifx\emo@backend\emo@use@font
+    \RequirePackage{fontspec}
+\fi
+\ifx\emo@backend\emo@use@pdf
+    \RequirePackage{graphicx}
+\fi
+\RequirePackage{xcolor}
+\ifemo@extra
+    \RequirePackage{xspace}
+\fi
+\ifemo@indexing
+    \RequirePackage{index}
+\fi
+\input{emo.def}
+\definecolor{emo@error@fg}{rgb}{1,1,1}
+\definecolor{emo@error@bg}{rgb}{.6824,.0863,.0863}
+\def\emo@error#1{%
+    \colorbox{emo@error@bg}{%
+        \textcolor{emo@error@fg}{%
+            \textsf{Bad} \texttt{\textbackslash emo\{#1\}}%
+        }%
+    }%
+}
+\def\emo@ifdef#1#2{%
+    \ifcsname emo@emoji@#1\endcsname#2\else%
+        \PackageWarning{emo}{Unknown emoji name in `\string\emo{#1}'}%
+        \emo@error{#1}%
+    \fi%
+}
+\ifemo@indexing
+    \newindex{emo}{edx}{end}{Emoji Index}
+    \def\emo@index#1{\index[emo]{#1}}
+\else
+    \def\emo@index#1{}
+\fi
+\ifx\emo@backend\emo@use@unicode
+    \def\emo@content#1{%
+        \begingroup\csname emo@emoji@#1\endcsname\endgroup%
+    }
+\else
+\ifx\emo@backend\emo@use@font
+    \newfontface\emo@font[Renderer=Harfbuzz]{NotoColorEmoji.ttf}
+    \def\emo@content#1{%
+        \begingroup\emo@font\csname emo@emoji@#1\endcsname\endgroup%
+    }
+\else
+    \def\emo@content#1{%
+        \raisebox{-0.2ex}{%
+            \includegraphics[height=1em]{emo-graphics/emo-#1}}%
+    }
+\fi
+\fi
+\ifemo@debug
+    \let\emo@realcontent=\emo@content
+    \def\emo@content#1{\fbox{\emo@realcontent{#1}}}
+\fi
+\newcommand\emo[1]{%
+    \emo@ifdef{#1}{%
+        \emo@index{#1}%
+        \emo@content{#1}%
+    }%
+}
+\ifemo@extra
+\ifx\emo@backend\emo@use@font\else
+    \newcommand\lingchi{\emo{lingchi}\xspace}
+    \newcommand\YHWH{\emo{YHWH}\xspace}
+\fi
+\ifx\emo@backend\emo@use@font
+    \newfontface\emo@chinese{emo-lingchi.ttf}
+    \newfontface\emo@hebrew{LinLibertine_R.otf}
+    \def\emo@lingchi@content{\begingroup\emo@chinese\emo@emoji@lingchi\endgroup}
+    \def\emo@YHWH@content{\begingroup\emo@hebrew\emo@emoji@YHWH\endgroup}
+
+    \ifemo@debug
+        \let\emo@lingchi@realcontent=\emo@lingchi@content
+        \let\emo@YHWH@content=\emo@YHWH@content
+        \def\emo@lingchi@content{\fbox{\emo@lingchi@realcontent}}
+        \def\emo@YHWH@content{\fbox{\emo@YHWH@realcontent}}
+    \fi
+
+    \newcommand\lingchi{\emo@index{lingchi}\emo@lingchi@content\xspace}
+    \newcommand\YHWH{\emo@index{YHWH}\emo@YHWH@content\xspace}
+\fi
+\fi
+\endinput
+%%
+%% End of file `emo.sty'.

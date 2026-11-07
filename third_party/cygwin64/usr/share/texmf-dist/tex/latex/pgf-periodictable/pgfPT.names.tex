@@ -1,0 +1,143 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% Element names in ------------------------------------------------------------------------------
+% - pt -> Portuguese (Portugal)
+% - en -> English
+% - fr -> French
+% - de -> German (v2.0.1: Capitalize element names after the suggestion made by Ole Schwen)
+% - it -> Italian
+% - es -> Spanish
+% - br -> Portuguese (Brazil)
+% - user -> user language (v2.1.0)
+% --------------------------------------------------------------------------------------------------
+% Turn the 'name' in 'Name'
+% USE -> \expandafter\pgfPT@namec@p#1#2\pgfPT@nomes@xx\relax
+\def\pgfPT@namec@p#1#2\relax{\pgfPT@makeUppercase#1\relax#2}%
+\def\pgfPT@makeUppercase#1\relax{\uppercase{#1}}
+% --------------------------------------------------------------------------------------------------
+% Turn the 'name' in 'NAME'
+% USE -> \pgfPT@nameC@PS#1\pgfPT@nomes@xx\relax
+\def\pgfPT@nameC@PS#1\relax{\uppercase\expandafter{#1}}%
+% --------------------------------------------------------------------------------------------------
+% The names list from Z=1 to 118 ---------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@nomes@i{hidrog\'{e}nio/pt,hydrogen/en,hydrog\`{e}ne/fr,Wasserstoff/de,idrogeno/it,hidr\'{o}geno/es,hidrog\^{e}nio/br,\pgfPT@user@CSname@H/user}%
+\def\pgfPT@nomes@ii{h\'{e}lio/pt,helium/en,h\'{e}lium/fr,Helium/de,elio/it,helio/es,h\'{e}lio/br,\pgfPT@user@CSname@He/user}%
+\def\pgfPT@nomes@iii{l\'{i}tio/pt,lithium/en,lithium/fr,Lithium/de,litio/it,litio/es,l\'{i}tio/br,\pgfPT@user@CSname@Li/user}%
+\def\pgfPT@nomes@iv{ber\'{i}lio/pt,beryllium/en,b\'{e}ryllium/fr,Beryllium/de,berillio/it,berilio/es,ber\'{i}lio/br,\pgfPT@user@CSname@Be/user}%
+\def\pgfPT@nomes@v{boro/pt,boron/en,bore/fr,Bor/de,boro/it,boro/es,boro/br,\pgfPT@user@CSname@B/user}%
+\def\pgfPT@nomes@vi{carbono/pt,carbon/en,carbone/fr,Kohlenstoff/de,carbonio/it,carb\'{o}n/es,carbono/br,\pgfPT@user@CSname@C/user}%
+\def\pgfPT@nomes@vii{azoto/pt,nitrogen/en,azote/fr,Stickstoff/de,azoto/it,nitr\'{o}geno/es,nitrog\^{e}nio/br,\pgfPT@user@CSname@N/user}%
+\def\pgfPT@nomes@viii{oxig\'{e}nio/pt,oxygen/en,oxyg\`{e}ne/fr,Sauerstoff/de,ossigeno/it,ox\'{i}geno/es,oxig\^{e}nio/br,\pgfPT@user@CSname@O/user}%
+\def\pgfPT@nomes@ix{fl\'{u}or/pt,fluorine/en,fluor/fr,Fluor/de,fluoro/it,fl\'{u}or/es,fl\'{u}or/br,\pgfPT@user@CSname@F/user}%
+\def\pgfPT@nomes@x{n\'{e}on/pt,neon/en,n\'{e}on/fr,Neon/de,neon/it,ne\'{o}n/es,ne\^{o}nio/br,\pgfPT@user@CSname@Ne/user}%
+\def\pgfPT@nomes@xi{s\'{o}dio/pt,sodium/en,sodium/fr,Natrium/de,sodio/it,sodio/es,s\'{o}dio/br,\pgfPT@user@CSname@Na/user}%
+\def\pgfPT@nomes@xii{magn\'{e}sio/pt,magnesium/en,magn\'{e}sium/fr,Magnesium/de,magnesio/it,magnesio/es,magn\'{e}sio/br,\pgfPT@user@CSname@Mg/user}%
+\def\pgfPT@nomes@xiii{alum\'{i}nio/pt,aluminium/en,aluminium/fr,Aluminium/de,alluminio/it,aluminio/es,alum\'{i}nio/br,\pgfPT@user@CSname@Al/user}%
+\def\pgfPT@nomes@xiv{sil\'{i}cio/pt,silicon/en,silicium/fr,Silizium/de,silicio/it,silicio/es,sil\'{i}cio/br,\pgfPT@user@CSname@Si/user}%
+\def\pgfPT@nomes@xv{f\'{o}sforo/pt,phosphorus/en,phosphore/fr,Phosphor/de,fosforo/it,f\'{o}sforo/es,f\'{o}sforo/br,\pgfPT@user@CSname@P/user}%
+\def\pgfPT@nomes@xvi{enxofre/pt,sulfur/en,soufre/fr,Schwefel/de,zolfo/it,azufre/es,enxofre/br,\pgfPT@user@CSname@S/user}%
+\def\pgfPT@nomes@xvii{cloro/pt,chlorine/en,chlore/fr,Chlor/de,cloro/it,cloro/es,cloro/br,\pgfPT@user@CSname@Cl/user}%
+\def\pgfPT@nomes@xviii{\'{a}rgon/pt,argon/en,argon/fr,Argon/de,argo/it,arg\'{o}n/es,arg\^{o}nio/br,\pgfPT@user@CSname@Ar/user}%
+\def\pgfPT@nomes@xix{pot\'{a}ssio/pt,potassium/en,potassium/fr,Kalium/de,potassio/it,potasio/es,pot\'{a}ssio/br,\pgfPT@user@CSname@K/user}%
+\def\pgfPT@nomes@xx{c\'{a}lcio/pt,calcium/en,calcium/fr,Kalzium/de,calcio/it,calcio/es,c\'{a}lcio/br,\pgfPT@user@CSname@Ca/user}%
+\def\pgfPT@nomes@xxi{esc\^{a}ndio/pt,scandium/en,scandium/fr,Scandium/de,scandio/it,escandio/es,esc\^{a}ndio/br,\pgfPT@user@CSname@Sc/user}%
+\def\pgfPT@nomes@xxii{tit\^{a}nio/pt,titanium/en,titane/fr,Titan/de,titanio/it,titanio/es,tit\^{a}nio/br,\pgfPT@user@CSname@Ti/user}%
+\def\pgfPT@nomes@xxiii{van\'{a}dio/pt,vanadium/en,vanadium/fr,Vanadium/de,vanadio/it,vanadio/es,van\'{a}dio/br,\pgfPT@user@CSname@V/user}%
+\def\pgfPT@nomes@xxiv{cr\'{o}mio/pt,chromium/en,chrome/fr,Chrom/de,cromo/it,cromo/es,cr\^{o}mio/br,\pgfPT@user@CSname@Cr/user}%
+\def\pgfPT@nomes@xxv{mangan\'{e}sio/pt,manganese/en,mangan\`{e}se/fr,Mangan/de,manganese/it,manganeso/es,mangan\^{e}s/br,\pgfPT@user@CSname@Mn/user}%
+\def\pgfPT@nomes@xxvi{ferro/pt,iron/en,fer/fr,Eisen/de,ferro/it,planchar/es,ferro/br,\pgfPT@user@CSname@Fe/user}%
+\def\pgfPT@nomes@xxvii{cobalto/pt,cobalt/en,cobalt/fr,Kobalt/de,cobalto/it,cobalto/es,cobalto/br,\pgfPT@user@CSname@Co/user}%
+\def\pgfPT@nomes@xxviii{n\'{i}quel/pt,nickel/en,nickel/fr,Nickel/de,nichel/it,n\'{i}quel/es,n\'{i}quel/br,\pgfPT@user@CSname@Ni/user}%
+\def\pgfPT@nomes@xxix{cobre/pt,copper/en,cuivre/fr,Kupfer/de,rame/it,cobre/es,cobre/br,\pgfPT@user@CSname@Cu/user}%
+\def\pgfPT@nomes@xxx{zinco/pt,zinc/en,zinc/fr,Zink/de,zinco/it,zinc/es,zinco/br,\pgfPT@user@CSname@Zn/user}%
+\def\pgfPT@nomes@xxxi{g\'{a}lio/pt,gallium/en,gallium/fr,Gallium/de,gallio/it,galio/es,g\'{a}lio/br,\pgfPT@user@CSname@Ga/user}%
+\def\pgfPT@nomes@xxxii{germ\^{a}nio/pt,germanium/en,germanium/fr,Germanium/de,germanio/it,germanio/es,germ\^{a}nio/br,\pgfPT@user@CSname@Ge/user}%
+\def\pgfPT@nomes@xxxiii{ars\'{e}nio/pt,arsenic/en,arsenic/fr,Arsen/de,arsenico/it,ars\'{e}nico/es,ars\^{e}nio/br,\pgfPT@user@CSname@As/user}%
+\def\pgfPT@nomes@xxxiv{sel\'{e}nio/pt,selenium/en,s\'{e}l\'{e}nium/fr,Selen/de,selenio/it,selenio/es,sel\^{e}nio/br,\pgfPT@user@CSname@Se/user}%
+\def\pgfPT@nomes@xxxv{bromo/pt,bromine/en,brome/fr,Brom/de,bromo/it,bromo/es,bromo/br,\pgfPT@user@CSname@Br/user}%
+\def\pgfPT@nomes@xxxvi{cr\'{i}pton/pt,krypton/en,krypton/fr,Krypton/de,krypton/it,cript\'{o}n/es,cript\^{o}nio/br,\pgfPT@user@CSname@Kr/user}%
+\def\pgfPT@nomes@xxxvii{rub\'{i}dio/pt,rubidium/en,rubidium/fr,Rubidium/de,rubidio/it,rubidio/es,rub\'{i}dio/br,\pgfPT@user@CSname@Rb/user}%
+\def\pgfPT@nomes@xxxviii{estr\^{o}ncio/pt,strontium/en,strontium/fr,Strontium/de,stronzio/it,estroncio/es,estr\^{o}ncio/br,\pgfPT@user@CSname@Sr/user}%
+\def\pgfPT@nomes@xxxix{\'{i}trio/pt,yttrium/en,yttrium/fr,Yttrium/de,ittrio/it,itrio/es,\'{i}trio/br,\pgfPT@user@CSname@Y/user}%
+\def\pgfPT@nomes@xl{zirc\'{o}nio/pt,zirconium/en,zirconium/fr,Zirkonium/de,zirconio/it,circonio/es,zirc\^{o}nio/br,\pgfPT@user@CSname@Zr/user}%
+\def\pgfPT@nomes@xli{ni\'{o}bio/pt,niobium/en,niobium/fr,Niob/de,niobio/it,niobio/es,ni\'{o}bio/br,\pgfPT@user@CSname@Nb/user}%
+\def\pgfPT@nomes@xlii{molibd\'{e}nio/pt,molybdenum/en,molybd\`{e}ne/fr,Molybd\"{a}n/de,molibdeno/it,molibdeno/es,molibd\^{e}nio/br,\pgfPT@user@CSname@Mo/user}%
+\def\pgfPT@nomes@xliii{tecn\'{e}cio/pt,technetium/en,techn\'{e}tium/fr,Technetium/de,tecnezio/it,tecnecio/es,tecn\'{e}cio/br,\pgfPT@user@CSname@Tc/user}%
+\def\pgfPT@nomes@xliv{rut\'{e}nio/pt,ruthenium/en,ruth\'{e}nium/fr,Ruthenium/de,rutenio/it,rutenio/es,rut\^{e}nio/br,\pgfPT@user@CSname@Ru/user}%
+\def\pgfPT@nomes@xlv{r\'{o}dio/pt,rhodium/en,rhodium/fr,Rhodium/de,rodio/it,rodio/es,r\'{o}dio/br,\pgfPT@user@CSname@Rh/user}%
+\def\pgfPT@nomes@xlvi{pal\'{a}dio/pt,palladium/en,palladium/fr,Palladium/de,palladio/it,paladio/es,pal\'{a}dio/br,\pgfPT@user@CSname@Pd/user}%
+\def\pgfPT@nomes@xlvii{prata/pt,silver/en,argent/fr,Silber/de,argento/it,plata/es,prata/br,\pgfPT@user@CSname@Ag/user}%
+\def\pgfPT@nomes@xlviii{c\'{a}dmio/pt,cadmium/en,cadmium/fr,Cadmium/de,cadmio/it,cadmio/es,c\'{a}dmio/br,\pgfPT@user@CSname@Cd/user}%
+\def\pgfPT@nomes@xlix{\'{i}ndio/pt,indium/en,indium/fr,Indium/de,indio/it,indio/es,\'{i}ndio/br,\pgfPT@user@CSname@In/user}%
+\def\pgfPT@nomes@l{estanho/pt,tin/en,\'{e}tain/fr,Zinn/de,lattina/it,esta\~{n}o/es,estanho/br,\pgfPT@user@CSname@Sn/user}%
+\def\pgfPT@nomes@li{antim\'{o}nio/pt,antimony/en,antimoine/fr,Antimon/de,antimonio/it,antimonio/es,antim\^{o}nio/br,\pgfPT@user@CSname@Sb/user}%
+\def\pgfPT@nomes@lii{tel\'{u}rio/pt,tellurium/en,tellure/fr,Tellur/de,tellurio/it,telurio/es,tel\'{u}rio/br,\pgfPT@user@CSname@Te/user}%
+\def\pgfPT@nomes@liii{iodo/pt,iodine/en,iode/fr,Iod/de,iodio/it,yodo/es,iodo/br,\pgfPT@user@CSname@I/user}%
+\def\pgfPT@nomes@liv{x\'{e}non/pt,xenon/en,x\'{e}non/fr,Xenon/de,xeno/it,xen\'{o}n/es,xen\^{o}nio/br,\pgfPT@user@CSname@Xe/user}%
+\def\pgfPT@nomes@lv{c\'{e}sio/pt,caesium/en,c\'{e}sium/fr,Caesium/de,cesio/it,cesio/es,c\'{e}sio/br,\pgfPT@user@CSname@Cs/user}%
+\def\pgfPT@nomes@lvi{b\'{a}rio/pt,barium/en,baryum/fr,Barium/de,bario/it,bario/es,b\'{a}rio/br,\pgfPT@user@CSname@Ba/user}%
+\def\pgfPT@nomes@lvii{lant\^{a}nio/pt,lanthanum/en,lanthane/fr,Lanthan/de,lantanio/it,lantano/es,lant\^{a}nio/br,\pgfPT@user@CSname@La/user}%
+\def\pgfPT@nomes@lviii{c\'{e}rio/pt,cerium/en,c\'{e}rium/fr,Cer/de,cerio/it,cerio/es,c\'{e}rio/br,\pgfPT@user@CSname@Ce/user}%
+\def\pgfPT@nomes@lix{praseod\'{i}mio/pt,praseodymium/en,pras\'{e}odyme/fr,Praseodym/de,praseodimio/it,praseodimio/es,praseod\'{i}mio/br,\pgfPT@user@CSname@Pr/user}%
+\def\pgfPT@nomes@lx{neod\'{i}mio/pt,neodymium/en,n\'{e}odyme/fr,Neodym/de,neodimio/it,neodimio/es,neod\'{i}mio/br,\pgfPT@user@CSname@Nd/user}%
+\def\pgfPT@nomes@lxi{prom\'{e}cio/pt,promethium/en,prom\'{e}thium/fr,Promethium/de,prometeo/it,prometeo/es,prom\'{e}cio/br,\pgfPT@user@CSname@Pm/user}%
+\def\pgfPT@nomes@lxii{sam\'{a}rio/pt,samarium/en,samarium/fr,Samarium/de,samario/it,samario/es,sam\'{a}rio/br,\pgfPT@user@CSname@Sm/user}%
+\def\pgfPT@nomes@lxiii{eur\'{o}pio/pt,europium/en,europium/fr,Europium/de,europium/it,europio/es,eur\'{o}pio/br,\pgfPT@user@CSname@Eu/user}%
+\def\pgfPT@nomes@lxiv{gadol\'{i}nio/pt,gadolinium/en,gadolinium/fr,Gadolinium/de,gadolinio/it,gadolinio/es,gadol\'{i}nio/br,\pgfPT@user@CSname@Gd/user}%
+\def\pgfPT@nomes@lxv{t\'{e}rbio/pt,terbium/en,terbium/fr,Terbium/de,terbio/it,terbio/es,t\'{e}rbio/br,\pgfPT@user@CSname@Tb/user}%
+\def\pgfPT@nomes@lxvi{dispr\'{o}sio/pt,dysprosium/en,dysprosium/fr,Dysprosium/de,dysprosium/it,disprosio/es,dispr\'{o}sio/br,\pgfPT@user@CSname@Dy/user}%
+\def\pgfPT@nomes@lxvii{h\'{o}lmio/pt,holmium/en,holmium/fr,Holmium/de,olmio/it,holmio/es,h\'{o}lmio/br,\pgfPT@user@CSname@Ho/user}%
+\def\pgfPT@nomes@lxviii{\'{e}rbio/pt,erbium/en,erbium/fr,Erbium/de,erbio/it,erbio/es,\'{e}rbio/br,\pgfPT@user@CSname@Er/user}%
+\def\pgfPT@nomes@lxix{t\'{u}lio/pt,thulium/en,thulium/fr,Thulium/de,tulio/it,tulio/es,t\'{u}lio/br,\pgfPT@user@CSname@Tm/user}%
+\def\pgfPT@nomes@lxx{it\'{e}rbio/pt,ytterbium/en,ytterbium/fr,Ytterbium/de,itterbio/it,iterbio/es,it\'{e}rbio/br,\pgfPT@user@CSname@Yb/user}%
+\def\pgfPT@nomes@lxxi{lut\'{e}cio/pt,lutetium/en,lut\'{e}tium/fr,Lutetium/de,lutezio/it,lutecio/es,lut\'{e}cio/br,\pgfPT@user@CSname@Lu/user}%
+\def\pgfPT@nomes@lxxii{h\'{a}fnio/pt,hafnium/en,hafnium/fr,Hafnium/de,afnio/it,hafnio/es,h\'{a}fnio/br,\pgfPT@user@CSname@Hf/user}%
+\def\pgfPT@nomes@lxxiii{t\^{a}ntalo/pt,tantalum/en,tantale/fr,Tantal/de,tantalio/it,tantalio/es,t\^{a}ntalo/br,\pgfPT@user@CSname@Ta/user}%
+\def\pgfPT@nomes@lxxiv{tungst\'{e}nio/pt,tungsten/en,tungst\`{e}ne/fr,Wolfram/de,tungsteno/it,tungsteno/es,tungst\^{e}nio/br,\pgfPT@user@CSname@W/user}%
+\def\pgfPT@nomes@lxxv{r\'{e}nio/pt,rhenium/en,rh\'{e}nium/fr,Rhenium/de,rhenium/it,renio/es,r\^{e}nio/br,\pgfPT@user@CSname@Re/user}%
+\def\pgfPT@nomes@lxxvi{\'{o}smio/pt,osmium/en,osmium/fr,Osmium/de,osmio/it,osmio/es,\'{o}smio/br,\pgfPT@user@CSname@Os/user}%
+\def\pgfPT@nomes@lxxvii{ir\'{i}dio/pt,iridium/en,iridium/fr,Iridium/de,iridio/it,iridio/es,ir\'{i}dio/br,\pgfPT@user@CSname@Ir/user}%
+\def\pgfPT@nomes@lxxviii{platina/pt,platinum/en,platine/fr,Platin/de,platino/it,platino/es,platina/br,\pgfPT@user@CSname@Pt/user}%
+\def\pgfPT@nomes@lxxix{ouro/pt,gold/en,or/fr,Gold/de,oro/it,oro/es,ouro/br,\pgfPT@user@CSname@Au/user}%
+\def\pgfPT@nomes@lxxx{merc\'{u}rio/pt,mercury/en,mercure/fr,Quecksilber/de,mercurio/it,mercurio/es,merc\'{u}rio/br,\pgfPT@user@CSname@Hg/user}%
+\def\pgfPT@nomes@lxxxi{t\'{a}lio/pt,thallium/en,thallium/fr,Thallium/de,tallio/it,talio/es,t\'{a}lio/br,\pgfPT@user@CSname@Tl/user}%
+\def\pgfPT@nomes@lxxxii{chumbo/pt,lead/en,conduire/fr,Blei/de,piombo/it,plomo/es,chumbo/br,\pgfPT@user@CSname@Pb/user}%
+\def\pgfPT@nomes@lxxxiii{bismuto/pt,bismuth/en,bismuth/fr,Bismut/de,bismuto/it,bismuto/es,bismuto/br,\pgfPT@user@CSname@Bi/user}%
+\def\pgfPT@nomes@lxxxiv{pol\'{o}nio/pt,polonium/en,polonium/fr,Polonium/de,polonio/it,polonio/es,pol\^{o}nio/br,\pgfPT@user@CSname@Po/user}%
+\def\pgfPT@nomes@lxxxv{astato/pt,astatine/en,astatine/fr,Astat/de,astato/it,astato/es,\'{a}stato/br,\pgfPT@user@CSname@At/user}%
+\def\pgfPT@nomes@lxxxvi{r\'{a}don/pt,radon/en,radon/fr,Radon/de,radon/it,rad\'{o}n/es,rad\^{o}nio/br,\pgfPT@user@CSname@Rn/user}%
+\def\pgfPT@nomes@lxxxvii{fr\^{a}ncio/pt,francium/en,francium/fr,Francium/de,francio/it,francio/es,fr\^{a}ncio/br,\pgfPT@user@CSname@Fr/user}%
+\def\pgfPT@nomes@lxxxviii{r\'{a}dio/pt,radium/en,radium/fr,Radium/de,radio/it,radio/es,r\'{a}dio/br,\pgfPT@user@CSname@Ra/user}%
+\def\pgfPT@nomes@lxxxix{act\'{i}nio/pt,actinium/en,actinium/fr,Actinium/de,attinio/it,actinio/es,act\'{i}nio/br,\pgfPT@user@CSname@Ac/user}%
+\def\pgfPT@nomes@xc{t\'{o}rio/pt,thorium/en,thorium/fr,Thorium/de,torio/it,torio/es,t\'{o}rio/br,\pgfPT@user@CSname@Th/user}%
+\def\pgfPT@nomes@xci{protact\'{i}nio/pt,protactinium/en,protactinium/fr,Protactinium/de,protactinio/it,protactinio/es,protact\'{i}nio/br,\pgfPT@user@CSname@Pa/user}%
+\def\pgfPT@nomes@xcii{ur\^{a}nio/pt,uranium/en,uranium/fr,Uran/de,uranio/it,uranio/es,ur\^{a}nio/br,\pgfPT@user@CSname@U/user}%
+\def\pgfPT@nomes@xciii{nept\'{u}nio/pt,neptunium/en,neptunium/fr,Neptunium/de,nettunio/it,neptunio/es,net\'{u}nio/br,\pgfPT@user@CSname@Np/user}%
+\def\pgfPT@nomes@xciv{plut\'{o}nio/pt,plutonium/en,plutonium/fr,Plutonium/de,plutonio/it,plutonio/es,plut\^{o}nio/br,\pgfPT@user@CSname@Pu/user}%
+\def\pgfPT@nomes@xcv{amer\'{i}cio/pt,americium/en,am\'{e}ricium/fr,Americium/de,americio/it,americio/es,amer\'{i}cio/br,\pgfPT@user@CSname@Am/user}%
+\def\pgfPT@nomes@xcvi{c\'{u}rio/pt,curium/en,curium/fr,Curium/de,curio/it,curio/es,c\'{u}rio/br,\pgfPT@user@CSname@Cm/user}%
+\def\pgfPT@nomes@xcvii{berqu\'{e}lio/pt,berkelium/en,berkelium/fr,Berkelium/de,berkelium/it,berkelio/es,berqu\'{e}lio/br,\pgfPT@user@CSname@Bk/user}%
+\def\pgfPT@nomes@xcviii{calif\'{o}rnio/pt,californium/en,californium/fr,Californium/de,californio/it,californio/es,calif\'{o}rnio/br,\pgfPT@user@CSname@Cf/user}%
+\def\pgfPT@nomes@xcix{einst\'{e}nio/pt,einsteinium/en,einsteinium/fr,Einsteinium/de,einsteinio/it,einstenio/es,einst\^{e}nio/br,\pgfPT@user@CSname@Es/user}%
+\def\pgfPT@nomes@c{f\'{e}rmio/pt,fermium/en,fermium/fr,Rermium/de,fermium/it,fermio/es,f\'{e}rmio/br,\pgfPT@user@CSname@Fm/user}%
+\def\pgfPT@nomes@ci{mendel\'{e}vio/pt,mendelevium/en,mendelevium/fr,Mendelevium/de,mendelevio/it,mendelevio/es,mendel\'{e}vio/br,\pgfPT@user@CSname@Md/user}%
+\def\pgfPT@nomes@cii{nob\'{e}lio/pt,nobelium/en,nobelium/fr,Nobelium/de,nobelium/it,nobelio/es,nob\'{e}lio/br,\pgfPT@user@CSname@No/user}%
+\def\pgfPT@nomes@ciii{laur\^{e}ncio/pt,lawrencium/en,lawrencium/fr,Lawrencium/de,laurenzio/it,lawrencium/es,laur\^{e}ncio/br,\pgfPT@user@CSname@Lr/user}%
+\def\pgfPT@nomes@civ{rutherf\'{o}rdio/pt,rutherfordium/en,rutherfordium/fr,Rutherfordium/de,rutherfordium/it,rutherfordio/es,rutherf\'{o}rdio/br,\pgfPT@user@CSname@Rf/user}%
+\def\pgfPT@nomes@cv{d\'{u}bnio/pt,dubnium/en,dubnium/fr,Dubnium/de,dubnio/it,dubnium/es,d\'{u}bnio/br,\pgfPT@user@CSname@Db/user}%
+\def\pgfPT@nomes@cvi{seab\'{o}rgio/pt,seaborgium/en,seaborgium/fr,Seaborgium/de,seaborgio/it,seaborgio/es,seab\'{o}rgio/br,\pgfPT@user@CSname@Sg/user}%
+\def\pgfPT@nomes@cvii{b\'{o}rio/pt,bohrium/en,bohrium/fr,Bohrium/de,bohrio/it,bohrium/es,b\'{o}hrio/br,\pgfPT@user@CSname@Bh/user}%
+\def\pgfPT@nomes@cviii{h\'{a}ssio/pt,hassium/en,hassium/fr,Hassium/de,hassio/it,hassium/es,h\'{a}ssio/br,\pgfPT@user@CSname@Hs/user}%
+\def\pgfPT@nomes@cix{meitn\'{e}rio/pt,meitnerium/en,meitnerium/fr,Meitnerium/de,meitnerio/it,meitnerio/es,meitn\'{e}rio/br,\pgfPT@user@CSname@Mt/user}%
+\def\pgfPT@nomes@cx{darmst\'{a}dio/pt,darmstadtium/en,darmstadtium/fr,Darmstadtium/de,darmstadtium/it,darmstadtium/es,darmst\'{a}dtio/br,\pgfPT@user@CSname@Ds/user}%
+\def\pgfPT@nomes@cxi{roentg\'{e}nio/pt,roentgenium/en,roentgenium/fr,R\"{o}ntgenium/de,roentgenio/it,roentgenio/es,roentg\^{e}nio/br,\pgfPT@user@CSname@Rg/user}%
+\def\pgfPT@nomes@cxii{copern\'{i}cio/pt,copernicium/en,copernicium/fr,Copernicium/de,copernicium/it,copernicio/es,copern\'{i}cio/br,\pgfPT@user@CSname@Cn/user}%
+\def\pgfPT@nomes@cxiii{nip\'{o}nio/pt,nihonium/en,nihonium/fr,Nihonium/de,nihonium/it,nihonio/es,nip\^{o}nio/br,\pgfPT@user@CSname@Nh/user}%
+\def\pgfPT@nomes@cxiv{fler\'{o}vio/pt,flerovium/en,flerovium/fr,Flerovium/de,flerovio/it,flerovio/es,fler\'{o}vio/br,\pgfPT@user@CSname@Fl/user}%
+\def\pgfPT@nomes@cxv{mosc\'{o}vio/pt,moscovium/en,moscovium/fr,Moscovium/de,moscovium/it,moscovio/es,mosc\'{o}vio/br,\pgfPT@user@CSname@Mc/user}%
+\def\pgfPT@nomes@cxvi{liverm\'{o}rio/pt,livermorium/en,livermorium/fr,Livermorium/de,livermorio/it,livermorium/es,liverm\'{o}rio/br,\pgfPT@user@CSname@Lv/user}%
+\def\pgfPT@nomes@cxvii{tenesso/pt,tennessine/en,tennessine/fr,Tenness/de,tennessine/it,teneso/es,tenesso/br,\pgfPT@user@CSname@Ts/user}%
+\def\pgfPT@nomes@cxviii{ogan\'{e}sson/pt,oganesson/en,oganesson/fr,Oganesson/de,oganesson/it,oganes\'{o}n/es,oganess\^{o}nio/br,\pgfPT@user@CSname@Og/user}%
+\endinput%

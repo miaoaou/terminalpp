@@ -1,0 +1,16 @@
+name was
+category Package
+revision 64691
+shortdesc A collection of small packages by Walter Schmidt
+relocated 1
+longdesc A bundle of packages that arise in the author's area of
+longdesc interest: compliance of maths typesetting with ISO standards;
+longdesc symbols that work in both maths and text modes commas for both
+longdesc decimal separator and maths; and upright Greek letters in
+longdesc maths.
+runfiles size=3
+ RELOC/tex/latex/was/icomma.sty
+ RELOC/tex/latex/was/upgreek.sty
+catalogue-ctan /macros/latex/contrib/was
+catalogue-license collection
+catalogue-topics collection

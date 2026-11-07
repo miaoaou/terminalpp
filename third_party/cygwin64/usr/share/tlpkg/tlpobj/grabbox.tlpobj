@@ -1,0 +1,13 @@
+name grabbox
+category Package
+revision 65223
+shortdesc Read an argument into a box and execute the code afterwards
+relocated 1
+longdesc The package provides the command \grabbox, which grabs an
+longdesc argument into a box and executes the code afterwards.
+runfiles size=1
+ RELOC/tex/latex/grabbox/grabbox.sty
+catalogue-ctan /macros/latex/contrib/grabbox
+catalogue-license lppl1.3c
+catalogue-topics boxing
+catalogue-version 1.4

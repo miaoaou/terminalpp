@@ -1,0 +1,20 @@
+name epspdf
+category Package
+revision 66115
+shortdesc Converter for PostScript, EPS and PDF
+longdesc Epspdftk.tcl is a GUI ps/eps/pdf converter. Epspdf.tlu, its
+longdesc command-line backend, can be used by itself. Options include
+longdesc grayscaling, cropping margins and single-page selection. Some
+longdesc conversion options are made possible by converting in multiple
+longdesc steps.
+depend epspdf.ARCH
+runfiles size=32
+ texmf-dist/scripts/epspdf/epspdf.help
+ texmf-dist/scripts/epspdf/epspdf.tlu
+ texmf-dist/scripts/epspdf/epspdf4tk.cmd
+ texmf-dist/scripts/epspdf/epspdftk.tcl
+catalogue-also epstopdf
+catalogue-ctan /support/epspdf
+catalogue-license gpl2
+catalogue-topics graphics-epspdf
+catalogue-version 0.6.5.1

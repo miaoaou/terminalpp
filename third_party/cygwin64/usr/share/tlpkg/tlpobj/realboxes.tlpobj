@@ -1,0 +1,24 @@
+name realboxes
+category Package
+revision 64967
+shortdesc Variants of common box-commands that read their content as real box and not as macro argument
+relocated 1
+longdesc The package uses the author's package collectbox to define
+longdesc variants of common box related macros which read the content as
+longdesc real box and not as macro argument. This enables the use of
+longdesc verbatim or other special material as part of this content. The
+longdesc provided macros have the same names as the original versions
+longdesc but start with an upper-case letter instead. The "long-form"
+longdesc macros, like \Makebox, can also be used as environments, but
+longdesc not the "short-form" macros, like \Mbox. However, normally the
+longdesc long form uses the short form anyway when no optional arguments
+longdesc are used.
+runfiles size=3
+ RELOC/tex/latex/realboxes/realboxes.sty
+catalogue-contact-bugs https://github.com/MartinScharrer/realboxes/issues
+catalogue-contact-home https://github.com/MartinScharrer/realboxes
+catalogue-contact-repository https://github.com/MartinScharrer/realboxes.git
+catalogue-ctan /macros/latex/contrib/realboxes
+catalogue-license lppl1.3
+catalogue-topics boxing
+catalogue-version 0.2

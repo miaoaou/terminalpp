@@ -1,0 +1,18 @@
+name color-edits
+category Package
+revision 56707
+shortdesc Colorful edits for multiple authors of a shared document
+relocated 1
+longdesc This package provides a fairly light-weight solution for
+longdesc annotating LaTeX source code with color to show
+longdesc additions/changes, replacements, deletions, and comments. This
+longdesc is particularly useful when a document is being edited by
+longdesc multiple authors. Two package options allow the quick
+longdesc suppression of all colorful edits and comments, and showing
+longdesc text whose deletion was proposed.
+runfiles size=2
+ RELOC/tex/latex/color-edits/color-edits.sty
+catalogue-ctan /macros/latex/contrib/color-edits
+catalogue-license lppl1.3
+catalogue-topics editorial colour
+catalogue-version 1.1

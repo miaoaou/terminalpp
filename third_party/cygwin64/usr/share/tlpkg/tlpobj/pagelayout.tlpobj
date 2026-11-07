@@ -1,0 +1,30 @@
+name pagelayout
+category Package
+revision 69486
+shortdesc Layout graphic rich documents
+longdesc The pagelayout class enables you to layout pages declaratively
+longdesc using simple macros for pages, covers, grids, templates, text,
+longdesc and graphics to create graphic rich, perfectly typeset, and
+longdesc print ready PDFs. The integration of Inkscape allows you to
+longdesc create box shadows. The integration of ImageMagick allows you
+longdesc to configure compression and sharpening for bitmap graphics to
+longdesc export web, print or preview versions of your document.
+longdesc Parallelized image optimization, caching, and a draft mode
+longdesc enable fast PDF creation and a responsive workflow, even for
+longdesc large documents with lots of photos and graphics. The
+longdesc pagelayout class also integrates the Pgf/TikZ and tcolorbox
+longdesc LaTeX packages.
+depend pagelayout.ARCH
+runfiles size=46
+ texmf-dist/scripts/pagelayout/pagelayoutapi
+ texmf-dist/scripts/pagelayout/pagelayoutapi.1.md
+ texmf-dist/scripts/pagelayout/textestvis
+ texmf-dist/scripts/pagelayout/textestvis.1.md
+ texmf-dist/tex/latex/pagelayout/pagelayout.cls
+catalogue-alias xput
+catalogue-contact-bugs https://github.com/friedemannbartels/latex-pagelayout/issues
+catalogue-contact-repository https://github.com/friedemannbartels/latex-pagelayout
+catalogue-ctan /macros/latex/contrib/pagelayout
+catalogue-license lppl1.3c
+catalogue-topics layout pgf-tikz class
+catalogue-version 1.1.0

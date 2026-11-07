@@ -1,0 +1,22 @@
+name gridpapers
+category Package
+revision 58723
+shortdesc Graph paper backgrounds and color schemes
+relocated 1
+longdesc This package provides many preset yet customizable graph paper
+longdesc backgrounds. Some of the preset patterns include standard
+longdesc quadrille or graph pattern, dot grid, hexagons, isometric or
+longdesc triangular grid, squares with 45deg "light cone" lines, ruled,
+longdesc and more. Pattern sizes can be controlled via package options.
+longdesc There are several preset color palletes, and colors can be
+longdesc overridden. The package uses the PGF/TikZ package, and the
+longdesc geometry package to control page size.
+runfiles size=5
+ RELOC/tex/latex/gridpapers/gridpapers.sty
+catalogue-also graphpaper
+catalogue-contact-bugs https://github.com/mcnees/LaTeX-Graph-Paper/issues
+catalogue-contact-repository https://github.com/mcnees/LaTeX-Graph-Paper
+catalogue-ctan /macros/latex/contrib/gridpapers
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz background
+catalogue-version 1.0.2

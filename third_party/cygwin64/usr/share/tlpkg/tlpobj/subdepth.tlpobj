@@ -1,0 +1,17 @@
+name subdepth
+category Package
+revision 15878
+shortdesc Unify maths subscript height
+relocated 1
+longdesc This package is based on code (posted long ago to comp.text.tex
+longdesc by Donald Arseneau) to equalise the height of subscripts in
+longdesc maths. The default behaviour is to place subscripts slightly
+longdesc lower when there is a superscript as well, but this can look
+longdesc odd in some situations.
+runfiles size=1
+ RELOC/tex/latex/subdepth/subdepth.sty
+catalogue-ctan /macros/latex/contrib/subdepth
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics subsup-pos maths
+catalogue-version 0.1

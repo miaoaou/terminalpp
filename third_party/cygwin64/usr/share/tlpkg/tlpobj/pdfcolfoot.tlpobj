@@ -1,0 +1,15 @@
+name pdfcolfoot
+category Package
+revision 65512
+shortdesc Separate color stack for footnotes with pdfTeX
+relocated 1
+longdesc Since version 1.40 pdfTeX supports several colour stacks. This
+longdesc package uses a separate colour stack for footnotes that can
+longdesc break across pages. The package is part of the oberdiek bundle.
+runfiles size=2
+ RELOC/tex/latex/pdfcolfoot/pdfcolfoot.sty
+catalogue-contact-bugs https://github.com/ho-tex/pdfcolfoot/issues
+catalogue-ctan /macros/latex/contrib/pdfcolfoot
+catalogue-license lppl1.3
+catalogue-topics footnote colour
+catalogue-version 1.4

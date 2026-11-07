@@ -1,0 +1,15 @@
+name exercises
+category Package
+revision 55188
+shortdesc Typeset exercises and solutions with automatic addition of points
+relocated 1
+longdesc This package defines the environments exercise and solution.
+longdesc The layout of these environments can be customized. The --
+longdesc optional -- points in the exercises can be added automatically.
+longdesc The package also permits to hide the solutions.
+runfiles size=3
+ RELOC/tex/latex/exercises/exercises.sty
+catalogue-ctan /macros/latex/contrib/exercises
+catalogue-license lppl1.2
+catalogue-topics exercise
+catalogue-version 1.1

@@ -1,0 +1,15 @@
+name colorframed
+category Package
+revision 64551
+shortdesc Fix color problems with the package "framed"
+relocated 1
+longdesc This package fixes problems with colour loss that occurres in
+longdesc the environments of the framed package.
+runfiles size=2
+ RELOC/tex/latex/colorframed/colorframed.sty
+catalogue-contact-bugs https://github.com/jfbu/colorframed/issues
+catalogue-contact-repository https://github.com/jfbu/colorframed
+catalogue-ctan /macros/latex/contrib/colorframed
+catalogue-license lppl1.3c
+catalogue-topics decoration
+catalogue-version 0.9b

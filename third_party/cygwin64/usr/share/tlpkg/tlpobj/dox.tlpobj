@@ -1,0 +1,20 @@
+name dox
+category Package
+revision 46011
+shortdesc Extend the doc package
+relocated 1
+longdesc The doc package provides LaTeX developers with means to
+longdesc describe the usage and the definition of new macros and
+longdesc environments. However, there is no simple way to extend this
+longdesc functionality to other items (options or counters, for
+longdesc instance). The DoX package is designed to circumvent this
+longdesc limitation.
+runfiles size=2
+ RELOC/tex/latex/dox/dox.sty
+catalogue-contact-home http://www.lrde.epita.fr/~didier/software/latex.php#dox
+catalogue-contact-repository https://github.com/didierverna/dox
+catalogue-ctan /macros/latex/contrib/dox
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl1.3
+catalogue-topics doc-supp
+catalogue-version 2.4

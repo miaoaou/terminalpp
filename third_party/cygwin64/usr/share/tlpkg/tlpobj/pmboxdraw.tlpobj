@@ -1,0 +1,17 @@
+name pmboxdraw
+category Package
+revision 53046
+shortdesc Poor man's box drawing characters
+relocated 1
+longdesc This package declares box drawing characters of old code pages,
+longdesc e.g. cp437. It uses rules instead of using a font.
+runfiles size=23
+ RELOC/tex/latex/pmboxdraw/pmboxdraw.sty
+ RELOC/tex/latex/pmboxdraw/pmboxdrawenc.dfu
+catalogue-contact-bugs https://github.com/ho-tex/pmboxdraw/issues
+catalogue-contact-repository https://github.com/ho-tex/pmboxdraw
+catalogue-ctan /macros/latex/contrib/pmboxdraw
+catalogue-date 2019-12-06 05:43:02 +0100
+catalogue-license lppl1.3c
+catalogue-topics graphics-in-tex
+catalogue-version 1.4

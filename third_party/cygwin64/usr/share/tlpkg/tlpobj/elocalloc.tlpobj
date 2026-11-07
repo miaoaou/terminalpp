@@ -1,0 +1,15 @@
+name elocalloc
+category Package
+revision 42712
+shortdesc Local allocation macros for LaTeX 2015
+relocated 1
+longdesc Local allocation macros, with names taken from etex.sty but
+longdesc with implementation based on the LaTeX 2015 allocation macros.
+runfiles size=1
+ RELOC/tex/latex/elocalloc/elocalloc.sty
+catalogue-also etex-pkg
+catalogue-ctan /macros/latex/contrib/elocalloc
+catalogue-date 2016-12-15 10:25:53 +0100
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 0.03

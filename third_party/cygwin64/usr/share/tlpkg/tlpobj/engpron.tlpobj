@@ -1,0 +1,18 @@
+name engpron
+category Package
+revision 16558
+shortdesc Helps to type the pronunciation of English words
+relocated 1
+longdesc This package provides macros beginning with the PS character,
+longdesc made active, which enable us to write the British or American
+longdesc English pronunciation as one can find it in the 'English
+longdesc Pronouncing Dictionary' by Daniel Jones. There is an option to
+longdesc typeset the pronunciation in the style of Harrap's dictionary.
+runfiles size=4
+ RELOC/tex/latex/engpron/engpron-tools.sty
+ RELOC/tex/latex/engpron/engpron.sty
+catalogue-ctan /macros/latex/contrib/engpron
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics phonetic linguistic
+catalogue-version 2

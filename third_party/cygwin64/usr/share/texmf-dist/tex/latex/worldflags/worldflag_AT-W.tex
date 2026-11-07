@@ -1,0 +1,45 @@
+% --------------------------------------------------------------------------
+% Austria - Vienna:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{white}{RGB}{255,255,255}
+\definecolor{red}{RGB}{218,18,26}
+\definecolor{gold}{RGB}{252,221,9}
+\definecolor{blue}{RGB}{15,71,175}
+\newdimen\lw\lw0.0025\flagwidth
+\hstripesII{red}{white}
+\ifemblem
+\begin{scope}[shift={(0.5\flaglength,0.5)},scale=\flagwidth/483.55]
+
+\def\pfad{(549,171) -- (351,171)
+  .. controls (351,171) and (352.2000,239.6000) .. (356,277)
+  .. controls (360.2000,313) and (374.2000,356) .. (391,383)
+  .. controls (404.4000,405.7000) and (427,428) .. (450,429)
+  .. controls (473,429) and (495.6000,404.8000) .. (509,383)
+  .. controls (525.7000,355.1000) and (539.7000,312) .. (544,277)
+  .. controls (548.2000,239.8000) and (549.3000,172) .. (549,171)
+  -- cycle;}
+\begin{scope}[y=-0.80pt, x=0.80pt,shift={(-450,-300)}]
+\begin{scope}[cm={{1.15385,0.0,0.0,1.15385,(-69.24731,-46.15387)}}]
+\begin{scope}
+\clip \pfad
+\begin{scope}[shift={(0,-30.0)}]
+\path[fill=red,rounded corners=0cm] (350,200) rectangle (550,460);
+\path[draw=white,line width=33.6\lw] (450,200)--(450,460)(348,299)--(548,299);
+\path[draw=black,line width=1.6\lw] (428,201)--(428,277)--(350,277)
+  (350,321)--(428,321)--(428,460)(472,460)--(472,321)--(550,321)
+  (550,277)--(472,277)--(472,200)(435,200)--(435,284)--(350,284)
+  (350,314)--(435,314)--(435,474)(465,474)--(465,314)--(550,314)
+  (550,284)--(465,284)--(465,199);
+\end{scope}
+\end{scope}
+\path[draw=black,line width=1.6\lw]\pfad
+\end{scope}
+\end{scope}
+
+
+
+\end{scope}
+\fi
+\framecode{}
+\end{flagdescription}

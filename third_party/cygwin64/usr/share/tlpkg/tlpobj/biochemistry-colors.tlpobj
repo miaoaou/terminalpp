@@ -1,0 +1,19 @@
+name biochemistry-colors
+category Package
+revision 54512
+shortdesc Colors used to display amino acids, nucleotides, sugars or atoms in biochemistry
+relocated 1
+longdesc Biochemistry-colors.sty defines the standard colors of
+longdesc biochemistry for use with the color package and the xcolor
+longdesc package. xcolor is loaded by Biochemistry-colors.sty. Colors
+longdesc include: Shapely-colors for amino acids and nucleotides.
+longdesc CPK-Colors (Corey, Pauling and Koltun) of elements. Jmol-colors
+longdesc of elements, important isotopes and structures. Glycopedia
+longdesc colors for sugars.
+runfiles size=3
+ RELOC/tex/latex/biochemistry-colors/Biochemistry-colors.sty
+catalogue-also css-colors
+catalogue-ctan /macros/latex/contrib/biochemistry-colors
+catalogue-license lppl gpl
+catalogue-topics colour
+catalogue-version 1.00

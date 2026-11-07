@@ -1,0 +1,207 @@
+General information
+===================
+
+This is libvoikko, library of free natural language processing tools
+The library is written in C++. The library supports multiple backends:
+
+- Malaga: Left associative grammar for describing the morphology of
+Finnish language.
+- HFST: Supports ZHFST speller archives for various languages.
+- Experimental backends: Lttoolbox and VFST.
+
+Libvoikko provides spell checking, hyphenation, grammar checking and
+morphological analysis for Finnish language. Only spell checking is
+supported for other languages through HFST backend.
+Libvoikko aims to provide support for
+languages that are not well served by Hunspell or other existing free
+linguistic tools. This can be done because we do not care about
+compatibility with legacy dictionary formats and we support only actively
+maintained languages. Pushing new features to Hunspell where
+they would need to be maintained essentially indefinitely should not
+be done until we have gained enough experience to know which solutions
+work in the real world.
+
+
+License
+=======
+
+This library is released under the GPL, version 2 or later. Parts of the
+build system are available only under GPL version 3 or later but that
+does not affect binary distribution.
+
+Additionally a subset of the library is available under MPL 1.1 / GPL 2+ /
+LGPL 2.1+ tri-license. The tri-license covers those parts that cannot
+be configured away in the autotools build systems. Licensing status for
+individual backends is as follows:
+
+ Backend        License
+----------------------------------------------------------------
+ Malaga         GPL 2+
+ HFST           MPL 1.1 / GPL 2+ / LGPL 2.1+ (Apache v2 dependency)
+ Lttoolbox      GPL 2+ (GPL 2+ backend and GPL 2+ dependency)
+ VFST           MPL 1.1 / GPL 2+ / LGPL 2.1+
+
+
+Features
+========
+
+ - Spell checking using compound word and derivation rule system that is
+   largely compatible with widely used proprietary Finnish spell checkers
+   (Soikko, MS Word).
+ - Spelling suggestions that are generated to catch most probable typing
+   errors.
+ - Special spelling suggestion mode that can be used to correct errors
+   produced by optical character recognition software.
+ - Hyphenator with compound hyphenation based on morphological analysis.
+ - Various options to tune spell checking and hyphenation for different
+   purposes and applications.
+ - Grammar checking and context sensitive spell checking using paragraph
+   based API.
+ - String tokenizer and sentence splitter.
+ - Morphological analyzer.
+ - All functionality is made available through C, Python, Java and .Net APIs.
+
+Documentation for using the library can be found from header file voikko.h.
+
+
+Build requirements
+==================
+
+C++ compiler (GCC or clang) and Python (version 2.6 or later)
+must be available in order to build this library. Pkg-config is needed
+for build configuration.
+
+Java API is designed to be built as a Maven project. No autotools or Ant
+based build system is available yet.
+
+
+Build configuration
+===================
+
+See ./configure --help for a list of available configuration options.
+The default configuration will enable all stable backends and will result
+in a library that supports stable dictionary formats. This is the recommended
+configuration for builds that are made available to end users.
+
+You can enable certain experimental backends or disable stable backends. Such
+configurations will not necessarily work with all dictionaries and the dictionary
+formats may change without notice. Thus these options should generally be used
+in developer builds only. If you need to use them in a released build we
+strongly recommend that you disable external dictionary loading with
+--disable-extdicts and supply compatible dictionaries along with the library.
+
+
+Runtime requirements
+====================
+
+For dictionary format 2 (Malaga and experimental backends):
+
+ The library needs a version of Suomi-malaga containing a file named
+ voikko-fi_FI.pro. The file must start with the following line:
+
+ info: Voikko-Dictionary-Format: 2
+
+For dictionary format 3 (HFST backend):
+
+ Any valid ZHFST speller with file suffix .zhfst can be used. The name
+ of the file is not significant.
+ 
+Python bindings work with Python version 2.5 or later. To use them with
+Python 3 or later the module file (libvoikko.py) must first be converted
+using the "2to3" utility from Python distribution.
+
+
+Search order for dictionary files
+=================================
+
+A set of available dictionary variants is built by examining the contents of the
+following directories. If a variant exists in more than one location, the first
+occurrence is used and the rest are ignored.
+
+1) Path given as the last argument to voikkoInit.
+2) Path specified by the environment variable VOIKKO_DICTIONARY_PATH, if the
+   variable is set in the environment of the process initializing the library.
+3) Only on platforms with Unix home directories (Linux, BSD and Mac OS X):
+   a) from directory $HOME/.voikko
+      i) Only on Mac OS X: from directory $HOME/Library/Spelling/voikko
+   b) from directory /etc/voikko
+4) Only on Windows:
+   a) Directory specified by the registry key
+      HKEY_CURRENT_USER\SOFTWARE\Voikko\DictionaryPath.
+   b) Directory specified by the registry key
+      HKEY_LOCAL_MACHINE\SOFTWARE\Voikko\DictionaryPath.
+5) Path specified at compile time:
+   a) If --with-dictionary-path is used, it specifies the full path.
+   b) Else if operating system is Mac OS X and --prefix is not used, the path is
+      ${ac_default_prefix}/lib/voikko:/Library/Spelling/voikko
+   c) else the path is ${prefix}/lib/voikko
+
+In 2), 4) and 5) it is possible to specify multiple locations by separating them with
+the OS specific paths separator (; on Windows, : on other operating systems).
+The locations will be processed in the listed order.
+
+Locations 2) to 5) are not used if the library is configured with --disable-external-dicts
+Using this option is recommended if dictionaries are distributed with the library
+and support for experimental dictionary formats is enabled.
+
+To all of the paths above additional path component "/2" is appended at the end.
+This corresponds to the dictionary version and allows multiple versions of the same
+dictionary to be installed simultaneously. The version number may be other than "2".
+
+Dictionaries and language variants are searched from files or subdirectories using
+the rules that are specific to each format version.
+
+One of the dictionaries is chosen to be the default dictionary by trying the
+following rules:
+
+1) If one of the subdirectories in the main directory paths described above has
+   name "mor-default", the default dictionary will be the variant that is found
+   from that directory. Note that this does not affect the actual decision about
+   the dictionary instance used to provide the variant. If, for example, there is
+   a directory $HOME/.voikko/2/mor-a containing variant "a" and a directory
+   /etc/voikko/2/mor-default containing variant "a", the variant "a" will become the
+   default but it will still be provided by $HOME/.voikko/2/mor-a.
+
+2) If no default is specified, variant "standard" is used as the default.
+
+3) If variant "standard" is not available, the variant with the name that comes
+   first in alphabetical order is selected as the default.
+
+
+Selection of the variant to use
+===============================
+
+The dictionary variant to be used is determined using the following rules, starting
+from rule 1:
+
+1) If the parameter 'langcode' given to functions voikko_init or voikko_init_with_path
+   is NULL, no dictionary will be loaded. The behaviour of the library after such
+   initialization is currently undefined.
+2) If the parameter 'langcode' given to functions voikko_init or voikko_init_with_path
+   is something else than "", "default" or "fi_FI", variant with that name is loaded.
+   If the variant is not available, an error is returned.
+3) If environment variable VOIKKO_DICTIONARY is defined, its value is used as the
+   name of the dictionary variant to load. If the variant is not available, an error
+   is returned.
+4) Finally, the default variant is loaded. If no dictionary variants are available,
+   an error is returned.
+
+
+Authors
+=======
+
+2006 - 2015 Harri Pitkänen (hatapitk@iki.fi)
+ * Maintainer, core library developer.
+1995 - 2008 Björn Beutel
+ * Author of the original LAG implementation (Malaga), slightly simplified version
+   of which has been embedded into libvoikko.
+2006 Nemanja Trifunovic
+ * Author of UTF8 utility module.
+2011-2012 Teemu Likonen <tlikonen@iki.fi>
+ * Author of the Common Lisp interface.
+
+
+Website
+=======
+
+http://voikko.puimula.org

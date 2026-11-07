@@ -14,10 +14,87 @@
 #include "local_pty.h"
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 namespace tpp {
 
 #if (defined ARCH_WINDOWS)    
+
+    namespace {
+
+        std::wstring bundledCygwinBinPath() {
+            std::vector<wchar_t> executablePath(MAX_PATH);
+            DWORD pathLength = 0;
+
+            while (true) {
+                pathLength = GetModuleFileNameW(nullptr, executablePath.data(), static_cast<DWORD>(executablePath.size()));
+                if (pathLength == 0)
+                    return {};
+                if (pathLength < executablePath.size())
+                    break;
+                if (executablePath.size() >= 32768)
+                    return {};
+                executablePath.resize(executablePath.size() * 2);
+            }
+
+            std::wstring executable{executablePath.data(), pathLength};
+            auto const separator = executable.find_last_of(L"\\/");
+            if (separator == std::wstring::npos)
+                return {};
+
+            executable.resize(separator);
+            auto binPath = executable + L"\\cygwin64\\bin";
+            auto const directoryAttributes = GetFileAttributesW(binPath.c_str());
+            if (directoryAttributes == INVALID_FILE_ATTRIBUTES || (directoryAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+                return {};
+
+            auto const dllAttributes = GetFileAttributesW((binPath + L"\\cygwin1.dll").c_str());
+            if (dllAttributes == INVALID_FILE_ATTRIBUTES || (dllAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+                return {};
+
+            return binPath;
+        }
+
+        std::vector<wchar_t> childEnvironmentWithPathFirst(std::wstring const & firstPath) {
+            std::vector<wchar_t> environmentBlock;
+            LPWCH environment = GetEnvironmentStringsW();
+            if (environment == nullptr)
+                return environmentBlock;
+
+            bool pathFound = false;
+            for (LPWCH current = environment; *current != L'\0';) {
+                std::wstring entry{current};
+                auto const entryLength = entry.size();
+                bool const isPath = entry.size() >= 5 &&
+                    (entry[0] == L'P' || entry[0] == L'p') &&
+                    (entry[1] == L'A' || entry[1] == L'a') &&
+                    (entry[2] == L'T' || entry[2] == L't') &&
+                    (entry[3] == L'H' || entry[3] == L'h') &&
+                    entry[4] == L'=';
+
+                if (isPath) {
+                    entry.insert(5, firstPath + L";");
+                    pathFound = true;
+                }
+
+                environmentBlock.insert(environmentBlock.end(), entry.begin(), entry.end());
+                environmentBlock.push_back(L'\0');
+                current += entryLength + 1;
+            }
+            FreeEnvironmentStringsW(environment);
+
+            if (!pathFound) {
+                auto const pathEntry = std::wstring{L"PATH="} + firstPath;
+                environmentBlock.insert(environmentBlock.end(), pathEntry.begin(), pathEntry.end());
+                environmentBlock.push_back(L'\0');
+            }
+
+            environmentBlock.push_back(L'\0');
+            return environmentBlock;
+        }
+
+    } // anonymous namespace
 
     LocalPTYMaster::LocalPTYMaster(Command const & command):
         command_{command},
@@ -98,15 +175,20 @@ namespace tpp {
             // finally, create the process with given commandline
             utf16_string cmd = UTF8toUTF16(command_.toString());
             utf16_string path = UTF8toUTF16(command_.workingDirectory());
+            auto const cygwinBin = bundledCygwinBinPath();
+            auto environmentBlock = cygwinBin.empty() ? std::vector<wchar_t>{} : childEnvironmentWithPathFirst(cygwinBin);
+            DWORD creationFlags = EXTENDED_STARTUPINFO_PRESENT;
+            if (!environmentBlock.empty())
+                creationFlags |= CREATE_UNICODE_ENVIRONMENT;
             OSCHECK(
-                CreateProcess(
+                CreateProcessW(
                     nullptr,
                     &cmd[0], // the command to execute
                     nullptr, // process handle cannot be inherited
                     nullptr, // thread handle cannot be inherited
                     false, // the new process does not inherit any handles
-                    EXTENDED_STARTUPINFO_PRESENT, // we have extra info 
-                    nullptr, // use parent's environment
+                    creationFlags, // we have extra info and optionally a customized Unicode environment
+                    environmentBlock.empty() ? nullptr : environmentBlock.data(),
                     path.empty() ? nullptr : path.c_str(), // working directory
                     &startupInfo_.StartupInfo, // startup info
                     &pInfo_ // info about the process

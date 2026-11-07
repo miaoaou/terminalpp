@@ -1,0 +1,16 @@
+name locality
+category Package
+revision 20422
+shortdesc Various macros for keeping things local
+relocated 1
+longdesc A toolbox of macros designed to allow the LaTeX programmer to
+longdesc work around some of the restrictions of the TeX grouping
+longdesc mechanisms. The present release offers a preliminary view of
+longdesc the package; not all of its facilities are working optimally
+runfiles size=3
+ RELOC/tex/latex/locality/locality.sty
+catalogue-ctan /macros/latex/contrib/locality
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 0.2

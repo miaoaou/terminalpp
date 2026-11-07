@@ -1,0 +1,23 @@
+name easybook
+category Package
+revision 70230
+shortdesc Easily typesetting Chinese theses or books
+relocated 1
+longdesc easybook is a pure academic template created based on the
+longdesc ctexbook book document class. It also has the functions of book
+longdesc and article document class. Combined with the general framework
+longdesc design of the dissertation of many universities in China,
+longdesc providing multiple commands and interfaces allows users to
+longdesc easily customize the thesis template. Its basic macro package
+longdesc easybase can also be used with CTeX and standard document
+longdesc classes.
+runfiles size=21
+ RELOC/tex/latex/easybook/easybase.sty
+ RELOC/tex/latex/easybook/easybook.cls
+ RELOC/tex/latex/easybook/eb-tcolorbox.cfg
+catalogue-also ctex
+catalogue-contact-repository https://gitee.com/texno3/easybook
+catalogue-ctan /macros/latex/contrib/easybook
+catalogue-license lppl1.3c
+catalogue-topics book-pub dissertation class doc-templ chinese expl3
+catalogue-version 2024an

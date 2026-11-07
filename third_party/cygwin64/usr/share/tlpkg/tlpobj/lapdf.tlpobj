@@ -1,0 +1,22 @@
+name lapdf
+category Package
+revision 23806
+shortdesc PDF drawing directly in TeX documents
+relocated 1
+longdesc The package provides the means to use PDF drawing primitives to
+longdesc produce high quality, colored graphics. It uses Bezier curves
+longdesc (integral and rational) from degree one to seven, allows TeX
+longdesc typesetting in the graphic, offers most of the standard math
+longdesc functions, allows plotting normal, parametric and polar
+longdesc functions. The package has linear, logx, logy, logxy and polar
+longdesc grids with many specs; it can rotate, clip and do many nice
+longdesc things easily it has two looping commands for programming and
+longdesc many instructive example files. The package requires pdfTeX but
+longdesc otherwise only depends on the calc package.
+runfiles size=16
+ RELOC/tex/latex/lapdf/lapdf.sty
+catalogue-ctan /macros/latex/contrib/lapdf
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics graphics-in-tex
+catalogue-version 1.1

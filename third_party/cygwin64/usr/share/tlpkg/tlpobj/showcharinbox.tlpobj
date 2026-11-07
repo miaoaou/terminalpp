@@ -1,0 +1,22 @@
+name showcharinbox
+category Package
+revision 29803
+shortdesc Show characters inside a box
+relocated 1
+longdesc The package typesets a character inside a box, showing where
+longdesc reference point is, and displaying width, height, and depth
+longdesc information of the character. The output is like that on page
+longdesc 63 of "The TeXBook" or page 101 of "The METAFONTbook". The
+longdesc package itself is motivated by Knuth's macros in the file
+longdesc manmac.tex. Users should note that using a small size for the
+longdesc character inside the box does not make any sense: use a large
+longdesc size.
+runfiles size=1
+ RELOC/tex/latex/showcharinbox/showcharinbox.sty
+catalogue-contact-bugs https://github.com/bidi-tex/showcharinbox/issues
+catalogue-contact-repository https://github.com/bidi-tex/showcharinbox
+catalogue-ctan /macros/latex/contrib/showcharinbox
+catalogue-date 2018-11-28 21:01:12 +0100
+catalogue-license lppl1.3
+catalogue-topics font-devel
+catalogue-version 0.1

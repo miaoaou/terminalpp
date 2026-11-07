@@ -1,0 +1,15 @@
+name curriculum-vitae
+category Package
+revision 68211
+shortdesc Lightweight class for CVs
+relocated 1
+longdesc This is a lightweight class file that allows you to typeset CVs
+longdesc and resumes using LaTeX.
+runfiles size=1
+ RELOC/tex/latex/curriculum-vitae/curriculum-vitae.cls
+catalogue-contact-bugs https://github.com/SumukhPrasad/latex-curriculum-vitae/issues
+catalogue-contact-repository https://github.com/SumukhPrasad/latex-curriculum-vitae
+catalogue-ctan /macros/latex/contrib/curriculum-vitae
+catalogue-license apache2
+catalogue-topics cv
+catalogue-version 1.0

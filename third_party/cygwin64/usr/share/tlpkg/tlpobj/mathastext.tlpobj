@@ -1,0 +1,22 @@
+name mathastext
+category Package
+revision 69237
+shortdesc Use the text font in maths mode
+relocated 1
+longdesc The package uses a text font (usually the document's text font)
+longdesc for the letters of the Latin alphabet needed when typesetting
+longdesc mathematics. (Optionally, other characters in the font may also
+longdesc be used). This facility makes possible (for a document with
+longdesc simple mathematics) a far wider choice of text font, with
+longdesc little worry that no specially designed accompanying maths
+longdesc fonts are available. The package also offers a simple mechanism
+longdesc for using many different choices of (text hence, now, maths)
+longdesc font in the same document. Of course, using one font for two
+longdesc purposes helps produce smaller PDF files.
+runfiles size=29
+ RELOC/tex/latex/mathastext/mathastext.sty
+catalogue-contact-home http://jf.burnol.free.fr/mathastext.html
+catalogue-ctan /macros/latex/contrib/mathastext
+catalogue-license lppl1.3
+catalogue-topics maths font-supp-maths font-sel
+catalogue-version 1.3zb

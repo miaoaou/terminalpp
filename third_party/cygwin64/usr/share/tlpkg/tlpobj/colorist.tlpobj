@@ -1,0 +1,28 @@
+name colorist
+category Package
+revision 70100
+shortdesc Write your articles or books in a colorful way
+relocated 1
+longdesc This package offers you a LaTeX style file and two classes to
+longdesc typeset articles or books in a colorful way. These classes
+longdesc currently have native support for English, French, German,
+longdesc Italian, Portuguese (European and Brazilian), and Spanish
+longdesc typesetting. They compile with any major TeX engine. You may
+longdesc also wish to consider the packages lebhart and beaulivre, which
+longdesc are enhanced versions of the classes provided here. They have
+longdesc unicode support, thus can only be used with either XeLaTeX or
+longdesc LuaLaTeX. Currently they have native support for Chinese (both
+longdesc simplified and traditional), English, French, German, Italian,
+longdesc Japanese, Portuguese (European and Brazilian), Russian and
+longdesc Spanish typesetting, and also use more beautiful fonts.
+depend projlib
+runfiles size=17
+ RELOC/tex/latex/colorist/colorart.cls
+ RELOC/tex/latex/colorist/colorbook.cls
+ RELOC/tex/latex/colorist/colorist-fancy.sty
+ RELOC/tex/latex/colorist/colorist.sty
+catalogue-also lebhart beaulivre
+catalogue-contact-repository https://github.com/Jinwen-XU/colorist
+catalogue-ctan /macros/latex/contrib/colorist
+catalogue-license lppl1.3c
+catalogue-topics class expl3 article-like book-pub class multilingual

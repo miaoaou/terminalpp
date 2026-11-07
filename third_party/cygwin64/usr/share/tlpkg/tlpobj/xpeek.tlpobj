@@ -1,0 +1,16 @@
+name xpeek
+category Package
+revision 61719
+shortdesc Define commands that peek ahead in the input stream
+relocated 1
+longdesc The package provides tools to help define commands that, like
+longdesc \xspace and the LaTeX command \textit, peek at what follows
+longdesc them in the command stream and choose appropriate behaviour.
+runfiles size=1
+ RELOC/tex/latex/xpeek/xpeek.sty
+catalogue-also xspace xpunctuate
+catalogue-contact-repository https://github.com/jcsalomon/xpeek
+catalogue-ctan /macros/latex/contrib/xpeek
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 0.2

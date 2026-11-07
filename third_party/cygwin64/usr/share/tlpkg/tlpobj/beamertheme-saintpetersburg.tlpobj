@@ -1,0 +1,18 @@
+name beamertheme-saintpetersburg
+category Package
+revision 45877
+shortdesc A beamer theme that incorporates colours and fonts of Saint Petersburg State University
+relocated 1
+longdesc This minimalistic beamer theme incorporates Saint Petersburg
+longdesc State University colours and fonts. It is suitable for both
+longdesc presentations and posters.
+runfiles size=4
+ RELOC/tex/latex/beamertheme-saintpetersburg/beamercolorthemeSaintPetersburg.sty
+ RELOC/tex/latex/beamertheme-saintpetersburg/beamerfontthemeSaintPetersburg.sty
+ RELOC/tex/latex/beamertheme-saintpetersburg/beamerthemeSaintPetersburg.sty
+catalogue-contact-bugs https://github.com/igankevich/SaintPetersburg/issues
+catalogue-contact-repository https://github.com/igankevich/SaintPetersburg
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-saintpetersburg
+catalogue-date 2017-11-23 15:14:44 +0100
+catalogue-license lppl1.3c
+catalogue-topics presentation

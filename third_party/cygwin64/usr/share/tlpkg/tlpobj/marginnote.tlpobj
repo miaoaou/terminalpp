@@ -1,0 +1,16 @@
+name marginnote
+category Package
+revision 68204
+shortdesc Notes in the margin, even where \marginpar fails
+relocated 1
+longdesc This package provides the command \marginnote that may be used
+longdesc instead of \marginpar at almost every place where \marginpar
+longdesc cannot be used, e.g., inside floats, footnotes, or in frames
+longdesc made with the framed package.
+runfiles size=4
+ RELOC/tex/latex/marginnote/marginnote.sty
+catalogue-contact-home https://github.com/komascript/marginnote
+catalogue-contact-repository https://github.com/komascript/marginnote.git
+catalogue-ctan /macros/latex/contrib/marginnote
+catalogue-license lppl1.3c
+catalogue-topics notes

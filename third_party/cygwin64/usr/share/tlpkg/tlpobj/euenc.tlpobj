@@ -1,0 +1,36 @@
+name euenc
+category Package
+revision 19795
+shortdesc Unicode font encoding definitions for XeTeX
+relocated 1
+longdesc Font encoding definitions for unicode fonts loaded by LaTeX in
+longdesc XeTeX or LuaTeX. The package provides two encodings: EU1,
+longdesc designed for use with XeTeX, which the fontspec uses for
+longdesc unicode fonts which require no macro-level processing for
+longdesc accents, and EU2, which provides the same facilities for use
+longdesc with LuaTeX. Neither encoding places any restriction on the
+longdesc glyphs provided by a font; use of EU2 causes the package
+longdesc euxunicode to be loaded (the package is part of this
+longdesc distribution). The package includes font definition files for
+longdesc use with the Latin Modern OpenType fonts.
+runfiles size=14
+ RELOC/tex/latex/euenc/eu1enc.def
+ RELOC/tex/latex/euenc/eu1lmdh.fd
+ RELOC/tex/latex/euenc/eu1lmr.fd
+ RELOC/tex/latex/euenc/eu1lmss.fd
+ RELOC/tex/latex/euenc/eu1lmssq.fd
+ RELOC/tex/latex/euenc/eu1lmtt.fd
+ RELOC/tex/latex/euenc/eu1lmvtt.fd
+ RELOC/tex/latex/euenc/eu2enc.def
+ RELOC/tex/latex/euenc/eu2lmdh.fd
+ RELOC/tex/latex/euenc/eu2lmr.fd
+ RELOC/tex/latex/euenc/eu2lmss.fd
+ RELOC/tex/latex/euenc/eu2lmssq.fd
+ RELOC/tex/latex/euenc/eu2lmtt.fd
+ RELOC/tex/latex/euenc/eu2lmvtt.fd
+catalogue-also xunicode
+catalogue-ctan /macros/latex/contrib/euenc
+catalogue-date 2016-10-08 11:33:19 +0200
+catalogue-license lppl1.3
+catalogue-topics font-supp unicode
+catalogue-version 0.1h

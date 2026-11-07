@@ -1,0 +1,23 @@
+name libgreek
+category Package
+revision 65004
+shortdesc Greek letters in math mode from Libertinus or Linux Libertine/Biolinum
+relocated 1
+longdesc This package allows LaTeX users (especially if using
+longdesc traditional LaTeX/pdfLaTeX) to set the Greek letters in math
+longdesc mode to use the glyphs from the Libertinus Serif or Sans font,
+longdesc via the font support files provided by the libertinus-type1
+longdesc package of Bob Tennent. All Greek letters are defined both in
+longdesc \...up and \...it variants. The style (ISO, TeX, or French i.
+longdesc e. upright) can be modified midway in the document. A "legacy"
+longdesc mode uses font support from the (obsolete) package
+longdesc https://ctan.org/pkg/libertine-legacy which map to the Linux
+longdesc Libertine or Biolinum fonts. This package is for users which
+longdesc only want to customize Greek letters in math mode.
+runfiles size=8
+ RELOC/tex/latex/libgreek/libgreek-legacy.sty
+ RELOC/tex/latex/libgreek/libgreek.sty
+catalogue-ctan /macros/latex/contrib/libgreek
+catalogue-license lppl1.3c
+catalogue-topics font-maths font-supp
+catalogue-version 1.1

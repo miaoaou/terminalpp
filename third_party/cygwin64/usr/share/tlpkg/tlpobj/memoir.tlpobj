@@ -1,0 +1,38 @@
+name memoir
+category Package
+revision 69600
+shortdesc Typeset fiction, non-fiction and mathematical books
+relocated 1
+longdesc The memoir class is for typesetting poetry, fiction,
+longdesc non-fiction, and mathematical works. Permissible document
+longdesc 'base' font sizes range from 9 to 60pt. There is a range of
+longdesc page-styles and well over a dozen chapter-styles to choose
+longdesc from, as well as methods for specifying your own layouts and
+longdesc designs. The class also provides the functionality of over
+longdesc thirty of the more popular packages, thus simplifying document
+longdesc sources. Users who wish to use the hyperref package, in a
+longdesc document written with the memoir class, should also use the
+longdesc memhfixc package (part of this bundle). Note, however, that any
+longdesc current version of hyperref actually loads the package
+longdesc automatically if it detects that it is running under memoir.
+runfiles size=115
+ RELOC/makeindex/memoir/basic.gst
+ RELOC/tex/latex/memoir/mem10.clo
+ RELOC/tex/latex/memoir/mem11.clo
+ RELOC/tex/latex/memoir/mem12.clo
+ RELOC/tex/latex/memoir/mem14.clo
+ RELOC/tex/latex/memoir/mem17.clo
+ RELOC/tex/latex/memoir/mem20.clo
+ RELOC/tex/latex/memoir/mem25.clo
+ RELOC/tex/latex/memoir/mem30.clo
+ RELOC/tex/latex/memoir/mem36.clo
+ RELOC/tex/latex/memoir/mem48.clo
+ RELOC/tex/latex/memoir/mem60.clo
+ RELOC/tex/latex/memoir/mem9.clo
+ RELOC/tex/latex/memoir/memhfixc.sty
+ RELOC/tex/latex/memoir/memoir.cls
+catalogue-also memdesign
+catalogue-ctan /macros/latex/contrib/memoir
+catalogue-license lppl1.3c
+catalogue-topics book-pub class
+catalogue-version 3.8.2

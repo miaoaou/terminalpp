@@ -1,0 +1,26 @@
+% --------------------------------------------------------------------------
+% South Africa:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{224,60,49}
+\definecolor{blue}{RGB}{0,20,137}
+\definecolor{green}{RGB}{0,119,73}
+\definecolor{gold}{RGB}{255,184,28}
+\coordinate (c) at (2/3*\stretchfactor,0.5);
+\hstripesIII{red}{white}{blue}
+\begin{scope}
+\clip (0,0) rectangle (\flagwidth*\stretchfactor,1);
+\fill [black] (0,0)--(c)--(0,1)--cycle;
+\draw [white,line width=\flagwidth/3] (0,0)--(c);
+\draw [white,line width=\flagwidth/3] (0,1)--(c);
+\begin{scope}
+\clip (0,0)--(c)--(0,1)--cycle;
+\draw [gold,line width=\flagwidth/3] (0,0)--(c);
+\draw [gold,line width=\flagwidth/3] (0,1)--(c);
+\end{scope}
+\draw [green,line width=\flagwidth/5] (0,0)--(c);
+\draw [green,line width=\flagwidth/5] (0,1)--(c);
+\end{scope}
+\fill [green] (\flaglength,0.6)-|(c)|-(\flaglength,0.4)--cycle;
+\framecode{}
+\end{flagdescription}

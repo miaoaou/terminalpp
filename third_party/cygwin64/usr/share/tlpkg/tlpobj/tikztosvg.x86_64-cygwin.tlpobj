@@ -1,0 +1,6 @@
+name tikztosvg.x86_64-cygwin
+category TLCore
+revision 55132
+shortdesc x86_64-cygwin files of tikztosvg
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/tikztosvg

@@ -1,0 +1,14 @@
+name srbook-mem
+category Package
+revision 45818
+catalogue serbian-book
+shortdesc Support for use of memoir in Serbian
+relocated 1
+longdesc The package provides a number of commands for adjusting memoir
+longdesc output to Serbian style.
+runfiles size=1
+ RELOC/tex/latex/srbook-mem/srbook-mem.sty
+catalogue-ctan /macros/latex/contrib/srbook-mem
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics book-pub serbian

@@ -1,0 +1,19 @@
+name sseq
+category Package
+revision 31585
+shortdesc Typesetting spectral sequence charts
+relocated 1
+longdesc The package provides commands to draw spectral sequence
+longdesc diagrams, providing facilities for clipping and arranging
+longdesc multiple symbols so that they do not overlap. The package is
+longdesc built using pgf, and shares that systems large demands for TeX
+longdesc system memory. Its geometric commands are based on a turtle
+longdesc graphics model, and control structures such as loops and
+longdesc conditionals are available.
+runfiles size=10
+ RELOC/tex/latex/sseq/sseq.sty
+catalogue-ctan /macros/latex/contrib/sseq
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics maths
+catalogue-version 2.01

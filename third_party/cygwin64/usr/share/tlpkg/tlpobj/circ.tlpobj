@@ -1,0 +1,38 @@
+name circ
+category Package
+revision 62977
+shortdesc Macros for typesetting circuit diagrams
+relocated 1
+longdesc Several electrical symbols like resistor, capacitor,
+longdesc transistors etc., are defined. The symbols can be connected
+longdesc with wires. The package also contains an American resistor
+longdesc symbol for those of us on that side of the Atlantic. The
+longdesc package also has simple facilities for producing optics
+longdesc diagrams; however, no-one would deny that the PSTricks
+longdesc pst-optic package, or the MetaPost makecirc package do the job
+longdesc better.
+runfiles size=43
+ RELOC/fonts/source/public/circ/cibimos.mf
+ RELOC/fonts/source/public/circ/cicirc.mf
+ RELOC/fonts/source/public/circ/cidiod.mf
+ RELOC/fonts/source/public/circ/cioptic.mf
+ RELOC/fonts/source/public/circ/ciphysic.mf
+ RELOC/fonts/source/public/circ/cirest.mf
+ RELOC/fonts/source/public/circ/cisym.mf
+ RELOC/fonts/source/public/circ/ciwidko.mf
+ RELOC/fonts/source/public/circ/csym.mf
+ RELOC/fonts/source/public/circ/defcirc.mf
+ RELOC/fonts/tfm/public/circ/cioptic.tfm
+ RELOC/tex/latex/circ/basic.def
+ RELOC/tex/latex/circ/box.def
+ RELOC/tex/latex/circ/circ.sty
+ RELOC/tex/latex/circ/gate.def
+ RELOC/tex/latex/circ/ic.def
+ RELOC/tex/latex/circ/oldgate.def
+ RELOC/tex/latex/circ/optics.def
+ RELOC/tex/latex/circ/physics.def
+catalogue-also circuit-macros
+catalogue-ctan /macros/generic/diagrams/circ
+catalogue-license gpl
+catalogue-topics diagram-circ font font-mf optics
+catalogue-version 1.1

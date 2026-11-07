@@ -1,0 +1,51 @@
+name sdaps
+category Package
+revision 65345
+shortdesc LaTeX support files for SDAPS
+relocated 1
+longdesc This bundle contains LaTeX classes and packages to create
+longdesc machine readable questionnaires. Metadata is generated for the
+longdesc whole document and it is possible to process created forms
+longdesc fully automatically using the SDAPS main program. Features
+longdesc include: PDF Form generation Advanced array like layouting Can
+longdesc flow over multiple pages and repeats the header automatically
+longdesc Optional document wide alignment of array environments Has
+longdesc complex layout features like rotating the headers to safe space
+longdesc Ability to exchange rows and columns on the fly Different
+longdesc question types: Freeform text Single/multiple choice questions
+longdesc Range questions Layouting questions in rows or columns
+longdesc Possibility to pre-fill questionnaires from LaTeX
+depend environ
+depend lastpage
+depend pgf
+depend qrcode
+depend sectsty
+depend translator
+runfiles size=58
+ RELOC/tex/latex/sdaps/sdapsarray.sty
+ RELOC/tex/latex/sdaps/sdapsbase.sty
+ RELOC/tex/latex/sdaps/sdapsclassic.cls
+ RELOC/tex/latex/sdaps/sdapscode128.tex
+ RELOC/tex/latex/sdaps/sdapslayout.sty
+ RELOC/tex/latex/sdaps/sdapspdf.sty
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Brazilian.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Dutch.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-English.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Finnish.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-French.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-German.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Italian.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Norsk.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Polish.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Portuguese.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Romanian.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Sinhala.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Spanish.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Swedish.dict
+ RELOC/tex/latex/sdaps/translator-sdaps-dictionary-Ukrainian.dict
+catalogue-contact-home https://sdaps.org
+catalogue-contact-repository https://github.com/sdaps/sdaps-class/
+catalogue-ctan /macros/latex/contrib/sdaps
+catalogue-license lppl1.3c
+catalogue-topics class macro-supp package-devel exam pdf-forms table-long
+catalogue-version 1.9.10

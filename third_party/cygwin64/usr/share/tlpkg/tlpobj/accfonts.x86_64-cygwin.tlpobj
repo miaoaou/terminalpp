@@ -1,0 +1,8 @@
+name accfonts.x86_64-cygwin
+category Package
+revision 33557
+shortdesc x86_64-cygwin files of accfonts
+binfiles arch=x86_64-cygwin size=3
+ bin/x86_64-cygwin/mkt1font
+ bin/x86_64-cygwin/vpl2ovp
+ bin/x86_64-cygwin/vpl2vpl

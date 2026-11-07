@@ -1,0 +1,236 @@
+% tkz-tools-eu-utilities
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{4.21c}
+\def\filedate{2024/01/16} 
+\typeout{2024/01/16 4.21c  tkz-tools-utilities.tex}  
+\makeatletter
+\pgfkeys{/tkzClip/.cd, 
+space/.store in    = {\tkz@CLI@space},
+space    = {}} 
+
+\def\tkzClip{\pgfutil@ifnextchar[{\tkz@Clip}{\tkz@Clip[]}} 
+\def\tkz@Clip[#1]{%
+
+\pgfqkeys{/tkzClip}{#1} 
+\ifx\tkzutil@empty\tkz@CLI@space
+    \clip (\tkz@xa,\tkz@ya) rectangle (\tkz@xb,\tkz@yb);
+ \else
+ \edef\tkz@xxa{\fpeval{\tkz@xa-\tkz@CLI@space}}
+ \edef\tkz@yya{\fpeval{\tkz@ya-\tkz@CLI@space}}
+ \edef\tkz@xxb{\fpeval{\tkz@xb+\tkz@CLI@space}} % correction bug 2020
+ \edef\tkz@yyb{\fpeval{\tkz@yb+\tkz@CLI@space}}
+ \clip (\tkz@xxa,\tkz@yya) rectangle (\tkz@xxb,\tkz@yyb);
+\fi
+} 
+
+% for testing results
+\def\extractxy#1{%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}
+\typeout{#1 \the\pgf@x,\the\pgf@y} 
+} 
+%<-------------- some tools -------------------------------------------------> 
+\def\tkzutil@empty{}
+\def\tkzutil@firstofone#1{#1}
+\def\tkzutil@firstoftwo#1#2{#1}
+\def\tkzutil@secondoftwo#1#2{#2}
+%<--------------------------------------------------------------------------–>
+\long\def\tkzutil@ifundefined#1{%
+  \expandafter\ifx\csname#1\endcsname\relax
+    \expandafter\tkzutil@firstoftwo
+  \else
+    \expandafter\tkzutil@secondoftwo
+  \fi} 
+%<--------------------------------------------------------------------------–>
+\long\def\iftkznodedefined#1#2#3{%
+    \tkzutil@ifundefined{pgf@sh@ns@#1}{#3}{#2}%
+}
+%<--------------------------------------------------------------------------–>
+\gdef\tkzActivOff{%
+   \edef\tkzTwoPtCode{\the\catcode`\:} 
+   \edef\tkzPtExCode{\the\catcode`\!} 
+   \edef\tkzPtVirCode{\the\catcode`\;} 
+   \catcode`\:=12 \catcode`\!=12 \catcode`\;=12
+   }%
+\gdef\tkzActivOn{%
+   \catcode`\:=\tkzTwoPtCode\relax
+   \catcode`\!=\tkzPtExCode\relax
+   \catcode`\;=\tkzPtVirCode\relax
+}% 
+%<--------------------------------------------------------------------------–>
+%              Pour savoir le nombre de décimales d'un nombre
+% le nombre dans #1 et le résultat dans \c@pgfmath@countb
+%<--------------------------------------------------------------------------–>
+\newcommand\tkz@getdecimal[1]{\expandafter\@getdecimal#1.\@nil}
+\def\@getdecimal#1.#2\@nil{%
+  \ifx\empty#2\empty
+    % Si #2 est vide, c'est qu'il n'y avait pas de point
+    % dans la chaîne initiale
+    \c@pgfmath@countb0 %
+   \gdef\tkz@decpart{}%
+  \else
+    % sinon c'est la chaîne qui suit le point décimal...
+    \CountToken{#2}%
+    % ... y compris le point en trop ajouté par \tkz@getdecimal  :-)
+    \advance\c@pgfmath@countb by-1 %
+    \@@getdecimal#2\@nil
+  \fi
+}
+\def\@@getdecimal#1.\@nil{\gdef\tkz@decpart{#1}}
+%<---------------------------------------------------------–>
+% code from JCC modifi
+\newcommand\CountToken[1]{%
+ \c@pgfmath@countb0 %
+  \expandafter\C@untToken#1\@nil
+%modifi ajout du expandafter
+}
+\newcommand\C@untToken{%
+  \afterassignment\C@untT@ken\let\CurrT@ken=
+}
+\newcommand\C@untT@ken{%
+ \ifx\CurrT@ken\@nil \else
+   \advance\c@pgfmath@countb by1 %
+   \expandafter\C@untToken
+ \fi
+}
+%<---------------------------------------------------------–>
+\def\tkz@recuplast(#1,#2){\def\tkz@last{#1}}
+\def\tkz@stop{\tkz@stop}
+% end code from JCC    
+%<---------------------------------------------------------–>
+%            Tools
+%<---------------------------------------------------------–>
+%<–––––––– code from TeX in Practice ––––––––>
+\def\SubStringConditional #1#2{%
+    TT\fi
+    \edef\@MainString{#1}%
+    \edef\@SubStringConditionalTemp{{#1}{#2}}%
+    \expandafter\@SubStringConditional\@SubStringConditionalTemp
+}
+\def\@SubStringConditional #1#2{% 
+    \def\@TestSubS ##1#2##2\\{% 
+        \def\@TestTemp{##1}% 
+    }% 
+    \@TestSubS #1#2\\
+    \ifx\@MainString\@TestTemp
+        \tkz@TestSubStringfalse
+    \else
+        \tkz@TestSubStringtrue
+    \fi
+    \iftkz@TestSubString
+}
+\def\RecursionMacroEnd #1#2#3{% 
+    #1\relax
+        \def\@RecursionMacroEndNext{#2}% 
+    \else
+        \def\@RecursionMacroEndNext{#3}% 
+    \fi
+    \@RecursionMacroEndNext
+}
+\def\ReplaceSubStrings #1#2#3#4{%
+    \def\@ReplaceResult{#1}%
+    \edef\@ReplaceMain{#2}%
+    \edef\@ReplaceSub{#3}%
+    \edef\@ReplaceSubRep{#4}%
+    \@ReplaceSubStrings
+}
+\def\@ReplaceSubStrings{% 
+    \RecursionMacroEnd
+        {\if\SubStringConditional{\@ReplaceMain}{\@ReplaceSub}}%
+      {\@ReplaceSubStringsDo}{\expandafter\edef\@ReplaceResult{\@ReplaceMain}}%
+}
+\def\@ReplaceSubStringsDoX{%
+    \def\@ReplaceSubStringsDoA ##1%
+}%
+\def\@ReplaceSubStringsDo{% 
+    \expandafter\@ReplaceSubStringsDoX \@ReplaceSub
+                                    ##2\@EndReplaceSubStrings{%
+        \edef\@ReplaceMain{##1\@ReplaceSubRep ##2}%
+    }%
+    \expandafter\@ReplaceSubStringsDoA\@ReplaceMain
+        \@EndReplaceSubStrings
+    \@ReplaceSubStrings
+}
+%<---------------------------------------------------------–>
+\def\DisabledNumprint{%
+      \let\tkz@numprint\numprint
+      \let\numprint\relax
+      }
+\def\EnabledNumprint{\let\numprint\tkz@numprint} 
+%<---------------------------------------------------------–>
+\def\tkzSwapPoints(#1,#2){
+  \pgfnodealias{tkzPointTmp}{#2}
+   \pgfnodealias{#2}{#1}
+  \pgfnodealias{#1}{tkzPointTmp}}
+%<---------------------------------------------------------–>
+\def\tkzPermute(#1,#2,#3){
+\tkzURotateWithNodes(#1,#3,#2)(#3)  \tkzGetPoint{tkzpt}
+\tkzURotateWithNodes(#1,#2,#3)(#2) \tkzGetPoint{#2}
+\tkzSwapPoints(tkzpt,#3)}
+%<---------------------------------------------------------–>
+\def\tkzDotProduct(#1,#2,#3){%
+\begingroup
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}% 
+\tkz@ax\pgf@x%
+\tkz@ay\pgf@y%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#2}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#2}{center}} 
+\tkz@bx\pgf@x%
+\tkz@by\pgf@y%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#3}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#3}{center}}% 
+\tkz@cx\pgf@x%
+\tkz@cy\pgf@y%
+\edef\tkz@dotprod{\fpeval{round(((\tkz@bx-\tkz@ax)*(\tkz@cx-\tkz@ax)+(\tkz@by-\tkz@ay)*(\tkz@cy-\tkz@ay))/(809.55841),5)}}
+\global\let\tkzMathResult\tkz@dotprod
+\endgroup}
+%<---------------------------------------------------------–>
+ \def\tkzGetResult#1{%
+   \global\expandafter\edef\csname #1\endcsname{\tkzMathResult}}
+%<---------------------------------------------------------–>
+% #1,#2 and #3 aligned
+\def\tkzIsLinear(#1,#2,#3){%
+\begingroup
+\tkz@@CalcLengthcm(#1,#2){tkz@la}
+\tkz@@CalcLengthcm(#1,#3){tkz@lb}
+\tkzDotProduct(#1,#2,#3)
+\edef\tkzMathResult{\fpeval{abs(abs(\tkzMathResult)-(\tkz@la)*(\tkz@lb))}}
+\ifdim \tkzMathResult pt < 0.0001 pt\relax%
+\global\tkzLineartrue
+\else
+\global\tkzLinearfalse
+\fi
+\endgroup
+}
+%<---------------------------------------------------------–>
+% syntax : vec(#2,#1) ortho vec(#3,#1)
+\def\tkzIsOrtho(#1,#2,#3){%
+\begingroup
+\tkzDotProduct(#1,#2,#3)
+\edef\tkzMathResult{\fpeval{abs(\tkzMathResult)}}
+\ifdim \tkzMathResult pt < 0.0001 pt\relax%
+\global\tkzOrthotrue
+\else
+\global\tkzOrthofalse
+\fi
+\endgroup
+}
+%<---------------------------------------------------------–>
+  \def\tkzHelpGrid{%
+   \draw[help lines] (current bounding box.south west) grid
+          (current bounding box.north east);
+  }
+   
+\makeatother
+\endinput

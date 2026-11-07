@@ -1,0 +1,322 @@
+% suppose.sty    1.2.2  2021/05/20
+% Andrew Lounsbury
+
+%************************************************************************
+%% suppose.sty
+%% Copyright 2021 A. W. Lounsbury
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is A. W. Lounsbury.
+%
+% This work consists of the file suppose.sty. 
+%************************************************************************
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{suppose}[2021/05/20 1.2.2 supposition symbols]
+\RequirePackage{amsmath, euscript, graphicx}
+
+\DeclareMathAlphabet{\mathbfcal}{OMS}{cmsy}{b}{n}
+\DeclareMathAlphabet{\mathdutchcal}{U}{dutchcal}{m}{n}
+\DeclareMathAlphabet{\mathdutchbfcal}{U}{dutchcal}{b}{n}
+\newcommand*{\bfeuscript}[1]{\boldsymbol{\EuScript{#1}}}
+\newcommand*{\sansserif}[1]{\textit{{\fontfamily{lmss}\selectfont #1}}}
+\newcommand*{\bfsansserif}[1]{\textbf{\textit{{\fontfamily{lmss}\selectfont #1}}}}
+\font\bitt=rm-lmtko10 % bold italicized typewriter font
+\newcommand*{\itt}[1]{\scalebox{1.11}{\textit{\texttt{#1}}}}
+\newcommand*{\bolditt}[1]{$\scalebox{1.11}{\bitt #1}$}
+
+\newlength{\Swidth}
+\settowidth{\Swidth}{S}
+
+% horizontal alignments for \rule's
+\newlength{\shift} % shift for \supp
+    \setlength{\shift}{0.25\Swidth}
+\newlength{\bshift} % shift for \bsup
+    \setlength{\bshift}{0.425\Swidth}
+% plain font
+\newlength{\plainshift}
+    \setlength{\plainshift}{0.25\Swidth}
+\newlength{\bplainshift}
+    \setlength{\bplainshift}{0.425\Swidth}
+% mathcal
+\newlength{\cshift}
+    \setlength{\cshift}{0.25\Swidth}
+\newlength{\bcshift}
+    \setlength{\bcshift}{0.45\Swidth}
+% dutchcal
+\newlength{\dshift}
+    \setlength{\dshift}{0.35\Swidth}
+\newlength{\bdshift}
+    \setlength{\bdshift}{0.35\Swidth}
+% eulerscript
+\newlength{\eshift}
+    \setlength{\eshift}{-0.055\Swidth}
+\newlength{\beshift}
+    \setlength{\beshift}{0.06\Swidth}
+% sans-serif
+\newlength{\vshift}
+    \setlength{\vshift}{-0.085\Swidth}
+\newlength{\hardvshift}
+    \setlength{\hardvshift}{0.2\Swidth}
+\newlength{\bvshift}
+    \setlength{\bvshift}{0.3\Swidth}
+% tt
+\newlength{\tshift}
+    \setlength{\tshift}{0.55\Swidth}
+\newlength{\btshift}
+    \setlength{\btshift}{-0.085\Swidth}
+% Shifts for slanted \rule's
+\newlength{\sshift} % slant shift
+    \setlength{\sshift}{0.4\Swidth}
+\newlength{\sbshift} % slant bold shift
+    \setlength{\sbshift}{0.55\Swidth}
+% Slant mathcal
+\newlength{\scshift}
+    \addtolength{\scshift}{\Swidth}
+\newlength{\sbcshift}
+    \setlength{\sbcshift}{-1\Swidth}
+% Slant dutchcal
+\newlength{\sdshift}
+    \setlength{\sdshift}{0.45\Swidth}
+\newlength{\sbdshift}
+    \setlength{\sbdshift}{0.475\Swidth}
+% Slant eulerscript
+\newlength{\seshift}
+    \setlength{\seshift}{0.1\Swidth}
+\newlength{\sbeshift}
+    \setlength{\sbeshift}{0.2\Swidth}
+% Slant sans-serif
+\newlength{\svshift}
+    \setlength{\svshift}{0.1\Swidth}
+\newlength{\hardsvshift}
+    \setlength{\hardsvshift}{0.375\Swidth}
+\newlength{\sbvshift}
+    \setlength{\sbvshift}{0.4\Swidth}
+% Slant tt
+\newlength{\stshift}
+    \setlength{\stshift}{0.675\Swidth}
+\newlength{\sbtshift}
+    \setlength{\sbtshift}{0.065\Swidth}
+
+% Parameters
+\newcounter{angle} % angle at which the \rule's are rotated
+\newlength{\rulelength}
+    \setlength{\rulelength}{1.3ex}
+\newlength{\rulewidth}
+    \setlength{\rulewidth}{0.15ex}
+\newlength{\boldrulelength}
+    \setlength{\boldrulelength}{1.3ex}
+\newlength{\boldrulewidth}
+    \setlength{\boldrulewidth}{0.25ex}
+\newcommand{\curfont}{\mathnormal} % current font
+\newcommand{\curboldfont}{\boldsymbol}
+
+\newcounter{slantselected}
+\DeclareOption{slant}{%
+    \setcounter{slantselected}{1}%
+    \setcounter{angle}{-15}%
+    \setlength{\shift}{\sshift}%
+    \setlength{\bshift}{\sbshift}%
+}
+\DeclareOption{mathcal}{%
+    \renewcommand{\curfont}{\mathcal}%
+    \renewcommand{\curboldfont}{\mathbfcal}%
+    \addtolength{\rulelength}{0.1ex}%
+    \addtolength{\boldrulelength}{0.15ex}%
+}
+\DeclareOption{dutchcal}{%
+    \renewcommand{\curfont}{\mathdutchcal}%
+    \renewcommand{\curboldfont}{\mathdutchbfcal}%
+    \addtolength{\rulelength}{0.1ex}%
+    \addtolength{\boldrulelength}{0.145ex}%
+    \addtolength{\boldrulewidth}{-0.025ex}%
+    \setlength{\shift}{\dshift}
+    \setlength{\bshift}{\bdshift}
+    \ifnum\value{slantselected} = 1% if slant option is selected
+        \setlength{\shift}{\sdshift}%
+        \setlength{\bshift}{\sbdshift}%
+    \fi%
+}
+\DeclareOption{eulerscript}{%
+    \renewcommand{\curfont}{\EuScript}%
+    \renewcommand{\curboldfont}{\bfeuscript}%
+    \addtolength{\rulelength}{0.1ex}%
+    \setlength{\shift}{\eshift}%
+    \setlength{\bshift}{\beshift}%
+    \ifnum\value{slantselected} = 1%
+        \setlength{\shift}{\seshift}%
+        \setlength{\bshift}{\sbeshift}%
+    \fi%
+}
+\DeclareOption{sans-serif}{%
+    \renewcommand{\curfont}{\sansserif}%
+    \renewcommand{\curboldfont}{\bfsansserif}%
+    \setlength{\shift}{\vshift}%
+    \setlength{\bshift}{\bvshift}%
+    \ifnum\value{slantselected} = 1%
+        \setlength{\shift}{\svshift}%
+        \setlength{\bshift}{\sbvshift}%
+    \fi%
+}
+\DeclareOption{tt}{%
+    \renewcommand{\curfont}{\itt}%
+    \renewcommand{\curboldfont}{\bolditt}%
+    \addtolength{\boldrulelength}{0.1ex}%
+    \setlength{\shift}{\tshift}%
+    \setlength{\bshift}{\btshift}%
+    \ifnum\value{slantselected} = 1%
+        \setlength{\shift}{\stshift}%
+        \setlength{\bshift}{\sbtshift}%
+    \fi%
+}
+\DeclareOption*{\PackageWarning{suppose}{Unknown '\CurrentOption'}}
+\ProcessOptions\relax
+
+% The two main commands
+\newcommand{\supp}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{\value{angle}}{%
+            \rule[-0.5ex]{\rulewidth}{\rulelength}%
+        }$\hspace{\shift}%
+    }\llap{$\curfont{S}$}\mspace{5mu}%
+}
+\newcommand{\bsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{\value{angle}}{%
+            \rule[-0.5ex]{\boldrulewidth}{\boldrulelength}%
+        }$\hspace{\bshift}%
+    }\llap{$\curboldfont{S}$}\mspace{5mu}%
+}
+
+% Commands for hard-coding
+\newcommand{\plainsupp}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.3ex}$\hspace{\plainshift}%
+    }\llap{$\mathnormal{S}$}\mspace{5mu}%
+}
+\newcommand{\csup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.45ex}$\hspace{\cshift}%
+    }\llap{$\mathcal{S}$}\mspace{5mu}%
+}
+\newcommand{\dsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.45ex}$\hspace{\dshift}%
+    }\llap{$\mathdutchcal{S}$}\mspace{5mu}%
+}
+\newcommand{\esup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.35ex}$\hspace{\eshift}%
+    }\llap{$\EuScript{S}$}\mspace{5mu}%
+}
+\newcommand{\vsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.45ex}$\hspace{\hardvshift}%
+    }\llap{\textit{{\fontfamily{lmss}\selectfont S}}}\mspace{5mu}%
+}
+\newcommand{\tsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\rulewidth}{1.3ex}$\hspace{\tshift}%
+    }\llap{\scalebox{1.1}{\textit{\texttt{S}}}}\mspace{5mu}%
+}
+% Bold
+\newcommand{\plainbsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\boldrulewidth}{1.3ex}$\hspace{\bplainshift}%
+    }\llap{$\boldsymbol{S}$}\mspace{5mu}%
+}
+\newcommand{\bcsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\boldrulewidth}{1.45ex}$\hspace{\bcshift}%
+    }\llap{$\boldsymbol{\mathcal{S}}$}\mspace{5mu}%
+}
+\newcommand{\bdsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{0.225ex}{1.5ex}$\hspace{\bdshift}%
+    }\llap{$\mathdutchbfcal{S}$}\mspace{5mu}%
+}
+\newcommand{\besup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\boldrulewidth}{1.35ex}$\hspace{\beshift}%
+    }\llap{$\boldsymbol{\EuScript{S}}$}\mspace{5mu}%
+}
+\newcommand{\bvsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\boldrulewidth}{1.45ex}$\hspace{\bvshift}%
+    }\llap{\textbf{\textit{{\fontfamily{lmss}\selectfont S}}}}\mspace{5mu}%
+}
+\newcommand{\btsup}{%
+    \makebox[\Swidth][c]{%
+        $\rule[-0.5ex]{\boldrulewidth}{1.3ex}$\hspace{\btshift}%
+    }\llap{\scalebox{1.11}{\bitt S}}\mspace{5mu}%
+}
+% Slanted rule
+\newcommand{\ssup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.3ex}}$\hspace{\sshift}%
+    }\llap{$S$}\mspace{5mu}%
+}
+\newcommand{\scsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.45ex}}$\hspace{\sshift}%
+    }\llap{$\mathcal{S}$}\mspace{5mu}%
+}
+\newcommand{\sdsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.35ex}}$\hspace{\sdshift}%
+    }\llap{$\mathdutchcal{S}$}\mspace{5mu}%
+}
+\newcommand{\sesup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.4ex}}$\hspace{\seshift}%
+    }\llap{$\EuScript{S}$}\mspace{5mu}%
+}
+\newcommand{\svsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.45ex}}$\hspace{\hardsvshift}%
+    }\llap{\textit{{\fontfamily{lmss}\selectfont S}}}\mspace{5mu}%
+}
+\newcommand{\stsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\rulewidth}{1.3ex}}$\hspace{\stshift}%
+    }\llap{\scalebox{1.11}{\textit{\texttt{S}}}}\mspace{5mu}%
+}
+% Slanted & bold
+\newcommand{\sbsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.3ex}}$\hspace{\sbshift}%
+    }\llap{$\boldsymbol{S}$}\mspace{5mu}%
+}
+\newcommand{\sbcsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.45ex}}$\hspace{\sbshift}%
+    }\llap{$\boldsymbol{\mathcal{S}}$}\mspace{5mu}%
+}
+\newcommand{\sbdsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.4ex}}$\hspace{\sbdshift}%
+    }\llap{$\mathdutchbfcal{S}$}\mspace{5mu}%
+}
+\newcommand{\sbesup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.45ex}}$\hspace{\sbeshift}%
+    }\llap{$\boldsymbol{\EuScript{S}}$}\mspace{5mu}%
+}
+\newcommand{\sbvsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.45ex}}$\hspace{\sbvshift}%
+    }\llap{\textbf{\textit{{\fontfamily{lmss}\selectfont S}}}}\mspace{5mu}%
+}
+\newcommand{\sbtsup}{%
+    \makebox[\Swidth][c]{%
+        $\rotatebox{-15}{\rule[-0.5ex]{\boldrulewidth}{1.4ex}}$\hspace{\sbtshift}%
+    }\llap{\scalebox{1.11}{\bitt S}}\mspace{5mu}%
+}

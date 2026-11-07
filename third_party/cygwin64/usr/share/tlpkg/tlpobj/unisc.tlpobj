@@ -1,0 +1,22 @@
+name unisc
+category Package
+revision 63178
+shortdesc Unicode small caps with Lua/XeLaTeX
+relocated 1
+longdesc LaTeX produces small caps with \textsc{text} or {\scshape
+longdesc text}. Neither of these commands produce small caps in Unicode.
+longdesc If the output text is copied and pasted somewhere it shows the
+longdesc same characters as used in the input. This package aims to
+longdesc internally convert all the characters provided to the commands
+longdesc mentioned above. It assumes that the file using this package is
+longdesc compiled with Lua/XeLaTeX and a good Unicode font which has the
+longdesc small caps characters, e.g., Charis SIL.
+runfiles size=3
+ RELOC/tex/latex/unisc/unisc.sty
+catalogue-contact-bugs https://puszcza.gnu.org.ua/bugs/?group=unisc
+catalogue-contact-repository https://git.gnu.org.ua/unisc.git
+catalogue-contact-support mailto:unisc-help@gnu.org.ua
+catalogue-ctan /macros/unicodetex/latex/unisc
+catalogue-license gpl3+ fdl
+catalogue-topics unicode
+catalogue-version 0.2

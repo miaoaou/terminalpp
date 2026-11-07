@@ -1,0 +1,17 @@
+name continue
+category Package
+revision 49449
+shortdesc Prints 'continuation' marks on pages of multipage documents
+relocated 1
+longdesc This package provides for a variety of continuation indicators
+longdesc on pages when the text continues on the following page. The
+longdesc default is to only mark odd pages, but all pages can be marked
+longdesc and the marking can be stopped or started at any point.
+runfiles size=2
+ RELOC/tex/latex/continue/continue.sty
+catalogue-also fwlw turnthepage
+catalogue-ctan /macros/latex/contrib/continue
+catalogue-date 2019-01-11 20:04:18 +0100
+catalogue-license lppl1.3
+catalogue-topics layout page-hf
+catalogue-version 0.2

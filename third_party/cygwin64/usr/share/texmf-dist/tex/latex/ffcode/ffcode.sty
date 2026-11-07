@@ -1,0 +1,142 @@
+%%
+%% This is file `ffcode.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ffcode.dtx  (with options: `package')
+%% (The MIT License)
+%% 
+%% Copyright (c) 2021-2024 Yegor Bugayenko
+%% 
+%% Permission is hereby granted, free of charge, to any person obtaining a copy
+%% of this software and associated documentation files (the 'Software'), to deal
+%% in the Software without restriction, including without limitation the rights
+%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%% copies of the Software, and to permit persons to whom the Software is
+%% furnished to do so, subject to the following conditions:
+%% 
+%% The above copyright notice and this permission notice shall be included in all
+%% copies or substantial portions of the Software.
+%% 
+%% THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%% SOFTWARE.
+
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ffcode}
+[2024-02-04 0.9.2 Fixed Font Code]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /ff/.cd,
+  bold/.store in=\ff@bold,
+  sf/.store in=\ff@sf,
+  noframes/.store in=\ff@noframes,
+  nonumbers/.store in=\ff@nonumbers,
+  nobars/.store in=\ff@nobars,
+  novert/.store in=\ff@novert,
+  nocn/.store in=\ff@nocn,
+}
+\ProcessPgfPackageOptions{/ff}
+
+\RequirePackage{xcolor}
+\RequirePackage{listings}
+\makeatletter
+\lst@AddToHook{Init}{\setlength{\lineskip}{0pt}}
+\makeatother
+
+\makeatletter
+\lstnewenvironment{ffcode}[1][]
+  {
+    \lstset{breaklines}
+    \lstset{escapeinside={(*@}{@*)}}
+    \lstset{basicstyle={\ttfamily}}
+    \lstset{columns=fullflexible}
+    \ifdefined\ff@nonumbers\else
+      \lstset{numbers=left,numbersep=.8em,numberstyle={\tiny\sffamily\color{gray}}}
+    \fi
+    \ifdefined\ff@nobars\else
+      \lstset{frame=leftline,framerule=.05em,rulecolor={\color{gray}}}
+    \ifdefined\ff@nocn\else
+      \lstset{firstnumber=last}
+    \fi
+    \lstset{#1}
+  }
+  {}
+\makeatother
+
+\makeatletter
+\newcommand\ff@print[1]{%
+  \textnormal{%
+    \ifdefined\ff@sf\sffamily\else\ttfamily\fi%
+    \ifdefined\ff@bold\fontseries{b}\selectfont\fi%
+    #1%
+  }%
+}
+\makeatother
+
+\makeatletter\newcommand\ff@rule
+  {\vrule height 0.6em depth 0.1em width 0em}
+\makeatother
+
+\makeatletter
+\ifdefined\ff@noframes\else
+  \RequirePackage{tcolorbox}
+  \newtcbox\ff@box{nobeforeafter,colframe=gray!80!white,
+    colback=gray!5!white,boxrule=0.01em,arc=0.1em,
+    boxsep=0.12em,left=0.05em,right=0.05em,top=0.02em,bottom=0.02em,
+    tcbox raise base}
+\fi
+\makeatother
+
+\makeatletter
+\NewDocumentCommand\ff@x{v}{\ff{#1}}
+\makeatother
+
+\makeatletter
+\newcommand\ff[1]{%
+  \ifdefined\ff@noframes%
+    \ff@rule\ff@print{#1}%
+  \else%
+    \relax\ifmmode%
+      \ff@rule\ff@print{#1}%
+    \else%
+      \ff@box{\ff@rule\ff@print{#1}}%
+    \fi%
+  \fi%
+}
+\makeatother
+
+\makeatletter\ifdefined\ff@novert\else
+  \catcode`\|\active
+  \AtBeginDocument{\catcode`\|\active\protected\def|{\ff@x|}}
+  \catcode`\| 12 %
+\fi\makeatother
+
+\endinput
+%%
+%% End of file `ffcode.sty'.

@@ -1,0 +1,899 @@
+%%
+%% This is file `exesheet.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% exesheet.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2020-2024 by Antoine Missier <antoine.missier@ac-toulouse.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version. The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{exesheet}
+[2024/02/13 v2.7 .dtx Typesetting exercise or exam sheets]
+
+\@ifclassloaded{exesheet}{}{
+    \RequirePackage{kvoptions}
+    \DeclareBoolOption[true]{exetoc}
+    \DeclareBoolOption[true]{setlist}
+    \DeclareStringOption[both]{output}
+    \DeclareStringOption[none]{display}
+    \DeclareBoolOption[false]{answerspace}
+    \DeclareStringOption[left]{marginpos}
+    \DeclareStringOption[expand]{marginwidth}
+    \DeclareStringOption[left]{noteragged}
+    \DeclareBoolOption[false]{checkpts}
+    \DeclareStringOption[false]{correct}
+}
+
+\ProcessKeyvalOptions*
+
+\PackageInfo{exesheet}{The options `notoc' and `nosetlist'
+    \MessageBreak are no longer supported\@gobble}
+    % \@gobble suppresses the line number here
+
+\def\exs@process@dynoptions{
+    \exs@process@output
+    \exs@process@display
+    \exs@process@noteragged
+} % answerspace do not need a special process macro
+
+\AtEndOfPackage{\exs@process@dynoptions}
+\AtBeginDocument{
+    \newif\ifexesheet@multicol
+    \@ifpackageloaded{multicol}{
+        \exesheet@multicoltrue}{\exesheet@multicolfalse}
+        % configuring the rule color within answers environments
+    \exs@process@setlist
+    \exs@process@marginpos
+    \exs@process@marginwidth
+    \exs@process@checkpts
+    \exs@process@correct
+    \DisableKeyvalOption[action=warning,package=exesheet]{exesheet}{setlist}
+    \DisableKeyvalOption[action=warning,package=exesheet]{exesheet}{marginpos}
+    \DisableKeyvalOption[action=warning,package=exesheet]{exesheet}{marginwidth}
+    \DisableKeyvalOption[action=warning,package=exesheet]{exesheet}{checkpts}
+    \DisableKeyvalOption[action=warning,package=exesheet]{exesheet}{correct}
+}
+
+\def\exesheetset#1{\setkeys{exesheet}{#1}\exs@process@dynoptions}
+
+\newcommand{\questionsonly}{
+    \PackageWarning{exesheet}{Old command \string\questionsonly\space
+        is used. \MessageBreak
+        It can be replaced by the option `output=questions'}
+    \renewcommand\exesheet@output{questions}
+    \exs@process@output
+}
+\newcommand{\answersonly}{
+    \PackageWarning{exesheet}{Old command \string\answersonly\space
+        is used. \MessageBreak
+        It can be replaced by the option `output=answers'}
+    \renewcommand\exesheet@output{answers}
+    \exs@process@output
+}
+\newcommand{\displaypts}{%
+    \PackageWarning{exesheet}{Old command \string\displaypts\space
+        is used. \MessageBreak
+        It can be replaced by the option `display=pts'}
+    \renewcommand\exesheet@display{pts}
+    \exs@process@display
+}
+\newcommand{\displaypoints}{%
+    \PackageWarning{exesheet}{Old command \string\displaypoints\space
+        is used. \MessageBreak
+        It can be replaced by the option `display=pts'}
+    \renewcommand\exesheet@display{pts}
+    \exs@process@display
+}
+\newcommand*{\displaynotes}[1][\RaggedLeft]{%
+    \PackageWarning{exesheet}{Old command \string\displaynotes\space
+        is used. \MessageBreak
+        It can be replaced by the option `display=notes'}
+    \renewcommand\exesheet@display{notes}
+    \exs@process@display
+    \renewcommand{\noteragged}{#1}
+}
+\newcommand*{\displaynotesright}[1][\RaggedRight]{%
+    \PackageWarning{exesheet}{Old command \string\displaynotesright
+        \space is used. \MessageBreak
+        It can be replaced by the options `display=notes, margin=right'}
+    \renewcommand\exesheet@display{notes}
+    \exs@process@display
+    \renewcommand\exesheet@margin{right}
+    \renewcommand{\noteragged}{#1}
+}
+
+\RequirePackage{ifthen}
+\@ifpackageloaded{geometry}{}{\RequirePackage{geometry}}
+\RequirePackage{xcolor}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{tasks}[2020/08/19]
+\RequirePackage{versions}
+\RequirePackage{fancybox}
+\RequirePackage{translations}
+\RequirePackage{ragged2e}
+\ifthenelse{\boolean{@twoside}}{\RequirePackage{mparhack}}{}
+
+\DeclareTranslationFallback{exesheet-exercise}{Exercise}
+\DeclareTranslationFallback{exesheet-subpart}{Part}
+\DeclareTranslationFallback{exesheet-annex}{Annex}
+\DeclareTranslationFallback{exesheet-ex}{Ex}
+\DeclareTranslationFallback{exesheet-points}{points}
+\DeclareTranslationFallback{exesheet-point}{point}
+\DeclareTranslationFallback{exesheet-correction}{Correction}
+\DeclareTranslationFallback{exesheet-pts}{pts}
+\DeclareTranslationFallback{exesheet-pt}{pt}
+
+\DeclareTranslation{english}{exesheet-exercise}{Exercise}
+\DeclareTranslation{english}{exesheet-subpart}{Part}
+\DeclareTranslation{english}{exesheet-annex}{Annex}
+\DeclareTranslation{english}{exesheet-ex}{Ex}
+\DeclareTranslation{english}{exesheet-points}{points}
+\DeclareTranslation{english}{exesheet-point}{point}
+\DeclareTranslation{english}{exesheet-correction}{Correction}
+\DeclareTranslation{english}{exesheet-pts}{pts}
+\DeclareTranslation{english}{exesheet-pt}{pt}
+
+\DeclareTranslation{french}{exesheet-exercise}{Exercice}
+\DeclareTranslation{french}{exesheet-subpart}{Partie}
+\DeclareTranslation{french}{exesheet-annex}{Annexe}
+\DeclareTranslation{french}{exesheet-ex}{Ex}
+\DeclareTranslation{french}{exesheet-points}{points}
+\DeclareTranslation{french}{exesheet-point}{point}
+\DeclareTranslation{french}{exesheet-correction}{Correction}
+\DeclareTranslation{french}{exesheet-pts}{pts}
+\DeclareTranslation{french}{exesheet-pt}{pt}
+
+\DeclareTranslation{german}{exesheet-exercise}{\"Ubung}
+\DeclareTranslation{german}{exesheet-subpart}{Teil}
+\DeclareTranslation{german}{exesheet-annex}{Anhang}
+\DeclareTranslation{german}{exesheet-ex}{\"Ub}
+\DeclareTranslation{german}{exesheet-points}{Punkte}
+\DeclareTranslation{german}{exesheet-point}{Punkt}
+\DeclareTranslation{german}{exesheet-correction}{Verbesserung}
+\DeclareTranslation{german}{exesheet-pts}{P.}
+\DeclareTranslation{german}{exesheet-pt}{P.}
+
+\DeclareTranslation{spanish}{exesheet-exercise}{Ejercicio}
+\DeclareTranslation{spanish}{exesheet-subpart}{Parte}
+\DeclareTranslation{spanish}{exesheet-annex}{Anexo}
+\DeclareTranslation{spanish}{exesheet-ex}{Ej}
+\DeclareTranslation{spanish}{exesheet-points}{puntos}
+\DeclareTranslation{spanish}{exesheet-point}{punto}
+\DeclareTranslation{spanish}{exesheet-correction}{Correcci\'on}
+\DeclareTranslation{spanish}{exesheet-pts}{ptos}
+\DeclareTranslation{spanish}{exesheet-pt}{pto}
+
+\DeclareTranslation{italian}{exesheet-exercise}{Esercizio}
+\DeclareTranslation{italian}{exesheet-subpart}{Parte}
+\DeclareTranslation{italian}{exesheet-annex}{Annesso}
+\DeclareTranslation{italian}{exesheet-ex}{Es}
+\DeclareTranslation{italian}{exesheet-points}{punti}
+\DeclareTranslation{italian}{exesheet-point}{punto}
+\DeclareTranslation{italian}{exesheet-correction}{Correzione}
+\DeclareTranslation{italian}{exesheet-pts}{pti}
+\DeclareTranslation{italian}{exesheet-pt}{pt}
+
+\DeclareTranslation{portuges}{exesheet-exercise}{Exerc\'icio}
+\DeclareTranslation{portuges}{exesheet-subpart}{Parte}
+\DeclareTranslation{portuges}{exesheet-annex}{Anexo}
+\DeclareTranslation{portuges}{exesheet-ex}{Ex}
+\DeclareTranslation{portuges}{exesheet-points}{pontos}
+\DeclareTranslation{portuges}{exesheet-point}{ponto}
+\DeclareTranslation{portuges}{exesheet-correction}{Corre\c c\~ao}
+\DeclareTranslation{portuges}{exesheet-pts}{pts}
+\DeclareTranslation{portuges}{exesheet-pt}{pt}
+
+\newcommand*\exercisename{\GetTranslation{exesheet-exercise}}
+\newcommand*\subpartname{\GetTranslation{exesheet-subpart}}
+\newcommand*\annexname{\GetTranslation{exesheet-annex}}
+\newcommand*\exname{\GetTranslation{exesheet-ex}}
+\newcommand*\pointsname{\GetTranslation{exesheet-points}}
+\newcommand*\pointname{\GetTranslation{exesheet-point}}
+\newcommand*\correctionname{\GetTranslation{exesheet-correction}}
+\newcommand*\ptsname{\GetTranslation{exesheet-pts}}
+\newcommand*\ptname{\GetTranslation{exesheet-pt}}
+
+\newcounter{exercise}
+\newcounter{exe@check}
+
+\newcommand{\labelexercise}{\exercisename\space \theexercise}
+\newcommand{\labelexercisestyle}{}
+\newcommand*{\@exercise}[1][]{%
+    \refstepcounter{exercise}
+    \subsection*{\labelexercisestyle\labelexercise\enskip #1}
+    \ifexesheet@exetoc
+        \addcontentsline{toc}{subsection}{\labelexercise}
+    \fi
+    \ifexesheet@checkpts
+     \setcounter{exe@check}{\value{exercise}}
+        \def\exe@label{\exercisename\space\theexe@check}
+    \fi
+}
+\newcommand*{\@@exercise}[2][]{%
+    \subsection*{\labelexercisestyle #2\enskip #1}
+    \setcounter{subpart}{0} % resets the parts counter
+    \ifexesheet@exetoc
+        \addcontentsline{toc}{subsection}{#2}
+    \fi
+    \ifexesheet@checkpts \def\exe@label{#2} \fi
+}
+\newcommand{\exercise}{\@ifstar{\@@exercise}{\@exercise}}
+
+\newcounter{subpart}[exercise] %
+\renewcommand{\thesubpart}{\Alph{subpart}}
+
+\newcommand{\labelsubpart}{\subpartname~\thesubpart}
+\newcommand{\labelsubpartstyle}{}
+\newcommand*{\@subpart}[1][]{%
+    \refstepcounter{subpart}%
+    \subsubsection*{\labelsubpartstyle\labelsubpart\enskip #1}
+    \ifexesheet@exetoc
+        \addcontentsline{toc}{subsubsection}{\labelsubpart}
+    \fi
+}
+\newcommand*{\@@subpart}[2][]{%
+    \subsubsection*{\labelsubpartstyle #2\enskip #1}
+    \ifexesheet@exetoc
+        \addcontentsline{toc}{subsubsection}{#2}
+    \fi
+}
+\newcommand{\subpart}{\@ifstar{\@@subpart}{\@subpart}}
+
+\newcommand{\annexstyle}{\MakeUppercase}
+\newcommand*{\annex}[1][]{%
+    \subsection*{\mbox{}\hfill\annexstyle{\annexname} #1\hfill\mbox{}}
+    \ifexesheet@exetoc
+        \addcontentsline{toc}{subsection}{\annexname}
+    \fi
+}
+
+\newcommand{\exlabel}{\exname.~\theexercise}
+\newcommand{\exsepmark}{---}
+\newcommand{\@exe}{\bigskip\refstepcounter{exercise}
+    \ifexesheet@checkpts
+        \setcounter{exe@check}{\value{exercise}}
+        \def\exe@label{\exname\space\theexe@check}
+    \fi
+    \par\noindent\textbf{\exlabel~\exsepmark}~}
+\newcommand{\@@exe}{\bigskip\refstepcounter{exercise}
+    \ifexesheet@checkpts
+        \setcounter{exe@check}{\value{exercise}}
+        \def\exe@label{\exname\space\theexe@check}
+    \fi
+    \par\noindent\textbf{\exlabel}~}
+\newcommand{\exe}{\@ifstar{\@@exe}{\@exe}}
+
+\newcommand\enumfont{\bfseries}
+
+\newenvironment{exenumerate}[1][]{%
+    \setlist[enumerate]{font=\enumfont}
+    \setlist[enumerate,1]{leftmargin=1.5em,
+        itemsep=3ex plus 1ex minus 1ex,topsep=3ex plus 1ex minus 1ex}
+    \setlist[enumerate,3]{noitemsep,nolistsep}
+    \setlist[itemize]{noitemsep,nolistsep}
+    \begin{enumerate}[#1]
+        }{\end{enumerate}}
+
+\ifexesheet@setlist
+    \@ifundefined{frenchsetup}{}{\frenchsetup{StandardLists=true}}
+    % must be executed here (and not at begin doc) if loaded after babel
+\fi
+
+\newcommand\labelenumone{\arabic{task}.}
+\newcommand\labelenuma{(\alph{task})}
+\newcommand\refenuma{\alph{task}}
+
+\def\exs@process@setlist{% must be executed at begin document
+  \ifexesheet@setlist
+    \@ifundefined{frenchsetup}{}{\frenchsetup{StandardLists=true}}
+    % executed at begin doc if loaded before babel
+    \setlist[enumerate]{font=\enumfont}
+    \setlist[enumerate,1]{topsep=1.5ex plus 1ex minus 1ex,leftmargin=1.5em}
+  \fi
+
+  \ifexesheet@setlist
+    \settasks{label-format=\enumfont}
+    \NewTasksEnvironment[label=\labelenumone,
+        column-sep=1em,label-align=right,
+        item-indent=1.5em,label-width=1em,label-offset=0.5em,
+        after-item-skip=0.5ex plus 0.5ex minus 0.5ex]{tablenum1}[\item](2)
+    \NewTasksEnvironment[label=\labelenuma,ref=\refenuma,
+        column-sep=1em,label-align=right,
+        item-indent=2.15em,label-width=1.6em,label-offset=0.5em,
+        after-item-skip=0.5ex plus 0.5ex minus 0.5ex]{tablenuma}[\item](2)
+  \else
+    \NewTasksEnvironment[label=\labelenumone,
+        column-sep=1em,label-align=right,
+        label-width=1em,label-offset=0.5em,
+        after-item-skip=0.5ex plus 0.5ex minus 0.5ex]{tablenum1}[\item](2)
+    \NewTasksEnvironment[label=\labelenuma,ref=\refenuma,
+        column-sep=1em,label-align=right,
+        item-indent=2.15em,label-width=1.6em,label-offset=0.5em,
+        after-item-skip=0.5ex plus 0.5ex minus 0.5ex]{tablenuma}[\item](2)
+  \fi
+} % end of macro \exs@process@setlist
+
+\PackageInfo{exesheet}{The environment `tablenum' is deprecated
+    \MessageBreak and has been replaced by `tablenum1'\@gobble}
+    % \@gobble suppresses the line number here
+
+\NewTasksEnvironment[label=\labelitemi,
+    label-align=right,
+    item-indent=2.5em,label-offset=0.5em,
+    after-item-skip=0.5ex plus 0.5ex minus 0.5ex]{tablitem}[\item](2)
+
+\newenvironment{tablenuma*}{%
+    \mbox{}\vspace{-1.667\baselineskip}\begin{tablenuma}}{
+    \end{tablenuma}}
+\newenvironment{tablitem*}{%
+    \mbox{}\vspace{-1.667\baselineskip}\begin{tablitem}}{
+    \end{tablitem}}
+
+\newenvironment{colsenum*}[2][]{%
+    \ifexesheet@multicol \else
+        \PackageError{exesheet}{The environments colsenum and colsenum*
+            \MessageBreak need the multicol package}{
+            Add \string\usepackage{multicol}\space in the preamble.}
+    \fi
+    \setlength{\multicolsep}{2ex}
+    \begin{multicols}{#2} % #2 = number of columns
+    \begin{enumerate}[#1] % #1 = options of enumerate
+    }{
+    \end{enumerate}
+    \end{multicols}
+}
+
+\newenvironment{colsenum}[2][]{%
+    \raggedcolumns % default is \flushcolumns
+    \begin{colsenum*}[#1]{#2}
+    }{
+    \end{colsenum*}
+}
+
+\newenvironment{colsitem*}[2][]{%
+    \ifexesheet@multicol \else
+        \PackageError{exesheet}{The environments colsitem and colsitem*
+            \MessageBreak need the multicol package}{
+            Add \string\usepackage{multicol}\space in the preamble.}
+    \fi
+    \setlength{\multicolsep}{2ex}
+    \begin{multicols}{#2} % #2 = number of columns
+    \begin{itemize}[#1] % #1 = options of itemize
+    }{
+    \end{itemize}
+    \end{multicols}
+}
+
+\newenvironment{colsitem}[2][]{%
+    \raggedcolumns % default is \flushcolumns
+    \begin{colsitem*}[#1]{#2}
+    }{
+    \end{colsitem*}
+}
+
+\newboolean{exesheet@questions}\setboolean{exesheet@questions}{true}
+\newboolean{exesheet@answers}\setboolean{exesheet@answers}{true}
+
+\def\exs@process@output{
+    \ifthenelse{\equal{\exesheet@output}{questions}}{
+        \setboolean{exesheet@questions}{true}
+        \setboolean{exesheet@answers}{false}
+    }{% else if
+    \ifthenelse{\equal{\exesheet@output}{answers}}{
+        \setboolean{exesheet@questions}{false}
+        \setboolean{exesheet@answers}{true}
+        \exesheet@answerspacefalse
+    }{% else if
+    \ifthenelse{\equal{\exesheet@output}{both}}{
+        \setboolean{exesheet@questions}{true}
+        \setboolean{exesheet@answers}{true}
+        \exesheet@answerspacefalse
+    }{% else
+    \PackageWarning{exesheet}{Value `\exesheet@output'
+         is not supported by `output' option}
+    }}}
+}
+
+\newcounter{exe@ini}
+\newcounter{subpart@ini}
+
+\newenvironment{questions}{
+    \ifthenelse{\boolean{exesheet@questions}}{%
+        \setcounter{exe@ini}{\value{exercise}}
+        \setcounter{subpart@ini}{\value{subpart}}
+    }{\comment}
+}{\ifthenelse{\boolean{exesheet@questions}}{}{\endcomment}}
+
+\newcounter{@toclevel}
+\newcommand{\set@toclevel}[1][]{
+    \ifthenelse{\equal{#1}{}}{
+        \ifthenelse{\value{exercise} > \value{exe@ini}}{
+            \setcounter{@toclevel}{1}
+        }{% else
+        \ifthenelse{\equal{\the\@enumdepth}{0}}{
+            % we're not in an enumerate environment
+            \ifthenelse{\(\value{subpart} > \value{subpart@ini}\)
+                \or \(\value{subpart} = 0\)}{
+              \setcounter{@toclevel}{2}
+            }{\setcounter{@toclevel}{3}}
+        }{\setcounter{@toclevel}{4}}}
+    }{\setcounter{@toclevel}{#1}}}
+
+\definecolor{correctioncolor}{rgb}{0,0.2,0.6} % kind of dark blue
+\newcommand{\correctionstyle}{\color{correctioncolor}}
+
+\newcommand{\typeset@correctionname}{
+    \ifthenelse{\value{@toclevel} = 1}{
+        \section*{\correctionstyle\correctionname}
+        \ifexesheet@exetoc
+            \addcontentsline{toc}{section}{\correctionname}
+        \fi
+        \setcounter{exercise}{0}
+    }{% else if
+    \ifthenelse{\value{@toclevel} = 2}{%
+        \subsection*{\correctionstyle\correctionname}
+        \ifexesheet@exetoc
+            \addcontentsline{toc}{subsection}{\correctionname}
+        \fi
+        \setcounter{subpart}{0}
+    }{% else if
+    \ifthenelse{\value{@toclevel} = 3}{%
+        \subsubsection*{\correctionstyle\correctionname}
+        \ifexesheet@exetoc
+            \addcontentsline{toc}{subsubsection}{\correctionname}
+        \fi
+    }{% else
+    \par\textbf{\correctionstyle\correctionname}\par
+    }}}
+}
+
+\newenvironment{answers}[1][]{% #1 is the optional level
+    \ifthenelse{\boolean{exesheet@answers}}{%
+        \ifthenelse{\boolean{exesheet@questions}}{
+            \set@toclevel[#1]
+            \typeset@correctionname
+            \correctionstyle%
+            \ifexesheet@setlist
+                \settasks{
+                    label-format = \color{correctioncolor}\enumfont,
+                    item-format  = \color{correctioncolor}
+                }%
+            \else
+                \settasks{
+                    label-format = \color{correctioncolor},
+                    item-format  = \color{correctioncolor}
+                }%
+            \fi%
+            \ifexesheet@multicol
+                \renewcommand{\columnseprulecolor}{%
+                    \color{correctioncolor}}
+            \fi%
+        }{}
+    }{\comment}
+}{\ifthenelse{\boolean{exesheet@answers}}{}{\endcomment}}
+
+\newenvironment{answers*}{
+    \ifthenelse{\boolean{exesheet@answers}}{\correctionstyle}{\comment}
+}{\ifthenelse{\boolean{exesheet@answers}}{}{\endcomment}}
+
+\newcommand{\@question}[1]{\ifexesheet@questions #1\fi}
+\newcommand{\@@question}[1]{%
+    \ifexesheet@questions\ifexesheet@answers \else #1\fi\fi}
+\newcommand{\question}{\@ifstar{\@@question}{\@question}}
+
+\newcommand{\@answer}[1]{%
+    \ifexesheet@answers%
+        \ifexesheet@questions {\correctionstyle #1}\else #1\fi
+    \fi
+}
+\newcommand{\@@answer}[1]{%
+    \ifexesheet@answers\ifexesheet@questions \else #1\fi\fi}
+\newcommand{\answer}{\@ifstar{\@@answer}{\@answer}}
+
+\newcommand\answerspace[1]{
+    \ifexesheet@answerspace \par\vspace{#1} \fi}
+
+\def\exs@process@correct{
+    \ifthenelse{\equal{\exesheet@correct}{false}}{% do nothing
+    }{% else
+    \@ifpackageloaded{schooldocs}{
+        \ifthenelse{\equal{\exesheet@correct}{true}}{
+            \correct
+        }{% else
+        \ifthenelse{\equal{\exesheet@correct}{conditional}}{
+            \ifexesheet@answers \correct \fi
+        }{}}
+    }{
+        \PackageWarningNoLine{exesheet}{The `correct' option requires
+            \MessageBreak
+            the `schooldocs' package to be loaded}
+    }}
+}
+
+\newboolean{exesheet@pts}
+\newboolean{exesheet@notes}
+
+\def\exs@process@display{
+    \ifthenelse{\equal{\exesheet@display}{pts}}{
+        \setboolean{exesheet@pts}{true}
+        \setboolean{exesheet@notes}{false}
+    }{% else if
+    \ifthenelse{\equal{\exesheet@display}{notes}}{
+        \setboolean{exesheet@pts}{true}
+        \setboolean{exesheet@notes}{true}
+    }{% else if
+    \ifthenelse{\equal{\exesheet@display}{none}}{
+        \setboolean{exesheet@pts}{false}
+        \setboolean{exesheet@notes}{false}
+    }{% else
+    \PackageWarning{exesheet}{Value `\exesheet@display'
+         is not supported by `display' option}
+    }}}
+}
+
+\newboolean{exesheet@leftmargin}
+
+\def\exs@process@marginpos{
+    \ifthenelse{\equal{\exesheet@marginpos}{left}}{
+        \if@twoside%
+            \PackageWarningNoLine{exesheet}{The default `marginpos'
+                option \MessageBreak
+                for two-sided documents is `outer'.\MessageBreak
+                To change the side, use `inner'}
+            \def\exesheet@marginpos{outer}
+            \setboolean{exesheet@leftmargin}{false}
+            \normalmarginpar
+        \else% default
+            \setboolean{exesheet@leftmargin}{true}
+            \reversemarginpar
+        \fi
+    }{% else if
+    \ifthenelse{\equal{\exesheet@marginpos}{right}}{
+        \if@twoside%
+            \PackageWarningNoLine{exesheet}{The default `marginpos'
+                option \MessageBreak
+                for two-sided documents is `outer'.\MessageBreak
+                To change the side, use `inner'}
+            \def\exesheet@marginpos{outer}
+        \fi
+        \setboolean{exesheet@leftmargin}{false}
+        \normalmarginpar
+    }{% else if
+    \ifthenelse{\equal{\exesheet@marginpos}{inner}}{
+        \setboolean{exesheet@leftmargin}{true}
+        \reversemarginpar
+    }{% else if
+    \ifthenelse{\equal{\exesheet@marginpos}{outer}}{
+        \setboolean{exesheet@leftmargin}{false}
+        \normalmarginpar
+    }{% else
+    \PackageWarningNoLine{exesheet}{The value `\exesheet@marginpos'
+         is not supported by the `marginpos' option}
+    }}}}
+}
+
+\def\standardmarginwidthfactor{0.6}
+\def\largemarginwidthfactor{0.8}
+
+\newcommand*{\leftnotemarginwidth}[1]{
+    \setlength{\marginparwidth}{\oddsidemargin}
+    \addtolength{\marginparwidth}{1in}
+    \addtolength{\marginparwidth}{-\marginparsep}
+    \setlength{\marginparwidth}{#1\marginparwidth}
+}
+
+\newcommand*\rightnotemarginwidth[1]{
+    \setlength{\marginparwidth}{\paperwidth}
+    \addtolength{\marginparwidth}{-\textwidth}
+    \addtolength{\marginparwidth}{-\oddsidemargin}
+    \addtolength{\marginparwidth}{-\marginparsep}
+    \addtolength{\marginparwidth}{-1in}
+    \setlength{\marginparwidth}{#1\marginparwidth}
+}
+
+\def\exesheet@smallmargins{
+    \geometry{hmarginratio=1:1}
+    \leftnotemarginwidth{\standardmarginwidthfactor}
+}
+\def\exesheet@standardmargins{
+    \ifexesheet@leftmargin
+        \geometry{hmarginratio=3:2}
+        \leftnotemarginwidth{\standardmarginwidthfactor}
+    \else
+        \geometry{hmarginratio=2:3}
+        \rightnotemarginwidth{\standardmarginwidthfactor}
+    \fi
+}
+\def\exesheet@largemargins{
+    \ifexesheet@leftmargin
+        \geometry{hmarginratio=3:1}
+        \leftnotemarginwidth{\largemarginwidthfactor}
+    \else
+        \geometry{hmarginratio=1:3}
+        \rightnotemarginwidth{\largemarginwidthfactor}
+    \fi
+}
+
+\def\exs@process@marginwidth{
+    \ifthenelse{\equal{\exesheet@marginwidth}{standard}}{
+        \ifthenelse{\equal{\exesheet@display}{none}}{
+            \if@twoside
+                \exesheet@standardmargins
+            \else
+                \exesheet@smallmargins
+            \fi
+        }{% else display=pts or display=notes
+            \exesheet@standardmargins
+        }
+    }{% else if
+    \ifthenelse{\equal{\exesheet@marginwidth}{expand}}{
+        \ifthenelse{\equal{\exesheet@display}{none}}{
+            \if@twoside
+                \exesheet@standardmargins
+            \else
+                \exesheet@smallmargins
+            \fi
+        }{% else if
+        \ifthenelse{\equal{\exesheet@display}{pts}}{
+            \exesheet@standardmargins
+        }{% else display=notes
+            \exesheet@largemargins
+        }}
+    }{% else if
+        \ifthenelse{\equal{\exesheet@marginwidth}{unset}}{
+        % do nothing
+    }{% else
+    \PackageWarningNoLine{exesheet}{The value `\exesheet@marginwidth'
+         is not supported by the `marginwidth' option}
+    }}}
+}
+
+\if@twoside \rightnotemarginwidth{0.5} \fi
+
+\newcommand{\noteragged}{}
+\newcommand{\noteraggedleft}{}
+\newcommand{\noteraggedright}{}
+
+\def\exs@process@noteragged{
+    \ifthenelse{\equal{\exesheet@noteragged}{left}}{
+        \if@twoside
+            \renewcommand{\noteraggedleft}{\RaggedLeft}
+            \renewcommand{\noteraggedright}{\RaggedLeft}
+        \else
+            \renewcommand{\noteragged}{\RaggedLeft}
+        \fi
+    }{% else if
+    \ifthenelse{\equal{\exesheet@noteragged}{right}}{
+        \if@twoside
+            \renewcommand{\noteraggedleft}{\RaggedRight}
+            \renewcommand{\noteraggedright}{\RaggedRight}
+        \else
+            \renewcommand{\noteragged}{\RaggedRight}
+        \fi
+    }{% else if
+    \ifthenelse{\equal{\exesheet@noteragged}{center}}{
+        \if@twoside
+            \renewcommand{\noteraggedleft}{\Centering}
+            \renewcommand{\noteraggedright}{\Centering}
+        \else
+            \renewcommand{\noteragged}{\Centering}
+        \fi
+    }{% else if
+    \ifthenelse{\equal{\exesheet@noteragged}{justify}}{
+          \renewcommand{\noteraggedleft}{\justifying} % equiv to nothing
+          \renewcommand{\noteraggedright}{\justifying}
+          \renewcommand{\noteragged}{\justifying}
+    % justify is the default LaTeX setting
+    }{% else  if
+    \ifthenelse{\equal{\exesheet@noteragged}{twoside}}{
+        \if@twoside
+            \renewcommand{\noteraggedleft}{\RaggedLeft}
+            \renewcommand{\noteraggedright}{\RaggedRight}
+        \else
+            \PackageWarning{exesheet}{Invalid option `noteragged=twoside'
+             when the document \MessageBreak is not in two-side mode}
+        \fi
+    }{% else
+    \PackageWarning{exesheet}{The value `\exesheet@noteragged'
+         is not supported by the `noteragged' option}
+    }}}}}
+}
+
+\newlength{\sheet@total}
+\newlength{\sum@exe}
+\newlength{\exe@total}
+\newlength{\sum@pts}
+\def\exe@currentlabel{none}
+\newboolean{scale@valid}
+
+\def\exe@check{%
+    \ifthenelse{\lengthtest{\sum@pts = 0pt}}{%
+    % do not check, no points or first exercise begins
+    \ifthenelse{\equal{\exe@currentlabel}{none}}{}{%
+        \PackageWarningNoLine{exesheet}{\exe@currentlabel:
+            \the\exe@total}}%
+    }{%
+        \ifthenelse{\lengthtest{\exe@total = \sum@pts}}{%
+            \PackageWarningNoLine{exesheet}{\exe@currentlabel:
+                Sum of points \the\exe@total\space is valid}%
+        }{%
+        \PackageWarningNoLine{exesheet}{\exe@currentlabel:
+            Sum of points is \the\sum@pts\space
+            instead of \the\exe@total}%
+        \setboolean{scale@valid}{false}%
+        }%
+    }%
+}
+
+\def\exs@process@checkpts{
+    \ifexesheet@checkpts
+        \ifthenelse{\lengthtest{\sheet@total = 0pt}}{
+            \PackageWarningNoLine{exesheet}{Option checkpts is true,
+                \MessageBreak
+                but \string\totalsheet\space is missing
+                in the preamble. \MessageBreak
+                See documentation}
+        }{}
+        \global\sum@exe=0pt
+        \global\exe@total=0pt
+        \global\sum@pts=0pt
+        \setboolean{scale@valid}{true}
+        \AtEndDocument{% final checking (global)
+            \ifthenelse{\equal{\exe@currentlabel}{none}}{
+              \ifthenelse{\lengthtest{\sum@pts = 0pt}}{
+                \PackageWarningNoLine{exesheet}{checkpts:
+                    No points displayed}
+              }{
+                \ifthenelse{\lengthtest{\sheet@total = \sum@pts}}{
+                    \PackageWarningNoLine{exesheet}{Total:
+                        Sum of points \the\sheet@total\space is valid}
+                }{
+                    \PackageWarningNoLine{exesheet}{Total:
+                        Sum of points is \the\sum@pts\space
+                        instead of \the\sheet@total}
+                }}
+            }{% last exercise and final checking
+              \exe@check
+              \ifthenelse{\lengthtest{\sum@exe} = 0pt}{
+                \PackageWarningNoLine{exesheet}{checkpts:
+                    No points displayed}
+                }{
+                \ifthenelse{\lengthtest{\sheet@total = \sum@exe}}{
+                    \PackageWarningNoLine{exesheet}{Total:
+                        Sum of points \the\sheet@total\space is valid}
+                }{
+                    \PackageWarningNoLine{exesheet}{Total:
+                        Sum of points is \the\sum@exe\space
+                        instead of \the\sheet@total}
+                    \setboolean{scale@valid}{false}
+                }
+                \ifthenelse{\boolean{scale@valid}}{
+                    \PackageWarningNoLine{exesheet}{
+                        Marking scheme checked without errors}
+                }{
+                    \PackageWarningNoLine{exesheet}{
+                        Marking scheme checked with ERRORS! See above}
+                }
+              }
+            }
+        }
+    \fi
+}
+
+\newcommand*{\check@points}[1]{%
+    \ifexesheet@checkpts%
+        \exe@check% checks the previous exercise
+        \gdef\exe@currentlabel{\exe@label}% for the upcoming exercise
+        \global\sum@pts=0pt%
+        \global\exe@total=#1pt%
+        \global\advance\sum@exe by #1pt%
+    \fi%
+}
+
+\definecolor{pointscolor}{named}{red}
+\newcommand{\pointsstyle}{%
+    \small\mdseries\sffamily\color{pointscolor}\fbox}
+\newcommand*{\points}[1]{%
+    \ifthenelse{\boolean{exesheet@questions}}{\hfill
+        \pointsstyle{#1~%
+            \ifthenelse{\lengthtest{#1pt < 2pt}}{\pointname}{\pointsname}}%
+        \check@points{#1}%
+    }{}
+}
+
+\definecolor{ptscolor}{named}{red}
+\newcommand{\ptsstyle}[1]{%
+    \footnotesize\centering\sffamily\color{ptscolor} (#1)}
+\newcommand*{\ptsmark}[1]{%
+    \ifthenelse{\lengthtest{#1pt < 2pt}}{#1 \ptname}{#1 \ptsname}}
+\newcommand*{\pts}[1]{%
+    \ifexesheet@pts%
+        \mbox{}%
+        \marginpar{\hspace{0pt}\ptsstyle{\ptsmark{#1}}}%
+        \ifexesheet@checkpts%
+            \global\advance\sum@pts by #1pt%
+        \fi%
+    \fi%
+    \ignorespaces
+}
+
+\definecolor{markingcolor}{named}{red}
+\newcommand{\markingstyle}[1]{\footnotesize\sffamily%
+    \centering\color{markingcolor}\textbf{#1}}
+    % inner arguments enable the implementation of boxed styles
+\newlength{\ptsboxlength}
+\setlength{\ptsboxlength}{3.1em}
+\cornersize{1}
+\newcommand*{\totalexe}[1]{%
+    \ifexesheet@pts%
+        \mbox{}%
+        \marginpar{\hspace{0pt}\markingstyle{\ovalbox{%
+            \makebox[\ptsboxlength]{\ptsmark{#1}}}}}%
+        \check@points{#1}%
+    \fi%
+    \ignorespaces
+}
+
+\newcommand*{\totalsheet}[1]{
+    \global\sheet@total=#1pt
+}
+
+\definecolor{notecolor}{rgb}{0.0, 0.4, 0.0} % kind of dark green
+\newcommand{\notestyle}[1]{\footnotesize\sffamily\color{notecolor} #1}
+\newcommand{\note@marginpar}[1]{%
+    \if@twoside%
+        \marginpar[\noteraggedleft #1]{\noteraggedright #1}%
+    \else%
+        \marginpar{\noteragged #1}%
+    \fi%
+}
+\newcommand{\@note}[2][]{%
+    \ifexesheet@pts%
+        \mbox{}%
+        \note@marginpar{%
+            \ifthenelse{\equal{#1}{}}{}{{%
+                \noindent\hspace{0pt}\markingstyle{#1}\\}}%
+            \ifthenelse{\boolean{exesheet@notes}}{%
+                \noindent\hspace{0pt}\notestyle #2%
+            }{}%
+        }%
+        \ifexesheet@checkpts%
+            \ifthenelse{\equal{#1}{}}{}{%
+                \global\advance\sum@pts by #1pt%
+            }%
+        \fi%
+    \fi%
+    \ignorespaces
+}
+\newcommand{\@@note}[1]{%
+    \ifexesheet@pts%
+        \mbox{}%
+        \marginpar{\noindent\hspace{0pt}\markingstyle{#1}}%
+        \ifexesheet@checkpts%
+            \global\advance\sum@pts by #1pt%
+        \fi%
+    \fi%
+    \ignorespaces
+}
+\newcommand{\note}{\@ifstar{\@@note}{\@note}}
+
+\newcommand{\totalpoints}{%
+    \ifthenelse{\boolean{exesheet@pts}}{\totalexe}{\points}}
+
+\endinput
+%%
+%% End of file `exesheet.sty'.

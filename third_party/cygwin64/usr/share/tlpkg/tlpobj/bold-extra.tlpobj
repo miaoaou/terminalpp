@@ -1,0 +1,18 @@
+name bold-extra
+category Package
+revision 17076
+shortdesc Use bold small caps and typewriter fonts
+relocated 1
+longdesc Allows access to 'extra' bold fonts for Computer Modern OT1
+longdesc encoding (the fonts are available in Metafont source). Since
+longdesc there is more than one bold tt-family font set, the version
+longdesc required is selected by a package option.
+runfiles size=1
+ RELOC/tex/latex/bold-extra/bold-extra.sty
+catalogue-contact-repository https://github.com/rf-latex/bold-extra
+catalogue-contact-support https://github.com/rf-latex/bold-extra/issues
+catalogue-ctan /macros/latex/contrib/bold-extra
+catalogue-date 2018-09-14 18:24:33 +0200
+catalogue-license lppl
+catalogue-topics font-supp
+catalogue-version 0.1

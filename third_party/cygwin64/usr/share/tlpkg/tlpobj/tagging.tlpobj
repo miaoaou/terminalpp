@@ -1,0 +1,17 @@
+name tagging
+category Package
+revision 52064
+shortdesc Document configuration with tags
+relocated 1
+longdesc The package allows the user to generate multiple documents from
+longdesc a single source, by marking pieces of the document with tags
+longdesc and specifying which marked pieces to include or exclude.
+runfiles size=1
+ RELOC/tex/latex/tagging/tagging.sty
+catalogue-contact-bugs https://github.com/Hightor/tagging/issues
+catalogue-contact-repository https://github.com/Hightor/tagging
+catalogue-ctan /macros/latex/contrib/tagging
+catalogue-date 2019-09-09 19:04:08 +0200
+catalogue-license lppl1.3
+catalogue-topics cond-comp
+catalogue-version 1.1.0.1

@@ -1,0 +1,96 @@
+%%
+%% This is file `clicks.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% clicks.dtx  (with options: `package')
+%% (The MIT License)
+%% 
+%% Copyright (c) 2021-2022 Yegor Bugayenko
+%% 
+%% Permission is hereby granted, free of charge, to any person obtaining a copy
+%% of this software and associated documentation files (the 'Software'), to deal
+%% in the Software without restriction, including without limitation the rights
+%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%% copies of the Software, and to permit persons to whom the Software is
+%% furnished to do so, subject to the following conditions:
+%% 
+%% The above copyright notice and this permission notice shall be included in all
+%% copies or substantial portions of the Software.
+%% 
+%% THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%% SOFTWARE.
+
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{clicks}
+[2022-10-03 0.4.1 Slide Deck Animation]
+
+
+
+
+
+
+
+
+
+\RequirePackage{xkeyval}
+\RequirePackage{etoolbox}
+
+\makeatletter
+\newif\ifclicks@static
+\DeclareOption{static}{\clicks@statictrue}
+\makeatother
+\ProcessOptions\relax
+
+\makeatletter\newcommand*\clicks@body{}\makeatother
+\makeatletter\newcommand\clicks@flush{%
+  \clicks@body\vspace*{0pt}\newpage%
+}\makeatother
+
+\newcounter{minutes}
+
+\makeatletter\newcommand\print[1]{%
+  \gappto\clicks@body{{#1\par}}%
+}\makeatother
+
+\makeatletter\newcommand\flush[1][1]{%
+  \ifx\clicks@body\empty\else%
+    \clicks@flush%
+    \renewcommand*\clicks@body{}%
+  \fi%
+  \ifclicks@static\else%
+    \addtocounter{minutes}{#1}%
+  \fi%
+}
+
+\makeatletter\newcommand\click[1][0]{%
+  \ifclicks@static\else%
+    \addtocounter{minutes}{#1}%
+  \fi%
+  \ifclicks@static\else%
+    \clicks@flush%
+  \fi%
+}\makeatother
+
+\newcommand\plush[2][1]{%
+  \print{#2}%
+  \flush[#1]%
+}
+
+\newcommand\plick[2][1]{%
+  \print{#2}%
+  \click[#1]%
+}
+
+
+\endinput
+%%
+%% End of file `clicks.sty'.

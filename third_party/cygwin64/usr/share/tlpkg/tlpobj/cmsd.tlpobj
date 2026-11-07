@@ -1,0 +1,23 @@
+name cmsd
+category Package
+revision 18787
+shortdesc Interfaces to the CM Sans Serif Bold fonts
+relocated 1
+longdesc Thr purpose of the package is to provide an alternative
+longdesc interface to the CM Sans Serif boldface fonts. The EC (T1,
+longdesc Cork) encoded versions of the 'CM Sans Serif boldface extended'
+longdesc fonts differ considerably from the traditionally (OT1) encoded
+longdesc ones: at large sizes, >10pt, they have thinner strokes and are
+longdesc much wider. At 25pt they are hardly to be recognized as being
+longdesc 'boldface'. This package attempts to make these T1 fonts look
+longdesc like the traditional ones did. You do not need any new fonts;
+longdesc the package just changes the way LaTeX makes use of the current
+longdesc ones.
+runfiles size=3
+ RELOC/tex/latex/cmsd/cmsd.sty
+ RELOC/tex/latex/cmsd/t1cmsd.fd
+ RELOC/tex/latex/cmsd/ts1cmsd.fd
+catalogue-ctan /macros/latex/contrib/cmsd
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-supp

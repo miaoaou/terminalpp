@@ -1,0 +1,20 @@
+name docshots
+category Package
+revision 69676
+shortdesc TeX samples next to their PDF snapshots
+relocated 1
+longdesc This LaTeX package helps you show TeX code next to the
+longdesc corresponding PDF snapshots, in two-column formatting. You can
+longdesc use it either in .dtx documentation or in .tex files.
+depend fancyvrb
+depend iexec
+depend pdfcrop
+depend pgf
+depend pgf-blur
+runfiles size=2
+ RELOC/tex/latex/docshots/docshots.sty
+catalogue-contact-repository https://github.com/yegor256/docshots
+catalogue-ctan /macros/latex/contrib/docshots
+catalogue-license mit
+catalogue-topics doc-supp
+catalogue-version 0.4.3

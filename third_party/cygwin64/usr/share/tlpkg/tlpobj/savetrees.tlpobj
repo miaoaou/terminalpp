@@ -1,0 +1,24 @@
+name savetrees
+category Package
+revision 40525
+shortdesc Optimise the use of each page of a LaTeX document
+relocated 1
+longdesc The goal of the savetrees package is to pack as much text as
+longdesc possible onto each page of a LaTeX document. Admittedly, this
+longdesc makes the document far less attractive. Nevertheless, savetrees
+longdesc is a simple way to save paper when printing draft copies of a
+longdesc document. It can also be useful when trying to meet a tight
+longdesc page-length requirement for a conference or journal submission.
+longdesc Most of the package options cover specific modifications to
+longdesc typesetting rules, but there are also options subtle, moderate
+longdesc and extreme options for the "broad brush" approach.
+runfiles size=12
+ RELOC/bibtex/bst/savetrees/savetrees.bst
+ RELOC/tex/latex/savetrees/savetrees.bbx
+ RELOC/tex/latex/savetrees/savetrees.cbx
+ RELOC/tex/latex/savetrees/savetrees.sty
+catalogue-ctan /macros/latex/contrib/savetrees
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics layout
+catalogue-version 2.4

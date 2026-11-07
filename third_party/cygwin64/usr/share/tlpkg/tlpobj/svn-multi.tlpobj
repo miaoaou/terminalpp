@@ -1,0 +1,24 @@
+name svn-multi
+category Package
+revision 64967
+shortdesc Subversion keywords in multi-file LaTeX documents
+longdesc This package lets you typeset keywords of the version control
+longdesc system Subversion inside your LaTeX files anywhere you like.
+longdesc Unlike the otherwise similar package svn the use of multiple
+longdesc files for one LaTeX document is well supported. The package
+longdesc uses the author's filehook and currfile packages. The package
+longdesc interacts with an external Perl script, to retrieve information
+longdesc necessary for the required output.
+depend svn-multi.ARCH
+runfiles size=15
+ texmf-dist/scripts/svn-multi/svn-multi.pl
+ texmf-dist/tex/latex/svn-multi/svn-multi.sty
+ texmf-dist/tex/latex/svn-multi/svnkw.sty
+catalogue-also svn svninfo
+catalogue-contact-bugs https://github.com/MartinScharrer/svn-multi/issues
+catalogue-contact-home https://github.com/MartinScharrer/svn-multi
+catalogue-contact-repository https://github.com/MartinScharrer/svn-multi.git
+catalogue-ctan /macros/latex/contrib/svn-multi
+catalogue-license lppl
+catalogue-topics version-control doc-mgmt
+catalogue-version 2.4d

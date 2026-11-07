@@ -1,0 +1,26 @@
+name hobsub
+category Package
+revision 52810
+shortdesc Construct package bundles
+relocated 1
+longdesc Heiko Oberdiek's hobsub package (and hobsub-hyperref and
+longdesc hobsub-generic packages) defined a mechanism for concatenating
+longdesc multiple files into a single file for faster loading. The
+longdesc disadvantage is that it introduces hard dependencies between
+longdesc the source files that are included and complicates distribution
+longdesc and updates. It was principally used with hyperref but is not
+longdesc currently used in any standard packages in TeX Live. The
+longdesc packages are still distributed as simple stubs that reference
+longdesc the included packages via \RequirePackage rather than copying
+longdesc their source. The documented source of the original packages is
+longdesc available at github, but is not distributed to CTAN.
+runfiles size=3
+ RELOC/tex/latex/hobsub/hobsub-generic.sty
+ RELOC/tex/latex/hobsub/hobsub-hyperref.sty
+ RELOC/tex/latex/hobsub/hobsub.sty
+catalogue-contact-bugs https://github.com/ho-tex/hobsub/issues
+catalogue-contact-repository https://github.com/ho-tex/hobsub
+catalogue-ctan /macros/latex/contrib/hobsub
+catalogue-date 2019-11-15 12:37:15 +0100
+catalogue-license lppl1.3c
+catalogue-topics macro-supp

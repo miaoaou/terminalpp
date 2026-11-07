@@ -1,0 +1,19 @@
+name wheelchart
+category Package
+revision 70505
+shortdesc Diagrams with circular or other shapes using TikZ and LaTeX3
+relocated 1
+longdesc This package is based on the package TikZ and can be used to
+longdesc draw various kinds of diagrams such as bar charts, doughnut
+longdesc charts, infographics, pie charts, ring charts, square charts,
+longdesc sunburst charts, waffle charts and wheel charts. It provides
+longdesc several options to customize the diagrams. It is also possible
+longdesc to specify a plot for the shape of the chart. Furthermore a
+longdesc legend can be added and the table of contents can be displayed
+longdesc as one of these diagrams.
+runfiles size=38
+ RELOC/tex/latex/wheelchart/wheelchart.sty
+catalogue-ctan /graphics/pgf/contrib/wheelchart
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz expl3
+catalogue-version 3.0

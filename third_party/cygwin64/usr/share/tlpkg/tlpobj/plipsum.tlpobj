@@ -1,0 +1,17 @@
+name plipsum
+category Package
+revision 30353
+shortdesc 'Lorem ipsum' for Plain TeX developers
+relocated 1
+longdesc The package provides a paragraph generator designed for use in
+longdesc Plain TeX documents. The paragraphs generated contain many
+longdesc 'f-groups' (ff, fl etc.) so the text can act as a test of the
+longdesc ligatures of the font in use.
+runfiles size=37
+ RELOC/tex/plain/plipsum/plipsum.tex
+catalogue-also lipsum
+catalogue-ctan /macros/plain/contrib/plipsum
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp dummy-gen
+catalogue-version 4.3

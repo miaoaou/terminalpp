@@ -1,0 +1,19 @@
+name calxxxx-yyyy
+category Package
+revision 69266
+shortdesc Print a calendar for a group of years
+relocated 1
+longdesc The package prints a calendar for two or more years, according
+longdesc to a language selection. The package is also "culture
+longdesc dependent" in the sense that it will start weeks according to
+longdesc local rules: e.g., weeks conventionally start on Monday in the
+longdesc English-speaking world. The package requires array, babel, and
+longdesc geometry.
+runfiles size=5
+ RELOC/tex/latex/calxxxx-yyyy/calxxxx-yyyy-doc.tex
+ RELOC/tex/latex/calxxxx-yyyy/calxxxx-yyyy.tex
+catalogue-also calxxxx
+catalogue-ctan /macros/latex/contrib/calxxxx-yyyy
+catalogue-license lppl1.3c
+catalogue-topics calendar
+catalogue-version 20.24a

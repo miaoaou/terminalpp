@@ -1,0 +1,29 @@
+Release 1.1.5 (2021-05-23)
+==========================
+
+* Remove deprecation warnings for Sphinx-3.x
+
+Release 1.1.4 (2020-02-29)
+==========================
+
+* Fix package metadata has broken
+
+Release 1.1.3 (2019-04-05)
+==========================
+
+* Fix #6245: circular import error
+
+Release 1.1.1 (2019-02-17)
+==========================
+
+* Fix failed to load HTML extension
+
+Release 1.1.0 (2019-02-17)
+==========================
+
+* Add ``JSONHTMLBuilder`` and ``PickleHTMLBuilder`` (copied from sphinx package)
+
+Release 1.0.0 (2019-02-17)
+==========================
+
+* Initial release (copied from sphinx package)

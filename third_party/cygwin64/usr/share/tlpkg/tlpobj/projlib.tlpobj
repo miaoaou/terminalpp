@@ -1,0 +1,28 @@
+name projlib
+category Package
+revision 70305
+shortdesc A collection of facilitative tools
+relocated 1
+longdesc ProjLib is a collection of tools to help you write LaTeX
+longdesc documents. With the main package ProjLib loaded, you no longer
+longdesc need to set up the theorem-like environments, nor to manually
+longdesc configure the appropriate multilingual settings. In addition, a
+longdesc series of auxiliary functionalities are introduced.
+depend create-theorem
+runfiles size=82
+ RELOC/tex/latex/projlib/ProjLib.sty
+ RELOC/tex/latex/projlib/projlib-author.sty
+ RELOC/tex/latex/projlib/projlib-datetime.sty
+ RELOC/tex/latex/projlib/projlib-draft.sty
+ RELOC/tex/latex/projlib/projlib-font.sty
+ RELOC/tex/latex/projlib/projlib-language.sty
+ RELOC/tex/latex/projlib/projlib-logo.sty
+ RELOC/tex/latex/projlib/projlib-math.sty
+ RELOC/tex/latex/projlib/projlib-paper.sty
+ RELOC/tex/latex/projlib/projlib-text.sty
+ RELOC/tex/latex/projlib/projlib-theorem.sty
+ RELOC/tex/latex/projlib/projlib-titlepage.sty
+catalogue-contact-repository https://github.com/Jinwen-XU/ProjLib
+catalogue-ctan /macros/latex/contrib/projlib
+catalogue-license lppl1.3c
+catalogue-topics misc-support expl3

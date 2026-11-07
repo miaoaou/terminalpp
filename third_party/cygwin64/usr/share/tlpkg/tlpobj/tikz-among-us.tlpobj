@@ -1,0 +1,16 @@
+name tikz-among-us
+category Package
+revision 60880
+shortdesc Create some AmongUs characters in TikZ environments
+relocated 1
+longdesc This package recreates some AmongUs characters in TikZ
+longdesc environments. Some interesting uses alongside other packages
+longdesc are also supported.
+runfiles size=12
+ RELOC/tex/latex/tikz-among-us/tikz-among-us-fancyhdr.sty
+ RELOC/tex/latex/tikz-among-us/tikz-among-us-watermark-eso-pic.sty
+ RELOC/tex/latex/tikz-among-us/tikz-among-us.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-among-us
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz games amusements
+catalogue-version 1.2.0

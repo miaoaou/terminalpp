@@ -1,0 +1,21 @@
+name typed-checklist
+category Package
+revision 63445
+shortdesc Typesetting tasks, goals, milestones, artifacts, and more in LaTeX
+relocated 1
+longdesc The main goal of this package is to provide means for
+longdesc typesetting checklists in a way that stipulates users to
+longdesc explicitly distinguish checklists for goals, for tasks, for
+longdesc artifacts, and for milestones -- i.e., the type of checklist
+longdesc entries. The intention behind this is that a user of the
+longdesc package is coerced to think about what kind of entries he/she
+longdesc adds to the checklist. This shall yield a clearer result and,
+longdesc in the long run, help with training to distinguish entries of
+longdesc different types.
+runfiles size=5
+ RELOC/tex/latex/typed-checklist/typed-checklist.sty
+catalogue-contact-repository https://github.com/Ri-Ga/typed-checklist
+catalogue-ctan /macros/latex/contrib/typed-checklist
+catalogue-license lppl1.2
+catalogue-topics list
+catalogue-version 2.1

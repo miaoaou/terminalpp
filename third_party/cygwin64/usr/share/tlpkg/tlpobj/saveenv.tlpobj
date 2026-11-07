@@ -1,0 +1,15 @@
+name saveenv
+category Package
+revision 65346
+shortdesc Save environment content verbatim
+relocated 1
+longdesc This package provides tools to create your own verbatim
+longdesc environments, and works for all values of \endlinechar.
+depend precattl
+runfiles size=2
+ RELOC/tex/latex/saveenv/saveenv.sty
+catalogue-contact-repository https://github.com/user202729/TeXlib
+catalogue-ctan /macros/latex/contrib/saveenv
+catalogue-license lppl1.3c
+catalogue-topics expl3 verbatim
+catalogue-version 0.0.1

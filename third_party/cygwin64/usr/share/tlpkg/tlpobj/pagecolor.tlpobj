@@ -1,0 +1,25 @@
+name pagecolor
+category Package
+revision 66885
+shortdesc Interrogate page color
+relocated 1
+longdesc This package provides the command \thepagecolor, which gives
+longdesc the current page (background) color, i. e. the argument used
+longdesc with the most recent call of \pagecolor{...}. The command
+longdesc \thepagecolornone gives the same color as \thepagecolor, except
+longdesc when the page background color is "none" (e.g., as a result of
+longdesc using the \nopagecolor command). In that case \thepagecolor is
+longdesc "white" and \thepagecolornone is "none". When \nopagecolor is
+longdesc unknown or broken (crop package), this package provides a
+longdesc replacement. Similar to \newgeometry and \restoregeometry of
+longdesc the geometry package \newpagecolor{...} and \restorepagecolor
+longdesc are provided. For use with the crop package
+longdesc \backgroundpagecolor{...} as well as
+longdesc \newbackgroundpagecolor{...} and \restorebackgroundpagecolor
+longdesc are provided.
+runfiles size=3
+ RELOC/tex/latex/pagecolor/pagecolor.sty
+catalogue-ctan /macros/latex/contrib/pagecolor
+catalogue-license lppl1.3c
+catalogue-topics colour
+catalogue-version 1.2c

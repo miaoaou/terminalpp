@@ -1,0 +1,17 @@
+name texdimens
+category Package
+revision 61070
+shortdesc Conversion of TeX dimensions to decimals
+relocated 1
+longdesc Utilities and documentation related to TeX dimensional units,
+longdesc usable both with Plain (\input texdimens) and with LaTeX
+longdesc (\usepackage{texdimens}).
+runfiles size=11
+ RELOC/tex/generic/texdimens/texdimens.sty
+ RELOC/tex/generic/texdimens/texdimens.tex
+catalogue-contact-bugs https://github.com/jfbu/texdimens/issues
+catalogue-contact-repository https://github.com/jfbu/texdimens
+catalogue-ctan /macros/generic/texdimens
+catalogue-license lppl1.3c
+catalogue-topics units etex
+catalogue-version 1.1

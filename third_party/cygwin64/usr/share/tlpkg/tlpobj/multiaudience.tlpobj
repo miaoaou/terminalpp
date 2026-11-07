@@ -1,0 +1,13 @@
+name multiaudience
+category Package
+revision 60688
+shortdesc Several versions of output from the same source
+relocated 1
+longdesc This package allows to generate several versions of the same
+longdesc document for different audiences.
+runfiles size=1
+ RELOC/tex/latex/multiaudience/multiaudience.sty
+catalogue-ctan /macros/latex/contrib/multiaudience
+catalogue-license lppl1.3
+catalogue-topics cond-comp
+catalogue-version 1.04

@@ -1,0 +1,16 @@
+name econlipsum
+category Package
+revision 58390
+shortdesc Generate sentences from economic articles
+relocated 1
+longdesc This package is a blind text generator that ouputs sentences
+longdesc inferred from abstracts of economic articles. All the
+longdesc paragraphs are taken with permission from
+longdesc https://ipsum.mwt.me/.
+runfiles size=64
+ RELOC/tex/latex/econlipsum/econlipsum.sty
+catalogue-also kantlipsum antanilipsum
+catalogue-ctan /macros/latex/contrib/econlipsum
+catalogue-license lppl1.3c
+catalogue-topics dummy-gen
+catalogue-version 0.8.2

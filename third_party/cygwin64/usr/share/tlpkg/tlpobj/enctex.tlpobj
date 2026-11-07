@@ -1,0 +1,54 @@
+name enctex
+category Package
+revision 34957
+shortdesc A TeX extension that translates input on its way into TeX
+relocated 1
+longdesc EncTeX is (another) TeX extension, written at the change-file
+longdesc level. It provides means of translating input on the way into
+longdesc TeX. It allows, for example, translation of multibyte
+longdesc sequences, such as utf-8 encoding.
+runfiles size=62
+ RELOC/tex/generic/enctex/1250-csf.tex
+ RELOC/tex/generic/enctex/1250-il2.tex
+ RELOC/tex/generic/enctex/1250-latex.tex
+ RELOC/tex/generic/enctex/1250-t1.tex
+ RELOC/tex/generic/enctex/852-csf.tex
+ RELOC/tex/generic/enctex/852-il2.tex
+ RELOC/tex/generic/enctex/852-latex.tex
+ RELOC/tex/generic/enctex/852-t1.tex
+ RELOC/tex/generic/enctex/csfmacro.tex
+ RELOC/tex/generic/enctex/enc-u.tex
+ RELOC/tex/generic/enctex/encmacro.tex
+ RELOC/tex/generic/enctex/il2-1250.tex
+ RELOC/tex/generic/enctex/il2-852.tex
+ RELOC/tex/generic/enctex/il2-csf.tex
+ RELOC/tex/generic/enctex/il2-kam.tex
+ RELOC/tex/generic/enctex/il2-t1.tex
+ RELOC/tex/generic/enctex/kam-csf.tex
+ RELOC/tex/generic/enctex/kam-il2.tex
+ RELOC/tex/generic/enctex/kam-latex.tex
+ RELOC/tex/generic/enctex/kam-t1.tex
+ RELOC/tex/generic/enctex/mixcodes.tex
+ RELOC/tex/generic/enctex/noprefnt.tex
+ RELOC/tex/generic/enctex/plain-1250-cs.tex
+ RELOC/tex/generic/enctex/plain-852-cs.tex
+ RELOC/tex/generic/enctex/plain-il2-cs.tex
+ RELOC/tex/generic/enctex/plain-kam-cs.tex
+ RELOC/tex/generic/enctex/plain-utf8-cs.tex
+ RELOC/tex/generic/enctex/plain-utf8-ec.tex
+ RELOC/tex/generic/enctex/polyset.tex
+ RELOC/tex/generic/enctex/t1macro.tex
+ RELOC/tex/generic/enctex/utf8-csf.tex
+ RELOC/tex/generic/enctex/utf8-t1.tex
+ RELOC/tex/generic/enctex/utf8cseq.tex
+ RELOC/tex/generic/enctex/utf8lat1.tex
+ RELOC/tex/generic/enctex/utf8lata.tex
+ RELOC/tex/generic/enctex/utf8math.tex
+ RELOC/tex/generic/enctex/utf8off.tex
+ RELOC/tex/generic/enctex/utf8raw.tex
+ RELOC/tex/generic/enctex/utf8unkn.tex
+ RELOC/tex/generic/enctex/utf8warn.tex
+catalogue-ctan /systems/enctex
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics engine

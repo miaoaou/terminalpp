@@ -1,0 +1,27 @@
+name draftwatermark
+category Package
+revision 70393
+shortdesc Put a grey textual watermark on document pages
+relocated 1
+longdesc The package provides a means to add a watermark (typically a
+longdesc light gray piece of text) on every page or on the first page of
+longdesc a document. Typical usage may consist in writing words such as
+longdesc DRAFT or CONFIDENTIAL across document pages. The package
+longdesc performs a similar function to that of draftcopy, but its
+longdesc implementation is output device independent. As of December
+longdesc 2020, the package relies on the new shipout hooks directly
+longdesc provided by LaTeX. For users of older versions of LaTeX, the
+longdesc package also provides a legacy version of itself (that is
+longdesc automatically loaded, currently being at release 2.3) which
+longdesc relies on the everypage package. Note that this legacy version
+longdesc will progressively lag behind in terms of features.
+runfiles size=4
+ RELOC/tex/latex/draftwatermark/draftwatermark-2x.sty
+ RELOC/tex/latex/draftwatermark/draftwatermark.sty
+catalogue-also eso-pic
+catalogue-contact-bugs https://github.com/callegar/LaTeX-draftwatermark/issues
+catalogue-contact-repository https://github.com/callegar/LaTeX-draftwatermark
+catalogue-ctan /macros/latex/contrib/draftwatermark
+catalogue-license lppl1.3c
+catalogue-topics editorial watermark
+catalogue-version 3.3

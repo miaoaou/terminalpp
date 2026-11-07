@@ -1,0 +1,19 @@
+name setspace
+category Package
+revision 65206
+shortdesc Set space between lines
+relocated 1
+longdesc Provides support for setting the spacing between lines in a
+longdesc document. Package options include singlespacing,
+longdesc onehalfspacing, and doublespacing. Alternatively the spacing
+longdesc can be changed as required with the \singlespacing,
+longdesc \onehalfspacing, and \doublespacing commands. Other size
+longdesc spacings also available.
+runfiles size=6
+ RELOC/tex/latex/setspace/setspace.sty
+catalogue-contact-repository https://github.com/latex-package-repositories/setspace
+catalogue-contact-support https://github.com/latex-package-repositories/setspace/issues
+catalogue-ctan /macros/latex/contrib/setspace
+catalogue-license lppl1.3
+catalogue-topics line-space
+catalogue-version 6.7b

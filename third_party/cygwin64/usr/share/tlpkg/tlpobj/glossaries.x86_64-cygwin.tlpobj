@@ -1,0 +1,7 @@
+name glossaries.x86_64-cygwin
+category Package
+revision 37813
+shortdesc x86_64-cygwin files of glossaries
+binfiles arch=x86_64-cygwin size=2
+ bin/x86_64-cygwin/makeglossaries
+ bin/x86_64-cygwin/makeglossaries-lite

@@ -1,0 +1,14 @@
+name histogr
+category Package
+revision 15878
+shortdesc Draw histograms with the LaTeX picture environment
+relocated 1
+longdesc This is a collection pf macros to draw histogram bars inside a
+longdesc LaTeX picture-environment.
+runfiles size=1
+ RELOC/tex/latex/histogr/histogr.sty
+catalogue-ctan /macros/latex/contrib/histogr
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-plot
+catalogue-version 1.01

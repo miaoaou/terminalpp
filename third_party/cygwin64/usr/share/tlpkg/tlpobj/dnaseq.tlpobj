@@ -1,0 +1,16 @@
+name dnaseq
+category Package
+revision 17194
+shortdesc Format DNA base sequences
+relocated 1
+longdesc Defines a means of specifying sequences of bases. The bases may
+longdesc be numbered (per line) and you may specify that subsequences be
+longdesc coloured. For a more 'vanilla-flavoured' way of typesetting
+longdesc base sequences, the user might consider the seqsplit package.
+runfiles size=1
+ RELOC/tex/latex/dnaseq/dnaseq.sty
+catalogue-ctan /macros/latex/contrib/dnaseq
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics molbio
+catalogue-version 0.01

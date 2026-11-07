@@ -1,0 +1,23 @@
+name catoptions
+category Package
+revision 68982
+shortdesc Preserving and recalling standard catcodes
+relocated 1
+longdesc The package changes package loading internals so that all
+longdesc subsequently loaded packages can rely on normal/standard
+longdesc catcodes of all ASCII characters. The package defines canonical
+longdesc control sequences to represent all the visible ASCII
+longdesc characters. It also provides robust option parsing mechanisms
+longdesc (XDeclareOption, XExecuteOptions and XProcessOptions, which
+longdesc will be used by \documentclass if the package has already been
+longdesc loaded). The package also provides a range of other TeX
+longdesc programming tools.
+runfiles size=47
+ RELOC/tex/latex/catoptions/catoptions-guide.cfg
+ RELOC/tex/latex/catoptions/catoptions.sty
+catalogue-contact-bugs https://github.com/davidcarlisle/catoptions/issues
+catalogue-contact-repository https://github.com/davidcarlisle/catoptions
+catalogue-ctan /macros/latex/contrib/catoptions
+catalogue-license lppl1.3
+catalogue-topics macro-supp keyval
+catalogue-version 0.2.7i

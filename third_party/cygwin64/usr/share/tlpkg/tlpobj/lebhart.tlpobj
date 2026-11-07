@@ -1,0 +1,22 @@
+name lebhart
+category Package
+revision 70049
+shortdesc Write your articles in a colorful way
+relocated 1
+longdesc This package provides a LaTeX class for typesetting articles
+longdesc with a colorful design. Currently, it has native support for
+longdesc Chinese (simplified and traditional), English, French, German,
+longdesc Italian, Japanese, Portuguese (European and Brazilian), Russian
+longdesc and Spanish typesetting. It compiles with either XeLaTeX or
+longdesc LuaLaTeX. This is part of the colorist class series and depends
+longdesc on colorist.sty from the colorist package. The package name
+longdesc "lebhart" is taken from the German word "lebhaft" ("vivid"),
+longdesc combined with the first three letters of "Artikel" ("article").
+depend colorist
+runfiles size=9
+ RELOC/tex/latex/lebhart/lebhart.cls
+catalogue-also colorist
+catalogue-contact-repository https://github.com/Jinwen-XU/colorist/tree/main/lebhart
+catalogue-ctan /macros/unicodetex/latex/lebhart
+catalogue-license lppl1.3c
+catalogue-topics class article-like expl3 chinese multilingual

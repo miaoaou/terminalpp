@@ -1,0 +1,17 @@
+name totcount
+category Package
+revision 21178
+shortdesc Find the last value of a counter
+relocated 1
+longdesc The package records the value that was last set, for any
+longdesc counter of interest; since most such counters are simply
+longdesc incremented when they are changed, the recorded value will
+longdesc usually be the maximum value.
+runfiles size=2
+ RELOC/tex/latex/totcount/totcount.sty
+catalogue-also lastpage totpages
+catalogue-ctan /macros/latex/contrib/totcount
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp counter-mgmt
+catalogue-version 1.2

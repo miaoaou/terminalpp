@@ -1,0 +1,22 @@
+name tikz-kalender
+category Package
+revision 52890
+shortdesc A LaTeX based calendar using TikZ
+relocated 1
+longdesc For usage see the example files tikz-kalender-example1.tex,
+longdesc tikz-kalender-example2.tex, and *.events. The Code is inspired
+longdesc by this document and is subject to the >>Creative Commons
+longdesc attribution license (CC-BY-SA)<<. The class tikz-kalender
+longdesc requires the package TikZ and the TikZ libraries calc and
+longdesc calendar.
+runfiles size=4
+ RELOC/tex/latex/tikz-kalender/tikz-kalender-translation.clo
+ RELOC/tex/latex/tikz-kalender/tikz-kalender.cls
+catalogue-also calendar
+catalogue-contact-bugs https://github.com/rolfn/kalenderRN/issues
+catalogue-contact-repository https://github.com/rolfn/kalenderRN
+catalogue-ctan /graphics/pgf/contrib/tikz-kalender
+catalogue-date 2019-11-22 11:08:49 +0100
+catalogue-license cc-by-sa-1
+catalogue-topics calendar class pgf-tikz
+catalogue-version 0.4f

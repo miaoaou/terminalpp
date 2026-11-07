@@ -1,0 +1,9 @@
+name latex-bin-dev.x86_64-cygwin
+category TLCore
+revision 54025
+shortdesc x86_64-cygwin files of latex-bin-dev
+binfiles arch=x86_64-cygwin size=4
+ bin/x86_64-cygwin/dvilualatex-dev
+ bin/x86_64-cygwin/latex-dev
+ bin/x86_64-cygwin/lualatex-dev
+ bin/x86_64-cygwin/pdflatex-dev

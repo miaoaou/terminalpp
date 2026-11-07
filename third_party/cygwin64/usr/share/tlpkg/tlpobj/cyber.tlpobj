@@ -1,0 +1,18 @@
+name cyber
+category Package
+revision 46776
+shortdesc Annotate compliance with cybersecurity requirements
+relocated 1
+longdesc This LaTeX package helps you write documents indicating your
+longdesc compliance with cybersecurity requirements. It also helps you
+longdesc format your document in a form suitable inside the U.S.
+longdesc Department of Defense, by attaching distribution statements,
+longdesc destruction notices, organization logos, and security labels to
+longdesc it.
+runfiles size=3
+ RELOC/tex/latex/cyber/cyber.sty
+catalogue-ctan /macros/latex/contrib/cyber
+catalogue-date 2018-03-01 06:15:11 +0100
+catalogue-license mit
+catalogue-topics doc-supp
+catalogue-version 2.2

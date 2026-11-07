@@ -1,0 +1,2633 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{kinematikz}[2021/12/21 kinematikz definitions Package]
+%--------------------------
+% Vitor Santos
+%--------------------------
+
+\RequirePackage{tikz}  
+\RequirePackage{graphicx}
+\RequirePackage{tikz-3dplot}
+
+\RequirePackage{xstring}
+\RequirePackage{ifthen}
+
+\RequirePackage{listofitems}
+\RequirePackage{xpatch}
+
+\usetikzlibrary{backgrounds,matrix,shapes,arrows}  %and some special libraries for tikz
+\usetikzlibrary{shapes.multipart,shadows}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{positioning}   %for pic 
+\usetikzlibrary{patterns}
+\usetikzlibrary{scopes} %to use shorthands for scopes ;-)
+\usetikzlibrary{angles}
+\usetikzlibrary{hobby}  %to use shorthands for smooth curves ;-) Use many Latex3 stuff... is that recommended...?
+\usetikzlibrary{math}   %for some more elaborate calculations ;-)
+\usetikzlibrary{intersections}  %for intersections
+\usetikzlibrary{fit}    %for fitting nodes after a list of points
+\usetikzlibrary{arrows.meta}  %for special line endings :-)
+
+%\pgfdeclarelayer{background}
+%\pgfdeclarelayer{foreground}
+%\pgfsetlayers{background,main,foreground}
+
+%https://tex.stackexchange.com/questions/86023/tikz-declare-function-and-babel-french-option
+%\usetikzlibrary{babel} % For incompatibilities with tikz declarations and babel with french :-((( But it creates other problems :-(((
+%Put it locally to test things....
+
+
+%-----------------------------------
+%\newif\iftikziii  %create a test of which tikz version we have. NOT YET USED
+%\begingroup
+%\def\getmainversion#1.#2\getmainversion{#1}
+%\ifnum\expandafter\getmainversion\pgfversion\getmainversion=3
+%\global\tikziiitrue
+%\fi
+%\endgroup
+%-----------------------------------
+%Check the date of tikz (date is approximate - v3.1.5 or later required)
+\makeatletter
+\@ifpackagelater{tikz}{2020/01/01}{%
+	% Package is new enough
+}{%
+	\PackageError{kinematikz}{Package tikz is too old for some kinematikz facilities}{Use another version of tikz package (v.3.1.5 or later)}%
+}
+\makeatother
+
+
+
+% file with kinematics chains symbology
+% v. santos, v1, apr 2017
+% v2, aug 2017
+%  minor adjustmente in Feb 2018
+% v3 - started in Oct 2018 - towards the first fotmal LaTeX package
+% v4 - started in Sep 2020 - Changed name into kinematikz using previous stuff
+%      use prefix (kind of name space) km instead of vs for local defs and commands
+%      new creations follow that, later on change all existing
+% v5 - started on Feb 2021 - pic arguments being managed with package listofitems. (but no all migrate yet)
+% v6 - started on Sep 2021 - create pipc synonyms. Inside a tikzset do:
+% new synonym/.pic={\pic {existing name={#1}};}, 
+% The previous construction works and the passed argument #1 is actually
+% all the arguments regardless of their format. Some may even be
+%decomposed in #1/#2/ etc.. or something else in the existing elements defined locally. This was a nice trick to create synonim seemlessly!
+%
+% v7 - Nov 2021 - prepare version for deployment
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% The main ideia is:
+%  create symbols for:
+% 	 2D and 3D representation
+% 	 ISO and non-ISO common
+%  Geometry must develop around a central point along rectangular bbox
+%  Expected connection/anchor points:
+%     east, west, north, south
+%  
+% Symbols must have a central point (or more) that will define them
+% Tikz coordinates should be defined (created) to ease the process of placement
+% and establishing links. Arbitrary or possibily in a matrix (useful for more complex structures)
+%
+% TODOs
+%
+% migrate all vs prefixes to kn prefixes (DONE)
+% erase all obsolete pics and styles  (DONE)
+% erase compulsory arguments in pics that still have it
+
+
+% global definitions for kinematics chains.
+
+%%==========================================================
+% from https://tex.stackexchange.com/questions/54358/custom-and-built-in-tikz-fill-patterns
+% defining the new dimensions and parameters
+\newlength{\hatchspread}
+\newlength{\hatchthickness}
+\newlength{\hatchshift}
+\newcommand{\hatchcolor}{}
+% declaring the keys in tikz
+\tikzset{hatchspread/.code={\setlength{\hatchspread}{#1}},
+         hatchthickness/.code={\setlength{\hatchthickness}{#1}},
+         hatchshift/.code={\setlength{\hatchshift}{#1}},% must be >= 0
+         hatchcolor/.code={\renewcommand{\hatchcolor}{#1}}}
+% setting the default values
+\tikzset{hatchspread=3pt,
+         hatchthickness=0.4pt,
+         hatchshift=0pt,% must be >= 0
+         hatchcolor=black}
+% declaring the pattern
+\pgfdeclarepatternformonly[\hatchspread,\hatchthickness,\hatchshift,\hatchcolor]% variables
+   {custom north west lines}% name
+   {\pgfqpoint{\dimexpr-2\hatchthickness}{\dimexpr-2\hatchthickness}}% lower left corner
+   {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
+   {\pgfqpoint{\dimexpr\hatchspread}{\dimexpr\hatchspread}}% tile size
+   {% shape description
+    \pgfsetlinewidth{\hatchthickness}
+    \pgfpathmoveto{\pgfqpoint{0pt}{\dimexpr\hatchspread+\hatchshift}}
+    \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt+\hatchshift}{-0.15pt}}
+    \ifdim \hatchshift > 0pt
+      \pgfpathmoveto{\pgfqpoint{0pt}{\hatchshift}}
+      \pgfpathlineto{\pgfqpoint{\dimexpr0.15pt+\hatchshift}{-0.15pt}}
+    \fi
+    \pgfsetstrokecolor{\hatchcolor}
+%    \pgfsetdash{{1pt}{1pt}}{0pt}% dashing cannot work correctly in all situation this way
+    \pgfusepath{stroke}
+   }
+
+\pgfdeclarepatternformonly[\hatchspread,\hatchthickness,\hatchshift,\hatchcolor]% variables
+   {custom north east lines}% name
+   {\pgfqpoint{\dimexpr-2\hatchthickness}{\dimexpr-2\hatchthickness}}% lower left corner
+   {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
+   {\pgfqpoint{\dimexpr\hatchspread}{\dimexpr\hatchspread}}% tile size
+   {% shape description
+    \pgfsetlinewidth{\hatchthickness}
+    \pgfpathmoveto{\pgfqpoint{\dimexpr\hatchshift-0.15pt}{-0.15pt}}
+    \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt}{\dimexpr\hatchspread-\hatchshift+0.15pt}}
+    \ifdim \hatchshift > 0pt
+      \pgfpathmoveto{\pgfqpoint{-0.15pt}{\dimexpr\hatchspread-\hatchshift-0.15pt}}
+      \pgfpathlineto{\pgfqpoint{\dimexpr\hatchshift+0.15pt}{\dimexpr\hatchspread+0.15pt}}
+    \fi
+    \pgfsetstrokecolor{\hatchcolor}
+%    \pgfsetdash{{1pt}{1pt}}{0pt}% dashing cannot work correctly in all situation this way
+    \pgfusepath{stroke}
+   }
+
+
+%%==========================================================
+
+\def\TikZ{Ti\emph{k}Z}
+\def\Kinematikz{Kinema\TikZ}
+\def\kinematikz{\Kinematikz}
+
+\newcommand{\knKinematikz}{ %A logo for the package still in development
+\pic [scale=0.3,transform shape] (F) {frame=7cm};
+\pic [scale=0.3,transform shape,xshift=-3.2cm] (L1) at (F-end) {link bar generic={90:2/0/0/0//1}};
+\coordinate (tt) at ($(L1-start)!0.9!(L1-center)$);
+\pic [scale=0.3,transform shape](L2) at (tt) {link bar generic={50:1.2/0//1//1}};
+\pic [scale=0.3,transform shape](L3) at (tt) {link bar generic={-38:1.1/0//1//1}};
+\node [at=(L3-end),xshift=-1pt, yshift=2.5pt,anchor=west,TSF] {inema\TikZ};
+\pic[scale=0.3,transform shape] (F) {frame=7cm}; %Just to cover if exposed...
+}
+
+
+
+\makeatletter
+\newcommand\currentcoordinate{\the\tikz@lastxsaved,\the\tikz@lastysaved}
+\makeatother
+
+\def\pivotRadius{3pt}  %radius of pivot elements
+\def\linkWidth{6.42pt}  %width of links for vsCustomLinks
+\def\linkWidth{1pt}  %width of links for vsCustomLinks
+\def\gapGround{0.04}  %separation of moving ground contact (unit is default -- cm)
+\def\lAng{90} %default angle for link arms (can override locally)
+\def\lLenA{0.5}  %default length for link arm A (can override locally)
+\def\lLenB{0.5}  %default length for link arm B (can override locally)
+\def\COMradius{0.4em} %radius of center of mass (because of "em" can scale with font size modifyers :-)
+\def\LinkFillColor{gray!50} %default color of planar 2D links
+\def\SubLinkFillColor{gray!30} %default color of planar 2D sublinks (like pistons in 2D)
+\def\lockRadius{1.25*\pivotRadius} % to define the size of locks in ISO symbols
+
+\tikzset{TSF/.style={transform shape=false}}
+% The "transform shape" is necessarry to also scale pic in case of scaling tikzpictures
+%becase the global option scale=..., does not affect nodes or pics. But the problem
+%is that it scales fonts as well.. so you can use a smaller font like \footnotesize which is OK for scales of 1.25 except minor issue in kerning. But, it's better to use
+%an independnet solution which is to use "transform shape=false" locally on the node to avoid font scaling. So this is useful to keep nodes without drawn shapes with normal
+%font sizes...
+%So it is recomended to use the TSF style created above in nodes with only text and
+%no shape to be drawn to keep text the default size
+
+
+\newcommand{\lineTip}[1]{\fill #1 circle (0.6pt)}  %was 0.4 pt, but 0.6 is adequate for "thick" lines. command to append small termination to some tips of lines to cover for poorer line joining :-( Accepts one argument which is the point where to put the terminations
+%NOTE - in many cases the previous was replaced by [line cap=round] which is more automatic, but applies to both ends of line and that can be undesired in certain cases; actually a style knLineCap was created for that :-)
+
+%\draw [options] (center) +(start ang:radius) arc (start ang:end ang:radius);  %technique to draw an arc with a center, radius, start and end angle
+
+
+%---Code to allow callout overlay-----------
+%code from: https://tex.stackexchange.com/questions/187165/callout-with-multiple-pointers-how-to-design-it
+% The goal is to translate
+%    \overlaynode<red,blue>{hallo};
+% into
+%    \node[red]{hallo};
+%    \node[blue]{hallo};
+\makeatletter
+\def\overlaynode<#1>#2;{
+        \gdef\stacknodecommonpart{#2}
+        \pgfkeys{/typeset node/.list={#1}}
+}
+\pgfkeys{
+    /typeset node/.code={
+        \edef\pgf@marshal{\noexpand\node[#1]\stacknodecommonpart;}
+        \pgf@marshal
+    }
+}
+\def\overlaynodedrawfill{\pgfutil@ifnextchar[{\overlaynodedrawfill@opt}{\overlaynodedrawfill@opt[]}}
+\def\overlaynodedrawfill@opt[#1]<#2>#3;{
+    \begin{scope}[transparency group,draw=black,fill=white,line cap=round,line join=round,#1]
+        \pgfmathsetmacro\pgflinewidthdouble{2\pgflinewidth}
+        \overlaynode<#2>[draw=pgfstrokecolor,line width=\pgflinewidthdouble]#3;
+        \overlaynode<#2>[fill=pgffillcolor]#3;
+    \end{scope}
+}
+\makeatother
+%----------------------------------
+
+
+%----------------------------------
+%% Command to draw a coordinate system in 2D with 3rd axis (z) in perspective
+% Accepts an optional argument which if the orientation of the system
+% The second argument is the index of the coordinate system, 
+% and the thrid is the point where to draw that is:
+%		\knAddCoordFrame[ang]{num}{point}
+%		\knAddCoordFrame{num}{point}
+% A special index should also be allowed (R,H, etc...)
+
+\def\knCoordScale{1} %Global scale for Coordinate frame sizes. Can be adjusted
+\newcommand{\knAddCoordFrameZout}[3][0]{  %#1 - optional: angle; #2 - mandatory: suffix; #3 startingpoint
+\ifthenelse{ \equal{#3}{} }
+{
+	\def\cAng{0}
+	\def\cSuff{#1}
+	\def\cOrigin{#2}
+}
+{
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0;
+  if ( \cSuff >= 0 ) then
+  {
+      \drawTheta=1;
+  } else
+  {
+      \cSuff = int(-\cSuff);
+  };
+}
+\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[above,TSF] {$\hat x_{\cSuff}$};
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(0,{\knCoordScale*0.75}) node[left,TSF] {$\hat y_{\cSuff}$};
+\draw[robot coord system] \cOrigin -- ++({-\knCoordScale*0.5},{-\knCoordScale*0.5}) node[right,TSF] {$\hat z_{\cSuff}$};
+%\draw [options] (center) +(start ang:radius) arc (start ang:end ang:radius); 
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw [angular lines no limits] \cOrigin ++(-135:{\knCoordScale*0.4}) +(-30:0.2) arc (-30:+150:0.2) node [left,xshift=3pt,TSF] {$ \theta_{\idxAng} $}; 
+}
+{}
+\draw [fill] \cOrigin circle (1pt);
+}
+%-------
+\newcommand{\knAddCoordFrameZoutB}[4][0]{  %#1 - optional: tikz options; #2 rotation angle except for one axis; #3 - mandatory: suffix; #4 startingpoint
+\ifthenelse{ \equal{#4}{} } %Only has 3 parameters
+{
+	\def\cOptions{}
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+{ %Has the 4 parameters
+	\def\cOptions{#1}
+	\def\cAng{#2}  %This angle overrides angle potentially included in the general options
+	\def\cSuff{#3}
+	\def\cOrigin{#4}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0;
+  %Comment next since this is now for special cases
+%  if ( \cSuff >= 0 ) then
+%  {
+%      \drawTheta=1;
+%  } else
+%  {
+%      \cSuff = int(-\cSuff);
+%  };
+}
+%\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}  \edef\idxAng{-}
+\draw[robot coord system,\cOptions,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[above,TSF] {$\hat x_{\cSuff}$};
+\draw[robot coord system,\cOptions,rotate=\cAng] \cOrigin -- ++(0,{\knCoordScale*0.75}) node[left,TSF] {$\hat y_{\cSuff}$};
+\draw[robot coord system,\cOptions] \cOrigin -- ++({-\knCoordScale*0.5},{-\knCoordScale*0.5}) node[right,TSF] {$\hat z_{\cSuff}$};
+%\draw [options] (center) +(start ang:radius) arc (start ang:end ang:radius); 
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw [angular lines no limits] \cOrigin ++(-135:{\knCoordScale*0.4}) +(-30:0.2) arc (-30:+150:0.2) node [left,xshift=3pt,TSF] {$ \theta_{\idxAng} $}; 
+}
+{}
+\draw [fill] \cOrigin circle (1pt);
+}
+%-------
+\newcommand{\knAddCoordFrameZup}[3][0]{  %#1 - optional: angle; #2 - mandatory: suffix; #3 startingpoint
+\ifthenelse{ \equal{#3}{} }
+{
+	\def\cAng{0}
+	\def\cSuff{#1}
+	\def\cOrigin{#2}
+}
+{
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0; %by default does not draw
+  	if ( \cSuff >= 0 ) then
+  	{
+      	\drawTheta=1;
+  	}
+  	else
+  	{
+      \cSuff = int(-\cSuff);
+  	};
+}
+\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[anchor=south west,inner sep=1pt,TSF] {$\hat x_{\cSuff}$};
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(0,{\knCoordScale*0.75}) node[anchor=south east,inner sep=1pt,TSF] {$\hat z_{\cSuff}$};
+\draw[robot coord system] \cOrigin -- ++({\knCoordScale*0.5},{\knCoordScale*0.5}) node[anchor=south east,inner sep=1pt,TSF] {$\hat y_{\cSuff}$};
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw[angular lines no limits,rotate=\cAng] \cOrigin ++(90:{\knCoordScale*0.4}) node [left,xshift=-3pt,TSF] {$ \theta_{\idxAng} $} [partial ellipse=-250:60:0.25cm and 0.1cm];
+}{}
+
+\draw[fill] \cOrigin circle (1pt);
+}
+
+%------
+
+\newcommand{\knAddCoordFrameZdown}[3][0]{  %#1 - optional: angle; #2 - mandatory: suffix; #3 startingpoint
+\ifthenelse{ \equal{#3}{} }
+{
+	\def\cAng{0}
+	\def\cSuff{#1}
+	\def\cOrigin{#2}
+}
+{
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0; %by default does not draw
+  	if ( \cSuff >= 0 ) then
+  	{
+      	\drawTheta=1;
+  	}
+  	else
+  	{
+      \cSuff = int(-\cSuff);
+  	};
+}
+\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[anchor=south east,inner sep=1pt,TSF] {$\hat x_{\cSuff}$};
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(0,-{\knCoordScale*0.75}) node[anchor=south east,inner sep=1pt,TSF] {$\hat z_{\cSuff}$};
+\draw[robot coord system] \cOrigin -- ++(-{\knCoordScale*0.5},{-\knCoordScale*0.5}) node[anchor=south east,inner sep=1pt,TSF] {$\hat y_{\cSuff}$};
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw[angular lines no limits,rotate=\cAng] \cOrigin ++(-90:{\knCoordScale*0.4}) [partial ellipse=60:-250:0.25cm and 0.1cm] node [right,xshift=2pt,yshift=4pt,TSF] {$ \theta_{\idxAng} $};
+}{}
+
+\draw[fill] \cOrigin circle (1pt);
+}
+
+
+
+%-----
+\newcommand{\knAddCoordFrameZupRotX}[3][0]{  %#1 - optional: angle; #2 - mandatory: suffix; #3 startingpoint
+\ifthenelse{ \equal{#3}{} }
+{
+	\def\cAng{0}
+	\def\cSuff{#1}
+	\def\cOrigin{#2}
+}
+{
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0; %by default does not draw
+  	if ( \cSuff >= 0 ) then
+  	{
+      	\drawTheta=1;
+  	}
+  	else
+  	{
+      \cSuff = int(-\cSuff);
+  	};
+}
+\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[anchor=south east,inner sep=1pt,TSF] {$\hat y_{\cSuff}$};
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(0,{\knCoordScale*0.75}) node[anchor=south east,inner sep=1pt,TSF] {$\hat z_{\cSuff}$};
+\draw[robot coord system] \cOrigin -- ++({-\knCoordScale*0.5},{-\knCoordScale*0.5}) node[anchor=south east,inner sep=1pt,TSF] {$\hat x_{\cSuff}$};
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw[angular lines no limits,rotate=\cAng] \cOrigin ++(90:{\knCoordScale*0.4}) node [left,xshift=-3pt,TSF] {$ \theta_{\idxAng} $} [partial ellipse=-250:60:0.25cm and 0.1cm];
+}{}
+
+\draw[fill] \cOrigin circle (1pt);
+}
+%-----
+
+
+\newcommand{\knAddCoordFrameZright}[3][0]{  %#1 - optional: angle; #2 - mandatory: suffix; #3 startingpoint (if suffix is < 0 does not draw angle :-)
+\ifthenelse{ \equal{#3}{} }
+{
+	\def\cAng{0}
+	\def\cSuff{#1}
+	\def\cOrigin{#2}
+}
+{
+	\def\cAng{#1}
+	\def\cSuff{#2}
+	\def\cOrigin{#3}
+}
+\tikzmath{
+  int \drawTheta;
+  \drawTheta=0; %by default does not draw
+  	if ( \cSuff >= 0 ) then
+  	{
+      	\drawTheta=1;
+  	}
+  	else
+  	{
+      \cSuff = int(-\cSuff);
+  	};
+}
+\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+\edef\idxAng{\pgfmathresult}
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++({\knCoordScale*0.5},0) node[above,TSF] {$\hat z_{\cSuff}$};
+\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(0,{\knCoordScale*0.75}) node[left,TSF] {$\hat x_{\cSuff}$};
+\draw[robot coord system] \cOrigin -- ++({-\knCoordScale*0.5},{-\knCoordScale*0.5}) node[right,TSF] {$\hat y_{\cSuff}$};
+\ifthenelse{ \equal{\drawTheta}{1} }
+{
+\draw[angular lines no limits,rotate=\cAng] \cOrigin ++(0:{\knCoordScale*0.2}) [partial ellipse=60:330:0.1cm and 0.25cm] node [below,anchor=north west,TSF] {$ \theta_{\idxAng} $};
+}
+{}
+\draw[fill] \cOrigin circle (1pt);
+}
+
+%===========================================
+% Command intended to cover for all the above with flexibility
+% The facilities in tikz 3D lib or tikz-3dplot do not help...
+% Command must cover generates one of the following options
+% System direction (order left to right, d means down)
+%
+%       Y
+%       |__X    (ZdYX)   (default)
+%       /
+%      Z
+%
+%       X
+%       |__Z    (YdXZ)   rotz90 * rotx90 * default
+%       /
+%      Y
+%
+%       Z
+%       |__Y    (XdZY) 
+%       /
+%      X
+%
+%         _X    (YdZdX) 
+%       /|
+%      Y Z  
+%
+%        Z Y
+%        |/__X  (ZYX) 
+%
+%
+
+
+%Implement a switch case in latex
+%from https://tex.stackexchange.com/questions/5116/making-switch-case-with-etoolboxs-ifdefequal/5210
+\newcommand{\CheckCase}[1]{%
+	\par\noindent%What is this for??
+	\IfEqCase*{#1}{%
+		{ZdYX}{\def\zDir{-135:{\knCoordScale*0.4}} \def\yDir{90:{\knCoordScale*1}} \def\xDir{0:{\knCoordScale*1}} }%
+		{YdXZ}{}%
+		{XdZY}{}%
+		{YdZdX}{}%
+		{ZYX}{}%
+	}[Did not match any given case!]%Put the default here
+}%
+
+ 
+\newcommand{\knAddCoordFrame}[5][0]{
+% #1 - optional rotation angle in plane (default 0)
+% #2 - suffix for system naming (0,1,2,..., H, R, ... other)
+% #3 - starting point Where to draw origin in current picture
+% #4 - type of system (ZdYX,YdXZ,XdZY,YdZdX,ZYX)
+% #5 - draw joint around z , or along z; (0 - no drawing, 1 - circular, 2 - linear )
+%\def\zDir{-135:{\knCoordScale*0.4}} \def\yDir{90:{\knCoordScale*1}} \def\xDir{0:{\knCoordScale*1}}
+	\ifthenelse{\equal{#5}{} } %if not 5 params passed...
+	{
+		\def\cAng{0}
+		\def\cSuff{#1}
+		\def\cOrigin{#2}
+		\def\cType{#3}
+		\def\cJoint{#4}
+	}
+	{
+		\def\cAng{#1}
+		\def\cSuff{#2}
+		\def\cOrigin{#3}
+		\def\cType{#4}
+		\def\cJoint{#5}
+	}
+
+	\tikzmath{
+		int \drawTheta;
+		\drawTheta=0;
+		if ( \cSuff >= 1 ) then
+		{
+			\drawTheta=1;
+		} else
+		{
+			\cSuff = int(-\cSuff);
+		};
+	}
+	\pgfmathparse{int(\cSuff+1)} %had to use int to avoid decimal places
+	\edef\idxAng{\pgfmathresult}
+	
+%	\CheckCase{\cType}%Extract type of coord system and adjust some macros accordingly
+	
+	\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(\xDir) node[TSF] {$\hat x_{\cSuff}$};
+	\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(\yDir) node[TSF] {$\hat y_{\cSuff}$};
+	\draw[robot coord system,rotate=\cAng] \cOrigin -- ++(\zdir) node[TSF] {$\hat z_{\cSuff}$};
+	%\draw [options] (center) +(start ang:radius) arc (start ang:end ang:radius); 
+	
+	\ifthenelse{ \equal{\drawTheta}{1} }
+	{
+%		\draw [angular lines no limits] \cOrigin ++(-135:{\knCoordScale*0.4}) +(-30:0.2) arc (-30:+150:0.2) node [left,xshift=3pt,TSF] {$ \theta_{\idxAng} $}; 
+	}
+	{}
+	\draw [fill] \cOrigin circle (1pt);
+}
+
+%===========================================
+
+%-----------------------------------
+
+\tikzset{
+%https://tex.stackexchange.com/questions/23453/symbol-center-of-mass-dowelpin
+pics/center of mass/.style={ %
+        code={
+        \begin{scope}[radius=\COMradius] %use the same radius for all operations in scope
+        \fill (0,0) -- ++(\COMradius,0) arc [start angle=0,end angle=90] -- ++(0,-2*\COMradius) arc [start angle=270, end angle=180];%
+        \draw (0,0) circle;%
+        \end{scope}
+    }%
+   }
+}
+
+\newcommand{\addCOM}[1][black]  %alternative to "center of mass" pic. Accepts one argument which are the parameters to fill and draw operations.
+%Valid only when there is a (-center) node defined, so most useful inside other figures (pic or other)...
+{
+\begin{scope}[radius=\COMradius] %use the same radius for all operations in scope
+\fill [#1] (-center) -- ++(\COMradius,0) arc [start angle=0,end angle=90] -- ++(0,-2*\COMradius) arc [start angle=270, end angle=180];%
+\draw [#1] (-center) circle;%
+\end{scope}
+}
+
+%after https://tex.stackexchange.com/questions/39293/coordinates-a-b-compute-b-a-and-angle-between-x-and-b-a
+\newcommand{\kmpgfextractangle}[2]
+{
+    \pgfmathanglebetweenpoints{\pgfpointorigin}{\pgfpointanchor{#2}{center}} 
+    \global\let#1\pgfmathresult  
+}
+
+
+
+%after https://tex.stackexchange.com/questions/98924/transform-defined-coordinates-in-tikz
+\makeatletter
+\newcommand{\gettikzxy}[3]{%
+  \tikz@scan@one@point\pgfutil@firstofone#1\relax
+  \edef#2{\the\pgf@x}%
+  \edef#3{\the\pgf@y}%
+}
+\makeatother
+
+
+%Next definitions inspired from
+%https://tex.stackexchange.com/questions/411726/how-to-connect-nodes-with-45-degree-and-0-degree-lines-possibly-via-style/411734
+\tikzset{ 
+    45-/.style={   
+        to path={
+            let \p{start}=(\tikztostart),
+                \p{target}=(\tikztotarget),
+                \p{diff}=({\x{target}-\x{start}}, {\y{target}-\y{start}}),
+                \p{absdiff}=({abs(\x{diff})}, {abs(\y{diff})}),
+                \n{mindiff}={min(\x{absdiff}, \y{absdiff})},
+                \p{inter}=(
+                    {sign(\x{diff}) * \n{mindiff}},
+                    {sign(\y{diff}) * \n{mindiff}}
+                )
+            in 
+                \ifnum \ifdim\x{target}=\x{start} 1
+                \else  \ifdim\y{target}=\y{start} 1
+                \else  \ifdim\x{absdiff}=\y{absdiff} 1
+                \else 0\fi\fi\fi=1 %primitive tex or condition
+                    -- (\tikztotarget)
+                \else
+                    --++ (\p{inter}) -- (\tikztotarget)
+                \fi
+        },
+    },
+}
+
+%THIS STARTS WITH THE DIAGONAL PART AND ADDS THE VERTICAL/HORIZONTAL PART AFTER
+%SWAP POINTS IF YOU WANT THE REVERSE.
+\tikzset{
+    -45/.style={       
+        to path={
+            let \p{start}=(\tikztostart),
+                \p{target}=(\tikztotarget),
+                \p{diff}=({\x{target}-\x{start}}, {\y{target}-\y{start}}),
+                \p{absdiff}=({abs(\x{diff})}, {abs(\y{diff})}),
+                \n{mindiff}={min(\x{absdiff}, \y{absdiff})},
+                \p{inter}=(
+                    {sign(\x{diff}) * \n{mindiff}},
+                    {sign(\y{diff}) * \n{mindiff}}
+                ),
+                \p{inter}=(
+                            \x{target},
+                            {sign(\y{diff}) * \n{mindiff}}
+                )
+            in 
+                \ifnum 
+                	\ifdim\x{target}=\x{start} 1                  % points in horizontal?
+                		\else \ifdim\y{target}=\y{start} 1   	  % points in vertical?
+                			\else \ifdim\x{absdiff}=\y{absdiff} 1 % points in45º diagonal?
+                				\else 0                           % not any of those
+                				\fi
+                			\fi
+                	\fi=1 %primitive tex or condition
+                    -- (\tikztotarget)   %single horizontal/vertical/diagonal line
+                \else
+                    -- (\p{inter}) -- (\tikztotarget)   %two steps: to intermediate and to target
+                \fi
+        },
+    },
+}
+
+%%===============================================================
+\tikzset{  %definitions for some filling and line styles
+ground/.style={  %style for a decoration (of a line)
+        % The border decoration is a path replacing decorator. 
+        % For the ground style we want to draw the original path.
+        % The postaction option is therefore used to ensure that the
+        % border decoration is drawn *after* the original path.
+%        postaction={  %uncomment to also draw the path, but attention to the xshift
+			        draw,
+				    very thin,
+				    decorate,
+				    decoration={
+					    border,
+					    angle=120,
+					    mirror=true,
+	                    amplitude=0.2cm,
+	                    transform={xshift=2.5pt},
+%						pre=lineto, pre length=3pt, post=border, %post length=2pt,
+	                    segment length=2pt,
+	                        },
+%	                }  %uncomment to also draw the path
+                 },
+%------------------------------------------
+ground2 texture/.style={
+		pattern=custom north east lines,
+		hatchspread=2.5pt,
+%		hatchcolor=green!65!black,
+%		hatchcolor=black,
+		hatchshift=0pt,
+		hatchthickness=0.3pt,
+%		pattern=north east lines, pattern color=black,
+},
+ground2/.style={  %style for a node (rectangle) - good only for multiple of 90º orientations
+		        rectangle,
+		        line width=0,
+		        ground2 texture,
+		        minimum height=5pt,
+		        anchor=north west,
+			    inner sep=0,
+			    transform shape,  %to rotate rectangle (but not pattern)
+            },
+%------------------------------------------
+knLinkStyle/.style={% main style for links - namely type of line
+						thick,  %was very thick
+%						line join=round, %curved connections? May be yes to match line caps...
+						miter limit=5, %avoid long sharp corners in special edges
+						},
+knLineCap/.style={ %additional option for line cap in some drawings
+						line cap=round,
+						},			
+knJointStyle/.style={ %Style for drawing joint parts - not the link parts, like ends or arms!
+						knLinkStyle, %similar to knLinkStyle. But can be adjusted if needed
+						line join=miter, %Reinforce the default, unless you want soft corners in rectangles. 
+						},									
+%-------------------------------------------
+cube face 1/.style={
+						knJointStyle,
+						line join=bevel,
+						fill=white,     %to allow hidding lines in drawing
+					},
+gripper 1/.style={
+						line join=bevel,
+						knJointStyle, %was very thick
+					},
+%% SEVERAL LINE STYLES
+auxiliary lines/.style={
+	very thin,
+	blue,
+	},			
+symmetry lines/.style={ %to indicate symmetric longitudinal rotational axle
+	auxiliary lines,
+	line width=0.5pt,
+	densely dash dot,
+	},			
+dimension lines no limits/.style={
+	auxiliary lines,
+	red,
+	>=stealth,
+	<->,
+	},
+dimension lines/.style={
+	dimension lines no limits,
+	|<->|,
+	},
+angular lines no limits/.style={
+	dimension lines no limits,
+	red,
+	>=stealth,
+	->,
+	},
+angular lines/.style={
+	angular lines no limits,
+	->|,  %possibly |->| ?
+	},
+joint axis/.style={
+	symmetry lines,
+	black,
+	},
+%%OTHER USEFUL STYLES
+robot coord system/.style={
+	thick,
+	->,
+	>=stealth,
+	blue,
+	},
+partial ellipse/.style args={#1:#2:#3}{
+        insert path={+ (#1:#3) arc (#1:#2:#3)}
+		},
+%------------------------------------------
+}
+
+% Check also https://tex.stackexchange.com/questions/463370/pass-an-argument-for-a-pic
+% for how to pass arguments to pics
+% And this https://tex.stackexchange.com/questions/250728/tikz-pics-with-optional-default-parameters
+% to specify default arguments
+%%===============================================================
+\tikzset{  
+%===================================================
+pics/frame/.default=1cm,  %default argument - base width
+pics/frame/.style args={#1}{   %ISO frame 3952-1-3.1  % OK in man (passed to the manual)
+% Arg 1 - dimension - base width [1cm]
+	code={
+%		\pgfmathsetmacro\myW{#1/2}; %in case you need maths
+		\coordinate (-left) at (-#1/2,0);
+		\coordinate (-right) at (#1/2,0);
+		\coordinate (-center) at (0,0);
+		\coordinate (-centerTan) at (0,0.175);	%This point of for tangency of a link polygon there	
+		\coordinate (-north) at (0,0);
+		\coordinate (-in) at (0,0);
+		\coordinate (-out) at (-in);
+		\coordinate (-end) at (-out);
+		\coordinate (-south) at (-north);
+		\coordinate (-start) at (-in);	
+		\node [ground2,minimum width=#1] at (-left) {}; % \draw [ground] (0,0) -- (2,0);
+		\draw [knJointStyle]  (-left) -- ++(#1,0);
+	} %end of code for this particular pic
+},
+%------------------------------------------
+pics/frame 3D/.default=1cm,  %default argument - base width
+pics/frame 3D/.style args={#1}{   %Frame 3D
+	% Arg 1 - dimension - base width [1cm]
+	code={
+		%		\pgfmathsetmacro\myW{#1/2}; %in case you need maths
+		\coordinate (-west) at (-#1/2,0);
+		\coordinate (-east) at (#1/2,0);
+		\coordinate (-center) at (0,0);
+		\coordinate (-south) at (-135:#1/4);
+		\coordinate (-north) at (45:#1/4);
+		\coordinate (-south west) at ($(-south)-(#1/2,0)$);
+		\coordinate (-south east) at ($(-south)+(#1/2,0)$);
+		\coordinate (-north west) at ($(-north)-(#1/2,0)$);
+		\coordinate (-north east) at ($(-north)+(#1/2,0)$);
+		\coordinate (-in) at (0,0);
+		\coordinate (-out) at (-in);
+		\coordinate (-end) at (-out);
+		\coordinate (-start) at (-in);	
+		\coordinate (-left) at (-west);
+		\coordinate (-right) at (-east);
+
+		\node [ground2,minimum width=#1] at (-south west) {};
+		\draw [ground2 texture,draw=none, pattern=custom north west lines,]  (-south east) -- (-north east) -- ++(0,-5pt) -- ($(-south east)-(0,5pt)$ ) --cycle ;
+		\draw [knJointStyle]  (-south west) -- (-south east) -- (-north east) -- (-north west) -- cycle;
+	} %end of code for this particular pic
+},
+%===================================================
+pics/base flat pivot/.style={   %simple flat ground with a pivot
+	code={
+		\coordinate (-left) at (-1,0);
+		\coordinate (-right) at (1,0);
+		\coordinate (-center) at (0,0.175); %why this and not (0,0)?
+		\coordinate (-north) at (0,0);
+		\node [ground2,minimum width=2cm] at (-left) {}; % \draw [ground] (0,0) -- (2,0);
+		\draw [knJointStyle] (-left) -- ($(-north)+(-\pivotRadius-1.5pt,0)$) arc (180:0:\pivotRadius+1.5pt) -- (-right);
+		\draw [fill=white] (-north) circle (\pivotRadius);
+	} %end of code for this particular pic
+},
+%------------------------------------------
+pics/frame pivot flat/.default=1cm,  %simple flat frame with a pivot
+pics/frame pivot flat/.style={   %simple flat ground with a pivot % OKinman
+	code={
+		\coordinate (-left) at (-#1/2,0);
+		\coordinate (-right) at (#1/2,0);
+%		\coordinate (-center) at (0,0.175); %why this and not (0,0)?
+		\coordinate (-center) at (0,0);
+		\coordinate (-north) at (0,0);
+		\coordinate (-out) at (0,0);
+		\coordinate (-end) at (-out);
+		\coordinate (-in) at (0,0);
+		\coordinate (-start) at (-in);		
+		\coordinate (-south) at (0,-\pivotRadius/2);		
+		\node [ground2,minimum width=#1] at (-left) {}; % \draw [ground] (0,0) -- (2,0);
+		\draw [knJointStyle] (-left) -- ($(-north)+(-\pivotRadius-1.5pt,0)$) arc (180:0:\pivotRadius+1.5pt) -- (-right);
+		\draw [fill=white] (-north) circle (\pivotRadius);
+	} %end of code for this particular pic
+},
+%===================================================
+pics/frame pivot trapezium/.default=0.8cm,  %trapezium frame with a pivot
+pics/frame pivot trapezium/.style={              %OKinman
+        code={
+	\coordinate (-left)   at (-#1/2,-#1/4);
+	\coordinate (-right)  at (#1/2,-#1/4);
+    \coordinate (-center) at (0,0);
+	\coordinate (-north) at ($(-center)+(90:#1*0.355)$);    
+    \coordinate (-in) at (-center);   
+    \coordinate (-start) at (-center);        
+    \coordinate (-out) at (-center);    
+    \coordinate (-end) at (-center);        
+    \coordinate (-south) at ($(-left)!0.5!(-right)$);    
+	\draw [knJointStyle, line join=round] (-left) -- ++(0:#1) -- ++(120:#1*0.7) -- ++(180:#1*0.3) -- cycle;
+	\node at (-left) [ground2,minimum width=#1]  {}; % \draw [ground] (0,0) -- (1,0);
+	\draw [] (-center) circle (\pivotRadius);
+		} %end of code for this particular pic
+	},
+%===================================================
+pics/frame pivot rounded/.default=0.5cm, %rounded frame with a pivot
+pics/frame pivot rounded/.style={   %OKinman
+        code={
+	\coordinate (-left)   at (-#1/2,-#1/2);
+	\coordinate (-right)  at ( #1/2,-#1/2);
+    \coordinate (-center) at (0,0);
+    \coordinate (-in) at (-center);    
+    \coordinate (-out) at (-center); 
+    \coordinate (-end) at (-out);        
+    \coordinate (-start) at (-center);
+    \coordinate (-south) at ($(-left)!0.5!(-right)$);    
+	\draw [knJointStyle, line join=round] (-left) -- ++(0:#1) -- ++(90:#1/2) arc (0:180:#1/2) node [midway,inner sep=0] (-north){} -- cycle;
+	\node at (-left) [ground2,minimum width=#1] {}; %\draw [ground] (0,0) -- (0.5,0);
+	\draw [] (-center) circle (\pivotRadius);
+		} %end of code for this particular pic
+	},
+%===================================================
+pics/frame pivot triangle/.default=0.7cm, %triangle frame with a pivot
+pics/frame pivot triangle/.style={    %OKinman
+        code={
+%	\pgfmathsetmacro\myH{2*sin(60)}      
+	\pgfmathsetmacro\myH{1.3}
+	\coordinate (-left)   at (-#1/2,-#1/\myH);
+	\coordinate (-right)  at ( #1/2,-#1/\myH);
+    \coordinate (-center) at (0,0);
+	\coordinate (-north) at (-center);    
+    \coordinate (-in) at (-center);   
+    \coordinate (-end) at (-in);       
+    \coordinate (-start) at (-in);       
+    \coordinate (-out) at (-center);    
+%    \coordinate (-south) at ($(-left)!0.5!(-right)$);    %This is failing in the book!!! Problem was babel package with french option!
+    \coordinate (-south) at ($0.5*(-left)+0.5*(-right)$);    %so use this... :-(
+
+	\draw [knJointStyle, line join=round] (-center) -- (-left) -- (-right) -- cycle;
+	\node at (-left) [ground2,minimum width=#1] {};% \draw [ground] (0,0) -- (0.5,0);
+	\draw [fill=white] (-center) circle (\pivotRadius);
+		} %end of code for this particular pic
+	},
+%===================================================
+pics/frame dual pivot slide/.style={   %OKinman
+%Arg 1 -> width [2cm]
+%Arg 2 -> fraction of placement from -0.25 to +0.25 [0] %default is in the center
+%Arg 3 -> fraction size of cursor of frame [0.5] %But there sre max and min absolute sizes
+        code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------        
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+	\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+	\readlist\myArgs{\allArgs}
+	\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\fLength}  {\def\fLength{}}
+	\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\fFraction}{\def\fFraction{}}
+	\ifthenelse{ \myArgslen > 2} {\itemtomacro\myArgs[3]\fCursor}{\def\fCursor{}}
+	%Test if any parameter is blank and put the default in that case
+	\ifthenelse{ \equal{\fLength}{}  }{\def\fLength{2cm}} {}        
+	\ifthenelse{ \equal{\fFraction}{}}{\def\fFraction{0}} {}    
+	\ifthenelse{ \equal{\fCursor}{}}{\def\fCursor{0.5}} {}    	    
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+    
+    \dimendef\myL=0  %first create a dimension register...
+%  	\pgfmathsetlength\myL{max(2*\pivotRadius,\fCursor*\fLength)} %min size  
+%	\pgfmathsetlength\myL{min(1cm,\fCursor*\fLength)} %max size 
+   	\pgfmathsetlength\myL{max(2*\pivotRadius,min(1cm,\fCursor*\fLength)} %min/max size  
+   
+
+	%limit excursion of cursor
+	\pgfmathsetmacro\fFraction{min(0.25,\fFraction)}
+	\pgfmathsetmacro\fFraction{max(-0.25,\fFraction)}
+		
+    \coordinate (-left)  at (-\fLength/2,0);      
+    \coordinate (-right)  at (\fLength/2,0);
+   	\coordinate (-center) at ($(-left)!0.5!(-right)$);   
+    \coordinate (-in) at (\fFraction*\fLength,0); %proportion of displacement
+	\coordinate (-north) at ($(-left)!0.5!(-right)+(0,0.25)$);   
+    \coordinate (-start) at (-in);        
+    \coordinate (-out) at (-in);    
+    \coordinate (-end) at (-out);    
+    \coordinate (-south) at ($(-left)!0.5!(-right)-(0,0.25)$);    
+	\draw [line width=1pt,fill=\LinkFillColor] ($(-in)+(-\myL/2,\gapGround-0.25)$) rectangle ++(\myL,0.5-2*\gapGround);
+	\node [ground2,minimum width=\fLength] at (-\fLength/2,-0.25) {}; % \draw [ground] (0,0) -- (2,0);
+	\node [ground2,minimum width=\fLength,anchor=south west] at (-\fLength/2,0.25) {}; %\draw [ground] (2,0.5) -- (0,0.5);
+	\draw [knJointStyle]  (-\fLength/2,0.25) -- (\fLength/2,0.25);
+	\draw [knJointStyle]  (-\fLength/2,-0.25) -- (\fLength/2,-0.25);
+%    \coordinate (-center) at (1,0.25);
+	\draw [fill=white] (-in) circle (\pivotRadius);     
+	}  %end of code for this particular pic	
+   },	
+%----------------------------------------------------------   
+} % end of base/frame styles
+
+
+\tikzset{ %definitions/pics for SYMBOLS INSPIRED FROM ISO 3952-1
+%===============================================================
+pics/revolute pair planar/.style={ % ISO
+%Arg 1 -> destination point
+%Arg 2 -> boolean: add or not COM (discarded -1 in legacy for a special case... :-( )
+%Arg 3 -> boolean: add or not pivot in destination (default is 1 yes)
+        code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------        
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{/} \def\noArgs{1} \def\addStartPivot{0} } {\def\allArgs{#1} \def\noArgs{0} \def\addStartPivot{1}}
+	\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+	\readlist\myArgs{\allArgs}
+	\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\endPoint}   {\def\endPoint{}}
+	\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\dCOM}       {\def\dCOM{}  }
+	\ifthenelse{ \myArgslen > 2} {\itemtomacro\myArgs[3]\addEndPivot}{\def\addEndPivot{} }	
+	%Test if any parameter is blank and put the default in that case
+	\ifthenelse{ \equal{\endPoint}{}   }{\def\endPoint{15:1}}{}        
+	\ifthenelse{ \equal{\dCOM}{}       }{\def\dCOM{0}}          {}    
+	\ifthenelse{ \equal{\addEndPivot}{}}{\def\addEndPivot{1}}   {}    	
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+	     
+    \coordinate (-in)     at (0,0);        
+    \coordinate (-start)  at (-in); 
+    \coordinate (-end)    at (\endPoint);             
+    \coordinate (-out)    at (-end);                 
+%    \coordinate (-center) at ($(-start)!0.5!(-end)$);  %This is failing... :-(
+    \coordinate (-center) at ($0.5*(-start)+0.5*(-end)$);  %... so use this
+   
+	\draw [knLinkStyle] (-in) -- (-end);
+	%Test for a special case when no params are passed and append a second arm
+	\ifnum \noArgs=1
+		\draw [knLinkStyle] (-end) -- ++(-10:0.7) coordinate (-end2);
+	\fi
+	
+	\ifthenelse{\addStartPivot=1}{
+		\draw [knLinkStyle,fill=white] (-start) circle (\pivotRadius);
+		}{}
+	\ifthenelse{\addEndPivot=1}{
+		\draw [knLinkStyle,fill=white] (-end) circle (\pivotRadius);
+	}{}
+	
+	\ifthenelse{\dCOM=1}{ \addCOM }{}
+	
+		} %end of code for this particular pic
+	},
+%===============================================================
+%
+pics/revolute pair spatial/.default={45:1cm/0/0}, %ISO revolute pair - 3D %FOR CONSISTENCY PASSED POINT SHOULD NOT BE IN () CORRECT THAT IN CALLER
+%param: point for link end (default: (45:1cm));
+%param: direction of end arm: 0 top, 1 bottom (default: 0);
+%param: axle fixed to some frame: 0 not fixed, 1 fixed (default: 0)
+pics/revolute pair spatial/.style args={#1/#2/#3}{ % ISO
+% TODO: should accept partial parameters
+        code={       
+    \def\invGap{3pt}  %inner separation of body 2 from limits of body 1
+    \def\outvGap{6pt} %outer gap of axle (can be zero in fexed variant)
+    \def\argA{#1}
+    \def\argB{#2} \def\armTop {0}
+    \def\argC{#3} \def\fFixed {1}
+ 
+	\coordinate (-center) at (\currentcoordinate);  
+
+    \def\rectW{0.6cm}
+    \def\rectH{0.4cm}
+    
+    \if\argC\fFixed
+      \def\outvGap{0pt}
+    \fi
+    
+%NB. If param 1 is passed as literal its effect is local, if by a node name, global!  
+%That is why default parameter always has local referencing  
+    %SO FOR EASIER LOCAL REPRESENTATIONS CENTER THE pic AROUND (0,0)
+    %But that may complicate anchoring....
+    
+         
+    \coordinate (-in)     at ($(-center) - (0:\rectW/2+\outvGap+\invGap)$);     
+    \coordinate (-in2)    at ($(-center) + (0:\rectW/2+\outvGap+\invGap)$);      
+    \coordinate (-start)  at (-in);
+    \coordinate (-start2) at (-in2);
+    \coordinate (-end)    at (#1); %Note that this is an absolute point, not relative to -center
+    \coordinate (-out)    at (-end);                
+    \coordinate (-north)  at ($(-center) + (0,\rectH/2)$);  
+    \coordinate (-south)  at ($(-center) - (0,\rectH/2)$); 
+    \coordinate (-east)   at ($(-center) + (0:\rectW/2+\invGap)$);    
+    \coordinate (-west)   at ($(-center) - (0:\rectW/2+\invGap)$);    
+
+    \if\argC\fFixed %expected to have a frame in one end - so shift all coordinate names
+	    \coordinate (-in)     at ($(-in)  + (0:\rectW/2+\outvGap+\invGap)$);     
+	    \coordinate (-in2)    at ($(-in2) + (0:\rectW/2+\outvGap+\invGap)$);      
+	    \coordinate (-start)  at (-in);
+	    \coordinate (-start2) at (-in2);
+	    \coordinate (-end)    at ($(-end)   + (0:\rectW/2+\outvGap+\invGap)$);  
+	    \coordinate (-out)    at (-end);                
+	    \coordinate (-north)  at ($(-north) + (0:\rectW/2+\outvGap+\invGap)$);  
+	    \coordinate (-south)  at ($(-south) + (0:\rectW/2+\outvGap+\invGap)$); 
+	    \coordinate (-east)   at ($(-east)  + (0:\rectW/2+\outvGap+\invGap)$);    
+	    \coordinate (-west)   at ($(-west)  + (0:\rectW/2+\outvGap+\invGap)$);    
+    \fi
+
+%\node[inner sep=0, minimum width=\rectW+2*\outvGap+2*\invGap,circle,opacity=0.5] (-bbox) at (0,0) {};
+	% previous node created to attempt anchoring pic by any of it internal nodes
+	% but it only works if not defined after other internal coordinates. Only explicit 
+	% measumrents, otherwise the anchor is always at (0,0) and
+	% you need shift to anchor the pic :-( Moreover, only the node is relocated by anchoring
+	% and not the other drawings :-(((( Check more at
+	% https://tex.stackexchange.com/questions/185279/anchoring-tikz-pics
+	
+
+%   \kmpgfextractangle{\nAng}{-end} %not #1, needs to be a node name :-(
+%   There is problem when pic is named because then -end is not found :-(( 
+%   So I need to do the calculation myself
+
+    \newdimen\XCoord
+    \newdimen\YCoord
+    \newdimen\XCoordN
+    \newdimen\YCoordN
+    \newdimen\XCoordS
+    \newdimen\YCoordS
+    \newdimen\XCoordiN
+    \newdimen\YCoordiN   
+
+%    \path ($#1-(-north) - (-in)$); \pgfgetlastxy{\XCoord}{\YCoord};
+%    \pgfmathparse{atan2(\YCoord,\XCoord)}
+%    \edef\nAng{\pgfmathresult}%
+%
+%    \path ($#1-(-south) - (-in)$); \pgfgetlastxy{\XCoord}{\YCoord};
+%    \pgfmathparse{atan2(\YCoord,\XCoord)}
+%    \edef\sAng{\pgfmathresult}%
+
+%But that is a problem because \pgfgetlastxy works with absolute coordinates in the figure, which is a problem when there are transformations on parts of the image :-(
+%So we need another trick to calculate the angles:
+
+%    \path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+%    \path (-north); \pgfgetlastxy{\XCoordN} {\YCoordN};	
+%    \path (-south); \pgfgetlastxy{\XCoordS} {\YCoordS};	
+%    \path #1;       \pgfgetlastxy{\XCoordiN}{\YCoordiN};	
+
+%But this previous solution works for only translations (but not all rotations)
+%So there is this one using the custom \gettikzxy:
+ 
+% 	 \gettikzxy{(-in)}    {\XCoord}  {\YCoord}
+ 	 \path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+	 \gettikzxy{(-north)} {\XCoordN} {\YCoordN}
+     \gettikzxy{(-south)} {\XCoordS} {\YCoordS}	
+     \gettikzxy{(-end)}   {\XCoordiN}{\YCoordiN}	
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordN,\XCoordiN-\XCoordN)}
+    \edef\nAng{\pgfmathresult}%
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordS,\XCoordiN-\XCoordS)}
+    \edef\sAng{\pgfmathresult}%
+
+% In case I wanted the vector length
+%    \pgfmathparse{veclen(\XCoord...,\YCoord...)}
+%    \edef\lRadius{\pgfmathresult}%
+   
+	\draw [knLineCap,knLinkStyle] (-in) -- (-in2); % horiz axis. Round line extremities for better connection
+	\draw [knJointStyle] ($(-in)+(\outvGap,-\rectH/2-1pt)$) -- ++(90:\rectH+2pt); %vert bar left
+	\draw [knJointStyle] ($(-in2)+(-\outvGap,-\rectH/2-1pt)$) -- ++(90:\rectH+2pt); %vert bar right
+	
+	\if\argC\fFixed  % two lines
+		\draw [knJointStyle] ($(-in)+(\outvGap, \rectH/2)+(\invGap,0)$) -- ++(\rectW,0);
+		\draw [knJointStyle] ($(-in)+(\outvGap,-\rectH/2)+(\invGap,0)$) -- ++(\rectW,0);
+	\else   % a full rectangle
+		\draw [knJointStyle] ($(-in)+(\outvGap,-\rectH/2)+(\invGap,0)$) rectangle ++(\rectW,\rectH); %rectangle
+	\fi
+		
+	\if\argB\armTop
+		\draw [knLineCap,knLinkStyle] (-north)   -- (-end); %arm
+		\fill [] (-north) -- ++(\lockRadius,0) arc (0:\nAng:\lockRadius) -- cycle; %lock, as arc 
+	\else
+		\draw [knLineCap,knLinkStyle] (-south)   -- (-end); %arm
+		\fill [] (-south) -- ++(\lockRadius,0) arc (0:\sAng:\lockRadius) -- cycle; %lock, as arc 	
+	\fi
+		} %end of code for this particular pic
+	},
+%-----------------------------------
+linear pair/.pic={\pic {prismatic pair={#1}};}, %a synonym for prismatic pair. %always use #1 independetly of the number or arguments!
+pics/prismatic pair/.default={45:1cm/0}, %ISO linear pair %FOR CONSISTENCY PASSED POINT SHOULD NOT BE IN () CHECK THAT IN CALLER
+%param: point for link end (default: (45:1cm));
+%param: direction of end arm: 0 top, 1 bottom (default: 0);
+pics/prismatic pair/.style args={#1/#2}{ % ISO
+        code={       
+    \def\argA{(#1)}
+    \def\argB{#2} \def\armTop {0}
+    
+    \def\endGap{8pt}
+ 
+    \def\rectW{0.6cm}
+    \def\rectH{0.4cm}
+
+%NB. If param 1 is passed as literal its effect is local, if by a node name, global!  
+%That is why default parameter always has local referencing  
+    %SO FOR EASIER LOCAL REPRESENTATIONS CENTER THE pic AROUND (0,0)
+    %But that may complicate anchoring....
+    
+%	\coordinate (-center) at (\currentcoordinate);    
+	\coordinate (-center) at (0,0);        
+    \coordinate (-east)     at ($(-center) + (0:\rectW/2)$);     
+    \coordinate (-west)    at ($(-center) - (0:\rectW/2)$);      
+    \coordinate (-in)     at ($(-west) - (0:\endGap)$);     
+    \coordinate (-in2)    at ($(-east) + (0:\endGap)$);      
+    \coordinate (-start)  at (-in);
+    \coordinate (-start2) at (-in2);
+    \coordinate (-end)    at (#1);             
+    \coordinate (-out)    at (-end);                
+    \coordinate (-north)  at ($(-center) + (0,\rectH/2)$);  
+    \coordinate (-south)  at ($(-center) - (0,\rectH/2)$); 
+	
+%\node[inner sep=0, minimum width=\rectW,circle,opacity=0.5] (-bbox) at (0,0) {};
+	% previous node created to attempt anchoring pic by any of it internal nodes
+	% but it only works if not defined after other internal coordinates. Only explicit 
+	% measumrents, otherwise the anchor is always at (0,0) and
+	% you need shift to anchor the pic :-( Moreover, only the node is relocated by anchoring
+	% and not the other drawings :-(((( Check more at
+	% https://tex.stackexchange.com/questions/185279/anchoring-tikz-pics
+	
+
+%   \kmpgfextractangle{\nAng}{-end} %not #1, needs to be a node name :-(
+%   There is problem when pic is named because then -end is not found :-(( 
+%   So I need to do the calculation myself
+
+    \newdimen\XCoord
+    \newdimen\YCoord
+    \newdimen\XCoordN
+    \newdimen\YCoordN
+    \newdimen\XCoordS
+    \newdimen\YCoordS
+    \newdimen\XCoordiN
+    \newdimen\YCoordiN   
+
+
+% 	 \gettikzxy{(-in)}    {\XCoord}  {\YCoord}
+ 	 \path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+	 \gettikzxy{(-north)} {\XCoordN} {\YCoordN}
+     \gettikzxy{(-south)} {\XCoordS} {\YCoordS}	
+     \gettikzxy{(#1)}       {\XCoordiN}{\YCoordiN}	
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordN,\XCoordiN-\XCoordN)}
+    \edef\nAng{\pgfmathresult}%
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordS,\XCoordiN-\XCoordS)}
+    \edef\sAng{\pgfmathresult}%
+
+% In case I wanted the vector length
+%    \pgfmathparse{veclen(\XCoord...,\YCoord...)}
+%    \edef\lRadius{\pgfmathresult}%
+   
+	\coordinate (llCorner) at ($(-center) - (\rectW/2,\rectH/2)$);
+    
+	\draw [knJointStyle] (llCorner) rectangle ++(\rectW, \rectH);
+	\draw [knLinkStyle] (-in) -- (-west) (-in2) -- (-east);
+	
+	\if\argB\armTop
+		\draw [knLineCap,knLinkStyle] (-north)   -- (-end);%arm
+		\fill [] (-north) -- ++(\lockRadius,0) arc (0:\nAng:\lockRadius) -- cycle; %lock, as arc 
+	\else
+		\draw [knLineCap,knLinkStyle] (-south)   -- (-end);%arm
+		\fill [] (-south) -- ++(\lockRadius,0) arc (0:\sAng:\lockRadius) -- cycle; %lock, as arc 	
+	\fi
+		} %end of code for this particular pic
+	},		
+%===============================================================
+pics/spherical pair/.style={  % 2d socket and ball pair ISO
+	code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+	\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+	\readlist\myArgs{\allArgs}
+	\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\angR} {\def\angR{}}
+	\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\rFactor} {\def\rFactor{}}	
+	\ifthenelse{ \myArgslen > 2} {\itemtomacro\myArgs[3]\lLenA} {\def\lLenA{}}		
+	\ifthenelse{ \myArgslen > 3} {\itemtomacro\myArgs[4]\lLenB} {\def\lLenB{}}	
+	\ifthenelse{ \myArgslen > 4} {\itemtomacro\myArgs[5]\atIn} {\def\atIn{}}			
+	%Test if any parameter is blank and put the default in that case
+	\ifthenelse{ \equal{\angR}{}} {\def\angR{15}} {}  %default angle of end arm
+	\ifthenelse{ \equal{\rFactor}{}} {\def\rFactor{1}} {}  %default scale factor for ball
+	\ifthenelse{ \equal{\lLenA}{}} {\def\lLenA{0.8}} {}  %default left arm length
+	\ifthenelse{ \equal{\lLenB}{}} {\def\lLenB{0.8}} {}  %default right arm length
+	\ifthenelse{ \equal{\atIn}{}} {\def\atIn{0}} {}  %1 to attach to -in instead of -center	
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+
+	\def\gapBS{1.5pt} %gap between ball and socket
+	\def\ballRadius{\rFactor*\pivotRadius}
+	\def\tmpIn{(\lLenA,0)} %The temporary in for a shift if required
+	\def\inShift{(0,0)} %Default internal shift (null)
+	\ifthenelse{ \equal{\atIn}{1}} {\def\inShift{\tmpIn}} {} %new internal shift if attaching to -in
+	
+% TODO this next option should also be available in other pics
+	\begin{scope}[shift={\inShift}] % to adjust the anchoring point as needed
+	\coordinate (-center) at (0,0);	
+	\draw [knLinkStyle] (-center) -- ++(-\lLenA,0) coordinate (-in);
+	\fill [] ($(-center)-(\ballRadius+\gapBS,0)$) -- ++(-\ballRadius,0) arc (180:30:\ballRadius) -- cycle; %lock left
+%	\draw [vsISOLinkStyle,fill=white] (-center) arc (90:270:0.2); %socket
+	\draw [knLinkStyle,fill=white] ([shift=(60:\ballRadius+\gapBS)]-center) arc (60:300:\ballRadius+\gapBS); %This is way too smart: check https://tex.stackexchange.com/questions/66216/draw-arc-in-tikz-when-center-of-circle-is-specified
+	\draw [knLinkStyle] (-center) -- ++(\angR:\lLenB) coordinate (-end);   %right arm
+	\fill [] ($ (-center) + (\angR:\ballRadius) $) -- ++(\angR:\ballRadius) arc (\angR:-120:\ballRadius) -- cycle;	%lock right
+	\draw [knLinkStyle,fill=white] (-center) circle (\ballRadius);  %ball
+	
+	\coordinate (-start) at (-in);
+	\coordinate (-out) at (-end);
+	\end{scope}
+	
+	} %end of code for this particular pic
+},
+%------------------------------------------
+%%%% I AM HERE ... DURING THE MIGRATION TO ISO
+%===============================================================
+%
+pics/helical pair/.default={45:1cm/0}, %
+%param: point for link end (default: (45:1cm));
+%param: direction of end arm: 0 top, 1 bottom (default: 0);
+pics/helical pair/.style args={#1/#2}{ %
+        code={       
+    \def\argA{(#1)}
+    \def\argB{#2} \def\armTop {0}
+    
+    \def\endGap{8pt}
+ 
+    \def\rectW{0.6cm}
+    \def\rectH{0.4cm}
+
+%NB. If param 1 is passed as literal its effect is local, if by a node name, global!  
+%That is why default parameter always has local referencing  
+    %SO FOR EASIER LOCAL REPRESENTATIONS CENTER THE pic AROUND (0,0)
+    %But that may complicate anchoring....
+    
+%	\coordinate (-center) at (\currentcoordinate);    
+	\coordinate (-center) at (0,0);        
+    \coordinate (-east)   at ($(-center) + (0:\rectW/2)$);     
+    \coordinate (-west)   at ($(-center) - (0:\rectW/2)$);      
+    \coordinate (-in)     at ($(-west) - (0:\endGap)$);     
+    \coordinate (-in2)    at ($(-east) + (0:\endGap)$);      
+    \coordinate (-start)  at (-in);
+    \coordinate (-start2) at (-in2);
+    \coordinate (-end)    at (#1);             
+    \coordinate (-out)    at (-end);                
+    \coordinate (-north)  at ($(-center) + (0,\rectH/2)$);  
+    \coordinate (-south)  at ($(-center) - (0,\rectH/2)$); 
+	
+\node[inner sep=0, minimum width=\rectW,circle,opacity=0.5] (-bbox) at (0,0) {};
+	% previous node created to attempt anchoring pic by any of it internal nodes
+	% but it only works if not defined after other internal coordinates. Only explicit 
+	% measumrents, otherwise the anchor is always at (0,0) and
+	% you need shift to anchor the pic :-( Moreover, only the node is relocated by anchoring
+	% and not the other drawings :-(((( Check more at
+	% https://tex.stackexchange.com/questions/185279/anchoring-tikz-pics
+	
+
+%   \kmpgfextractangle{\nAng}{-end} %not #1, needs to be a node name :-(
+%   There is problem when pic is named because then -end is not found :-(( 
+%   So I need to do the calculation myself
+
+    \newdimen\XCoord
+    \newdimen\YCoord
+    \newdimen\XCoordN
+    \newdimen\YCoordN
+    \newdimen\XCoordS
+    \newdimen\YCoordS
+    \newdimen\XCoordiN
+    \newdimen\YCoordiN   
+
+
+% 	 \gettikzxy{(-in)}    {\XCoord}  {\YCoord}
+ 	 \path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+	 \gettikzxy{(-north)} {\XCoordN} {\YCoordN}
+     \gettikzxy{(-south)} {\XCoordS} {\YCoordS}	
+     \gettikzxy{(#1)}       {\XCoordiN}{\YCoordiN}	
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordN,\XCoordiN-\XCoordN)}
+    \edef\nAng{\pgfmathresult}%
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordS,\XCoordiN-\XCoordS)}
+    \edef\sAng{\pgfmathresult}%
+
+% In case I wanted the vector length
+%    \pgfmathparse{veclen(\XCoord...,\YCoord...)}
+%    \edef\lRadius{\pgfmathresult}%
+   
+	\coordinate (llCorner) at ($(-center) - (\rectW/2,\rectH/2)$);
+    
+	\draw [knJointStyle] (llCorner) rectangle ++(\rectW, \rectH);
+	\draw [knLinkStyle] (-in) -- (-west) (-in2) -- (-east);
+%	\draw [knLinkStyle, decoration={snake,segment length=\rectW/2.75,amplitude=\rectH/3.5}] (-west) decorate {--(-east)};
+	%The previous decoration is not adjusting to scale so using a compopund of sin/cos :-(
+	\draw [knLinkStyle] (-west) sin 
+			($(-west)+(\rectW/12,\rectH/4)$) cos
+			($(-west)+(2*\rectW/12,0)$) sin		
+			($(-west)+(3*\rectW/12,-\rectH/4)$) cos
+			($(-west)+(4*\rectW/12,0)$) sin		
+			($(-west)+(5*\rectW/12,\rectH/4)$) cos
+			($(-west)+(6*\rectW/12,0)$) sin		
+			($(-west)+(7*\rectW/12,-\rectH/4)$) cos			
+			($(-west)+(8*\rectW/12,0)$) sin		
+			($(-west)+(9*\rectW/12,\rectH/4)$) cos
+			($(-west)+(10*\rectW/12,0)$) sin		
+			($(-west)+(11*\rectW/12,-\rectH/4)$) cos				
+			(-east);
+	
+		\if\argB\armTop
+		\draw [knLineCap,knLinkStyle] (-north)   -- (-end); %arm
+		\fill [] (-north) -- ++(\lockRadius,0) arc (0:\nAng:\lockRadius) -- cycle; %lock, as arc 
+	\else\
+		\draw [knLineCap,knLinkStyle] (-south)   -- (-end); %arm
+		\fill [] (-south) -- ++(\lockRadius,0) arc (0:\sAng:\lockRadius) -- cycle; %lock, as arc 	
+	\fi
+		} %end of code for this particular pic
+	},
+%------------------------------------------
+pics/cylindrical pair/.default={45:1cm/0},%
+%param: point for link end (default: (45:1cm));
+%param: direction of end arm: 0 top, 1 bottom (default: 0);
+pics/cylindrical pair/.style args={#1/#2}{ % cylindrical link ISO
+        code={       
+    \def\argA{(#1)}
+    \def\argB{#2} \def\armTop {0}
+    
+    \def\endGap{0.7cm}   %Extension of axis for each side
+
+    \def\rectW{0.6cm}  %width
+    \def\rectH{0.4cm}  %height
+    
+	\coordinate (-center) at (0,0);        
+    \coordinate (-in)     at ($(-center) - (0:\endGap)$);     
+    \coordinate (-in2)    at ($(-center) + (0:\endGap)$);      
+    \coordinate (-start)  at (-in);
+    \coordinate (-start2) at (-in2);
+    \coordinate (-end)    at (#1);             
+    \coordinate (-out)    at (-end);                
+    \coordinate (-east)   at (-in2);     
+    \coordinate (-west)   at (-in);         
+    \coordinate (-north)  at ($(-center) + (0,\rectH/2)$);  
+    \coordinate (-south)  at ($(-center) - (0,\rectH/2)$); 
+	
+%   \kmpgfextractangle{\nAng}{-end} %not #1, needs to be a node name :-(
+%   There is problem when pic is named because then -end is not found :-(( 
+%   So I need to do the calculation myself
+
+    \newdimen\XCoord
+    \newdimen\YCoord
+    \newdimen\XCoordN
+    \newdimen\YCoordN
+    \newdimen\XCoordS
+    \newdimen\YCoordS
+    \newdimen\XCoordiN
+    \newdimen\YCoordiN   
+
+% 	 \gettikzxy{(-in)}    {\XCoord}  {\YCoord}
+ 	 \path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+	 \gettikzxy{(-north)} {\XCoordN} {\YCoordN}
+     \gettikzxy{(-south)} {\XCoordS} {\YCoordS}	
+     \gettikzxy{(#1)}       {\XCoordiN}{\YCoordiN}	
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordN,\XCoordiN-\XCoordN)}
+    \edef\nAng{\pgfmathresult}% angle in north arm
+
+    \pgfmathparse{atan2(\YCoordiN-\YCoordS,\XCoordiN-\XCoordS)}
+    \edef\sAng{\pgfmathresult}% angle in south arm
+
+% In case I wanted the vector length
+%    \pgfmathparse{veclen(\XCoord...,\YCoord...)}
+%    \edef\lRadius{\pgfmathresult}%
+   
+	\coordinate (llCorner) at ($(-center) - (\rectW/2,\rectH/2)$);
+    
+    %Draw the joint parts
+	\draw [knJointStyle] (llCorner) -- ++(\rectW, 0);
+	\draw [knJointStyle] (llCorner) ++(0, \rectH) -- ++(\rectW, 0);
+	%Draw the link (axis) part
+	\draw [knLinkStyle] (-in) -- (-in2);
+
+	\if\argB\armTop
+		\draw [knLineCap,knLinkStyle] (-north)   -- (-end); %arm
+		\fill [] (-north) -- ++(\lockRadius,0) arc (0:\nAng:\lockRadius) -- cycle; %lock, as arc 
+	\else\
+		\draw [knLineCap,knLinkStyle] (-south)   -- (-end); %arm
+		\fill [] (-south) -- ++(\lockRadius,0) arc (0:\sAng:\lockRadius) -- cycle; %lock, as arc 	
+	\fi
+		} %end of code for this particular pic
+},
+%------------------------------------------
+pics/cylindrical pair F/.default={90:0.75cm},%
+%param: point for link end (default: (90:0.75cm));
+pics/cylindrical pair F/.style args={#1}{ % cylindrical pair in Frontal view ISO
+	code={
+    \def\diam{0.2cm}  %radius
+	\coordinate (-center) at (0,0);
+	\coordinate (-in) at (-center);
+	\coordinate (-start) at (-in);
+	\coordinate (-out) at (#1);
+	\coordinate (-end) at (-out);	
+	\draw [knLinkStyle] (-center) -- (#1);
+	\draw [knLinkStyle, fill=white] (-center) circle (\diam);
+	\draw [knLinkStyle, fill=black] (-center) circle (0.01);
+	} %end of code for this particular pic
+},
+%------------------------------------------
+pics/planar contact pair/.default={60:0.5cm/-120:0.5cm},%
+%param: point for upper link end (default: (45:0.5cm));
+%param: point for lower link end (default: (-135:0.5cm));
+pics/planar contact pair/.style args={#1/#2}{ % plannar link in 2D ISO. Replaces the previous plannarlink2D
+	code={
+	\def\rectW{0.9cm}  %width
+	\def\rectH{0.2cm}  %height
+	
+	\draw [knJointStyle] (-0.5*\rectW,-0.5*\rectH) -- ++(0:\rectW); %horiz bottom
+	\draw [knJointStyle] (-0.5*\rectW, 0.5*\rectH) -- ++(0:\rectW); %horiz top 
+		
+	\coordinate (-north) at (0, 0.5*\rectH);	
+	\coordinate (-south) at (0,-0.5*\rectH);
+		
+	\coordinate (-center) at (0,0);
+	\coordinate (-end) at (#1); %top
+	\coordinate (-end1) at (-end);
+	\coordinate (-end2) at (#2); %bottom
+	\coordinate (-in) at (-end2); %bottom
+	\coordinate (-out) at (-end); %top
+	\coordinate (-start) at (-in);
+	
+	\newdimen\XCoord   \newdimen\YCoord
+	\newdimen\XCoordN  \newdimen\YCoordN
+	\newdimen\XCoordS  \newdimen\YCoordS
+	\newdimen\XCoordiN \newdimen\YCoordiN   
+	\newdimen\XCoordiS \newdimen\YCoordiS   
+	
+%	 \gettikzxy{(-in)}    {\XCoord}  {\YCoord}
+	\path (-in);    \pgfgetlastxy{\XCoord}  {\YCoord};	
+	\gettikzxy{(-north)} {\XCoordN} {\YCoordN}
+	\gettikzxy{(-south)} {\XCoordS} {\YCoordS}	
+	\gettikzxy{(#1)}     {\XCoordiN}{\YCoordiN}	
+	\gettikzxy{(#2)}     {\XCoordiS}{\YCoordiS}	
+	
+	\pgfmathparse{atan2(\YCoordiN-\YCoordN,\XCoordiN-\XCoordN)}
+	\edef\nAng{\pgfmathresult}% angle in north arm
+	
+	\pgfmathparse{atan2(\YCoordiS-\YCoordS,\XCoordiS-\XCoordS)}
+	\edef\sAng{\pgfmathresult}% angle in south arm
+	
+	\draw [knLineCap,knLinkStyle] (-north)   -- (-end); %arm
+	\fill [] (-north) -- ++(\lockRadius,0) arc (0:\nAng:\lockRadius) -- cycle; 	
+%lock	up
+	\draw [knLineCap,knLinkStyle] (-south)   -- (-end2); %arm
+	\fill [] (-south) -- ++(-\lockRadius,0) arc (0:180+\sAng:-\lockRadius) -- cycle; 	
+	} %end of code for this particular pic
+},
+%------------------------------------------
+rotating cam plate/.pic={\pic {camlink=#1};}, %ISO synonym of camlink which is the legacy name
+pics/camlink/.default=-30,      % default arguments for this pic
+pics/camlink/.style args={#1}{  % cam link with triangular pivot ISO
+	code={
+		\coordinate (-center) at (0.2,0.33);
+		{ [shift=(-center),rotate=#1, local bounding box=bb]  %translate into center (abbrev. for scope)
+		\draw [ 
+				name path global=vsCurvedLine, %needed the global because of the scope :-(
+				use Hobby shortcut, closed=true, 
+		        scale=-1.75,
+		        fill=\LinkFillColor
+		      ]
+		      (0,-0.7) .. (0.2,-0.6) .. (0,0.4) .. (-0.2,-0.6) .. (0,-0.7);
+
+		\coordinate (-out) at (0,1); %anchor point in case you need it	
+		\coordinate (-end) at (-out);
+%This can be an amuseming alternative		
+%		 \node[name path global=vsCurvedLine,
+%		       star,
+%		       draw,
+%		       minimum width=2cm,
+%		       rounded corners=5pt,
+%		       star points=6,
+%		       rotate=#1,
+%		       xshift=10pt,
+%		       yscale=1.2,
+%%		       shading = axis, left color=blue, right color=red!30!white, shading angle=135,
+%		       ] at (-center) {};
+		}
+		
+		%State a vertical passing some contact point (for example the (-center))
+		%and extend it to the limit of the bounding box
+		\path let \p1=(bb.north), \p2=(-center) in coordinate (-toplimit)    at  (\x2,\y1);
+		\path let \p1=(bb.south), \p2=(-center) in coordinate (-bottomlimit) at  (\x2,\y1);
+		\path [name path=vsVerticalLine] (-toplimit) -- (-bottomlimit);
+		\path [name intersections={of={vsVerticalLine} and {vsCurvedLine}}] ;
+%		\coordinate (-touchtop)    at (intersection-1); 
+%		\coordinate (-touchbottom) at (intersection-2);
+% as intesections may change order must do a further text of which point is up...
+
+		\path let \p1=(intersection-1),
+			      \p2=(intersection-2) in coordinate (-touchtop) at  (\x1,{max(\y1,\y2)});
+		\path let \p1=(intersection-1),
+			      \p2=(intersection-2) in coordinate (-touchbottom) at  (\x1,{min(\y1,\y2)});
+			      
+%Can do the same in horizontal			      
+		\path let \p1=(bb.west), \p2=(-center) in coordinate (-leftlimit)  at  (\x1,\y2);
+		\path let \p1=(bb.east), \p2=(-center) in coordinate (-rightlimit) at  (\x1,\y2);
+		\path [name path=vsHorizontalLine] (-leftlimit) -- (-rightlimit);
+		\path [name intersections={of={vsHorizontalLine} and {vsCurvedLine}}] ;
+		\path let \p1=(intersection-1),
+			      \p2=(intersection-2) in coordinate (-touchright) at  ({max(\x1,\x2)},\y2);
+			 
+		\path let \p1=(intersection-1),
+			      \p2=(intersection-2) in coordinate (-touchleft) at  ({min(\x1,\x2)},\y2);
+
+		      		
+		\draw [line join=round,fill=white] (0,0) -- (0.4,0) -- (0.2,0.33) -- cycle;
+		\node [ground2,minimum width=0.8cm,xshift=-0.2cm] {};% \draw [ground] (0,0) -- (0.5,0);
+		\draw [thick,xshift=-0.2cm] (0,0) -- (0.8,0);
+		\draw [fill=white] (-center) circle (\pivotRadius);	
+	} %end of code for this particular pic
+},  %end of pic
+%------------------------------------------
+campin/.pic={\pic {cam follower=4};}, %a way to keep compatibility with the early campin element that can now be emulated as a particular case of cam follower
+%------------------------------------------
+pics/cam follower/.style={  % The ISO version of campin
+	code={
+%------------------------
+		\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+		\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+		\readlist\myArgs{\allArgs}
+		\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\pinType} {\def\pinType{}}
+		\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\pinDir}  {\def\pinDir{}}
+		%Test if any parameter is blank and put the default in that case
+		\ifthenelse{ \equal{\pinType}{}} {\def\pinType{0}} {}  %default 0 for knifeedhe
+		\ifthenelse{ \equal{\pinDir}{}}  {\def\pinDir{0}}  {}  %default 0 for vertical
+%----------------------	
+	
+		\def\KNIFEEDGE{0}
+		\def\ARCUATE{1}
+		\def\ROLLER{2}		
+		\def\FLATFACED{3}
+		\def\CAMPIN{4} %A special definition for an eralier version non ISO
+		\def\PINVERT{0}
+		\def\PINHORIZ{1}
+
+		\def\armLen{1cm}  %length or arm
+		\def\tipGap{20pt} % gap from contact to arm
+
+		\coordinate (-in) at (0,0);
+
+		\if\pinType\KNIFEEDGE  %
+			\def\tipGap{8pt} % gap from contact to arm
+			\draw [knLinkStyle,line join=round] (-in) -- ++(-4pt,\tipGap) -- ++(8pt,0) -- cycle;
+		\else
+			\if\pinType\ARCUATE
+				\def\tipGap{6pt} % gap from contact to arm
+				\draw [knLinkStyle] (-6pt,\tipGap) arc (-180:0:\tipGap) -- cycle;
+			\else
+				\if\pinType\ROLLER
+					\def\tipGap{10pt} % gap from contact to arm
+						\draw [knLinkStyle,fill=white] (0,0.5*\tipGap) circle (0.5*\tipGap);
+						\draw [knLinkStyle,fill=white] (0,0.5*\tipGap) circle (0.25*\tipGap); 
+				\else
+					\if\pinType\FLATFACED	
+						\def\tipGap{3pt} % gap from contact to arm
+						\draw [knLinkStyle] (-5pt,0) rectangle ++(10pt,\tipGap);					
+					\fi
+				\fi	
+			\fi
+		\fi		
+
+		\coordinate (-topin) at (0,\tipGap);
+
+		\if\pinDir\PINVERT  %
+			\coordinate (-end) at (0,\armLen);
+		\else
+			\coordinate (-end) at (\armLen,\tipGap);
+		\fi
+
+		\draw [knLinkStyle] (-topin) -- (-end);
+
+		\coordinate (-out) at (-end);
+		\coordinate (-center) at (-in);
+		\coordinate (-start) at (-in);
+
+		\if\pinType\CAMPIN	%legacy for early campin
+			\coordinate (-center) at (0,17pt);
+			\draw [fill=\LinkFillColor] (0,0)--++(2pt,4pt)--++(0,30pt)--++(-2pt,0) coordinate (-end) --++(-2pt,0)--++(0,-30pt) --cycle;
+			\coordinate (-out) at (-end);
+		\fi
+	} %end of code for this particular pic
+}, %end of pic
+%------------------------------------------
+} %end of tikzset
+%
+%====== OTHER DEFINITIONS vsCustomLinks =================
+
+\tikzset{   % definitions for my definitions of link pics ()
+% 
+% Technique adapted from https://tex.stackexchange.com/questions/218813/latex-access-every-character-of-an-string-variable using listofitems package
+pics/link bar generic/.style=%
+%Arg 1 -> point of end [0:30pt] %Point cannot come in ( ) because it gives problems below... :-(
+%Arg 2 -> bool include the COM symbol in the geometric center [1]
+%Arg 3 -> bool has pivot in -start  [1]
+%Arg 4 -> bool has pivot in -end  [1]
+%Arg 5 -> bool draw option crosshairs in extremes [0]
+%Arg 6 -> line width undocumented :-) to manipulate line with
+{
+    code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------    
+%Split joint argument in several args. If passed, use it, else put blanks.
+%But first impose an empty list in case no args are passed to avoid error of readlist
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+	\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+	\readlist\myArgs{\allArgs}
+	\ifthenelse{ \myArgslen > 0} {\def\destPoint    {\myArgs[1]}} {\def\destPoint{}}
+	\ifthenelse{ \myArgslen > 1} {\def\hasCOM       {\myArgs[2]}} {\def\hasCOM{}}
+	\ifthenelse{ \myArgslen > 2} {\def\hasStartPivot{\myArgs[3]}} {\def\hasStartPivot{}}
+	\ifthenelse{ \myArgslen > 3} {\def\hasEndPivot  {\myArgs[4]}} {\def\hasEndPivot{}}
+	\ifthenelse{ \myArgslen > 4} {\def\hasCrossHairs{\myArgs[5]}} {\def\hasCrossHairs{}}
+	\ifthenelse{ \myArgslen > 5} {\def\hasThinLines {\myArgs[6]}} {\def\hasThinLines{}}	
+	%Test if any parameter is blank and put the default in that case
+	\ifthenelse{ \equal{\destPoint}{}}    {\def\destPoint    {0:30pt}}{}        
+	\ifthenelse{ \equal{\hasCOM}{}}       {\def\hasCOM       {1}}     {}        
+	\ifthenelse{ \equal{\hasStartPivot}{}}{\def\hasStartPivot{1}}     {}        
+	\ifthenelse{ \equal{\hasEndPivot}{}}  {\def\hasEndPivot  {1}}     {} 
+	\ifthenelse{ \equal{\hasCrossHairs}{}}{\def\hasCrossHairs{0}}     {} 	       
+	\ifthenelse{ \equal{\hasThinLines}{}} {\def\hasThinLines {0}}     {} 	
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------		
+
+    \coordinate (-start) at (\currentcoordinate);
+    \coordinate (-end)   at (\destPoint);
+    \coordinate (-end1)  at (-end); %a synonym for compatitility with others
+
+	%AUX CALCS
+	\coordinate (A) at (-start);
+	\coordinate (B) at ($(A)+(-end)$);
+	%Calculate angle of point alignment
+	\gettikzxy{(A)} {\XCoordA} {\YCoordA}
+	\gettikzxy{(B)} {\XCoordB} {\YCoordB}	
+	\pgfmathparse{atan2(\YCoordB-\YCoordA,\XCoordB-\XCoordA)}
+	\edef\nAng{\pgfmathresult}%
+
+	\def\lWidth{0.75pt} %line width of drawings.
+	\ifthenelse{\hasThinLines=1}{\def\lWidth{0.2pt}}{}%Very very thin (0 in the limit)
+
+	%Calculate base length
+	\pgfmathparse{veclen(\XCoordB-\XCoordA,\YCoordB-\YCoordA)}
+	\edef\lRadiusS{\pgfmathresult}%
+
+	%Calculate extension factor beyond B and obtain posB
+	\pgfmathparse{1+5/\lRadiusS}  %Extension of 5pt more to draw a pivot
+	\edef\lFact{\pgfmathresult}%
+	\coordinate (posB) at ($(A)!\lFact!(B)$); %Full extremity with the pivot point
+%	\coordinate (posB) at ($\lFact*(A)+(B)$); %Full extremity with the pivot point
+
+
+	%Calculate extension factor beyond A and obtain preA
+	\pgfmathparse{1+5/\lRadiusS}  %Extension of 5pt more to draw a pivot
+	\edef\lFact{\pgfmathresult}%
+	\coordinate (preA) at ($(B)!\lFact!(A)$); %Full extremity with the pivot point
+%	\coordinate (preA) at ($\lFact*(B)+(A)$); %Full extremity with the pivot point
+
+
+	\def\rrWest{none}  %ending type for the case in no pivot in West (left or start)
+	\def\rrEast{none}  %ending type for the case in no pivot in East (right or end)
+
+	\ifthenelse{\hasStartPivot=1}{\def\rrWest{convex}}{\coordinate (preA) at (A);} % if using pre extension keep the calculations
+	\ifthenelse{\hasEndPivot=1}{\def\rrEast{convex}}{\coordinate (posB) at (B);} % if using pre extension keep the calculations
+
+	%After this point the final extremities are in preA and posB even if no pivots (coincide with A/B)
+%	\coordinate (-center) at ($(preA)!0.5!(posB)$);
+	\coordinate (-center) at ($0.5*(preA)+0.5*(posB)$);
+
+	\gettikzxy{(preA)} {\XCoordA} {\YCoordA}
+	\gettikzxy{(posB)} {\XCoordB} {\YCoordB}	
+	\pgfmathparse{veclen(\XCoordB-\XCoordA,\YCoordB-\YCoordA)}
+	\edef\lRadius{\pgfmathresult}%
+
+	\coordinate (ppreA) at ($(preA)-(\nAng:\lWidth/2)$); %recalculate for correct drawing below
+	\node [rotate=\nAng,
+		   inner sep=0,
+		   rounded rectangle,
+		   draw,
+		   fill=\LinkFillColor,
+		   line width=\lWidth,     %controls line width
+		   minimum width=\lRadius, %dimension (actually the longest dim or link length)
+		   minimum height=10pt,    %dimension (actually the shortests dim or link thickness)
+%		   at=(-center);
+		   at=(ppreA),  %actully preA with a line width correction
+		   anchor=west, %force this anchor to avoid external changes...
+		   rounded rectangle west arc=\rrWest,  %none, convex, concave  %controls the ending type
+		   rounded rectangle east arc=\rrEast,  %none, convex, concave  %controls the ending type
+	   ] () {};
+	   \coordinate (-in) at (-start);
+	   \coordinate (-out) at (-end);
+	   \coordinate (-south) at ($ (-center) - (90+\nAng:5pt)$);
+   	   \coordinate (-north) at ($ (-center) + (90+\nAng:5pt)$);
+
+	\ifthenelse{\hasStartPivot=1}{\draw [fill=white] (-start)  circle (\pivotRadius);}{} % draw pivot in start
+	\ifthenelse{\hasEndPivot=1}{\draw [fill=white] (-end)  circle (\pivotRadius);}{} % draw pivot in end
+	
+	\ifthenelse{\hasCOM=1}{
+	\tiny \addCOM   %[blue] or [fill=none,draw=none], etc.   %addmits that (-center) is defined
+	                 } {}
+\ifthenelse{\hasCrossHairs=1}{
+	\draw (A) -- ++(90+\nAng:4pt) (A) -- ++(-90+\nAng:4pt) (A) -- ++(\nAng:4pt) (A) -- ++(180+\nAng:4pt);
+  	\draw (B) -- ++(90+\nAng:4pt) (B) -- ++(-90+\nAng:4pt)(B) -- ++(\nAng:4pt) (B) -- ++(180+\nAng:4pt);} {}
+		} %end of code for this particular pic
+	},
+%------------------------------------------
+pics/linear joint bar/.style={% 2D linear joint bar
+% arg 1 - fraction of insertion (default 0.5) - 0 is no insertion at all, 1 is fully inserted
+% arg 2 - lenght of fixed part (default 1cm)
+% arg 3 - boolean - has curved base (0 no  - default, 1 - yes)
+% arg 4 - boolean - has curved tip (0 no, 1 yes (default))
+	code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------
+		\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+		\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+		\readlist\myArgs{\allArgs}
+		\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\fracDepth} {\def\fracDepth{}}
+		\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\fixLen}    {\def\fixLen{}}
+		\ifthenelse{ \myArgslen > 2} {\itemtomacro\myArgs[3]\curvBase}    {\def\curvBase{}}		
+		\ifthenelse{ \myArgslen > 3} {\itemtomacro\myArgs[4]\curvTip}    {\def\curvTip{}}		
+		%Test if any parameter is blank and put the default in that case
+		\ifthenelse{ \equal{\fracDepth}{}} {\def\fracDepth{0.5}} {}  %default 0.5 fraction of insertion
+		\ifthenelse{ \equal{\fixLen}{}}    {\def\fixLen{1cm}}    {}  %default 1cm length of fixed part
+		\ifthenelse{ \equal{\curvBase}{}}  {\def\curvBase{0}}    {}  %default is no curved base
+		\ifthenelse{ \equal{\curvTip}{}}   {\def\curvTip{1}}     {}  %default is to have a curved tip		
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+	
+    	\def\iGap{2pt}       %inner separation of piston from body
+	    \def\rectH{10pt}    %height of outer cyl
+
+		\begin{scope}[rotate=0] %No rotation draw it horizontally
+ 		\coordinate (-start) at (0,0);      
+ 		\coordinate (-jpoint) at ($(0,0) + (\fixLen,0) $);
+		\coordinate (-center) at (-jpoint);   		
+ 		\coordinate (-end) at ($(0,0) + (2*\fixLen-\fracDepth*\fixLen,0) $); %size varies
+ 		\coordinate (-in) at (-start);      
+ 		\coordinate (-out) at (-end);   
+		\coordinate (-topright)    at ([yshift=0.5*\rectH]-jpoint);		
+		\coordinate (-topleft)     at ([yshift=0.5*\rectH]-start);	
+		\coordinate (-bottomleft)  at ([yshift=-0.5*\rectH]-start);				
+		\coordinate (-bottomright) at ([yshift=-0.5*\rectH]-jpoint);
+
+		\coordinate (-toprightS)    at ([yshift={0.5*\rectH-\iGap}]-end);		
+		\coordinate (-topleftS)     at ([yshift={0.5*\rectH-\iGap}]-jpoint);	
+		\coordinate (-bottomleftS)  at ([yshift={-0.5*\rectH+\iGap}]-jpoint);				
+		\coordinate (-bottomrightS) at ([yshift={-0.5*\rectH+\iGap}]-end);
+
+		\ifthenelse{ \equal{\curvTip}{0} } 		
+		{
+ 			\fill [\SubLinkFillColor] (-topleftS) -- (-toprightS) -- (-bottomrightS) -- (-bottomleftS) -- cycle;
+ 		}
+		{
+ 			\fill [\SubLinkFillColor] (-topleftS) -- (-toprightS) arc (90:-90:0.5*\rectH-\iGap) -- (-bottomleftS) -- cycle;		
+		}
+		
+		
+ 		\ifthenelse{ \equal{\curvBase}{0} }
+ 		{
+	 		\draw [knLinkStyle,fill=\LinkFillColor] (-topright) -- (-topleft) -- (-bottomleft) -- (-bottomright);
+ 		}
+ 		{
+	 		\draw [knLinkStyle,fill=\LinkFillColor] (-topright) -- (-topleft) arc (90:270:0.5*\rectH) -- (-bottomright); 	
+	 		\draw [fill=white] (-start)  circle (\pivotRadius);
+ 		}
+  		
+		\end{scope}
+	} %end of code for this particular pic
+},	
+%------------------------------------------
+pics/link polygon/.style=% 
+%Arg 1 -> point of -end1
+%Arg 2 -> point of -end2
+%...
+%Arg n -> point of -endn
+{
+    code={
+%Split joint argument in several args. Empty arguments are discarded.
+%But first impose a default list with onde point in case no args at all are passed to avoid error of readlist
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{0:30pt}} {\def\allArgs{#1}}
+	\ignoreemptyitems %to discard empty entries in list of arguments
+	\setsepchar[.]{/} % "/" is the separator; "." is separator of sperators in the separator list
+	\readlist\myArgs{\allArgs} %separate the argments in their own variable (myArgs[1], myArgs[2], etc... 
+	% studying second level separators to decide which pivot to draw, but it complicates too much the decoding code. So use a defined list (macro) of booleans to decide which pivot points to draw.
+	
+	%Lame solutions -- limited to a fixed number because could not implement the solution shown
+	\ifdefined\ListOfPivotPointsToDraw
+		%do nothing
+	\else
+%		\count=\myArgslen \def\ListOfPivotPointsToDraw{\loop \ifnum\count0>0 \advance\count0 by -1 {1,}\repeat}	
+		\def\ListOfPivotPointsToDraw{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} %:-((
+	\fi
+	
+	\setsepchar{,} % restore the "," separator;
+	\readlist\dPivots{\ListOfPivotPointsToDraw} %
+		
+    \coordinate (-start)  at (\currentcoordinate);
+    \coordinate (-in)  at (-start);
+	%Create all -end coordinates
+	\foreachitem\pPoint\in\myArgs{\coordinate [at=(\pPoint),name=-end\pPointcnt] ; \coordinate [at=(\pPoint),name=-out\pPointcnt] ;}
+	
+	\coordinate (-centerS) at (-start); %init this accumulator
+	\foreachitem\pPoint\in\myArgs{\coordinate [at=($(\pPoint)+(-centerS)$),name=-centerS] ;} %add allpoints
+
+    \coordinate (-out)  at (-out1);
+    \coordinate (-end)  at (-out);
+
+
+	\xdef\AllPoints{(-in)} %start with -in
+	\foreach \n in {1,...,\myArgslen} {\xdef\AllPoints{\AllPoints(-end\n)} } %add all -ends
+	\node[fit=\AllPoints] (-box){}; %create a fit box
+
+	\pgfmathsetmacro\vsWeight{1/(\myArgslen+1)} %because you cannot apply division in nodes :-(( and do not forget starting points
+    \coordinate (-center) at ($\vsWeight*(-centerS)$);    
+
+	%Trick draw a wide line first
+%%OPTION A	- The best except if you want a fill pattern
+	\draw [line join=round, line width=10pt,rounded corners=0pt, fill=\LinkFillColor]
+	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+	%... and then the same with a thinner line with the same color as fill color
+	\draw [\LinkFillColor, line join=round, line width=8.25pt,rounded corners=0pt, fill=\LinkFillColor]
+	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+
+%%OPTION B	- The simplest and best for patterns but not the best for the geometry contour :-(
+%	\draw [line join=round, line width=0.75pt,rounded corners=0pt, pattern=north east lines]
+%	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+
+%%OPTION C
+%	%This Alternative is more elegant but not faithfull geometrically and poorer for 2 points only :-(
+%	\def\exFact{1.15}
+%	\draw [line join=round, 
+%		line width=0.75pt,
+%		rounded corners=5pt, 
+%%		fill=\LinkFillColor,
+%		pattern=north east lines
+%		]
+%	($(-center)!\exFact!(-start)$) \foreach \n in {1,...,\myArgslen}	{-- ($(-center)!\exFact!(-end\n)$)}  -- cycle;
+
+%%OPTION D	- Inspired in A and uses pattersn but leaves a white border. May confuse. Perhaps avoid
+%	\draw [line join=round, line width=10pt,rounded corners=0pt] %, fill=\LinkFillColor]
+%	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+%%	%... and then the same with a thinner line with the same color as fill color
+%	\draw [white, line join=round, line width=8.25pt,rounded corners=0pt,fill=white]
+%	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+%	\draw [draw=none,line join=round, line width=0pt,rounded corners=0pt, pattern=north east lines]
+%	(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+%	
+
+%%OPTION E
+%% This would be a trick with clip but not very useful since line options cannot be passed to clip :-(
+%	\begin{scope}
+%	%Sets the clipping areas and also the limits to use as bounding box of polygon
+%	\clip [	use as bounding box ]
+%		(-start) \foreach \n in {1,...,\myArgslen}	{-- (-end\n)}  -- cycle;
+%	%Draw a rectangle filled with the correct pattern
+%	\draw [draw=none,pattern=north east lines] (current bounding box.south west) rectangle (current bounding box.north east);
+%	\end{scope}
+
+
+	\draw [fill=white] (-start) circle (\pivotRadius); %pivot at -start
+	
+	%Draw remainder pivots 
+	\foreach \n in {1,...,\myArgslen}
+	{
+		\ifthenelse{ \dPivots[\n] = 1}
+		{
+			\draw [fill=white] (-end\n)  circle (\pivotRadius);  %pivot at -end\n
+		}{}
+	}
+
+	\pic at (-center) {center of mass};	
+		} %end of code for this particular pic
+	},	
+%------------------------------------------
+pics/linear piston/.style={% 2D linear piston-like pair. Replaces the previous 2
+% arg 1 - fraction of insertion (default 0.5)
+% arg 2 - width of inner piston plate (default 5pt)
+	code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------
+% TODO Should be extended to all pics with params. Only some have it------ :-)
+		\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+		\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+		\readlist\myArgs{\allArgs}
+		\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\fracDepth} {\def\fracDepth{}}
+		\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\pWidth}    {\def\pWidth{}}
+		%Test if any parameter is blank and put the default in that case
+		\ifthenelse{ \equal{\fracDepth}{}} {\def\fracDepth{0.5}} {}  %default 0.5 fraction of insertion
+		\ifthenelse{ \equal{\pWidth}{}}    {\def\pWidth{10pt}}    {}  %default 5pt width
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+	
+    	\def\iGap{2pt}       %inner separation of piston plate from body
+	    \def\rectH{0.5cm}    %height of outer cyl
+    	\edef\rectW{2*\iGap+\pWidth} %width of outer cyl
+    	\def\armLen{0.4cm}     %arm length
+
+		\begin{scope}[rotate=90]
+		\coordinate (-center) at (0,0);  
+		\coordinate (-innerend) at ($(-center) - (0, \fracDepth*\rectH) $);
+ 		\coordinate (-start) at (0,\armLen);      
+ %		\coordinate (-start) at ($(-innerend) - (0,\rectH-\fracDepth*\rectH+\armLen) $); %Keep size
+ 		\coordinate (-end) at ($(-innerend) - (0,0.5*\rectH+\armLen) $); %size varies
+ 		\coordinate (-in) at (-start);      
+ 		\coordinate (-out) at (-end);   
+ 		\coordinate (-iend) at (-innerend);
+        
+ 		\draw [knJointStyle] (-\iGap-0.5*\pWidth,-\rectH) -- ++(0,\rectH) -- ++(\rectW,0) -- ++(0, -\rectH);
+		\draw [knJointStyle, ultra thick] (-innerend) -- ++(-0.5*\pWidth,0)(-innerend)--++(0.5*\pWidth,0);	
+		\draw [knLinkStyle] (-center) -- (-start) (-innerend) -- (-end);
+		\end{scope}
+	} %end of code for this particular pic
+},
+%------------------------------------------
+}
+
+%=========== ALTERNATIVES TO ISO =================================
+
+\tikzset{   %definitions/pics for link symbols alternatives to ISO
+%------------------------------------------
+pics/rotational colinear/.style={ %~ alternative rotational joint with axis colinear with link
+	code={
+		\def\vsLen{0.6}
+		\def\vsAng{30}
+		\coordinate (-center) at (0,0);
+		\coordinate (BP) at ($(-center)-(0,{\vsLen*sin(\vsAng)})$); %low point
+		\draw [knJointStyle] (BP) -- ++(\vsAng:\vsLen) coordinate[name=RP] -- ++(180-\vsAng:\vsLen) coordinate[name=TP] -- ++(180+\vsAng:\vsLen) coordinate[name=LP] -- cycle (LP) -- (RP);
+		\draw [knLinkStyle] (TP) --++(0, 0.25) coordinate[name=-end];
+		\draw [knLinkStyle] (BP) --++(0,-0.25) coordinate[name=-start];
+				
+		\coordinate (-in) at (-start);
+		\coordinate (-out) at (-end);
+	}
+},
+%------------------------------------------
+}
+
+%%=============== the default XYZ convention in tikz
+%
+%      YY
+%      ^
+%      |
+%      |
+%      +-----> XX
+%     /
+%    /
+%   ZZ
+%  
+%%======== ELEMENTS TO DRAW FULL CHAINS WITH 3D EQUIVALENTS =====
+\tikzset{
+%-----------------------------------------------------------------------
+pics/linear 3D/.style={ % linear link in 3D generic that accepts one argument and no terminal lines
+% Arg 1 -> direction of motion
+% Meanings:
+%Absent: defaults to the right (5) with simple ends drawn (for illustration)
+%The remainder options do not draw end segments and add a plane for thr direction of motion:
+%1  top
+%2  bottom		
+%3  near (front/closer)
+%4  far (back of page)
+%5  right
+%6  left
+	code={ 
+	\def\cubedge{0.75}% cube edge
+	\def\plangap{0.15}% gap of extra plane for motion indication
+	%0.353553=cos(45)/2
+	%some points below seem not perfect at larger vlues of cube size :-(
+	\def\halfEdge{\cubedge*0.512}  %should be 0.5 but tikz is not using perfect ortogonal perspective and this is relevant for occluding cases.. :-(
+	\coordinate (-center) at (0,0,0); %The usual default
+	\coordinate (-refstart) at ($(-center)+(-\cubedge/2,-\cubedge/2,-\cubedge/2)$); %easier to start in the back left lower vertex :-)
+	\coordinate (-label) at ($(-refstart)+(\cubedge/4,\cubedge/4,\cubedge/4)$); %central place for a label
+
+	%Command to draw the main cube. Invoke below in the right order
+\newcommand{\knDrawMainCube}{
+	\draw [cube face 1] (-refstart) -- ++(0,\cubedge,0) -- ++(\cubedge,0,0) -- ++(0,-\cubedge,0) -- cycle;  %back
+	\draw [cube face 1] (-refstart) -- ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(0,0,-\cubedge) -- cycle;   %left
+	\draw [cube face 1] (-refstart) -- ++(0,0,\cubedge) -- ++(\cubedge,0,0) -- ++(0,0,-\cubedge) -- cycle;   %bottom
+	\draw [cube face 1] (-refstart) ++(0,\cubedge,0) -- ++(0,0,\cubedge) -- ++(\cubedge,0,0) -- ++(0,0,-\cubedge) -- cycle; %top
+	\draw [cube face 1] (-refstart) ++(\cubedge,0,0) -- ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(0,0,-\cubedge) -- cycle; %right
+	\draw [cube face 1] (-refstart) ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(\cubedge,0,0) -- ++(0,-\cubedge,0) -- cycle; %frontal
+}			
+
+	\def\arg{#1}  %if absent, a default to the right with simple ends drawn (for illustration)
+	\def\TTT {1}  %no ends extra plane to top
+	\def\BBB {2}  %no ends extra plane to bottom		
+	\def\NNN {3}  %no ends extra plane to near (front/closer)
+	\def\FFF {4}  %no ends extra plane to far (back of page)
+	\def\RRR {5}  %no ends extra plane to right
+	\def\LLL {6}  %no ends extra plane to left	
+	
+	%Adapt behavior depending on argument
+		\if\arg\TTT  %1 is to draw plane on the top
+			\knDrawMainCube
+			\draw [cube face 1] (-refstart) ++(0,{\cubedge+\plangap},0) -- ++(0,0,\cubedge) -- ++(\cubedge,0,0) -- ++(0,0,-\cubedge) -- cycle;    %after top
+			
+			\coordinate (-east) at  ($(-center)+(\cubedge/2,0,0)$);
+			\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553,0,0)$); %adjust X for hidden line effect
+			\coordinate (-south) at ($(-center)+(0,-\halfEdge*1.353553,0)$); %adjust Y for hidden line effect
+			\coordinate (-north) at ($(-center)+(0,{\cubedge/2+\plangap},0)$);			
+			\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553,-\halfEdge*0.353553,0)$);				
+			\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);
+			\coordinate (-out) at (-north);
+			\coordinate (-in) at (-south);				
+		\else
+			\if\arg\BBB %2 is to draw plane below
+%				\begin{pgfonlayer}{background}			
+				\draw [cube face 1] (-refstart) ++(0,-\plangap,0) -- ++(0,0,\cubedge) -- ++(\cubedge,0,0) -- ++(0,0,-\cubedge) -- cycle;    %after down	
+%				\end{pgfonlayer}{background}			
+				\knDrawMainCube
+				
+				\coordinate (-east) at  ($(-center)+(\cubedge/2,0,0)$);
+				\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553,0,0)$); %adjust X for hidden line effect
+				\coordinate (-south) at ($(-center)+(0,-\halfEdge*1.353553-\plangap,0)$); %adjust Y for hidden line effect
+				\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+				\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553,-\halfEdge*0.353553,0)$);	
+				\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);
+				\coordinate (-out) at (-south);
+				\coordinate (-in) at (-north);								
+			\else
+				\if\arg\NNN %3 is to draw plane on the front (near) far)
+					\knDrawMainCube
+					\draw [cube face 1] (-refstart) ++(0,0,\cubedge+\plangap) -- ++(\cubedge,0,0) -- ++(0,\cubedge,0) -- ++(-\cubedge,0,0) -- cycle; %afterfront	
+					
+					\coordinate (-east) at  ($(-center)+(\cubedge/2,0,0)$);
+					\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553-1.353553*\plangap*0.28,0,0)$); %adjust X for hidden line effect. Formula is approx but irregularities found in defining it
+					\coordinate (-south) at ($(-center)+(0,-\halfEdge*1.3536-1.353553*\plangap*0.28,0)$); %adjust Y for hidden line effect. Formula is approx but irregularities found in defining it
+					\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+					\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553-\plangap/2*0.353553,-\halfEdge*0.353553-\plangap/2*0.353553,0)$);	
+					\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);			
+					\coordinate (-in) at (-back);
+					\coordinate (-out) at (-front);					
+				\else						
+					\if\arg\FFF %4 is to draw plane on the back far)
+%						\begin{pgfonlayer}{background}			
+						\draw [cube face 1] (-refstart) ++(0,0,-\plangap) -- ++(\cubedge,0,0) -- ++(0,\cubedge,0) -- ++(-\cubedge,0,0) -- cycle;
+						 %afterback	
+	%					\end{pgfonlayer}{background}					
+						\knDrawMainCube
+						
+						\coordinate (-east) at  ($(-center)+(\cubedge/2,0,0)$);
+						\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553,0,0)$); %adjust X for hidden line effect
+						\coordinate (-south) at ($(-center)+(0,-\halfEdge*1.353553,0)$); %adjust Y for hidden line effect
+						\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+						\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553-\plangap/2*0.353553,-\halfEdge*0.353553-\plangap/2*0.353553,0)$);	
+						\coordinate (-back) at ($(-center)+(\halfEdge*1.353553+\plangap*0.353553,\halfEdge*1.353553+\plangap*0.353553,0)$);	
+						\coordinate (-out) at (-back);
+						\coordinate (-in) at (-front);								
+					\else				
+						\if\arg\RRR %5 is to draw plane on the right
+							\knDrawMainCube
+						  	\draw [cube face 1] (-refstart) ++({\cubedge+\plangap},0,0) -- ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(0,0,-\cubedge) -- cycle;  %afterright
+						  	
+							\coordinate (-east) at  ($(-center)+({\cubedge/2+\plangap},0,0)$);
+							\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553,0,0)$); %adjust X for hidden line effect
+							\coordinate (-south) at ($(-center)+(0,-\halfEdge2*1.353553,0)$); %adjust Y for hidden line effect
+							\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+							\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553-\plangap/2*0.353553,-\halfEdge*0.353553-\plangap/2*0.353553,0)$);	
+							\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);
+							\coordinate (-out) at (-east);
+							\coordinate (-in) at (-west);
+						\else
+							\if\arg\LLL %6 is to draw plane on the left
+	%							\begin{pgfonlayer}{background}
+							  	\draw [cube face 1] (-refstart) ++(-\plangap,0,0) -- ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(0,0,-\cubedge) -- cycle;  %afterleft
+	%							\end{pgfonlayer}
+								\knDrawMainCube								
+								
+								\coordinate (-east) at  ($(-center)+(\cubedge/2,0,0)$);
+								\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553-\plangap,0,0)$); %adjust X for hidden line effect
+								\coordinate (-south) at ($(-center)+(0,-\halfEdge*1.353553,0)$); %adjust Y for hidden line effect
+								\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+								\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553,-\halfEdge*0.353553,0)$);	
+								\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);		
+								\coordinate (-out) at (-west);
+								\coordinate (-in) at (-east);
+							\else %other values (or none) is to draw a right and plane and simple pins right/left
+							\knDrawMainCube
+						  	\draw [cube face 1] (-refstart) ++({\cubedge+\plangap},0,0) -- ++(0,0,\cubedge) -- ++(0,\cubedge,0) -- ++(0,0,-\cubedge) -- cycle;  %afterright
+						  	
+							\coordinate (-east) at  ($(-center)+({\cubedge/2+\plangap},0,0)$);
+							\coordinate (-west) at  ($(-center)+(-\halfEdge*1.353553,0,0)$); %adjust X for hidden line effect
+							\coordinate (-south) at ($(-center)+(0,-\halfEdge2*1.353553,0)$); %adjust Y for hidden line effect
+							\coordinate (-north) at ($(-center)+(0,\cubedge/2,0)$);
+							\coordinate (-front) at ($(-center)+(-\halfEdge*0.353553-\plangap/2*0.353553,-\halfEdge*0.353553-\plangap/2*0.353553,0)$);	
+							\coordinate (-back) at ($(-center)+(\halfEdge*1.353553,\halfEdge*1.353553,0)$);
+							\coordinate (-out) at (-east);
+							\coordinate (-in) at (-west);
+							\draw [knLinkStyle] (-out) -- ++(0.5cm,0) node [inner sep=0] (-neweast) {};
+							\draw [knLinkStyle] (-in) -- ++(-0.5cm,0) node [inner sep=0] (-newwest) {};
+							\coordinate (-east) at (-neweast);
+							\coordinate (-west) at (-newwest);
+							\coordinate (-out) at (-east);
+							\coordinate (-in) at (-west);
+							\fi %of LLL	
+						\fi %RRR					
+					\fi %of FFF
+				\fi %of NNN
+			\fi	%of BBB		
+		\fi	%of TTT
+		\coordinate (-top) at (-north);
+		\coordinate (-bottom) at (-south);	
+		\coordinate (-end) at (-out);
+		\coordinate (-start) at (-in);	
+			
+		% For illustration purposed only...
+%\draw [red](-center) -- ++(3,0,0)
+%      (-center) -- ++(0,3,0)
+%	  (-center) -- ++(0,0,6)      
+%	  ;
+%\draw [dashed] (-center) -- ++(-3,0,0)
+%      (-center) -- ++(0,-3,0)
+%	  (-center) -- ++(0,0,-6)      
+%	  ; 
+
+%		\foreach \n in {A,B,C,D,E,F,G,H,J,K,O}
+%		\foreach \n in {in,out} % 
+%		\foreach \n in {start,end} % 
+%		\foreach \n in {center,east,west,north,south,front,back,in,out}%
+%		\fill (-\n) circle (0.5pt) node [inner sep=0,anchor=south,yshift=1pt,font={\tiny\sffamily}] {\n};
+	} %end of code for this particular pic
+},
+%-----------------------------------------------------------------------
+%Generic gripper with two fingers with variable orientation
+pics/gripper/.style={ %
+%Arg 1 -> direction (times 90º) to orient starting with 0 to the right [0]
+%Arg 2 -> bool draw in pespective[0]
+    code={
+% ----START ANALYSE ARGUMENTS AND SET DEFAULTS --------------------------    
+	\ifthenelse{ \equal{#1}{}} {\def\allArgs{/}} {\def\allArgs{#1}}
+	\setsepchar[.]{/} % "/" is the separator "." is the second level separator
+	\readlist\myArgs{\allArgs}
+	\ifthenelse{ \myArgslen > 0} {\itemtomacro\myArgs[1]\fDir}        {\def\fDir{}}
+	\ifthenelse{ \myArgslen > 1} {\itemtomacro\myArgs[2]\fPerspective}{\def\fPerspective{}}
+	%Test if any parameter is blank and put the default in that case
+	\ifthenelse{ \equal{\fDir}{}  }      {\def\fDir{0}} {}          %default 0 - to the right        
+	\ifthenelse{ \equal{\fPerspective}{}}{\def\fPerspective{0}} {}  %default 0 - no perspective	
+%-----------------------END ANALYSE ARGUMENTS AND SET DEFAULTS -------------------
+	
+	\coordinate (-center) at (0,0);	
+		
+	\def\knxSLANT{0}  %default: no slant
+	\def\knySCALE{1}  %default: no change in y scale
+	\def\knYES{1}
+	
+	\if\fPerspective\knYES
+		\def\knySCALE{0.5}
+		\ifodd\fDir %1,3
+			\def\knxSLANT{-1}
+		\else %even: 0,2
+			\def\knxSLANT{1}		
+		\fi
+	\fi
+	%Details: if perspective is 0
+	%				simple rotation
+	%         if perspective is 1:
+	%				yscale=0.5   (diagonal lengths are half in perspective)
+	%               xslant= 1 if dir is even
+	%               xslant=-1 if dir is odd
+	\begin{scope}[rotate={90*\fDir},xslant=\knxSLANT]
+		\coordinate (-fingertip1) at (0.5,\knySCALE*0.5);
+		\draw [gripper 1] (-fingertip1) -- ++(-0.5,0) -- ++(0,-1*\knySCALE) -- ++(0.5,0) coordinate (-fingertip2);		
+		\coordinate (-in) at (0,0);
+		\coordinate (-start) at (-in); \coordinate (-out) at (-in); \coordinate (-end) at (-out);
+	\end{scope}		
+	} %end of code for this particular pic
+},
+%
+}
+
+%Configurations for rotational 3D joints. Edit at will :-)
+\def\Lcyl{1}        %Cylinder length (1.75) %was 1.5 %was 1.25
+\def\Hcyl{0.75}         %Cylinder height (diameter) (1) %was 0.75
+\def\Wcyl{0.15}         %Ellipse minor semi-axis (valid for H and V versions)  (0.2)
+\def\armRight{0.3}     %Arm on the right  (0.4)
+\def\armLeft{\armRight} %Arm on the left (similar to right)
+\def\armGap{0.45}      %Gap between cylinder and arm bar (0.7)
+
+%==================== NEW VARIANTS OF NON ISO ===================
+\tikzset{
+%This pic can be rotated (and What about a V version to have node names consistent with actual position? Being built below)
+pics/rotational 3D H/.style={ %rotational joint in 3D in Horizontal position
+% Arg 1 %if absent a default with simple ends
+% 0: no ends. A simple cylinder
+% 1: arm at top
+% 2: arm at bottom		
+% 3: arm at near (front/closer)
+% 4: arm at far (back of page)
+	code={  	    
+   	    %Draw the horizontal cylinder with visible face on the right
+		\draw [knJointStyle] (\Lcyl/2,0) ellipse ({\Wcyl} and \Hcyl/2);   %right ellipse
+		\draw [knJointStyle,fill=white] (\Lcyl/2,\Hcyl/2) -- ++(-\Lcyl,0) arc (90:270:{\Wcyl} and \Hcyl/2) -- ++(\Lcyl,0) arc (270:90:{\Wcyl} and \Hcyl/2) ; %Remainder
+		%Create auxiliary points
+		\coordinate (-center) at (0,0);   %center point
+		\coordinate (-O) at (-center);   %center point
+		\coordinate (-A) at (\Lcyl/2,0);   %right center point
+		\coordinate (-C) at ($(-A) + (\armRight,0)$);  %east extremity
+		\coordinate (-B) at (-\Lcyl/2-\Wcyl,0);   %right center point
+		\coordinate (-D) at ($(-A) - (\Lcyl,0) - (\armLeft,0)$);  %west extremity
+		\coordinate (-E) at (0,\Hcyl/2);  %top point on surface
+		\coordinate (-F) at (0,-\Hcyl/2); %bottom point on surface		
+		\coordinate (-G) at ($(-E) + (0,\armGap)$); %top arm center		
+		\coordinate (-H) at ($(-F) - (0,\armGap)$); %bottom arm center		
+		\coordinate (-J) at ($(0,0) + (45:{\armGap+\Hcyl/4})$); %back arm center		
+		\coordinate (-K) at ($(0,0) + (-135:{\armGap+\Hcyl/4})$); %front arm center			
+		\coordinate (-east) at (-C);
+		\coordinate (-west) at (-D);
+		\coordinate (-label) at ($(-center)-(\Hcyl/6,0pt)$); %adjusted a bit to the left
+		%Define some macros to test argument
+		\def\arg{#1} %if absent a default with simple ends
+		\edef\NOENDS{0}% no ends. A simple cylinder
+		\def\TTT {1}  %top
+		\def\BBB {2}  %bottom		
+		\def\NNN {3}  %near (front/closer)
+		\def\FFF {4}  %far (back of page)
+		%Adapt behavior depending on argument
+		\if\arg\TTT  %1 is to draw arm on the top (use \if not \ifx !!!)
+			\coordinate (-south) at (-F); \coordinate (-start) at (-south); \coordinate (-in) at (-south);
+			\coordinate (-north) at (-G); \coordinate (-end) at (-north); \coordinate (-out) at (-north);
+			\draw [knLinkStyle] (-A) -- (-C) |- (-G);  %upper arm
+			\begin{pgfonlayer}{background}
+			\draw [knLinkStyle] (-G) -| (-D) -- (-B);  %upper arm		
+			\end{pgfonlayer}{background}								
+		\else
+			\if\arg\BBB %2 is to draw arm on the bottom
+				\coordinate (-south) at (-H); \coordinate (-end) at (-south); \coordinate (-out) at (-south);
+				\coordinate (-north) at (-E); \coordinate (-in) at (-north); \coordinate (-start) at (-north);
+				\draw [knLinkStyle] (-A) -- (-C) |- (-H);
+				\begin{pgfonlayer}{background}
+				\draw [knLinkStyle] (-H) -| (-D) -- (-B);  %lower arm
+				\end{pgfonlayer}{background}									
+			\else
+				\if\arg\NNN %3 is to draw arm on the front ()near)
+					\coordinate (-south) at (-F); \coordinate (-in2) at (-south); \coordinate (-start2) at (-south);
+					\coordinate (-north) at (-E);
+					\coordinate (-in) at ($(0,0) + (45:{0.707*\Hcyl})$);
+					\coordinate (-start) at (-in);
+					\coordinate (-out) at (-K); \coordinate (-end) at (-out);				
+%					\draw [knJointStyle] (-A) -- (-C) to [45-] (-K) -- ++(-\Lcyl/2-\armRight,0) -- (-D) -- (-B);  %front arm
+					\draw [knLinkStyle] (-A) -- (-C) to [45-] (-K);
+					\begin{pgfonlayer}{background}
+					\draw [knLinkStyle] (-K) -- ++(-\Lcyl/2-\armRight,0) -- (-D) -- (-B);  %front arm
+					\end{pgfonlayer}{background}					
+				\else
+					\if\arg\FFF %4 is to draw arm on the back far)
+						\coordinate (-south) at (-F); 
+						\coordinate (-in) at ($(0,0) + (-135:{\Hcyl/4})$); \coordinate (-start) at (-in);
+						\coordinate (-north) at (-J); \coordinate (-out) at (-north); \coordinate (-end) at (-north);
+%						\draw [knJointStyle] (-B) -- (-D) to [45-] (-J) -- ++(\Lcyl/2+\armRight,0) -- (-C) -- (-A); % back arm
+						\draw [knLinkStyle] (-A) -- (-C) -- ++(45:{\Hcyl/4+\armGap}) -- (-J);
+						\begin{pgfonlayer}{background}
+						\draw [knLinkStyle] (-J) -- ++({-\Lcyl/2-\armLeft},0) -- (-D) -- (-B);						
+						\end{pgfonlayer}
+					\else	
+						\if\arg\NOENDS %0 is not to draw any ends or arms so adjust
+							\coordinate (-east) at (-A);
+							\coordinate (-west) at (-B);
+							\coordinate (-south) at (-F);
+							\coordinate (-north) at (-E);
+							\coordinate (-in) at (-west); \coordinate (-start) at (-in);
+							\coordinate (-out) at (-east); \coordinate (-end) at (-out);		
+						\else %other values (or none) is not to draw arm only pins
+							\coordinate (-south) at (-F);
+							\coordinate (-north) at (-E);
+							\coordinate (-in) at (-west); \coordinate (-start) at (-in);
+							\coordinate (-out) at (-east); \coordinate (-end) at (-out);				
+							\draw [knLinkStyle] (-A) -- (-C);
+							\begin{pgfonlayer}{background}
+							\draw [knLinkStyle] (-B) -- (-D);
+							\end{pgfonlayer}
+						\fi %of NOENDS						
+					\fi %of FFF
+				\fi %of NNN
+			\fi	%of BBB		
+		\fi	%of TTT
+		% For illustration purposed only...
+%		\foreach \n in {A,B,C,D,E,F,G,H,J,K,O}
+%		\foreach \n in {in,out} % 
+%		\foreach \n in {start,end} % 
+%		\foreach \n in {center,east,west,north,south} % north,south coincide with in/out
+%		\fill (-\n) circle (0.5pt) node [inner sep=0,anchor=south,yshift=1pt,font={\tiny\sffamily}] {\n};
+	}	
+},
+%-------------------------------------------------
+pics/rotational 3D P/.style={ %rotational 3D joint in perspective
+% Arg 1 -> direction of the arm coming out of the cylinder
+% 1  %arm on right
+% 2  %arm on left
+% 3  %arm up
+% 4  %arm down
+% 0 or no argment % raw cylinder with no ends at all
+	code={
+		%Create auxiliary points
+		\coordinate (-center) at (0,0);   %center point
+		\coordinate (-O) at (-center);   %center point
+		\coordinate (-A) at ($(-center) + (-135:{\Lcyl/4})$); %right cyl center, start point of circle
+%		\coordinate (-B) at ($ (-A) + (45:{\Lcyl/2+\Hcyl/2}) $); %Left cyl center
+		\coordinate (-B) at ($ (-A) + (45:{\Lcyl/2}) $); %Left cyl center
+		\coordinate (-C) at ($ (-A) + (-135:{\armRight/2)})$); %right arm extremity
+		\coordinate (-D) at ($ (-A) + (45:{\Lcyl/2+\armLeft/2)})$); %left arm extremity
+		\coordinate (-D) at ($ (-B) + (45:{\armLeft/2)})$); %left arm extremity
+		\coordinate (-E) at (0, \Hcyl/2); %top point of cylinder surface
+
+		\coordinate (-G) at (0, {\Hcyl/2+\armGap}); % arm center top
+		\coordinate (-H) at (0, {-\Hcyl/2-\armGap}); %Arm center bottom
+		\coordinate (-J) at ({\Hcyl/2+\armGap},0); %Arm center right
+		\coordinate (-K) at ({-\Hcyl/2-\armGap},0); %Arm center left
+		\coordinate (-L) at (\Hcyl/2,0,0);    % right side of cylinder surface
+		
+		\path [name path=vsLocalCirc] (-A) ellipse ({\Hcyl/2} and {\Hcyl/2});
+		\path [name path=vsHorizLine] (-center) -- ++(-\Hcyl,0);
+		\path [name path=vsVertiLine] (-center) -- ++(0,-\Hcyl);
+		\path [name intersections={of={vsHorizLine} and {vsLocalCirc}}] ;
+		\coordinate (-M) at (intersection-1); % left point of cylinder surface
+		\path [name intersections={of={vsVertiLine} and {vsLocalCirc}}] ;		
+		\coordinate (-F) at (intersection-1); % Bottom point of cylinder surface
+
+		\path [name path=vsDiagLine]  (-B) -- ++(45:\Hcyl);
+		\path [name path=vsRestOfCyl] ($(-A)+(135:{\Hcyl/2})$) -- 
+		++(45:\Lcyl/2) arc (135:-45:{\Hcyl/2} and {\Hcyl/2}) -- 
+		++(-135:\Lcyl/2) arc (-45:135:{\Hcyl/2} and {\Hcyl/2});
+		\path [name intersections={of={vsDiagLine} and {vsRestOfCyl}}] ;
+		\coordinate (-N) at (intersection-1); % far point of cylinder in diag
+
+
+		\coordinate (-southwest) at (-C);
+		\coordinate (-northeast) at (-D);
+		\coordinate (-label) at ($(-center)!0.7!(-D)$); %some point to place label with enough clearance
+		\coordinate (-near) at (-C);
+		\coordinate (-far) at (-D);
+		
+		\coordinate (-west) at (-M); %default for simple cylinder
+		\coordinate (-east) at (-L); %default for simple cylinder
+
+   	    %Draw the perspective cylinder with visible face on the right (facing out)
+   	    %Actually it is a circle in ortogonal projection... anyway...
+		\draw [knJointStyle] (-A) ellipse ({\Hcyl/2} and {\Hcyl/2});   %front ellipse
+		\newcommand{\knDrawCylinderLateral}{		
+			\draw [knJointStyle,fill=white] ($(-A)+(135:{\Hcyl/2})$) -- 
+			++(45:\Lcyl/2) arc (135:-45:{\Hcyl/2} and {\Hcyl/2}) -- 
+			++(-135:\Lcyl/2) arc (-45:135:{\Hcyl/2} and {\Hcyl/2}); %rest of cylinder filled with white
+		}
+		\def\arg{#1}
+		\def\RRR {1}  %arm on right
+		\def\LLL {2}  %arm on left
+		\def\UUU {3}  %arm up
+		\def\DDD {4}  %arm down
+		\def\NOENDS{0} %no ends at all
+
+%		\begin{pgfonlayer}{background} %Needed to take advantage of hidden lines in some arms...)
+		\if\arg\RRR  %1 is to draw arm on the right
+			\coordinate (-south) at (-F); \coordinate (-start bottom) at (-south); \coordinate (-in bottom) at (-south);
+			\coordinate (-east) at (-J);  \coordinate (-end) at (-east); \coordinate (-out) at (-east);
+			\coordinate (-north) at (-E); \coordinate (-in top) at (-north); \coordinate (-start top) at (-north); 
+			\coordinate (-west) at (-M); \coordinate (-in left) at (-west);  \coordinate (-start left) at (-west);
+			\coordinate (-in) at (-in left); \coordinate (-start) at (-start left);
+			%Right
+			%Some tricks because to [45-] forces some specific path :-(
+%			\draw [knLinkStyle](-A) -- (-C)(-J) to[45-] (-C)(-J) -- ++(45:{\Lcyl/4+\armLeft/2}) -- (-D) -- (-B);			
+%			\begin{pgfonlayer}{background}
+			\draw [knLinkStyle] (-J) -- ++(45:{\Lcyl/4+\armLeft/2}) -- (-D) -- (-B); %back part of arm
+			\knDrawCylinderLateral	
+			\draw [knLinkStyle] (-A) -- (-C) -- ++({\Hcyl/2+\armGap},0) -- (-J); %front part of arm
+%			\end{pgfonlayer}		
+		\else
+		\if\arg\LLL %2 is to draw arm on the left
+			\coordinate (-south) at (-F); \coordinate (-start bottom) at (-south); \coordinate (-in bottom) at (-south);
+			\coordinate (-east) at (-L);  \coordinate (-in right) at (-east); \coordinate (-start right) at (-east);
+			\coordinate (-north) at (-E); \coordinate (-in top) at (-north); \coordinate (-start top) at (-north); 
+			\coordinate (-west) at (-K); \coordinate (-out) at (-west);  \coordinate (-end) at (-west);
+			\coordinate (-in) at (-in right); \coordinate (-start) at (-start right);
+			%Left
+			%\draw [knJointStyle](-A) -- (-C) -- ++(180:{\Hcyl/2+\armGap}) -- (-K) to[45-] (-D) -- (-B);	
+%			\begin{pgfonlayer}{background}
+			\draw [knLinkStyle](-K) to[45-] (-D) -- (-B);
+%			\end{pgfonlayer}						
+			\knDrawCylinderLateral	
+			\draw [knLinkStyle](-A) -- (-C) -- ++(180:{\Hcyl/2+\armGap}) -- (-K);	
+		\else
+		\if\arg\UUU %3 is to draw arm on the upper part
+			\coordinate (-south) at (-F); \coordinate (-start bottom) at (-south); \coordinate (-in bottom) at (-south);
+			\coordinate (-east) at (-L);  \coordinate (-in right) at (-east); \coordinate (-start right) at (-east);
+			\coordinate (-north) at (-G); \coordinate (-out) at (-north); \coordinate (-end) at (-north); 
+			\coordinate (-west) at (-M); \coordinate (-in left) at (-west);  \coordinate (-start left) at (-west);
+			\coordinate (-in) at (-in bottom); \coordinate (-start) at (-start bottom);
+			%Up
+%			\draw [knJointStyle](-A) -- (-C)(-G) to[45-] (-C)(-G) -- ++(45:{\Lcyl/4+\armLeft/2}) -- (-D) -- (-B);
+%			\begin{pgfonlayer}{background}
+			\draw [knLinkStyle] (-G) -- ++(45:{\Lcyl/4+\armLeft/2}) -- (-D) -- (-B);			;
+%			\end{pgfonlayer}
+			\knDrawCylinderLateral	
+			\draw [knLinkStyle](-A) -- (-C) -- ++(0,\Hcyl/2+\armGap) -- (-G);
+		\else
+			\if\arg\DDD %4 is to draw arm on the lower part)
+				\coordinate (-south) at (-H); \coordinate (-end) at (-south); \coordinate (-out) at (-south);
+				\coordinate (-east) at (-L);  \coordinate (-in right) at (-east); \coordinate (-start right) at (-east);
+				\coordinate (-north) at (-E); \coordinate (-in top) at (-north); \coordinate (-start top) at (-north); 
+				\coordinate (-west) at (-M); \coordinate (-in left) at (-west);  \coordinate (-start left) at (-west);
+				\coordinate (-in) at (-in top); \coordinate (-start) at (-start top);
+				%Down
+				%\draw [knJointStyle](-A) -- (-C) -- ++(-90:{\Hcyl/2+\armGap}) -- (-H) to[45-] (-D) -- (-B);	 
+%				\begin{pgfonlayer}{background}
+				\draw [knLinkStyle] (-H)to[45-] (-D) -- (-B);	 
+%				\end{pgfonlayer}
+				\knDrawCylinderLateral	
+				\draw [knLinkStyle](-A) -- (-C) -- ++(-90:{\Hcyl/2+\armGap}) -- (-H);
+			\else
+				\if\arg\NOENDS %0 is to draw no extremities or arm
+					\coordinate (-south) at (-F);
+					\coordinate (-north) at (-E);
+					\coordinate (-southwest) at (-A);
+					\coordinate (-northeast) at (-B);
+					\coordinate (-in near) at (-A);
+					\coordinate (-in left) at (-M); \coordinate (-start left) at (-in left);
+					\coordinate (-in bottom) at (-south); \coordinate (-start bottom) at (-in bottom);
+					\coordinate (-in top) at (-north); \coordinate (-start top) at (-in top);
+					\coordinate (-out far) at (-N); \coordinate (-out right) at (-east);
+					\coordinate (-in) at (-in left); \coordinate (-start) at (-in);
+					\coordinate (-out) at (-out right); \coordinate (-end) at (-out);
+					\knDrawCylinderLateral								
+				\else %other values (or none) is not to draw arm; only pins
+					\coordinate (-south) at (-F);
+					\coordinate (-north) at (-E);
+					\coordinate (-in) at (-near); \coordinate (-start) at (-in);
+					\coordinate (-out) at (-N); \coordinate (-end) at (-out);				
+%					\begin{pgfonlayer}{background}
+					 \draw [knLinkStyle] (-B) -- (-D);
+%	 				\end{pgfonlayer}
+	 				\knDrawCylinderLateral
+	 				\draw [knLinkStyle] (-A) -- (-C); 				
+			      \fi %of NOENDS
+				\fi %of DDD
+			\fi %of UUU
+		\fi	%of LLL		
+	\fi	%of RRR
+%	\end{pgfonlayer}
+		% For illustration purposed only...
+%		\foreach \n in {A,B,C,D,E,F,G,H,J,K,L,M}
+%		\foreach \n in {in,out} % 
+%		\foreach \n in {start,end} % 
+%		\foreach \n in {center,east,west,north,south} % north,south coincide with in/out
+%		\fill (-\n) circle (0.5pt) node [inner sep=0,anchor=south,yshift=1pt,font={\tiny\sffamily}] {\n};
+	}
+},
+%-------------------------------------------------
+pics/rotational 3D V/.style={ %rotational joint in 3D in Vertical position
+% Arg 1 %if absent a default with simple ends
+% 0: no ends. A simple cylinder
+% 1: arm at left
+% 2: arm at right		
+% 3: arm at near (front/closer)
+% 4: arm at far (back of page)
+	code={  %copied code orinally from the horizontal and rotated it :-)
+	   \begin{scope}[rotate=90,yscale=-1] %use yscale -1 to have arm=1 on the right and the perspective variants in the right direction
+   	    %Draw the horizontal cylinder with visible face on the right
+		\draw [knJointStyle] (\Lcyl/2,0) ellipse ({\Wcyl} and \Hcyl/2);   %right (top) ellipse
+		\draw [knJointStyle,fill=white] (\Lcyl/2,\Hcyl/2) -- ++(-\Lcyl,0) arc (90:270:{\Wcyl} and \Hcyl/2) --
+		                            ++(\Lcyl,0) arc (270:90:{\Wcyl} and \Hcyl/2) ; %Remainder
+		                            
+		%%%                            
+		\path [name path=vsDiagLine]  (0,0) -- ++(45:\Hcyl);
+		\path [name path=vsRestOfCyl] (\Lcyl/2,\Hcyl/2) -- ++(-\Lcyl,0) arc (90:270:{\Wcyl} and \Hcyl/2) --
+		++(\Lcyl,0) arc (270:90:{\Wcyl} and \Hcyl/2) ;
+		\path [name intersections={of={vsDiagLine} and {vsRestOfCyl}}] ;
+		\coordinate (-N) at (intersection-1); % lateral far point of cylinder in diag
+		                        
+		%Create auxiliary points
+		\coordinate (-center) at (0,0);   %center point
+		\coordinate (-O) at (-center);   %center point
+		\coordinate (-A) at (\Lcyl/2,0);   %right center point
+		\coordinate (-C) at ($(-A) + (\armRight,0)$);  %east extremity
+		\coordinate (-B) at (-\Lcyl/2-\Wcyl,0);   %right center point
+		\coordinate (-D) at ($(-A) - (\Lcyl,0) - (\armLeft,0)$);  %west extremity
+		\coordinate (-E) at (0,\Hcyl/2);  %top point on surface
+		\coordinate (-F) at (0,-\Hcyl/2); %bottom point on surface		
+		\coordinate (-G) at ($(-E) + (0,\armGap)$); %top arm center		
+		\coordinate (-H) at ($(-F) - (0,\armGap)$); %bottom arm center		
+		\coordinate (-J) at ($(0,0) + (45:{\armGap+\Hcyl/4})$); %back arm center		
+		\coordinate (-K) at ($(0,0) + (-135:{\armGap+\Hcyl/4})$); %front arm center			
+		\coordinate (-east) at (-E);
+		\coordinate (-west) at (-F);
+		\coordinate (-label) at ($(-center)-(\Hcyl/6,0pt)$); %adjusted a bit to the bottom
+		%Define some macros to test argument
+		\def\arg{#1} %if absent a default with simple ends
+		\edef\NOENDS{0}% no ends. A simple cylinder
+		\def\TTT {1}  %top (when rotated - left)
+		\def\BBB {2}  %bottom (when rotated - right)		
+		\def\NNN {3}  %near (front/closer)
+		\def\FFF {4}  %far (back of page)
+		%Adapt behavior depending on argument
+		\if\arg\TTT  %1 is to draw arm on the top (right) (use \if not \ifx !!!)
+			\coordinate (-south) at (-D); \coordinate (-start) at (-F); \coordinate (-in) at (-start);
+			\coordinate (-north) at (-C); \coordinate (-end) at (-G); \coordinate (-out) at (-end);
+%			\draw [knLinkStyle] (-A) -- (-C) |- (-G) -| (-D) -- (-B);  %upper arm
+			\draw [knLinkStyle] (-A) -- (-C) |- (-G);  %upper half arm
+%			\begin{pgfonlayer}{background} %not needed (and does not inherit all passed options :-(! )
+			\draw [knLinkStyle] (-G) -| (-D) -- (-B);  %lower half arm		
+%			\end{pgfonlayer}{background}								
+		\else
+			\if\arg\BBB %2 is to draw arm on the bottom (left)
+				\coordinate (-south) at (-D); \coordinate (-end) at (-H); \coordinate (-out) at (-end);
+				\coordinate (-west) at (-end);
+				\coordinate (-north) at (-C); \coordinate (-in) at (-E); \coordinate (-start) at (-in);
+%				\draw [knLinkStyle] (-A) -- (-C) |- (-H) -| (-D) -- (-B);  %lower arm
+				\draw [knLinkStyle] (-A) -- (-C) |- (-H);
+%				\begin{pgfonlayer}{background}
+				\draw [knLinkStyle] (-H) -| (-D) -- (-B);  %lower arm
+%				\end{pgfonlayer}{background}									
+			\else
+				\if\arg\NNN %3 is to draw arm on the front (near)
+					\coordinate (-south) at (-D); \coordinate (-in2) at (-south); \coordinate (-start2) at (-south);
+					\coordinate (-north) at (-C); \coordinate (-in) at (-N); \coordinate (-start) at (-in);
+					\coordinate (-out) at (-K); \coordinate (-end) at (-out);				
+%					\draw [knLinkStyle] (-A) -- (-C) to [45-] (-K) -- ++(-\Lcyl/2-\armRight,0) -- (-D) -- (-B);  %front arm
+					\draw [knLinkStyle] (-A) -- (-C) to [45-] (-K);
+%					\begin{pgfonlayer}{background}
+					\draw [knLinkStyle] (-K) -- ++(-\Lcyl/2-\armRight,0) -- (-D) -- (-B);  %front arm
+%					\end{pgfonlayer}{background}					
+				\else
+					\if\arg\FFF %4 is to draw arm on the back far)
+						\coordinate (-south) at (-D); \coordinate (-in) at ($(-center)+(-135:\Hcyl/4)$); \coordinate (-start) at (-in);
+						\coordinate (-north) at (-C); \coordinate (-out) at (-J); \coordinate (-end) at (-out);
+%						\draw [knLinkStyle] (-B) -- (-D) to [45-] (-J) -- ++(\Lcyl/2+\armRight,0) -- (-C) -- (-A); % back arm
+						\draw [knLinkStyle] (-A) -- (-C) -- ++(45:{\Hcyl/4+\armGap}) -- (-J);
+						\begin{pgfonlayer}{background}
+						\draw [knLinkStyle] (-J) -- ++({-\Lcyl/2-\armLeft},0) -- (-D) -- (-B);						
+						\end{pgfonlayer}
+					\else	
+						\if\arg\NOENDS %0 is not to draw any ends or arms so adjust
+							\coordinate (-east) at (-F);
+							\coordinate (-west) at (-E);
+							\coordinate (-south) at (-B);
+							\coordinate (-north) at (-A);
+							\coordinate (-in) at (-south); \coordinate (-start) at (-in);
+							\coordinate (-out) at (-north); \coordinate (-end) at (-out);		
+						\else %other values (or none) is not to draw arm only pins
+							\coordinate (-south) at (-D);
+							\coordinate (-north) at (-C);
+							\coordinate (-in) at (-south); \coordinate (-start) at (-in);
+							\coordinate (-out) at (-north); \coordinate (-end) at (-out);				
+							\draw [knLinkStyle] (-A) -- (-C);
+							\begin{pgfonlayer}{background}
+							\draw [knLinkStyle] (-B) -- (-D);
+							\end{pgfonlayer}
+						\fi %of NOENDS						
+					\fi %of FFF
+				\fi %of NNN
+			\fi	%of BBB		
+		\fi	%of TTT
+		% For illustration purposed only...
+%		\foreach \n in {A,B,C,D,E,F,G,H,J,K,O}
+%		\foreach \n in {in,out} % 
+%		\foreach \n in {start,end} % 
+%		\foreach \n in {center,east,west,north,south} % north,south coincide with in/out
+%		\fill (-\n) circle (0.5pt) node [inner sep=0,anchor=south,yshift=1pt,font={\tiny\sffamily}] {\n};
+	   \end{scope}	    
+	}	
+},
+%-------------------------------------------------
+%
+} %end of tikzset
+%------------------------------------------------
+
+\endinput

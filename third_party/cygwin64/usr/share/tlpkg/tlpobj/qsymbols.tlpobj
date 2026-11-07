@@ -1,0 +1,15 @@
+name qsymbols
+category Package
+revision 15878
+shortdesc Maths symbol abbreviations
+relocated 1
+longdesc Provides macros for defining systematic mnemonic abbreviations,
+longdesc starting with ` for math symbols and \" for arrows, using
+longdesc standard symbols as well as those from the amsfonts bundle and
+longdesc the stmaryrd package.
+runfiles size=7
+ RELOC/tex/latex/qsymbols/qsymbols.sty
+catalogue-ctan /macros/latex/contrib/qsymbols
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics shortcut

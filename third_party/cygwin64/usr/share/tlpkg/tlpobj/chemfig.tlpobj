@@ -1,0 +1,20 @@
+name chemfig
+category Package
+revision 69227
+shortdesc Draw molecules with easy syntax
+relocated 1
+longdesc The package provides the command \chemfig{<code>}, which draws
+longdesc molecules using the TikZ package. The <code> argument provides
+longdesc instructions for the drawing operation. While the diagrams
+longdesc produced are essentially 2-dimensional, the package supports
+longdesc many of the conventional notations for illustrating the
+longdesc 3-dimensional layout of a molecule. The package uses TikZ for
+longdesc its actual drawing operations.
+runfiles size=34
+ RELOC/tex/generic/chemfig/chemfig-lewis.tex
+ RELOC/tex/generic/chemfig/chemfig.sty
+ RELOC/tex/generic/chemfig/chemfig.tex
+catalogue-ctan /macros/generic/chemfig
+catalogue-license lppl1.3c
+catalogue-topics graphics diagram chemistry pgf-tikz macro-gen etex
+catalogue-version 1.66

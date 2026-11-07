@@ -1,0 +1,15 @@
+name isopt
+category Package
+revision 45509
+shortdesc Writing a TeX length with a space between number and unit
+relocated 1
+longdesc Writing a TeX length with \the writes the value and the unit
+longdesc without a space. Package isopt provides a macro \ISO which
+longdesc inserts a user defined space between number and unit.
+runfiles size=1
+ RELOC/tex/latex/isopt/isopt.sty
+catalogue-ctan /macros/latex/contrib/isopt
+catalogue-date 2018-01-07 12:14:32 +0100
+catalogue-license lppl
+catalogue-topics misc-support
+catalogue-version 0.01

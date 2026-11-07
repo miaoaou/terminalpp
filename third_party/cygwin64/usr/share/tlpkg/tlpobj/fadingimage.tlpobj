@@ -1,0 +1,21 @@
+name fadingimage
+category Package
+revision 70593
+shortdesc Add full width fading pictures at the top or bottom of a page
+relocated 1
+longdesc This package provides two commands for adding full width fading
+longdesc pictures at the top or bottom of a page. It is based on TikZ
+longdesc with the fadings library. Welcome to feedback bugs or ideas via
+longdesc email to xiamyphys@gmail.com.
+runfiles size=1
+ RELOC/tex/latex/fadingimage/fadingimage.sty
+catalogue-contact-announce https://qm.qq.com/q/RGFmHwBecC
+catalogue-contact-bugs https://github.com/xiamyphys/FadingImage/issues
+catalogue-contact-development https://github.com/xiamyphys
+catalogue-contact-home https://github.com/xiamyphys/FadingImage
+catalogue-contact-repository https://github.com/xiamyphys/FadingImage
+catalogue-contact-support https://qm.qq.com/q/RGFmHwBecC
+catalogue-ctan /macros/latex/contrib/fadingimage
+catalogue-license lppl1.3c
+catalogue-topics background graphics-incl pgf-tikz
+catalogue-version 0.1c

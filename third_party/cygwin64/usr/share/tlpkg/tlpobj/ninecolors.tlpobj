@@ -1,0 +1,20 @@
+name ninecolors
+category Package
+revision 62006
+shortdesc Select colors with proper WCAG color contrast
+relocated 1
+longdesc This package carefully selects and defines 9 colors for 13 hues
+longdesc each. All colors with the same suffix number have equal
+longdesc luminance level. Also the color black is of level 0, and the
+longdesc color white is of level 10. By simply choosing two colors in
+longdesc the above list, which differ in level by at least 5, as
+longdesc foreground and background colors, you will get proper WCAG
+longdesc Color Contrast.
+runfiles size=7
+ RELOC/tex/latex/ninecolors/ninecolors.sty
+catalogue-contact-bugs https://github.com/lvjr/ninecolors/issues
+catalogue-contact-repository https://github.com/lvjr/ninecolors
+catalogue-ctan /macros/latex/contrib/ninecolors
+catalogue-license lppl1.3
+catalogue-topics colour expl3
+catalogue-version 2022D

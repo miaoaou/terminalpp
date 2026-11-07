@@ -1,0 +1,35 @@
+name fontname
+category Package
+revision 64477
+shortdesc Scheme for naming fonts in TeX
+relocated 1
+longdesc The scheme for assigning names is described (in the
+longdesc documentation part of the package), and map files giving the
+longdesc relation between foundry name and 'TeX-name' are also provided.
+runfiles size=377
+ RELOC/fonts/map/fontname/adobe.map
+ RELOC/fonts/map/fontname/apple.map
+ RELOC/fonts/map/fontname/bitstrea.map
+ RELOC/fonts/map/fontname/dtc.map
+ RELOC/fonts/map/fontname/itc.map
+ RELOC/fonts/map/fontname/linot-cd.map
+ RELOC/fonts/map/fontname/linotype-cd.map
+ RELOC/fonts/map/fontname/linotype.map
+ RELOC/fonts/map/fontname/monotype.map
+ RELOC/fonts/map/fontname/skey1250.map
+ RELOC/fonts/map/fontname/skey1555.map
+ RELOC/fonts/map/fontname/softkey-1250.map
+ RELOC/fonts/map/fontname/softkey-1555.map
+ RELOC/fonts/map/fontname/softkey.map
+ RELOC/fonts/map/fontname/special.map
+ RELOC/fonts/map/fontname/supplier.map
+ RELOC/fonts/map/fontname/texfonts.map
+ RELOC/fonts/map/fontname/typeface.map
+ RELOC/fonts/map/fontname/urw.map
+ RELOC/fonts/map/fontname/variant.map
+ RELOC/fonts/map/fontname/weight.map
+ RELOC/fonts/map/fontname/width.map
+ RELOC/fonts/map/fontname/yandy.map
+catalogue-ctan /info/fontname
+catalogue-license gpl
+catalogue-topics font-doc

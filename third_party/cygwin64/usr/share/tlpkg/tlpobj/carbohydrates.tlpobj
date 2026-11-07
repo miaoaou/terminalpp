@@ -1,0 +1,18 @@
+name carbohydrates
+category Package
+revision 39000
+shortdesc Carbohydrate molecules with chemfig
+relocated 1
+longdesc This package offers macros that make the preparation of
+longdesc exercise sheets for teaching carbohydrate chemistry a lot less
+longdesc tedious. It uses chemfig for drawing the formulas. Different
+longdesc representation models (Fischer, Haworth, chair...) are
+longdesc supported as well as alpha, beta, and chain isomers.
+runfiles size=7
+ RELOC/tex/latex/carbohydrates/carbohydrates.sty
+catalogue-contact-repository https://github.com/cgnieder/carbohydrates/
+catalogue-ctan /macros/latex/contrib/carbohydrates
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram chemistry
+catalogue-version 0.1

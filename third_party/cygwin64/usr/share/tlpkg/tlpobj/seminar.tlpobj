@@ -1,0 +1,38 @@
+name seminar
+category Package
+revision 59801
+shortdesc Make overhead slides
+relocated 1
+longdesc A class that produces overhead slides (transparencies), with
+longdesc many facilities. The class requires availability of the
+longdesc fancybox package. Seminar is also the basis of other classes,
+longdesc such as prosper. In fact, seminar is not nowadays reckoned a
+longdesc good basis for a presentation -- users are advised to use more
+longdesc recent classes such as powerdot or beamer, both of which are
+longdesc tuned to 21st-century presentation styles. Note that the
+longdesc seminar distribution relies on the xcomment package, which was
+longdesc once part of the bundle, but now has a separate existence.
+runfiles size=53
+ RELOC/tex/latex/seminar/npsfont.sty
+ RELOC/tex/latex/seminar/sem-a4.sty
+ RELOC/tex/latex/seminar/sem-dem.sty
+ RELOC/tex/latex/seminar/sem-page.sty
+ RELOC/tex/latex/seminar/semcolor.sty
+ RELOC/tex/latex/seminar/semhelv.sty
+ RELOC/tex/latex/seminar/seminar.bg2
+ RELOC/tex/latex/seminar/seminar.bg3
+ RELOC/tex/latex/seminar/seminar.bug
+ RELOC/tex/latex/seminar/seminar.cls
+ RELOC/tex/latex/seminar/seminar.sty
+ RELOC/tex/latex/seminar/semlayer.sty
+ RELOC/tex/latex/seminar/semlcmss.sty
+ RELOC/tex/latex/seminar/semrot.sty
+ RELOC/tex/latex/seminar/slidesec.sty
+ RELOC/tex/latex/seminar/tvz-code.sty
+ RELOC/tex/latex/seminar/tvz-hax.sty
+ RELOC/tex/latex/seminar/tvz-user.sty
+catalogue-also foiltex slidenotes
+catalogue-ctan /macros/latex/contrib/seminar
+catalogue-license lppl1.2
+catalogue-topics presentation
+catalogue-version 1.63a

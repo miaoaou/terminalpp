@@ -1,0 +1,19 @@
+name gitstatus
+category Package
+revision 64662
+shortdesc Include Git information in the document as watermark or via variables
+relocated 1
+longdesc If your LaTeX-document is version-controlled with git, you
+longdesc might encounter situations, where you want to include some
+longdesc information of your git-repository into your LaTeX-document-
+longdesc e.g. to keep track on who gave you feedback on which version of
+longdesc your document. This git-information can be included on every
+longdesc page by a watermark or (for custom needs) via provided
+longdesc variables.
+runfiles size=1
+ RELOC/tex/latex/gitstatus/gitstatus.sty
+catalogue-contact-home https://github.com/mgrub/gitstatus
+catalogue-ctan /macros/latex/contrib/gitstatus
+catalogue-license lppl1.3
+catalogue-topics decoration watermark
+catalogue-version 1.1

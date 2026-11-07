@@ -1,0 +1,18 @@
+name tikz-network
+category Package
+revision 51884
+shortdesc Draw networks with TikZ
+relocated 1
+longdesc This package allows the creation of images of complex networks
+longdesc that are seamlessly integrated into the underlying LaTeX files.
+longdesc The package requires datatool, etex, graphicx, tikz,
+longdesc trimspaces, xifthen, and xkeyval.
+runfiles size=14
+ RELOC/tex/latex/tikz-network/tikz-network.sty
+catalogue-contact-bugs https://github.com/hackl/tikz-network/issues
+catalogue-contact-repository https://github.com/hackl/tikz-network
+catalogue-ctan /graphics/pgf/contrib/tikz-network
+catalogue-date 2019-08-15 18:40:01 +0200
+catalogue-license gpl3+
+catalogue-topics graphics pgf-tikz diagram
+catalogue-version 1.1

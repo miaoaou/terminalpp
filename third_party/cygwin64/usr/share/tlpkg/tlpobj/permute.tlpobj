@@ -1,0 +1,13 @@
+name permute
+category Package
+revision 15878
+shortdesc Support for symmetric groups
+relocated 1
+longdesc A package for symmetric groups, allowing you to input, output,
+longdesc and calculate with them.
+runfiles size=3
+ RELOC/tex/latex/permute/permute.sty
+catalogue-ctan /macros/latex/contrib/permute
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics maths

@@ -1,0 +1,17 @@
+name flipbook
+category Package
+revision 25584
+shortdesc Typeset flipbook animations, in the corners of documents
+relocated 1
+longdesc The package provides techniques for adding flip book animations
+longdesc in the corner of your LaTeX documents (using images or ASCII
+longdesc art). Animations are defined as a set of numbered files (e.g.,
+longdesc "im1.pdf", "im2.pdf", "im3.pdf", ...). The package relies on
+longdesc fancyhdr to control the corners.
+runfiles size=2
+ RELOC/tex/latex/flipbook/flipbook.sty
+catalogue-ctan /macros/latex/contrib/flipbook
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-motion graphics-use
+catalogue-version 0.2

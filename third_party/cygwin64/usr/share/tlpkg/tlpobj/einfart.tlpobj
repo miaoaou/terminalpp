@@ -1,0 +1,23 @@
+name einfart
+category Package
+revision 70313
+shortdesc Write your articles in a simple and clear way
+relocated 1
+longdesc This package provides a LaTeX class for typesetting articles
+longdesc with a simple and clear design. Currently, it has native
+longdesc support for Chinese (simplified and traditional), English,
+longdesc French, German, Italian, Japanese, Portuguese (European and
+longdesc Brazilian), Russian and Spanish typesetting. It compiles with
+longdesc either XeLaTeX or LuaLaTeX. This is part of the minimalist
+longdesc class series and depends on minimalist.sty from the minimalist
+longdesc package. The package name "einfart" is taken from the German
+longdesc word "einfach" ("simple"), combined with the first three
+longdesc letters of "Artikel" ("article").
+depend minimalist
+runfiles size=9
+ RELOC/tex/latex/einfart/einfart.cls
+catalogue-also minimalist
+catalogue-contact-repository https://github.com/Jinwen-XU/minimalist/tree/main/einfart
+catalogue-ctan /macros/unicodetex/latex/einfart
+catalogue-license lppl1.3c
+catalogue-topics class article-like multilingual expl3

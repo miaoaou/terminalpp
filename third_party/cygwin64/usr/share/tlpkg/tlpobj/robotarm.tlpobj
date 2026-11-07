@@ -1,0 +1,15 @@
+name robotarm
+category Package
+revision 63116
+shortdesc TikZ powered LaTeX package to draw parameterized 2D robot arms
+relocated 1
+longdesc This LaTeX package uses TikZ to draw parameterized 2D robot
+longdesc arms, for example to be used in educational material.
+runfiles size=4
+ RELOC/tex/latex/robotarm/robotarm.sty
+catalogue-contact-bugs https://github.com/max-sn/robotarm/issues
+catalogue-contact-repository https://github.com/max-sn/robotarm
+catalogue-ctan /graphics/pgf/contrib/robotarm
+catalogue-license lppl1.3
+catalogue-topics graphics pgf-tikz
+catalogue-version 0.1

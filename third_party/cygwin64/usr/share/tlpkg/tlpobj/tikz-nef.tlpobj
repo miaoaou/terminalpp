@@ -1,0 +1,21 @@
+name tikz-nef
+category Package
+revision 55920
+shortdesc Create diagrams for neural networks constructed with the methods of the Neural Engineering Framework (NEF)
+relocated 1
+longdesc The nef TikZ library provides predefined styles and shapes to
+longdesc create diagrams for neural networks constructed with the
+longdesc methods of the Neural Engineering Framework (NEF). The
+longdesc following styles are supported: ea: ensemble array ens:
+longdesc ensemble ext: external input or output inhibt: inhibitory
+longdesc connection net: network pnode: pass-through node rect:
+longdesc rectification ensemble recurrent: recurrent connection
+runfiles size=1
+ RELOC/tex/latex/tikz-nef/tikzlibrarynef.code.tex
+catalogue-contact-bugs https://github.com/jgosmann/tikz-nef/issues
+catalogue-contact-home https://github.com/jgosmann/tikz-nef
+catalogue-contact-repository https://github.com/jgosmann/tikz-nef
+catalogue-ctan /graphics/pgf/contrib/tikz-nef
+catalogue-license mit
+catalogue-topics pgf-tikz diagram
+catalogue-version 0.1

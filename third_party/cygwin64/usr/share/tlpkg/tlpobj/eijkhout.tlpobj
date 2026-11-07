@@ -1,0 +1,17 @@
+name eijkhout
+category Package
+revision 15878
+shortdesc Victor Eijkhout's packages
+relocated 1
+longdesc Three unrelated packages: DB_process, to parse and process
+longdesc database output; CD_labeler, to typeset user text to fit on a
+longdesc CD label; and repeat, a nestable, generic loop macro.
+runfiles size=9
+ RELOC/tex/generic/eijkhout/CD_labeler.tex
+ RELOC/tex/generic/eijkhout/CD_labeler_test.tex
+ RELOC/tex/generic/eijkhout/DB_process.tex
+ RELOC/tex/generic/eijkhout/repeat.tex
+catalogue-ctan /macros/generic/eijkhout
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license collection
+catalogue-topics collection

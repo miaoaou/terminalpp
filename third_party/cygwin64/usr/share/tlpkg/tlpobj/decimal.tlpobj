@@ -1,0 +1,14 @@
+name decimal
+category Package
+revision 23374
+shortdesc LaTeX package for the English raised decimal point
+relocated 1
+longdesc This LaTeX package should be used by people who need the
+longdesc traditional English raised decimal point, instead of the
+longdesc American-style period.
+runfiles size=1
+ RELOC/tex/latex/decimal/decimal.sty
+catalogue-ctan /macros/latex/contrib/decimal
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1
+catalogue-topics typesetting

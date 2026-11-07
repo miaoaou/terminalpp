@@ -1,0 +1,19 @@
+name rgltxdoc
+category Package
+revision 53858
+shortdesc Common code for documentation of the author's packages
+relocated 1
+longdesc This package combines several other packages and defines
+longdesc additional macros and environments for documenting LaTeX code.
+longdesc The package mainly serves the purpose of combining the
+longdesc preferences used in the author's own package documentations.
+longdesc However, others can use the package as well. Compatibility
+longdesc between versions cannot be guaranteed, however.
+runfiles size=2
+ RELOC/tex/latex/rgltxdoc/rgltxdoc.sty
+catalogue-contact-bugs https://github.com/Ri-Ga/rgltxdoc/issues
+catalogue-contact-repository https://github.com/Ri-Ga/rgltxdoc
+catalogue-ctan /macros/latex/contrib/rgltxdoc
+catalogue-license lppl1.2
+catalogue-topics doc-supp
+catalogue-version 1.3

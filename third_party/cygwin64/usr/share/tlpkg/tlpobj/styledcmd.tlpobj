@@ -1,0 +1,20 @@
+name styledcmd
+category Package
+revision 70491
+shortdesc Handling multiple versions of user-defined macros
+relocated 1
+longdesc This package allows creating and maintaining different versions
+longdesc of the same command, in order to choose the best option for
+longdesc every document. This includes expandable and protected
+longdesc commands.
+runfiles size=3
+ RELOC/tex/latex/styledcmd/styledcmd.sty
+catalogue-contact-announce https://github.com/Loara/styledcmd/discussions/categories/announcements
+catalogue-contact-bugs https://github.com/Loara/styledcmd/issues
+catalogue-contact-home https://github.com/Loara/styledcmd
+catalogue-contact-repository https://github.com/Loara/styledcmd.git
+catalogue-contact-support https://github.com/Loara/styledcmd/discussions
+catalogue-ctan /macros/latex/contrib/styledcmd
+catalogue-license gpl3+
+catalogue-topics macro-def expl3
+catalogue-version 2.0.1

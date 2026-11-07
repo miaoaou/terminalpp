@@ -1,0 +1,21 @@
+name abspos
+category Package
+revision 64465
+shortdesc Absolute placement with coffins
+relocated 1
+longdesc This package lets you place contents at an absolute position,
+longdesc anchored at some specified part of the contents, similar to how
+longdesc TikZ nodes work, though without using the two-pass strategy of
+longdesc TikZ. It also avoids messing with the order of beamer overlays,
+longdesc which is what happens when one uses the textpos package with
+longdesc the overlay option. The solution used is quite straightforward,
+longdesc combining coffins (using l3coffins) with the placement
+longdesc mechanisms of atbegshi.
+runfiles size=2
+ RELOC/tex/latex/abspos/abspos.sty
+catalogue-contact-bugs https://github.com/mlhetland/abspos.sty/issues
+catalogue-contact-repository https://github.com/mlhetland/abspos.sty
+catalogue-ctan /macros/latex/contrib/abspos
+catalogue-license mit
+catalogue-topics layout expl3
+catalogue-version 0.1

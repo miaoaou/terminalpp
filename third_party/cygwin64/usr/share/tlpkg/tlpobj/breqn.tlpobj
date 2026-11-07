@@ -1,0 +1,33 @@
+name breqn
+category Package
+revision 60881
+shortdesc Automatic line breaking of displayed equations
+relocated 1
+longdesc The package provides solutions to a number of common
+longdesc difficulties in writing displayed equations and getting
+longdesc high-quality output. For example, it is a well-known
+longdesc inconvenience that if an equation must be broken into more than
+longdesc one line, 'left...right' constructs cannot span lines. The
+longdesc breqn package makes them work as one would expect whether or
+longdesc not there is an intervening line break. The single most
+longdesc ambitious goal of the package, however, is to support automatic
+longdesc linebreaking of displayed equations. Such linebreaking cannot
+longdesc be done without substantial changes under the hood in the way
+longdesc formulae are processed; the code must be watched carefully,
+longdesc keeping an eye on possible glitches. The bundle also contains
+longdesc the flexisym and mathstyle packages, which are both designated
+longdesc as support for breqn.
+runfiles size=42
+ RELOC/tex/latex/breqn/breqn.sty
+ RELOC/tex/latex/breqn/cmbase.sym
+ RELOC/tex/latex/breqn/flexisym.sty
+ RELOC/tex/latex/breqn/mathpazo.sym
+ RELOC/tex/latex/breqn/mathptmx.sym
+ RELOC/tex/latex/breqn/mathstyle.sty
+ RELOC/tex/latex/breqn/msabm.sym
+catalogue-contact-home http://wspr.io/breqn/
+catalogue-contact-repository https://github.com/wspr/breqn
+catalogue-ctan /macros/latex/contrib/breqn
+catalogue-license lppl1.3
+catalogue-topics maths
+catalogue-version 0.98l

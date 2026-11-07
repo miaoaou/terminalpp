@@ -1,0 +1,19 @@
+name altfont
+category Package
+revision 15878
+shortdesc Alternative font handling in LaTeX
+relocated 1
+longdesc The package provides a replacement for that part of psnfss and
+longdesc mfnfss that changes the default font. The package is
+longdesc distributed together with the psfont package, by the same
+longdesc author.
+runfiles size=6
+ RELOC/tex/latex/altfont/altfont.cfg
+ RELOC/tex/latex/altfont/altfont.sty
+ RELOC/tex/latex/altfont/psfont.cfg
+ RELOC/tex/latex/altfont/psfont.sty
+catalogue-ctan /macros/latex/contrib/altfont
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics font-supp
+catalogue-version 1.1

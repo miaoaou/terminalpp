@@ -1,0 +1,19 @@
+name tblr-extras
+category Package
+revision 69794
+shortdesc Extra libraries for tabularray for caption and babel compatibility
+relocated 1
+longdesc The tabularray package offers a modern and nice way to typeset
+longdesc tables, keeping contents and style separated. The tblr-extras
+longdesc package implements extra libraries to use the caption package
+longdesc alongside tabularray, and translated strings for continuation
+longdesc text in tabularray headers: caption library: Use the caption
+longdesc package captions with tabularray environments (talltblr and
+longdesc longtblr), babel library: Translated "continued" text for babel
+longdesc languages (spanish, french, ngerman).
+runfiles size=1
+ RELOC/tex/latex/tblr-extras/tblr-extras.sty
+catalogue-ctan /macros/latex/contrib/tblr-extras
+catalogue-license lppl1.3c
+catalogue-topics table table-long expl3
+catalogue-version 1.0

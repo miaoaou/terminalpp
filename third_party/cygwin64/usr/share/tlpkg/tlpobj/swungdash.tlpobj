@@ -1,0 +1,22 @@
+name swungdash
+category Package
+revision 64204
+shortdesc Typeset a swung dash in LaTeX
+relocated 1
+longdesc The swung dash (U+2053) is a useful character traditionally
+longdesc used in typsetting dictionaries, but not supported by most
+longdesc typefaces. This package provides one simple command to typeset
+longdesc a swung dash in XeLaTeX and LuaLaTeX, by applying
+longdesc transformations to the given font's glyph for a tilde.
+runfiles size=1
+ RELOC/tex/latex/swungdash/swungdash.sty
+catalogue-contact-announce https://github.com/ezgranet/swungdash
+catalogue-contact-bugs https://github.com/ezgranet/swungdash
+catalogue-contact-development https://github.com/ezgranet/swungdash
+catalogue-contact-home https://github.com/ezgranet/swungdash
+catalogue-contact-repository https://github.com/ezgranet/swungdash
+catalogue-contact-support https://github.com/ezgranet/swungdash
+catalogue-ctan /macros/unicodetex/latex/swungdash
+catalogue-license lppl1.3c
+catalogue-topics typesetting
+catalogue-version 1.0.0

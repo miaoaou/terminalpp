@@ -1,0 +1,20 @@
+name miniplot
+category Package
+revision 17483
+shortdesc A package for easy figure arrangement
+relocated 1
+longdesc MiniPlot is a package to help the LaTeX user typeset EPS
+longdesc figures using an easy-to-use interface. Figures can be arranged
+longdesc as one-figure-only or as a collection of figures in columns and
+longdesc rows which can itself contain sub-figures in columns and rows.
+longdesc Wrapped figures are also supported. This package provides
+longdesc commands to display a framebox instead of the figure as the
+longdesc graphics package does already but additionally it writes useful
+longdesc information such as the label and scaling factor into these
+longdesc boxes.
+runfiles size=11
+ RELOC/tex/latex/miniplot/miniplot.sty
+catalogue-ctan /macros/latex/contrib/miniplot
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-use

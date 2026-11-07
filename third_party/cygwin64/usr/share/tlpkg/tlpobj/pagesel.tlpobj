@@ -1,0 +1,16 @@
+name pagesel
+category Package
+revision 56105
+shortdesc Select pages of a document for output
+relocated 1
+longdesc Selects single pages, ranges of pages, odd pages or even pages
+longdesc for output. The package is part of the oberdiek bundle.
+runfiles size=4
+ RELOC/tex/latex/pagesel/pagesel-2016-05-16.sty
+ RELOC/tex/latex/pagesel/pagesel.sty
+catalogue-also selectp
+catalogue-contact-bugs https://github.com/ho-tex/pagesel/issues
+catalogue-ctan /macros/latex/contrib/pagesel
+catalogue-license lppl1.3c
+catalogue-topics page-control
+catalogue-version 1.10

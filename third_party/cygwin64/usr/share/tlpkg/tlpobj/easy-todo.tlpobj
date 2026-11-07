@@ -1,0 +1,13 @@
+name easy-todo
+category Package
+revision 32677
+shortdesc To-do notes in a document
+relocated 1
+longdesc The package provides to-do notes throughout a document, and
+longdesc will provide an index of things to do.
+runfiles size=1
+ RELOC/tex/latex/easy-todo/easy-todo.sty
+catalogue-ctan /macros/latex/contrib/easy-todo
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license apache2
+catalogue-topics notes editorial

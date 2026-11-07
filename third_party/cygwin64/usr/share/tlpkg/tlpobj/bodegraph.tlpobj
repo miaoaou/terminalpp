@@ -1,0 +1,16 @@
+name bodegraph
+category Package
+revision 68785
+shortdesc Draw Bode, Nyquist and Black plots with gnuplot and TikZ
+relocated 1
+longdesc The package provides facilities to draw Bode, Nyquist and Black
+longdesc plots using Gnuplot and Tikz. Elementary Transfer Functions and
+longdesc basic correctors are preprogrammed for use.
+runfiles size=19
+ RELOC/tex/latex/bodegraph/bodegraph.sty
+catalogue-also bodeplot
+catalogue-contact-home https://sciences-indus-cpge.papanicola.info/Bode-Black-et-Nyquist-avec-Tikz
+catalogue-ctan /graphics/pgf/contrib/bodegraph
+catalogue-license lppl
+catalogue-topics engineering graphics-plot pgf-tikz
+catalogue-version 1.6

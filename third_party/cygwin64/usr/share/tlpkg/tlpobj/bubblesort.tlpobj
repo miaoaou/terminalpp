@@ -1,0 +1,18 @@
+name bubblesort
+category Package
+revision 56070
+shortdesc Bubble sorts a list
+relocated 1
+longdesc This package sorts a list of TeX items {item 1}...{item k} in
+longdesc "increasing" order where "increasing" is determined by a
+longdesc comparator macro. By default it sorts real numbers with the
+longdesc usual meaning of "increasing" but some other examples are
+longdesc discussed in the documentation. A second macro is included
+longdesc which sorts one list and applies the same permutation to a
+longdesc second list.
+runfiles size=2
+ RELOC/tex/latex/bubblesort/bubblesort.sty
+catalogue-ctan /macros/latex/contrib/bubblesort
+catalogue-license lppl1.3c
+catalogue-topics macro-sort list
+catalogue-version 1.0

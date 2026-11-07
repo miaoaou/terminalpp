@@ -1,0 +1,14 @@
+name stubs
+category Package
+revision 70341
+shortdesc Create tear-off stubs at the bottom of a page
+relocated 1
+longdesc The \stubs command creates as many repetitions as possible of
+longdesc its argument, at the bottom of the page; these stubs may be
+longdesc used (for example) for contact information.
+runfiles size=1
+ RELOC/tex/latex/stubs/stubs.sty
+catalogue-ctan /macros/latex/contrib/stubs
+catalogue-license gpl
+catalogue-topics advert
+catalogue-version 0.1.1

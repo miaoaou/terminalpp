@@ -1,0 +1,20 @@
+name everysel
+category Package
+revision 57489
+shortdesc Provides hooks into \selectfont
+relocated 1
+longdesc The package provided hooks whose arguments are executed just
+longdesc after LaTeX has loaded a new font by means of \selectfont. It
+longdesc has become obsolete with LaTeX versions 2021/01/05 or newer,
+longdesc since LaTeX now provides its own hooks to fulfill this task.
+longdesc For newer versions of LaTeX everysel only provides macros using
+longdesc LaTeX's hook management due to compatibility reasons. See
+longdesc lthooks-doc.pdf for instructions how to use lthooks instead of
+longdesc everysel.
+runfiles size=3
+ RELOC/tex/latex/everysel/everysel-2011-10-28.sty
+ RELOC/tex/latex/everysel/everysel.sty
+catalogue-ctan /macros/latex/contrib/everysel
+catalogue-license lppl1.3c
+catalogue-topics defer-stuff obsolete
+catalogue-version 2.1

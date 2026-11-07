@@ -1,0 +1,20 @@
+name pgf-pie
+category Package
+revision 63603
+shortdesc Draw pie charts, using PGF
+relocated 1
+longdesc The package provides the means to draw pie (and variant)
+longdesc charts, using PGF/TikZ.
+depend carlisle
+depend latex
+depend pgf
+runfiles size=5
+ RELOC/tex/latex/pgf-pie/pgf-pie.sty
+ RELOC/tex/latex/pgf-pie/tikzlibrarypie.code.tex
+catalogue-contact-bugs https://github.com/pgf-tikz/pgf-pie/issues
+catalogue-contact-repository https://github.com/pgf-tikz/pgf-pie
+catalogue-contact-support https://tug.org/mailman/listinfo/pgf-tikz
+catalogue-ctan /graphics/pgf/contrib/pgf-pie
+catalogue-license gpl2 lppl1.3c
+catalogue-topics genchart pgf-tikz
+catalogue-version 0.7

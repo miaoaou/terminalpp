@@ -1,0 +1,21 @@
+name pgfmolbio
+category Package
+revision 35152
+shortdesc Draw graphs typically found in molecular biology texts
+relocated 1
+longdesc The package draws graphs typically found in molecular biology
+longdesc texts. Currently, the package contains modules for drawing DNA
+longdesc sequencing chromatograms and protein domain diagrams.
+runfiles size=21
+ RELOC/scripts/pgfmolbio/pgfmolbio.lua
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.chromatogram.lua
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.chromatogram.tex
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.convert.tex
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.domains.lua
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.domains.tex
+ RELOC/tex/lualatex/pgfmolbio/pgfmolbio.sty
+catalogue-ctan /macros/luatex/latex/pgfmolbio
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics molbio diagram luatex
+catalogue-version 0.21

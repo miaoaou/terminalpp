@@ -1,0 +1,41 @@
+name ydoc
+category Package
+revision 64887
+shortdesc Macros for documentation of LaTeX classes and packages
+relocated 1
+longdesc The package provides macros and environments to document LaTeX
+longdesc packages and classes. It is an (as yet unfinished) alternative
+longdesc to the ltxdoc class and the doc or xdoc packages. The aim is to
+longdesc provide a different layout and more modern styles (using the
+longdesc xcolor, hyperref packages, etc.) This is an alpha release, and
+longdesc should probably not (yet) be used with other packages, since
+longdesc the implementation might change. Nevertheless, the author uses
+longdesc it to document his own packages.
+depend etoolbox
+depend float
+depend hyperref
+depend listings
+depend needspace
+depend newverbs
+depend showexpl
+depend tools
+depend url
+depend xcolor
+runfiles size=14
+ RELOC/tex/generic/ydoc/ydocincl.tex
+ RELOC/tex/generic/ydoc/ydocstrip.tex
+ RELOC/tex/latex/ydoc/ydoc-code.sty
+ RELOC/tex/latex/ydoc/ydoc-desc.sty
+ RELOC/tex/latex/ydoc/ydoc-doc.sty
+ RELOC/tex/latex/ydoc/ydoc-expl.sty
+ RELOC/tex/latex/ydoc/ydoc.cfg
+ RELOC/tex/latex/ydoc/ydoc.cls
+ RELOC/tex/latex/ydoc/ydoc.sty
+catalogue-also ltxdoc doc xdoc gmdoc codedoc nicetext showexpl
+catalogue-contact-bugs https://github.com/MartinScharrer/ydoc/issues
+catalogue-contact-home https://github.com/MartinScharrer/ydoc
+catalogue-contact-repository https://github.com/MartinScharrer/ydoc.git
+catalogue-ctan /macros/latex/contrib/ydoc
+catalogue-license lppl1.3c
+catalogue-topics doc-supp class macro-demo
+catalogue-version 0.7alpha

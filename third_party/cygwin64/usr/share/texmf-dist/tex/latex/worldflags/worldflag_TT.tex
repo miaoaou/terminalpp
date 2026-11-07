@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Trinidad and Tobago:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{200,16,46}
+\fill [red] (0,0) rectangle (\flaglength,1);
+\newdimen\bb\bb=0.01\flaglength
+\newdimen\hh\hh=0.01\flagwidth
+\newdimen\dd\dd=0.003333\flagwidth
+\pgfmathparse{100*(\hh*\dd*sqrt(\hh^2+\bb^2-\dd^2)-\bb*\dd^2)/(\hh^2-\dd^2)}
+\edef\x{\pgfmathresult}
+\fill [white] (0,1)--(\x*1pt,1)--(\flaglength,0)--($(\flaglength,0)-(\x*1pt,0)$)--cycle;
+\fill [black] (\x*1pt/6,1)--(5*\x*1pt/6,1)
+ --($(\flaglength,0)-(\x*1pt/6,0)$)--($(\flaglength,0)-(5*\x*1pt/6,0)$)--cycle;
+\framecode{}
+\end{flagdescription}

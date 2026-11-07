@@ -1,0 +1,19 @@
+name robust-externalize
+category Package
+revision 70598
+shortdesc Cache anything (TikZ, python, ...) in a robust, efficient and pure way
+relocated 1
+longdesc This package provides a LaTeX library to cache anything (TikZ,
+longdesc python, ...), in a robust, efficient and pure way. We also
+longdesc provide a template system with placeholders to provide
+longdesc configurable templates. For more information, see the
+longdesc documentation and the github repository.
+runfiles size=47
+ RELOC/tex/latex/robust-externalize/robust-externalize.sty
+catalogue-contact-announce https://github.com/leo-colisson/robust-externalize/releases
+catalogue-contact-bugs https://github.com/leo-colisson/robust-externalize/issues
+catalogue-contact-repository https://github.com/leo-colisson/robust-externalize/
+catalogue-ctan /macros/latex/contrib/robust-externalize
+catalogue-license mit
+catalogue-topics compilation expl3
+catalogue-version 2.7

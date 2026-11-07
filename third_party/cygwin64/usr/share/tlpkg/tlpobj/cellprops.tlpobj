@@ -1,0 +1,17 @@
+name cellprops
+category Package
+revision 67201
+shortdesc Accept CSS-like selectors in tabular, array, ...
+relocated 1
+longdesc This package reworks the internals of tabular, array, and
+longdesc similar constructs, and adds a \cellprops command accepting
+longdesc CSS-like selectors and properties. It depends on mdwtab,
+longdesc xcolor, expl3, and xparse.
+runfiles size=10
+ RELOC/tex/latex/cellprops/cellprops.sty
+catalogue-contact-bugs https://gitlab.com/frnchfrgg-latex/cellprops/-/issues
+catalogue-contact-repository https://gitlab.com/frnchfrgg-latex/cellprops
+catalogue-ctan /macros/latex/contrib/cellprops
+catalogue-license gpl3+
+catalogue-topics table expl3
+catalogue-version 2.0

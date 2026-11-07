@@ -1,0 +1,22 @@
+name hrefhide
+category Package
+revision 66189
+shortdesc Suppress hyper links when printing
+relocated 1
+longdesc This package provides the command \hrefdisplayonly
+longdesc (additionally to \href provided by the hyperref package). While
+longdesc the (hyperlinked) text appears like an ordinary \href in the
+longdesc compiled pdf-file, the same text will be "hidden" when printing
+longdesc the text. Hiding is actually achieved by making the text the
+longdesc same colour as the background, thus preserving the layout of
+longdesc the rest of the text. Further the commands \hycon and \hycoff
+longdesc (hyper-colour-on/off) can be used to simulate switching option
+longdesc ocgcolorlinks of the hyperref package on and off. This package
+longdesc is possibly obsolete, see section 3: "Alternatives" in the
+longdesc documentation.
+runfiles size=2
+ RELOC/tex/latex/hrefhide/hrefhide.sty
+catalogue-ctan /macros/latex/contrib/hrefhide
+catalogue-license lppl1.3
+catalogue-topics hyper
+catalogue-version 1.1a

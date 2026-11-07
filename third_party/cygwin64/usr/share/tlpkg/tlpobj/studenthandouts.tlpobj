@@ -1,0 +1,22 @@
+name studenthandouts
+category Package
+revision 43516
+shortdesc Management and styling of student handout projects
+relocated 1
+longdesc This package can be used to generate a single master document
+longdesc that contains a set of individual student handouts. The package
+longdesc has two main functions. First, it provides a simple framework
+longdesc for organizing handout source code, and supplies a set of
+longdesc import management tools for selectively importing a subset of
+longdesc the handouts into the master document. Selective import is
+longdesc convenient when compilation of all of the handouts is
+longdesc unnecessary, for example when working on a new handout. As a
+longdesc secondary feature, the package defines a basic visual style for
+longdesc handouts. This style can be easily changed.
+runfiles size=3
+ RELOC/tex/latex/studenthandouts/studenthandouts.sty
+catalogue-ctan /macros/latex/contrib/studenthandouts
+catalogue-date 2017-03-16 20:27:26 +0100
+catalogue-license lppl1.3
+catalogue-topics presentation
+catalogue-version 1.0

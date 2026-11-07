@@ -1,0 +1,18 @@
+name notestex
+category Package
+revision 45396
+shortdesc An all-in-one LaTeX notes package for students
+relocated 1
+longdesc This is a modification of the original Jhep journal format in
+longdesc order to suit the needs of students in university. The goal of
+longdesc this package was to make notetaking easier for students and
+longdesc offer easy support for marginnotes along with a reliable and
+longdesc legible formatting structure.
+runfiles size=6
+ RELOC/tex/latex/notestex/NotesTeX.sty
+catalogue-contact-repository https://github.com/Adhumunt/NotesTeX
+catalogue-ctan /macros/latex/contrib/notestex
+catalogue-date 2017-09-26 06:08:42 +0200
+catalogue-license lppl1.3
+catalogue-topics notes misc-paper gen-paper
+catalogue-version 1.0

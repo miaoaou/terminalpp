@@ -1,0 +1,22 @@
+name withargs
+category Package
+revision 52641
+shortdesc In-place argument substitution
+relocated 1
+longdesc The \withargs command provides a clean way to populate a
+longdesc template (containing #1, #2, etc.) using LaTeX argument
+longdesc substitution. It also allows you to carefully control argument
+longdesc expansion using a LaTeX3-style argument specification. Uses
+longdesc range from creating readable string templates (akin to C's
+longdesc printf function) to performing otherwise complex token-list
+longdesc manipulation.
+runfiles size=7
+ RELOC/tex/latex/withargs/withargs-dry.sty
+ RELOC/tex/latex/withargs/withargs-packagedoc.cls
+ RELOC/tex/latex/withargs/withargs.sty
+catalogue-contact-repository https://github.com/mhelvens/latex-withargs
+catalogue-ctan /macros/latex/contrib/withargs
+catalogue-date 2019-11-04 20:42:23 +0100
+catalogue-license lppl1.3
+catalogue-topics macro-supp expl3
+catalogue-version 0.3.1

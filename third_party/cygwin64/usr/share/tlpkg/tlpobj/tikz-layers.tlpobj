@@ -1,0 +1,17 @@
+name tikz-layers
+category Package
+revision 46660
+shortdesc TikZ provides graphical layers on TikZ: "behind", "above" and "glass"
+relocated 1
+longdesc TikZ-layers is a tiny package that provides, along side
+longdesc "background", typical graphical layers on TikZ: "behind",
+longdesc "above" and "glass". The layers may be selected with one of the
+longdesc styles "on behind layer", "on above layer", "on glass layer" as
+longdesc an option to a {scope} environment.
+runfiles size=1
+ RELOC/tex/latex/tikz-layers/tikz-layers.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-layers
+catalogue-date 2018-02-19 05:24:39 +0100
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz graphics
+catalogue-version 0.9

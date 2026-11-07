@@ -1,0 +1,21 @@
+name ltxmisc
+category Package
+revision 21927
+shortdesc Miscellaneous LaTeX packages, etc
+relocated 1
+runfiles size=17
+ RELOC/tex/latex/ltxmisc/abstbook.cls
+ RELOC/tex/latex/ltxmisc/beletter.cls
+ RELOC/tex/latex/ltxmisc/bibcheck.sty
+ RELOC/tex/latex/ltxmisc/concrete.sty
+ RELOC/tex/latex/ltxmisc/flashcard.cls
+ RELOC/tex/latex/ltxmisc/iagproc.cls
+ RELOC/tex/latex/ltxmisc/linsys.sty
+ RELOC/tex/latex/ltxmisc/mitpress.sty
+ RELOC/tex/latex/ltxmisc/thrmappendix.sty
+ RELOC/tex/latex/ltxmisc/topcapt.sty
+ RELOC/tex/latex/ltxmisc/vrbexin.sty
+catalogue-ctan /macros/latex/contrib/misc
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license collection
+catalogue-topics collection

@@ -1,0 +1,19 @@
+name codebox
+category Package
+revision 61771
+shortdesc Highlighted source code in a fancy box
+relocated 1
+longdesc This LaTeX3 package provides environments codebox and codeview
+longdesc to typset with an environment body, and macros \codefile and
+longdesc \cvfile to typeset programming source code from a file in a
+longdesc fancy box. Starred versions of these environments and macros
+longdesc are provided to add a comment at the bottom of the fancy box.
+longdesc The package is based on tcolorbox, minted, and listings.
+runfiles size=4
+ RELOC/tex/latex/codebox/codebox.sty
+catalogue-contact-bugs https://github.com/registor/codebox/issues
+catalogue-contact-repository https://github.com/registor/codebox
+catalogue-ctan /macros/latex/contrib/codebox
+catalogue-license lppl1.3c
+catalogue-topics boxing listing decoration synt-hlt expl3
+catalogue-version 1.0.4

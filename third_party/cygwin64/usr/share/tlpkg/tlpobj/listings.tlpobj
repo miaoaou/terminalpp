@@ -1,0 +1,39 @@
+name listings
+category Package
+revision 70045
+shortdesc Typeset source code listings using LaTeX
+relocated 1
+longdesc The package enables the user to typeset programs (programming
+longdesc code) within LaTeX; the source code is read directly by TeX--no
+longdesc front-end processor is needed. Keywords, comments and strings
+longdesc can be typeset using different styles (default is bold for
+longdesc keywords, italic for comments and no special style for
+longdesc strings). Support for hyperref is provided. To use,
+longdesc \usepackage{listings}, identify the language of the object to
+longdesc typeset, using a construct like: \lstset{language=Python}, then
+longdesc use environment lstlisting for inline code. External files may
+longdesc be formatted using \lstinputlisting to process a given file in
+longdesc the form appropriate for the current language. Short (in-line)
+longdesc listings are also available, using either \lstinline|...| or
+longdesc |...| (after defining the | token with the \lstMakeShortInline
+longdesc command).
+runfiles size=147
+ RELOC/tex/latex/listings/listings-acm.prf
+ RELOC/tex/latex/listings/listings-bash.prf
+ RELOC/tex/latex/listings/listings-fortran.prf
+ RELOC/tex/latex/listings/listings-hansl.prf
+ RELOC/tex/latex/listings/listings-lua.prf
+ RELOC/tex/latex/listings/listings-python.prf
+ RELOC/tex/latex/listings/listings.cfg
+ RELOC/tex/latex/listings/listings.sty
+ RELOC/tex/latex/listings/lstdoc.sty
+ RELOC/tex/latex/listings/lstlang1.sty
+ RELOC/tex/latex/listings/lstlang2.sty
+ RELOC/tex/latex/listings/lstlang3.sty
+ RELOC/tex/latex/listings/lstmisc.sty
+ RELOC/tex/latex/listings/lstpatch.sty
+catalogue-also listing
+catalogue-ctan /macros/latex/contrib/listings
+catalogue-license lppl1.3c
+catalogue-topics listing verbatim synt-hlt macro-demo
+catalogue-version 1.10

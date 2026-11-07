@@ -1,0 +1,9 @@
+name tex.doc
+category TLCore
+revision 70015
+shortdesc doc files of tex
+docfiles size=27
+ texmf-dist/doc/man/man1/initex.1
+ texmf-dist/doc/man/man1/initex.man1.pdf
+ texmf-dist/doc/man/man1/tex.1
+ texmf-dist/doc/man/man1/tex.man1.pdf

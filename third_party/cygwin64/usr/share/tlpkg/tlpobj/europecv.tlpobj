@@ -1,0 +1,58 @@
+name europecv
+category Package
+revision 69661
+shortdesc Unofficial class for European curricula vitae
+relocated 1
+longdesc The europecv class is an unofficial LaTeX implementation of the
+longdesc standard model for curricula vitae (the "Europass CV") as
+longdesc recommended by the European Commission. Although primarily
+longdesc intended for users in the European Union, the class is flexible
+longdesc enough to be used for any kind of curriculum vitae. The class
+longdesc has localisations for all the official languages of the EU
+longdesc (plus Catalan), as well as options permitting input in UTF-8
+longdesc and koi8-r.
+runfiles size=64
+ RELOC/tex/latex/europecv/EuropeFlagBW.eps
+ RELOC/tex/latex/europecv/EuropeFlagBW.pdf
+ RELOC/tex/latex/europecv/EuropeFlagBlueCMYK.eps
+ RELOC/tex/latex/europecv/EuropeFlagBlueCMYK.pdf
+ RELOC/tex/latex/europecv/EuropeFlagCMYK.eps
+ RELOC/tex/latex/europecv/EuropeFlagCMYK.pdf
+ RELOC/tex/latex/europecv/EuropeFlagWB.eps
+ RELOC/tex/latex/europecv/EuropeFlagWB.pdf
+ RELOC/tex/latex/europecv/ecvbg.def
+ RELOC/tex/latex/europecv/ecvca.def
+ RELOC/tex/latex/europecv/ecvcs.def
+ RELOC/tex/latex/europecv/ecvda.def
+ RELOC/tex/latex/europecv/ecvde.def
+ RELOC/tex/latex/europecv/ecven.def
+ RELOC/tex/latex/europecv/ecves.def
+ RELOC/tex/latex/europecv/ecvet.def
+ RELOC/tex/latex/europecv/ecvfi.def
+ RELOC/tex/latex/europecv/ecvfr.def
+ RELOC/tex/latex/europecv/ecvgl.def
+ RELOC/tex/latex/europecv/ecvgr.def
+ RELOC/tex/latex/europecv/ecvhu.def
+ RELOC/tex/latex/europecv/ecvis.def
+ RELOC/tex/latex/europecv/ecvit.def
+ RELOC/tex/latex/europecv/ecvlt.def
+ RELOC/tex/latex/europecv/ecvlv.def
+ RELOC/tex/latex/europecv/ecvmt.def
+ RELOC/tex/latex/europecv/ecvnl.def
+ RELOC/tex/latex/europecv/ecvno.def
+ RELOC/tex/latex/europecv/ecvpl.def
+ RELOC/tex/latex/europecv/ecvpt.def
+ RELOC/tex/latex/europecv/ecvro.def
+ RELOC/tex/latex/europecv/ecvsk.def
+ RELOC/tex/latex/europecv/ecvsl.def
+ RELOC/tex/latex/europecv/ecvsr.def
+ RELOC/tex/latex/europecv/ecvsv.def
+ RELOC/tex/latex/europecv/europasslogo-eps-converted-to.pdf
+ RELOC/tex/latex/europecv/europasslogo.eps
+ RELOC/tex/latex/europecv/europasslogo.pdf
+ RELOC/tex/latex/europecv/europecv.cls
+catalogue-also europasscv curve currvita cv esieecv vita
+catalogue-contact-repository https://github.com/gsilano/EuropeCV
+catalogue-ctan /macros/latex/contrib/europecv
+catalogue-license lppl
+catalogue-topics cv class doc-templ

@@ -1,0 +1,14 @@
+name nl-interval
+category Package
+revision 58328
+shortdesc Represent intervals on the number line
+relocated 1
+longdesc This package provides macros to simplify the process of
+longdesc representing intervals on the number line. It depends on
+longdesc tkz-fct, ifthen, and xparse.
+runfiles size=7
+ RELOC/tex/latex/nl-interval/nl-interval.sty
+catalogue-ctan /graphics/pgf/contrib/nl-interval
+catalogue-license lppl1.3c
+catalogue-topics maths pgf-tikz
+catalogue-version 1.0

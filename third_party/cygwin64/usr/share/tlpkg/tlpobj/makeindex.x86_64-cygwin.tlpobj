@@ -1,0 +1,7 @@
+name makeindex.x86_64-cygwin
+category Package
+revision 70560
+shortdesc x86_64-cygwin files of makeindex
+binfiles arch=x86_64-cygwin size=21
+ bin/x86_64-cygwin/makeindex.exe
+ bin/x86_64-cygwin/mkindex

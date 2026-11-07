@@ -1,0 +1,168 @@
+name beamer
+category Package
+revision 69316
+shortdesc A LaTeX class for producing presentations and slides
+relocated 1
+longdesc The beamer LaTeX class can be used for producing slides. The
+longdesc class works in both PostScript and direct PDF output modes,
+longdesc using the pgf graphics system for visual effects. Content is
+longdesc created in the frame environment, and each frame can be made up
+longdesc of a number of slides using a simple notation for specifying
+longdesc material to appear on each slide within a frame. Short versions
+longdesc of title, authors, institute can also be specified as optional
+longdesc parameters. Whole frame graphics are supported by plain frames.
+longdesc The class supports figure and table environments, transparency
+longdesc effects, varying slide transitions and animations. Beamer also
+longdesc provides compatibility with other packages like prosper. The
+longdesc package now incorporates the functionality of the former
+longdesc translator package, which is used for customising the package
+longdesc for use in other language environments. Beamer depends on the
+longdesc following other packages: atbegshi, etoolbox, hyperref, ifpdf,
+longdesc pgf, and translator.
+depend amscls
+depend amsfonts
+depend amsmath
+depend atbegshi
+depend etoolbox
+depend geometry
+depend hyperref
+depend iftex
+depend pgf
+depend translator
+depend xcolor
+runfiles size=256
+ RELOC/tex/latex/beamer/beamer.cls
+ RELOC/tex/latex/beamer/beamerarticle.sty
+ RELOC/tex/latex/beamer/beamerbasearticle.sty
+ RELOC/tex/latex/beamer/beamerbaseauxtemplates.sty
+ RELOC/tex/latex/beamer/beamerbaseboxes.sty
+ RELOC/tex/latex/beamer/beamerbasecolor.sty
+ RELOC/tex/latex/beamer/beamerbasecompatibility.sty
+ RELOC/tex/latex/beamer/beamerbasedecode.sty
+ RELOC/tex/latex/beamer/beamerbasefont.sty
+ RELOC/tex/latex/beamer/beamerbaseframe.sty
+ RELOC/tex/latex/beamer/beamerbaseframecomponents.sty
+ RELOC/tex/latex/beamer/beamerbaseframesize.sty
+ RELOC/tex/latex/beamer/beamerbaselocalstructure.sty
+ RELOC/tex/latex/beamer/beamerbasemisc.sty
+ RELOC/tex/latex/beamer/beamerbasemodes.sty
+ RELOC/tex/latex/beamer/beamerbasenavigation.sty
+ RELOC/tex/latex/beamer/beamerbasenavigationsymbols.tex
+ RELOC/tex/latex/beamer/beamerbasenotes.sty
+ RELOC/tex/latex/beamer/beamerbaseoptions.sty
+ RELOC/tex/latex/beamer/beamerbaseoverlay.sty
+ RELOC/tex/latex/beamer/beamerbaserequires.sty
+ RELOC/tex/latex/beamer/beamerbasesection.sty
+ RELOC/tex/latex/beamer/beamerbasetemplates.sty
+ RELOC/tex/latex/beamer/beamerbasethemes.sty
+ RELOC/tex/latex/beamer/beamerbasetheorems.sty
+ RELOC/tex/latex/beamer/beamerbasetitle.sty
+ RELOC/tex/latex/beamer/beamerbasetoc.sty
+ RELOC/tex/latex/beamer/beamerbasetranslator.sty
+ RELOC/tex/latex/beamer/beamerbasetwoscreens.sty
+ RELOC/tex/latex/beamer/beamerbaseverbatim.sty
+ RELOC/tex/latex/beamer/beamercolorthemealbatross.sty
+ RELOC/tex/latex/beamer/beamercolorthemebeaver.sty
+ RELOC/tex/latex/beamer/beamercolorthemebeetle.sty
+ RELOC/tex/latex/beamer/beamercolorthemecrane.sty
+ RELOC/tex/latex/beamer/beamercolorthemedefault.sty
+ RELOC/tex/latex/beamer/beamercolorthemedolphin.sty
+ RELOC/tex/latex/beamer/beamercolorthemedove.sty
+ RELOC/tex/latex/beamer/beamercolorthemefly.sty
+ RELOC/tex/latex/beamer/beamercolorthemelily.sty
+ RELOC/tex/latex/beamer/beamercolorthememonarca.sty
+ RELOC/tex/latex/beamer/beamercolorthemeorchid.sty
+ RELOC/tex/latex/beamer/beamercolorthemerose.sty
+ RELOC/tex/latex/beamer/beamercolorthemeseagull.sty
+ RELOC/tex/latex/beamer/beamercolorthemeseahorse.sty
+ RELOC/tex/latex/beamer/beamercolorthemesidebartab.sty
+ RELOC/tex/latex/beamer/beamercolorthemespruce.sty
+ RELOC/tex/latex/beamer/beamercolorthemestructure.sty
+ RELOC/tex/latex/beamer/beamercolorthemewhale.sty
+ RELOC/tex/latex/beamer/beamercolorthemewolverine.sty
+ RELOC/tex/latex/beamer/beamerfoils.sty
+ RELOC/tex/latex/beamer/beamerfontthemedefault.sty
+ RELOC/tex/latex/beamer/beamerfontthemeprofessionalfonts.sty
+ RELOC/tex/latex/beamer/beamerfontthemeserif.sty
+ RELOC/tex/latex/beamer/beamerfontthemestructurebold.sty
+ RELOC/tex/latex/beamer/beamerfontthemestructureitalicserif.sty
+ RELOC/tex/latex/beamer/beamerfontthemestructuresmallcapsserif.sty
+ RELOC/tex/latex/beamer/beamericonarticle.20.eps
+ RELOC/tex/latex/beamer/beamericonarticle.20.pdf
+ RELOC/tex/latex/beamer/beamericonarticle.eps
+ RELOC/tex/latex/beamer/beamericonarticle.pdf
+ RELOC/tex/latex/beamer/beamericonarticle.tex
+ RELOC/tex/latex/beamer/beamericonbook.20.eps
+ RELOC/tex/latex/beamer/beamericonbook.20.pdf
+ RELOC/tex/latex/beamer/beamericonbook.eps
+ RELOC/tex/latex/beamer/beamericonbook.pdf
+ RELOC/tex/latex/beamer/beamericonbook.tex
+ RELOC/tex/latex/beamer/beamericononline.20.eps
+ RELOC/tex/latex/beamer/beamericononline.20.pdf
+ RELOC/tex/latex/beamer/beamericononline.eps
+ RELOC/tex/latex/beamer/beamericononline.pdf
+ RELOC/tex/latex/beamer/beamerinnerthemecircles.sty
+ RELOC/tex/latex/beamer/beamerinnerthemedefault.sty
+ RELOC/tex/latex/beamer/beamerinnerthemeinmargin.sty
+ RELOC/tex/latex/beamer/beamerinnerthemerectangles.sty
+ RELOC/tex/latex/beamer/beamerinnerthemerounded.sty
+ RELOC/tex/latex/beamer/beamerouterthemedefault.sty
+ RELOC/tex/latex/beamer/beamerouterthemeinfolines.sty
+ RELOC/tex/latex/beamer/beamerouterthememiniframes.sty
+ RELOC/tex/latex/beamer/beamerouterthemeshadow.sty
+ RELOC/tex/latex/beamer/beamerouterthemesidebar.sty
+ RELOC/tex/latex/beamer/beamerouterthemesmoothbars.sty
+ RELOC/tex/latex/beamer/beamerouterthemesmoothtree.sty
+ RELOC/tex/latex/beamer/beamerouterthemesplit.sty
+ RELOC/tex/latex/beamer/beamerouterthemetree.sty
+ RELOC/tex/latex/beamer/beamerpatchparalist.sty
+ RELOC/tex/latex/beamer/beamerprosper.sty
+ RELOC/tex/latex/beamer/beamerseminar.sty
+ RELOC/tex/latex/beamer/beamertexpower.sty
+ RELOC/tex/latex/beamer/beamerthemeAnnArbor.sty
+ RELOC/tex/latex/beamer/beamerthemeAntibes.sty
+ RELOC/tex/latex/beamer/beamerthemeBergen.sty
+ RELOC/tex/latex/beamer/beamerthemeBerkeley.sty
+ RELOC/tex/latex/beamer/beamerthemeBerlin.sty
+ RELOC/tex/latex/beamer/beamerthemeBoadilla.sty
+ RELOC/tex/latex/beamer/beamerthemeCambridgeUS.sty
+ RELOC/tex/latex/beamer/beamerthemeCopenhagen.sty
+ RELOC/tex/latex/beamer/beamerthemeDarmstadt.sty
+ RELOC/tex/latex/beamer/beamerthemeDresden.sty
+ RELOC/tex/latex/beamer/beamerthemeEastLansing.sty
+ RELOC/tex/latex/beamer/beamerthemeFrankfurt.sty
+ RELOC/tex/latex/beamer/beamerthemeGoettingen.sty
+ RELOC/tex/latex/beamer/beamerthemeHannover.sty
+ RELOC/tex/latex/beamer/beamerthemeIlmenau.sty
+ RELOC/tex/latex/beamer/beamerthemeJuanLesPins.sty
+ RELOC/tex/latex/beamer/beamerthemeLuebeck.sty
+ RELOC/tex/latex/beamer/beamerthemeMadrid.sty
+ RELOC/tex/latex/beamer/beamerthemeMalmoe.sty
+ RELOC/tex/latex/beamer/beamerthemeMarburg.sty
+ RELOC/tex/latex/beamer/beamerthemeMontpellier.sty
+ RELOC/tex/latex/beamer/beamerthemePaloAlto.sty
+ RELOC/tex/latex/beamer/beamerthemePittsburgh.sty
+ RELOC/tex/latex/beamer/beamerthemeRochester.sty
+ RELOC/tex/latex/beamer/beamerthemeSingapore.sty
+ RELOC/tex/latex/beamer/beamerthemeSzeged.sty
+ RELOC/tex/latex/beamer/beamerthemeWarsaw.sty
+ RELOC/tex/latex/beamer/beamerthemebars.sty
+ RELOC/tex/latex/beamer/beamerthemeboxes.sty
+ RELOC/tex/latex/beamer/beamerthemeclassic.sty
+ RELOC/tex/latex/beamer/beamerthemecompatibility.sty
+ RELOC/tex/latex/beamer/beamerthemedefault.sty
+ RELOC/tex/latex/beamer/beamerthemelined.sty
+ RELOC/tex/latex/beamer/beamerthemeplain.sty
+ RELOC/tex/latex/beamer/beamerthemeshadow.sty
+ RELOC/tex/latex/beamer/beamerthemesidebar.sty
+ RELOC/tex/latex/beamer/beamerthemesplit.sty
+ RELOC/tex/latex/beamer/beamerthemetree.sty
+ RELOC/tex/latex/beamer/multimedia.sty
+ RELOC/tex/latex/beamer/multimediasymbols.sty
+ RELOC/tex/latex/beamer/xmpmulti.sty
+catalogue-contact-bugs https://github.com/josephwright/beamer/issues
+catalogue-contact-repository https://github.com/josephwright/beamer
+catalogue-ctan /macros/latex/contrib/beamer
+catalogue-license lppl1.3c gpl2+ fdl
+catalogue-topics presentation class
+catalogue-version 3.71

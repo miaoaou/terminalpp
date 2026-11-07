@@ -1,0 +1,9 @@
+\defaultfontfeatures[tipauni-newcm-regular]{%
+  Renderer          = {Harfbuzz},%
+  Extension         = {.otf},%
+  UprightFont       = {NewCM10-Regular},%
+  ItalicFont        = {NewCM10-Italic},%
+  BoldFont          = {NewCM10-Bold},%
+  BoldItalicFont    = {NewCM10-BoldItalic},%
+  StylisticSet      = {5}%
+}

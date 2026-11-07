@@ -1,0 +1,23 @@
+name borceux
+category Package
+revision 21047
+shortdesc Diagram macros by Francois Borceux
+relocated 1
+longdesc The macros support the construction of diagrams, such as those
+longdesc that appear in category theory texts. The user gives the list
+longdesc of vertices and arrows to be included, just as when composing a
+longdesc matrix, and the program takes care of computing the dimensions
+longdesc of the arrows and realizing the pagesetting. All the user has
+longdesc to do about the arrows is to specify their type (monomorphism,
+longdesc pair of adjoint arrows, etc.) and their direction (north,
+longdesc south-east, etc.); 12 types and 32 directions are available.
+runfiles size=191
+ RELOC/tex/generic/borceux/Diagram
+ RELOC/tex/generic/borceux/MaxiDiagram
+ RELOC/tex/generic/borceux/MicroDiagram
+ RELOC/tex/generic/borceux/MiniDiagram
+ RELOC/tex/generic/borceux/MultipleArrows
+catalogue-ctan /macros/generic/diagrams/borceux
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics diagram-comm

@@ -1,0 +1,505 @@
+%%
+%% This is file `tablvar.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tablvar.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2018-2023 by Antoine Missier <antoine.missier@ac-toulouse.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{tablvar}
+    [2023/12/23 v2.0 .dtx tablvar file]
+
+\RequirePackage{array}
+\RequirePackage{ifthen}
+\RequirePackage{multido}
+\RequirePackage{xkeyval}
+\RequirePackage{ifpdf}
+
+\newif\iftv@tikz % false par défaut
+\DeclareOption{tikz}{\tv@tikztrue}
+\newif\iftv@pstricks
+\DeclareOption{pstricks}{\tv@pstrickstrue}
+\ProcessOptions \relax
+
+\iftv@pstricks
+    \ifpdf
+        \PackageError{tablvar}{Don't use the pstricks option with PDF engines}{}
+    \else
+        \PackageInfo{tablvar}{PSTricks option is used}
+    \fi
+\else\iftv@tikz
+    \PackageInfo{tablvar}{tikz option is used.
+        \MessageBreak
+        Run twice to draw the arrows correctly}
+\else\ifpdf
+    \PackageWarningNoLine{tablvar}{PDF engine is used,
+        I'm using the tikz option.
+        \MessageBreak
+        Run twice to draw the arrows correctly}
+    \tv@tikztrue
+\else
+    \PackageWarningNoLine{tablvar}{PDF engines not used,
+        I'm using the pstricks option}
+    \tv@pstrickstrue
+\fi\fi\fi
+
+\iftv@tikz
+    \RequirePackage{tikz}
+    \usetikzlibrary{patterns}
+    \usetikzlibrary{patterns.meta}% pour le paramétrage des hachures
+\else % pstricks=true
+    \RequirePackage{pst-node}
+\fi
+
+\newlength{\intervalwidth}
+\setlength{\intervalwidth}{3em} % largeur des "intervalles"
+
+\newlength{\colvalwidth}
+\setlength{\colvalwidth}{2em} % largeur des colonnes de valeurs
+
+\newlength{\firstcolsep}
+\setlength{\firstcolsep}{5pt} % valeur LaTeX par défaut
+
+\newlength{\bordercolsep}
+\setlength{\bordercolsep}{2pt}
+
+\newlength{\limsep}
+\setlength{\limsep}{1pt}
+
+\newcommand{\tablvarstretch}{1.6}
+
+\newcommand{\ZItype}{h}
+
+\definecolor{ZIcolor}{named}{gray}
+
+\newlength{\ZIaddwidth}
+\setlength{\ZIaddwidth}{0pt}
+
+\define@key{tablvar}{intervalwidth}{\setlength{\intervalwidth}{#1}}
+\define@key{tablvar}{colvalwidth}{\setlength{\colvalwidth}{#1}}
+\define@key{tablvar}{firstcolsep}{\setlength{\firstcolsep}{#1}}
+\define@key{tablvar}{bordercolsep}{\setlength{\bordercolsep}{#1}}
+\define@key{tablvar}{limsep}{\setlength{\limsep}{#1}}
+\define@key{tablvar}{stretch}{\renewcommand{\tablvarstretch}{#1}}
+\define@boolkey{tablvar}[]{extleft}[true]{} % false si non appelé
+\define@boolkey{tablvar}[]{extright}[true]{}
+\define@choicekey{tablvar}{ZItype}{h,c}{\renewcommand{\ZItype}{#1}}
+\define@key{tablvar}{ZIcolor}{\definecolor{ZIcolor}{named}{#1}}
+\define@key{tablvar}{ZIaddwidth}{\setlength{\ZIaddwidth}{#1}}
+
+\newcommand\tablvarset[1]{\setkeys{tablvar}{#1}}
+
+\newlength{\tvrulewidth}
+\setlength{\tvrulewidth}{0.4pt}
+
+\newlength{\tvbarrewidth}
+\setlength{\tvbarrewidth}{0.5pt}
+\definecolor{tvbarrecolor}{gray}{0.7}
+
+\newlength{\bbrulewidth}
+\setlength{\bbrulewidth}{0.4pt}
+
+\newlength{\innercolsep}
+\setlength{\innercolsep}{0pt}
+
+\newcounter{maxdiscont}
+\setcounter{maxdiscont}{4} % nb max de discontinuités
+
+\newcommand*{\fleche}[2]{
+    \iftv@tikz
+        \tikz[remember picture,overlay]{\draw[->,>=stealth,
+            line width=0.6pt] (#1) -- (#2);}
+    \else
+        \ncline[arrowsize=2pt 2,arrowinset=0.4,nodesep=3pt,
+            linewidth=0.6pt]{->}{#1}{#2}
+    \fi
+}
+
+\newcommand*{\vrconnect}[2]{
+    \iftv@tikz
+        \tikz[remember picture,overlay]{\draw[dotted,line width=1pt]
+            (#1) -- (#2);}
+    \else
+        \ncline[nodesep=5pt,linestyle=dotted,linewidth=1pt]{-}{#1}{#2}
+    \fi
+}
+
+\newcommand*{\noeud}[3][c]{
+    \iftv@tikz
+        % fonctionne mal avec autre chose que 'anchor=base'
+        \tikz[remember picture,baseline]{% surtout pas de overlay ici
+            \node[anchor=base,inner sep=0pt,outer sep=4pt] at (0,0) (#2)
+                {$#3$};}
+    \else
+        \rnode[#1]{#2}{#3}
+    \fi
+}
+
+\newcommand*{\hachure}[2]{
+    \iftv@tikz
+        \tikz[remember picture,overlay]{%
+            \fill[pattern={Lines[distance=3pt,angle=135,line width=0.2pt]}]
+            (#1) rectangle (#2);}
+    \else
+        \psframe[linestyle=none,fillstyle=vlines,hatchwidth=0.2pt,
+            hatchsep=3pt](#1)(#2)
+    \fi
+}
+
+\newcommand*{\ZIcouleur}[2]{
+    \iftv@tikz
+        \tikz[remember picture,overlay]{\fill[color=ZIcolor,opacity=0.3]
+            (#1) rectangle (#2);}
+    \else
+        \psframe[linestyle=none,fillstyle=solid,opacity=0.3,
+            fillcolor=ZIcolor](#1)(#2)
+    \fi
+}
+
+\newcounter{var@ligne} % numéro de ligne des variations
+\newcounter{var@noeud} % numéro du nœud des variations
+\newcounter{numvr} % numéro de la valeur remarquable
+\newcounter{nb@intervals} % nombre de colonnes "intervalles"
+\newcounter{numdiscont} % numéro de la discontinuité
+\AtBeginDocument{% car maxdiscont a pu être modifié dans le préambule
+    \stepcounter{maxdiscont}
+    % il faut un compteur de plus que le nb de discontinuités
+    \multido{\I=1+1}{\themaxdiscont}{\newcounter{discont\I}}
+}
+
+\newlength\mil@heightshift
+\newcounter{mil@rowshift}
+
+\newcounter{maxZI} % nb max de ZI
+\setcounter{maxZI}{4}
+\newlength{\ZIheight}
+\newlength{\ZIheighti}
+\newlength{\ZIheightii}
+\newlength{\ZIheightiii}
+\newlength{\ZIheightiv}
+\newlength{\ZIdepth}
+\newlength{\ZIwidth}
+\newcounter{nbZI} % nombre de ZI utilisées
+\newcounter{numZI} % numéro de ZI courant
+\newcounter{nbvarlignes} % nombre de lignes des variations
+\multido{\I=1+1}{\themaxZI}{\newcounter{ZI\I}}
+\newcounter{tv@icol} % numéro de colonne "intervalle"
+\newcounter{tv@row} % numéro de ligne du tableau
+\newsavebox{\tv@cellbox}
+\newlength{\tv@cellheight}
+\newlength{\tv@celldepth}
+
+\newcommand*{\tablvarinit}[1]{
+    \setlength{\extrarowheight}{0pt} % paramètre de l'extension array
+    \renewcommand{\arraystretch}{\tablvarstretch}
+    \setlength{\arrayrulewidth}{\tvrulewidth}
+    \setcounter{var@ligne}{0}
+    \setcounter{numvr}{0}
+    \setcounter{tv@row}{0}
+    \setcounter{nb@intervals}{#1}
+    \addtocounter{nb@intervals}{-1}
+}
+
+\newcommand{\ZIinit}{
+    \global\ZIheighti=0pt
+    \global\ZIheightii=0pt
+    \global\ZIheightiii=0pt
+    \global\ZIheightiv=0pt
+    \setcounter{nbZI}{0}
+    \multido{\I=1+1}{\themaxZI}{\setcounter{ZI\I}{0}}
+    \setcounter{nbvarlignes}{3}
+}
+
+\newcommand\tv@saveheight{%
+    \tv@cellheight=0pt
+    \tv@celldepth=0pt
+    \ifdim \ht\tv@cellbox > \ht\@arstrutbox
+        \global\advance\tv@cellheight by \ht\tv@cellbox
+    \else
+        \global\advance\tv@cellheight by \ht\@arstrutbox
+    \fi
+    \ifdim \dp\tv@cellbox > \dp\@arstrutbox
+        \global\advance\tv@celldepth by \dp\tv@cellbox
+    \else
+        \global\advance\tv@celldepth by \dp\@arstrutbox
+    \fi
+}
+
+\newcommand{\tvcoltypes}{
+    % type de colonne A pour les légendes à gauche du tableau
+    \newcolumntype{A}{%
+        >{\setcounter{tv@icol}{0}\stepcounter{tv@row}\begin{lrbox}%
+            \tv@cellbox $}%
+        c%
+        <{$\end{lrbox}\usebox{\tv@cellbox}\tv@saveheight}}
+    % type de colonne i pour les intervalles
+    \newcolumntype{i}{>{\stepcounter{tv@icol}
+        \centering\arraybackslash$}p{\intervalwidth}<{$}}
+    % type de colonne v pour les valeurs
+    \newcolumntype{v}[1]{% un argument optionnel ne fonctionne pas ici
+        >{\ifthenelse{\value{tv@row}=1}{\begin{lrbox}\tv@cellbox $}{}}%
+        ##1%
+        <{\ifthenelse{\value{tv@row}=1}{$\end{lrbox}%
+            \makebox[\colvalwidth][##1]{\usebox\tv@cellbox}}{}}}
+}
+
+\newenvironment{tablvar}[2][]{%
+    \setkeys*{tablvar}{#1} % fourni par xkeyval
+    \if\XKV@rm\empty \else \setlength{\intervalwidth}{#1} \fi
+    \tvcoltypes
+    \ifextleft \newcolumntype{B}{v{l}} \else \newcolumntype{B}{v{c}} \fi
+    \ifextright \newcolumntype{E}{v{r}} \else \newcolumntype{E}{v{c}} \fi
+    \tablvarinit{#2}
+    \ZIinit
+    \begin{array}{%
+        |@{\hspace{\firstcolsep}}%
+        A@{\hspace{\firstcolsep}}%
+        |@{\hspace{\bordercolsep}}%
+        B@{\hspace{\innercolsep}}%
+        i@{\hspace{\innercolsep}}%
+        *{\value{nb@intervals}}{
+            v{c}@{\hspace{\innercolsep}}%
+            i@{\hspace{\innercolsep}}%
+        }%
+        E@{\hspace{\bordercolsep}}|%
+    }
+}{\end{array}}
+\newenvironment{tablvar*}[2][]{%
+    \setkeys*{tablvar}{#1} % fourni par xkeyval
+    \if\XKV@rm\empty \else \setlength{\intervalwidth}{#1} \fi
+    \begin{tablvar}[extleft,extright]{#2}
+}{\end{tablvar}}
+\newcounter{loop@counter}
+\newcommand{\varloop}[2]{%
+    \setcounter{loop@counter}{#1}
+    \addtocounter{loop@counter}{-1}% on boucle 1 fois de moins que #1
+    \ifthenelse{\value{loop@counter}=0}{}{%
+        #2 \varloop{\value{loop@counter}}{#2}%
+    }
+}
+
+\newcommand*{\variations}[2][3]{% #1=nblignes (3 par défaut)
+    % (ré)initialisation des compteurs
+    \setcounter{nbvarlignes}{#1}
+    \setcounter{var@ligne}{0}
+    \setcounter{numdiscont}{0}
+    \multido{\I=1+1}{\themaxdiscont}{\setcounter{discont\I}{0}}
+    % boucle : on exécute le code #2 un nb de fois égal à (#1)-1
+    \varloop{#1}{%
+        \setcounter{var@noeud}{0}\setcounter{numvr}{0}
+        % à chaque tour de boucle on réinitialise les compteurs de nœuds
+        \stepcounter{var@ligne} % le numéro de ligne est incrémenté
+        #2 % les nœuds sont fabriqués par le code #2 (avec \pos et \vr)
+        \\ % retour ligne
+        }
+    % dernière itération -> flèches tracées AVANT \\ sinon bug !?
+    \setcounter{var@noeud}{0}\setcounter{numvr}{0}
+    \stepcounter{var@ligne} #2
+    % tracé des flèches
+    \addtocounter{var@noeud}{-1} % 1 flèche de moins que le nb de nœuds
+    \setcounter{numdiscont}{1}
+    \multido{\Ix=1+1,\Iy=2+1}{\thevar@noeud}{
+        \ifthenelse{\value{discont\thenumdiscont}=\Ix}{
+            % on saute les discontinuités
+            \stepcounter{numdiscont}}{
+            % sinon on trace la flèche N1->N2 puis N2->N3, etc.
+            \fleche{N\Ix}{N\Iy}
+        }
+    }
+    % tracé des pointillés pour les valeurs remarquables
+    \multido{\Ix=1+1}{\thenumvr}{\vrconnect{X\Ix}{Y\Ix}}
+    \\ % dernier retour ligne du tableau
+}
+
+\newcommand*{\valpos}[3][c]{
+    \stepcounter{var@noeud}
+    \ifthenelse{\thevar@ligne=#2}{
+        \noeud[#1]{N\thevar@noeud}{#3}
+    }{} % si ligne != #2, on ne fait rien
+}
+
+\newcommand*{\zbox}[2][c]{\makebox[0pt][#1]{$#2$}}
+
+\newcommand*{\tv@pos}[3][c]{
+    \def\val@@pos{c}
+    \ifextleft
+        \ifthenelse{\thetv@icol=0}{\def\val@@pos{l}}{}
+    \fi
+    \ifextright
+        \ifthenelse{\thetv@icol>\thenb@intervals}{\def\val@@pos{r}}{}
+    \fi
+    \zbox[\val@@pos]{\valpos[#1]{#2}{#3}}
+}
+\newcommand*{\tv@@pos}[2]{\ifthenelse{\thevar@ligne=#1}{#2}{}}
+\newcommand*{\pos}{\@ifstar{\tv@@pos}{\tv@pos}}
+
+\newcommand*{\haut}{\pos{1}}
+
+\newcommand*{\bas}{\pos{\value{nbvarlignes}}}
+
+\newcommand*{\vdecal}[2]{\smash{\raisebox{#1}{$#2$}}}
+
+\newcommand*{\mil}[1]{%
+    \mil@heightshift = \ht\@arstrutbox
+    \advance\mil@heightshift by \dp\@arstrutbox
+    \divide\mil@heightshift by 2
+    \setcounter{mil@rowshift}{3}
+    \addtocounter{mil@rowshift}{-\value{nbvarlignes}}
+    \multiply\mil@heightshift by \value{mil@rowshift}
+    \pos*{2}{\vdecal{\mil@heightshift}{#1}}
+}
+
+\newcommand*{\barre}[1][]{\makebox[0pt]{$#1$}%
+    \color{tvbarrecolor}%
+    \hspace{-0.5\tvbarrewidth}\vrule width \tvbarrewidth}
+
+\newcommand*{\bb}{%
+    \kern1.5pt\vrule width \bbrulewidth\kern1pt
+    \vrule width \bbrulewidth\kern1.5pt}
+
+\newcommand*{\limg}[3][c]{\zbox[r]{\valpos[#1]{#2}{#3\hspace{\limsep}}}}
+\newcommand*{\limd}[3][c]{\zbox[l]{\valpos[#1]{#2}{\hspace{\limsep}#3}}}
+
+\newcommand*{\discont}{
+    \ifthenelse{\thevar@ligne=1}{
+        % on ne compte les discontinuités qu'une seule fois, sur ligne 1
+        \ifthenelse{\thenumdiscont=0}{
+            \ifthenelse{\thevar@noeud > 0}{% pas avant le 1er nœud
+                \stepcounter{numdiscont}
+                \setcounter{discont\thenumdiscont}{\thevar@noeud}
+            }{}
+        }{% on ne compte pas 2 fois la même discontinuité
+            \ifthenelse{\thevar@noeud > \value{discont\thenumdiscont}}{
+                \stepcounter{numdiscont}
+                \setcounter{discont\thenumdiscont}{\thevar@noeud}
+            }{}
+        }
+    }{}
+}
+
+\newcommand*{\bblim}[4]{\limg{#1}{#2}\bb\discont\limd{#3}{#4}}
+
+\newcommand*{\vr}[2][2]{% ligne 2 par défaut sauf si tv@row=1
+    \stepcounter{numvr}
+    \ifthenelse{\thetv@row=1}{\noeud{X\thenumvr}{#2}}{
+        \ifthenelse{\thevar@ligne=#1}{\noeud{Y\thenumvr}{#2}}{}
+    }
+}
+
+\newcommand*{\posvr}[3][c]{%
+    \stepcounter{numvr}
+    \tv@pos[#1]{#2}{\noeud{Y\thenumvr}{#3}}}
+
+\newcommand\ZIfind{% calcule numZI
+   \setcounter{numZI}{0}
+    \multido{\I=1+1}{\thenbZI}{% il existe déjà des ZI à la même colonne
+        \ifthenelse{\value{ZI\I}=\value{tv@icol}}{
+            \setcounter{numZI}{\I}
+        }{}
+    }
+}
+
+\newcommand\ZInew{
+    \multido{\I=1+1}{\thenbZI}{% on cherche s'il y a des ZI\I=0
+        \ifthenelse{\value{ZI\I}=0}{\setcounter{numZI}{\I}}{}
+    }
+    \ifthenelse{\value{numZI}>0}{}{
+        % si pas de ZI disponible il faut augmenter nbZI
+        \stepcounter{nbZI}
+        \setcounter{numZI}{\value{nbZI}}
+    }
+    \setcounter{ZI\thenumZI}{\value{tv@icol}}
+}
+
+\newcommand*\ZIreset[1]{
+    \ifnum #1 > 0 \setcounter{ZI#1}{0} \fi
+    \ifnum #1 = 1
+        \global\ZIheighti=0pt
+    \else \ifnum #1 = 2
+        \global\ZIheightii=0pt
+    \else \ifnum #1 = 3
+        \global\ZIheightiii=0pt
+    \else \ifnum #1 = 4
+        \global\ZIheightiv=0pt
+    \fi\fi\fi\fi
+}
+
+\newcommand*\ZIaddheight[1]{
+    \ZIheight=0pt
+    \advance\ZIheight by \tv@cellheight
+    \advance\ZIheight by \tv@celldepth
+    \advance\ZIheight by 0.5\arrayrulewidth
+    \ifnum #1 = 1
+        \global\advance\ZIheighti by \ZIheight
+    \else \ifnum #1 = 2
+        \global\advance\ZIheightii by \ZIheight
+    \else \ifnum #1 = 3
+        \global\advance\ZIheightiii by \ZIheight
+    \else \ifnum #1 = 4
+        \global\advance\ZIheightiv by \ZIheight
+    \fi\fi\fi\fi
+}
+
+\newcommand*\ZIgetheight[1]{%
+    \ifnum #1=1
+        \global\ZIheight=\ZIheighti
+    \else \ifnum #1 = 2
+        \global\ZIheight=\ZIheightii
+    \else \ifnum #1 = 3
+        \global\ZIheight=\ZIheightiii
+    \else \ifnum #1 = 4
+        \global\ZIheight=\ZIheightiv
+    \fi\fi\fi\fi
+}
+\newcommand*{\@ZI}[1][0pt]{%
+    \discont
+    \ifthenelse{\thevar@ligne=\value{nbvarlignes}}{\@@ZI[#1]}{%
+        \ZIfind
+        \ifnum \thenumZI = 0 \ZInew \fi
+        \ZIaddheight{\thenumZI}
+    }
+}
+
+\newcommand*{\@@ZI}[1][0pt]{
+    \discont
+    \ZIfind
+    \ifnum \thenumZI > 0 \ZIgetheight{\thenumZI} \else \ZIheight=0pt \fi
+    \advance\ZIheight by \tv@cellheight
+    \advance\ZIheight by 0.5\arrayrulewidth
+    \advance\ZIheight by #1
+    \ZIdepth = \tv@celldepth
+    \ZIwidth = \intervalwidth
+    \advance\ZIwidth by 2\innercolsep
+    \advance\ZIwidth by \colvalwidth
+    \advance\ZIwidth by -1pt % au bord des double barres
+    \advance\ZIwidth by \ZIaddwidth
+    \ifthenelse{\equal{\ZItype}{h}}{
+        \hachure{-0.5\ZIwidth,-\ZIdepth}{0.5\ZIwidth,\ZIheight}
+    }{
+        \ZIcouleur{-0.5\ZIwidth,-\ZIdepth}{0.5\ZIwidth,\ZIheight}
+    }
+    \ZIreset{\thenumZI}
+}
+
+\newcommand*{\ZI}{\@ifstar{\@@ZI}{\@ZI}}
+
+\newcommand*{\ZIc}[1][0pt]{\renewcommand{\ZItype}{c}\@@ZI[#1]}
+\newcommand{\ZIh}{\renewcommand{\ZItype}{h}\ZI}
+\endinput
+%%
+%% End of file `tablvar.sty'.

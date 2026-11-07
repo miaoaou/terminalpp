@@ -1,0 +1,18 @@
+name koma-script-sfs
+category Package
+revision 26137
+shortdesc Koma-script letter class option for Finnish
+relocated 1
+longdesc A koma-script parameter set for letters on A4 paper, complying
+longdesc with Finnish standards SFS 2486, 2487 and 2488; suitable for
+longdesc window envelopes with window on the left size in the sizes C5,
+longdesc C65, E5 and E65 (although, because the address window is
+longdesc smaller, for sizes E5 and E65 the address may not fit within
+longdesc the window, but ordinary 3-line address should fit).
+runfiles size=2
+ RELOC/tex/latex/koma-script-sfs/SFS.lco
+catalogue-ctan /macros/latex/contrib/koma-script-SFS
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics letter
+catalogue-version 1.0

@@ -1,0 +1,17 @@
+name decimalcomma
+category Package
+revision 69251
+shortdesc Comma for decimal numbers
+relocated 1
+longdesc This small package offers a new definition of the comma ',' as
+longdesc an active character. It ensures the correct spacing in
+longdesc mathematical mode when using the comma either as a decimal
+longdesc separator or as a list separator. With this package, the comma
+longdesc behaves similarly to ncccomma, but the code is lighter, and
+longdesc several compatibility issues have been fixed.
+runfiles size=1
+ RELOC/tex/latex/decimalcomma/decimalcomma.sty
+catalogue-ctan /macros/latex/contrib/decimalcomma
+catalogue-license lppl1.3
+catalogue-topics maths numbers typesetting
+catalogue-version 1.4

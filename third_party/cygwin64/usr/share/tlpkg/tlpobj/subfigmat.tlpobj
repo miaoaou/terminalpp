@@ -1,0 +1,16 @@
+name subfigmat
+category Package
+revision 20308
+shortdesc Automates layout when using the subfigure package
+relocated 1
+longdesc Defines an array/matrix-type environment that is used with the
+longdesc subfigure package to automate the placement of subfigures (or
+longdesc tables or text). The subfigures are placed left-to-right,
+longdesc top-to-bottom.
+runfiles size=2
+ RELOC/tex/latex/subfigmat/subfigmat.sty
+catalogue-ctan /macros/latex/contrib/subfigmat
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics matrix float
+catalogue-version 1.0

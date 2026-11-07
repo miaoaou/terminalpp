@@ -1,0 +1,29 @@
+name non-decimal-units
+category Package
+revision 69742
+shortdesc Display and manipulate historical non-decimal units
+relocated 1
+longdesc Many historical unit systems were non-decimal. For example, the
+longdesc Danish rigsdaler -- where 1 rigsdaler consists of 6 mark, each
+longdesc again consisting of 16 skilling for a total of 96 skilling per
+longdesc rigsdaler -- was used from 1625 to 1875, when currency was
+longdesc decimalised to the current system of 1 krone = 100 ore. Units
+longdesc for such measures as length, area, weight, and so on were also
+longdesc often non-decimal, and in fact remain so in the few places of
+longdesc the world that have not made the change to the metric system.
+longdesc The non-decimal numbers were chosen due to their larger number
+longdesc of division factors, which simplified mental arithmetic, eg.
+longdesc when sharing an amount of money or dividing goods. This package
+longdesc enables creation and configuration of such units to facilitate
+longdesc their presentation in textual and tabular contexts, as well as
+longdesc simple arithmetic.
+runfiles size=8
+ RELOC/tex/latex/non-decimal-units/non-decimal-units.british.tex
+ RELOC/tex/latex/non-decimal-units/non-decimal-units.danish.tex
+ RELOC/tex/latex/non-decimal-units/non-decimal-units.german.tex
+ RELOC/tex/latex/non-decimal-units/non-decimal-units.sty
+catalogue-contact-bugs https://github.com/mikkelee/latex-units/issues
+catalogue-contact-repository https://github.com/mikkelee/latex-units
+catalogue-ctan /macros/latex/contrib/non-decimal-units
+catalogue-license cc-by-sa-4
+catalogue-topics units expl3

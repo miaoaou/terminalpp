@@ -1,0 +1,30 @@
+name footmisx
+category Package
+revision 42621
+shortdesc A range of footnote options
+relocated 1
+longdesc This a fork of footmisc package allowing to use hyperref. Here
+longdesc is a copy of the description of package footmisc: A collection
+longdesc of ways to change the typesetting of footnotes. The package
+longdesc provides means of changing the layout of the footnotes
+longdesc themselves (including setting them in 'paragraphs' -- the para
+longdesc option), a way to number footnotes per page (the perpage
+longdesc option), to make footnotes disappear in a 'moving' argument
+longdesc (stable option) and to deal with multiple references to
+longdesc footnotes from the same place (multiple option). The package
+longdesc also has a range of techniques for labelling footnotes with
+longdesc symbols rather than numbers. Some of the functions of the
+longdesc package are overlap with the functionality of other packages.
+longdesc The para option is also provided by the manyfoot and bigfoot
+longdesc packages, though those are both also portmanteau packages.
+longdesc (Don't be seduced by fnpara, whose implementation is improved
+longdesc by the present package.) The perpage option is also offered by
+longdesc footnpag and by the rather more general-purpose perpage
+runfiles size=7
+ RELOC/tex/latex/footmisx/footmisx.sty
+catalogue-also endnotes ftnright
+catalogue-ctan /macros/latex/contrib/footmisx
+catalogue-date 2016-12-06 05:11:09 +0100
+catalogue-license lppl1.3
+catalogue-topics footnote
+catalogue-version 20161201

@@ -1,0 +1,19 @@
+name manfnt-font
+category Package
+revision 45777
+catalogue manual
+shortdesc Knuth's "manual" fonts
+relocated 1
+longdesc Metafont (by Donald Knuth) and Adobe Type 1 (by Taco Hoekwater)
+longdesc versions of the font containing the odd symbols Knuth uses in
+longdesc his books. LaTeX support is available using the manfnt package
+execute addMixedMap manfnt.map
+runfiles size=13
+ RELOC/fonts/afm/hoekwater/manfnt-font/manfnt.afm
+ RELOC/fonts/map/dvips/manfnt-font/manfnt.map
+ RELOC/fonts/type1/hoekwater/manfnt-font/manfnt.pfb
+ RELOC/fonts/type1/hoekwater/manfnt-font/manfnt.pfm
+catalogue-ctan /fonts/manual
+catalogue-date 2016-11-05 08:51:03 +0100
+catalogue-license knuth
+catalogue-topics font font-mf font-type1 font-symbol

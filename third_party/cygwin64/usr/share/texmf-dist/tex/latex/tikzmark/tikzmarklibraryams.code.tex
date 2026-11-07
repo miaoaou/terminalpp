@@ -1,0 +1,67 @@
+%%
+%% This is file `tikzmarklibraryams.code.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tikzmark.dtx  (with options: `ams')
+%% ----------------------------------------------------------------
+%% tikzmark --- remembering absolute positioning with TikZ.
+%% E-mail: loopspace@mathforge.org
+%% Released under the LaTeX Project Public License v1.3c or later
+%% See http://www.latex-project.org/lppl.txt
+%% ----------------------------------------------------------------
+%% 
+
+\@ifpackageloaded{amsmath}{%
+  \let\tikzmark@ams@boxz@=\boxz@
+  \newcounter{tikzmarkequation}
+  \def\tikzmark@ams@name{equation}
+  \def\tikzmark@boxz@{%
+    \ifmeasuring@
+    \tikzmark@ams@boxz@
+    \else
+    \stepcounter{tikzmarkequation}%
+    \tikzmark@box{\tikzmark@ams@name-\thetikzmarkequation}{\z@}%
+    \fi
+  }
+  \newenvironment{tikzmarkmath}[1][equation]{%
+    \def\tikzmark@ams@name{#1}%
+    \setcounter{tikzmarkequation}{0}%
+    \let\boxz@=\tikzmark@boxz@
+  }{%
+    \let\boxz@=\tikzmark@ams@boxz@
+    \message{%
+      Tikzmark math environment
+      \tikzmark@ams@name\space had
+      \the\value{tikzmarkequation} nodes in it
+    }%
+  }
+}{%
+  \PackageError{tikzmark AMS}%
+  {The amsmath package has not been loaded.}%
+  {}
+}
+%% 
+%% Copyright (C) 2011-2021 by Andrew Stacey <loopspace@mathforge.org>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or (at your option) any later
+%% version.  The latest version of this license is in the file:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Andrew Stacey.
+%% 
+%% This work consists of the file  tikzmark.dtx
+%% and the derived files           tikzmark.ins,
+%%                                 tikzmark.pdf,
+%%                                 tikzlibrarytikzmark.code.tex, and
+%%                                 tikzmarklibrarylistings.code.tex
+%%                                 tikzmarklibraryhighlighting.code.tex
+%%                                 tikzmarklibraryams.code.tex
+%% 
+%%
+%% End of file `tikzmarklibraryams.code.tex'.

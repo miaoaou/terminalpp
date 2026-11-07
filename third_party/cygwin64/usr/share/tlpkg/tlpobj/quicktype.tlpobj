@@ -1,0 +1,16 @@
+name quicktype
+category Package
+revision 42183
+shortdesc LaTeX package for quick typesetting
+relocated 1
+longdesc Intended for the quick typesetting of basic documents using
+longdesc LaTeX using shortcuts to existing commands and specific
+longdesc commands for quick formatting and creation of tables and title
+longdesc pages with a graphic image.
+runfiles size=1
+ RELOC/tex/latex/quicktype/quicktype.sty
+catalogue-ctan /macros/latex/contrib/quicktype
+catalogue-date 2016-10-08 06:05:32 +0200
+catalogue-license lppl1.3
+catalogue-topics shortcut
+catalogue-version 0.1

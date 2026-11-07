@@ -1,0 +1,14 @@
+name luasseq
+category Package
+revision 65511
+shortdesc Drawing spectral sequences in LuaLaTeX
+relocated 1
+longdesc The package is an update of the author's sseq package, for use
+longdesc with LuaLaTeX. This version uses less memory, and operates
+longdesc faster than the original; it also offers several enhancements.
+runfiles size=11
+ RELOC/scripts/luasseq/luasseq.lua
+ RELOC/tex/lualatex/luasseq/luasseq.sty
+catalogue-ctan /macros/luatex/latex/luasseq
+catalogue-license lppl1.3
+catalogue-topics maths luatex

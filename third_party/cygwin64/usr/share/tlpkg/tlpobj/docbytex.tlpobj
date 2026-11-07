@@ -1,0 +1,14 @@
+name docbytex
+category Package
+revision 34294
+shortdesc Creating documentation from source code
+relocated 1
+longdesc The package creates documentation from C source code, or other
+longdesc programming languages.
+runfiles size=10
+ RELOC/tex/generic/docbytex/docby.tex
+catalogue-contact-home http://www.olsak.net/docbytex.html
+catalogue-ctan /macros/generic/docbytex
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license other-free
+catalogue-topics program-doc

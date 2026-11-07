@@ -1,0 +1,22 @@
+name collargs
+category Package
+revision 69284
+shortdesc Collect arguments of any command
+relocated 1
+longdesc This is a cross-format package providing a command which can
+longdesc determine the argument scope of any command whose argument
+longdesc structure conforms to xparse's argument specification. It was
+longdesc implemented as an auxiliary package of Advice ... which in turn
+longdesc was implemented as an auxiliary package of Memoize. This is why
+longdesc it is, somewhat unconventionally, documented alongside that
+longdesc package. This applies to both the manual and the documented
+longdesc code listing.
+runfiles size=34
+ RELOC/tex/context/third/collargs/t-collargs.tex
+ RELOC/tex/latex/collargs/collargs.sty
+ RELOC/tex/plain/collargs/collargs.tex
+catalogue-contact-repository https://github.com/sasozivanovic/memoize
+catalogue-ctan /macros/generic/collargs
+catalogue-license lppl1.3c
+catalogue-topics macro-supp macro-gen
+catalogue-version 1.1.0

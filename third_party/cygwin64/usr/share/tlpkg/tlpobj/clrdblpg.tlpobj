@@ -1,0 +1,19 @@
+name clrdblpg
+category Package
+revision 47511
+shortdesc Control pagestyle of pages left blank by \cleardoublepage
+relocated 1
+longdesc This tiny package allows easy manipulation of the headers and
+longdesc footers on pages left blank by \cleardoublepage. By default,
+longdesc LaTeX has no easy facilities for this. This package uses more
+longdesc or less the algorithm listed in the fancyhdr package
+longdesc documentation, with some better indentation and added
+longdesc flexibility.
+runfiles size=1
+ RELOC/tex/latex/clrdblpg/clrdblpg.sty
+catalogue-also fancyhdr
+catalogue-ctan /macros/latex/contrib/clrdblpg
+catalogue-date 2018-05-07 04:39:01 +0200
+catalogue-license lppl1.3
+catalogue-topics page-hf
+catalogue-version 1.0

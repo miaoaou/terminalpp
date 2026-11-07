@@ -1,0 +1,152 @@
+name psnfss
+category Package
+revision 54694
+shortdesc Font support for common PostScript fonts
+relocated 1
+longdesc Font definition files, macros and font metrics for
+longdesc freely-available Adobe Type 1 fonts. The font set consists of
+longdesc the 'LaserWriter 35' set (originally 'freely available' because
+longdesc embedded in PostScript printers), and a variety of other free
+longdesc fonts, together with some additions. Note that while many of
+longdesc the fonts are available in PostScript (and other) printers,
+longdesc most publishers require fonts embedded in documents, which
+longdesc requires that you have the fonts in your TeX system.
+longdesc Fortunately, there are free versions of the fonts from URW
+longdesc (available in the URW base5 bundle). The base set of text fonts
+longdesc covered by PSNFSS are: AvantGarde, Bookman, Courier, Helvetica,
+longdesc New Century Schoolbook, Palatino, Symbol, Times Roman and Zapf
+longdesc Dingbats. In addition, the fonts Bitstream Charter and Adobe
+longdesc Utopia are covered (those fonts were contributed to the Public
+longdesc Domain by their commercial foundries). Separate packages are
+longdesc provided to load each font for use as main text font. The
+longdesc packages helvet (which allows Helvetica to be loaded with its
+longdesc size scaled to something more nearly appropriate for its use as
+longdesc a Sans-Serif font to match Times) and pifont (which provides
+longdesc the means to select single glyphs from symbol fonts) are
+longdesc tailored to special requirements of their fonts. Mathematics
+longdesc are covered by the mathptmx package, which constructs passable
+longdesc mathematics from a combination of Times Roman, Symbol and some
+longdesc glyphs from Computer Modern, and by Pazo Math (optionally
+longdesc extended with the fpl small-caps and old-style figures fonts)
+longdesc which uses Palatino as base font, with the mathpazo fonts. The
+longdesc bundle as a whole is part of the LaTeX 'required' set of
+longdesc packages.
+depend symbol
+depend zapfding
+depend graphics
+execute addMap charter.map
+execute addMap fpls.map
+execute addMap pazo.map
+execute addMap utopia.map
+runfiles size=110
+ RELOC/fonts/map/dvips/psnfss/charter.map
+ RELOC/fonts/map/dvips/psnfss/fpls.map
+ RELOC/fonts/map/dvips/psnfss/pazo.map
+ RELOC/fonts/map/dvips/psnfss/psnfss.map
+ RELOC/fonts/map/dvips/psnfss/utopia.map
+ RELOC/tex/latex/psnfss/8rbch.fd
+ RELOC/tex/latex/psnfss/8rpag.fd
+ RELOC/tex/latex/psnfss/8rpbk.fd
+ RELOC/tex/latex/psnfss/8rpcr.fd
+ RELOC/tex/latex/psnfss/8rphv.fd
+ RELOC/tex/latex/psnfss/8rpnc.fd
+ RELOC/tex/latex/psnfss/8rppl.fd
+ RELOC/tex/latex/psnfss/8rptm.fd
+ RELOC/tex/latex/psnfss/8rput.fd
+ RELOC/tex/latex/psnfss/8rpzc.fd
+ RELOC/tex/latex/psnfss/avant.sty
+ RELOC/tex/latex/psnfss/bookman.sty
+ RELOC/tex/latex/psnfss/chancery.sty
+ RELOC/tex/latex/psnfss/charter.sty
+ RELOC/tex/latex/psnfss/courier.sty
+ RELOC/tex/latex/psnfss/helvet.sty
+ RELOC/tex/latex/psnfss/mathpazo.sty
+ RELOC/tex/latex/psnfss/mathpple.sty
+ RELOC/tex/latex/psnfss/mathptm.sty
+ RELOC/tex/latex/psnfss/mathptmx.sty
+ RELOC/tex/latex/psnfss/newcent.sty
+ RELOC/tex/latex/psnfss/omlbch.fd
+ RELOC/tex/latex/psnfss/omlpag.fd
+ RELOC/tex/latex/psnfss/omlpbk.fd
+ RELOC/tex/latex/psnfss/omlpcr.fd
+ RELOC/tex/latex/psnfss/omlphv.fd
+ RELOC/tex/latex/psnfss/omlpnc.fd
+ RELOC/tex/latex/psnfss/omlppl.fd
+ RELOC/tex/latex/psnfss/omlptm.fd
+ RELOC/tex/latex/psnfss/omlptmcm.fd
+ RELOC/tex/latex/psnfss/omlput.fd
+ RELOC/tex/latex/psnfss/omlpzc.fd
+ RELOC/tex/latex/psnfss/omlzplm.fd
+ RELOC/tex/latex/psnfss/omlzpple.fd
+ RELOC/tex/latex/psnfss/omlztmcm.fd
+ RELOC/tex/latex/psnfss/omsbch.fd
+ RELOC/tex/latex/psnfss/omspag.fd
+ RELOC/tex/latex/psnfss/omspbk.fd
+ RELOC/tex/latex/psnfss/omspcr.fd
+ RELOC/tex/latex/psnfss/omsphv.fd
+ RELOC/tex/latex/psnfss/omspnc.fd
+ RELOC/tex/latex/psnfss/omsppl.fd
+ RELOC/tex/latex/psnfss/omsptm.fd
+ RELOC/tex/latex/psnfss/omsput.fd
+ RELOC/tex/latex/psnfss/omspzc.fd
+ RELOC/tex/latex/psnfss/omspzccm.fd
+ RELOC/tex/latex/psnfss/omszplm.fd
+ RELOC/tex/latex/psnfss/omszpple.fd
+ RELOC/tex/latex/psnfss/omsztmcm.fd
+ RELOC/tex/latex/psnfss/omxpsycm.fd
+ RELOC/tex/latex/psnfss/omxzplm.fd
+ RELOC/tex/latex/psnfss/omxzpple.fd
+ RELOC/tex/latex/psnfss/omxztmcm.fd
+ RELOC/tex/latex/psnfss/ot1bch.fd
+ RELOC/tex/latex/psnfss/ot1pag.fd
+ RELOC/tex/latex/psnfss/ot1pbk.fd
+ RELOC/tex/latex/psnfss/ot1pcr.fd
+ RELOC/tex/latex/psnfss/ot1phv.fd
+ RELOC/tex/latex/psnfss/ot1pnc.fd
+ RELOC/tex/latex/psnfss/ot1ppl.fd
+ RELOC/tex/latex/psnfss/ot1pplj.fd
+ RELOC/tex/latex/psnfss/ot1pplx.fd
+ RELOC/tex/latex/psnfss/ot1ptm.fd
+ RELOC/tex/latex/psnfss/ot1ptmcm.fd
+ RELOC/tex/latex/psnfss/ot1put.fd
+ RELOC/tex/latex/psnfss/ot1pzc.fd
+ RELOC/tex/latex/psnfss/ot1zplm.fd
+ RELOC/tex/latex/psnfss/ot1zpple.fd
+ RELOC/tex/latex/psnfss/ot1ztmcm.fd
+ RELOC/tex/latex/psnfss/palatino.sty
+ RELOC/tex/latex/psnfss/pifont.sty
+ RELOC/tex/latex/psnfss/t1bch.fd
+ RELOC/tex/latex/psnfss/t1pag.fd
+ RELOC/tex/latex/psnfss/t1pbk.fd
+ RELOC/tex/latex/psnfss/t1pcr.fd
+ RELOC/tex/latex/psnfss/t1phv.fd
+ RELOC/tex/latex/psnfss/t1pnc.fd
+ RELOC/tex/latex/psnfss/t1ppl.fd
+ RELOC/tex/latex/psnfss/t1pplj.fd
+ RELOC/tex/latex/psnfss/t1pplx.fd
+ RELOC/tex/latex/psnfss/t1ptm.fd
+ RELOC/tex/latex/psnfss/t1put.fd
+ RELOC/tex/latex/psnfss/t1pzc.fd
+ RELOC/tex/latex/psnfss/times.sty
+ RELOC/tex/latex/psnfss/ts1bch.fd
+ RELOC/tex/latex/psnfss/ts1pag.fd
+ RELOC/tex/latex/psnfss/ts1pbk.fd
+ RELOC/tex/latex/psnfss/ts1pcr.fd
+ RELOC/tex/latex/psnfss/ts1phv.fd
+ RELOC/tex/latex/psnfss/ts1pnc.fd
+ RELOC/tex/latex/psnfss/ts1ppl.fd
+ RELOC/tex/latex/psnfss/ts1pplj.fd
+ RELOC/tex/latex/psnfss/ts1pplx.fd
+ RELOC/tex/latex/psnfss/ts1ptm.fd
+ RELOC/tex/latex/psnfss/ts1put.fd
+ RELOC/tex/latex/psnfss/ts1pzc.fd
+ RELOC/tex/latex/psnfss/ufplm.fd
+ RELOC/tex/latex/psnfss/ufplmbb.fd
+ RELOC/tex/latex/psnfss/upsy.fd
+ RELOC/tex/latex/psnfss/upzd.fd
+ RELOC/tex/latex/psnfss/utopia.sty
+catalogue-also psnfssx
+catalogue-ctan /macros/latex/required/psnfss
+catalogue-license lppl
+catalogue-topics font-supp font-use
+catalogue-version 9.3

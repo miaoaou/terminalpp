@@ -1,0 +1,26 @@
+name tocdata
+category Package
+revision 69512
+shortdesc Adds names to chapters, sections, figures in the TOC and LOF
+relocated 1
+longdesc The tocdata package may be used to add a small amount of data
+longdesc to an entry in the table of contents or list of figures,
+longdesc between the section or caption name and the page number. The
+longdesc typical use would be to add the name of an author or artist of
+longdesc a chapter or section, such as in an anthology or a collection
+longdesc of papers. Additionally, user-level macros are provided which
+longdesc add the author's name to a chapter or section, along with an
+longdesc optional prefix and/or suffix, and add to a figure the artist's
+longdesc name, prefix, and suffix, plus optional additional text. Author
+longdesc and artist names are also added to the index. Additional
+longdesc user-level macros control formatting. tocdata works with the
+longdesc TOC/LOF formatting of the default LaTeX classes, memoir,
+longdesc koma-script, and with titletoc, tocloft, tocbasic, and
+longdesc tocstyle.
+runfiles size=4
+ RELOC/tex/latex/tocdata/tocdata.sty
+catalogue-contact-bugs https://github.com/bdtc/tocdata
+catalogue-ctan /macros/latex/contrib/tocdata
+catalogue-license lppl1.3
+catalogue-topics toc-etc
+catalogue-version 2.07

@@ -1,0 +1,28 @@
+name pictex
+category Package
+revision 59551
+shortdesc Picture drawing macros for TeX and LaTeX
+relocated 1
+longdesc PicTeX is an early and very comprehensive drawing package that
+longdesc mostly draws by placing myriads of small dots to make up
+longdesc pictures. It has a tendency to run out of space; packages
+longdesc m-pictex and pictexwd deal with the problems in different ways.
+runfiles size=81
+ RELOC/tex/generic/pictex/errorbars.tex
+ RELOC/tex/generic/pictex/latexpicobjs.tex
+ RELOC/tex/generic/pictex/piccorr.sty
+ RELOC/tex/generic/pictex/picmore.tex
+ RELOC/tex/generic/pictex/pictex.sty
+ RELOC/tex/generic/pictex/pictex.tex
+ RELOC/tex/generic/pictex/pictexwd.sty
+ RELOC/tex/generic/pictex/pictexwd.tex
+ RELOC/tex/generic/pictex/pointers.tex
+ RELOC/tex/generic/pictex/postpictex.tex
+ RELOC/tex/generic/pictex/prepictex.tex
+ RELOC/tex/generic/pictex/texpictex.tex
+ RELOC/tex/generic/pictex/tree.sty
+catalogue-also qfig epic pictex2 pictexsum
+catalogue-ctan /graphics/pictex
+catalogue-license lppl1
+catalogue-topics graphics-in-tex
+catalogue-version 1.1b

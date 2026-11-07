@@ -1,0 +1,61 @@
+name mmap
+category Package
+revision 15878
+shortdesc Include CMap resources in PDF files from pdfTeX
+relocated 1
+longdesc The package is an extension of cmap with improved flexibility
+longdesc and coverage, including the ability to re-encode Knuth's basic
+longdesc mathematics fonts.
+runfiles size=74
+ RELOC/tex/latex/mmap/lmr-m.cmap
+ RELOC/tex/latex/mmap/lmr.cmap
+ RELOC/tex/latex/mmap/ly1.cmap
+ RELOC/tex/latex/mmap/mmap.sty
+ RELOC/tex/latex/mmap/oml-m.cmap
+ RELOC/tex/latex/mmap/oml.cmap
+ RELOC/tex/latex/mmap/omlbit-m.cmap
+ RELOC/tex/latex/mmap/omlbit.cmap
+ RELOC/tex/latex/mmap/omlmit-m.cmap
+ RELOC/tex/latex/mmap/omlmit.cmap
+ RELOC/tex/latex/mmap/oms-m.cmap
+ RELOC/tex/latex/mmap/oms.cmap
+ RELOC/tex/latex/mmap/omsb-m.cmap
+ RELOC/tex/latex/mmap/omx-m.cmap
+ RELOC/tex/latex/mmap/omx.cmap
+ RELOC/tex/latex/mmap/ot1-m.cmap
+ RELOC/tex/latex/mmap/ot1.cmap
+ RELOC/tex/latex/mmap/ot1rbxit-m.cmap
+ RELOC/tex/latex/mmap/ot1rbxit.cmap
+ RELOC/tex/latex/mmap/ot1rbxn-m.cmap
+ RELOC/tex/latex/mmap/ot1rbxn.cmap
+ RELOC/tex/latex/mmap/ot1rmit-m.cmap
+ RELOC/tex/latex/mmap/ot1rmit.cmap
+ RELOC/tex/latex/mmap/ot1rmn-m.cmap
+ RELOC/tex/latex/mmap/ot1rmn.cmap
+ RELOC/tex/latex/mmap/ot1ssbxn-m.cmap
+ RELOC/tex/latex/mmap/ot1ssbxn.cmap
+ RELOC/tex/latex/mmap/ot1ssmn-m.cmap
+ RELOC/tex/latex/mmap/ot1ssmn.cmap
+ RELOC/tex/latex/mmap/ot1ttmn-m.cmap
+ RELOC/tex/latex/mmap/ot1ttmn.cmap
+ RELOC/tex/latex/mmap/ot1xxx-m.cmap
+ RELOC/tex/latex/mmap/t1-m.cmap
+ RELOC/tex/latex/mmap/t1.cmap
+ RELOC/tex/latex/mmap/ueuf-m.cmap
+ RELOC/tex/latex/mmap/ueufb-m.cmap
+ RELOC/tex/latex/mmap/ulasy-m.cmap
+ RELOC/tex/latex/mmap/ulasy.cmap
+ RELOC/tex/latex/mmap/umsa-m.cmap
+ RELOC/tex/latex/mmap/umsa.cmap
+ RELOC/tex/latex/mmap/umsb-m.cmap
+ RELOC/tex/latex/mmap/umsb.cmap
+ RELOC/tex/latex/mmap/upsy-m.cmap
+ RELOC/tex/latex/mmap/upsy.cmap
+ RELOC/tex/latex/mmap/upzd-m.cmap
+ RELOC/tex/latex/mmap/upzd.cmap
+catalogue-also cmap
+catalogue-ctan /macros/latex/contrib/mmap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics pdf-feat
+catalogue-version 1.03

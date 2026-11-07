@@ -1,0 +1,251 @@
+%%
+%% This is file `phfnotepreset-xpkgdoc.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% phfnote.dtx  (with options: `phfnotepreset,phfnotepreset-xpkgdoc')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016 by Philippe Faist, philippe.faist@bluewin.ch
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+%This preset file for phfnote is used when you call `\usepackage[preset=<PRESET NAME>]{phfnote}'
+\phfnote@loadpreset{pkgdoc}
+\RequirePackage{verbdef}
+\ifdefined\PrintChanges
+  \phfnoteHackSectionStarWithTOCInCommand\PrintChanges
+\fi
+\ifdefined\PrintIndex
+  \phfnoteHackSectionStarWithTOCInCommand\PrintIndex
+\fi
+\def\PrintChangesAndIndexSpacing{\vspace{3cm plus 2cm minus 2cm}}
+\def\PrintChangesAndIndex{\PrintChangesAndIndexSpacing\PrintChanges
+  \PrintChangesAndIndexSpacing\PrintIndex}
+\ifdefined\c@IndexColumns
+  \setcounter{IndexColumns}{2}
+\fi
+\let\phfnote@xpkgdoc@old@theglossary\theglossary
+\let\phfnote@xpkgdoc@old@endtheglossary\endtheglossary
+\renewenvironment{theglossary}{%
+  \glossary@prologue%
+  \GlossaryParms \let\item\@idxitem \ignorespaces}
+{}
+\def\phf@fillwithdiscretionaries#1#2#3{%
+  \def\phf@fillwithdescretionaries@a{#1}%
+  \def\phf@fillwithdescretionaries@b{#2}%
+  \edef\x{#3}%
+  \expandafter \phf@fillwithdiscretionaries@ \x \@nil
+}
+\def\phf@fillwithdiscretionaries@#1#2\@nil{%
+  \if\relax\detokenize{#1}\relax\else
+    #1%
+    \if\relax\detokenize{#2}\relax\else
+      \discretionary{\phf@fillwithdescretionaries@a}{%
+        \phf@fillwithdescretionaries@b}{}%
+      \phf@fillwithdiscretionaries@#2\@nil
+    \fi
+  \fi
+}
+\definecolor{phfxpkgdocmacronamehyphencolor}{rgb}{0.6,0.6,0.7}
+\def\phf@xpkgdoc@macrobreakhyphen{%
+  \hbox{\textcolor{phfxpkgdocmacronamehyphencolor}{-}}}
+\def\ScaleHorizontallyAndHyphenateAnywhere#1#2{% {hscale-factor}{text}
+  \scalebox{#1}[1.0]{%
+    \parbox{% compute inverse of #1 ...
+      \dimexpr \marginparwidth*65536 /
+      \number\dimexpr #1\p@ \relax \relax
+    }{\raggedleft\phf@fillwithdiscretionaries{%
+        \phf@xpkgdoc@macrobreakhyphen}{}{#2}\hfill}%
+  }%
+}
+\def\phf@xpkgdoc@marginmacronamecompressfactor{0.85}
+\def\phf@xpkgdoc@macrofont{\small\bfseries}% \footnotesize ?
+\def\PrintMarginLabelContents#1{%
+  \strut\MacroFont\phf@xpkgdoc@macrofont
+  \ScaleHorizontallyAndHyphenateAnywhere{%
+    \phf@xpkgdoc@marginmacronamecompressfactor}{#1}%
+  \par
+}
+\def\PrintMarginLabel#1{\marginpar{\PrintMarginLabelContents{#1}}}
+\def\PrintDescribeMacro#1{\PrintMarginLabelContents{\string#1}}
+\let\PrintMacroName\PrintDescribeMacro
+\let\PrintDescribeEnv\PrintMarginLabelContents
+\let\PrintEnvName\PrintMarginLabelContents
+\def\phfnote@opt@hyperrefdefs{defer}
+\g@addto@macro\phfnote@hook@atendload{
+  \RequirePackage{hypdoc}
+  \urlstyle{noteit}
+}
+\def\pkgname#1{%
+  \pkgnamefmt{#1}%
+  \index{#1=\pkgnamefmt{#1}|hyperpage}%
+  \index{packages:>#1=\pkgnamefmt{#1}|hyperpage}%
+}
+\robustify\pkgname
+\def\pkgnamefmt#1{\textsf{#1}}
+\robustify\pkgnamefmt
+\newcounter{phfnotechanged}
+\newcommand*\changed[4][]{%
+  \if\relax\detokenize{#1}\relax%
+    \changedtextfmt{#2}{#3}{#4}%
+    \changes{#2}{#3}{#4}%
+  \else%
+    \protected@edef\phfnotechanged@tmpa{{#2}{#3}{#4}}%
+    \immediate\write\@auxout{\string\phfnote@changed@set%
+      {#1}{\expandonce\phfnotechanged@tmpa}}%
+    \par\hspace*{0pt}\refstepcounter{phfnotechanged}\label{phfnotechanged:#1}%
+    \begingroup\let\phfnote@changedreftext@par\relax
+      \changedreftext[\@secondoftwo]{#1}%
+    \endgroup
+    \changes{#2}{#3}{\hyperref[phfnotechanged:#1]{#4}}%
+  \fi
+}
+\def\phfnote@changed@set#1{%
+  \expandafter\gdef\csname phfnote@changed@lbl@#1\endcsname%
+}
+\def\phfnote@changedreftext@par{\par}
+\newcommand*\changedreftext[2][\phfnote@changedrefto]{%
+  \phfnote@changedreftext@par%
+  \ifcsname phfnote@changed@lbl@#2\endcsname
+    #1{#2}{%
+      \expandafter\expandafter\expandafter\changedtextfmt%
+          \csname phfnote@changed@lbl@#2\endcsname
+    }
+  \else
+    \hyperref[phfnotechanged:#2]{%
+      \changedtextfmt{???}{???}{[\textbf{missing ref}]}%
+    }%
+  \fi
+  \par
+}
+\def\phfnote@changedrefto#1{\hyperref[phfnotechanged:#1]}
+\newcommand*\changedtextfmt[3]{%
+  \textit{Changed in {#1\kern 0.3ex\relax[#2]}:} #3.
+}
+\RequirePackage{enumitem}
+\newlist{pkgoptions}{description}{1}
+\setlist[pkgoptions]{font=\pkgoptionfmt@many[{\vspace*{5pt}}],style=nextline}
+\def\pkgoptions@item{\@ifnextchar[\pkgoptions@item@\pkgoptions@item@@}%]
+\def\pkgoptions@item@[#1]{\pkgoptions@old@item[{{#1}}]}%
+\def\pkgoptions@item@@{\PackageWarning{phfnote}{{pkgoptions}: you must
+    specify label to \string\item as \string\item[label].}%
+  \pkgoptions@old@item}%
+\apptocmd\pkgoptions{%
+  \let\pkgoptions@old@item\item
+  \let\item\pkgoptions@item
+}{}{\PackageWarning{phfnote}{preset xpkgdoc: Failed to patch command
+    \string\pkgoptions}}
+\def\metatruefalsearg{\meta{\phfverb{true} $\mid$ \phfverb{false}}}
+\newcommand\pkgoptionfmt[2][]{%
+  \begingroup\let\meta\pkgoptfmt@meta\pkgopt@fbox{\normalfont\ttfamily #2}\endgroup%
+  \expandafter\phfnote@pkgdoc@index\expandafter{\@firstofone #2}%
+  #1}
+\newcommand\pkgoptionfmt@many[2][]{%
+  \def\pkgoptionfmt@tmp@addcomma{}
+  \def\do##1{\pkgoptionfmt@tmp@addcomma\pkgoptionfmt{\vphantom{#2}##1}%
+    \def\pkgoptionfmt@tmp@addcomma{\hskip0.25em\relax,\hskip0.8em\relax}}%
+  \expandafter\docsvlist\expandafter{\@firstofone #2}%
+  #1}
+\let\pkgopt@save@meta\meta
+\def\pkgopt@fbox{\fbox}
+\def\pkgoptfmt@meta#1{\begingroup\normalfont\itshape\pkgopt@save@meta{#1}\endgroup}
+\def\phfnote@pkgdoc@index#1{%
+  \begingroup\lccode`\= = `\,\relax%
+    \def\x{\lowercase{\def\@tmpa{#1}}}%
+    \x%
+    \let\meta\@gobble%
+    \let\marg\@gobble%
+    \let\oarg\@gobble%
+    \let\parg\@gobble%
+    \let\vphantom\@gobble%
+    \let\hphantom\@gobble%
+    \let\pkgoptattrib\@firstofone%
+    \let\pkgoptattribnodots\@firstofone%
+    \let\pkgoptattribempty\@empty%
+    \def\handleitemindex##1{%
+      \edef\@tmpc{##1}%
+      \if\relax\detokenize\expandafter{\@tmpc}\relax\else%
+        \edef\@tmpb{{\expandonce\@tmpc=\string\verb!*+\expandonce\@tmpc+ (\pkgoptname)|hyperpage}}%
+        \expandafter\index\@tmpb%
+        \edef\@tmpb{{\packageoptionsname:>\expandonce\@tmpc=\string\verb!*+\expandonce\@tmpc+|hyperpage}}%
+        \expandafter\index\@tmpb%
+      \fi%
+    }%
+    \def\@tmpc{\forcsvlist{\handleitemindex}}%
+    \expandafter\@tmpc\expandafter{\@tmpa}%
+  \endgroup%
+}
+\def\pkgoptname{pkg. opt.}
+\def\packageoptionsname{package options}
+\def\cmdoptions{\begingroup\setcmdnotpkgoptions
+  \pkgoptions}
+\def\endcmdoptions{\endpkgoptions\endgroup}
+\newcommand\cmdoptionfmt[2][]{\begingroup\setcmdnotpkgoptions
+  \pkgoptionfmt[{#1}]{#2}\endgroup}
+\def\cmdoptname{cmd. opt.}
+\def\commandoptionsname{command options}
+\def\setcmdnotpkgoptions{\let\pkgoptname\cmdoptname
+  \let\packageoptionsname\commandoptionsname
+  \let\pkgopt@fbox\cmdoptionsfbox}
+\def\cmdoptionsfbox#1{\ensuremath{\underline{{\text{#1}}}}}
+\def\pkgoptattrib#1{\{#1,...\}}
+\def\pkgoptattribnodots#1{\{#1\}}
+\def\pkgoptattribempty{\{\}}
+\phfnoteSaveDefs{verbatimstuff}{%
+  verbatim,@verbatim,@xverbatim,@sxverbatim,endverbatim}
+\usepackage{tcolorbox}
+\newtcolorbox{pkgnote}{
+  colback=blue!5!white,
+  colframe=blue!5!white,
+  coltitle=blue!50!black,
+  toptitle=1.5ex,
+  fonttitle=\bfseries,
+  title={NOTE}
+}
+\newtcolorbox{pkgwarning}{
+  colback=red!5!white,
+  colframe=red!5!white,
+  coltitle=red!50!black,
+  toptitle=1.5ex,
+  fonttitle=\bfseries,
+  title={WARNING}
+}
+\newtcolorbox{pkgtip}{
+  colback=green!5!white,
+  colframe=green!5!white,
+  coltitle=green!50!black,
+  toptitle=1.5ex,
+  fonttitle=\bfseries,
+  title={TIP}
+}
+\phfnoteRestoreDefs{verbatimstuff}
+\appto\endverbatim{\vspace{-\baselineskip}}
+\def\phfqitltxPkgTitle#1{The \pkgname{#1} package\thanks{\itshape
+  This document corresponds to \pkgname{#1}~\fileversion, dated \filedate. It
+  is part of the
+  \href{https://github.com/phfaist/phfqitltx/}{\pkgname{phfqitltx}} package
+  suite, see \url{https://github.com/phfaist/phfqitltx}.}}
+\def\pkgfmtdate#1{%
+  \edef\pkgfmtdate@thedate{#1}%
+  \expandafter\pkgfmtdate@next\pkgfmtdate@thedate\@nil%
+}
+\def\pkgfmtdate@next#1/#2/#3\@nil{% YYYY/MM/DD
+  \ifcase #2 \or January\or February\or March\or April\or May%
+  \or June\or July\or August\or September\or October%
+  \or November\or December\fi\space #3,%
+  \space #1}
+\robustify\pkgfmtdate@next
+\endinput
+%%
+%% End of file `phfnotepreset-xpkgdoc.def'.

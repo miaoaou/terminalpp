@@ -1,0 +1,21 @@
+name codepage
+category Package
+revision 51502
+shortdesc Support for variant code pages
+relocated 1
+longdesc The package provides a mechanism for inputting non-ASCII text.
+longdesc Nowadays, the job is mostly done by the inputenc package in the
+longdesc LaTeX distribution.
+runfiles size=26
+ RELOC/tex/latex/codepage/code437.tex
+ RELOC/tex/latex/codepage/code850.tex
+ RELOC/tex/latex/codepage/codeiso1.tex
+ RELOC/tex/latex/codepage/codemac.tex
+ RELOC/tex/latex/codepage/codepage.sty
+ RELOC/tex/latex/codepage/initcar.tex
+ RELOC/tex/latex/codepage/shapecm.tex
+ RELOC/tex/latex/codepage/shapedc.tex
+catalogue-ctan /macros/latex/contrib/codepage
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics inputenc

@@ -1,0 +1,96 @@
+%
+% Tema para beamer: LALIC
+%
+% Por Jander Moreira, 2018-2021
+%
+%
+% Inner theme (definição do espaço de conteúdo)
+
+\mode<presentation>
+
+\RequirePackage{tikz}
+\usetikzlibrary{positioning, calc, shapes.misc}
+
+\setbeamercolor{title box}{fg = black}
+
+\setbeamertemplate{background}{
+	\begin{tikzpicture}[
+			moldura/.style = {
+				draw = lalicline,
+				very thick,
+				rounded corners,
+			},
+		]
+		\useasboundingbox[fill = lalicbackground] (0, 0) rectangle(\the\paperwidth, \the\paperheight);
+		\coordinate (superior esquerdo) at (0, \the\paperheight);
+		\coordinate (superior direito) at (\the\paperwidth, \the\paperheight);
+		\coordinate (inferior esquerdo) at (0, 0);
+		\coordinate (inferior direito) at (\the\paperwidth, 0);
+		
+		% Moldura
+		\draw [moldura]
+			($(inferior esquerdo) + (0.2cm, 0.2cm)$)
+			rectangle
+			($(superior direito) - (0.2cm, 0.2cm)$);
+	\end{tikzpicture}
+}
+
+\defbeamertemplate*{title page}{lalic}[1][]{
+ 	\vskip0.8cm%
+	\begin{beamercolorbox}[wd=\paperwidth, ht = 1.5cm]{frametitle}
+		\begin{tikzpicture}[
+				faixa do titulo/.style = {
+					fill = lalictitlebackground,
+					rounded rectangle,
+					rounded rectangle west arc = 20, 
+					rounded rectangle west arc = none, 
+					minimum height = 1.8cm,
+					minimum width = 0.95\paperwidth,
+					align = left,
+				},
+				fonte titulo/.style = {
+					text = lalicfonttitle,
+					anchor = west, 
+					inner sep = 3pt,
+					%font = \Large\bfseries,
+				},
+				fonte subtitulo/.style = {
+					text = lalicfonttitle,
+					anchor = west, 
+					text depth = 0.25ex,
+					inner sep = 3pt,
+					font = \small,
+				},
+			]
+				\node (barra) [faixa do titulo, align = left] at (0, 0) {};
+				\node[fonte titulo] at ($(barra.north west) + (0.2cm, -0.55cm)$)%
+					{\Huge\bfseries LALIC};
+				\draw[line width = 2.2pt, draw = lalicbackground,	
+					line cap = round]%
+					($(barra.west) - (0, 0.26cm)$) --
+						++(\textwidth, 0);
+				\node[fonte subtitulo] at ($(barra.south west) + (0.3cm, 0.3cm)$)%
+					{Laboratório de Linguística e Inteligência Computacional};
+		\end{tikzpicture}
+	\end{beamercolorbox}
+	
+	\begin{beamercolorbox}[ht = 2.5cm, center]{title box}
+		\LARGE\inserttitle
+	\end{beamercolorbox}				
+		
+	\vspace{0.5cm}
+	\begin{beamercolorbox}[ht = 2.5cm, center]{title box}
+		{\Large\insertauthor}\\
+		\small\texttt{\lalicemail}
+		
+		\vspace{0.3cm}
+		\textit{\insertdate}
+	\end{beamercolorbox}				
+
+%	\includegraphics[height=1.8cm]{logo_ufscar}%
+%	\hfill%
+%	\includegraphics[height=1.2cm]{logo_nilc}%
+}
+
+
+\mode<all>

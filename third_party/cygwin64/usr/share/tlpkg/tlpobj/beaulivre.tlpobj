@@ -1,0 +1,22 @@
+name beaulivre
+category Package
+revision 70049
+shortdesc Write your books in a colorful way
+relocated 1
+longdesc This package provides a LaTeX class for typesetting books with
+longdesc a colorful design. Currently, it has native support for Chinese
+longdesc (both simplified and traditional), English, French, German,
+longdesc Italian, Japanese, Portuguese (European and Brazilian), Russian
+longdesc and Spanish typesetting. It compiles with either XeLaTeX or
+longdesc LuaLaTeX. This is part of the colorist class series and depends
+longdesc on colorist.sty from the colorist package. The package name
+longdesc "beaulivre" is taken from the French words "beau" (=
+longdesc "beautiful") and "livre" (= "book").
+depend colorist
+runfiles size=9
+ RELOC/tex/latex/beaulivre/beaulivre.cls
+catalogue-also colorist
+catalogue-contact-repository https://github.com/Jinwen-XU/colorist/tree/main/beaulivre
+catalogue-ctan /macros/unicodetex/latex/beaulivre
+catalogue-license lppl1.3c
+catalogue-topics class book-pub chinese multilingual expl3

@@ -1,0 +1,23 @@
+name fistrum
+category Package
+revision 70187
+shortdesc Access to 150 paragraphs of Lorem Fistrum very dummy text
+relocated 1
+longdesc Fistrum is a LaTeX package forked from lipsum that produces
+longdesc dummy text for use in documents and examples. The paragraphs
+longdesc were taken with permission from https://www.chiquitoipsum.com/.
+longdesc Fistrum es un paquete de LaTeX derivado de lipsum que produce
+longdesc texto de ejemplo para usarlo en documentos y ejemplos. Los
+longdesc parrafos se han tomado con permiso de
+longdesc https://www.chiquitoipsum.com/.
+runfiles size=61
+ RELOC/tex/latex/fistrum/fistrum-es.ftd.tex
+ RELOC/tex/latex/fistrum/fistrum-la.ftd.tex
+ RELOC/tex/latex/fistrum/fistrum.sty
+catalogue-contact-announce https://github.com/daviddavo/fistrum/releases
+catalogue-contact-bugs https://github.com/daviddavo/fistrum/issues
+catalogue-contact-repository https://github.com/daviddavo/fistrum
+catalogue-ctan /macros/latex/contrib/fistrum
+catalogue-license lppl1.3
+catalogue-topics dummy-gen macro-supp expl3 spanish
+catalogue-version 0.1

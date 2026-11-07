@@ -1,0 +1,17 @@
+name beamertheme-detlevcm
+category Package
+revision 39048
+shortdesc A beamer theme designed for use in the University of Leeds
+relocated 1
+longdesc The bundle provides a simple theme that has been used in the
+longdesc author's department.
+runfiles size=5
+ RELOC/tex/latex/beamertheme-detlevcm/beamercolorthemeETII.sty
+ RELOC/tex/latex/beamertheme-detlevcm/beamerfontthemeDetlevCM.sty
+ RELOC/tex/latex/beamertheme-detlevcm/beamerouterthemeDetlevCM.sty
+ RELOC/tex/latex/beamertheme-detlevcm/beamerthemeDetlevCM.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/detlevcm
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics presentation
+catalogue-version 1.02

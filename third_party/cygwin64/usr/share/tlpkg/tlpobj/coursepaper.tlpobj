@@ -1,0 +1,14 @@
+name coursepaper
+category Package
+revision 15878
+shortdesc Prepare university course papers
+relocated 1
+longdesc Coursepaper is a class with which students can provide simple
+longdesc course papers, in a uniform design to ease the task of marking.
+runfiles size=4
+ RELOC/tex/latex/coursepaper/coursepaper.cls
+catalogue-ctan /macros/latex/contrib/coursepaper
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics essay
+catalogue-version 2.0

@@ -1,0 +1,6 @@
+name makedtx.x86_64-cygwin
+category Package
+revision 38769
+shortdesc x86_64-cygwin files of makedtx
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/makedtx

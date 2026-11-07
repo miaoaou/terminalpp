@@ -1,0 +1,16 @@
+name regexpatch
+category Package
+revision 58668
+shortdesc High level patching of commands
+relocated 1
+longdesc The package generalises the macro patching commands provided by
+longdesc P. Lehmann's etoolbox. The difference between this package and
+longdesc its sibling xpatch is that this package sports a very powerful
+longdesc \regexpatchcmd based on the l3regex module of the LaTeX3
+longdesc experimental packages.
+runfiles size=7
+ RELOC/tex/latex/regexpatch/regexpatch.sty
+catalogue-ctan /macros/latex/contrib/regexpatch
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 0.2f

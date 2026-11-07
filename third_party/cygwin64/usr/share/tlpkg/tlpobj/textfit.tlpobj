@@ -1,0 +1,18 @@
+name textfit
+category Package
+revision 20591
+shortdesc Fit text to a desired size
+relocated 1
+longdesc Package to fit text to a given width or height by scaling the
+longdesc font. For example: \scaletowidth{3in}{This}. (The job is done
+longdesc by calculating a magstep and applying it to the current font;
+longdesc thus "This" will be very tall, as well as very wide; to scale
+longdesc in just one dimension, use the facilities of the graphicx
+longdesc package.)
+runfiles size=2
+ RELOC/tex/latex/textfit/textfit.sty
+catalogue-ctan /macros/latex/contrib/textfit
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics fit-to-size
+catalogue-version 5

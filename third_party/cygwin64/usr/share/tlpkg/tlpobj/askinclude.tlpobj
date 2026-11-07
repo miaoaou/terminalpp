@@ -1,0 +1,16 @@
+name askinclude
+category Package
+revision 54725
+shortdesc Interactive use of \includeonly
+relocated 1
+longdesc The package asks the user which files to put in a \includeonly
+longdesc command. There is provision for answering "same as last time"
+longdesc or "all files".
+runfiles size=5
+ RELOC/tex/latex/askinclude/askinclude.sty
+catalogue-contact-bugs https://github.com/ho-tex/askinclude/issues
+catalogue-contact-repository https://github.com/ho-tex/askinclude
+catalogue-ctan /macros/latex/contrib/askinclude
+catalogue-license lppl1.3
+catalogue-topics compilation
+catalogue-version 2.7

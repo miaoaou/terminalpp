@@ -1,0 +1,20 @@
+name lipsum
+category Package
+revision 60561
+shortdesc Easy access to the Lorem Ipsum and other dummy texts
+relocated 1
+longdesc This package gives you easy access to 150 paragraphs of the
+longdesc Lorem Ipsum dummy text provided by https://lipsum.com, plus a
+longdesc growing list of other dummy texts in different languages.
+runfiles size=88
+ RELOC/tex/latex/lipsum/cicero.ltd.tex
+ RELOC/tex/latex/lipsum/lipsum-cs.ltd.tex
+ RELOC/tex/latex/lipsum/lipsum.ltd.tex
+ RELOC/tex/latex/lipsum/lipsum.sty
+catalogue-also blindtext kantlipsum
+catalogue-contact-bugs https://github.com/PhelypeOleinik/lipsum/issues
+catalogue-contact-repository https://github.com/PhelypeOleinik/lipsum
+catalogue-ctan /macros/latex/contrib/lipsum
+catalogue-license lppl1.3
+catalogue-topics macro-supp dummy-gen multilingual expl3
+catalogue-version 2.7

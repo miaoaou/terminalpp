@@ -1,0 +1,27 @@
+name commado
+category Package
+revision 38875
+shortdesc Expandable iteration on comma-separated and filename lists
+relocated 1
+longdesc The bundle provides two packages: commado and filesdo. The
+longdesc package commado provides the command \DoWithCSL:
+longdesc \DoWithCSL{<cmd>}{<list>} applies an existing one-parameter
+longdesc macro <cmd> to each item in a list <list> in which terms are
+longdesc separated by commas. The package filesdo provides the command
+longdesc \DoWithBasesExts: \DoWithBasesExts{<cmd>}{<bases>}{<exts>}
+longdesc which runs the single parameter command <cmd> on each file
+longdesc whose base and extension are respectively from the
+longdesc comma-separated lists <bases> and <exts>. These 'loop'-like
+longdesc commands are (themselves) entirely expandable. The packages
+longdesc rely on packages plainpkg, and stacklet
+runfiles size=3
+ RELOC/tex/generic/commado/commado.RLS
+ RELOC/tex/generic/commado/commado.sty
+ RELOC/tex/generic/commado/filesdo.sty
+catalogue-also loops
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/generic/commado
+catalogue-date 2017-05-05 20:31:25 +0200
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version r0.11a

@@ -1,0 +1,20 @@
+name flippdf
+category Package
+revision 56782
+shortdesc Horizontal flipping of pages with pdfLaTeX
+relocated 1
+longdesc The package allows the production of a document with pages
+longdesc "mirrored". This is sometimes required by publishers who want
+longdesc camera-ready documents to be printed on transparent film (to be
+longdesc viewed from the "wrong" side). The package only works with
+longdesc pdfLaTeX or LuaLaTeX in PDF output mode. Package everypage is
+longdesc required on LaTeX releases before Fall 2020.
+runfiles size=2
+ RELOC/tex/latex/flippdf/flippdf-1x.sty
+ RELOC/tex/latex/flippdf/flippdf.sty
+catalogue-contact-bugs https://github.com/callegar/LaTeX-flippdf/issues
+catalogue-contact-repository https://github.com/callegar/LaTeX-flippdf
+catalogue-ctan /macros/latex/contrib/flippdf
+catalogue-license lppl1.3c
+catalogue-topics book-pub
+catalogue-version 2.0b

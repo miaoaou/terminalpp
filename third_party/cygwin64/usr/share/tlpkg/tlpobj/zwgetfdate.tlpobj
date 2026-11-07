@@ -1,0 +1,17 @@
+name zwgetfdate
+category Package
+revision 15878
+shortdesc Get package or file date
+relocated 1
+longdesc The package can fetch the date declaration of packages and
+longdesc files used by a document, and then provide the information in
+longdesc macros. The facilities provide a means of obtaining the date of
+longdesc a package being documented; this is mainly of use when
+longdesc doc/docstrip.
+runfiles size=1
+ RELOC/tex/latex/zwgetfdate/zwgetfdate.sty
+catalogue-contact-home http://icebearsoft.euweb.cz/tex/
+catalogue-ctan /macros/latex/contrib/zwgetfdate
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics file-mgmt

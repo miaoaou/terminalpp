@@ -1,0 +1,15 @@
+name tocvsec2
+category Package
+revision 33146
+shortdesc Section numbering and table of contents control
+relocated 1
+longdesc Provides control over section numbering (without recourse to
+longdesc starred sectional commands) and/or the entries in the Table of
+longdesc Contents on a section by section basis.
+runfiles size=2
+ RELOC/tex/latex/tocvsec2/tocvsec2.sty
+catalogue-ctan /macros/latex/contrib/tocvsec2
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics headings toc-etc
+catalogue-version 1.3a

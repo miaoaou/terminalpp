@@ -1,0 +1,17 @@
+name blochsphere
+category Package
+revision 38388
+shortdesc Draw pseudo-3D diagrams of Bloch spheres
+relocated 1
+longdesc This package is used to draw pseudo-3D Blochsphere diagrams. It
+longdesc supports various annotations, such as great and small circles,
+longdesc axes, rotation markings and state vectors. It can be used in a
+longdesc standalone fashion, or nested within a tikzpicture environment
+longdesc by setting the environment option nested to true.
+runfiles size=5
+ RELOC/tex/latex/blochsphere/blochsphere.sty
+catalogue-ctan /graphics/pgf/contrib/blochsphere
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics physics pgf-tikz
+catalogue-version 1.1

@@ -1,0 +1,17 @@
+name multicap
+category Package
+revision 15878
+shortdesc Format captions inside multicols
+relocated 1
+longdesc This is a package for formatting captions of column figures and
+longdesc column tabular material, which cannot be standard floats in a
+longdesc multicols environment. The package also provides a convenient
+longdesc way to customise your captions, whether they be in multicols or
+longdesc not.
+runfiles size=1
+ RELOC/tex/latex/multicap/multicap.sty
+catalogue-also caption
+catalogue-ctan /macros/latex/contrib/multicap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics caption

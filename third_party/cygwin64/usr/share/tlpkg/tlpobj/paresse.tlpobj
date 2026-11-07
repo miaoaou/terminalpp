@@ -1,0 +1,17 @@
+name paresse
+category Package
+revision 59228
+shortdesc Define simple macros for greek letters
+relocated 1
+longdesc The package defines macros using SS to type greek letters so
+longdesc that the user may (for example) type SSa to get the effect of
+longdesc $\alpha$. However, it takes care only of letters which have a
+longdesc macro name like \alpha or \Omega.
+runfiles size=7
+ RELOC/tex/latex/paresse/paresse-old.sty
+ RELOC/tex/latex/paresse/paresse-utf8.sty
+ RELOC/tex/latex/paresse/paresse.sty
+catalogue-ctan /macros/latex/contrib/paresse
+catalogue-license lppl1.3c
+catalogue-topics shortcut expl3
+catalogue-version 5.0.2

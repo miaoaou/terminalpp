@@ -1,0 +1,44 @@
+name knuth-local
+category Package
+revision 57963
+shortdesc Knuth's local information
+relocated 1
+longdesc A collection of experimental programs and developments based
+longdesc on, or complementary to, the matter in his distribution
+longdesc directories.
+runfiles size=53
+ RELOC/fonts/source/public/knuth-local/black.mf
+ RELOC/fonts/source/public/knuth-local/blackaps.mf
+ RELOC/fonts/source/public/knuth-local/blackimagen.mf
+ RELOC/fonts/source/public/knuth-local/blacklino.mf
+ RELOC/fonts/source/public/knuth-local/blacklj.mf
+ RELOC/fonts/source/public/knuth-local/domino.mf
+ RELOC/fonts/source/public/knuth-local/gray.mf
+ RELOC/fonts/source/public/knuth-local/grayaps.mf
+ RELOC/fonts/source/public/knuth-local/grayimagen.mf
+ RELOC/fonts/source/public/knuth-local/grayimagen3.mf
+ RELOC/fonts/source/public/knuth-local/grayimagenlight.mf
+ RELOC/fonts/source/public/knuth-local/graylj.mf
+ RELOC/fonts/source/public/knuth-local/local.mf
+ RELOC/fonts/source/public/knuth-local/logod10.mf
+ RELOC/fonts/source/public/knuth-local/logosl9.mf
+ RELOC/fonts/source/public/knuth-local/mfman.mf
+ RELOC/fonts/source/public/knuth-local/oneone.mf
+ RELOC/fonts/source/public/knuth-local/random.mf
+ RELOC/fonts/source/public/knuth-local/slantaps4.mf
+ RELOC/fonts/source/public/knuth-local/slantimagen4.mf
+ RELOC/fonts/source/public/knuth-local/slantimagen6.mf
+ RELOC/fonts/source/public/knuth-local/slantlino4.mf
+ RELOC/fonts/source/public/knuth-local/slantlj4.mf
+ RELOC/fonts/source/public/knuth-local/snfont.mf
+ RELOC/fonts/tfm/public/knuth-local/domino.tfm
+ RELOC/fonts/tfm/public/knuth-local/logod10.tfm
+ RELOC/fonts/tfm/public/knuth-local/logosl9.tfm
+ RELOC/fonts/tfm/public/knuth-local/random.tfm
+ RELOC/fonts/tfm/public/knuth-local/snfont.tfm
+ RELOC/mft/knuth-local/e.mft
+ RELOC/tex/plain/knuth-local/xepsf.tex
+catalogue-also knuth-dist
+catalogue-ctan /systems/knuth/local
+catalogue-license pd
+catalogue-topics collection

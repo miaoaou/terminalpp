@@ -1,0 +1,15 @@
+name erw-l3
+category Package
+revision 61799
+shortdesc Utilities based on LaTeX3
+relocated 1
+longdesc Utilities based on LaTeX3. Highlight: \erw_merge_sort.
+runfiles size=5
+ RELOC/tex/latex/erw-l3/erw-l3.sty
+catalogue-contact-home https://github.com/er-cpp/edu-latex3
+catalogue-contact-repository https://github.com/rogard/erw-l3
+catalogue-contact-support https://github.com/er-cpp/edu-latex3/issues
+catalogue-ctan /macros/latex/contrib/erw-l3
+catalogue-license lppl1.3c
+catalogue-topics latex3 expl3
+catalogue-version 4.2

@@ -1,0 +1,15 @@
+name showexpl
+category Package
+revision 57414
+shortdesc Typesetting LaTeX source code
+relocated 1
+longdesc This package provides a way to typeset LaTeX source code and
+longdesc the related result in the same document.
+runfiles size=4
+ RELOC/tex/latex/showexpl/showexpl.sty
+catalogue-contact-bugs https://github.com/rolfn/showexpl/issues
+catalogue-contact-repository https://github.com/rolfn/showexpl
+catalogue-ctan /macros/latex/contrib/showexpl
+catalogue-license lppl1.2
+catalogue-topics listing macro-demo
+catalogue-version 0.3s

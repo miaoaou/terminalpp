@@ -1,0 +1,22 @@
+name figsize
+category Package
+revision 18784
+shortdesc Auto-size graphics
+relocated 1
+longdesc The FigSize package enables automatic sizing of graphics,
+longdesc especially when including graphics with the graphicx package.
+longdesc The user only has to specify the number of graphics that should
+longdesc fit to a page or fraction there of and the package will
+longdesc dynamically calculate the correct graphics sizes relative to
+longdesc the page size. Thus, graphics can be auto-sized to fill a whole
+longdesc page or fraction and manual changes of graphic sizes are never
+longdesc needed when changing document layouts. Finally, the package's
+longdesc dynamic lengths can be used to allow other document element
+longdesc sizes to be dynamic.
+runfiles size=1
+ RELOC/tex/latex/figsize/figsize.sty
+catalogue-ctan /macros/latex/contrib/figsize
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics
+catalogue-version 0.1

@@ -1,0 +1,13 @@
+name section
+category Package
+revision 20180
+shortdesc Modifying section commands in LaTeX
+relocated 1
+longdesc The package implements a pretty extensive scheme to make more
+longdesc manageable the business of configuring LaTeX output.
+runfiles size=8
+ RELOC/tex/latex/section/section.sty
+catalogue-ctan /macros/latex/contrib/section
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics headings

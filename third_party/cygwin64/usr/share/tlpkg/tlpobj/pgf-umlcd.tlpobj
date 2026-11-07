@@ -1,0 +1,19 @@
+name pgf-umlcd
+category Package
+revision 63386
+shortdesc Some LaTeX macros for UML Class Diagrams
+relocated 1
+longdesc Some LaTeX macros for UML Class Diagrams.
+depend latex
+depend pgf
+runfiles size=5
+ RELOC/tex/latex/pgf-umlcd/pgf-umlcd.sty
+ RELOC/tex/latex/pgf-umlcd/tikzlibraryumlcd.code.tex
+catalogue-also pst-uml uml
+catalogue-contact-bugs https://github.com/pgf-tikz/pgf-umlcd/issues
+catalogue-contact-repository https://github.com/pgf-tikz/pgf-umlcd
+catalogue-contact-support https://tug.org/mailman/listinfo/pgf-tikz
+catalogue-ctan /graphics/pgf/contrib/pgf-umlcd
+catalogue-license gpl2 lppl1.3c
+catalogue-topics uml pgf-tikz
+catalogue-version 0.3

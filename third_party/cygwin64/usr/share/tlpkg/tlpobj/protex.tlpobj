@@ -1,0 +1,15 @@
+name protex
+category Package
+revision 41633
+shortdesc Literate programming package
+relocated 1
+longdesc ProTeX is a simple but powerful literate programming tool,
+longdesc which is designed to generate useful hypertext output (either
+longdesc PDF, or HTML using TeX4ht).
+runfiles size=17
+ RELOC/tex/latex/protex/AlProTex.sty
+ RELOC/tex/latex/protex/ProTex.sty
+catalogue-ctan /web/protex
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics litprog

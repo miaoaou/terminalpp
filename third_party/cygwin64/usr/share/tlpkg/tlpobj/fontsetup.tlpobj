@@ -1,0 +1,38 @@
+name fontsetup
+category Package
+revision 70134
+shortdesc A front-end to fontspec, for selected fonts with math support
+relocated 1
+longdesc This package facilitates the use of fontspec for users who do
+longdesc not wish to bother with details, with a special focus on
+longdesc quality fonts supporting Mathematics.
+runfiles size=35
+ RELOC/tex/latex/fontsetup/cv04-Book.fontspec
+ RELOC/tex/latex/fontsetup/cv04-Regular.fontspec
+ RELOC/tex/latex/fontsetup/cv04Mono-Book.fontspec
+ RELOC/tex/latex/fontsetup/cv04Mono-Regular.fontspec
+ RELOC/tex/latex/fontsetup/cv04Sans-Book.fontspec
+ RELOC/tex/latex/fontsetup/cv04Sans-Regular.fontspec
+ RELOC/tex/latex/fontsetup/fontsetup.sty
+ RELOC/tex/latex/fontsetup/fspconcrete.tex
+ RELOC/tex/latex/fontsetup/fspdefault.tex
+ RELOC/tex/latex/fontsetup/fspebgaramondot.tex
+ RELOC/tex/latex/fontsetup/fsperewhon.tex
+ RELOC/tex/latex/fontsetup/fspeulerot.tex
+ RELOC/tex/latex/fontsetup/fspfiraot.tex
+ RELOC/tex/latex/fontsetup/fspgfsartemisiaot.tex
+ RELOC/tex/latex/fontsetup/fspgfsdidotclassicot.tex
+ RELOC/tex/latex/fontsetup/fspgfsdidotot.tex
+ RELOC/tex/latex/fontsetup/fspgfsneohellenicot.tex
+ RELOC/tex/latex/fontsetup/fspkerkisot.tex
+ RELOC/tex/latex/fontsetup/fspolddefault.tex
+ RELOC/tex/latex/fontsetup/fspoldstandard.tex
+ RELOC/tex/latex/fontsetup/fspstixtwoot.tex
+ RELOC/tex/latex/fontsetup/fsptalos.tex
+ RELOC/tex/latex/fontsetup/fsptimesot.tex
+ RELOC/tex/latex/fontsetup/fspxcharter.tex
+catalogue-also fontsetup-nonfree
+catalogue-ctan /macros/unicodetex/latex/fontsetup
+catalogue-license gpl3
+catalogue-topics font-sel font-supp xetex luatex maths
+catalogue-version 2.1.1

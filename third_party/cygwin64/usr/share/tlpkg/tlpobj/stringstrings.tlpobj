@@ -1,0 +1,22 @@
+name stringstrings
+category Package
+revision 57097
+shortdesc String manipulation for cosmetic and programming application
+relocated 1
+longdesc The package provides a large and sundry set of macros for the
+longdesc manipulation of strings. The macros are developed not merely
+longdesc for cosmetic application (such as changing the case of letters
+longdesc and string substitution), but also for programming applications
+longdesc such as character look-ahead, argument parsing, conditional
+longdesc tests on various string conditions, etc. The macros were
+longdesc designed all to be expandable (note that things such as
+longdesc \uppercase and \lowercase are not expandable), so that the
+longdesc macros may be strung together sequentially and nested (after a
+longdesc fashion) to achieve rather complex manipulations.
+runfiles size=15
+ RELOC/tex/latex/stringstrings/stringstrings.sty
+catalogue-also getargs
+catalogue-ctan /macros/latex/contrib/stringstrings
+catalogue-license lppl1.3
+catalogue-topics text-manip
+catalogue-version 1.24

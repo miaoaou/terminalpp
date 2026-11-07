@@ -1,0 +1,23 @@
+name eqparbox
+category Package
+revision 45215
+shortdesc Create equal-widthed parboxes
+relocated 1
+longdesc LaTeX users sometimes need to ensure that two or more blocks of
+longdesc text occupy the same amount of horizontal space on the page. To
+longdesc that end, the eqparbox package defines a new command,
+longdesc \eqparbox, which works just like \parbox, except that instead
+longdesc of specifying a width, one specifies a tag. All eqparboxes with
+longdesc the same tag--regardless of where they are in the
+longdesc document--will stretch to fit the widest eqparbox with that
+longdesc tag. This simple, equal-width mechanism can be used for a
+longdesc variety of alignment purposes, as is evidenced by the examples
+longdesc in eqparbox's documentation. Various derivatives of \eqparbox
+longdesc are also provided.
+runfiles size=3
+ RELOC/tex/latex/eqparbox/eqparbox.sty
+catalogue-ctan /macros/latex/contrib/eqparbox
+catalogue-date 2017-09-04 06:03:42 +0200
+catalogue-license lppl1.3c
+catalogue-topics boxing
+catalogue-version 4.1

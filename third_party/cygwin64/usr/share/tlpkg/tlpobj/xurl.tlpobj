@@ -1,0 +1,16 @@
+name xurl
+category Package
+revision 61553
+shortdesc Allow URL breaks at any alphanumerical character
+relocated 1
+longdesc This package loads url by default and defines possible URL
+longdesc breaks for all alphanumerical characters, as well as = / . : *
+longdesc - ~ ' " All arguments which are valid for url can be used and
+longdesc will be passed on to this package. For more information read
+longdesc the documentation of url itself.
+runfiles size=2
+ RELOC/tex/latex/xurl/xurl.sty
+catalogue-ctan /macros/latex/contrib/xurl
+catalogue-license lppl1.3
+catalogue-topics verbatim
+catalogue-version 0.10

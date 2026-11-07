@@ -1,0 +1,15 @@
+name ticollege
+category Package
+revision 36306
+shortdesc Graphical representation of keys on a standard scientific calculator
+relocated 1
+longdesc This package provides commands to draw scientific calculator
+longdesc keys with the help of TikZ. It also provides commands to draw
+longdesc the content of screens and of menu items.
+runfiles size=6
+ RELOC/tex/latex/ticollege/ticollege.sty
+catalogue-ctan /graphics/pgf/contrib/ticollege
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics pgf-tikz doc-supp
+catalogue-version 1.0

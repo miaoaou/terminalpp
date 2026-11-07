@@ -1,0 +1,20 @@
+name unicodefonttable
+category Package
+revision 70353
+shortdesc A Unicode font table generator
+relocated 1
+longdesc This package produces font tables for unicode fonts as well as
+longdesc for 8bit fonts. The table layout can be adjusted in various
+longdesc ways including restricting the range of output to show only a
+longdesc portion of a specific font. To quickly produce a one-off table
+longdesc there is a stand-alone version unicodefont.tex that asks you a
+longdesc few questions and then generates the table --- somewhat similar
+longdesc to nfssfont.tex for 8-bit fonts.
+runfiles size=10
+ RELOC/tex/latex/unicodefonttable/unicodefont.tex
+ RELOC/tex/latex/unicodefonttable/unicodefonttable.sty
+catalogue-contact-repository https://github.com/frankmittelbach/fmitex-unicodefonttable
+catalogue-ctan /macros/latex/contrib/unicodefonttable
+catalogue-license lppl1.3c
+catalogue-topics unicode font expl3
+catalogue-version 1.0h

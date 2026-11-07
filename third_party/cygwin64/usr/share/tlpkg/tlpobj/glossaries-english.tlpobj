@@ -1,0 +1,14 @@
+name glossaries-english
+category Package
+revision 35665
+shortdesc English language module for glossaries package
+relocated 1
+longdesc English language module for glossariesr package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-english/glossaries-english.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-english
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.0

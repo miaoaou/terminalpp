@@ -1,0 +1,17 @@
+name knittingpattern
+category Package
+revision 17205
+shortdesc Create knitting patterns
+relocated 1
+longdesc The class provides a simple, effective method for knitters to
+longdesc produce high-quality, attractive patterns using LaTeX. It does
+longdesc this by providing commands to handle as much of the layout of
+longdesc the document as possible, leaving the author free to
+longdesc concentrate on the pattern.
+runfiles size=1
+ RELOC/tex/latex/knittingpattern/knittingpattern.cls
+catalogue-also knitting
+catalogue-ctan /macros/latex/contrib/knittingpattern
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram

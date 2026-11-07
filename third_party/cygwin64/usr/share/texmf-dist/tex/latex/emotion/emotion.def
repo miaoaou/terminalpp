@@ -1,0 +1,14 @@
+\ProvidesExplFile{emotion.def}
+    {2024/02/13}{0.2}{LaTeX emoji}
+
+\tl_const:cn{l__emotion_ 🇦}{^^^^^^01f1e6}
+\tl_const:cn{l__emotion_ 🇧}{^^^^^^01f1e7}
+\tl_const:cn{l__emotion_ 🇨}{^^^^^^01f1e8}
+
+\tl_const:cn{l__emotion_ 🈂}{^^^^^^01f202}
+\tl_const:cn{l__emotion_ 🈚}{^^^^^^01f21a}
+\tl_const:cn{l__emotion_ 🈯}{^^^^^^01f22f}
+\tl_const:cn{l__emotion_ 🈲}{^^^^^^01f232}
+
+
+\tl_const:cn{l__emotion_ emotion}{^^^^^^01f21a}

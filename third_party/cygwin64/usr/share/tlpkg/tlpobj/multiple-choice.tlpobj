@@ -1,0 +1,19 @@
+name multiple-choice
+category Package
+revision 63722
+shortdesc LaTeX package for multiple-choice questions
+relocated 1
+longdesc This package adjusts the choices of the multiple-choice
+longdesc question automatically. It has been wholly inspired by the work
+longdesc of Enrico Gregorio and improved by Vafa Khalighi and I've just
+longdesc packed and redistributed it under the name of the
+longdesc multiple-choice package.
+runfiles size=1
+ RELOC/tex/latex/multiple-choice/multiple-choice.sty
+catalogue-also qcm
+catalogue-contact-bugs https://github.com/javadr/multiple-choice.sty/issues
+catalogue-contact-repository https://github.com/javadr/multiple-choice.sty
+catalogue-ctan /macros/latex/contrib/multiple-choice
+catalogue-license lppl1.3c
+catalogue-topics exam
+catalogue-version 0.2

@@ -1,0 +1,21 @@
+name byrne
+category Package
+revision 61943
+shortdesc This package provides a set of tools to typeset geometric proofs in the style of Oliver Byrne's 1847 ed. of Euclid's "Elements"
+relocated 1
+longdesc This package is a LaTeX adaptation of a set of tools developed
+longdesc for ConTeXt reproduction of Oliver Byrne's 1847 edition of the
+longdesc first six books of Euclid's "Elements";
+longdesc (https://github.com/jemmybutton/byrne-euclid). It consists of a
+longdesc MetaPost library, responsible for all the drawing and a set of
+longdesc LaTeX macros to conveniently use them. This package works with
+longdesc LuaLaTeX and relies on luamplib v2.23.0 or higher.
+runfiles size=40
+ RELOC/metapost/byrne/byrne.mp
+ RELOC/tex/latex/byrne/byrne.sty
+catalogue-contact-bugs https://github.com/jemmybutton/byrne-latex/issues
+catalogue-contact-home https://github.com/jemmybutton/byrne-latex
+catalogue-ctan /graphics/metapost/contrib/macros/byrne
+catalogue-license gpl3+
+catalogue-topics luatex graphics graphics-mpost
+catalogue-version 0.2.2

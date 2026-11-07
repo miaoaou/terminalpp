@@ -1,0 +1,16 @@
+name coffeestains
+category Package
+revision 59703
+shortdesc Add coffee stains to documents
+relocated 1
+longdesc This package provides an essential feature that LaTeX has been
+longdesc missing for too long: It adds coffee stains to your documents.
+longdesc A lot of time can be saved by printing stains directly on the
+longdesc page rather than adding them manually.
+runfiles size=118
+ RELOC/tex/latex/coffeestains/coffeestains.sty
+catalogue-contact-repository https://framagit.org/Pathe/coffeestains
+catalogue-ctan /graphics/pgf/contrib/coffeestains
+catalogue-license pd
+catalogue-topics graphics pgf-tikz amusements
+catalogue-version 0.5.1

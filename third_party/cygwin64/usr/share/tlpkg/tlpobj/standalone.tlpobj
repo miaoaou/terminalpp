@@ -1,0 +1,32 @@
+name standalone
+category Package
+revision 64677
+shortdesc Compile TeX pictures stand-alone or as part of a document
+relocated 1
+longdesc A class and package is provided which allows TeX pictures or
+longdesc other TeX code to be compiled standalone or as part of a main
+longdesc document. Special support for pictures with beamer overlays is
+longdesc also provided. The package is used in the main document and
+longdesc skips extra preambles in sub-files. The class may be used to
+longdesc simplify the preamble in sub-files. By default the preview
+longdesc package is used to display the typeset code without margins.
+longdesc The behaviour in standalone mode may adjusted using a
+longdesc configuration file standalone.cfg to redefine the standalone
+longdesc environment.
+depend adjustbox
+depend currfile
+depend filemod
+depend gincltex
+depend xkeyval
+runfiles size=18
+ RELOC/tex/latex/standalone/standalone.cfg
+ RELOC/tex/latex/standalone/standalone.cls
+ RELOC/tex/latex/standalone/standalone.sty
+ RELOC/tex/latex/standalone/standalone.tex
+catalogue-also combine docmute includex newclude
+catalogue-contact-bugs https://github.com/MartinScharrer/standalone/issues
+catalogue-contact-repository https://github.com/MartinScharrer/standalone
+catalogue-ctan /macros/latex/contrib/standalone
+catalogue-license lppl1.3
+catalogue-topics subdocs class
+catalogue-version 1.3b

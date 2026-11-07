@@ -1,0 +1,17 @@
+name fenetrecas
+category Package
+revision 68779
+shortdesc Commands for CAS-like windows (Xcas or Geogebra) in TikZ
+relocated 1
+longdesc This package provides some commands (in French) to display,
+longdesc with TikZ, windows like Xcas or Geogebra :
+longdesc \begin{CalculFormelGeogebra} and \LigneCalculsGeogebra ;
+longdesc \begin{CalculFormelXcas} and \LigneCalculsXcas.
+runfiles size=4
+ RELOC/tex/latex/fenetrecas/FenetreCas.sty
+catalogue-contact-repository https://github.com/cpierquet/FenetreCas
+catalogue-contact-support https://github.com/cpierquet/FenetreCas/issues
+catalogue-ctan /graphics/pgf/contrib/fenetrecas
+catalogue-license lppl1.3c
+catalogue-topics graphics pgf-tikz
+catalogue-version 0.1.4

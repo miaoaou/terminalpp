@@ -1,0 +1,16 @@
+name nestquot
+category Package
+revision 27323
+shortdesc Alternate quotes between double and single with nesting
+relocated 1
+longdesc Provides two new commands: \nlq and \nrq for nesting left and
+longdesc right quotes that properly change between double and single
+longdesc quotes according to their nesting level. For example, the input
+longdesc \nlq Foo \nlq bar\nrq\ bletch\nrq will be typeset as if it had
+longdesc been entered as "Foo 'bar' bletch".
+runfiles size=1
+ RELOC/tex/latex/nestquot/nestquot.sty
+catalogue-ctan /macros/latex/contrib/nestquot
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics quote-marks

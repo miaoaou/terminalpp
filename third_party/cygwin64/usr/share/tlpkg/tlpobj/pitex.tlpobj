@@ -1,0 +1,27 @@
+name pitex
+category Package
+revision 24731
+shortdesc Documentation macros
+relocated 1
+longdesc The bundle provides macros that the author uses when writing
+longdesc documentation (for example, that of the texapi and yax
+longdesc packages). The tools could be used by anyone, but there is no
+longdesc documentation, and the macros are subject to change without
+longdesc notice.
+runfiles size=27
+ RELOC/tex/plain/pitex/base.ptxlua
+ RELOC/tex/plain/pitex/blocks.ptx
+ RELOC/tex/plain/pitex/files.ptx
+ RELOC/tex/plain/pitex/fonts.ptx
+ RELOC/tex/plain/pitex/fonts.ptxlua
+ RELOC/tex/plain/pitex/inserts.ptx
+ RELOC/tex/plain/pitex/lua.ptx
+ RELOC/tex/plain/pitex/output.ptx
+ RELOC/tex/plain/pitex/pitex.tex
+ RELOC/tex/plain/pitex/references.ptx
+ RELOC/tex/plain/pitex/sections.ptx
+ RELOC/tex/plain/pitex/verbatim.ptx
+catalogue-ctan /macros/plain/contrib/pitex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-supp

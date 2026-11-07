@@ -1,0 +1,12 @@
+% --------------------------------------------------------------------------
+% Greece:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{blue}{RGB}{0,64,160}
+\fill [white] (0,0) rectangle (\flaglength,1);
+\foreach \x in {1,5,9,13,17} {\hbar{blue}{\x*\flagwidth/18}{\flagwidth/9}}
+\fill [blue] (0,4*\flagwidth/9) rectangle ++(5*\flagwidth/9,5*\flagwidth/9);
+\fill [white] (0,6*\flagwidth/9) rectangle ++(5*\flagwidth/9,\flagwidth/9);
+\fill [white] (2*\flagwidth/9,4*\flagwidth/9) rectangle ++(\flagwidth/9,5*\flagwidth/9);
+\framecode{}
+\end{flagdescription}

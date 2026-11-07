@@ -1,0 +1,22 @@
+name texmate
+category Package
+revision 15878
+shortdesc Comprehensive chess annotation in LaTeX
+relocated 1
+longdesc TeXmate formats chess games from very simple ascii input. The
+longdesc clean "1. e4 e5; 2. Nf3 Nc6; 3. Bb5 a6" will produce the same
+longdesc results as the sloppier "1 e4 e5; Nf3 Nc6 3.. Bb5 a6". The
+longdesc resulting format is fully customizable. There are 4 levels of
+longdesc commentary: 1 is the main game, 2-3 are commentaries. Each has
+longdesc its fonts, punctuation marks, etc., and these are also
+longdesc customizable. The package includes a tool for the creation of
+longdesc diagrams. The package works in conjunction with skak to produce
+longdesc diagrams of the current position automatically. For chess
+longdesc fonts, the package uses the chessfss system.
+runfiles size=7
+ RELOC/tex/latex/texmate/texmate.sty
+catalogue-ctan /macros/latex/contrib/texmate
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics games
+catalogue-version 2

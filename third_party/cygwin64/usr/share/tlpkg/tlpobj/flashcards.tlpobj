@@ -1,0 +1,19 @@
+name flashcards
+category Package
+revision 62104
+shortdesc A class for typesetting flashcards
+relocated 1
+longdesc The FlashCards class provides for the typesetting of flash
+longdesc cards. By flash card, we mean a two sided card which has a
+longdesc prompt or a question on one side and the response or the answer
+longdesc on the flip (back) side. Flash cards come in many sizes
+longdesc depending on the nature of the information they contain.
+runfiles size=6
+ RELOC/tex/latex/flashcards/avery5371.cfg
+ RELOC/tex/latex/flashcards/avery5388.cfg
+ RELOC/tex/latex/flashcards/flashcards.cls
+catalogue-also flashcard ecards
+catalogue-ctan /macros/latex/contrib/flashcards
+catalogue-license gpl2+
+catalogue-topics card-flash
+catalogue-version 1.0.2

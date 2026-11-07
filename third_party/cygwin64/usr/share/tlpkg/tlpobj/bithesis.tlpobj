@@ -1,0 +1,21 @@
+name bithesis
+category Package
+revision 70133
+shortdesc Templates for the Beijing Institute of Technology
+relocated 1
+longdesc This package establishes a simple and easy-to-use LaTeX
+longdesc template for Beijing Institute of Technology dissertations,
+longdesc including general undergraduate theses and master theses.
+runfiles size=25
+ RELOC/tex/latex/bithesis/bitbeamer.cls
+ RELOC/tex/latex/bithesis/bithesis.cls
+ RELOC/tex/latex/bithesis/bitreport.cls
+catalogue-contact-announce https://github.com/BITNP/BIThesis/releases
+catalogue-contact-bugs https://github.com/BITNP/BIThesis/issues
+catalogue-contact-home https://bithesis.bitnp.net
+catalogue-contact-repository https://github.com/BITNP/BIThesis
+catalogue-contact-support https://github.com/BITNP/BIThesis/discussions
+catalogue-ctan /macros/unicodetex/latex/bithesis
+catalogue-license lppl1.3c
+catalogue-topics class dissertation doc-templ chinese expl3
+catalogue-version 3.6.2

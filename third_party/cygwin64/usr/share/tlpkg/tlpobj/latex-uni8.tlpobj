@@ -1,0 +1,21 @@
+name latex-uni8
+category Package
+revision 49729
+shortdesc Universal inputenc, fontenc, and babel for pdfLaTeX and LuaLaTeX
+relocated 1
+longdesc This package provides a LaTeX style file which makes it easy to
+longdesc use input encoding (UTF-8 by default, can be changed),
+longdesc fontspec.sty (optional), font encoding (T1 if fontspec.sty is
+longdesc not used), babel (English language by default), hyphenation,
+longdesc underline (with soul.sty), default text and math fonts
+longdesc (Computer Modern or Times), and paper sizes correctly with both
+longdesc pdfLaTeX and LuaLaTeX.
+runfiles size=3
+ RELOC/tex/latex/latex-uni8/uni8.sty
+catalogue-contact-repository https://github.com/pts/latex-uni8
+catalogue-contact-support https://github.com/pts/latex-uni8/issues
+catalogue-ctan /macros/latex/contrib/latex-uni8
+catalogue-date 2019-01-20 05:31:27 +0100
+catalogue-license lppl
+catalogue-topics inputenc fontenc unicode misc-support
+catalogue-version 0.03

@@ -1,0 +1,16 @@
+name hypdoc
+category Package
+revision 68661
+shortdesc Hyper extensions for doc.sty
+relocated 1
+longdesc This package adds hypertext features to the package doc that is
+longdesc used in the documentation system of LaTeX2e. Bookmarks are
+longdesc added and references are linked as far as possible.
+runfiles size=3
+ RELOC/tex/latex/hypdoc/hypdoc.sty
+catalogue-contact-bugs https://github.com/ho-tex/hypdoc/issues
+catalogue-contact-repository https://github.com/ho-tex/hypdoc
+catalogue-ctan /macros/latex/contrib/hypdoc
+catalogue-license lppl1.3c
+catalogue-topics doc-supp hyper
+catalogue-version 1.19

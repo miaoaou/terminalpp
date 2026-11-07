@@ -1,0 +1,21 @@
+name twoup
+category Package
+revision 15878
+catalogue twoupltx
+shortdesc Print two virtual pages on each physical page
+relocated 1
+longdesc MiKTeX and many other TeX implementations include tools for
+longdesc massaging PostScript into booklet and two-up printing -- that
+longdesc is, printing two logical pages side by side on one side of one
+longdesc sheet of paper. However, some LaTeX preliminaries are necessary
+longdesc to use those tools. The twoup package provides such
+longdesc preliminaries and gives advice on how to use the PostScript
+longdesc tools.
+runfiles size=2
+ RELOC/tex/latex/twoup/twoup.sty
+catalogue-also twoinone
+catalogue-ctan /macros/latex/contrib/twoup
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics compact-print
+catalogue-version 1.3

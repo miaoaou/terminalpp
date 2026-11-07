@@ -1,0 +1,33 @@
+%% 
+%% This is file `lastbib.sty', created by Berik I. Tuleuov, 
+%% Karaganda, Kazakhstan, on 27/10/1999.
+%% Modified 01/11/1999.
+%% Modified by pastorm/ru-board to fix some bugs 29/01/2010.
+%% Modified 02/03/2024 to change License agreement to The LaTeX Project Public License
+%%
+%% 
+%% Allow for things like |... \LastBib\ references in the work| to
+%% get `... 25 references in the work'
+
+\def\filename{lastbib}
+\def\fileversion{v2.1}
+\def\filedate{2024/03/02}
+\def\docdate {2024/03/02}
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{lastbib}[\filedate\space\fileversion\space
+LaTeX2e package for refs to bibliographic references count by Berik I. Tuleuov]
+
+\def\LastBib{\ref{LastBib}}%
+\@definecounter{enumv}
+\def\bibitem{\stepcounter{enumv}\@ifnextchar[\@lbibitem\@bibitem}
+\def\lastbib@putlabel{%
+\immediate\write\@auxout{\string
+\newlabel{LastBib}{{\theenumv}{}{}{}{}}}%
+}
+\def\endthebibliography{\def\@noitemerr{%
+\@latex@warning{Empty `thebibliography' environment}}\lastbib@putlabel%
+\endlist}
+\endinput
+%%
+%% End of file `lastbib.sty'.

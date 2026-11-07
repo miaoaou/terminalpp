@@ -1,0 +1,109 @@
+% xkeymask package by Ramkumar Ramachandra.
+%%
+%% --------------------------------------------
+%% Copyright (C) 2022-2023 Ramkumar Ramachandra
+%% --------------------------------------------
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option)
+%% any later version. The latest version of this license
+%% can be found at:
+%%   https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions
+%% of LaTeX version 2008/05/04 or later.
+%%
+%% This work has the LPPL maintenance status "maintained".
+%%
+%% This Current Maintainer is Ramkumar Ramachandra.
+%%
+%% This work consists of the file xkeymask.sty.
+%%
+%% The following files constitute the xkeymask bundle and
+%% must be distributed as a whole:
+%%   README, xkeymask.sty, xkeymask.tex, xkeymask.pdf.
+%%
+\RequirePackage{kvoptions, xkeyval}
+\ProvidesPackage{xkeymask}[v1.0 An extension of xkeyval with a mask]
+
+% Option processing
+\newif\ifxkeymask@prefix
+\DeclareStringOption{prefix}
+\AddToKeyvalOption*{prefix}{\xkeymask@prefixtrue}
+\ProcessKeyvalOptions*
+
+\ifxkeymask@prefix
+  % We patch xkeyval's \setkeys to use a mask to ignore keys
+  \makeatletter
+  % Our global mask
+  \def\XKM@mask{}
+
+  % First we define \appendmask
+  \long\def\XKM@appendmask[#1]{
+    \XKV@for@o\XKV@fams\XKV@tfam{
+      \xdef\XKM@hdr{\XKV@prefix\XKV@tfam @}
+      \XKV@for@o{#1}\XKV@tempa{
+        % Remove spaces around key name
+        \expandafter\KV@@sp@def\expandafter\XKV@tempa\expandafter{\XKV@tempa}
+        \XKV@addtolist@x\XKM@mask{\XKM@hdr\XKV@tempa}
+      }
+    }
+  }
+  \def\appendmask{\XKV@testopta{\XKV@testoptc\XKM@appendmask}}
+
+  % Query the mask for a key
+  \long\def\XKM@ifinmask[#1]#2#3{
+    \XKV@checksanitizea{#1}\XKV@tempc
+    \XKV@for@o\XKV@fams\XKV@tfam{
+      \XKV@for@o\XKV@tempc\XKV@tempb{
+        \xdef\XKM@hdr{\XKV@prefix\XKV@tfam @}
+        \xdef\XKV@tempd{\XKV@prefix\XKV@tfam @\XKV@tempb}
+        \@expandtwoargs\in@\XKV@tempd\XKM@mask
+        \ifin@
+          #2
+        \else
+          #3
+        \fi
+      }
+    }
+  }
+  \def\ifinmask{\XKV@testopta{\XKV@testoptc\XKM@ifinmask}}
+
+  % A quick way to clear the mask
+  \def\clearmask{\global\let\XKM@mask\@empty}
+
+  % Now we override the definition of \XKV@setkeys
+  \long\def\XKM@setkeys[#1]#2{
+    \XKV@checksanitizea{#2}\XKV@resb
+    \let\XKV@resa\@empty
+    \XKV@for@o\XKV@fams\XKV@tfam{
+      \XKV@for@o\XKV@resb\XKV@tempb{
+        \expandafter\XKV@g@tkeyname\XKV@tempb=\@nil\XKV@tempc
+        % Remove spaces around key name
+        \expandafter\KV@@sp@def\expandafter\XKV@tempc\expandafter{\XKV@tempc}
+        \xdef\XKV@tempd{\XKV@prefix\XKV@tfam @\XKV@tempc}
+        % If \XKV@tempd is in \XKM@mask,
+        % remove the corresponding kv from \XKV@resb
+        \@expandtwoargs\in@\XKV@tempd\XKM@mask
+        \ifin@\else\XKV@addtolist@o\XKV@resa\XKV@tempb\fi
+      }
+    }
+    \ifnum\XKV@depth=\z@\let\XKV@rm\@empty\fi
+    \expandafter\XKV@s@tkeys\expandafter{\XKV@resa}{#1}
+    \let\CurrentOption\@empty
+  }
+
+  % A dispatcher to \XKM@setkeys or \XKV@setkeys
+  \long\def\XKM@setkeys@dispatch{
+    \xdef\XKV@tempa{\xkeymask@prefix @}
+    \ifx\XKV@prefix\XKV@tempa
+      \expandafter\XKM@setkeys
+    \else
+      \expandafter\XKV@setkeys
+    \fi
+  }
+
+  % Finally, override \setkeys itself to call the dispatcher
+  \def\setkeys{\XKV@testopta{\XKV@testoptc\XKM@setkeys@dispatch}}
+  \makeatother
+\fi

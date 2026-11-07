@@ -1,0 +1,19 @@
+name litesolution
+category Package
+revision 70595
+shortdesc A template providing a light design for solutions of test papers
+relocated 1
+longdesc This template provides a fresh design for typesetting solutions
+longdesc of midterm or final exams, textbooks and other exercises.
+longdesc Welcome to feedback bugs or ideas via email
+longdesc xiamyphys@gmail.com.
+runfiles size=2
+ RELOC/tex/latex/litesolution/litesolution.cls
+catalogue-contact-bugs https://github.com/xiamyphys/LiteSolution/issues
+catalogue-contact-development https://github.com/xiamyphys
+catalogue-contact-repository https://github.com/xiamyphys/LiteSolution
+catalogue-contact-support https://qm.qq.com/q/RGFmHwBecC
+catalogue-ctan /macros/latex/contrib/litesolution
+catalogue-license lppl1.3c
+catalogue-topics class doc-templ
+catalogue-version 2.0a

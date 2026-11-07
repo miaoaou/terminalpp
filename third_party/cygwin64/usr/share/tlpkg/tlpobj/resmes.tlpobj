@@ -1,0 +1,17 @@
+name resmes
+category Package
+revision 65375
+shortdesc Measure restriction symbol in LaTeX
+relocated 1
+longdesc This package provides a simple macro \resmes that prints the
+longdesc measure restriction symbol.
+runfiles size=1
+ RELOC/tex/latex/resmes/resmes.sty
+catalogue-contact-bugs https://github.com/Loara/resmes/issues
+catalogue-contact-home https://github.com/Loara/resmes
+catalogue-contact-repository https://github.com/Loara/resmes.git
+catalogue-contact-support https://github.com/Loara/resmes/discussions
+catalogue-ctan /macros/latex/contrib/resmes
+catalogue-license mit
+catalogue-topics maths
+catalogue-version 1.0

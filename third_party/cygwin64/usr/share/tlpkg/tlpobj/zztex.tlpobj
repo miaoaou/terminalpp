@@ -1,0 +1,72 @@
+name zztex
+category Package
+revision 55862
+shortdesc A full-featured TeX macro package for producing books, journals, and manuals
+relocated 1
+longdesc The ZzTeX macro package is a full-featured TeX macro package
+longdesc specially designed for producing books, journals, and manuals.
+longdesc Development of the package began in 1989. Since then, about 500
+longdesc textbooks and journals have been produced with it for a variety
+longdesc of publishers. Numerous authors have used the package to
+longdesc produce subsequent editions of their books. ZzTeX runs under
+longdesc Plain TeX. The only documentation available for the package is
+longdesc contained in the zz*.dat files that accompany the TeX files.
+runfiles size=169
+ RELOC/tex/plain/zztex/zzart.tex
+ RELOC/tex/plain/zztex/zzbiblio.tex
+ RELOC/tex/plain/zztex/zzbibtex.tex
+ RELOC/tex/plain/zztex/zzblock.tex
+ RELOC/tex/plain/zztex/zzcmmath.tex
+ RELOC/tex/plain/zztex/zzcomenc.tex
+ RELOC/tex/plain/zztex/zzdiv.tex
+ RELOC/tex/plain/zztex/zzdoc.tex
+ RELOC/tex/plain/zztex/zzerror.tex
+ RELOC/tex/plain/zztex/zzfloat.tex
+ RELOC/tex/plain/zztex/zzfont.tex
+ RELOC/tex/plain/zztex/zzfront.tex
+ RELOC/tex/plain/zztex/zzhelp.tex
+ RELOC/tex/plain/zztex/zzhmode.tex
+ RELOC/tex/plain/zztex/zzhmodeb.tex
+ RELOC/tex/plain/zztex/zzhyper.tex
+ RELOC/tex/plain/zztex/zzhyph.tex
+ RELOC/tex/plain/zztex/zzindexv1.tex
+ RELOC/tex/plain/zztex/zzindexv2.tex
+ RELOC/tex/plain/zztex/zzio.tex
+ RELOC/tex/plain/zztex/zzlist.tex
+ RELOC/tex/plain/zztex/zzltrspc.tex
+ RELOC/tex/plain/zztex/zzlucida.tex
+ RELOC/tex/plain/zztex/zzmath.tex
+ RELOC/tex/plain/zztex/zzmathv3.tex
+ RELOC/tex/plain/zztex/zzmathv4.tex
+ RELOC/tex/plain/zztex/zzmathv5.tex
+ RELOC/tex/plain/zztex/zzmathv6.tex
+ RELOC/tex/plain/zztex/zzmerge.tex
+ RELOC/tex/plain/zztex/zzmisc.tex
+ RELOC/tex/plain/zztex/zzmtime.tex
+ RELOC/tex/plain/zztex/zznewmath.tex
+ RELOC/tex/plain/zztex/zznote.tex
+ RELOC/tex/plain/zztex/zzoverlay.tex
+ RELOC/tex/plain/zztex/zzpage.tex
+ RELOC/tex/plain/zztex/zzplain.tex
+ RELOC/tex/plain/zztex/zzprog.tex
+ RELOC/tex/plain/zztex/zzps.tex
+ RELOC/tex/plain/zztex/zzreg.tex
+ RELOC/tex/plain/zztex/zzrunner.tex
+ RELOC/tex/plain/zztex/zzsect.tex
+ RELOC/tex/plain/zztex/zztabbing.tex
+ RELOC/tex/plain/zztex/zztabularv1.tex
+ RELOC/tex/plain/zztex/zztabularv2.tex
+ RELOC/tex/plain/zztex/zztabularv3.tex
+ RELOC/tex/plain/zztex/zztag.tex
+ RELOC/tex/plain/zztex/zztex.tex
+ RELOC/tex/plain/zztex/zztext.tex
+ RELOC/tex/plain/zztex/zzttladj.tex
+ RELOC/tex/plain/zztex/zztures.tex
+ RELOC/tex/plain/zztex/zzver.tex
+ RELOC/tex/plain/zztex/zzvmode.tex
+ RELOC/tex/plain/zztex/zzxref.tex
+catalogue-contact-home http://www.windfall.com
+catalogue-ctan /macros/plain/contrib/zztex
+catalogue-license mit
+catalogue-topics book-pub journalpub
+catalogue-version 17.7

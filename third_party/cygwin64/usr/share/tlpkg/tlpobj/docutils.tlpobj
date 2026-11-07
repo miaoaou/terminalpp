@@ -1,0 +1,21 @@
+name docutils
+category Package
+revision 56594
+shortdesc Helper commands and element definitions for Docutils LaTeX output
+relocated 1
+longdesc The package is intended for use with LaTeX documents generated
+longdesc from reStructuredText sources with Docutils. When generating
+longdesc LaTeX documents, specify this package with the stylesheet
+longdesc configuration option, e.g. rst2latex --stylesheet=docutils
+longdesc exampledocument.txt
+runfiles size=2
+ RELOC/tex/latex/docutils/docutils.sty
+catalogue-contact-announce https://pypi.org/rss/project/docutils/releases.xml
+catalogue-contact-bugs https://sourceforge.net/p/docutils/bugs/
+catalogue-contact-development https://sourceforge.net/p/docutils/mailman/
+catalogue-contact-home https://docutils.sourceforge.io/
+catalogue-contact-repository https://sourceforge.net/p/docutils/code/HEAD/tree/trunk/docutils/docutils/writers/latex2e/
+catalogue-contact-support https://sourceforge.net/p/docutils/mailman/
+catalogue-ctan /macros/latex/contrib/docutils
+catalogue-license bsd
+catalogue-topics markup

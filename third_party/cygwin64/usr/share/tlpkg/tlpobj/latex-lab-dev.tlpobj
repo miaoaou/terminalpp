@@ -1,0 +1,60 @@
+name latex-lab-dev
+category Package
+revision 69860
+shortdesc LaTeX laboratory: Development pre-release
+relocated 1
+longdesc This package provides a testing release for upcoming changes to
+longdesc the latex-lab bundle, which provides a route for additions to
+longdesc the LaTeX kernel to be stablised. It accompanies the
+longdesc pre-testing kernel code (latex-base-dev), and is intended for
+longdesc testing by knowledgeable users.
+runfiles size=95
+ RELOC/tex/latex-dev/latex-lab/bib-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/block-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/documentmetadata-support.ltx
+ RELOC/tex/latex-dev/latex-lab/firstaid-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/float-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/glyphtounicode-cmex.tex
+ RELOC/tex/latex-dev/latex-lab/graphic-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-amsmath.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-footmisc.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-footnotes.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-kernel-changes.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-math.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-mathpkg.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-mathtools.ltx
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-bib.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-block.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-firstaid.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-float.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-graphic.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-marginpar.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-math.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-minipage.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-new-or-1.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-new-or-2.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-sec.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-table.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-text.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-title.sty
+ RELOC/tex/latex-dev/latex-lab/latex-lab-testphase-toc.sty
+ RELOC/tex/latex-dev/latex-lab/marginpar-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/math-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/minipage-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/new-or-1-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/new-or-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/phase-I-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/phase-II-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/phase-III-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/sec-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/table-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/tabular-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/tagpdf-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/tagpdf-ns-latex-lab.def
+ RELOC/tex/latex-dev/latex-lab/text-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/title-latex-lab-testphase.ltx
+ RELOC/tex/latex-dev/latex-lab/toc-latex-lab-testphase.ltx
+catalogue-ctan /macros/latex-dev/required/latex-lab
+catalogue-license lppl1.3c
+catalogue-topics format latex-devel
+catalogue-version 2024-06-01 pre-release 1

@@ -1,0 +1,7 @@
+name epspdf.x86_64-cygwin
+category Package
+revision 33557
+shortdesc x86_64-cygwin files of epspdf
+binfiles arch=x86_64-cygwin size=2
+ bin/x86_64-cygwin/epspdf
+ bin/x86_64-cygwin/epspdftk

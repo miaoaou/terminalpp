@@ -1,0 +1,18 @@
+name puyotikz
+category Package
+revision 57254
+shortdesc Quickly typeset board states of Puyo Puyo games
+relocated 1
+longdesc This LaTeX package permits to quickly typeset board states of
+longdesc Puyo Puyo games. It supports large and small boards with
+longdesc arbitrary shape, hidden rows, current and next puyos, labels
+longdesc and move planning markers. The package requires Python3 in
+longdesc support of scripts driven by PythonTeX.
+runfiles size=4
+ RELOC/scripts/puyotikz/puyotikz.py
+ RELOC/tex/latex/puyotikz/puyotikz.sty
+catalogue-contact-repository https://github.com/amosborne/puyotikz
+catalogue-ctan /graphics/pgf/contrib/puyotikz
+catalogue-license mit
+catalogue-topics graphics pgf-tikz games
+catalogue-version 1.0.1

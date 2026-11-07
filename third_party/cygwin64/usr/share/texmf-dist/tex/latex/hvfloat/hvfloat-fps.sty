@@ -1,0 +1,30 @@
+%% $Id: hvfloat-fps.sty 121 2021-06-20 13:36:11Z herbert $
+%%
+\NeedsTeXFormat{LaTeX2e}
+%%
+%% IMPORTANT NOTICE:
+%%
+%% This is file `hvfloat-fps.sty',
+%%
+%% Herbert Voss <hvoss@tug.de>
+%%
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+%%
+%% DESCRIPTION:
+%%   `hvfloat-fps' offers global placement of floats
+%%
+\def\fileversion{0.03}
+\def\filedate{2020/06/20}
+\ProvidesPackage{hvfloat-fps}[\filedate\space v\fileversion\space global float position setting (hv)]
+%\message{`hvfloat-fps' v\fileversion, \filedate\space (Herbert Voss)}
+%
+\RequirePackage{xkeyval}
+%
+\DeclareOptionX{figure}{\renewcommand*\fps@figure{#1}}
+\DeclareOptionX{table}{\renewcommand*\fps@table{#1}}
+\DeclareOptionX{all}{\renewcommand*\fps@figure{#1}\renewcommand*\fps@table{#1}}
+\ProcessOptionsX\relax
+%
+\endinput

@@ -1,0 +1,14 @@
+name dimnum
+category Package
+revision 58774
+shortdesc Commands for dimensionless numbers
+relocated 1
+longdesc This package simplifies the calling of Dimensionless Numbers in
+longdesc math or text mode.
+runfiles size=2
+ RELOC/tex/latex/dimnum/dimnum.sty
+catalogue-contact-repository https://github.com/CptRolinho/dimnum
+catalogue-ctan /macros/latex/contrib/dimnum
+catalogue-license lppl1.3
+catalogue-topics numbers abbrev physics chemistry
+catalogue-version 1.0.1

@@ -1,0 +1,22 @@
+name poster-mac
+category Package
+revision 18305
+shortdesc Make posters and banners with TeX
+relocated 1
+longdesc The package offers macros for making posters and banners with
+longdesc TeX. It is compatible with most TeX macro formats, including
+longdesc Plain TeX, LaTeX, AmSTeX, and AmS-LaTeX. The package creates a
+longdesc poster as huge box, which is then distributed over as many
+longdesc printer pages as necessary. The only special requirement is
+longdesc that your printer not be bothered by text that lies off the
+longdesc page. This is true of most printers, including laser printers
+longdesc and PostScript printers.
+runfiles size=4
+ RELOC/tex/generic/poster-mac/poster.sty
+ RELOC/tex/generic/poster-mac/poster.tex
+catalogue-also a0poster sciposter poster
+catalogue-ctan /macros/generic/poster
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics poster
+catalogue-version 1.1

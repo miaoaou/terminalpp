@@ -1,0 +1,20 @@
+name calcfrac
+category Package
+revision 68684
+shortdesc Calculates the value of an expression containing fractions
+relocated 1
+longdesc This package is an engine for calculating numerical expressions
+longdesc containing fractions. The numerical value of the expression is
+longdesc calculated with a non-expandable method and displayed in the
+longdesc form of an irreducible fraction or, where appropriate, an
+longdesc integer. This package is intended for educational purposes. The
+longdesc videos showing its writing from scratch are available on
+longdesc youtube from episode 24: https://youtu.be/6lF4P6B3msw. This is
+longdesc why it is delivered with only a minimalist documentation.
+runfiles size=3
+ RELOC/tex/generic/calcfrac/calcfrac.sty
+ RELOC/tex/generic/calcfrac/calcfrac.tex
+catalogue-ctan /macros/generic/calcfrac
+catalogue-license lppl1.3c
+catalogue-topics maths calculation macro-gen
+catalogue-version 0.2

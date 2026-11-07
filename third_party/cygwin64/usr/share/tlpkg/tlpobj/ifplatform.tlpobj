@@ -1,0 +1,21 @@
+name ifplatform
+category Package
+revision 45533
+shortdesc Conditionals to test which platform is being used
+relocated 1
+longdesc This package uses the (La)TeX extension -shell-escape to
+longdesc establish whether the document is being processed on a Windows
+longdesc or on a Unix-like system (Mac OS X, Linux, etc.), or on Cygwin
+longdesc (Unix environment over a windows system). Booleans provided
+longdesc are: \ifwindows, \iflinux, \ifmacosx and \ifcygwin. The package
+longdesc also preserves the output of uname on a Unix-like system, which
+longdesc may be used to distinguish between various classes of Unix
+longdesc systems.
+runfiles size=1
+ RELOC/tex/latex/ifplatform/ifplatform.sty
+catalogue-contact-repository https://github.com/wspr/will2e
+catalogue-ctan /macros/latex/contrib/ifplatform
+catalogue-date 2017-12-07 10:14:16 +0100
+catalogue-license lppl1.3c
+catalogue-topics env-query
+catalogue-version 0.4a

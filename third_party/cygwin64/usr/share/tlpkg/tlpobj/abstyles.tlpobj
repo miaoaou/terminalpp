@@ -1,0 +1,25 @@
+name abstyles
+category Package
+revision 15878
+catalogue abstyles-orig
+shortdesc Adaptable BibTeX styles
+relocated 1
+longdesc A family of modifications of the standard BibTeX styles whose
+longdesc behaviour may be changed by changing the user document, without
+longdesc change to the styles themselves. The package is largely used
+longdesc nowadays in its adaptation for working with Babel.
+runfiles size=33
+ RELOC/bibtex/bib/abstyles/acompat.bib
+ RELOC/bibtex/bib/abstyles/jourabbr.bib
+ RELOC/bibtex/bib/abstyles/jourfull.bib
+ RELOC/bibtex/bst/abstyles/aabbrv.bst
+ RELOC/bibtex/bst/abstyles/aalpha.bst
+ RELOC/bibtex/bst/abstyles/anotit.bst
+ RELOC/bibtex/bst/abstyles/aplain.bst
+ RELOC/bibtex/bst/abstyles/aunsnot.bst
+ RELOC/bibtex/bst/abstyles/aunsrt.bst
+ RELOC/tex/generic/abstyles/apreambl.tex
+catalogue-ctan /biblio/bibtex/contrib/abstyles
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license other-free
+catalogue-topics bibtex-sty

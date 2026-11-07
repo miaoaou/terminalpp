@@ -1,0 +1,19 @@
+% German Language Bindings for the sTeX problem package
+% Copyright (c) 2019 Michael Kohlhase, all rights reserved
+%               this file is released under the
+%               LaTeX Project Public License (LPPL)
+%
+% The original of this file is in the public repository at 
+% http://github.com/sLaTeX/sTeX/
+
+\tl_set:Nn \sproblemautorefname{Aufgabe}
+\tl_set:Nn \problem@kw@solution{Lösung}
+\tl_set:Nn \problem@kw@hint{Hinweis}
+\tl_set:Nn \problem@kw@note{Bemerkung}
+\tl_set:Nn \problem@kw@grading{Bewertung}
+\tl_set:Nn \problem@kw@pts{Pkt}
+\tl_set:Nn \problem@kw@minutes{Min}
+\tl_set:Nn \problem@kw@correct{Korrekt}
+\tl_set:Nn \problem@kw@wrong{Falsch}
+\tl_set:Nn \problem@kw@feedback{Rückmeldung}
+\tl_set:Nn \problem@kw@points{Punkte}

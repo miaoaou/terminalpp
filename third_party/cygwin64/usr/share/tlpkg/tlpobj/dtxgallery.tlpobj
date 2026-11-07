@@ -1,0 +1,16 @@
+name dtxgallery
+category Package
+revision 49504
+shortdesc A small collection of minimal DTX examples
+relocated 1
+longdesc A collection of files that demonstrate simple things that are
+longdesc possible with the flexible and under-appreciated docstrip file
+longdesc format. Each file of the collection is provided as a .dtx file
+longdesc and as the corresponding .pdf. The set is intended as a
+longdesc companion to Scott Pakin's excellent and influential dtxtut
+longdesc example of producing LaTeX packages in this way.
+catalogue-ctan /info/dtxgallery
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics demo-code
+catalogue-version 1

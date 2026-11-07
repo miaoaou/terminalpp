@@ -1,0 +1,15 @@
+name altsubsup
+category Package
+revision 62738
+shortdesc Subscripts and superscripts with square brackets
+relocated 1
+longdesc A LaTeX package to write alternative and customisable
+longdesc subscripts and superscripts, with square brackets in the source
+longdesc code.
+runfiles size=1
+ RELOC/tex/latex/altsubsup/altsubsup.sty
+catalogue-contact-home https://gricad-gitlab.univ-grenoble-alpes.fr/labbeju/latex-packages/
+catalogue-ctan /macros/latex/contrib/altsubsup
+catalogue-license lppl1.3
+catalogue-topics maths subsup-pos
+catalogue-version 1.1

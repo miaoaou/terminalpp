@@ -1,0 +1,24 @@
+name filecontentsdef
+category Package
+revision 52208
+shortdesc filecontents + macro + verbatim
+relocated 1
+longdesc The package provides two environments called filecontentsdef
+longdesc and filecontentshere. They are derived from the LaTeX
+longdesc filecontents environment as provided by Scott Pakin's
+longdesc filecontents package. In addition to the file creation they
+longdesc either store the (verbatim) contents in a macro
+longdesc (filecontentsdef) or typeset them (verbatim) on the spot
+longdesc (filecontentshere). The author developed the package to display
+longdesc TeX code verbatim in documentation and the same time produce
+longdesc the corresponding files during the LaTeX run in order to embed
+longdesc them in the PDF as file attachment annotations (by using Scott
+longdesc Pakin's package attachfile).
+runfiles size=2
+ RELOC/tex/latex/filecontentsdef/filecontentsdef.sty
+catalogue-also filecontents
+catalogue-ctan /macros/latex/contrib/filecontentsdef
+catalogue-date 2019-09-29 13:17:23 +0200
+catalogue-license lppl1.3
+catalogue-topics file-mgmt
+catalogue-version 1.5

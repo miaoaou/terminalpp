@@ -1,0 +1,24 @@
+name elements
+category Package
+revision 61792
+shortdesc Provides properties of chemical elements
+relocated 1
+longdesc The package provides means for retrieving properties of
+longdesc chemical elements like atomic number, element symbol, element
+longdesc name, electron distribution or isotope number. Properties are
+longdesc defined for the elements up to the atomic number 112. This
+longdesc package is a spin-off of the package bohr by the same author.
+runfiles size=19
+ RELOC/tex/latex/elements/elements.sty
+ RELOC/tex/latex/elements/elements_names_brazil.def
+ RELOC/tex/latex/elements/elements_names_english.def
+ RELOC/tex/latex/elements/elements_names_french.def
+ RELOC/tex/latex/elements/elements_names_german.def
+ RELOC/tex/latex/elements/elements_names_portuges.def
+ RELOC/tex/latex/elements/elements_names_spanish.def
+catalogue-contact-bugs https://github.com/cgnieder/elements/issues
+catalogue-contact-repository https://github.com/cgnieder/elements/
+catalogue-ctan /macros/latex/contrib/elements
+catalogue-license lppl1.3c
+catalogue-topics chemistry
+catalogue-version 0.4

@@ -1,0 +1,16 @@
+name wrapfig
+category Package
+revision 61719
+shortdesc Produces figures which text can flow around
+relocated 1
+longdesc Allows figures or tables to have text wrapped around them. Does
+longdesc not work in combination with list environments, but can be used
+longdesc in a parbox or minipage, and in twocolumn format. Supports the
+longdesc float package.
+runfiles size=7
+ RELOC/tex/latex/wrapfig/wrapfig.sty
+catalogue-also wrapfig2
+catalogue-ctan /macros/latex/contrib/wrapfig
+catalogue-license lppl
+catalogue-topics text-flow
+catalogue-version 3.6

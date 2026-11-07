@@ -1,0 +1,19 @@
+name simplenodes
+category Package
+revision 62888
+shortdesc Simple nodes in four colors written in TikZ for LaTeX
+relocated 1
+longdesc This is a LaTeX macro package for generating simple node-based
+longdesc flow graphs or diagrams built upon the TikZ package. The
+longdesc package provides two basic commands, one to generate a node and
+longdesc one to create links between nodes. The positioning of the nodes
+longdesc is not handled by the package itself but is preferably done in
+longdesc a tabular environment. In total, four simple node types are
+longdesc defined, loosely based on the nomenclature and color patterns
+longdesc of the popular Java script Bootstrap.
+runfiles size=1
+ RELOC/tex/latex/simplenodes/simplenodes.sty
+catalogue-contact-repository https://github.com/user9856749/simplenodes
+catalogue-ctan /graphics/pgf/contrib/simplenodes
+catalogue-license mit
+catalogue-topics pgf-tikz diagram diagram-flow

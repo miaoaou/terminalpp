@@ -1,0 +1,40 @@
+name l3build
+category Package
+revision 69748
+shortdesc A testing and building system for (La)TeX
+longdesc The build system supports testing and building LaTeX3 code, on
+longdesc Linux, Mac OS X and Windows systems. The package offers: A unit
+longdesc testing system for (La)TeX code (whether kernel code or
+longdesc contributed packages); A system for typesetting package
+longdesc documentation; and An automated process for creating CTAN
+longdesc releases. The package is essentially independent of other
+longdesc material released by the LaTeX3 team, and may be updated on a
+longdesc different schedule.
+depend l3build.ARCH
+depend luatex
+runfiles size=48
+ texmf-dist/scripts/l3build/l3build-arguments.lua
+ texmf-dist/scripts/l3build/l3build-aux.lua
+ texmf-dist/scripts/l3build/l3build-check.lua
+ texmf-dist/scripts/l3build/l3build-clean.lua
+ texmf-dist/scripts/l3build/l3build-ctan.lua
+ texmf-dist/scripts/l3build/l3build-file-functions.lua
+ texmf-dist/scripts/l3build/l3build-help.lua
+ texmf-dist/scripts/l3build/l3build-install.lua
+ texmf-dist/scripts/l3build/l3build-manifest-setup.lua
+ texmf-dist/scripts/l3build/l3build-manifest.lua
+ texmf-dist/scripts/l3build/l3build-stdmain.lua
+ texmf-dist/scripts/l3build/l3build-tagging.lua
+ texmf-dist/scripts/l3build/l3build-typesetting.lua
+ texmf-dist/scripts/l3build/l3build-unpack.lua
+ texmf-dist/scripts/l3build/l3build-upload.lua
+ texmf-dist/scripts/l3build/l3build-variables.lua
+ texmf-dist/scripts/l3build/l3build-zip.lua
+ texmf-dist/scripts/l3build/l3build.lua
+ texmf-dist/tex/latex/l3build/regression-test.tex
+catalogue-contact-bugs https://github.com/latex3/l3build/issues
+catalogue-contact-home https://www.latex-project.org
+catalogue-contact-repository https://github.com/latex3/l3build
+catalogue-ctan /macros/latex/contrib/l3build
+catalogue-license lppl1.3c
+catalogue-topics package-devel macro-supp ctan

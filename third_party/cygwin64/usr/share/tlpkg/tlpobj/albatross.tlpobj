@@ -1,0 +1,17 @@
+name albatross
+category Package
+revision 69832
+shortdesc Find fonts that contain a given glyph
+longdesc This is a command line tool for finding fonts that contain a
+longdesc given (Unicode) glyph. It relies on Fontconfig.
+depend albatross.ARCH
+runfiles size=1325
+ texmf-dist/scripts/albatross/albatross.jar
+ texmf-dist/scripts/albatross/albatross.sh
+catalogue-contact-bugs https://gitlab.com/islandoftex/albatross/-/issues
+catalogue-contact-repository https://gitlab.com/islandoftex/albatross/
+catalogue-contact-support https://gitter.im/Island-of-TeX/community
+catalogue-ctan /support/albatross
+catalogue-license bsd3
+catalogue-topics unicode font-sel
+catalogue-version 0.5.1

@@ -1,0 +1,81 @@
+%%
+%% This is file `colorpalette.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% palette.dtx  (with options: `color')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2021 Dennis Chen <proofprogram@gmail.com>
+%% 
+%% This work may be distributed and/or modified under
+%% the conditions the LaTeX Project Public License (LPPL),
+%% either version 1.3 of this license or (at your option)
+%% any later version. The latest version of this license
+%% can be found in
+%% 
+%%     http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% To produce the documentation, run palette.dtx through pdflatex.
+%% 
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{colorpalette}
+[2021/07/29 v1.1.0 Create palettes for colors and symbols]
+\RequirePackage{xcolor}
+\RequirePackage{macrolist}
+\newcommand\newpalettetheme[1]{
+    \macronewlist{colorpalette@theme@#1@palettes}
+    \macronewlist{colorpalette@theme@#1@colors}
+}
+\newcommand\addcolortotheme[2]{
+    \colorpalette@themecheck{#1}
+    \macrolistadd{colorpalette@theme@#1@colors}{#2}
+}
+\newcommand\newpalette[2]{
+    % Check that the theme exists
+    \colorpalette@themecheck{#1}
+    \macrolistadd{colorpalette@theme@#1@palettes}{#2}
+}
+\newcommand\setpalettecolor[3]{
+    \colorpalette@themecheck{#1}
+    \colorpalette@palettecheck{#1}{#2}
+    \colorpalette@colorcheck{#1}{#3}
+    \def\colorpalette@temp@themename{#1}
+    \def\colorpalette@temp@palettename{#2}
+    \def\colorpalette@temp@colorname{#3}
+    \colorpalette@setpalettecolor
+}
+\newcommand\colorpalette@setpalettecolor[2][HTML]{
+    \definecolor{colorpalette@\colorpalette@temp@themename @\colorpalette@temp@palettename @\colorpalette@temp@colorname}{#1}{#2}
+}
+\newcommand\activepalette[2]{%
+    \colorpalette@themecheck{#1}
+    \colorpalette@palettecheck{#1}{#2}
+    \expandafter\def\csname colorpalette@#1@active\endcsname{#2}%
+}
+\newcommand\getcolor[2]{colorpalette@#1@\csname colorpalette@#1@active\endcsname @#2}
+\newcommand\applycolor[2]{%
+    \colorpalette@themecheck{#1}%
+    \colorpalette@colorcheck{#1}{#2}%
+    \color{\getcolor{#1}{#2}}%
+}
+\newcommand\colorpalette@themecheck[1]{\macrolistexists{colorpalette@theme@#1@palettes}{}{\colorpalette@error@theme{#1}}}
+\newcommand\colorpalette@palettecheck[2]{\macrolistcontains{colorpalette@theme@#1@palettes}{#2}{}{\colorpalette@error@palette{#1}{#2}}}
+\newcommand\colorpalette@colorcheck[2]{\macrolistcontains{colorpalette@theme@#1@colors}{#2}{}{\colorpalette@error@color{#1}{#2}}}
+\newcommand\colorpalette@error@theme[1]{\PackageError{colorpalette}{The theme `#1' passed in is not defined}{}}
+\newcommand\colorpalette@error@palette[2]{\PackageError{colorpalette}{The palette `#2' passed in is not a defined palette of theme `#1'}{}}
+\newcommand\colorpalette@error@color[2]{\PackageError{colorpalette}{The color `#2' passed in is not a defined color of theme `#1'}{}}
+%% 
+%% This package consists of the file palette.dtx,
+%%           and the generated files colorpalette.sty,
+%%                                   symbolpalette.sty,
+%%                                   palette.pdf.
+%%
+%% End of file `colorpalette.sty'.

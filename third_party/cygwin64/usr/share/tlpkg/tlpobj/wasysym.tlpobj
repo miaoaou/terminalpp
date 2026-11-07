@@ -1,0 +1,19 @@
+name wasysym
+category Package
+revision 54080
+shortdesc LaTeX support for the wasy fonts
+relocated 1
+longdesc The wasy (Waldi Symbol) font by Roland Waldi provides many
+longdesc glyphs like male and female symbols and astronomical symbols,
+longdesc as well as the complete lasy font set and other odds and ends.
+longdesc This package implements an easy to use interface for these
+longdesc symbols.
+runfiles size=5
+ RELOC/tex/latex/wasysym/uwasy.fd
+ RELOC/tex/latex/wasysym/uwasyvar.fd
+ RELOC/tex/latex/wasysym/wasysym.sty
+catalogue-also wasy wasy-type1
+catalogue-ctan /macros/latex/contrib/wasysym
+catalogue-license lppl1.3c
+catalogue-topics font-supp
+catalogue-version 2.4

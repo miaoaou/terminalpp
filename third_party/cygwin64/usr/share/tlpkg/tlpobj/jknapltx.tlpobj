@@ -1,0 +1,36 @@
+name jknapltx
+category Package
+revision 19440
+catalogue jknappen
+shortdesc Miscellaneous packages by Joerg Knappen
+relocated 1
+longdesc Miscellaneous macros by Jorg Knappen, including: represent
+longdesc counters in greek; Maxwell's non-commutative division;
+longdesc latin1jk, latin2jk and latin3jk, which are their inputenc
+longdesc definition files that allow verbatim input in the respective
+longdesc ISO Latin codes; blackboard bold fonts in maths; use of RSFS
+longdesc fonts in maths; extra alignments for \parboxes; swap Roman and
+longdesc Sans fonts; transliterate semitic languages; patches to make
+longdesc (La)TeX formulae embeddable in SGML; use maths "minus" in text
+longdesc as appropriate; simple Young tableaux.
+runfiles size=19
+ RELOC/tex/latex/jknapltx/greekctr.sty
+ RELOC/tex/latex/jknapltx/holtpolt.sty
+ RELOC/tex/latex/jknapltx/latin1jk.def
+ RELOC/tex/latex/jknapltx/latin2jk.def
+ RELOC/tex/latex/jknapltx/latin3jk.def
+ RELOC/tex/latex/jknapltx/mathbbol.sty
+ RELOC/tex/latex/jknapltx/mathrsfs.sty
+ RELOC/tex/latex/jknapltx/parboxx.sty
+ RELOC/tex/latex/jknapltx/sans.sty
+ RELOC/tex/latex/jknapltx/semtrans.sty
+ RELOC/tex/latex/jknapltx/sgmlcmpt.sty
+ RELOC/tex/latex/jknapltx/smartmn.sty
+ RELOC/tex/latex/jknapltx/tccompat.sty
+ RELOC/tex/latex/jknapltx/ursfs.fd
+ RELOC/tex/latex/jknapltx/ustmary.fd
+ RELOC/tex/latex/jknapltx/young.sty
+catalogue-ctan /macros/latex/contrib/jknappen
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics collection

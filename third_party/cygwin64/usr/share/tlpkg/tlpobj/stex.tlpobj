@@ -1,0 +1,52 @@
+name stex
+category Package
+revision 68569
+shortdesc An infrastructure for semantic preloading of LaTeX documents
+relocated 1
+longdesc The sTeX package collection is a version of TeX/LaTeX that
+longdesc allows to markup TeX/LaTeX documents semantically without
+longdesc leaving the document format, essentially turning it into a
+longdesc document format for mathematical knowledge management (MKM).
+runfiles size=115
+ RELOC/tex/latex/stex/etc/beamerthemesTeX.sty
+ RELOC/tex/latex/stex/etc/hwexam-default.header
+ RELOC/tex/latex/stex/etc/lststex.sty
+ RELOC/tex/latex/stex/etc/rustex.sty
+ RELOC/tex/latex/stex/etc/stex-backend-latexml.cfg
+ RELOC/tex/latex/stex/etc/stex-backend-pdflatex.cfg
+ RELOC/tex/latex/stex/etc/stex-backend-rustex.cfg
+ RELOC/tex/latex/stex/etc/stex-backend-tex4ht.cfg
+ RELOC/tex/latex/stex/etc/stex-highlighting.sty
+ RELOC/tex/latex/stex/etc/stex-logo.sty
+ RELOC/tex/latex/stex/etc/stexthm.sty
+ RELOC/tex/latex/stex/hwexam.sty
+ RELOC/tex/latex/stex/img/sTeX-logo.png
+ RELOC/tex/latex/stex/img/stex-cc-by-sa.png
+ RELOC/tex/latex/stex/img/stex-cc_somerights.png
+ RELOC/tex/latex/stex/img/stex-dangerous-bend.png
+ RELOC/tex/latex/stex/img/stex-experimental.png
+ RELOC/tex/latex/stex/ldf/document-structure-ngerman.ldf
+ RELOC/tex/latex/stex/ldf/hwexam-english.ldf
+ RELOC/tex/latex/stex/ldf/hwexam-finnish.ldf
+ RELOC/tex/latex/stex/ldf/hwexam-french.ldf
+ RELOC/tex/latex/stex/ldf/hwexam-ngerman.ldf
+ RELOC/tex/latex/stex/ldf/hwexam-russian.ldf
+ RELOC/tex/latex/stex/ldf/problem-english.ldf
+ RELOC/tex/latex/stex/ldf/problem-finnish.ldf
+ RELOC/tex/latex/stex/ldf/problem-french.ldf
+ RELOC/tex/latex/stex/ldf/problem-ngerman.ldf
+ RELOC/tex/latex/stex/ldf/problem-russian.ldf
+ RELOC/tex/latex/stex/ldf/stex-en.ldf
+ RELOC/tex/latex/stex/notesslides.cls
+ RELOC/tex/latex/stex/notesslides.sty
+ RELOC/tex/latex/stex/problem.sty
+ RELOC/tex/latex/stex/stex.cls
+ RELOC/tex/latex/stex/stex.sty
+ RELOC/tex/latex/stex/tikzinput.sty
+catalogue-contact-announce https://lists.informatik.uni-erlangen.de/mailman/listinfo/stex
+catalogue-contact-bugs https://github.com/slatex/sTeX/issues
+catalogue-contact-repository https://github.com/slatex/sTeX
+catalogue-ctan /macros/latex/contrib/stex
+catalogue-license lppl
+catalogue-topics struc-mkup format expl3
+catalogue-version 3.4.0

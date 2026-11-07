@@ -1,0 +1,13 @@
+name esieecv
+category Package
+revision 59638
+shortdesc Curriculum vitae for French use
+relocated 1
+longdesc The package allows the user to set up a curriculum vitae as a
+longdesc French employer will expect.
+runfiles size=1
+ RELOC/tex/latex/esieecv/ESIEEcv.sty
+catalogue-also curve currvita cv europecv vita
+catalogue-ctan /macros/latex/contrib/ESIEEcv
+catalogue-license lppl
+catalogue-topics cv french

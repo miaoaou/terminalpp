@@ -1,0 +1,18 @@
+name datetime2-scottish
+category Package
+revision 52101
+shortdesc Scottish Gaelic Language Module for the datetime2 Package
+relocated 1
+longdesc This module provides the "scottish" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-scottish/datetime2-scottish-ascii.ldf
+ RELOC/tex/latex/datetime2-scottish/datetime2-scottish-utf8.ldf
+ RELOC/tex/latex/datetime2-scottish/datetime2-scottish.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-scottish
+catalogue-date 2019-09-14 22:47:55 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

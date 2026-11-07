@@ -1,0 +1,16 @@
+name slantsc
+category Package
+revision 25007
+shortdesc Access different-shaped small-caps fonts
+relocated 1
+longdesc This package enables the use of small capitals in different
+longdesc font shapes, e.g., slanted or bold slanted for all fonts that
+longdesc provide appropriate font shapes. (Note that a separate .fd file
+longdesc is needed to define font shapes such as 'scsl' or 'scit'.)
+runfiles size=1
+ RELOC/tex/latex/slantsc/slantsc.sty
+catalogue-ctan /macros/latex/contrib/slantsc
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics font-supp
+catalogue-version 2.11

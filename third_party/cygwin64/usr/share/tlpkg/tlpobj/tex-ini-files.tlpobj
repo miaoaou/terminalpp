@@ -1,0 +1,30 @@
+name tex-ini-files
+category Package
+revision 68920
+shortdesc Model TeX format creation files
+relocated 1
+longdesc This bundle provides a collection of model .ini files for
+longdesc creating TeX formats. These files are commonly used to
+longdesc introduce distribution-dependent variations in formats. They
+longdesc are also used to allow existing format source files to be used
+longdesc with newer engines, for example to adapt the plain e-TeX source
+longdesc file to work with XeTeX and LuaTeX.
+runfiles size=15
+ RELOC/tex/generic/tex-ini-files/dviluatex.ini
+ RELOC/tex/generic/tex-ini-files/luatex.ini
+ RELOC/tex/generic/tex-ini-files/luatexconfig.tex
+ RELOC/tex/generic/tex-ini-files/luatexiniconfig.tex
+ RELOC/tex/generic/tex-ini-files/pdftexconfig.tex
+ RELOC/tex/generic/tex-ini-files/pdfxmltex.ini
+ RELOC/tex/generic/tex-ini-files/xetex.ini
+ RELOC/tex/generic/tex-ini-files/xmltex.ini
+ RELOC/tex/latex/tex-ini-files/dvilualatex.ini
+ RELOC/tex/latex/tex-ini-files/latex.ini
+ RELOC/tex/latex/tex-ini-files/lualatex.ini
+ RELOC/tex/latex/tex-ini-files/lualatexquotejobname.lua
+ RELOC/tex/latex/tex-ini-files/mllatex.ini
+ RELOC/tex/latex/tex-ini-files/pdflatex.ini
+ RELOC/tex/latex/tex-ini-files/xelatex.ini
+catalogue-ctan /macros/generic/tex-ini-files
+catalogue-license pd
+catalogue-topics latex3

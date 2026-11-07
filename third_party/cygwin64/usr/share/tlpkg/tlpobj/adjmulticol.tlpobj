@@ -1,0 +1,17 @@
+name adjmulticol
+category Package
+revision 63320
+shortdesc Adjusting margins for multicolumn and single column output
+relocated 1
+longdesc The package adds, to the multicol package, the option to change
+longdesc the margins for multicolumn and unicolumn layout. The package
+longdesc understands the difference between the even and odd margins for
+longdesc two side printing.
+runfiles size=2
+ RELOC/tex/latex/adjmulticol/adjmulticol.sty
+catalogue-contact-bugs https://github.com/borisveytsman/adjmulticol/issues
+catalogue-contact-repository https://github.com/borisveytsman/adjmulticol
+catalogue-ctan /macros/latex/contrib/adjmulticol
+catalogue-license lppl1.3
+catalogue-topics multicol layout
+catalogue-version 1.5

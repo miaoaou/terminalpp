@@ -1,0 +1,16 @@
+name rjlparshap
+category Package
+revision 15878
+shortdesc Support for use of \parshape in LaTeX
+relocated 1
+longdesc The package provides macros and environments that relieve the
+longdesc programmer of some of the difficulties of using \parshape in
+longdesc LaTeX macros. It does not actually calculate shapes in the way
+longdesc that the shapepar package does.
+runfiles size=2
+ RELOC/tex/latex/rjlparshap/rjlpshap.sty
+catalogue-ctan /macros/latex/contrib/rjlparshap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics micro-layout
+catalogue-version 1.0

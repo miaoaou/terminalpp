@@ -1,0 +1,15 @@
+name cuisine
+category Package
+revision 34453
+shortdesc Typeset recipes
+relocated 1
+longdesc Typeset recipes with the ingredients lined up with their method
+longdesc step (somewhat similarly to the layout used in cooking).
+runfiles size=4
+ RELOC/tex/latex/cuisine/cuisine.sty
+catalogue-also recipe
+catalogue-ctan /macros/latex/contrib/cuisine
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics cooking
+catalogue-version 0.7

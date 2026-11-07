@@ -1,0 +1,17 @@
+name tikz-imagelabels
+category Package
+revision 51490
+shortdesc Put labels on images using TikZ
+relocated 1
+longdesc This package allows to add label texts to an existing image
+longdesc with the aid of TikZ. This may be used to label certain
+longdesc features in an image.
+runfiles size=2
+ RELOC/tex/latex/tikz-imagelabels/tikz-imagelabels.sty
+catalogue-contact-bugs https://github.com/tcpluess/tikz-imagelabels/issues
+catalogue-contact-repository https://github.com/tcpluess/tikz-imagelabels
+catalogue-ctan /graphics/pgf/contrib/tikz-imagelabels
+catalogue-date 2019-06-27 14:24:00 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics pgf-tikz graphics-incl graphics-text
+catalogue-version 0.2

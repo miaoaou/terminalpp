@@ -1,0 +1,17 @@
+name datetime2-icelandic
+category Package
+revision 65213
+shortdesc Icelandic language module for the datetime2 package
+relocated 1
+longdesc This module provides the "icelandic" style that can be set
+longdesc using \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-icelandic/datetime2-icelandic-ascii.ldf
+ RELOC/tex/latex/datetime2-icelandic/datetime2-icelandic-utf8.ldf
+ RELOC/tex/latex/datetime2-icelandic/datetime2-icelandic.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-icelandic
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.2

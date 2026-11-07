@@ -1,0 +1,24 @@
+% --------------------------------------------------------------------------
+% South Korea:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{blue}{RGB}{0,47,108}
+\begin{scope}[shift={(0.5\flaglength,0.5\flagwidth)},rotate=-33.69,
+   scale=1/96,line width=0.041667\flagwidth,line cap=butt]
+\fill [red] (24,0) arc [start angle=0,end angle=180,radius=24];
+\fill [blue] (-24,0) arc [start angle=180,end angle=360,radius=24];
+\fill [red] (-12,0) circle (12);
+\fill [blue] (12,0) circle (12);
+\draw [black] (38,1)--(38,12) (38,-1)--(38,-12) (-38,-12)--(-38,12)
+              (44,1)--(44,12) (44,-1)--(44,-12) (-44,-12)--(-44,12)
+              (50,1)--(50,12) (50,-1)--(50,-12) (-50,-12)--(-50,12);
+\end{scope}
+\begin{scope}[shift={(0.5\flaglength,0.5\flagwidth)},rotate=33.69,
+   scale=1/96,line width=0.041667\flagwidth,line cap=butt]
+\draw [black] (38,1)--(38,12) (38,-1)--(38,-12) (-38,-12)--(-38,12)
+              (-44,1)--(-44,12) (-44,-1)--(-44,-12) (44,-12)--(44,12)
+              (50,1)--(50,12) (50,-1)--(50,-12) (-50,-12)--(-50,12);
+\end{scope}
+\framecode{}
+\end{flagdescription}

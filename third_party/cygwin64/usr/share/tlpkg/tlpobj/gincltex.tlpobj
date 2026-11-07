@@ -1,0 +1,22 @@
+name gincltex
+category Package
+revision 64967
+shortdesc Include TeX files as graphics (.tex support for \includegraphics)
+relocated 1
+longdesc The package builds on the standard LaTeX packages graphics
+longdesc and/or graphicx and allows external LaTeX source files to be
+longdesc included, in the same way as graphic files, by
+longdesc \includegraphics. In effect, then package adds support for the
+longdesc .tex extension. Some of the lower level operations like
+longdesc clipping and trimming are implemented using the adjustbox
+longdesc package which includes native pdfLaTeX support and uses the pgf
+longdesc package for other output formats.
+runfiles size=1
+ RELOC/tex/latex/gincltex/gincltex.sty
+catalogue-contact-bugs https://github.com/MartinScharrer/gincltex/issues
+catalogue-contact-home https://github.com/MartinScharrer/gincltex
+catalogue-contact-repository https://github.com/MartinScharrer/gincltex.git
+catalogue-ctan /macros/latex/contrib/gincltex
+catalogue-license lppl1.3
+catalogue-topics graphics listing
+catalogue-version 0.3

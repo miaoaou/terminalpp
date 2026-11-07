@@ -1,0 +1,17 @@
+name unitconv
+category Package
+revision 55060
+shortdesc Convert a length into one with another unit
+relocated 1
+longdesc This package defines two macros to convert a value with unit
+longdesc into one with another unit. Supported are all TeX related
+longdesc units, and also km and m. The output can be in scientic
+longdesc notation for large values. The package only works with
+longdesc LuaLaTeX!
+runfiles size=1
+ RELOC/tex/lualatex/unitconv/unitconv.sty
+catalogue-also lengthconvert
+catalogue-ctan /macros/luatex/latex/unitconv
+catalogue-license lppl1.3
+catalogue-topics units luatex misc-conv
+catalogue-version 0.01

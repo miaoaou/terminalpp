@@ -1,0 +1,17 @@
+name frame
+category Package
+revision 18312
+shortdesc Framed boxes for Plain TeX
+relocated 1
+longdesc A jiffy file (taken from fancybox) for placing a frame around a
+longdesc box of text. The macros also provide for typesetting an empty
+longdesc box of given dimensions.
+runfiles size=2
+ RELOC/tex/generic/frame/frame.sty
+ RELOC/tex/generic/frame/frame.tex
+catalogue-also boxit
+catalogue-ctan /macros/generic/frame
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics boxing decoration
+catalogue-version 1.0

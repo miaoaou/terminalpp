@@ -1,0 +1,22 @@
+name trsym
+category Package
+revision 18732
+shortdesc Symbols for transformations
+relocated 1
+longdesc The bundle provides Metafont source for a small font used for
+longdesc (e.g.) Laplace transformations, together with a LaTeX .fd file
+longdesc and a package providing commands for the symbols' use in
+longdesc mathematics.
+runfiles size=7
+ RELOC/fonts/source/public/trsym/trsy.mf
+ RELOC/fonts/source/public/trsym/trsy10.mf
+ RELOC/fonts/source/public/trsym/trsy12.mf
+ RELOC/fonts/tfm/public/trsym/trsy10.tfm
+ RELOC/fonts/tfm/public/trsym/trsy12.tfm
+ RELOC/tex/latex/trsym/trsym.sty
+ RELOC/tex/latex/trsym/utrsy.fd
+catalogue-ctan /fonts/trsym
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics font font-symbol font-mf
+catalogue-version 1.0

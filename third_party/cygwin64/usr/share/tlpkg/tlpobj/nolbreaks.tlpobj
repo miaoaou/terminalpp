@@ -1,0 +1,17 @@
+name nolbreaks
+category Package
+revision 26786
+shortdesc No line breaks in text
+relocated 1
+longdesc Use \nolbreaks{some text} to prevent line breaks in "some
+longdesc text". This has the advantage over \mbox{} that glue (rubber
+longdesc space) remains flexible. Most common cases are handled here
+longdesc (\linebreak is disabled, for example) but spaces hidden in
+longdesc macros or { } can still create break-points.
+runfiles size=2
+ RELOC/tex/latex/nolbreaks/nolbreaks.sty
+catalogue-ctan /macros/latex/contrib/nolbreaks
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics typesetting
+catalogue-version 1.2

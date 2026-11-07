@@ -1,0 +1,20 @@
+name iitem
+category Package
+revision 29613
+shortdesc Multiple level of lists in one list-like environment
+relocated 1
+longdesc The package defines multiple level lists within one list-like
+longdesc environment. instead of writing \begin{enumerate} \item 1
+longdesc \begin{enumerate} \item 2 \begin{enumerate} \item 3
+longdesc \begin{enumerate} \item 4 \end{enumerate} \end{enumerate} \item
+longdesc 2.1 \end{enumerate} \item 1.1 \begin{enumerate} \item 2
+longdesc \end{enumerate} \end{enumerate} this package allows you to
+longdesc write \begin{enumerate} \item 1 \iitem 2 \iiitem 3 \ivtem 4
+longdesc \iitem 2.1 \item 1.1 \iitem 2 \end{enumerate}
+runfiles size=1
+ RELOC/tex/latex/iitem/iitem.sty
+catalogue-ctan /macros/latex/contrib/iitem
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics list
+catalogue-version 1.0

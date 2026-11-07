@@ -1,0 +1,21 @@
+name gridslides
+category Package
+revision 54512
+shortdesc Free form slides with blocks placed on a grid
+relocated 1
+longdesc This package allows creating free form slides with blocks
+longdesc placed on a grid. The blocks can be filled with text,
+longdesc equations, figures etc. The resulting slides are similar to the
+longdesc ones produced with LaTeX beamer, but more flexible. Sequential
+longdesc unconvering of elements is supported. A compiler script is
+longdesc provided which compiles each slide separately, this way
+longdesc avoiding long compile times.
+runfiles size=3
+ RELOC/tex/latex/gridslides/gridslides.cls
+ RELOC/tex/latex/gridslides/gridslides.sty
+catalogue-contact-bugs https://github.com/minad/gridslides/issues
+catalogue-contact-repository https://github.com/minad/gridslides
+catalogue-ctan /macros/latex/contrib/gridslides
+catalogue-license lppl1.3 gpl2
+catalogue-topics presentation class
+catalogue-version 0.1.1

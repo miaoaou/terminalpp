@@ -1,0 +1,19 @@
+name tikzdotncross
+category Package
+revision 69382
+shortdesc Small set of macros for defining/marking coordinates and crossing (jumps) paths
+relocated 1
+longdesc This package offers a few alternative ways for declaring and
+longdesc marking coordinates and drawing a line with "jumps" over an
+longdesc already existent path, which is a quite common issue when
+longdesc drawing, for instace, Electronic Circuits (like with
+longdesc CircuiTikZ).
+runfiles size=2
+ RELOC/tex/latex/tikzdotncross/tikzdotncross.sty
+catalogue-contact-bugs https://github.com/alceu-frigeri/tikzdotncross/issues
+catalogue-contact-development https://github.com/alceu-frigeri/tikzdotncross
+catalogue-contact-repository https://github.com/alceu-frigeri/tikzdotncross
+catalogue-ctan /graphics/pgf/contrib/tikzdotncross
+catalogue-license lppl1.3c gpl3+
+catalogue-topics pgf-tikz graphics diagram-circ electronic
+catalogue-version 1.1

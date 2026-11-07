@@ -1,0 +1,21 @@
+name authorarchive
+category Package
+revision 65777
+shortdesc Adds self-archiving information to scientific papers
+relocated 1
+longdesc This is a LaTeX style for producing author self-archiving
+longdesc copies of (academic) papers. The following layout-styles are
+longdesc pre-defined: ACMfor the two-column layout used by many ACM
+longdesc conferences IEEE for the two-column layout used by many IEEE
+longdesc conferences LNCS for the LNCS layout (as used by Springer) LNI
+longdesc for the Lecture Notes in Informatics, published by the GI ENTCS
+longdesc for the Elsevier ENTCS layout
+runfiles size=3
+ RELOC/tex/latex/authorarchive/authorarchive.sty
+catalogue-also coverpage
+catalogue-contact-bugs https://github.com/adbrucker/authorarchive/issues
+catalogue-contact-repository https://github.com/adbrucker/authorarchive
+catalogue-ctan /macros/latex/contrib/authorarchive
+catalogue-license lppl1.3c bsd2
+catalogue-topics archival journalpub
+catalogue-version 1.3.0

@@ -1,0 +1,19 @@
+name moresize
+category Package
+revision 17513
+shortdesc Allows font sizes up to 35.83pt
+relocated 1
+longdesc A package for using font sizes up to 35.88pt, for example with
+longdesc the EC fonts. New commands \HUGE and \ssmall for selecting font
+longdesc sizes are provided together with some options working around
+longdesc current LaTeX2e shortcomings in using big font sizes. The
+longdesc package also provides options for improving the typesetting of
+longdesc paragraphs (or headlines) with embedded math expressions at
+longdesc font sizes above 17.28pt.
+runfiles size=1
+ RELOC/tex/latex/moresize/moresize.sty
+catalogue-ctan /macros/latex/contrib/moresize
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-supp
+catalogue-version 1.9

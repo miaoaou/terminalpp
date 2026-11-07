@@ -1,0 +1,375 @@
+%%
+%% This is file `robotarm.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% robotarm.dtx  (with options: `robotarm-package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2021 by M.J.W. Snippe
+%% -----------------------------------
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%     http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status
+%% `author-maintained'.
+%% 
+%% This work consists of the files found at github.com/max-sn/robotarm.
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{robotarm}
+  [2022/03/08 v0.1 Tikz commands to draw planar robot arms]
+
+\RequirePackage{tikz}
+
+\usetikzlibrary{patterns}
+
+\makeatletter
+
+\newif\ifRA@robotarm@drawannotations
+
+\pgfkeys{
+  /robotarm/base link/.cd,
+    width/.code={\pgfmathsetmacro\RA@baselink@width{#1}},
+    width=0.6,
+    height/.code={\pgfmathsetmacro\RA@baselink@height{#1}},
+    height=0.3,
+    world width/.code={\pgfmathsetmacro\RA@baselink@worldwidth{#1}},
+    world width=1.0,
+    world height/.code={\pgfmathsetmacro\RA@baselink@worldheight{#1}},
+    world height=0.3,
+    draw base link/.code={%
+      \path[link style]
+        (-1/2*\RA@baselink@width,0)
+        arc (180:0:1/2*\RA@baselink@width)
+        -- ++ (0, -\RA@baselink@height)
+        -- ++ (-\RA@baselink@width, 0)
+        -- cycle;
+    },
+    draw world/.code={%
+      \path[world style]
+        (-1/2*\RA@baselink@worldwidth,-\RA@baselink@height)
+        arc (180:360:{1/2*\RA@baselink@worldwidth}
+          and {\RA@baselink@worldheight}) -- cycle;
+      \path[draw, world style]
+        (-1/2*\RA@baselink@worldwidth,-\RA@baselink@height)
+        -- ++(\RA@baselink@worldwidth,0);
+    },
+  /robotarm/link/.cd,
+    width/.code={\pgfmathsetmacro\RA@link@width{#1}},
+    width=0.4,
+    length/.code={\pgfmathsetmacro\RA@link@length{#1}},
+    length=2.0,
+    joint radius/.code={\pgfmathsetmacro\RA@link@jointradius{#1}},
+    joint radius=0.25,
+    draw link/.code={%
+      \path[link style]
+        (0,1/2*\RA@link@width)
+        -- ++ ( \RA@link@length, 0)
+        arc (90:-90:1/2*\RA@link@width)
+        -- ++ (-\RA@link@length, 0)
+        arc (270:90:1/2*\RA@link@width)
+        -- cycle;
+    },
+    draw joint/.code={%
+      \path[link style]
+        (0,0) circle (\RA@link@jointradius);
+      \path[link style]
+        (0,0) circle (1/3*\RA@link@jointradius);
+    },
+  /robotarm/end effector/.cd,
+    width/.code={\pgfmathsetmacro\RA@endeff@width{#1}},
+    width=0.4,
+    length/.code={\pgfmathsetmacro\RA@endeff@length{#1}},
+    length=2,
+    joint radius/.code={\pgfmathsetmacro\RA@endeff@jointradius{#1}},
+    joint radius=0.25,
+    gripper radius/.code={\pgfmathsetmacro\RA@endeff@gripperradius{#1}},
+    gripper radius=0.3,
+    gripper opening angle/.code={%
+      \pgfmathsetmacro\RA@endeff@gripperopeningangle{#1}},
+    gripper opening angle=60,
+    draw joint/.code={%
+      \path[link style]
+        (0,0) circle (\RA@endeff@jointradius);
+      \path[link style]
+        (0,0) circle (1/3*\RA@endeff@jointradius);
+    },
+    draw link/.code={%
+      \pgfmathsetmacro{\link@startangle}{%
+        180-asin(1/2*\RA@endeff@width/\RA@endeff@gripperradius)}
+      \pgfmathsetmacro{\link@endangle}{%
+        180+asin(1/2*\RA@endeff@width/\RA@endeff@gripperradius)}
+
+      \path[link style]
+        (\RA@endeff@length, 0)
+        ++ (\link@startangle:\RA@endeff@gripperradius)
+        arc (\link@startangle:\link@endangle:\RA@endeff@gripperradius)
+        -- (0,0|-0,-1/2*\RA@endeff@width)
+        arc (-90:90:1/2*\RA@endeff@width)
+        -- cycle;
+    },
+    draw end effector/.code={
+      \draw[link style]
+        (\RA@endeff@length, 0)
+        ++ (-1/2*\RA@endeff@gripperopeningangle:%
+            \RA@endeff@gripperradius)
+        arc [start angle=-1/2*\RA@endeff@gripperopeningangle,
+             delta angle=-360+\RA@endeff@gripperopeningangle,
+             radius=\RA@endeff@gripperradius]
+        -- ++(180+1/2*\RA@endeff@gripperopeningangle:%
+              0.4*\RA@endeff@gripperradius)
+        arc [start angle=1/2*\RA@endeff@gripperopeningangle,
+             delta angle=360-\RA@endeff@gripperopeningangle,
+             radius=0.6*\RA@endeff@gripperradius]
+        -- ++(-1/2*\RA@endeff@gripperopeningangle:%
+              0.4*\RA@endeff@gripperradius)
+        -- cycle;
+    },
+  /robotarm/.cd,
+    draw annotations/.is if=RA@robotarm@drawannotations,
+    draw annotations=true,
+    every annotation/.style={},
+    every length annotation/.style={},
+    every length annotation arrow/.style={draw,->},
+    every length annotation node/.style={circle,inner sep=0.5pt},
+    every length annotation help line/.style={draw,help lines},
+    every angle annotation/.style={},
+    every angle annotation arrow/.style={draw,->},
+    every angle annotation node/.style={},
+    every angle annotation help line/.style={draw,help lines},
+    base link/.code=\pgfkeys{/robotarm/base link/.cd,#1},
+    link/.code=\pgfkeys{/robotarm/link/.cd,#1},
+    end effector/.code=\pgfkeys{/robotarm/end effector/.cd,#1},
+    geometry/.code=\pgfkeys{/robotarm/geometry/.cd,#1},
+    config/.code=\pgfkeys{/robotarm/config/.cd,#1},
+    spacing/.code=\pgfkeys{/robotarm/annotations/spacing/.cd,#1},
+    labels/.code=\pgfkeys{/robotarm/annotations/labels/.cd,#1},
+    styles/.code=\pgfkeys{/robotarm/styles/.cd,#1},
+  /robotarm/geometry/.cd,
+    a0/.initial=0,
+    a/.initial=2,
+    r/.initial=0.25,
+    w/.initial=0.4,
+  /robotarm/config/q/.initial=0,
+  /robotarm/frames/.cd,
+    in link 0/.style={},
+    in end effector/.style={
+      /robotarm/frames/in link \RA@robotarm@numlinks,
+      shift={%
+        (\pgfkeysvalueof{/robotarm/geometry/a\RA@robotarm@numlinks},0)},
+    },
+    in world/.style={
+      shift={(0,-\RA@baselink@height)}
+    },
+  /robotarm/styles/.cd,
+    world/.style={pattern=north west lines},
+    link/.style={
+      draw,
+      fill=lightgray,
+    },
+    link 0/.style={/robotarm/styles/link},
+  /robotarm/annotations/.cd,
+    spacing/.cd,
+      a/.initial=3,
+      q/.initial=1/2,
+  /robotarm/annotations/.cd,
+    labels/.cd,
+      a/.initial=a,
+      q/.initial=q,
+}
+\tikzset{
+  link style/.style={/robotarm/styles/link},
+  world style/.style={/robotarm/styles/world},
+}
+\newcommand\robotarmset[1]{%
+  \pgfkeys{/robotarm/.cd,#1}%
+}
+\newcommand\robotArmLink[1][]{
+  \begingroup
+    \pgfkeys{/robotarm/link/.cd,#1}
+
+    \pgfkeys{/robotarm/link/draw link}
+    \pgfkeys{/robotarm/link/draw joint}
+  \endgroup
+}
+\newcommand\robotArmEndEffector[1][]{
+  \begingroup
+    \pgfkeys{/robotarm/end effector/.cd,#1}
+
+    \pgfkeys{/robotarm/end effector/draw link}
+    \pgfkeys{/robotarm/end effector/draw joint}
+    \pgfkeys{/robotarm/end effector/draw end effector}
+
+  \endgroup
+}
+\newcommand\robotArmBaseLink[1][]{
+  \begingroup
+    \pgfkeys{/robotarm/base link/.cd,#1}
+
+    \pgfkeys{/robotarm/base link/draw world}
+    \pgfkeys{/robotarm/base link/draw base link}
+  \endgroup
+}
+\newcommand\robotArm[2][]{
+  \pgfmathtruncatemacro\RA@robotarm@numlinks{#2}
+  \def\@tmpkeys{}
+  \foreach \@link [remember=\@link as \@prevlink (initially 0)] in %
+    {1,...,\RA@robotarm@numlinks}{
+    \xdef\@tmpkeys{\@tmpkeys%
+      /robotarm/geometry/a\@link/.initial=%
+        \pgfkeysvalueof{/robotarm/geometry/a},%
+      /robotarm/geometry/r\@link/.initial=%
+        \pgfkeysvalueof{/robotarm/geometry/r},%
+      /robotarm/geometry/w\@link/.initial=%
+        \pgfkeysvalueof{/robotarm/geometry/w},%
+      /robotarm/config/q\@link/.initial=%
+        \pgfkeysvalueof{/robotarm/config/q},%
+      /robotarm/styles/link \@link/.style={/robotarm/styles/link},%
+      /robotarm/annotations/labels/a\@link/.initial={%
+        $\pgfkeysvalueof{/robotarm/annotations/labels/a}_{\@link}$},%
+      /robotarm/annotations/labels/q\@link/.initial={%
+        $\pgfkeysvalueof{/robotarm/annotations/labels/q}_{\@link}$},%
+      /robotarm/annotations/spacing/a\@link/.initial={%
+        \pgfkeysvalueof{/robotarm/annotations/spacing/a}},%
+      /robotarm/annotations/spacing/q\@link/.initial={%
+        \pgfkeysvalueof{/robotarm/annotations/spacing/q}},%
+    }
+  }
+  \expandafter\pgfkeys\expandafter{\@tmpkeys}
+  \pgfkeys{/robotarm/.cd,#1}
+  \def\@tmpkeys{}
+  \foreach \@link [remember=\@link as \@prevlink (initially 0)] in %
+    {1,...,\RA@robotarm@numlinks}{
+    \xdef\@tmpkeys{\@tmpkeys%
+      /robotarm/frames/in link \@link/.style={%
+        /robotarm/frames/in link \@prevlink,
+        /tikz/shift={%
+          (\pgfkeysvalueof{/robotarm/geometry/a\@prevlink},0)},
+        /tikz/rotate={\pgfkeysvalueof{/robotarm/config/q\@link}},
+      },
+    }
+  }
+  \expandafter\pgfkeys\expandafter{\@tmpkeys}
+
+  \begin{scope}[/robotarm/frames/in link 0,
+                link style/.style={/robotarm/styles/link 0}]
+    \robotArmBaseLink
+  \end{scope}
+
+  \foreach\link@num in {1,...,\RA@robotarm@numlinks}{
+    \begin{scope}[/robotarm/frames/in link \link@num,
+                  link style/.style={/robotarm/styles/link \link@num}]
+
+      \ifnum\link@num<\RA@robotarm@numlinks
+        \robotArmLink[
+          joint radius=\pgfkeysvalueof{/robotarm/geometry/r\link@num},
+          length=\pgfkeysvalueof{/robotarm/geometry/a\link@num},
+          width=\pgfkeysvalueof{/robotarm/geometry/w\link@num},
+        ]
+      \else
+        \robotArmEndEffector[
+          joint radius=\pgfkeysvalueof{/robotarm/geometry/r\link@num},
+          length=\pgfkeysvalueof{/robotarm/geometry/a\link@num},
+          width=\pgfkeysvalueof{/robotarm/geometry/w\link@num},
+        ]
+      \fi
+    \end{scope}
+  }
+  \foreach\link@num in {1,...,\RA@robotarm@numlinks}{
+    \begin{scope}[/robotarm/frames/in link \link@num]
+      \pgfmathsetmacro\link@length{\pgfkeysvalueof{%
+        /robotarm/geometry/a\link@num}}
+      \pgfmathsetmacro\link@angle{\pgfkeysvalueof{%
+        /robotarm/config/q\link@num}}
+
+      \ifRA@robotarm@drawannotations
+        \pgfmathsetmacro\link@lengthannotspacing{%
+          \pgfkeysvalueof{/robotarm/annotations/spacing/a\link@num}*
+            \pgfkeysvalueof{/robotarm/geometry/r\link@num}}
+        \pgfmathsetmacro\link@angleannotspacing{%
+          \pgfkeysvalueof{/robotarm/annotations/spacing/q\link@num}*
+            \link@length}
+
+        % Length annotation help lines
+        \path[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation help line]
+          (0,0) -- (\link@length,0);
+        \path[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation help line]
+          (0,0) -- ++ (0,{\link@lengthannotspacing +
+            0.1*sign(\link@lengthannotspacing)});
+        \path[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation help line]
+          (\link@length,0) -- ++ (0,{\link@lengthannotspacing +
+            0.1*sign(\link@lengthannotspacing)});
+        \path (0,\link@lengthannotspacing)
+          -- coordinate[pos=0.5] (coor) ++ (\link@length,0);
+        \node[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation node]
+          at (coor) (tag)
+          {\pgfkeysvalueof{/robotarm/annotations/labels/a\link@num}};
+        \path[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation arrow]
+          (tag) -- (0,\link@lengthannotspacing);
+        \path[/robotarm/every annotation,
+              /robotarm/every length annotation,
+              /robotarm/every length annotation arrow]
+          (tag) -- (\link@length,\link@lengthannotspacing);
+
+        \pgfmathsetmacro\angleannotationcase{%
+          ifthenelse(\link@angle==0.0, 0, 1)}
+        \ifnum\angleannotationcase>0
+          % Angle annotation help lines
+          \path[/robotarm/every annotation,
+                /robotarm/every angle annotation,
+                /robotarm/every angle annotation help line]
+            (0,0) -- ++(-\link@angle:{\link@angleannotspacing+0.1});
+          \path[/robotarm/every annotation,
+                /robotarm/every angle annotation,
+                /robotarm/every angle annotation help line]
+            (0,0) -- ++(0:{\link@angleannotspacing+0.1});
+
+          % Angle annotation arrow
+          \path[/robotarm/every annotation,
+                /robotarm/every angle annotation,
+                /robotarm/every angle annotation arrow]
+            (0,0) ++ (-\link@angle:\link@angleannotspacing)
+            arc (-\link@angle:0:\link@angleannotspacing);
+
+          % Angle annotation node
+          \node[/robotarm/every annotation,
+                /robotarm/every angle annotation,
+                /robotarm/every angle annotation node]
+            at (-\link@angle/2:\link@angleannotspacing+0.3)
+            {\pgfkeysvalueof{/robotarm/annotations/labels/q\link@num}};
+        \fi
+      \fi
+    \end{scope}
+  }
+  \tikzset{
+    in link/.style={/robotarm/frames/in link #1},
+    in base link/.style={/robotarm/frames/in link 0},
+    in end effector/.style={/robotarm/frames/in end effector},
+    in world/.style={/robotarm/frames/in world},
+  }
+}
+\makeatother
+\endinput
+%%
+%% End of file `robotarm.sty'.

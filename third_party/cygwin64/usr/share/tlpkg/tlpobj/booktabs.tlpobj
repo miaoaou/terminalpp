@@ -1,0 +1,16 @@
+name booktabs
+category Package
+revision 53402
+shortdesc Publication quality tables in LaTeX
+relocated 1
+longdesc The package enhances the quality of tables in LaTeX, providing
+longdesc extra commands as well as behind-the-scenes optimisation.
+longdesc Guidelines are given as to what constitutes a good table in
+longdesc this context. From version 1.61, the package offers longtable
+longdesc compatibility.
+runfiles size=2
+ RELOC/tex/latex/booktabs/booktabs.sty
+catalogue-ctan /macros/latex/contrib/booktabs
+catalogue-license lppl1.3c
+catalogue-topics table table-rule
+catalogue-version 1.61803398

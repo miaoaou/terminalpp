@@ -1,0 +1,14 @@
+name threeparttablex
+category Package
+revision 34206
+shortdesc Notes in longtables
+relocated 1
+longdesc The package provides the functionality of the threeparttable
+longdesc package to tables created using the longtable package.
+runfiles size=2
+ RELOC/tex/latex/threeparttablex/threeparttablex.sty
+catalogue-ctan /macros/latex/contrib/threeparttablex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics table notes
+catalogue-version 0.3

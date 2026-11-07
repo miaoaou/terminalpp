@@ -1,0 +1,17 @@
+name interactiveworkbook
+category Package
+revision 15878
+shortdesc LaTeX-based interactive PDF on the Web
+relocated 1
+longdesc The package interactiveworkbook gives the user the ability to
+longdesc write LaTeX documents which, ultimately, create interactive
+longdesc question-and-answer Portable Document Format (PDF) tutorials
+longdesc meant to be used by Internet students and that, in particular,
+longdesc freely use mathematical notation.
+runfiles size=17
+ RELOC/tex/latex/interactiveworkbook/interactiveworkbook-web.sty
+ RELOC/tex/latex/interactiveworkbook/interactiveworkbook.sty
+catalogue-ctan /macros/latex/contrib/interactiveworkbook
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics tutorial

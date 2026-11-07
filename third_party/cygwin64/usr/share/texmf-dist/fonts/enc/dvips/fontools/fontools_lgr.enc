@@ -1,0 +1,388 @@
+% A version of the LGR encoding, intended for use with otftotfm.
+% Based on the file CB.enc from the cbgreek-complete package
+/otftotfmLGREncoding [
+% 0x00
+  /endash
+  /breveinvertedbelowcmb
+  /u10144               % GREEK ACROPHONIC ATTIC FIFTY
+  /u10145               % GREEK ACROPHONIC ATTIC FIVE HUNDRED
+  /u10146               % GREEK ACROPHONIC ATTIC FIVE THOUSAND
+  /u10147               % GREEK ACROPHONIC ATTIC FIFTY THOUSAND
+  /uni03DB              % GREEK SMALL LETTER STIGMA
+  /uni03DB.var          % variant; exists only in cbgreek?
+% 0x08
+  /uni1FBE              % GREEK PROSGEGRAMMENI
+  /uni1FBC              % GREEK CAPITAL LETTER ALPHA WITH PROSGEGRAMMENI
+  /uni1FCC              % GREEK CAPITAL LETTER ETA WITH PROSGEGRAMMENI
+  /uni1FFC              % GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI
+  /uni0391.alt          % cm-unicode has /Alpharightphantomdiaeresis
+  /uni03AB.alt          % cm-unicode has /Upsilondiaeresisshifted
+  /uni03B1.alt          % cm-unicode has /alpharightphantomdiaeresis
+  /uni03CB.alt          % cm-unicode has /upsilondiaeresisshifted
+% 0x10
+  /acutelowmod
+  /gravelowmod
+  /uni03DF              % GREEK SMALL LETTER KOPPA
+  /uni03D9              % GREEK SMALL LETTER ARCHAIC KOPPA
+  /brevebelowcmb
+  /uni03D8              % GREEK LETTER ARCHAIC KOPPA
+  /uni03DA.var          % GREEK LETTER STIGMA (variant)
+  /Sampigreek
+% 0x18
+  /Euro
+  /perthousand
+  /schwa
+  /uni03E1              % GREEK SMALL LETTER SAMPI
+  /quoteleft
+  /quoteright
+  /breve
+  /macron
+% 0x20
+  /uni1FC1              % GREEK DIALYTIKA AND PERISPOMENI
+  /exclam
+  /dieresis
+  /dieresistonos
+  /uni1FED              % GREEK DIALYTIKA AND VARIA
+  /percent
+  /periodcentered
+  /tonos
+% 0x28
+  /parenleft
+  /parenright
+  /asterisk
+  /plus
+  /comma
+  /hyphen
+  /period
+  /slash
+% 0x30
+  /zero
+  /one
+  /two
+  /three
+  /four
+  /five
+  /six
+  /seven
+% 0x38
+  /eight
+  /nine
+  /colon
+  /anoteleia
+  /uni1FFE              % GREEK DASIA
+  /equal
+  /uni1FBF              % GREEK PSILI
+  /questiongreek
+% 0x40
+  /uni1FDF              % GREEK DASIA AND PERISPOMENI
+  /Alpha
+  /Beta
+  /uni1FDD              % GREEK DASIA AND VARIA
+  /Delta
+  /Epsilon
+  /Phi
+  /Gamma
+% 0x48
+  /Eta
+  /Iota
+  /Theta
+  /Kappa
+  /Lambda
+  /Mu
+  /Nu
+  /Omicron
+% 0x50
+  /Pi
+  /Chi
+  /Rho
+  /Sigma
+  /Tau
+  /Upsilon
+  /uni1FDE              % GREEK DASIA AND OXIA
+  /Omega
+% 0x58
+  /Xi
+  /Psi
+  /Zeta
+  /bracketleft
+  /uni1FCF              % GREEK PSILI AND PERISPOMENI
+  /bracketright
+  /uni1FCE              % GREEK PSILI AND OXIA
+  /uni1FCD              % GREEK PSILI AND VARIA
+% 0x60
+  /uni1FEF              % GREEK VARIA
+  /alpha
+  /beta
+  /sigma1
+  /delta
+  /epsilon
+  /phi
+  /gamma
+% 0x68
+  /eta
+  /iota
+  /theta
+  /kappa
+  /lambda
+  /mu
+  /nu
+  /omicron
+% 0x70
+  /pi
+  /chi
+  /rho
+  /sigma
+  /tau
+  /upsilon
+  /cwm
+  /omega
+% 0x78
+  /xi
+  /psi
+  /zeta
+  /guillemotleft
+  /ypogegrammeni
+  /guillemotright
+  /perispomenigreekcmb
+  /emdash
+% 0x80
+  /uni1F70              % GREEK SMALL LETTER ALPHA WITH VARIA
+  /uni1F01              % GREEK SMALL LETTER ALPHA WITH DASIA
+  /uni1F00              % GREEK SMALL LETTER ALPHA WITH PSILI
+  /uni1F03              % GREEK SMALL LETTER ALPHA WITH DASIA AND VARIA
+  /uni1FB2              % GREEK SMALL LETTER ALPHA WITH VARIA AND YPOGEGRAMMENI
+  /uni1F81              % GREEK SMALL LETTER ALPHA WITH DASIA AND YPOGEGRAMMENI
+  /uni1F80              % GREEK SMALL LETTER ALPHA WITH PSILI AND YPOGEGRAMMENI
+  /uni1F83              % GREEK SMALL LETTER ALPHA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+% 0x88
+  /alphatonos
+  /uni1F05              % GREEK SMALL LETTER ALPHA WITH DASIA AND OXIA
+  /uni1F04              % GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA
+  /uni1F02              % GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA
+  /uni1FB4              % GREEK SMALL LETTER ALPHA WITH OXIA AND YPOGEGRAMMENI
+  /uni1F85              % GREEK SMALL LETTER ALPHA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+  /uni1F84              % GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+  /uni1F82              % GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+% 0x90
+  /uni1FB6              % GREEK SMALL LETTER ALPHA WITH PERISPOMENI
+  /uni1F07              % GREEK SMALL LETTER ALPHA WITH DASIA AND PERISPOMENI
+  /uni1F06              % GREEK SMALL LETTER ALPHA WITH PSILI AND PERISPOMENI
+  /uni03DD              % GREEK SMALL LETTER DIGAMMA
+  /uni1FB7              % GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
+  /uni1F87              % GREEK SMALL LETTER ALPHA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+  /uni1F86              % GREEK SMALL LETTER ALPHA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+  /uni035D              % SPACE + COMBINING DOUBLE BREVE?
+% 0x98
+  /uni1F74              % GREEK SMALL LETTER ETA WITH VARIA
+  /uni1F21              % GREEK SMALL LETTER ETA WITH DASIA
+  /uni1F20              % GREEK SMALL LETTER ETA WITH PSILI
+  /.notdef
+  /uni1FC2              % GREEK SMALL LETTER ETA WITH VARIA AND YPOGEGRAMMENI
+  /uni1F91              % GREEK SMALL LETTER ETA WITH DASIA AND YPOGEGRAMMENI
+  /uni1F90              % GREEK SMALL LETTER ETA WITH PSILI AND YPOGEGRAMMENI
+  /.notdef
+% 0xA0
+  /etatonos
+  /uni1F25              % GREEK SMALL LETTER ETA WITH DASIA AND OXIA
+  /uni1F24              % GREEK SMALL LETTER ETA WITH PSILI AND OXIA
+  /uni1F23              % GREEK SMALL LETTER ETA WITH DASIA AND VARIA
+  /uni1FC4              % GREEK SMALL LETTER ETA WITH OXIA AND YPOGEGRAMMENI
+  /uni1F95              % GREEK SMALL LETTER ETA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+  /uni1F94              % GREEK SMALL LETTER ETA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+  /uni1F93              % GREEK SMALL LETTER ETA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+% 0xA8
+  /uni1FC6              % GREEK SMALL LETTER ETA WITH PERISPOMENI
+  /uni1F27              % GREEK SMALL LETTER ETA WITH DASIA AND PERISPOMENI
+  /uni1F26              % GREEK SMALL LETTER ETA WITH PSILI AND PERISPOMENI
+  /uni1F22              % GREEK SMALL LETTER ETA WITH PSILI AND VARIA
+  /uni1FC7              % GREEK SMALL LETTER ETA WITH PERISPOMENI AND YPOGEGRAMMENI
+  /uni1F97              % GREEK SMALL LETTER ETA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+  /uni1F96              % GREEK SMALL LETTER ETA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+  /uni1F92              % GREEK SMALL LETTER ETA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+% 0xB0
+  /uni1F7C              % GREEK SMALL LETTER OMEGA WITH VARIA
+  /uni1F61              % GREEK SMALL LETTER OMEGA WITH DASIA
+  /uni1F60              % GREEK SMALL LETTER OMEGA WITH PSILI
+  /uni1F63              % GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA
+  /uni1FF2              % GREEK SMALL LETTER OMEGA WITH VARIA AND YPOGEGRAMMENI
+  /uni1FA1              % GREEK SMALL LETTER OMEGA WITH DASIA AND YPOGEGRAMMENI
+  /uni1FA0              % GREEK SMALL LETTER OMEGA WITH PSILI AND YPOGEGRAMMENI
+  /uni1FA3              % GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+% 0xB8
+  /omegatonos
+  /uni1F65              % GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA
+  /uni1F64              % GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA
+  /uni1F62              % GREEK SMALL LETTER OMEGA WITH PSILI AND VARIA
+  /uni1FF4              % GREEK SMALL LETTER OMEGA WITH OXIA AND YPOGEGRAMMENI
+  /uni1FA5              % GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+  /uni1FA4              % GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+  /uni1FA2              % GREEK SMALL LETTER OMEGA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+% 0xC0
+  /uni1FF6              % GREEK SMALL LETTER OMEGA WITH PERISPOMENI
+  /uni1F67              % GREEK SMALL LETTER OMEGA WITH DASIA AND PERISPOMENI
+  /uni1F66              % GREEK SMALL LETTER OMEGA WITH PSILI AND PERISPOMENI
+  /Digammagreek
+  /uni1FF7              % GREEK SMALL LETTER OMEGA WITH PERISPOMENI AND YPOGEGRAMMENI
+  /uni1FA7              % GREEK SMALL LETTER OMEGA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+  /uni1FA6              % GREEK SMALL LETTER OMEGA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+  /.notdef
+% 0xC8
+  /uni1F76              % GREEK SMALL LETTER IOTA WITH VARIA
+  /uni1F31              % GREEK SMALL LETTER IOTA WITH DASIA
+  /uni1F30              % GREEK SMALL LETTER IOTA WITH PSILI
+  /uni1F33              % GREEK SMALL LETTER IOTA WITH DASIA AND VARIA
+  /uni1F7A              % GREEK SMALL LETTER UPSILON WITH VARIA
+  /uni1F51              % GREEK SMALL LETTER UPSILON WITH DASIA
+  /uni1F50              % GREEK SMALL LETTER UPSILON WITH PSILI
+  /uni1F53              % GREEK SMALL LETTER UPSILON WITH DASIA AND VARIA
+% 0xD0
+  /iotatonos
+  /uni1F35              % GREEK SMALL LETTER IOTA WITH DASIA AND OXIA
+  /uni1F34              % GREEK SMALL LETTER IOTA WITH PSILI AND OXIA
+  /uni1F32              % GREEK SMALL LETTER IOTA WITH PSILI AND VARIA
+  /upsilontonos
+  /uni1F55              % GREEK SMALL LETTER UPSILON WITH DASIA AND OXIA
+  /uni1F54              % GREEK SMALL LETTER UPSILON WITH PSILI AND OXIA
+  /uni1F52              % GREEK SMALL LETTER UPSILON WITH PSILI AND VARIA
+% 0xD8
+  /uni1FD6              % GREEK SMALL LETTER IOTA WITH PERISPOMENI
+  /uni1F37              % GREEK SMALL LETTER IOTA WITH DASIA AND PERISPOMENI
+  /uni1F36              % GREEK SMALL LETTER IOTA WITH PSILI AND PERISPOMENI
+  /Iotadieresis
+  /uni1FE6              % GREEK SMALL LETTER UPSILON WITH PERISPOMENI
+  /uni1F57              % GREEK SMALL LETTER UPSILON WITH DASIA AND PERISPOMENI
+  /uni1F56              % GREEK SMALL LETTER UPSILON WITH PSILI AND PERISPOMENI
+  /Upsilondieresis
+% 0xE0
+  /uni1F72              % GREEK SMALL LETTER EPSILON WITH VARIA
+  /uni1F11              % GREEK SMALL LETTER EPSILON WITH DASIA
+  /uni1F10              % GREEK SMALL LETTER EPSILON WITH PSILI
+  /uni1F13              % GREEK SMALL LETTER EPSILON WITH DASIA AND VARIA
+  /uni1F78              % GREEK SMALL LETTER OMICRON WITH VARIA
+  /uni1F41              % GREEK SMALL LETTER OMICRON WITH DASIA
+  /uni1F40              % GREEK SMALL LETTER OMICRON WITH PSILI
+  /uni1F43              % GREEK SMALL LETTER OMICRON WITH DASIA AND VARIA
+% 0xE8
+  /epsilontonos
+  /uni1F15              % GREEK SMALL LETTER EPSILON WITH DASIA AND OXIA
+  /uni1F14              % GREEK SMALL LETTER EPSILON WITH PSILI AND OXIA
+  /uni1F12              % GREEK SMALL LETTER EPSILON WITH PSILI AND VARIA
+  /omicrontonos
+  /uni1F45              % GREEK SMALL LETTER OMICRON WITH DASIA AND OXIA
+  /uni1F44              % GREEK SMALL LETTER OMICRON WITH PSILI AND OXIA
+  /uni1F42              % GREEK SMALL LETTER OMICRON WITH PSILI AND VARIA
+% 0xF0
+  /iotadieresis
+  /uni1FD2              % GREEK SMALL LETTER IOTA WITH DIALYTIKA AND VARIA
+  /iotadieresistonos
+  /uni1FD7              % GREEK SMALL LETTER IOTA WITH DIALYTIKA AND PERISPOMENI
+  /upsilondieresis
+  /uni1FE2              % GREEK SMALL LETTER UPSILON WITH DAILYTIKA AND VARIA
+  /upsilondieresistonos
+  /uni1FE7              % GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND PERISPOMENI
+% 0xF8
+  /uni1FB3              % GREEK SMALL LETTER ALPHA WITH YPOGEGRAMMENI
+  /uni1FC3              % GREEK SMALL LETTER ETA WITH YPOGEGRAMMENI
+  /uni1FF3              % GREEK SMALL LETTER OMEGA WITH YPOGEGRAMMENI
+  /uni1FE5              % GREEK SMALL LETTER RHO WITH DASIA
+  /uni1FE4              % GREEK SMALL LETTER RHO WITH PSILI
+  /cwm
+  /numeralsigngreek
+  /numeralsignlowergreek
+] def
+%
+% UNICODING Delta =: Deltagreek Delta;
+% UNICODING Omega =: Omegagreek Omega;
+% UNICODING mu =: mugreek mu;
+% UNICODING questiongreek =: questiongreek semicolon;
+% UNICODING perispomenigreekcmb =: uni1FC0 perispomenigreekcmb;
+%
+% LIGKERN hyphen hyphen =: endash ; endash hyphen =: emdash ;
+% LIGKERN parenleft parenleft =: guillemotleft ;
+% LIGKERN parenright parenright =: guillemotright ;
+% LIGKERN dieresis tonos =: dieresistonos
+% LIGKERN tonos dieresis =: dieresistonos
+% LIGKERN tonos alpha =: alphatonos ;
+% LIGKERN tonos epsilon =: epsilontonos ;
+% LIGKERN tonos eta =: etatonos ;
+% LIGKERN tonos iota =: iotatonos ;
+% LIGKERN tonos omicron =: omicrontonos ;
+% LIGKERN tonos upsilon =: upsilontonos ;
+% LIGKERN tonos omega =: omegatonos ;
+% LIGKERN tonos Alpha =: Alphatonos ;
+% LIGKERN tonos Epsilon =: Epsilontonos ;
+% LIGKERN tonos Eta =: Etatonos ;
+% LIGKERN tonos Iota =: Iotatonos ;
+% LIGKERN tonos Omicron =: Omicrontonos ;
+% LIGKERN tonos Upsilon =: Upsilontonos ;
+% LIGKERN tonos Omega =: Omegatonos ;
+% LIGKERN dieresis iota =: iotadieresis ; dieresis Iota =: Iotadieresis ;
+% LIGKERN dieresis upsilon =: upsilondieresis ;
+% LIGKERN dieresis Upsilon =: Upsilondieresis ;
+% LIGKERN dieresistonos iota =: iotadieresistonos ;
+% LIGKERN dieresistonos upsilon =: upsilondieresistonos ;
+% LIGKERN tonos tonos =: quoteright ; uni1FEF uni1FEF =: quoteleft ;
+% LIGKERN uni1FBF tonos =: uni1FCE ; uni1FBF uni1FEF =: uni1FCD ;
+% LIGKERN uni1FBF uni1FC0 =: uni1FCF ; uni1FC0 uni1FBF =: uni1FCF ;
+% LIGKERN uni1FFE tonos =: uni1FDE ; uni1FFE uni1FEF =: uni1FDD ;
+% LIGKERN uni1FFE uni1FC0 =: uni1FDF ; uni1FC0 uni1FFE =: uni1FDF ;
+% LIGKERN dieresis uni1FC0 =: uni1FC1 ; uni1FC0 dieresis =: uni1FC1 ;
+% LIGKERN dieresis uni1FEF =: uni1FED ; uni1FEF dieresis =: uni1FED ;
+% LIGKERN uni1FCE alpha =: uni1F04 ; uni1FCF alpha =: uni1F06 ; uni1FBF alpha =: uni1F00 ;
+% LIGKERN uni1FCD alpha =: uni1F02 ; uni1FDF alpha =: uni1F07 ; uni1FFE alpha =: uni1F01 ;
+% LIGKERN uni1FDE alpha =: uni1F05 ; uni1FEF alpha =: uni1F70 ;
+% LIGKERN uni1FDD alpha =: uni1F03 ; uni1FC0 alpha =: uni1FB6 ;
+% LIGKERN alpha ypogegrammeni =: uni1FB3 ; alphatonos ypogegrammeni =: uni1FB4 ;
+% LIGKERN uni1F00 ypogegrammeni =: uni1F80 ; uni1F01 ypogegrammeni =: uni1F81 ;
+% LIGKERN uni1F02 ypogegrammeni =: uni1F82 ; uni1F03 ypogegrammeni =: uni1F83 ;
+% LIGKERN uni1F04 ypogegrammeni =: uni1F84 ; uni1F05 ypogegrammeni =: uni1F85 ;
+% LIGKERN uni1F06 ypogegrammeni =: uni1F86 ; uni1F07 ypogegrammeni =: uni1F87 ;
+% LIGKERN uni1F70 ypogegrammeni =: uni1FB2 ; uni1FB6 ypogegrammeni =: uni1FB7 ;
+% LIGKERN uni1FCE epsilon =: uni1F14 ; uni1FBF epsilon =: uni1F10 ;
+% LIGKERN uni1FCD epsilon =: uni1F12 ; uni1FFE epsilon =: uni1F11 ;
+% LIGKERN uni1FDE epsilon =: uni1F15 ; uni1FEF epsilon =: uni1F72 ;
+% LIGKERN uni1FDD epsilon =: uni1F13 ;
+% LIGKERN uni1FCE eta =: uni1F24 ; uni1FCF eta =: uni1F26 ; uni1FBF eta =: uni1F20 ;
+% LIGKERN uni1FCD eta =: uni1F22 ; uni1FDF eta =: uni1F27 ; uni1FFE eta =: uni1F21 ;
+% LIGKERN uni1FDE eta =: uni1F25 ; uni1FEF eta =: uni1F74 ;
+% LIGKERN uni1FDD eta =: uni1F23 ; uni1FC0 eta =: uni1FC6 ;
+% LIGKERN eta ypogegrammeni =: uni1FC3 ; etatonos ypogegrammeni =: uni1FC4 ;
+% LIGKERN uni1F20 ypogegrammeni =: uni1F90 ; uni1F21 ypogegrammeni =: uni1F91 ;
+% LIGKERN uni1F22 ypogegrammeni =: uni1F92 ; uni1F23 ypogegrammeni =: uni1F93 ;
+% LIGKERN uni1F24 ypogegrammeni =: uni1F94 ; uni1F25 ypogegrammeni =: uni1F95 ;
+% LIGKERN uni1F26 ypogegrammeni =: uni1F96 ; uni1F27 ypogegrammeni =: uni1F97 ;
+% LIGKERN uni1F74 ypogegrammeni =: uni1FC2 ; uni1FC6 ypogegrammeni =: uni1FC7 ;
+% LIGKERN uni1FCE iota =: uni1F34 ; uni1FBF iota =: uni1F30 ;
+% LIGKERN uni1FCD iota =: uni1F32 ; uni1FFE iota =: uni1F31 ;
+% LIGKERN uni1FDE iota =: uni1F35 ; uni1FEF iota =: uni1F76 ;
+% LIGKERN uni1FDD iota =: uni1F33 ; uni1FED iota =: uni1FD2 ;
+% LIGKERN uni1FC1 iota =: uni1FD7 ; uni1FC0 iota =: uni1FD6 ;
+% LIGKERN uni1FCF iota =: uni1F36 ; uni1FDF iota =: uni1F37 ;
+% LIGKERN uni1FCE omicron =: uni1F44 ; uni1FBF omicron =: uni1F40 ;
+% LIGKERN uni1FCD omicron =: uni1F42 ; uni1FFE omicron =: uni1F41 ;
+% LIGKERN uni1FDE omicron =: uni1F45 ; uni1FEF omicron =: uni1F78 ;
+% LIGKERN uni1FDD omicron =: uni1F43 ;
+% LIGKERN uni1FCE upsilon =: uni1F54 ; uni1FBF upsilon =: uni1F50 ;
+% LIGKERN uni1FCD upsilon =: uni1F52 ; uni1FFE upsilon =: uni1F51 ;
+% LIGKERN uni1FDE upsilon =: uni1F55 ; uni1FEF upsilon =: uni1F7A ;
+% LIGKERN uni1FDD upsilon =: uni1F53 ; uni1FED upsilon =: uni1FE2 ;
+% LIGKERN uni1FC1 upsilon =: uni1FE7 ; uni1FC0 upsilon =: uni1FE6 ;
+% LIGKERN uni1FCF upsilon =: uni1F56 ; uni1FDF upsilon =: uni1F57 ;
+% LIGKERN uni1FCE omega =: uni1F64 ; uni1FCF omega =: uni1F66 ; uni1FBF omega =: uni1F60 ;
+% LIGKERN uni1FCD omega =: uni1F62 ; uni1FDF omega =: uni1F67 ; uni1FFE omega =: uni1F61 ;
+% LIGKERN uni1FDE omega =: uni1F65 ; uni1FEF omega =: uni1F7C ;
+% LIGKERN uni1FDD omega =: uni1F63 ; uni1FC0 omega =: uni1FF6 ;
+% LIGKERN omega ypogegrammeni =: uni1FF3 ; omegatonos ypogegrammeni =: uni1FF4 ;
+% LIGKERN uni1F60 ypogegrammeni =: uni1FA0 ; uni1F61 ypogegrammeni =: uni1FA1 ;
+% LIGKERN uni1F62 ypogegrammeni =: uni1FA2 ; uni1F63 ypogegrammeni =: uni1FA3 ;
+% LIGKERN uni1F64 ypogegrammeni =: uni1FA4 ; uni1F65 ypogegrammeni =: uni1FA5 ;
+% LIGKERN uni1F66 ypogegrammeni =: uni1FA6 ; uni1F67 ypogegrammeni =: uni1FA7 ;
+% LIGKERN uni1F7C ypogegrammeni =: uni1FF2 ; uni1FF6 ypogegrammeni =: uni1FF7 ;
+% LIGKERN uni1FBF rho =: uni1FE4 ; uni1FFE rho =: uni1FE5 ;
+% LIGKERN || = 01 ; sigma || =:| sigma1 ; sigma guillemotright =:| sigma1 ;
+% LIGKERN sigma parenright =:| sigma1 ; sigma period =:| sigma1 ;
+% LIGKERN sigma comma =:| sigma1 ; sigma exclam =:| sigma1 ;
+% LIGKERN sigma semicolon =:| sigma1 ; sigma anoteleia =:| sigma1 ;
+% LIGKERN Alpha uni1FBE =: uni1FBC ;
+% LIGKERN Eta uni1FBE =: uni1FCC ;
+% LIGKERN Omega uni1FBE =: uni1FFC ;

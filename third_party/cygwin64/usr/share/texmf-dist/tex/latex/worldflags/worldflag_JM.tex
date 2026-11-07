@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Jamaica:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{green}{RGB}{0,177,64}
+\definecolor{gold}{RGB}{254,219,0}
+\fill [black] (0,0) rectangle (\flaglength,1);
+\fill [green] (0,0)--(\flaglength,0)--(0.5\flaglength,0.5)--cycle;
+\fill [green] (0,1)--(\flaglength,1)--(0.5\flaglength,0.5)--cycle;
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\draw [gold,line width=\flagwidth/6] (0,0)--(\flaglength,1);
+\draw [gold,line width=\flagwidth/6] (0,1)--(\flaglength,0);
+\end{scope}
+\framecode{}
+\end{flagdescription}

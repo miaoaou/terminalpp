@@ -1,0 +1,18 @@
+name expdlist
+category Package
+revision 15878
+shortdesc Expanded description environments
+relocated 1
+longdesc The package provides additional features for the LaTeX
+longdesc description environment, including adjustable left margin. The
+longdesc package also allows the user to 'break' a list (for example, to
+longdesc interpose a comment) without affecting the structure of the
+longdesc list (this works for itemize and eumerate lists and numbered
+longdesc lists remain in sequence).
+runfiles size=2
+ RELOC/tex/latex/expdlist/expdlist.sty
+catalogue-ctan /macros/latex/contrib/expdlist
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics list-descr
+catalogue-version 2.4

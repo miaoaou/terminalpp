@@ -1,0 +1,19 @@
+name highlightx
+category Package
+revision 68756
+shortdesc Highlight formulas or paragraphs
+relocated 1
+longdesc This package provides commands (in French or English) to
+longdesc highlight formulas or paragraphs with handwriting effect: coded
+longdesc using soul and TikZ; \SurlignerFormule and \SurlignerTexte in
+longdesc French; \HighlightFormula and \TextHighlight in English. The
+longdesc code for hightlighting paragraphs with handwriting effect has
+longdesc been contributed by Antal Spector-Zabusky.
+runfiles size=3
+ RELOC/tex/latex/highlightx/highlightx.sty
+catalogue-contact-repository https://github.com/cpierquet/highlightx
+catalogue-contact-support https://github.com/cpierquet/highlightx/issues
+catalogue-ctan /macros/latex/contrib/highlightx
+catalogue-license lppl1.3c
+catalogue-topics decoration pgf-tikz
+catalogue-version 0.1.5

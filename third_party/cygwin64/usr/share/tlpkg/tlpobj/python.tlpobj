@@ -1,0 +1,13 @@
+name python
+category Package
+revision 60162
+shortdesc Embed Python code in LaTeX
+relocated 1
+longdesc The package enables you to embed Python code in LaTeX, and
+longdesc insert the script's output in the document.
+runfiles size=1
+ RELOC/tex/latex/python/python.sty
+catalogue-ctan /macros/latex/contrib/python
+catalogue-license gpl
+catalogue-topics callback
+catalogue-version 0.22

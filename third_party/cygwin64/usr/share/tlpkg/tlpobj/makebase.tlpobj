@@ -1,0 +1,19 @@
+name makebase
+category Package
+revision 41012
+shortdesc Typeset counters in a different base
+relocated 1
+longdesc This package typesets a LaTeX counter such as page in an
+longdesc arbitrary base (default 16). It does not change font or
+longdesc typeface. The package extends the functionality of the existing
+longdesc hex LaTeX 2.09 package and provides documentation. However, the
+longdesc author is not a mathematician, and suggestions for rewriting
+longdesc the code are welcomed. Warning: this is alpha software and may
+longdesc contain bugs. Please report problems to the author.
+runfiles size=1
+ RELOC/tex/latex/makebase/makebase.sty
+catalogue-ctan /macros/latex/contrib/makebase
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics numbers
+catalogue-version 0.2

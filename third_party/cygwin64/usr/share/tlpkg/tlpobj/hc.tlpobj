@@ -1,0 +1,20 @@
+name hc
+category Package
+revision 15878
+shortdesc Replacement for the LaTeX classes
+relocated 1
+longdesc A set of replacements for the default LaTeX classes, based upon
+longdesc the Koma-Script bundle and the seminar class. Includes hcart,
+longdesc hcreport, hcletter, and hcslides.
+runfiles size=35
+ RELOC/bibtex/bst/hc/hc-de.bst
+ RELOC/bibtex/bst/hc/hc-en.bst
+ RELOC/tex/latex/hc/german.hld
+ RELOC/tex/latex/hc/hcart.cls
+ RELOC/tex/latex/hc/hcletter.cls
+ RELOC/tex/latex/hc/hcreport.cls
+ RELOC/tex/latex/hc/hcslides.cls
+catalogue-ctan /macros/latex/contrib/hc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics class presentation letter

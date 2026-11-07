@@ -1,0 +1,14 @@
+name syntaxdi
+category Package
+revision 56685
+shortdesc Create "railroad" syntax diagrams
+relocated 1
+longdesc This package provides TikZ styles for creating special syntax
+longdesc diagrams known as "railroad" diagrams. The package was
+longdesc originally distributed as part of the schule bundle.
+runfiles size=1
+ RELOC/tex/latex/syntaxdi/syntaxdi.sty
+catalogue-ctan /graphics/pgf/contrib/syntaxdi
+catalogue-license lppl1.3
+catalogue-topics graphics diagram diagram-flow pgf-tikz
+catalogue-version 0.8.2

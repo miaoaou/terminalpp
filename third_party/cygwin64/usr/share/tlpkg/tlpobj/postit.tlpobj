@@ -1,0 +1,17 @@
+name postit
+category Package
+revision 67344
+shortdesc A LaTeX package for displaying Post-it notes
+relocated 1
+longdesc This package provides some commands and options for creating
+longdesc Post-it-like boxes with tcolorbox: an environment PostIt with
+longdesc customizations; a command \MiniPostIt to display a simple
+longdesc Post-It.
+runfiles size=13
+ RELOC/tex/latex/postit/postit.sty
+catalogue-contact-bugs https://github.com/cpierquet/postit/issues
+catalogue-contact-repository https://github.com/cpierquet/postit
+catalogue-ctan /macros/latex/contrib/postit
+catalogue-license lppl1.3c
+catalogue-topics decoration boxing
+catalogue-version 0.1.3

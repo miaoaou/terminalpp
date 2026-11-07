@@ -1,0 +1,34 @@
+name pdfscreen
+category Package
+revision 42428
+shortdesc Support screen-based document design
+relocated 1
+longdesc An extension of the hyperref package to provide a screen-based
+longdesc document design. This package helps to generate pdf documents
+longdesc that are readable on screen and will fit the screen's aspect
+longdesc ratio. Also it can be used with various options to produce
+longdesc regular print versions of the same document without any extra
+longdesc effort.
+runfiles size=61
+ RELOC/tex/latex/pdfscreen/but.pdf
+ RELOC/tex/latex/pdfscreen/button.pdf
+ RELOC/tex/latex/pdfscreen/left.pdf
+ RELOC/tex/latex/pdfscreen/overlay.pdf
+ RELOC/tex/latex/pdfscreen/overlay0.pdf
+ RELOC/tex/latex/pdfscreen/overlay1.pdf
+ RELOC/tex/latex/pdfscreen/overlay10.pdf
+ RELOC/tex/latex/pdfscreen/overlay2.pdf
+ RELOC/tex/latex/pdfscreen/overlay3.pdf
+ RELOC/tex/latex/pdfscreen/overlay4.pdf
+ RELOC/tex/latex/pdfscreen/overlay5.pdf
+ RELOC/tex/latex/pdfscreen/overlay6.pdf
+ RELOC/tex/latex/pdfscreen/overlay7.pdf
+ RELOC/tex/latex/pdfscreen/overlay8.pdf
+ RELOC/tex/latex/pdfscreen/overlay9.pdf
+ RELOC/tex/latex/pdfscreen/pdfscreen.sty
+ RELOC/tex/latex/pdfscreen/right.pdf
+catalogue-ctan /macros/latex/contrib/pdfscreen
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics hyper presentation
+catalogue-version 1.5

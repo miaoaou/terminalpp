@@ -1,0 +1,14 @@
+name tikz-opm
+category Package
+revision 32769
+shortdesc Typeset OPM diagrams
+relocated 1
+longdesc Typeset OPM (Object-Process Methodology) diagrams using LaTeX
+longdesc and PGF/TikZ.
+runfiles size=2
+ RELOC/tex/latex/tikz-opm/tikz-opm.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-opm
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram pgf-tikz
+catalogue-version 0.1.1

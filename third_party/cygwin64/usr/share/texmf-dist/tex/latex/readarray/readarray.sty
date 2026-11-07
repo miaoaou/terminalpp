@@ -1,0 +1,587 @@
+\def\readarrayPackageVersion{3.1}
+\def\readarrayPackageDate{2021/09/17}
+\ProvidesPackage{readarray}
+[\readarrayPackageDate\ \readarrayPackageVersion\ %
+Routines for inputting 2D and 3D array data and recalling it on an 
+element-by-element basis.]
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Steven B. Segletes.
+%
+\RequirePackage{forloop}
+\RequirePackage{listofitems}[2016-10-22]
+%
+\newcounter{@index}
+\newcounter{@plane}
+\newcounter{@row}
+\newcounter{@col}
+\newcounter{use@args}
+\newcounter{@record}
+\newcounter{index@count}
+\newtoks\Arg@toks
+\newtoks\@arrayident@toks
+\newread\rdar@file
+\newcount\readarrayendlinechar
+\newif\ifignoreblankreadarrayrecords
+\ignoreblankreadarrayrecordsfalse
+\edef\readarraybackslash{\expandafter\@firstoftwo\string\\}
+%
+\newcommand\readdef[2]{\@readdef{#1}{#2}{ArrayRecord}}
+%
+\newcommand\readrecordarray[2]{%
+  \edef\@arrayident{\rdar@macroname#2}%
+  \def\ra@TermA{\@readdef{#1}}%
+  \def\ra@TermB{\expandafter\ra@TermA\csname\@arrayident def\endcsname}%
+  \expandafter\ra@TermB\expandafter{\@arrayident}%
+}
+%
+\newcommand\readarray{\@ifstar
+    {\read@array@newsyntax[*]}{\read@array@newsyntax[]}}
+%
+\def\arraytomacro#1[#2]#3{%
+  \@arrayident@toks=\expandafter\expandafter\expandafter
+    {\csname\rdar@macroname#1[#2]\endcsname}%
+  \expandafter\def\expandafter#3\expandafter{\the\@arrayident@toks}%
+}
+%
+\newcommand\readarraysepchar[1]{\def\read@array@sepchar{#1}}
+%
+\def\nocheckbounds{\def\rootmacro@aux##1##2{\csname##1[##2]\endcsname%
+ }\typeout{readarray: bounds checking OFF}%
+}
+%
+\def\checkbounds{\def\rootmacro@aux##1##2{%
+  \ifcsname##1[##2]\endcsname\csname##1[##2]\endcsname\else%
+  \readarrayboundfailmsg%
+  \typeout{readarray Warning: \readarraybackslash##1[##2] undefined.}%
+  \fi%
+ }\typeout{readarray: bounds checking ON}%
+}
+%
+\def\hypercheckbounds{\def\rootmacro@aux##1##2{%
+  \ifcsname##1[##2]\endcsname\csname##1[##2]\endcsname\else
+    \readarrayboundfailmsg%
+    \typeout{readarray Warning: \readarraybackslash##1[##2] undefined:}%
+    \setcounter{index@count}{0}%
+    \parse@index##2,\relax%
+    \forloop{@index}{1}{\value{@index}<\numexpr\theindex@count+1}{%
+      \ifnum\parsed@index[\the@index]<1%
+        \relax\typeout{ \nonpos@message{##1}{##2}}\fi%
+    }%
+    \ifnum \value{index@count}=1\relax%
+      \ifnum\parsed@index[1]>\csname##1CELLS\endcsname\relax
+        \typeout{ \record@message{##1}{##2}}\fi%
+    \fi
+    \ifnum \value{index@count}=2\relax%
+      \ifnum\parsed@index[1]>\csname##1ROWS\endcsname\relax
+        \typeout{ \row@message{##1}{\parsed@index[1]}}\fi%
+      \ifnum\parsed@index[2]>\csname##1COLS\endcsname\relax
+        \typeout{ \col@message{##1}{\parsed@index[2]}}\fi%
+    \fi
+    \ifnum \value{index@count}=3\relax%
+      \ifnum\parsed@index[1]>\csname##1PLANES\endcsname\relax
+        \typeout{ \plane@message{##1}{\parsed@index[1]}}\fi%
+      \ifnum\parsed@index[2]>\csname##1ROWS\endcsname\relax
+        \typeout{ \row@message{##1}{\parsed@index[2]}}\fi%
+      \ifnum\parsed@index[3]>\csname##1COLS\endcsname\relax
+        \typeout{ \col@message{##1}{\parsed@index[3]}}\fi%
+    \fi%
+  \fi%
+ }\typeout{readarray: bounds hyperchecking ON}%
+}
+%
+\def\rdar@macroname{\expandafter\@gobble\string}
+%
+\def\getArg@toks[#1]{\Arg@toks\expandafter\expandafter\expandafter{\Arg@list[#1]}}
+%
+\def\@readdef#1#2#3{%
+  \clear@array{#3}%
+  \edef\former@recordcount{\csname #3CELLS\endcsname}%
+  \def\nrows{0}%
+  \def\first@row{T}%
+  \def\first@plane{F}%
+  \catcode\endlinechar=\readarrayendlinechar\relax %
+  \def#2{}%
+  \setcounter{@record}{0}%
+  \openin\rdar@file=#1%
+  \ifignoreblankreadarrayrecords
+    \def\rdar@iftest{\rdar@record\empty}\else\def\rdar@iftest{01}\fi
+  \loop\unless\ifeof\rdar@file%
+    \read\rdar@file to\rdar@record % Reads record into \rdar@record%
+    \expandafter\ifx\rdar@iftest\else
+      \stepcounter{@record}%
+      \expandafter\g@addto@macro\expandafter#2\expandafter{\rdar@record}%
+      \ifx\rdar@record\empty\else\expandafter
+        \g@addto@macro\expandafter#2\expandafter{\read@array@sepchar}%
+        \if T\first@row
+          \read@array{#2}%
+          \setcounter{@col}{\numexpr(\Arg@listlen-1)}%
+          \edef\ncols{\arabic{@col}}%
+          \def\first@row{F}%
+          \setcounter{@row}{0}%
+          \def\first@plane{T}%
+        \fi
+      \fi
+      \if T\first@plane
+        \ifx\rdar@record\empty
+          \edef\nrows{\arabic{@row}}%
+          \def\first@plane{F}%
+        \else
+          \stepcounter{@row}%
+        \fi
+      \fi
+      \def\record@name{\csname #3[\the@record]\endcsname}%
+      \expandafter\expandafter\expandafter\expandafter\expandafter\expandafter
+        \expandafter\def\expandafter\record@name\expandafter{\rdar@record}%
+    \fi
+  \repeat
+  \ifnum\nrows=0 \edef\nrows{\arabic{@row}}\fi
+  \edef\nrecords{\arabic{@record}}%
+  \expandafter\edef\csname #3PLANES\endcsname{0}%
+  \expandafter\edef\csname #3ROWS\endcsname{\nrecords}%
+  \expandafter\edef\csname #3COLS\endcsname{0}%
+  \expandafter\edef\csname #3CELLS\endcsname{\nrecords}%
+  \closein\rdar@file
+  \catcode\endlinechar=5 %
+  \define@rootmacro{#3}%
+}
+%
+\def\read@array@newsyntax[#1]#2#3[#4,#5]{%
+  \setcounter{index@count}{0}%
+  \parse@index#5,\relax%
+  \ifnum\value{index@count}=1\relax%
+     \def\ra@TermA{\read@Arrayij[#1]{#2}}%
+     \edef\ra@TermB{{\rdar@macroname#3}{\parsed@index[1]}}%
+     \expandafter\ra@TermA\ra@TermB%
+  \else
+  \ifnum\value{index@count}=2\relax%
+     \def\ra@TermA{\read@Arrayijk[#1]{#2}}%
+     \edef\ra@TermB{{\rdar@macroname#3}{\parsed@index[1]}%
+      {\parsed@index[2]}}%
+     \expandafter\ra@TermA\ra@TermB%
+  \fi\fi
+}
+%
+\newcommand\read@Arrayijk[5][]{%
+  \clear@array{#3}%
+  \read@array[#1]{#2}%
+  \setcounter{@plane}{\numexpr(\Arg@listlen/#5/#4)}%
+  \setcounter{use@args}{\numexpr\arabic{@plane}*#4*#5}%
+  \ifnum\arabic{use@args} > \Arg@listlen\relax
+    \addtocounter{@plane}{-1}%
+    \setcounter{use@args}{\numexpr\arabic{@plane}*#4*#5}%
+  \fi%
+  \expandafter\edef\csname#3PLANES\endcsname{\arabic{@plane}}%
+  \expandafter\edef\csname#3ROWS\endcsname{#4}%
+  \expandafter\edef\csname#3COLS\endcsname{#5}%
+  \expandafter\edef\csname#3CELLS\endcsname{\arabic{use@args}}%
+  \setcounter{@plane}{1}%
+  \setcounter{@row}{1}%
+  \setcounter{@col}{0}%
+  \forloop{@index}{1}{\value{@index} < \numexpr\value{use@args}+1}{%
+    \addtocounter{@col}{1}%
+    \ifnum\value{@col} > #5\relax
+      \addtocounter{@row}{1}%
+      \addtocounter{@col}{-#5}%
+    \fi
+    \ifnum\value{@row} > #4\relax
+      \addtocounter{@plane}{1}%
+      \addtocounter{@row}{-#4}%
+    \fi
+    \def\arg@name{\csname#3[\the@plane,\the@row,\the@col]\endcsname}%
+    \getArg@toks[\the@index]%
+    \expandafter\expandafter\expandafter\expandafter\expandafter\expandafter%
+      \expandafter\def\expandafter\arg@name\expandafter{\the\Arg@toks}%
+  }%
+  \define@rootmacro{#3}%
+}
+%
+\newcommand\read@Arrayij[4][]{%
+  \clear@array{#3}%
+  \read@array[#1]{#2}%
+  \setcounter{@row}{\numexpr(\Arg@listlen/#4)}%
+  \setcounter{use@args}{\numexpr\arabic{@row}*#4}%
+  \ifnum\arabic{use@args} > \Arg@listlen\relax
+    \addtocounter{@row}{-1}%
+    \setcounter{use@args}{\numexpr\arabic{@row}*#4}%
+  \fi
+  \expandafter\edef\csname#3PLANES\endcsname{0}%
+  \expandafter\edef\csname#3ROWS\endcsname{\arabic{@row}}%
+  \expandafter\edef\csname#3COLS\endcsname{#4}%
+  \expandafter\edef\csname#3CELLS\endcsname{\arabic{use@args}}%
+  \setcounter{@row}{1}%
+  \setcounter{@col}{0}%
+  \forloop{@index}{1}{\value{@index} < \numexpr\value{use@args}+1}{%
+    \addtocounter{@col}{1}%
+    \ifnum\value{@col} > #4\relax
+      \addtocounter{@row}{1}%
+      \addtocounter{@col}{-#4}%
+    \fi
+    \def\arg@name{\csname#3[\the@row,\the@col]\endcsname}%
+    \getArg@toks[\the@index]%
+    \expandafter\expandafter\expandafter\expandafter\expandafter\expandafter%
+      \expandafter\def\expandafter\arg@name\expandafter{\the\Arg@toks}%
+  }%
+  \define@rootmacro{#3}%
+}
+%
+\newcommand\read@array[2][]{%
+  \bgroup%
+  \ifx\empty\read@array@sepchar
+    \setsepchar{\empty}%
+  \else
+    \expandafter\setsepchar\expandafter{\read@array@sepchar}%
+  \fi
+  \greadlist#1\Arg@list{#2}%
+  \egroup%
+  \edef\Arg@listCELLS{\Arg@listlen}%
+}
+%
+\def\clear@array#1{%
+  \ifcsname #1ROWS\endcsname%
+    \forloop{@row}{1}{\value{@row}<\numexpr\csname #1ROWS\endcsname+1}{%
+      \ifnum\csname #1COLS\endcsname=0\relax%
+        \expandafter\let\csname #1[\the@row]\endcsname\undefined%
+      \else
+        \forloop{@col}{1}{\value{@col}<\numexpr\csname #1COLS\endcsname+1}{%
+          \ifnum\csname #1PLANES\endcsname=0\relax%
+            \expandafter\let\csname #1[\the@row,\the@col]\endcsname
+              \undefined%
+          \else
+            \forloop{@plane}{1}{\value{@plane}<\numexpr\csname #1PLANES\endcsname+1}{%
+              \expandafter%
+                \let\csname #1[\the@plane,\the@row,\the@col]\endcsname
+                  \undefined%
+            }%
+          \fi%
+        }%
+      \fi%
+    }%
+    \expandafter\let\csname #1PLANES\endcsname\undefined
+    \expandafter\let\csname #1ROWS\endcsname\undefined
+    \expandafter\let\csname #1PLANES\endcsname\undefined
+    \expandafter\let\csname #1\endcsname\undefined
+  \fi%
+}
+%
+\def\setvalue#1[#2]#3{%
+  \ifcsname\rdar@macroname#1[#2]\endcsname
+    \expandafter\def\csname\rdar@macroname#1[#2]\endcsname{#3}%
+  \else
+    \typeout{readarray Warning (setvalue = #3): 
+      \readarraybackslash\rdar@macroname#1[#2] undefined.}%
+  \fi%
+}
+%
+\def\readarray@initializedata#1[#2]#3{%
+  \expandafter\def\csname
+    \rdar@macroname#1[#2]\expandafter\endcsname\expandafter{#3}%
+}
+%
+\def\initarray#1[#2]{%
+  \edef\@tmp{\rdar@macroname#1}%
+  \expandafter\clear@array\expandafter{\@tmp}%
+  \expandafter\define@rootmacro\expandafter{\@tmp}%
+  \setcounter{index@count}{0}%
+  \parse@index#2,\relax
+  \ifnum\value{index@count}=2\relax
+    \setcounter{use@args}{\numexpr\parsed@index[1]*\parsed@index[2]}
+    \expandafter\def\csname\@tmp PLANES\endcsname{0}
+    \expandafter\edef\csname\@tmp ROWS\endcsname{\parsed@index[1]}
+    \expandafter\edef\csname\@tmp COLS\endcsname{\parsed@index[2]}
+    \expandafter\edef\csname\@tmp CELLS\endcsname{\theuse@args}
+    \forloop{@row}{1}{\value{@row}<\numexpr\parsed@index[1]+1}{%
+      \forloop{@col}{1}{\value{@col}<\numexpr\parsed@index[2]+1}{%
+        \readarray@initializedata#1[\the@row,\the@col]{\readarrayinitvalue}}}
+  \else
+    \ifnum\value{index@count}=3\relax
+      \setcounter{use@args}{\numexpr\parsed@index[1]*
+        \parsed@index[2]*\parsed@index[3]}
+      \expandafter\edef\csname\@tmp PLANES\endcsname{\parsed@index[1]}
+      \expandafter\edef\csname\@tmp ROWS\endcsname{\parsed@index[2]}
+      \expandafter\edef\csname\@tmp COLS\endcsname{\parsed@index[3]}
+      \expandafter\edef\csname\@tmp CELLS\endcsname{\theuse@args}
+      \forloop{@plane}{1}{\value{@plane}<\numexpr\parsed@index[1]+1}{%
+        \forloop{@row}{1}{\value{@row}<\numexpr\parsed@index[2]+1}{%
+          \forloop{@col}{1}{\value{@col}<\numexpr\parsed@index[3]+1}{%
+            \readarray@initializedata#1[\the@plane,\the@row,\the@col]{%
+                                               \readarrayinitvalue}}}}
+    \else
+      [initarray ERROR: 2-D or 3-D arrays only]
+    \fi
+  \fi
+}
+%
+\def\mergearray#1#2[#3]{%
+  \setcounter{index@count}{0}%
+  \parse@index#3,\relax
+  \ifnum\value{index@count}=2\relax 
+    \forloop{@row}{1}{\value{@row}<
+                  \numexpr\csname\rdar@macroname#1ROWS\endcsname+1}{%
+      \forloop{@col}{1}{\value{@col}<
+                  \numexpr\csname\rdar@macroname#1COLS\endcsname+1}{%
+        \edef\tmpA{\the\numexpr\the@row+\parsed@index[1]-1,%
+                  \the\numexpr\the@col+\parsed@index[2]-1}%
+        \edef\tmpB{\csname\rdar@macroname#1[\the@row,\the@col]\endcsname}%
+        \def\tmpC{\setvalue#2[\tmpA]}%
+        \expandafter\tmpC\expandafter{\tmpB}}}%
+  \else
+    \ifnum\value{index@count}=3\relax 
+      \forloop{@plane}{1}{\value{@plane}<
+                    \numexpr\csname\rdar@macroname#1PLANES\endcsname+1}{%
+        \forloop{@row}{1}{\value{@row}<
+                    \numexpr\csname\rdar@macroname#1ROWS\endcsname+1}{%
+          \forloop{@col}{1}{\value{@col}<
+                    \numexpr\csname\rdar@macroname#1COLS\endcsname+1}{%
+            \edef\tmpA{\the\numexpr\the@plane+\parsed@index[1]-1,%
+                       \the\numexpr\the@row+\parsed@index[2]-1,%
+                       \the\numexpr\the@col+\parsed@index[3]-1}%
+            \edef\tmpB{\csname\rdar@macroname#1%
+                         [\the@plane,\the@row,\the@col]\endcsname}%
+            \def\tmpC{\setvalue#2[\tmpA]}%
+            \expandafter\tmpC\expandafter{\tmpB}}}}%
+    \else
+      [mergearray ERROR: 2-D or 3-D arrays only]
+    \fi
+  \fi
+}
+%
+\def\addtoArg@toks#1{\Arg@toks\expandafter{\the\Arg@toks#1}}
+\def\xaddtoArg@toks#1{\expandafter\addtoArg@toks\expandafter{#1}}
+\def\xxaddtoArg@toks#1{\expandafter\xaddtoArg@toks\expandafter{#1}}
+%
+\def\typesetarray#1{\noindent\Arg@toks{}%
+  \ifnum\csname\rdar@macroname#1PLANES\endcsname>0\relax
+    \forloop{@plane}{1}{\value{@plane}<
+               \numexpr\csname\rdar@macroname#1PLANES\endcsname+1}{%
+      \ifnum\the@plane=1 \else\xaddtoArg@toks{\typesetplanesepchar}\fi%
+      \forloop{@row}{1}{\value{@row}<
+               \numexpr\csname\rdar@macroname#1ROWS\endcsname+1}{%
+        \ifnum\the@row=1 \else\xaddtoArg@toks{\typesetrowsepchar}\fi%
+        \forloop{@col}{1}{\value{@col}<
+               \numexpr\csname\rdar@macroname#1COLS\endcsname+1}{%
+          \ifnum\the@col=1 \else\xaddtoArg@toks{\typesetcolsepchar}\fi%
+          \xaddtoArg@toks{\expandafter\typesetcell\expandafter
+            {\csname\rdar@macroname#1[\the@plane,\the@row,\the@col]\endcsname}}}%
+      }%
+    }%
+  \else
+    \forloop{@row}{1}{\value{@row}<
+               \numexpr\csname\rdar@macroname#1ROWS\endcsname+1}{%
+      \ifnum\the@row=1 \else\xaddtoArg@toks{\typesetrowsepchar}\fi%
+      \forloop{@col}{1}{\value{@col}<
+               \numexpr\csname\rdar@macroname#1COLS\endcsname+1}{%
+        \ifnum\the@col=1 \else\xaddtoArg@toks{\typesetcolsepchar}\fi%
+        \xaddtoArg@toks{\expandafter\typesetcell\expandafter
+          {\csname\rdar@macroname#1[\the@row,\the@col]\endcsname}}%
+      }%
+    }%
+  \fi
+  \the\Arg@toks
+}
+%
+\def\define@rootmacro#1{%
+  \expandafter\def\csname#1\endcsname[##1]{\rootmacro@aux{#1}{##1}}%
+}
+%
+\def\parse@index#1,#2\relax{%
+  \stepcounter{index@count}%
+  \expandafter\gdef\csname parsed@index[\theindex@count]\endcsname{#1}%
+  \ifx\relax#2\relax\else\parse@index#2\relax\fi%
+}
+%
+\def\parsed@index[#1]{\csname parsed@index[#1]\endcsname}
+%
+% INITIALIZATION
+% ON \readdef, SEP CHAR INSERTED AFTER EACH RECORD; 
+% ON \readarray, SEP CHAR SERVES AS DATA-FIELD SEPARATOR
+\readarraysepchar{ }
+% ON \readdef, IGNORE END-LINE CHARS BY DEFAULT (NORMAL LaTeX MODE = 5)
+\readarrayendlinechar=9
+% DEFAULT CELL DATA FOR \initarray
+\def\readarrayinitvalue{-}
+% DEFAULT FIELD SEPARATORS FOR \typesetarray
+\def\typesetplanesepchar{\\---\\}
+\def\typesetrowsepchar{\\}
+\def\typesetcolsepchar{,}
+% DEFAULT CELL FORMATTING ON \typesetarray
+\def\typesetcell#1{#1}
+%
+\nocheckbounds% DEFAULT IS NO BOUNDS CHECKING
+%
+\def\nonpos@message#1#2{Nonpositive index [#2] prohibited for \ra@nm#1.}
+\def\record@message#1#2{%
+  RECORD=#2 exceeds bounds(=\csname#1CELLS\endcsname) for \ra@nm#1.}
+\def\plane@message#1#2{%
+  PLANE=#2 exceeds bounds(=\csname#1PLANES\endcsname) for \ra@nm#1.}
+\def\row@message#1#2{%
+  ROW=#2 exceeds bounds(=\csname#1ROWS\endcsname) for \ra@nm#1.}
+\def\col@message#1#2{%
+  COL=#2 exceeds bounds(=\csname#1COLS\endcsname) for \ra@nm#1.}
+%
+\def\readarrayboundfailmsg{?}% WHEN ARRAY CALL OUT OF BOUNDS, IF BOUNDS CHECKING ON
+\def\ra@nm#1.{\readarraybackslash#1.}
+%
+% SUPPORT/DEBUG ROUTINES 
+% (THESE ARE DEPRECATED...CONSIDER USING \typesetarray AS AN ALTERNATIVE)
+%
+\def\the@showargs@rule{\kern.2pt\rule{.8ex}{1.6ex}\hspace{.2pt}}%
+% \arraydump INITIALIZATIONS
+\def\row@spacer{\\}
+\def\row@msg{\the@showargs@rule\hfill{\scriptsize\scshape$<$\row@sign~\arabic{@row}$>$}}
+\def\header@msg{{\bfseries\ra@rank:}~}
+\def\last@row{\\}
+\def\plane@msg{\plane@sign\hrulefill\mbox{}\\}
+\def\close@out{}
+%
+\newcommand\arraydump[1]{%
+  \expandafter\ifx\csname\rdar@macroname#1\endcsname\relax\else%
+    \edef\ra@TmpA{\csname\rdar@macroname#1PLANES\endcsname}%
+    \edef\ra@TmpB{\csname\rdar@macroname#1COLS\endcsname}%
+    \def\ra@rank{3-D}%
+    \ifnum\ra@TmpA=0\relax\def\ra@TmpA{1}\def\plane@sign{\mbox{}}\def\ra@rank{2-D}%
+      \else\def\plane@sign{{\scriptsize\scshape Plane \arabic{@plane}}}\fi%
+    \ifnum\ra@TmpB=0\relax\def\ra@TmpB{1}\def\row@sign{Record}\def\ra@rank{1-D}%
+      \else\def\row@sign{Row}\fi%
+    \par\noindent\header@msg%
+    \forloop{@plane}{1}{\value{@plane}<\numexpr\ra@TmpA+1}{%
+      \plane@msg%
+      \forloop{@row}{1}{\value{@row}<
+              \numexpr\csname\rdar@macroname#1ROWS\endcsname+1}{%
+        \ifnum\value{@row}=1\relax\else\row@spacer\fi%
+        \forloop{@col}{1}{\value{@col}<
+              \numexpr\ra@TmpB+1}{%
+          \the@showargs@rule%
+          \ifnum\csname\rdar@macroname#1COLS\endcsname=0\relax%
+            #1[\the@row]%
+          \else%
+            \ifnum\csname\rdar@macroname#1PLANES\endcsname=0\relax%
+              #1[\the@row,\the@col]%
+            \else%
+              #1[\the@plane,\the@row,\the@col]%
+            \fi%
+          \fi%
+        }\row@msg%
+      }\last@row%
+    }\close@out\mbox{}\hrulefill\mbox{}\par%
+  \fi%
+}
+%
+\newcommand\scalardump[1]{\bgroup%
+  \def\row@spacer{}%
+  \def\row@msg{}%
+  \def\header@msg{{\bfseries\csname\rdar@macroname####1CELLS\endcsname\ ELEMENTS:}%
+    ~\hrulefill\mbox{}\\}%
+  \def\last@row{}%
+  \def\plane@msg{}%
+  \def\close@out{\the@showargs@rule\\}%
+  \arraydump#1\egroup%
+}
+
+\endinput
+
+% Revisions:
+% v1.0  -Initial release.
+% v1.01 -Documentation revision.
+% v1.1  -Added \csname record\roman{@row}\endcsname to \readdef.
+% v1.2  -Corrected the [truncated] LPPL license info.
+%       -Added \arrayij and \arrayijk, which can be put into \edef.
+%       -Used \romannumeral in preference to \roman{}, when possible,
+%        to avoid unnecessary use of counters.
+% v1.3  -Moved \newread outside of \readdef, so as not to exhaust the
+%        16 allotted file streams (Thanks to Ken Kubota for the tip).
+% v2.0  -Converted parsing to listofitems package.  This allows for
+%        ANY parsing character or combination of characters (via logical OR).
+%       -Replaced all \protected@edef's with appropriately expanded \def's.
+%       -Use listofitems package in preference to \getargsC.
+%       -Deprecated \Arrayijk, \arrayijk, \Arrayij, & \arrayij.  Direct
+%        access now preferred, e.g., \xyz[2,3,1].
+%       -Deprecated most other commands in favor of a more natural syntax.
+% v3.0  (2021-08-05)
+%       -Added features: \setvalue, \initarray, \mergearray, \typesetarray.
+%       -Allowed for \readarrayendlinechar to be set other than 9.
+% v3.1  (2021-09-17)
+%       -Bug fix to not break if first line of file subject to \readdef
+%        is blank/comment line.
+%       -Introduce \ifignoreblankreadarrayrecords
+%       -Bug fix in \clear@array, if selected array name is defined,
+%        but not defined as an array.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+COMMANDS THAT WERE DEPRECATED IN v2.0 (2016-11-10), NOT BEING IN THE PREFERRED
+PACKAGE SYNTAX, THAT HAVE BEEN ELIMINATED in v3.0 (2021)
+CODE PROVIDED BELOW AS A COPY/PASTE LAST RESORT FOR STRAGGLERS
+
+\usepackage{ifthen}
+%
+% DEPRECATED COMMANDS (NOT PREFERRED EMBODIMENT OF PACKAGE SYNTAX)
+%
+\newcommand\readArrayijk{\@ifstar{\read@Arrayijk[*]}{\read@Arrayijk}}
+\newcommand\readArrayij{\@ifstar{\read@Arrayij[*]}{\read@Arrayij}}
+\newcommand\arrayijk[4]{\csname#1[#2,#3,#4]\endcsname}
+\newcommand\arrayij[3]{\csname#1[#2,#3]\endcsname}
+\newcommand\Arrayijk[5][\relax]{%
+  \bgroup%
+  \ifx\relax#1\else\def\readarrayboundfailmsg{#1}\fi\csname#2\endcsname[#3,#4,#5]%
+  \egroup%
+}
+\newcommand\Arrayij[4][\relax]{%
+  \bgroup%
+  \ifx\relax#1\else\def\readarrayboundfailmsg{#1}\fi\csname#2\endcsname[#3,#4]%
+  \egroup%
+}
+\newcommand\copyrecords[1]{%
+  \clear@array{#1}%
+  \edef\former@recordcount{\csname #1CELLS\endcsname}%
+  \setcounter{@record}{0}%
+  \whiledo{\value{@record} < \nrecords}{%
+    \addtocounter{@record}{1}%
+    \def\arg@name{\csname#1[\the@record]\endcsname}%
+    \expandafter\expandafter\expandafter\expandafter\expandafter\expandafter%
+      \expandafter\def\expandafter\arg@name\expandafter{%
+        \csname ArrayRecord[\the@record]\endcsname}%
+  }%
+  \expandafter\edef\csname#1PLANES\endcsname{0}%
+  \expandafter\edef\csname#1ROWS\endcsname{\nrecords}%
+  \expandafter\edef\csname#1COLS\endcsname{0}%
+  \expandafter\edef\csname#1CELLS\endcsname{\nrecords}%
+  \define@rootmacro{#1}%
+}
+\newcommand\showargs[1][0]{\bgroup%
+  \def\Arg@listPLANES{0}%
+  \def\Arg@listCOLS{0}%
+  \let\Arg@listROWS\Arg@listCELLS%
+  \scalardump\Arg@list\egroup%
+}
+\newcommand\showrecord[2][\relax]{%
+  \bgroup\ifx\relax#1\else\def\readarrayboundfailmsg{#1}\fi\ArrayRecord[#2]\egroup%
+}
+% The support routine \getargs{} is provided for backward compatibility. 
+% It is preferable to directly use facilities of the
+% listofitems package to accomplish these tasks.
+\def\getargsC#1{%
+  \bgroup%
+  \expandafter\setsepchar\expandafter{\read@array@sepchar}%
+  \greadlist\Arg@list{#1}%
+  \egroup%
+  \edef\narg{\Arg@listlen}%
+  \let\Arg@listCELLS\narg%
+  \setcounter{@index}{0}%
+  \whiledo{\value{@index}<\narg}{%
+    \stepcounter{@index}%
+    \expandafter\edef\csname arg\romannumeral\value{@index}\endcsname{%
+      \Arg@list[\value{@index}]}%
+  }%
+}
+

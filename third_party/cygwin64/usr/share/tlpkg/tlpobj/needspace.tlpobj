@@ -1,0 +1,15 @@
+name needspace
+category Package
+revision 29601
+shortdesc Insert pagebreak if not enough space
+relocated 1
+longdesc Provides commands to disable pagebreaking within a given
+longdesc vertical space. If there is not enough space between the
+longdesc command and the bottom of the page, a new page will be started.
+runfiles size=1
+ RELOC/tex/latex/needspace/needspace.sty
+catalogue-ctan /macros/latex/contrib/needspace
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics layout
+catalogue-version 1.3d

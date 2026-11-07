@@ -1,0 +1,21 @@
+name zennote
+category Package
+revision 65549
+shortdesc Streamline your note-taking process!
+relocated 1
+longdesc This package aims to provide you with an easy interface to
+longdesc speed up the process when organizing and producing elegant
+longdesc notes. All the tables, figures, equations, and listings are
+longdesc labelled according to the notenumber with the \titlebox
+longdesc command. The noteframe environment helps you generate fancy
+longdesc colored boxes to emphasize the important information (e.g.
+longdesc Theorems, Equations, Proofs, etc.) in your document. You can
+longdesc customize the style and color to denote different categories,
+longdesc too.
+runfiles size=1
+ RELOC/tex/latex/zennote/zennote.sty
+catalogue-contact-repository https://github.com/futurelyf/zennote
+catalogue-ctan /macros/latex/contrib/zennote
+catalogue-license cc-by-4
+catalogue-topics notes expl3
+catalogue-version 1.0.0

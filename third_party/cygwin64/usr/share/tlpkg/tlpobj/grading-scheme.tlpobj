@@ -1,0 +1,16 @@
+name grading-scheme
+category Package
+revision 62505
+shortdesc Typeset grading schemes in tabular format
+relocated 1
+longdesc This package aims at an easy-to-use interface to typeset
+longdesc grading schemes in tabular format, in particular
+longdesc grading-schemes of exercises of mathematical olympiads where
+longdesc multiple solutions have to be graded and might offer mutual
+longdesc exclusive ways of receiving points.
+runfiles size=9
+ RELOC/tex/latex/grading-scheme/grading-scheme.sty
+catalogue-ctan /macros/latex/contrib/grading-scheme
+catalogue-license lppl1.3c
+catalogue-topics expl3 table
+catalogue-version 0.1.1

@@ -1,0 +1,67 @@
+name emo
+category Package
+revision 66944
+shortdesc Emoji for all (LaTeX engines)
+relocated 1
+longdesc Emo implements the \emo{'emoji-name'} command for including
+longdesc color emoji such as [?] (\emo{desert-island}) or [?]
+longdesc (\emo{parrot}) in your documents independent of input encoding
+longdesc or LaTeX engine. The implementation uses the Noto color emoji
+longdesc font if the engine supports it and includes PDF graphics
+longdesc otherwise. The latter are automatically derived from Noto's SVG
+longdesc sources, so the visual appearance is very similar. Emo may come
+longdesc in particularly handy when dealing with academic publishers
+longdesc that provide only minimal support for non-Latin scripts.
+runfiles size=87
+ RELOC/fonts/truetype/public/emo/emo-lingchi.ttf
+ RELOC/tex/latex/emo/emo-graphics/emo-YHWH.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-baby-chick.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-balance-scale.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-biohazard.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-busts.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-chart-increasing.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-check-mark-button.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-check-mark.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-classical-building.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-collision.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-cross-mark.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-currency-exchange.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-desert-island.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-detective.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-enraged-face.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-eu.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-exploding-head.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-eye.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-floppy-disk.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-foggy.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-globe-africa-europe.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-handshake.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-japanese-bargain-button.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-judge.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-keycap-one.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-label.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-lingchi.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-loupe-left.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-pager.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-parrot.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-party-popper.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-person-facepalming.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-pleading-face.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-plus.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-rainbow-flag.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-receipt.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-robot.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-roll-of-paper.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-stadium.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-stop-sign.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-triangular-ruler.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-wastebasket.pdf
+ RELOC/tex/latex/emo/emo-graphics/emo-zany-face.pdf
+ RELOC/tex/latex/emo/emo.def
+ RELOC/tex/latex/emo/emo.sty
+ RELOC/tex/latex/emo/emo.sty.ltxml
+catalogue-contact-repository https://github.com/apparebit/emo
+catalogue-ctan /macros/latex/contrib/emo
+catalogue-license lppl1.3c apache2 other-free ofl
+catalogue-topics graphics graphics-use
+catalogue-version 0.4

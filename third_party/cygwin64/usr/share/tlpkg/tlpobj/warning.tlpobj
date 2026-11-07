@@ -1,0 +1,19 @@
+name warning
+category Package
+revision 66616
+shortdesc Global warnings at the end of the logfile
+relocated 1
+longdesc This package is obsolete. For LaTeX-format 2020-10-01 and
+longdesc newer: Instead of \addglobalwarning{ something } use
+longdesc \AddToHook{enddocument/info}{ something } and do not load the
+longdesc warning package. For older formats this package provides a
+longdesc command that generates a list of warnings that are printed out
+longdesc at the very end of the logfile. This is useful for warnings
+longdesc such as 'Rerun for this or that reason' or 'This is a draft,
+longdesc change it before the final run'.
+runfiles size=1
+ RELOC/tex/latex/warning/warning.sty
+catalogue-ctan /macros/latex/contrib/warning
+catalogue-license lppl1.3c
+catalogue-topics comp-supp
+catalogue-version 0.10

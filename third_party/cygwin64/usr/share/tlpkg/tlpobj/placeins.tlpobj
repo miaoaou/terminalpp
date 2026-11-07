@@ -1,0 +1,15 @@
+name placeins
+category Package
+revision 19848
+shortdesc Control float placement
+relocated 1
+longdesc Defines a \FloatBarrier command, beyond which floats may not
+longdesc pass; useful, for example, to ensure all floats for a section
+longdesc appear before the next \section command.
+runfiles size=1
+ RELOC/tex/latex/placeins/placeins.sty
+catalogue-ctan /macros/latex/contrib/placeins
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics layout float
+catalogue-version 2.2

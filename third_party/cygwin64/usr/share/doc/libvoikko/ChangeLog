@@ -1,0 +1,1352 @@
+2015-08-28 Harri Pitkänen <hatapitk@iki.fi>
+	* Autocorrect data is read from VFST transducer in format 5
+	  dictionaries.
+
+2015-06-20 Harri Pitkänen <hatapitk@iki.fi>
+	* Add spelling suggestions to simple VFST spellers by using
+	  weighted VFST transducers.
+
+2015-06-16 Harri Pitkänen <hatapitk@iki.fi>
+	* Add support for weighted VFST transducers.
+
+2015-06-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Initial support for BCP 47 script subtag.
+
+2015-03-29 Harri Pitkänen <hatapitk@iki.fi>
+	* Tri-licensed the HFST backend with permission from Flammie Pirinen.
+
+2015-01-03 Harri Pitkänen <hatapitk@iki.fi>
+	* Search for dictionares from $HOME/Library/Spelling/voikko on OS X.
+
+2014-12-29 Harri Pitkänen <hatapitk@iki.fi>
+	* Add support for specifying multiple default dictionary locations.
+
+2014-08-03 Harri Pitkänen <hatapitk@iki.fi>
+	* New dictionary format 5 for VFST.
+
+2013-12-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Grammar checker should allow numeric references to footnotes.
+
+2013-11-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase version numbers for 3.7.
+
+2013-10-10 Harri Pitkänen <hatapitk@iki.fi>
+	* Add API functions for listing languages for which hypenators
+	  or grammar checkers are available.
+
+2013-10-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Add "voikkospell -L" for listing dictionary capabilities.
+
+2013-09-03 Harri Pitkänen <hatapitk@iki.fi>
+	* Internally standard and unspecified variant are not the same.
+
+2013-08-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Improve Java API for distribution through Maven Central Repository.
+	* Fix test suite to work with latest Automake releases.
+	* Increase version numbers for 3.6.1.
+
+2013-07-23 Harri Pitkänen <hatapitk@iki.fi>
+	* Add option accept_all_uppercase to voikkospell.
+	* Improve capitalization of suggestions.
+
+2013-07-11 Harri Pitkänen <hatapitk@iki.fi>
+	* Disable voikkovfstc by default since VFST is still experimental.
+
+2013-04-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Add replacement suggestion ä->e.
+
+2013-03-17 Harri Pitkänen <hatapitk@iki.fi>
+	* Private use subtag is now always returned, default is
+	  "standard". This will make it easier to deal with language
+	  variants in applications.
+
+2013-03-16 Harri Pitkänen <hatapitk@iki.fi>
+	* Support for ZHFST spellers is no longer experimental.
+
+2012-08-22 Harri Pitkänen <hatapitk@iki.fi>
+	* Add support for using Python 3 (and drop support for using
+	  Python < 2.6) as build tool.
+
+2012-08-20 Harri Pitkänen <hatapitk@iki.fi>
+	* Add simple VFST speller implementation.
+
+2012-08-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Improve word splitting suggestions near capitalized words or
+	  end of sentence.
+
+2012-08-04 Harri Pitkänen <hatapitk@iki.fi>
+	* mmap may be available even if getpwuid_r is not.
+	* Add option --disable-buildtools
+
+2012-08-03 Harri Pitkänen <hatapitk@iki.fi>
+	* Support building without hardcoded DICTIONARY_PATH.
+
+2012-08-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Support homonyms for verb negatives.
+
+2012-06-18 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix false positives from extra verb check.
+	* Update version numbers for 3.5.
+
+2012-05-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Check for extra main verbs.
+
+2012-05-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Codepoints in Latin Extended-B block are letters.
+
+2012-04-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Update project files for .Net interface to .Net 4.0 since compiler for
+	  3.5 does not seem to be the default on Debian unstable anymore.
+
+2012-03-26 Harri Pitkänen <hatapitk@iki.fi>
+	* Suggest replacement e->ä
+
+2012-03-25 Harri Pitkänen <hatapitk@iki.fi>
+	* Suggest more character replacements
+
+2012-03-24 Harri Pitkänen <hatapitk@iki.fi>
+	* Suggest some two character deletions
+
+2012-03-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Generate more spelling suggestions
+
+2012-03-06 Harri Pitkänen <hatapitk@iki.fi>
+	* Suggest replacement i->e
+
+2012-03-05 Harri Pitkänen <hatapitk@iki.fi>
+	* Core code and VFST backend licensed under MPL 1.1 / GPL 2+ /
+	  LGPL 2.1+ tri-license.
+
+2012-02-27 Harri Pitkänen <hatapitk@iki.fi>
+	* Add new option to voikkospell: -M for morphological analysis without
+	  spell checking.
+
+2012-02-12 Harri Pitkänen <hatapitk@iki.fi>
+	* Added initial VFST lookup code.
+
+2012-02-11 Harri Pitkänen <hatapitk@iki.fi>
+	* Try replacing two characters in OCR suggestion mode.
+
+2012-01-28 Harri Pitkänen <hatapitk@iki.fi>
+	* Add canonical decompositions for Russian and Komi alphabet.
+
+2012-01-25 Sjur Moshagen <sjurnm@mac.com>
+	* Add support for cyrillic alphabet
+
+2012-01-15 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix build with MSVC
+
+2012-01-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix build with GCC 4.7
+	* Update version numbers for 3.4.1
+
+2011-12-15 Harri Pitkänen <hatapitk@iki.fi>
+	* Be more careful with ordinal ranges.
+
+2011-11-29 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase version numbers for 3.4.
+
+2011-11-25 Harri Pitkänen <hatapitk@iki.fi>
+	* Add grammar check for missing main verb.
+
+2011-11-18 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase initial heap size to a value that is more reasonable
+	  for our Finnish morphology.
+
+2011-11-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Pointer to a string within Malaga heap was used after garbage
+	  collector had compacted the heap, causing corrupted strings.
+
+2011-11-12 Harri Pitkänen <hatapitk@iki.fi>
+	* Add grammar check for misplaced conjunctions
+	* Fix indexing error that caused some autocorrections to be missed
+
+2011-09-27 Harri Pitkänen <hatapitk@iki.fi>
+	* Suggest adding ' for "showssa" -> "show'ssa"
+
+2011-09-27 Flammie Pirinen <flammie@iki.fi>
+	* Zhfst version of HFST spellers
+
+2011-09-23 Harri Pitkänen <hatapitk@iki.fi>
+	* Do not apply analysis method for null terminated strings for a string that
+	  does not have a null terminator.
+	* Increase version numbers to 3.3.1.
+
+2011-09-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Do not try to fix capitalization of baseforms when there
+	  is obvious misalignment between baseform and structure pattern.
+
+2011-09-02 Harri Pitkänen <hatapitk@iki.fi>
+	* Pkg-config is now required for build configuration
+	* Remove workaround for Lttoolbox bug. Apertium SVN revision 33803 or later
+	  of Lttoolbox is now needed for the backend to work properly.
+
+2011-08-17 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix tokenizer bug.
+
+2011-07-06 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix hyphenation pattern for words starting with hyphen.
+
+2011-07-05 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix hyphenation pattern for unknown words ending with hyphen.
+	* Fix Python interface to work with Python 3.2.
+
+2011-06-20 Harri Pitkänen <hatapitk@iki.fi>
+	* Grammar checker: suggest replacing "yhdes" with "ensimmäinen"
+
+2011-06-02 Harri Pitkänen <hatapitk@iki.fi>
+	* Support COMPARISON in Malaga analyzer.
+
+2011-05-19 Harri Pitkänen <hatapitk@iki.fi>
+	* Handle embedded null input characters in Python and Java interfaces.
+
+2011-05-07 Harri Pitkänen <hatapitk@iki.fi>
+	* Support FOCUS in Malaga analyzer.
+
+2011-05-05 Harri Pitkänen <hatapitk@iki.fi>
+	* Support KYSYMYSLIITE in Malaga analyzer.
+
+2011-04-16 Harri Pitkänen <hatapitk@iki.fi>
+	* Support possessive suffixes in Malaga analyzer.
+
+2011-03-31 Harri Pitkänen <hatapitk@iki.fi>
+	* Support grammatical tense in Malaga analyzer.
+	* Support participles in Malaga analyzer.
+	* Increase version number to 3.3.
+
+2011-03-19 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase version number to 3.2.
+	* Add Java files to source package.
+
+2011-03-06 Harri Pitkänen <hatapitk@iki.fi>
+	* Accept soft hyphen in Finnish spell checking if it is placed in a valid
+	  hyphenation point.
+
+2011-03-02 Harri Pitkänen <hatapitk@iki.fi>
+	* Improve handling of punctuation and http URLs in tokenizer.
+
+2011-02-22 Harri Pitkänen <hatapitk@iki.fi>
+	* Add option --disable-extdicts that disables loading all external dictionaries.
+	* Increase version number to 3.1.1.
+
+2011-02-15 Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>
+	* Fix build with GCC 4.6
+
+2011-01-23 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix internal error due to missing break in switch.
+
+2010-12-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Add configure option --disable-testtools
+
+2010-12-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Consistently return SPELL_FAILED instead of INTERNAL_ERROR
+	  when too long word is spell checked.
+	* Mark fixed limits deprecated. In the future different backends
+	  may have different limits and users of the library should not care.
+
+2010-11-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Clear Malaga heap at the end of analyse_item. This reduces
+	  the need for garbage collecting and makes bugs in Malaga VM
+	  easier to reproduce.
+
+2010-11-10 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix strict aliasing bug (Trac #20) and a some const correctness
+	  issues that were uncovered by the fix.
+
+2010-11-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Update MSVC build files.
+
+2010-10-27 Harri Pitkänen <hatapitk@iki.fi>
+	* GC: Allow AutoCorrect rules with more than two match words.
+	* Support capitalized first character of sentence when interpreting
+	  AutoCorrect rules.
+
+2010-10-26 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase maximum spelling suggestion search cost by 28 % to match
+	  recent optimizations and CPU speed improvements.
+
+2010-10-25 Harri Pitkänen <hatapitk@iki.fi>
+	* Capitalized initials may appear within sentences.
+
+2010-10-24 Harri Pitkänen <hatapitk@iki.fi>
+	* Add check for incorrect infinitive form in compound verbs.
+
+2010-10-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Add A-infinitive and E-infinitive to MalagaAnalyzer.
+
+2010-10-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Add MA-infinitive to MalagaAnalyzer.
+
+2010-10-10 Harri Pitkänen <hatapitk@iki.fi>
+	* Add configure option --disable-malaga for disabling Malaga backend.
+
+2010-09-27 Harri Pitkänen <hatapitk@iki.fi>
+	* GC: Don't suggest using lower case when the word may be a geographical name.
+
+2010-09-21 Harri Pitkänen <hatapitk@iki.fi>
+	* GC: Accept bracketed reference at the end of sentence.
+
+2010-09-13 Harri Pitkänen <hatapitk@iki.fi>
+	* Handle cases where an optional symbol is not found from Malaga symbol
+	  table. This can happen when older v2 morphologies are used.
+
+2010-09-12 Harri Pitkänen <hatapitk@iki.fi>
+	* Support new attribute NEGATIVE in morphological analysis.
+	* Warn about "en juoksen" in grammar checker.
+
+2010-09-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Accept "A:n".
+
+2010-08-22 Harri Pitkänen <hatapitk@iki.fi>
+	* Accept words like "ja-sana" (Trac #13).
+
+2010-08-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Separate Finnish/Malaga specific speller tweaks from common speller code.
+
+2010-06-30 Harri Pitkänen <hatapitk@iki.fi>
+	* Support using language codes other than Finnish as the real language (Trac #15).
+
+2010-06-08 Harri Pitkänen <hatapitk@iki.fi>
+	* Change HfstSpeller to return SPELL_CAP_FIRST when possible.
+
+2010-06-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase version numbers for 3.1.
+	* Add function voikkoGetVersion() to get the library version string.
+	* Add option --version to test tools.
+
+2010-05-11 Harri Pitkänen <hatapitk@iki.fi>
+	* Adjust old API so that up to four simultaneous handles can be opened.
+	  This method is not thread safe but it is no worse than the old single
+	  handle check. It should fix many real world problems (eg. with Evolution)
+	  while we wait for applications to switch to the new API.
+	* (voikkospell) fix option -x
+	* (voikkospell) add option -tt
+
+2010-05-02 Harri Pitkänen <hatapitk@iki.fi>
+	* Rename listSupportedLanguages -> listSupportedSpellingLanguages.
+	* Improve repeating words check (Trac #2).
+
+2010-04-30 Harri Pitkänen <hatapitk@iki.fi>
+	* Allow "Suomen Keskusta" and other similar names in capitalization checks.
+
+2010-04-24 Harri Pitkänen <hatapitk@iki.fi>
+	* Reimplement capitalization checks in grammar checker with state machine.
+	* Handle parenthesis and quotes better in grammar checker.
+	* Add option for printing input line number in voikkogc.
+
+2010-04-23 Harri Pitkänen <hatapitk@iki.fi>
+	* Move cache size setting from voikkoInit to integer option
+	  VOIKKO_SPELLER_CACHE_SIZE.
+
+2010-04-18 Harri Pitkänen <hatapitk@iki.fi>
+	* Modify voikkoInit to take a BCP 47 language tag instead of variant name.
+	* Add function voikko_dict_language to query the language of a dictionary.
+
+2010-04-17 Harri Pitkänen <hatapitk@iki.fi>
+	* Run basic tests on "make check".
+	* Add function voikkoListSupportedLanguages for listing languages that
+	  are supported in spell checking.
+
+2010-04-06 Flammie Pirinen <flammie@iki.fi>
+	* Updated HFST integration including suggestion generator
+	  and hyphenator.
+
+2010-04-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Add multi thread mode to voikkospell.
+
+2010-03-29 Harri Pitkänen <hatapitk@iki.fi>
+	* Do not include config.h unless HAVE_CONFIG_H is defined.
+
+2010-03-28 Andris Pavenis <andris.pavenis@iki.fi>
+	* Add MSVC solution file.
+	* Add MSVC projects for voikkospell, voikkohyphenate, voikkogc 
+	* Update libvoikko MSVC project including rearranging sources for easier maintenance.
+
+2010-03-27 Harri Pitkänen <hatapitk@iki.fi>
+	* Complete API refactoring. Introduce thread safe API and implement a
+	  a compatibility layer that supports the old API.
+	* Change the Python module to use new API. Remove libvoikko.init().
+
+2010-03-21 Andris Pavenis <andris.pavenis@iki.fi>
+	* Stop using degree sign in source. Fixes serious problems
+	  with MSVC 2005.
+
+2010-03-06 Harri Pitkänen <hatapitk@iki.fi>
+	* Implement FixedResultSpeller.
+	* VOIKKO_OPT_IGNORE_NUMBERS now only affects spell checking.
+	  Previously it affected spelling suggestions too, but this behaviour made
+	  it difficult independently implement spell checkers and spelling suggestions.
+	* Move VOIKKO_OPT_ENCODING, VOIKKO_INTERSECT_COMPOUND_LEVEL and
+	  voikko_set_string_option to voikko_deprecated.h, ignore them in the library.
+	* Remove all iconv related code, use platform independent UTF-8 conversion.
+
+2010-03-05 Harri Pitkänen <hatapitk@iki.fi>
+	* Complete the refactoring of suggestion generator code.
+
+2010-03-04 Harri Pitkänen <hatapitk@iki.fi>
+	* Allow specifying suggestion generator backend in the configuration file.
+	* Implement NullAnalyzer and SuggestionGeneratorNull.
+
+2010-03-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Recognize more Unicode characters as letters.
+
+2010-02-27 Harri Pitkänen <hatapitk@iki.fi>
+	* Implement SuggestionGeneratorFactory.
+	* Add Lttoolbox backend.
+
+2010-02-20 Harri Pitkänen <hatapitk@iki.fi>
+	* Replace uses of iswlower, iswdigit and iswspace with locale independent implementation.
+	* Remove ENTER_V and EXIT_V macros, these should no longer be needed.
+	* Increase version numbers for version 3.0.
+
+2010-02-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Replace uses of iswupper and towupper with locale independent implementation.
+
+2010-02-13 Harri Pitkänen <hatapitk@iki.fi>
+	* Increase version numbers for 2.3.1.
+
+2010-02-11 Andris Pavenis <andris.pavenis@iki.fi>
+	* Updated MSVC project file.
+
+2010-02-11 Harri Pitkänen <hatapitk@iki.fi>
+	* Replace uses of towlower with locale independent implementation.
+
+2010-02-10 Harri Pitkänen <hatapitk@iki.fi>
+	* Add virtual destructors for Speller and Hyphenator.
+
+2010-01-30 Harri Pitkänen <hatapitk@iki.fi>
+	* Python interface: Make Dictionary objects hashable.
+
+2010-01-27 Harri Pitkänen <hatapitk@iki.fi>
+	* Fix Python bindings to work with Python 3.
+
+2010-01-02 Harri Pitkänen <hatapitk@iki.fi>
+	* Remove dependency on glib.
+
+2010-01-01 Harri Pitkänen <hatapitk@iki.fi>
+	* Import UTF8-CPP version 2.2.4 from
+	  https://sourceforge.net/projects/utfcpp
+
+2009-12-31 Harri Pitkänen <hatapitk@iki.fi>
+	* Support verb mood in morphological analysis.
+
+2009-12-27 Harri Pitkänen <hatapitk@iki.fi>
+	* No longer return "none" as a value for "SIJAMUOTO".
+
+2009-12-26 Harri Pitkänen <hatapitk@iki.fi>
+	* Support verb person in morphological analysis.
+
+2009-12-13 Harri Pitkänen <hatapitk@iki.fi>
+	* Support grammatical number in morphological
+	  analysis.
+	* Fix capitalization of base forms in analysis results.
+
+2009-12-12 Harri Pitkänen <hatapitk@iki.fi>
+	* Support multiple paragraph checking in Python
+	  grammar checking API.
+
+2009-11-26 Harri Pitkänen <hatapitk@iki.fi>
+	* Add hyphenator factory.
+
+2009-11-22 Harri Pitkänen <hatapitk@iki.fi>
+	* Remove unnecessary header hyphenator.hpp.
+
+2009-11-21 Harri Pitkänen <hatapitk@iki.fi>
+	* Add documentation for morphological analyzer.
+
+2009-11-15 Harri Pitkänen <hatapitk@iki.fi>
+	* Accept "A-rapussa" in grammar checker.
+	* Read speller configuration from dictionary description.
+	* Add SpellerFactory.
+	* Add my name and GPL license text to Malaga source files
+	  as they have been significantly changed from originals.
+	* Implement partially working HfstSpeller.
+
+2009-11-14 Harri Pitkänen <hatapitk@iki.fi>
+	* Add interface Speller and implement it in
+	  AnalyzerToSpellerAdapter.
+
+2009-11-09 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Most of the global variables have now been eliminated
+	  from Malaga implementation.
+
+2009-11-01 Harri Pitkänen <hatapitk@iki.fi>
+
+	* HFST analyzer backend returns correct number of analyses.
+	  Analysis attributes contain dummy values only.
+
+2009-10-31 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add configure option --enable-hfst.
+	* Increase version numbers for 2.3.
+	* Read morphology backend name from voikko-fi_FI.pro.
+	  Default is "malaga" so dictionary format version does not
+	  need to be changed to be able to use experimental backends.
+	* Added a dummy analyzer for HFST backend.
+
+2009-10-30 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Tell iconv the correct length of the output buffer so that string
+	  conversion is not aborted too early.
+
+2009-10-24 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Remove unused code.
+	* Remove global variables.
+	* White space characters are no longer allowed at the start
+	  or end of the word.
+	* Change error handling in malaga implementation to use C++ exceptions.
+
+2009-10-06 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Additions to autocorrect data.
+	* Increase version numbers for 2.2.1.
+
+2009-10-04 Lauri Nurmi <lanurmi@iki.fi>
+
+	* Fix autogen.sh to work with non-GNU find and xargs.
+
+2009-10-04 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Do not dereference iterator to map.end(), this does not work with MSVC.
+
+2009-10-03 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix warnings and errors found by compiling the code with MSVC.
+	* Fix a bug in Dictionary that lead to returning pointers to freed memory
+	  from voikko_dict_variant and voikko_dict_description.
+
+2009-09-17 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Reactivate morphology pruning rule that got accidentally
+	  disabled when we switched to internal Malaga implementation.
+
+2009-09-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Improve grammar error descriptions.
+	* Ship autogen.sh in the source package.
+	* Add char * based APIs for morphological analysis.
+	* Limit the amount of results and length of word
+	  in morphological analysis.
+
+2009-09-15 Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>
+
+	* Check the return value from getcwd.
+
+2009-09-13 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Return BASEFORM from morphological analysis if possible.
+	  Requires debug version of suomi-malaga.
+	* Return WORDIDS and WORDBASES from morphological analysis
+	  if possible.
+
+2009-09-12 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Improve spelling suggestion by sorting them
+	  according to information from morphological analysis.
+
+2009-09-11 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add directory for Finnish design documentation.
+
+2009-09-10 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Handle left double quotation mark better in grammar
+	  checker. It is still flagged as an error.
+
+2009-09-10 Lauri Nurmi <lanurmi@iki.fi>
+
+	* Replace TRUE and FALSE with true and false.
+
+2009-09-09 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add replacement a -> e to spelling suggestions.
+	* Add double character replacements.
+
+2009-09-06 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add more features to the Python interface.
+
+2009-09-05 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Clear grammar checker cache when options are
+	  changed.
+	* Switched to using internal implementation of malaga.
+
+2009-09-04 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add Pyunit tests for the Python interface.
+
+2009-07-29 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add (yet incomplete) Python interface.
+
+2009-07-27 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Increase version number to 2.2.
+	* Add virtual destructors to abstract base classes.
+
+2009-07-23 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Switch to dictionary format 2.
+	* Parse field "sijamuoto" during analysis.
+	* Parse field "luokka" during analysis.
+
+2009-07-22 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change all internal users of morphological analysis to
+	  use abstract analyzer instead of calling Malaga directly.
+
+2009-07-20 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Allow longer suggestion search time if no valid
+	  candidates have been found during normal search.
+	* Add API for morphological analysis.
+
+2009-07-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Refactor spelling suggestion code.
+	* Suggest replacing numbers with nearby letters.
+	* Add letter replacement suggestions.
+
+2009-06-24 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Replace the commands used to generate autotools files
+	  in autogen.sh with single call to autoreconf.
+
+2009-05-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* SPELL_FAILED from "pop-opisto" check should not be used as
+	  the final result for words like "Pohjois-Israel".
+
+2009-05-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Explicitly set stream orientation in voikkospell, otherwise
+	  setting LC_CTYPE may break the output to stdout.
+
+2009-05-06 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Some refactoring of spelling suggestion code.
+	* Add project files for Qt Creator.
+
+2009-04-26 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Disable character case checks completely within quotations.
+	* Fix suggestions for punctuation at the end of quotes.
+
+2009-04-25 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Accept different types of quote characters.
+	* Accept single letters written in uppercase.
+	* Accept Finnish dates without year.
+	* Hyphen at the start of a paragraph may mean that the paragraph
+	  is a list item.
+
+2009-04-17 Lauri Nurmi <lanurmi@iki.fi>
+
+	* Add "#error" if no charset conversion implementation
+	  is available.
+
+2009-04-17 Harri Pitkänen <hatapitk@iki.fi>
+
+	* valgrind: Fix invalid use of delete vs. delete[].
+	* cppcheck: Limit the scope of some variables.
+
+2009-04-11 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Remove --as-needed from linker flags. It is
+	  unnecessary as long as libtool < 2.0 is used
+	  and breaks build on OS X.
+
+2009-04-10 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fixed typo that prevented dictionary loader from
+	  working correctly on Windows.
+	* Add struct keywords to voikko.h to make the header
+	  compatible with plain C compilers.
+	* Fix memory leak in grammar checker.
+
+2009-04-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change trie compiler to not use a construct that
+	  is not supported in python 2.3.
+
+2009-04-05 Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>
+
+	* Build fixes for Fedora 11.
+
+2009-04-05 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Improved handling of soft hyphen in grammar checker.
+
+2009-04-04 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Configure updates for libtool version 2.
+	* Improved handling of quotations in grammar checker.
+
+2009-03-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option VOIKKO_OPT_ACCEPT_BULLETED_LISTS_IN_GC.
+	* Disable character case checks if sentence contains a tab
+	  character.
+	* Disable checks for paragraphs that contain only an URL or
+	  some other non-standard text.
+
+2009-03-15 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Restore Windows support (partially).
+
+2009-03-08 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Read replacement suggestions from data/autocorrect/fi_FI.xml.
+
+2009-02-25 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change struct gc_sentence into class Sentence.
+	* Change struct gc_paragraph into class Paragraph.
+
+2009-02-21 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change struct gc_token into class Token.
+
+2009-02-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add suggestions for some detected grammar errors.
+
+2009-02-14 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add support for environment variable VOIKKO_DICTIONARY.
+	* Do not try to check character case for sentences that have
+	  been written fully in upper case.
+
+2009-01-31 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option -d to all test tools.
+
+2009-01-29 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Load dictionaries with the new dictionary loader.
+
+2009-01-25 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Implement new functions for getting information about all
+	  available dictionaries.
+
+2009-01-15 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Print more informative error message from voikkospell and
+	  voikkohyphenate if too long word is encountered.
+
+2009-01-04 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Return char strings and string arrays allocated with
+	  malloc() instead of new[]. This is needed to maintain
+	  compatibility with some (broken) applications that were
+	  written before libvoikko 1.5 and used free() to free these
+	  structures. Theoretically the same should be done for
+	  wchar_t interfaces, but since I know of no application that
+	  uses these and has similar bug, this will not be done.
+
+2009-01-03 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option VOIKKO_OPT_HYPHENATE_UNKNOWN_WORDS.
+	* Print error if unknown option is given to a test tool.
+
+2008-12-13 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Port gcanalysis.c, gcerror.c, voikko_utils.c,
+	  voikko_setup.c and gccache.c to C++.
+
+2008-12-11 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Port tokenizer and voikko_charset.c to C++.
+
+2008-12-10 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Port sentence.c and voikko_spell.c to C++.
+
+2008-12-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Port hyphenator and spelling suggestions to C++.
+
+2008-12-05 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option -s to voikkohyphenate.
+
+2008-11-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Start porting the library to C++.
+
+2008-10-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Prevent totally incorrect hyphenation for "asukkaat.hoas.fi"
+
+2008-10-25 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Small fixes, thanks to Reijo Tomperi and Cppcheck.
+	* Remove porting.c.
+	* Stop using deprecated option VOIKKO_OPT_ENCODING in testing tools.
+	* Add voikko_next_grammar_error_ucs4 to public API.
+	* Fix voikkohyphenate and voikkogc to (hopefully) work on Windows.
+
+2008-10-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Refactoring and porting to C++.
+	* Remove use of glibc getline function.
+
+2008-10-18 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Refactoring and porting to C++.
+
+2008-10-11 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Allow sentences to start with a digit.
+	* Detect and handle ellipsis correctly.
+	* Add option for accepting unfinished paragraphs.
+	* Increase version info for 2.1.
+
+2008-08-22 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Modify some grammar error checks to affect 2 instead of
+	  1 character so that they become slightly easier to see.
+	* Add option explanation_language=... to voikkogc for printing
+	  human readable error explanations.
+	* Fix whitespace detection in get_char_type.
+
+2008-08-13 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add check for missing punctuation at the end of sentence.
+	* Add option VOIKKO_OPT_ACCEPT_TITLES_IN_GC.
+
+2008-08-10 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix character case check after colon.
+
+2008-08-03 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Bug fixing.
+	* Add check for duplicated words.
+
+2008-08-02 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Ignore option VOIKKO_OPT_IGNORE_DOT in sentence
+	  splitting and grammar checking, but document its effects
+	  on string tokenizer.
+	* Various small bug fixes.
+
+2008-07-27 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add support for suggestions from grammar checker.
+
+2008-07-26 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add character case checks to grammar checker.
+
+2008-07-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* More punctuation checks to grammar checker.
+
+2008-07-08 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change grammar checker API to allow more than one
+	  grammar error with the same start position.
+	* New grammar checker test for space before punctuation.
+
+2008-07-03 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Work on grammar checker.
+	* Add whitespace error checks.
+
+2008-07-02 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Work on grammar checker.
+	* Increase library version number to 2.0.
+	* Update README.
+
+2008-07-01 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Split and update manual pages.
+	* Add single paragraph grammar checker cache.
+
+2008-06-29 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Move grammar checking related functionality from
+	  voikkohyphenate to a new test tool voikkogc.
+
+2008-06-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add API for grammar checking.
+
+2008-06-08 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Work on sentence splitting.
+	* Allow strings longer than LIBVOIKKO_MAX_WORD_CHARS to
+	  be converted with voikko_cstrtoucs4.
+
+2008-06-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Work on sentence splitting.
+
+2008-06-04 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Work on sentence splitting.
+	* Increase version numbers for version 1.8.
+
+2008-05-26 Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>
+
+	* Provide libvoikko.pc for pkg-config.
+
+2008-03-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix hyphenation of nougat'kaan.
+
+2008-01-29 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Increase cost limit for suggestions from 250 to 350.
+
+2008-01-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Iconv on OS X should use UCS-4-INTERNAL too.
+
+2007-12-30 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Some fixes for VOIKKO_OPT_ACCEPT_EXTRA_HYPHENS.
+	* Add option VOIKKO_OPT_ACCEPT_MISSING_HYPHENS.
+
+2007-12-29 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option VOIKKO_OPT_ACCEPT_EXTRA_HYPHENS.
+
+2007-12-01 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Tokenization functions should not be used without initializing the
+	  library.
+
+2007-11-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix configure test AM_ICONV failing with -Wall on FreeBSD.
+	* Tweak URL recognition so that "J.K.Paasikivi" will not be
+	  considered as hostname.
+
+2007-11-27 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add boolean option VOIKKO_OPT_IGNORE_NONWORDS.
+	* Do not link voikkospell and voikkohyphenate against libmalaga.
+
+2007-10-30 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Additional work on string tokenizer.
+
+2007-10-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Additional work on string tokenizer.
+
+2007-10-27 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Additional work on string tokenizer.
+
+2007-10-21 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Allow the use of environment variable VOIKKO_DICTIONARY_PATH
+	  to specify the dictionary path.
+
+2007-10-15 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add preliminary version of string tokenizer
+	  voikko_next_token_ucs4.
+	* Increase version numbers for 1.6.
+
+2007-09-08 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add replacement suggestion "." -> ","
+
+2007-08-23 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Change configure.ac to fix build on FreeBSD
+
+2007-08-20 Harri Pitkänen <hatapitk@iki.fi>
+
+	* FreeBSD fix, thanks to Jaakko Heinonen
+
+2007-07-08 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add option ignore_numbers=n to voikkospell. Change
+	  default from 1 to 0 (the library default).
+	* Undo 1-to-1 normalisations in spelling suggestions.
+
+2007-06-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add exported functions for freeing the memory
+	  allocated for result structures. This is needed
+	  in environments where multiple C runtime libraries
+	  are used in one process.
+	* Increase version numbers for 1.5
+
+2007-06-17 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Generate libvoikko-1.def on Windows to enable
+	  dynamic linking of libvoikko-1.dll with code
+	  generated using MSVC.
+	* Set Finnish locale on Windows to ensure that
+	  character case conversions work correctly.
+
+2007-05-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Hyphenating "vast'edes" as "vast'e-des" is ugly
+	* Hyphenating after ' is wrong
+	* Increase version numbers for 1.4.1
+
+2007-04-19 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Check for embedded dots in URL detection
+	* Only use URL and number detection when
+	  VOIKKO_OPT_NO_UGLY_HYPHENATION is set
+
+2007-04-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add replacement _ -> (any character) to OCR suggestions 
+
+2007-03-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Update to Automake 1.10
+	* Update version information for version 1.4
+	* Avoid using rule based hyphenator with certain strings containing
+	  numbers and special characters
+
+2007-02-26 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix the option VOIKKO_INTERSECT_COMPOUND_LEVEL, which only worked
+	  correctly with values 0 and 1. Bug report and suggested fix by
+	  Kalle Lampila.
+	* Add option intersect_compound_level=n to voikkohyphenate
+
+2007-02-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add replacement b <-> h to OCR suggestions
+
+2007-02-14 Harri Pitkänen <hatapitk@iki.fi>
+
+	* New command line option -x for voikkospell, from a slightly
+	  modified patch by Hannu Väisänen
+	* Try replacing 0 with o when generating OCR suggestions
+
+2007-02-09 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix broken suggestions for words with non-default capitalisation
+	* No longer leak iconv handles when library initialisation fails
+	* Increase version to 1.3.1
+
+2007-01-28 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix character set conversion on Windows
+
+2007-01-27 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix typo in voikko_hyphenate.h
+
+2007-01-26 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add new option VOIKKO_MIN_HYPHENATED_WORD_LENGTH.
+	* Remove empty TODO.
+
+2007-01-25 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add some more hyphenation points when VOIKKO_OPT_NO_UGLY_HYPHENATION
+	  is not set.
+
+2007-01-20 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add a word length check to voikko_split_compounds.
+	* Fixes to documentation.
+
+2007-01-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Support explicitly specified string lengths as opposed to only
+	  allowing null terminated strings in certain utility functions.
+	* VOIKKO_OPT_IGNORE_DOT is now respected during hyphenation as well,
+	  and corresponding option is supported by voikkohyphenate. This
+	  was needed because apparently at least OpenOffice.org feeds the
+	  trailing dot to the hyphenator extension and expects it to deal
+	  with it correctly.
+
+2007-01-06 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Add a few more replacement suggestions, thanks to
+	  Teemu Likonen.
+
+2007-01-01 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Accept optional hyphens as in "syys-ilta" and "syy-silta".
+	* Accept optional hyphens as in "pop-opisto".
+
+2006-12-31 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Clean up suggestion code.
+	* Add new option VOIKKO_OPT_OCR_SUGGESTIONS for OCR optimised spelling
+	  suggestions.
+	* Increase version numbers.
+
+2006-12-30 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Do not suggest splitting word immediately before or after a
+	  hyphen. Move word splitting suggestions to lower priority.
+	* Check the cost parameter within individual suggestion functions,
+	  not just between the functions.
+
+2006-12-09 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Fix character case check for words with punctuation.
+
+2006-12-07 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Disable voikkohyphenate on Windows by making it print out an error
+	  about unsupported operating system. This is because it is questionable
+	  whether linking against msvcp60.dll is allowed by the GPL and no other
+	  library that I know of provides mbrlen on Windows.
+
+2006-12-05 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Make libiconv optional on Windows. If it is not available,
+	  only conversion to/from UTF-8 and CP850 is possible.
+
+2006-12-01 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Support all modes of dictionary selection in Windows.
+
+2006-11-30 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Refactoring in voikko_setup.c to prepare for better Windows
+	  support.
+
+2006-11-16 Harri Pitkänen <hatapitk@iki.fi>
+
+	* Support parallel installations of Automake versions
+	  1.9 and 1.10. Both seem to work, but default will still
+	  be 1.9.
+
+2006-11-11 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Use iconv charset "UCS-2-INTERNAL" instead of "WCHAR_T" on Windows,
+	  because not every version of libiconv supports WCHAR_T.
+	* Fixes to configure.ac and src/Makefile.am to better support linking
+	  against shared libraries on Windows.
+
+2006-10-27 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Implement version checking for malaga project files.
+
+2006-10-26 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Clean up library checks in configure.ac, remove special check
+	  for malaga shared library.
+	* Add AC_LIBTOOL_WIN32_DLL to configure.ac to help building
+	  shared libraries on Windows.
+
+2006-10-05 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add missing 'const' to usage example in voikko.h.
+	* Add new exported function init_libvoikko_with_path.
+	* Adjust voikkospell and voikkohyhenate to accept new -p option that
+	  can be used to set the dictionary path.
+	* Improve manual page formatting.
+	* Increase version to 1.2 and libtool version info to 3:0:2.
+
+2006-09-26 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Increase LIBVOIKKO_MAX_WORD_CHARS back to 255, the issue with
+	  complicated compound words is now properly fixed in Malaga and
+	  Suomi-malaga.
+	* Fix suggestions when VOIKKO_OPT_IGNORE_DOT is set and word has only
+	  one character before the dot.
+	* Prepare some suggestion functions to accept strings that are not
+	  null terminated.
+	* Markup fix for voikkospell.1, thanks to Timo Jyrinki
+	* Increase version to 1.1.1.
+
+2006-09-14 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Decrease LIBVOIKKO_MAX_WORD_CHARS to prevent freezing malaga with too complicated
+	  compound words.
+
+2006-08-30 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Look for Malaga project file voikko-fi_FI.pro instead of suomi.pro.
+	* Implement the cache size parameter in voikko_init.
+	* Add -c option to voikkospell to control the cache size parameter.
+	* Update README.
+	* Reject overly long input strings in voikko_spell_ucs4 and voikko_suggest_ucs4
+	  just to be sure that any bugs later will not cause buffer overflows. The
+	  cstr variants have been doing this check in charset conversion.
+	* Adjust library version info for release of version 1.1.
+
+2006-08-22 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* If --with-malaga-path is not set, default to installation prefix.
+	* Fix compilation with -fno-common (needed on OS X).
+	* Respect VOIKKO_OPT_IGNORE_DOT in suggestion code. This breaks suggestions
+	  with words that actually have a dot in them, but they are rare enough to
+	  not matter much.
+
+2006-08-16 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Three new character replacement suggestions.
+
+2006-08-14 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Accept some alternative Unicode sequences for certain characters.
+	  This is enabled only for spellchecking: it is still recommended that
+	  applications convert string to a normalised form (see src/voikko_charset.c)
+	  before using hyphenator functions.
+
+2006-08-14 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Modify suggestions to match the character case of the original word
+	  if this is possible without invalidating the suggestion.
+
+2006-08-12 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Do not suggest splitting a word or adding a hyphen in certain
+	  cases where there already is an other hyphen nearby.
+
+2006-07-26 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add -no-undefined to libvoikko_la_LDFLAGS, which is supposed to
+	  enable building shared libraries on Windows.
+
+2006-07-25 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Increase version to 1.0
+
+2006-07-03 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Fix the previous fix for character insertion suggestions
+	* Fix a bug and optimise character duplication suggestions
+
+2006-06-26 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Fix a bug in character insertion suggestions
+
+2006-06-17 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Do not hyphenate between vowels in voikko_simple_hyphenation if
+	  VOIKKO_OPT_NO_UGLY_HYPHENATION is set
+	* Remove warning about unimplemented VOIKKO_OPT_NO_UGLY_HYPHENATION
+	  in voikko.h (it was first implemented on 2006-05-24)
+	* Suggest replacing s with š and z with ž rather than sh and zh.
+	* If a suggestion cannot be represented in the external encoding, drop only
+	  that suggestion instead of returning null immediately.
+
+2006-06-06 Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Improve character insertion suggestions
+
+2006-06-01  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add error recovery and fix some related bugs
+	* Increase version to 0.9
+
+2006-05-30  Kai Solehmainen  <kai.solehmainen@oikeatoliot.fi>
+
+	* nl_langinfo() ported for Windows version.
+	* Dictionary path is searched from Windows registry:
+		- first from HKEY_CURRENT_USER\SOFTWARE\Voikko\DictionaryPath
+		- and then if not found from HKEY_LOCAL_MACHINE\SOFTWARE\Voikko\DictionaryPath
+	* Minor changes for Windows version. 
+
+2006-05-30  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Suggestions are sorted by estimated correctness:
+	  compound suggestions and suggestions that contain both letter
+	  and case changes are given lower priority.
+
+2006-05-29  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Character deletion suggestions
+	* Character insertion suggestions
+	* Character swap suggestions
+
+2006-05-27  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Character replacing suggestions
+
+2006-05-24  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Do not add hyphenation points if hyphenation is forbidden in Malaga
+	* Implement VOIKKO_OPT_NO_UGLY_HYPHENATION
+	* New options in voikkohyphenate: no_ugly_hyphenation=0|1
+
+2006-05-24  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Word splitting suggestions
+
+2006-05-23  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Vowel changing suggestions
+
+2006-05-22  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add manual pages for voikkospell and voikkohyphenate
+
+2006-05-22  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Character case correcting suggestions
+	* New options in voikkospell: -s, accept_first_uppercase=0|1
+
+2006-05-20  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add cache size parameter to voikko_init
+	* Version 0.3
+
+2006-05-20  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Case-sensitive checking
+	* Iconv handle caching
+	* Spellchecker result cache
+
+2006-04-24  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Implement VOIKKO_OPT_COMPOUND_INTERSECT_LEVEL
+
+2006-04-23  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Fix use-after-free in voikko_do_spell
+
+2006-04-23  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Fix pointer usage in porting.c:getline
+	* configure fixes
+
+2006-04-20  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add AM_MAINTAINER_MODE to configure.ac
+	* Some porting work for FreeBSD
+
+2006-04-19  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add support for personal Malaga project file in $HOME/.voikko/suomi.pro
+	* Add README
+
+2006-04-14  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Search malaga.h from include/malaga and include
+
+2006-04-13  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Add more API documentation
+	* Fix configure check for gcc visibility support
+	* Increase version number to 0.2
+
+2006-04-13  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* voikkospell.c: Additional mode for automated tests
+	* Fixes for bugs found by Valgrind
+
+2006-04-11  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Library API improvements and documentation
+
+2006-04-11  Harri Pitkänen  <hatapitk@iki.fi>
+
+	* Added ChangeLog
+

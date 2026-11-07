@@ -1,0 +1,16 @@
+name pixelart
+category Package
+revision 66012
+shortdesc Draw pixel-art pictures
+relocated 1
+longdesc A LuaLaTeX package to draw pixel-art pictures using TikZ.
+runfiles size=8
+ RELOC/tex/latex/pixelart/pixelart.lua
+ RELOC/tex/latex/pixelart/pixelart.sty
+ RELOC/tex/latex/pixelart/pixelart0.sty
+catalogue-contact-bugs https://framagit.org/spalax/pixelart/issues
+catalogue-contact-repository https://framagit.org/spalax/pixelart
+catalogue-ctan /graphics/pgf/contrib/pixelart
+catalogue-license lppl1.3
+catalogue-topics graphics pgf-tikz luatex
+catalogue-version 1.0.2

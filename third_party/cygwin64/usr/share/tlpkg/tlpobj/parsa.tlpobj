@@ -1,0 +1,17 @@
+name parsa
+category Package
+revision 54840
+shortdesc A XeLaTeX package for theses and dissertations at Iranian Universities
+relocated 1
+longdesc A package for preparing dissertations and theses for Iranian
+longdesc universities as fast and as efficiently as possible. The
+longdesc package depends on xparse, fancyhdr, graphicx, multirow, float,
+longdesc and adjustbox.
+runfiles size=9
+ RELOC/tex/xelatex/parsa/parsa.sty
+catalogue-contact-bugs https://github.com/farshadrasuli/parsa/issues
+catalogue-contact-home https://github.com/farshadrasuli/parsa
+catalogue-ctan /macros/xetex/latex/parsa
+catalogue-license lppl1.3c
+catalogue-topics dissertation persian xetex
+catalogue-version 1.3

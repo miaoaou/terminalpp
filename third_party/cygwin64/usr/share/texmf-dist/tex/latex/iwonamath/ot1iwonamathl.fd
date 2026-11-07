@@ -1,0 +1,40 @@
+%%
+%% This is file `ot1iwonamathl.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% iwonamath.dtx  (with options: `fd,ot1')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from ot1iwonamathl.fd.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file iwonamath.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\ProvidesExplFile
+{ot1iwonamathl.fd}
+{2023-08-31} {1.0}
+{Scaled Iwona math fonts}
+\tl_if_exist:NTF \l__iwonamath_scale_tl
+{}
+{
+  \tl_new:N \l__iwonamath_scale_tl
+  \tl_set:Nn \l__iwonamath_scale_tl {1}
+}
+\DeclareFontFamily{OT1}{iwonamathl}{}
+\DeclareFontShape{OT1}{iwonamathl}{m}{n}{<-> [\l__iwonamath_scale_tl] rm-iwonal}{}
+\DeclareFontShape{OT1}{iwonamathl}{m}{it}{<-> [\l__iwonamath_scale_tl] rm-iwonali}{}
+\DeclareFontShape{OT1}{iwonamathl}{b}{n}{<-> [\l__iwonamath_scale_tl] rm-iwonam}{}
+\DeclareFontShape{OT1}{iwonamathl}{bx}{n}{<-> [\l__iwonamath_scale_tl] rm-iwonam}{}
+\endinput
+%%
+%% End of file `ot1iwonamathl.fd'.

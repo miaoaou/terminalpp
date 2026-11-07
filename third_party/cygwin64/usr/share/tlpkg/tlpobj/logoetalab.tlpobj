@@ -1,0 +1,30 @@
+name logoetalab
+category Package
+revision 68916
+shortdesc Insert Licence Etalab 2.0 logo
+relocated 1
+longdesc This package provides commands to display the "Licence Ouverte
+longdesc Etalab 2.0" vector logo: vertical or horizontal version; some
+longdesc color choice.
+runfiles size=16
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Bleu-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Bleu-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Gris-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Gris-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Marron-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Marron-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Noir-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Noir-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Rouge-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Rouge-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Vert-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Vert-V.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Violet-H.pdf
+ RELOC/tex/latex/logoetalab/LogoLicenceOuverte-Violet-V.pdf
+ RELOC/tex/latex/logoetalab/logoetalab.sty
+catalogue-contact-bugs https://github.com/cpierquet/logoetalab/issues
+catalogue-contact-repository https://github.com/cpierquet/logoetalab
+catalogue-ctan /macros/latex/contrib/logoetalab
+catalogue-license lppl1.3c cc-by-2
+catalogue-topics logo french graphics-use pgf-tikz
+catalogue-version 0.1.1

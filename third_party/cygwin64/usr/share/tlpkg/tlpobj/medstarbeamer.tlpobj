@@ -1,0 +1,18 @@
+name medstarbeamer
+category Package
+revision 38828
+shortdesc Beamer document class for MedStar Health Research Institute
+relocated 1
+longdesc This is a beamer template for MedStar Health presentations. It
+longdesc includes sample presentations using both .tex files and .rnw
+longdesc files. The document class is obviously compatible with both.
+longdesc The advantage of the .rnw file is that it can be used with
+longdesc knitr such that you can weave your R code with your
+longdesc presentation.
+runfiles size=2
+ RELOC/tex/latex/medstarbeamer/beamercolorthemeMedStarColors.sty
+ RELOC/tex/latex/medstarbeamer/medstarbeamer.cls
+catalogue-ctan /macros/latex/contrib/medstarbeamer
+catalogue-date 2018-04-22 08:09:44 +0200
+catalogue-license lppl1.3
+catalogue-topics presentation statistics

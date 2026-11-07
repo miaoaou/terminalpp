@@ -1,0 +1,22 @@
+name subdocs
+category Package
+revision 51480
+shortdesc Multifile documents
+relocated 1
+longdesc This is an experimental package aiming to provide a different
+longdesc approach for multidocument works (mainly, books with a document
+longdesc per chapter). Unlike the \include mechanism, every subdocument
+longdesc is a complete normal LaTeX document and may be typeset
+longdesc separately. What the package does is sharing the .aux files.
+longdesc The present release is an alpha version, and no attempt has yet
+longdesc been made to allow it to work with, say, hyperref.
+runfiles size=2
+ RELOC/tex/latex/subdocs/subdocs.sty
+catalogue-also newclude includex combine
+catalogue-contact-home http://www.texnia.com/
+catalogue-contact-repository https://github.com/jbezos
+catalogue-ctan /macros/latex/contrib/subdocs
+catalogue-date 2019-06-26 19:06:30 +0200
+catalogue-license mit
+catalogue-topics subdocs
+catalogue-version 0.1

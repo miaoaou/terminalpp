@@ -1,0 +1,18 @@
+name gender
+category Package
+revision 36464
+shortdesc Gender neutrality for languages with grammatical gender
+relocated 1
+longdesc Many languages -- like German or French -- use masculine and
+longdesc feminine grammatical genders. There are many ideas how to
+longdesc promote gender neutrality in those languages. The gender
+longdesc package uses alternately masculine and feminine forms. It is
+longdesc also possible to use just one form out of a template.
+runfiles size=2
+ RELOC/tex/latex/gender/gender.sty
+catalogue-also he-she eemeir
+catalogue-ctan /macros/latex/contrib/gender
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics linguistic typesetting
+catalogue-version 1.0

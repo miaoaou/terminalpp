@@ -1,0 +1,26 @@
+name pdfoverlay
+category Package
+revision 64210
+shortdesc A LaTeX style for overlaying text on a PDF
+relocated 1
+longdesc It is often desirable to take an exisiting PDF and easily add
+longdesc annotations or text overlaying the PDF. This might arise if you
+longdesc wish to add comments to a PDF, fill in a PDF form, or add text
+longdesc to a PDF where space has been left for notes. This package
+longdesc provides a simple interface to do this without having to resort
+longdesc to inserting one page at a time. Some or all of the pages of
+longdesc the PDF can be included and not all pages of the PDF need have
+longdesc overlayed text. It is also possible to include text between
+longdesc pages of the PDF. Another advantage of this package is that the
+longdesc overlayed text can be set as normal flowing from one page to
+longdesc another or with manual page breaks if you wish. It is also
+longdesc possible to use any standard method to position text at
+longdesc arbitrary places on a given page.
+runfiles size=3
+ RELOC/tex/latex/pdfoverlay/pdfoverlay.sty
+catalogue-contact-bugs https://github.com/dcpurton/pdfoverlay/issues
+catalogue-contact-repository https://github.com/dcpurton/pdfoverlay
+catalogue-ctan /macros/latex/contrib/pdfoverlay
+catalogue-license lppl1.3c
+catalogue-topics graphics-incl expl3
+catalogue-version 1.3

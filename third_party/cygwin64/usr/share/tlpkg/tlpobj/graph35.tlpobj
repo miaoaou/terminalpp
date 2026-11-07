@@ -1,0 +1,20 @@
+name graph35
+category Package
+revision 66772
+shortdesc Draw keys and screen items of several Casio calculators
+relocated 1
+longdesc This package defines commands to draw the Casio Graph 35 /
+longdesc fx-9750GII calculator (and other models). It can draw the whole
+longdesc calculator, or parts of it (individual keys, part of the
+longdesc screen, etc.). It was written to typeset documents instructing
+longdesc students how to use their calculator.
+runfiles size=66
+ RELOC/tex/latex/graph35/graph35-keys.sty
+ RELOC/tex/latex/graph35/graph35-pixelart.sty
+ RELOC/tex/latex/graph35/graph35.sty
+catalogue-contact-bugs https://framagit.org/spalax/graph35/issues
+catalogue-contact-repository https://framagit.org/spalax/graph35
+catalogue-ctan /graphics/graph35
+catalogue-license lppl1.3
+catalogue-topics graphics teaching maths
+catalogue-version 0.1.4

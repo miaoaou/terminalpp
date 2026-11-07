@@ -1,0 +1,19 @@
+name transparent
+category Package
+revision 64852
+shortdesc Using a color stack for transparency with pdfTeX
+relocated 1
+longdesc pdfTeX and LuaTeX support several color stacks. This package
+longdesc shows how a separate color stack can be used for transparency,
+longdesc a property besides color that works across page breaks. If the
+longdesc PDF management is used it can also be used with other engines,
+longdesc but without support for page breaks.
+runfiles size=3
+ RELOC/tex/latex/transparent/transparent-nometadata.sty
+ RELOC/tex/latex/transparent/transparent.sty
+catalogue-contact-bugs https://github.com/ho-tex/transparent/issues
+catalogue-contact-repository https://github.com/ho-tex/transparent
+catalogue-ctan /macros/latex/contrib/transparent
+catalogue-license lppl1.3c
+catalogue-topics typesetting
+catalogue-version 1.5

@@ -1,0 +1,24 @@
+name ltxdockit
+category Package
+revision 21869
+shortdesc Documentation support
+relocated 1
+longdesc This bundle, consisting of a simple wrapper class and some
+longdesc packages, forms a small LaTeX/BibTeX documentation kit; the
+longdesc author uses it for some of his own packages. The package is not
+longdesc supported: users should not attempt its use unless they are
+longdesc capable of dealing with problems unaided. (The actual purpose
+longdesc of releasing the package is to make it possible for third
+longdesc parties to compile the documentation of other packages, should
+longdesc that be necessary.)
+runfiles size=8
+ RELOC/tex/latex/ltxdockit/btxdockit.sty
+ RELOC/tex/latex/ltxdockit/ltxdockit.cfg
+ RELOC/tex/latex/ltxdockit/ltxdockit.cls
+ RELOC/tex/latex/ltxdockit/ltxdockit.def
+ RELOC/tex/latex/ltxdockit/ltxdockit.sty
+catalogue-ctan /macros/latex/contrib/ltxdockit
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics doc-supp
+catalogue-version 1.2d

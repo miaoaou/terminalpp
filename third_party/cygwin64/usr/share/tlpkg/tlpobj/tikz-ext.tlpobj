@@ -1,0 +1,49 @@
+name tikz-ext
+category Package
+revision 66737
+shortdesc A collection of libraries for PGF/TikZ
+relocated 1
+longdesc This is a collection of libraries for PGF/TikZ. Currently these
+longdesc are transformations.mirror, paths.arcto, paths.ortho,
+longdesc paths.timer, patterns.images, topaths.arcthrough and misc. Most
+longdesc of these libraries were developed in response to questions on
+longdesc TeX.stackexchange.com.
+runfiles size=67
+ RELOC/tex/generic/tikz-ext/pgfcalendar-ext.code.tex
+ RELOC/tex/generic/tikz-ext/pgffor-ext.code.tex
+ RELOC/tex/generic/tikz-ext/pgfkeyslibraryext.pgfkeys-plus.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.arrows.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.circlearrow.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.circlecrosssplit.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.heatmark.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.rectangleroundedcorners.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.superellipse.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.shapes.uncenteredrectangle.code.tex
+ RELOC/tex/generic/tikz-ext/pgflibraryext.transformations.mirror.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.calendar-plus.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.layers.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.misc.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.node-families.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.node-families.shapes.geometric.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.nodes.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.paths.arcto.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.paths.ortho.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.paths.timer.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.patterns.images.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.positioning-plus.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.scalepicture.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.shapes.uncenteredrectangle.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.topaths.arcthrough.code.tex
+ RELOC/tex/generic/tikz-ext/tikzlibraryext.transformations.mirror.code.tex
+ RELOC/tex/latex/tikz-ext/pgfcalendar-ext.sty
+ RELOC/tex/latex/tikz-ext/pgffor-ext.sty
+ RELOC/tex/plain/tikz-ext/pgfcalendar-ext.tex
+ RELOC/tex/plain/tikz-ext/pgffor-ext.tex
+catalogue-contact-bugs https://github.com/Qrrbrbirlbel/tikz-extensions/issues
+catalogue-contact-development https://github.com/Qrrbrbirlbel/tikz-extensions
+catalogue-contact-home https://github.com/Qrrbrbirlbel/tikz-extensions
+catalogue-contact-repository https://github.com/Qrrbrbirlbel/tikz-extensions
+catalogue-ctan /graphics/pgf/contrib/tikz-ext
+catalogue-license fdl lppl
+catalogue-topics pgf-tikz
+catalogue-version 0.5.1

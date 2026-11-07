@@ -1,0 +1,18 @@
+name tzplot
+category Package
+revision 64537
+shortdesc Plot graphs with TikZ abbreviations
+relocated 1
+longdesc This is a LaTeX package that provides TikZ-based macros to make
+longdesc it easy to draw graphs. The macros provided in this package are
+longdesc just abbreviations for TikZ codes, which can be complicated;
+longdesc but using the package will hopefully make drawing easier,
+longdesc especially when drawing repeatedly. The macros were chosen and
+longdesc developed with an emphasis on drawing graphs in economics. The
+longdesc package depends on TikZ, xparse, and expl3.
+runfiles size=58
+ RELOC/tex/latex/tzplot/tzplot.sty
+catalogue-ctan /graphics/pgf/contrib/tzplot
+catalogue-license lppl1.3c
+catalogue-topics graphics graphics-plotfn pgf-tikz expl3 maths
+catalogue-version 2.1

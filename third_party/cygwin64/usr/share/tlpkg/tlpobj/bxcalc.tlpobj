@@ -1,0 +1,19 @@
+name bxcalc
+category Package
+revision 56431
+shortdesc Extend the functionality of the calc package
+relocated 1
+longdesc This package bundle consists of the following packages:
+longdesc bxcalcize: To make calc expressions available in more places.
+longdesc bxcalcux: To add user-defined units to the calc syntax. In
+longdesc addition, this bundle provides the bxcalc package, which simply
+longdesc loads the above-mentioned packages internally.
+runfiles size=4
+ RELOC/tex/latex/bxcalc/bxcalc.sty
+ RELOC/tex/latex/bxcalc/bxcalcize.sty
+ RELOC/tex/latex/bxcalc/bxcalcux.sty
+catalogue-contact-home https://github.com/zr-tex8r/BXcalc
+catalogue-ctan /macros/latex/contrib/bxcalc
+catalogue-license mit
+catalogue-topics calculation arithmetic etex
+catalogue-version 1.1

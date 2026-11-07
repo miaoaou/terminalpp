@@ -1,0 +1,16 @@
+name mailing
+category Package
+revision 15878
+shortdesc Macros for mail merging
+relocated 1
+longdesc This package is for use when sending a large number of letters,
+longdesc all with the same body text. The package's \addressfile command
+longdesc is used to specify who the letter is to be sent to; the body of
+longdesc the \mailingtext command specifies the text of the letters,
+longdesc possibly using macros defined in the \addressfile.
+runfiles size=1
+ RELOC/tex/latex/mailing/mailing.sty
+catalogue-ctan /macros/latex/contrib/mailing
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics mailing

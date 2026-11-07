@@ -1,0 +1,16 @@
+name xfor
+category Package
+revision 15878
+shortdesc A reimplementation of the LaTeX for-loop macro
+relocated 1
+longdesc The package redefines the LaTeX internal \@for macro so that
+longdesc the loop may be prematurely terminated. The action is akin to
+longdesc the C/Java break statement, except that the loop does not
+longdesc terminate until the end of the current iteration
+runfiles size=1
+ RELOC/tex/latex/xfor/xfor.sty
+catalogue-ctan /macros/latex/contrib/xfor
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 1.05

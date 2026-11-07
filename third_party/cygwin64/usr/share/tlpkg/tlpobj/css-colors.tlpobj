@@ -1,0 +1,14 @@
+name css-colors
+category Package
+revision 54512
+shortdesc Named colors for web-safe design
+relocated 1
+longdesc This package defines web-safe colors for use with D.P.
+longdesc Carlisle's color package. It is intended for both authors and
+longdesc package writers (e.g. to create Beamer color themes).
+runfiles size=2
+ RELOC/tex/latex/css-colors/css-colors.sty
+catalogue-ctan /macros/latex/contrib/css-colors
+catalogue-license lppl gpl
+catalogue-topics colour
+catalogue-version 1.02

@@ -1,0 +1,24 @@
+% --------------------------------------------------------------------------
+% Nepal:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2046/2500}
+\path (0,0) rectangle (\flaglength,\flagwidth);
+\begin{scope}[scale=\flagwidth/247.58]
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{blue}{RGB}{12,35,64}
+\begin{scope}[x=0.1mm,y=0.1mm,shift={(2.5mm,2.5mm)}]
+\coordinate (A) at (-25,-25);
+\coordinate (B) at (660.36,-25);
+\coordinate (E) at (236.09,399.26);
+\coordinate (G) at (687.03,399.26);
+\coordinate (C) at (-25.0,845.15);
+\fill [blue] (A)--(B)--(E)--(G)--(C)--cycle;
+\fill [red] (0,0)--(600,0)--(175.74,424.26)--(600,424.26)--(0,800)--cycle;
+\starn{white}{12}{(150,212.13)}{128.401}{81.434}{0}
+\clip (150,565.17) circle (119.5);
+\starn{white}{16}{(150,509.55)}{77.231}{55.611}{11.25}
+\moon{white}{(150,565.17)}{119.5}{(150,612.13)}{128.4}
+\end{scope}
+\end{scope}
+\framecode{\draw [\framecolor,line width=\flagframe] (A)--(B)--(E)--(G)--(C)--cycle;}
+\end{flagdescription}

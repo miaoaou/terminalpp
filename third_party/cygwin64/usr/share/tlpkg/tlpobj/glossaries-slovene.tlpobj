@@ -1,0 +1,14 @@
+name glossaries-slovene
+category Package
+revision 51211
+shortdesc Slovene language module for glossaries package
+relocated 1
+longdesc Slovene language module for glossaries package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-slovene/glossaries-slovene.ldf
+catalogue-contact-home https://github.com/b4d/glossaries-slovene
+catalogue-ctan /macros/latex/contrib/glossaries-slovene
+catalogue-date 2019-05-24 14:58:33 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.0

@@ -1,0 +1,19 @@
+% Russian Language Bindings for the sTeX problem package
+% Copyright (c) 2019 Michael Kohlhase, all rights reserved
+%               this file is released under the
+%               LaTeX Project Public License (LPPL)
+%
+% The original of this file is in the public repository at 
+% http://github.com/sLaTeX/sTeX/
+
+\tl_set:Nn \sproblemautorefname{Задание}
+\tl_set:Nn \problem@kw@solution{Решение}
+\tl_set:Nn \problem@kw@hint{Подсказка}
+\tl_set:Nn \problem@kw@note{Примечание}
+\tl_set:Nn \problem@kw@grading{Grading}
+\tl_set:Nn \problem@kw@pts{бл}
+\tl_set:Nn \problem@kw@minutes{мин}
+\tl_set:Nn \problem@kw@correct{Correct}
+\tl_set:Nn \problem@kw@wrong{Wrong}
+\tl_set:Nn \problem@kw@schema{Schema}
+\tl_set:Nn \problem@kw@points{Points}

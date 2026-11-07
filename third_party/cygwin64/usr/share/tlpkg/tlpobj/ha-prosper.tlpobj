@@ -1,0 +1,35 @@
+name ha-prosper
+category Package
+revision 59651
+shortdesc Patches and improvements for prosper
+relocated 1
+longdesc HA-prosper is a patch for prosper that adds new functionality
+longdesc to prosper based presentations. Among the new features you will
+longdesc find automatic generation of a table of contents on each slide,
+longdesc support for notes and portrait slides. The available styles
+longdesc demonstrate how to expand the functionality of prosper even
+longdesc further.
+runfiles size=57
+ RELOC/tex/latex/ha-prosper/HA-prosper.cfg
+ RELOC/tex/latex/ha-prosper/HA-prosper.sty
+ RELOC/tex/latex/ha-prosper/Styles/Aggie/AMLogo.eps
+ RELOC/tex/latex/ha-prosper/Styles/Aggie/HAPAggie.sty
+ RELOC/tex/latex/ha-prosper/Styles/Aggie/files.txt
+ RELOC/tex/latex/ha-prosper/Styles/Capsules/HAPcapsules.sty
+ RELOC/tex/latex/ha-prosper/Styles/Ciment/HAPciment.sty
+ RELOC/tex/latex/ha-prosper/Styles/Fyma/HAPFyma.sty
+ RELOC/tex/latex/ha-prosper/Styles/HA/HAPHA.sty
+ RELOC/tex/latex/ha-prosper/Styles/HA/flower.ps
+ RELOC/tex/latex/ha-prosper/Styles/Lakar/HAPLakar.sty
+ RELOC/tex/latex/ha-prosper/Styles/Simple/HAPsimple.sty
+ RELOC/tex/latex/ha-prosper/Styles/TCS/HAPTCS.sty
+ RELOC/tex/latex/ha-prosper/Styles/TCS/HAPTCSTealBlue.sty
+ RELOC/tex/latex/ha-prosper/Styles/TCS/HAPTCSgrad.sty
+ RELOC/tex/latex/ha-prosper/Styles/TCS/TCSgradlogo.ps
+ RELOC/tex/latex/ha-prosper/Styles/TCS/TCSlogo.ps
+ RELOC/tex/latex/ha-prosper/Styles/Tycja/HAPTycja.sty
+catalogue-also powerdot
+catalogue-ctan /macros/latex/contrib/ha-prosper
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 4.21

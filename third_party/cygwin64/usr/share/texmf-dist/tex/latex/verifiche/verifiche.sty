@@ -1,0 +1,565 @@
+%%
+%% This is file `verifiche.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% verifiche.dtx  (with options: `package')
+%% This is a generated file.
+%% Copyright (C) 2020 - 2023 by Francesco Raccanello
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{verifiche} [2024/02/05 v7.1 .dtx verifiche file]
+
+
+\RequirePackage{xparse}
+\RequirePackage{xkeyval} 
+\RequirePackage{pgffor}
+\RequirePackage{amssymb}
+\RequirePackage[shortlabels, inline]{enumitem}
+\RequirePackage{tikz}
+\RequirePackage[normalem]{ulem}
+%%newif
+\newif\ifsol
+\newif\ifinstitute\institutetrue
+\newif\ifinstruction\instructiontrue
+\newif\ifduration\durationtrue
+\newif\ifasyear\asyeartrue
+\newif\ifsolutionscolor\solutionscolorfalse
+\newif\ifcandidatename\candidatenametrue
+\newif\iftesttype\testtypetrue
+\newif\ifsubtitle\subtitletrue
+\newif\ifshowinstructiondelimiter\showinstructiondelimiterfalse
+\newif\ifprintedheading\printedheadingfalse
+\newif\ifexercisesnumbered\exercisesnumberedtrue
+\newif\ifshowmarginexercise\showmarginexercisefalse
+\newif\ifshowexercisept\showexercisepttrue
+\newif\ifopenquestionlines\openquestionlinesfalse
+\newif\ifopenquestionsquared\openquestionsquaredfalse
+%%Package option declaration
+\DeclareOptionX{solutions}[]{\soltrue}
+\DeclareOptionX{noinstitute}[]{\institutefalse}
+\DeclareOptionX{noinstruction}[]{\instructionfalse}
+\DeclareOptionX{noduration}[]{\durationfalse}
+\DeclareOptionX{noasyear}[]{\asyearfalse}
+\DeclareOptionX{nocandidatename}[]{\candidatenamefalse}
+\DeclareOptionX{notesttype}[]{\testtypefalse}
+\DeclareOptionX{nosubtitle}[]{\subtitlefalse}
+\DeclareOptionX{nonumbered}[]{\exercisesnumberedfalse}
+\DeclareOptionX{noexercisept}[]{\showexerciseptfalse}
+\DeclareOptionX{color}[red]{\solutionscolortrue\def\solutionscolor{#1}}
+\DeclareOptionX{red}[]{\ExecuteOptionsX{color=red}}
+\DeclareOptionX{blue}[]{\ExecuteOptionsX{color=blue}}
+\DeclareOptionX*{\PackageWarning{verifiche}{Unknown ‘\CurrentOption’}}
+\ProcessOptionsX
+%%counters
+\newcounter{exercisenumber}
+\newcounter{partialpoints}[exercisenumber]
+%%newlenght
+\newlength{\candidatenamerulerlength}
+\newlength{\classrulerlength}
+\newlength{\daterulerlength}
+\newlength{\ptrulerlength}
+\newlength{\columnseparation}
+\newlength{\verifiche@remainingvspace}
+\newlength{\verifiche@remaininghspace}
+\newlength{\verifiche@truefalsesquares}
+\newlength{\spacedim}
+\setlength{\candidatenamerulerlength}{.35\textwidth}
+\setlength{\classrulerlength}{.1\textwidth}
+\setlength{\daterulerlength}{.15\textwidth}
+\setlength{\ptrulerlength}{1cm}
+\setlength{\columnseparation}{\fill}
+\setlength{\verifiche@truefalsesquares}{.7\baselineskip}
+%%labels
+\newcommand{\@verifiche@durationlabeldefault}{Time:}%
+\newcommand{\@verifiche@asyearlabeldefault}{School year}%
+\newcommand{\@verifiche@headercandidatenamelabel}{Name and Surname}%
+\newcommand{\@verifiche@headerclasslabel}{Class}%
+\newcommand{\@verifichhe@headerdatelabel}{Date}%
+\newcommand{\@verifiche@exerciselabel}{Exercise}%
+\newcommand{\@verifiche@solutionlabel}{Solution}%
+\newcommand{\@verifiche@Tletter}{T}%
+\newcommand{\@verifiche@Fletter}{F}%
+\newcommand{\italiandictiornary}{%
+    \renewcommand{\@verifiche@durationlabeldefault}{Tempo della prova:}%
+    \renewcommand{\@verifiche@asyearlabeldefault}{Anno scolastico}%
+    \renewcommand{\@verifiche@headercandidatenamelabel}{Nome e Cognome}%
+    \renewcommand{\@verifiche@headerclasslabel}{Classe}%
+    \renewcommand{\@verifichhe@headerdatelabel}{Data}%
+    \renewcommand{\@verifiche@exerciselabel}{Quesito}%
+    \renewcommand{\@verifiche@solutionlabel}{Soluzione}%
+    \renewcommand{\@verifiche@Tletter}{V}%
+    \renewcommand{\@verifiche@Fletter}{F}%
+}%
+\@ifpackageloaded{babel}{% if babel is loaded
+    \addto\captionsitalian{\italiandictiornary}%
+}{%else if polyglossia is loaded
+    \@ifpackageloaded{polyglossia}{%
+        \addto\captionsitalian{\italiandictiornary}%
+    }{}%
+}%
+\newcommand{\@durationlabeldefault}{\@verifiche@durationlabeldefault}%
+\newcommand{\@asyearlabeldefault}{\@verifiche@asyearlabeldefault}%
+\newcommand{\headercandidatenamelabel}{\@verifiche@headercandidatenamelabel}%
+\newcommand{\headerclasslabel}{\@verifiche@headerclasslabel}%
+\newcommand{\headerdatelabel}{\@verifichhe@headerdatelabel}%
+\newcommand{\exerciselabel}{\@verifiche@exerciselabel}%
+\newcommand{\solutionlabel}{\@verifiche@solutionlabel}%
+%%macro and environment
+%%global variable
+\newcommand{\institute}[1]{%
+    \gdef\@institute{#1}}
+\newcommand{\duration}[2][\@durationlabeldefault]{%
+    \gdef\@durationpreamble{#1}\gdef\@duration{#2}%
+    \showinstructiondelimitertrue}%
+\newcommand{\testtype}[1]{%
+    \gdef\@testtype{#1}}
+\newcommand{\subtitle}[1]{%
+    \gdef\@subtitle{#1}}%
+\newcommand{\instruction}[1]{%
+    \gdef\@instruction{\ignorespaces#1}%
+    \showinstructiondelimitertrue}
+\newcommand{\asyear}[2][\@asyearlabeldefault]{%
+    \gdef\@asyearpreamble{#1}\gdef\@asyear{#2}}
+%%fonts and aspects
+\newcommand{\headerfont}[1]{%
+    \sffamily\color{darkgray}#1}
+\newcommand{\institutefont}[1]{%
+    \large \sffamily\color{darkgray}#1}
+\newcommand{\asyearfont}[1]{%
+    #1}
+\newcommand{\testtypefont}[1]{%
+    \bgroup\scshape\huge#1\egroup}
+\newcommand{\subtitlefont}[1]{%
+    \bgroup\Large\scshape#1\egroup}%
+\newcommand{\instructiondelimiter}{%
+   \hrulefill}
+\newcommand{\instrunctionfont}[1]{%
+    \sffamily#1}
+\newcommand{\durationfont}[1]{%
+    \bgroup\hspace*{\fill}\@durationpreamble\space\bfseries #1\hspace*{\fill}\egroup}
+\newcommand{\@header@candidatename}{%
+    \noindent\headercandidatenamelabel%
+    \space\underline{\hspace{\candidatenamerulerlength}}}
+\newcommand{\@header@class}{%
+    \headerclasslabel\space%
+    \underline{\hspace{\classrulerlength}}}
+\newcommand{\@header@date}{%
+    \headerdatelabel\space%
+    \underline{\hspace{\daterulerlength}}}
+\newcommand{\@header}{%
+    \@header@candidatename\hfill\@header@class\hfill\@header@date}
+\newcommand{\solutionfont}{%
+    \footnotesize%
+    \ifsolutionscolor\color{\solutionscolor}\fi%
+    \itshape}
+\newcommand{\diffsymb}{%
+    $\bullet$}
+\newcommand{\closedquestionitem}{%
+    $\square$}
+\newcommand{\ptfont}{\normalsize}%
+%%pt prefix
+\newcommand{\@ptprefix}{%
+    \underline{\hspace{\ptrulerlength}}/}
+\newcommand{\ptprefix}[1]{%
+    \renewcommand{\@ptprefix}{#1}}
+%%partialpt prefix
+\newcommand{\@partialptprefix}{}
+\newcommand{\partialptprefix}[1]{%
+    \renewcommand{\@partialptprefix}{#1}}
+%%pt label
+\newcommand{\@ptsinglabel}{pt}
+\newcommand{\@ptplurlabel}{pt}
+\NewDocumentCommand{\ptlabel}{o m}{%
+    \renewcommand{\@ptplurlabel}{#2}%
+    \renewcommand{\@ptsinglabel}{\IfNoValueTF{#1}{#2}{#1}}}%
+\newcommand{\@useptlabel}[1]{%
+    \ifnum#1=1 \@ptsinglabel \else \@ptplurlabel\fi}
+%%partialpt label
+\newcommand{\@partialptsinglabel}{pt}
+\newcommand{\@partialptplurlabel}{pt}
+\NewDocumentCommand{\partialptlabel}{o m}{%
+    \renewcommand{\@partialptplurlabel}{#2}%
+    \renewcommand{\@partialptsinglabel}{\IfNoValueTF{#1}{#2}{#1}}}%
+\newcommand{\@usepartialptlabel}[1]{%
+    \ifnum#1=1 \@partialptsinglabel \else \@partialptplurlabel\fi}
+%%partialpt delimiter
+\newcommand{\@lpartialpt@delimiter}{(}
+\newcommand{\@rpartialpt@delimiter}{)}
+\newcommand{\@definepartialptdelimiter}[2]{
+    \renewcommand{\@lpartialpt@delimiter}{#1}
+    \renewcommand{\@rpartialpt@delimiter}{#2}}
+\newcommand{\partialptdelimiters}[1]{%
+    \@definepartialptdelimiter#1}
+%%pt delimiter
+\newcommand{\@lpt@delimiter}{}
+\newcommand{\@rpt@delimiter}{}
+\newcommand{\@defineptdelimiter}[2]{%
+    \renewcommand{\@lpt@delimiter}{#1}%
+    \renewcommand{\@rpt@delimiter}{#2}}
+\newcommand{\ptdelimiters}[1]{%
+    \@defineptdelimiter#1}
+%% checkmaker
+\newcommand{\checkmarker}{$\checkmark$}%
+\newcommand{\verifiche@checkmarker}{%
+\bgroup%
+\ifsolutionscolor\color{\solutionscolor}\fi%
+\checkmarker%
+\egroup}%
+%% convert ref to num
+\newcommand*{\convertreftonum}[1]{%
+    \romannumeral
+    \@ifundefined{r@#1}{%
+        \expandafter\ltx@zero
+        \rc@default}{%
+    \expandafter\expandafter\expandafter\rc@extract@
+    \expandafter\expandafter\expandafter!%
+    \csname r@#1\expandafter\endcsname
+    \expandafter{\rc@default}\@nil}%
+}
+\def\rc@default{0}%
+\long\def\rc@extract@#1#2#3\@nil{%
+    \ltx@zero
+    #2}
+\chardef\ltx@zero=0%
+%% init vertical/horizontal remaining space
+\newcommand{\verifiche@initremainingvspace}{%
+    \pgfmathsetlength{\verifiche@remainingvspace}{%
+        floor((\dimexpr\pagegoal-\pagetotal-.5\baselineskip\relax)/\spacedim)*\spacedim%
+    }%
+}%
+\newcommand{\verifiche@initremaininghspace}{%
+\pgfmathsetlength{\verifiche@remaininghspace}{%
+    floor(\linewidth/\spacedim)*\spacedim%
+}%
+}%
+
+%%pagestyles
+\newcommand{\ps@mainverifiche}{%
+    \renewcommand\@oddhead{%
+        \parbox{\textwidth}{\centering \institutefont{\@institute}}%
+    }%
+    \renewcommand\@evenhead{}%
+    \renewcommand{\@oddfoot}{\hfill\normalfont\textrm\thepage\hfill}%
+    \let\evenfoot\@oddfoot%
+}
+\newcommand{\ps@verifiche}{%
+    \renewcommand\@oddhead{
+        \ifodd\thepage\parbox{\textwidth}{\headerfont\@header}\fi}%
+    \renewcommand{\@oddfoot}{\hfill\normalfont\textrm\thepage\hfill}%
+    \let\evenfoot\@oddfoot%
+}
+%%define the heading style command
+\newcommand{\defineheadingstyle}[2]{
+    \expandafter\newcommand\csname @verifichehdgsty#1\endcsname{%
+        \gdef\printheading{#2}}
+}
+%%use the heading style
+\newcommand{\headingstyle}[1]{
+    \ifcsname @verifichehdgsty#1\endcsname{%
+        \csname @verifichehdgsty#1\endcsname%
+    }%
+    \else%
+        \PackageError{verifiche}{%
+            Headings style "#1" is not define.
+        }{%
+        Headings style "#1" is not define.
+        Use \noexpand\defineheadingstyle to define a new ones before use it.%
+        }%
+    \fi%
+}%
+%%define "einstein" style
+\defineheadingstyle{einstein}{%
+        {\ifdefined\@institute\ifinstitute\thispagestyle{mainverifiche}\fi\else\thispagestyle{empty}\fi}%
+        {\ifcandidatename%
+        \noindent%
+        \begin{minipage}[t]{.5\textwidth}%
+            \vspace{0mm}%
+            \headerfont{\@header@candidatename\\[.5em]%
+                                \@header@class\\[.5em]%
+                                \@header@date}%
+        \end{minipage}}\fi%
+        \begin{minipage}[t]{.5\textwidth}%
+            \vspace{0mm}%
+            {\ifdefined\@asyear\ifasyear\hspace*{\fill}\asyearfont{\@asyearpreamble\space\@asyear}\hspace*{\fill}\par\vspace{\baselineskip}\fi\fi}%
+            {\ifdefined\@testtype\iftesttype\makebox[\linewidth][s]{\testtypefont{\@testtype}}\par\fi\fi}%
+            {\ifdefined\@subtitle\ifsubtitle\vspace{\baselineskip}\hspace*{\fill}\subtitlefont{\@subtitle}\hspace*{\fill}\par\fi\fi}%
+        \end{minipage}%
+        \par\vspace{\baselineskip}%
+        {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+        {\ifdefined\@instruction\ifinstruction\instrunctionfont{\noindent\@instruction}}\par\fi\fi%
+        {\ifdefined\@duration\ifduration\hspace*{\fill}\durationfont\@duration\hspace*{\fill}\par\fi\fi}%
+        {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+}%
+%%define "cattaneo" style
+\defineheadingstyle{cattaneo}{%
+    {\ifdefined\@institute\ifinstitute\thispagestyle{mainverifiche}\fi\else\thispagestyle{empty}\fi}%
+    {\ifdefined\@asyear\ifasyear\hspace*{\fill}\asyearfont{\@asyearpreamble\space\@asyear}\hspace*{\fill}\par\vspace{\baselineskip}\fi\fi}%
+    {\ifdefined\@testtype\iftesttype\hspace*{\fill}\testtypefont{\@testtype}\hspace*{\fill}\par\fi\fi}%
+    {\ifdefined\@subtitle\ifsubtitle\vspace{\baselineskip}\hspace*{\fill}\subtitlefont{\@subtitle}\hspace*{\fill}\par\vspace{\baselineskip}
+    \fi\fi}%
+    {\ifcandidatename\@header\par\vspace{\baselineskip}\fi}%
+    {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+    {\ifdefined\@instruction\ifinstruction\instrunctionfont{\noindent\@instruction}}\par\fi\fi%
+    {\ifdefined\@duration\ifduration\hspace*{\fill}\durationfont\@duration\hspace*{\fill}\par\fi\fi}%
+    {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+}
+%%define "galilei" style
+\defineheadingstyle{galilei}{%
+    {\ifdefined\@institute\ifinstitute\thispagestyle{mainverifiche}\fi\else\thispagestyle{empty}\fi}%
+    {\ifcandidatename\@header\par\vspace{\baselineskip}\fi}%
+    {\ifdefined\@asyear\ifasyear\hspace*{\fill}\asyearfont{\@asyearpreamble\space\@asyear}\hspace*{\fill}\par\vspace{\baselineskip}\fi\fi}%
+    {\ifdefined\@testtype\iftesttype\hspace*{\fill}\testtypefont{\@testtype}\hspace*{\fill}\par\fi\fi}%
+    {\ifdefined\@subtitle\ifsubtitle\vspace{\baselineskip}\hspace*{\fill}\subtitlefont{\@subtitle}\hspace*{\fill}\par\fi\fi}%
+    {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+    {\ifdefined\@instruction\ifinstruction\instrunctionfont{\noindent\@instruction}}\par\fi\fi%
+    {\ifdefined\@duration\ifduration\hspace*{\fill}\durationfont\@duration\hspace*{\fill}\par\fi\fi}%
+    {\ifshowinstructiondelimiter\noindent\instructiondelimiter\par\fi}%
+}
+%% default style: "galilei"
+\headingstyle{galilei}
+%%ambiente esercizio
+\define@key{esercizio}{label}[\exerciselabel]{%
+    \def\tempeserciziolabel{#1}}%
+\define@key{esercizio}{diff}[none]{
+    \def\diffstar{\hfill\foreach \i in {1,..., #1}{\diffsymb}}%
+    \showmarginexercisetrue}%
+\define@key{esercizio}{pt}[none]{
+    \ifshowexercisept%
+    \def\pointes{#1}%
+    \def\espoint{%
+        \ptfont%
+        \hfill\@ptprefix\@lpt@delimiter%
+        \pointes\space\@useptlabel{\pointes}%
+        \@rpt@delimiter}
+    \showmarginexercisetrue
+    \fi}%
+\define@key{esercizio}{partialpt}[none]{%
+    \ifshowexercisept%
+    \def\@totalpartialpt{\convertreftonum{ptes@\theexercisenumber}}%
+    \def\sumpartialpt{%
+        \ptfont%
+        \@ptprefix\@lpt@delimiter%
+        \@totalpartialpt\space\@useptlabel{\@totalpartialpt}%
+        \@rpt@delimiter}%
+    \showmarginexercisetrue
+    \fi}%
+\newcommand{\exercisetitle}{%
+    \ifdefined\tempeserciziolabel\tempeserciziolabel%
+    \else \exerciselabel\fi%
+}
+\newsavebox{\box@marginexercise}
+\newcommand{\exercisemargin}{%
+    \sbox{\box@marginexercise}{\parbox[t]{\marginparwidth}{%
+        \ifdefined\diffstar\hfill\diffstar\par\fi% stelle di difficoltà
+        \ifdefined\espoint\hfill\espoint\par\fi%[-\baselineskip] %punteggio
+        \ifdefined\sumpartialpt\hfill\sumpartialpt\fi} %punteggio parziale automatico
+    }%
+    \reversemarginpar\marginpar{\usebox{\box@marginexercise}}%
+}%
+\newcommand{\savepointsaux}{%
+    \ifdefined\sumpartialpt%
+        \protected@write \@auxout {}{\string\newlabel {ptes@\theexercisenumber}{{\thepartialpoints}{}}}%
+    \fi%
+    \ifdefined\espoint%
+        \protected@write \@auxout {}{\string\newlabel {ptes@\theexercisenumber}{{\pointes}{}}}%
+    \fi%
+}%
+
+\NewDocumentEnvironment{esercizio}{o +b}{%
+    \refstepcounter{exercisenumber}%
+    \showmarginexercisefalse%
+    \IfValueT{#1}{\setkeys{esercizio}{#1}}%
+    \par\addvspace{\baselineskip}%
+    {\noindent\bfseries\exercisetitle\ifexercisesnumbered\space\theexercisenumber\fi}%
+    \ifshowmarginexercise\exercisemargin\fi%
+    \par\nopagebreak\@nobreaktrue\ignorespaces% newline after label
+    \setlength\parindent{0pt}%no parindent
+    #2%body of the environment
+}{%
+   \par%
+   \ignorespacesafterend%
+   \savepointsaux%
+}%
+\NewDocumentEnvironment{esercizio*}{o +b}{%
+    \showmarginexercisefalse%
+    \IfValueT{#1}{\setkeys{esercizio}{#1}}%
+    \par\addvspace{\baselineskip}{\noindent\bfseries\exercisetitle}%
+    \ifshowmarginexercise\exercisemargin\fi%
+    \par\nopagebreak\@nobreaktrue\ignorespaces% newline after label
+    \setlength\parindent{0pt}%no parindent
+    #2%body of the environment
+}{%
+    \par%
+    \ignorespacesafterend
+    \savepointsaux%print partial pt sum
+}%
+\NewDocumentCommand{\partialpt}{m}{%
+    \ifshowexercisept%
+    \leavevmode\reversemarginpar\marginpar{%
+        \ptfont\hfill\@partialptprefix%
+        \@lpartialpt@delimiter#1\space\@usepartialptlabel{#1}%
+        \@rpartialpt@delimiter%
+        \addtocounter{partialpoints}{#1}}\ignorespaces%
+        \fi}%
+\define@key{soluzione}{label}[\solutionlabel]{%
+    \def\verifiche@tempsoluzionelabel{#1}%
+}
+\newcommand{\verifiche@solutionlabel}{%
+    \ifdefined\verifiche@tempsoluzionelabel\verifiche@tempsoluzionelabel%
+    \else\solutionlabel\fi%
+}%
+\NewDocumentEnvironment{soluzione}{o +b}{%
+    \IfValueT{#1}{\setkeys{soluzione}{#1}}%
+    \ifsol%
+        \par\addvspace{\baselineskip}%
+        {\noindent\bfseries%
+        \ifsolutionscolor\color{\solutionscolor}\fi%
+        \verifiche@solutionlabel}%
+        \par\nopagebreak\@nobreaktrue\noindent\ignorespaces%
+        \setlength\parindent{0pt}%no parindent
+        \solutionfont #2%
+    \fi%
+}{%
+    \ifsol%
+        \par\ignorespacesafterend
+    \fi%
+}%
+\newcommand{\inlinesol}[1]{%
+    \ifsol%
+        \bgroup%
+            \ifmmode\mathit{\solutionfont#1}%
+            \else{\solutionfont#1}%
+            \fi%
+        \egroup%
+    \else\ignorespaces%
+    \fi%
+}
+\newcommand{\completetext}[2][4.5cm]{%
+    \underline{\makebox[#1][c]{\ifsol\solutionfont#2\else\relax\fi}}
+}%
+\newcommand{\truefalse}[1]{%
+    %True
+    \framebox{\parbox[c][\verifiche@truefalsesquares]{\verifiche@truefalsesquares}{\centering\@verifiche@Tletter}}%
+    \ifsol\llap{%
+        \if#1\@verifiche@Tletter%
+            \Large\verifiche@checkmarker\hspace{-1pt}%
+        \fi}%
+     \fi%
+     \quad%
+     %False
+    \fbox{\parbox[c][\verifiche@truefalsesquares]{\verifiche@truefalsesquares}{\centering\@verifiche@Fletter}}%
+     \ifsol\llap{%
+         \if#1\@verifiche@Fletter%
+             \Large\verifiche@checkmarker\hspace{-1pt}%
+         \fi}%
+     \fi%% 
+}
+\newcommand{\finderror}[2]{%
+    \tikz[baseline=(error.base)]{%
+    \node[inner sep=0pt](error){\ifsol\xout{#1}\else#1\fi};%
+    \node[anchor=south, inner sep=2pt] at (error.north){\ifsol\solutionfont#2\else\relax\fi};%
+    }%
+}%
+\newlist{crocette}{itemize}{1}%
+\newlist{crocette*}{itemize*}{1}%
+\setlist[crocette]{label=\closedquestionitem, leftmargin=*, parsep=0pt }%
+\setlist[crocette*]{label=\closedquestionitem, itemjoin={\hfill}}%
+\newcommand{\checked}{%
+    \ifsol%
+        \closedquestionitem\llap{\verifiche@checkmarker\hspace{-1pt}}%
+    \else%
+        \closedquestionitem%
+    \fi}
+\NewDocumentEnvironment{closedquestion}{O{}+b}{%
+    \begin{crocette}[#1]#2%
+}{%
+    \end{crocette}%
+}%
+\NewDocumentEnvironment{closedquestion*}{O{} +b}{%
+    \begin{crocette*}[#1]#2%
+}{%
+    \end{crocette*}%
+}%
+
+\define@key{openquestion}{spacedim}[0.5cm]{\setlength{\spacedim}{#1}\verifiche@initremainingvspace\verifiche@initremaininghspace}%
+\define@key{openquestion}{height}[\the\verifiche@remainingvspace]{\def\openquestionheight{#1}}%
+\define@key{openquestion}{width}[\the\verifiche@remaininghspace]{\def\openquestionwidth{#1}}%
+\define@key{openquestion}{linecolor}[gray]{\def\openquestionlinecolor{#1}}%
+\define@choicekey*+{openquestion}{type}[\val\nr]{lines, squares}[squares]{%
+    \ifcase\nr\relax%
+        % lines
+        \openquestionsquaredfalse\openquestionlinestrue%
+    \or%
+        % squares
+        \openquestionsquaredtrue\openquestionlinesfalse%
+    \fi}%
+    {\PackageError{verifiche}{Errore nell'opzione openquestion}{Inserire lines o squares}}
+\NewDocumentCommand{\openquestion}{o m}{%
+    \setkeys{openquestion}{type, spacedim, width, height, linecolor} %init
+    \IfValueT{#1}{\setkeys{openquestion}{#1}}%
+    \vspace{-\baselineskip}%
+\begin{center}
+\ifopenquestionsquared% if squared open question
+        \begin{tikzpicture}%
+            \draw[step=\the\spacedim, \openquestionlinecolor]%
+            (0,0) grid (\openquestionwidth,-\openquestionheight);%
+            \node[%
+                anchor=base west,%
+                align=left, text width=\openquestionwidth,%
+                inner sep=0cm,%
+                font=\solutionfont,%
+                execute at begin node=\setlength{\baselineskip}{\the\spacedim}]%
+            at (0, -\the\spacedim){\ifsol#2\fi};
+        \end{tikzpicture}%
+    \else% if lined open question
+        \begin{tikzpicture}%
+            \pgfmathparse{int(\openquestionheight/\the\spacedim)}%
+             \foreach \y in {1, ..., \pgfmathresult}%
+             \draw[\openquestionlinecolor] (0, -\y*\the\spacedim) -- +(\openquestionwidth,0);%
+             \node[%
+                 anchor=base west,align=left,%
+                 text width=\openquestionwidth,%
+                 inner sep=0cm, font=\solutionfont,%
+                 execute at begin node=\setlength{\baselineskip}{\the\spacedim}]%
+             at (0, -\the\spacedim){\ifsol#2\fi};%
+    \end{tikzpicture}%
+    \fi%
+    \end{center}%
+}
+\NewDocumentCommand{\textandimage}{O{.7\textwidth} O{.3\textwidth} m m}{%
+    \begin{minipage}{#1}
+       {#3}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{#2}
+        {#4}
+    \end{minipage}
+}
+\NewDocumentCommand{\makecolumn}{O{t} m +m}{%
+    \parbox[#1]{#2}{#3}%
+    \@ifnextchar\makecolumn{\hspace*{\columnseparation}}{}%
+}%
+\NewDocumentEnvironment{multitest}{O{1} +b}{
+    \newcounter{multitestcounter}
+    \toks1={\foreach \i in {1,...,#1}}
+        \the\toks1{%
+            \setcounter{multitestcounter}{\i}%
+            \setcounter{page}{1}%
+            \setcounter{exercisenumber}{0}%
+            \pgfmathsetseed{\i}%
+            #2%
+            \clearpage%
+        }%
+}{}
+
+\endinput
+%%
+%% End of file `verifiche.sty'.

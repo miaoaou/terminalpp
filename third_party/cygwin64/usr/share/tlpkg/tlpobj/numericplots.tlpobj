@@ -1,0 +1,24 @@
+name numericplots
+category Package
+revision 31729
+shortdesc Plot numeric data (including Matlab export) using PSTricks
+relocated 1
+longdesc Plotting numeric data is a task which has often to be done for
+longdesc scientific papers. LaTeX itself provides no facilities for
+longdesc drawing more than the simplest plots from supplied data. The
+longdesc package will process user input, and uses PSTricks to plot the
+longdesc results. The package provides Matlab functions to transform
+longdesc Matlab results to plottable data.
+runfiles size=16
+ RELOC/tex/latex/numericplots/NumericPlots.sty
+ RELOC/tex/latex/numericplots/NumericPlots_TickLabels.tex
+ RELOC/tex/latex/numericplots/NumericPlots_labels.tex
+ RELOC/tex/latex/numericplots/NumericPlots_legend.tex
+ RELOC/tex/latex/numericplots/NumericPlots_macros.tex
+ RELOC/tex/latex/numericplots/NumericPlots_styles.tex
+catalogue-also pst-plot pgfplots
+catalogue-ctan /graphics/pstricks/contrib/numericplots
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl3
+catalogue-topics graphics-plot
+catalogue-version 2.0.2

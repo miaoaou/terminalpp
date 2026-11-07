@@ -1,0 +1,33 @@
+name accfonts
+category Package
+revision 18835
+shortdesc Utilities to derive new fonts from existing ones
+longdesc The accfonts package contains three utilities to permit easy
+longdesc manipulation of fonts, in particular the creation of unusual
+longdesc accented characters. Mkt1font works on Adobe Type 1 fonts,
+longdesc vpl2vpl works on TeX virtual fonts and vpl2ovp transforms a TeX
+longdesc font to an Omega one. All three programs read in a font (either
+longdesc the font itself or a property list), together with a simple
+longdesc definition file containing lines such as '128 z acute'; they
+longdesc then write out a new version of the font with the requested new
+longdesc characters in the numerical slots specified. Great care is
+longdesc taken over the positioning of accents, and over the provision
+longdesc of kerning information for new characters; mkt1font also
+longdesc generates suitable "hints" to enhance quality at small sizes or
+longdesc poor resolutions. The programs are written in Perl.
+depend accfonts.ARCH
+runfiles size=37
+ texmf-dist/scripts/accfonts/mkt1font
+ texmf-dist/scripts/accfonts/vpl2ovp
+ texmf-dist/scripts/accfonts/vpl2vpl
+ texmf-dist/tex/latex/accfonts/CSX.def
+ texmf-dist/tex/latex/accfonts/ISO-Latin1.def
+ texmf-dist/tex/latex/accfonts/ISO-Latin2.def
+ texmf-dist/tex/latex/accfonts/IndUni_Omega.def
+ texmf-dist/tex/latex/accfonts/Norman.def
+catalogue-also a2ac
+catalogue-ctan /fonts/utilities/accfonts
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics font-proc omega
+catalogue-version 0.25

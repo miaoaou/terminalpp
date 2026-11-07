@@ -1,0 +1,24 @@
+name easyfloats
+category Package
+revision 57204
+shortdesc An easier interface to insert figures, tables and other objects in LaTeX
+relocated 1
+longdesc In standard LaTeX inserting objects like figures or tables
+longdesc requires too much knowledge for beginners and too much typing
+longdesc effort and hardcoding for people like me. This package aims to
+longdesc make insertion of figures and tables easier for both beginners
+longdesc and experts. Despite the term floats in it's name it also
+longdesc allows to disable floating of such objects.
+depend caption
+depend environ
+depend etoolbox
+depend float
+depend pgf
+runfiles size=11
+ RELOC/tex/latex/easyfloats/easyfloats.sty
+catalogue-contact-bugs https://gitlab.com/erzo/latex-easyfloats/-/issues
+catalogue-contact-repository https://gitlab.com/erzo/latex-easyfloats
+catalogue-ctan /macros/latex/contrib/easyfloats
+catalogue-license lppl1.3
+catalogue-topics float table
+catalogue-version 1.0.0

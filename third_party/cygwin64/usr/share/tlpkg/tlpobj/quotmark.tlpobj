@@ -1,0 +1,55 @@
+name quotmark
+category Package
+revision 15878
+shortdesc Consistent quote marks
+relocated 1
+longdesc The package provides a means of ensuring consistent quote marks
+longdesc throughout your document. The style can be changed either via
+longdesc package option or command, and the package detects language
+longdesc selections (from the babel or ngerman packages), and uses the
+longdesc punctuation marks appropriate for the current language. The
+longdesc author now considers the package obsolete, and recommends use
+longdesc of csquotes in its place.
+runfiles size=39
+ RELOC/tex/latex/quotmark/quotmark-UKenglish.def
+ RELOC/tex/latex/quotmark/quotmark-USenglish.def
+ RELOC/tex/latex/quotmark/quotmark-afrikaans.def
+ RELOC/tex/latex/quotmark/quotmark-brazil.def
+ RELOC/tex/latex/quotmark/quotmark-bulgarian.def
+ RELOC/tex/latex/quotmark/quotmark-catalan.def
+ RELOC/tex/latex/quotmark/quotmark-croatian.def
+ RELOC/tex/latex/quotmark/quotmark-czech.def
+ RELOC/tex/latex/quotmark/quotmark-danish.def
+ RELOC/tex/latex/quotmark/quotmark-dutch.def
+ RELOC/tex/latex/quotmark/quotmark-estonian.def
+ RELOC/tex/latex/quotmark/quotmark-finnish.def
+ RELOC/tex/latex/quotmark/quotmark-frenchb.def
+ RELOC/tex/latex/quotmark/quotmark-germanb.def
+ RELOC/tex/latex/quotmark/quotmark-greek.def
+ RELOC/tex/latex/quotmark/quotmark-hebrew.def
+ RELOC/tex/latex/quotmark/quotmark-icelandic.def
+ RELOC/tex/latex/quotmark/quotmark-irish.def
+ RELOC/tex/latex/quotmark/quotmark-italian.def
+ RELOC/tex/latex/quotmark/quotmark-magyar.def
+ RELOC/tex/latex/quotmark/quotmark-ngermanb.def
+ RELOC/tex/latex/quotmark/quotmark-norsk.def
+ RELOC/tex/latex/quotmark/quotmark-polish.def
+ RELOC/tex/latex/quotmark/quotmark-portuges.def
+ RELOC/tex/latex/quotmark/quotmark-romanian.def
+ RELOC/tex/latex/quotmark/quotmark-russianb.def
+ RELOC/tex/latex/quotmark/quotmark-serbian.def
+ RELOC/tex/latex/quotmark/quotmark-slovak.def
+ RELOC/tex/latex/quotmark/quotmark-slovene.def
+ RELOC/tex/latex/quotmark/quotmark-sorbian.def
+ RELOC/tex/latex/quotmark/quotmark-spanish.def
+ RELOC/tex/latex/quotmark/quotmark-swedish.def
+ RELOC/tex/latex/quotmark/quotmark-swiss.def
+ RELOC/tex/latex/quotmark/quotmark-turkish.def
+ RELOC/tex/latex/quotmark/quotmark-ukraineb.def
+ RELOC/tex/latex/quotmark/quotmark-welsh.def
+ RELOC/tex/latex/quotmark/quotmark.sty
+catalogue-ctan /macros/latex/contrib/quotmark
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics quotation
+catalogue-version 1.0

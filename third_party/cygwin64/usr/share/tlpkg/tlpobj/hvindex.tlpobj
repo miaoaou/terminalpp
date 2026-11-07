@@ -1,0 +1,16 @@
+name hvindex
+category Package
+revision 46051
+shortdesc Support for indexing
+relocated 1
+longdesc The package simplifies the indexing of words using the \index
+longdesc command of makeidx. With the package, to index a word in a
+longdesc text, you only have to type it once; the package makes sure it
+longdesc is both typeset and indexed.
+runfiles size=1
+ RELOC/tex/latex/hvindex/hvindex.sty
+catalogue-ctan /macros/latex/contrib/hvindex
+catalogue-date 2017-12-12 10:21:06 +0100
+catalogue-license lppl
+catalogue-topics index
+catalogue-version 0.04

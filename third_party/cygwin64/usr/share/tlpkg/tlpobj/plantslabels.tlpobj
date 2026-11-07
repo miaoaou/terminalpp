@@ -1,0 +1,14 @@
+name plantslabels
+category Package
+revision 29803
+shortdesc Write labels for plants
+relocated 1
+longdesc The package defines a command \plant, which has three mandatory
+longdesc and seven optional argument. The package uses the labels
+runfiles size=1
+ RELOC/tex/latex/plantslabels/plantslabels.sty
+catalogue-ctan /macros/latex/contrib/plantslabels
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics covers
+catalogue-version 1.0

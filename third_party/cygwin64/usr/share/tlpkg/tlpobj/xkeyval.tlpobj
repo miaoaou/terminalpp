@@ -1,0 +1,27 @@
+name xkeyval
+category Package
+revision 63616
+shortdesc Extension of the keyval package
+relocated 1
+longdesc This package is an extension of the keyval package and offers
+longdesc additional macros for setting keys and declaring and setting
+longdesc class or package options. The package allows the programmer to
+longdesc specify a prefix to the name of the macros it defines for keys,
+longdesc and to define families of key definitions; these all help use
+longdesc in documents where several packages define their own sets of
+longdesc keys.
+runfiles size=16
+ RELOC/tex/generic/xkeyval/keyval.tex
+ RELOC/tex/generic/xkeyval/pst-xkey.tex
+ RELOC/tex/generic/xkeyval/xkeyval.tex
+ RELOC/tex/generic/xkeyval/xkvtxhdr.tex
+ RELOC/tex/generic/xkeyval/xkvutils.tex
+ RELOC/tex/latex/xkeyval/pst-xkey.sty
+ RELOC/tex/latex/xkeyval/xkeyval.sty
+ RELOC/tex/latex/xkeyval/xkvltxp.sty
+ RELOC/tex/latex/xkeyval/xkvview.sty
+catalogue-also pst-xkey
+catalogue-ctan /macros/latex/contrib/xkeyval
+catalogue-license lppl1.3
+catalogue-topics keyval
+catalogue-version 2.9

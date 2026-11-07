@@ -1,0 +1,7 @@
+name pagelayout.x86_64-cygwin
+category Package
+revision 65625
+shortdesc x86_64-cygwin files of pagelayout
+binfiles arch=x86_64-cygwin size=2
+ bin/x86_64-cygwin/pagelayoutapi
+ bin/x86_64-cygwin/textestvis

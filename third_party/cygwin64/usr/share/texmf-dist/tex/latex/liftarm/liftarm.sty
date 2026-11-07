@@ -1,0 +1,336 @@
+%% liftarm.sty
+%% Copyright 2022 Matthias Floré
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Matthias Floré.
+%
+% This work consists of the files liftarm.pdf, liftarm.sty,
+% liftarm.tex and README.md.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{liftarm}[2022/04/07 v2.0 Draw liftarms with TikZ]
+\RequirePackage{etoolbox}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\newif\ifliftarm@animate
+\newif\ifliftarm@brick
+\newif\ifliftarm@connectreverse
+\newif\ifliftarm@contour
+\pgfkeys{
+/liftarm/.is family,
+/liftarm/.unknown/.code={\edef\liftarm@colorkey{\pgfkeyscurrentname}},
+/liftarm,
+axle holes/.store in=\liftarm@axleholes,
+brick/.is if=liftarm@brick,
+color/.store in=\liftarm@colorkey,
+color 0/.initial=Gray,
+color 1/.initial=darkgray,
+color 2/.initial=Yellow,
+color 3/.initial=Orange,
+color 4/.initial=Red,
+color 5/.initial=Green,
+color 6/.initial=Blue,
+color 7/.initial=Brown,
+color modulo/.initial=8,
+connect/.store in=\liftarm@connect,
+connect coordinate/.store in=\liftarm@connectcoordinate,
+connect reverse/.is if=liftarm@connectreverse,
+contour/.is if=liftarm@contour,
+coordinate/.store in=\liftarm@coordinate,
+globalize/.code n args={2}{\xdef#1{#2}},
+hole radius/.initial=0.3,
+liftarm 1/.style={liftarm 1 options/.style={#1}},
+liftarm 1 options/.style={},
+liftarm 2/.style={liftarm 2 options/.style={#1}},
+liftarm 2 options/.style={},
+liftarm thickness/.initial=0.92,
+mark color/.initial=Black,
+mark holes/.store in=\liftarm@markholes,
+origin/.initial=0,
+scalefactor/.initial=0.5,
+screw color/.initial=Black,
+screw holes/.store in=\liftarm@screwholes,
+screw holes angle/.initial=45,
+trace/.store in=\liftarm@trace,
+}
+\pgfmathsetmacro{\liftarm@axleholeangle}{14}%2*\liftarm@axleholeradius*sin(\liftarm@axleholeangle)=1.78/8
+\pgfmathsetmacro{\liftarm@screwholestartangle}{10}
+\newcommand{\liftarm}[4][]{
+\pgfmathsetmacro{\liftarm@length}{#3}
+\ifdim \liftarm@length pt<0 pt
+\PackageWarning{liftarm}{The length (\liftarm@length) of the liftarm is smaller than 0.}
+\else
+\pgfmathsetmacro{\liftarm@ang}{#4}
+\begin{scope}[shift={(#2)},rotate=\liftarm@ang]
+\pgfkeys{/liftarm,#1}
+\pgfmathsetmacro{\liftarm@origin}{\pgfkeysvalueof{/liftarm/origin}}
+\begin{scope}[shift={(-\liftarm@origin,0)}]
+\pgfmathsetmacro{\liftarm@halfthickness}{0.5*\pgfkeysvalueof{/liftarm/scalefactor}*\pgfkeysvalueof{/liftarm/liftarm thickness}}
+\pgfmathsetmacro{\liftarm@holeradius}{\pgfkeysvalueof{/liftarm/scalefactor}*\pgfkeysvalueof{/liftarm/hole radius}}
+\pgfmathsetmacro{\liftarm@halfstudwidth}{\pgfkeysvalueof{/liftarm/scalefactor}*0.3}
+\pgfmathsetmacro{\liftarm@studheight}{\pgfkeysvalueof{/liftarm/scalefactor}*0.2}
+\pgfmathsetmacro{\liftarm@halfplateheight}{\pgfkeysvalueof{/liftarm/scalefactor}*0.2}
+\pgfmathsetmacro{\liftarm@halfplatewidth}{\pgfkeysvalueof{/liftarm/scalefactor}*0.5}
+\pgfmathsetmacro{\liftarm@axleholeradius}{\liftarm@halfthickness}
+\pgfmathsetmacro{\liftarm@screwholeradius}{0.8*\liftarm@holeradius}
+\colorlet{liftarm@markcolor}{\pgfkeysvalueof{/liftarm/mark color}}
+\colorlet{liftarm@screwcolor}{\pgfkeysvalueof{/liftarm/screw color}}
+\pgfmathsetmacro{\liftarm@screwholesangle}{\pgfkeysvalueof{/liftarm/screw holes angle}}
+\ifcsname liftarm@colorkey\endcsname
+\colorlet{liftarm@color}{\liftarm@colorkey}
+\else
+\pgfmathsetmacro{\liftarm@colornumber}{int(mod(\liftarm@length,\pgfkeysvalueof{/liftarm/color modulo}))}
+\colorlet{liftarm@color}{\pgfkeysvalueof{/liftarm/color \liftarm@colornumber}}
+\fi
+\ifliftarm@brick
+\def\liftarm@shape{(-1,{-\liftarm@halfplatewidth-\liftarm@halfplateheight})--(-1,\liftarm@halfplatewidth)
+\foreach\liftarm@n in {-1,...,\liftarm@length}{
+--({\liftarm@n+0.5-\liftarm@halfstudwidth},\liftarm@halfplatewidth)--({\liftarm@n+0.5-\liftarm@halfstudwidth},{\liftarm@halfplatewidth+\liftarm@studheight})--({\liftarm@n+0.5+\liftarm@halfstudwidth},{\liftarm@halfplatewidth+\liftarm@studheight})--({\liftarm@n+0.5+\liftarm@halfstudwidth},\liftarm@halfplatewidth)--({\liftarm@n+1},\liftarm@halfplatewidth)
+}
+--({\liftarm@length+1},{-\liftarm@halfplatewidth-\liftarm@halfplateheight})--cycle}
+\else
+\def\liftarm@shape{(0,\liftarm@halfthickness) arc (90:270:\liftarm@halfthickness)--(\liftarm@length,-\liftarm@halfthickness) arc (-90:90:\liftarm@halfthickness)--cycle}
+\fi
+\fill[liftarm@color,even odd rule] \liftarm@shape
+\foreach\liftarm@n in {0,...,\liftarm@length}{
+(\liftarm@n,0) circle[radius=\liftarm@holeradius]
+};
+\ifliftarm@contour
+%\ifliftarm@brick
+%\else
+\draw[liftarm@color!75!Black,ultra thick] \liftarm@shape;
+%\fi
+\fi
+\ifcsname liftarm@axleholes\endcsname
+\foreach\liftarm@n in \liftarm@axleholes{
+\pgfmathsetmacro{\liftarm@axlehole}{\liftarm@n}
+\ifdim \liftarm@axlehole pt<0 pt
+\else
+\ifdim \liftarm@axlehole pt>\liftarm@length pt
+\else
+\foreach\liftarm@angle in {0,90,180,270}{
+\begin{scope}[shift={(\liftarm@axlehole,0)},rotate=\liftarm@angle]
+\fill[liftarm@color] (\liftarm@axleholeangle:\liftarm@axleholeradius) arc (\liftarm@axleholeangle:{90-\liftarm@axleholeangle}:\liftarm@axleholeradius)--({\liftarm@axleholeradius*sin(\liftarm@axleholeangle)},{\liftarm@axleholeradius*sin(\liftarm@axleholeangle)})--cycle;
+\end{scope}
+}
+\fi
+\fi
+}
+\fi
+\ifcsname liftarm@markholes\endcsname
+\foreach\liftarm@n in \liftarm@markholes{
+\pgfmathsetmacro{\liftarm@markhole}{\liftarm@n}
+\ifdim \liftarm@markhole pt<0 pt
+\else
+\ifdim \liftarm@markhole pt>\liftarm@length pt
+\else
+\fill[liftarm@markcolor] (\liftarm@markhole,0) circle[radius=\liftarm@holeradius];
+\fi
+\fi
+}
+\fi
+\ifcsname liftarm@screwholes\endcsname
+\foreach\liftarm@n in \liftarm@screwholes{
+\pgfmathsetmacro{\liftarm@screwhole}{\liftarm@n}
+\ifdim \liftarm@screwhole pt<0 pt
+\else
+\ifdim \liftarm@screwhole pt>\liftarm@length pt
+\else
+\begin{scope}[shift={(\liftarm@screwhole,0)},rotate=\liftarm@screwholesangle]
+\foreach\liftarm@n in {-1,1}{
+\fill[liftarm@screwcolor] ({\liftarm@screwholeradius*cos(\liftarm@screwholestartangle)},{\liftarm@n*\liftarm@screwholeradius*sin(\liftarm@screwholestartangle)}) arc ({\liftarm@n*\liftarm@screwholestartangle}:{\liftarm@n*(180-\liftarm@screwholestartangle)}:\liftarm@screwholeradius);
+}
+\end{scope}
+\fi
+\fi
+}
+\fi
+\ifcsname liftarm@coordinate\endcsname
+\foreach\liftarm@n/\liftarm@name in \liftarm@coordinate{
+\pgfmathsetmacro{\liftarm@value}{\liftarm@n}
+\coordinate (\liftarm@name) at (\liftarm@value,0);
+}
+\fi
+\ifcsname liftarm@trace\endcsname
+\ifliftarm@animate
+\foreach\liftarm@n/\liftarm@numberofframes/\liftarm@tracefigure in \liftarm@trace{
+\pgfmathsetmacro{\liftarm@value}{\liftarm@n}
+\gappto\liftarm@animateframestrace{\newframe\begin{scope}}
+\addtocounter{liftarm@animateframenumber}{1}
+\xappto\liftarm@animateframestrace{[shift={(#2)},rotate=\liftarm@ang]}
+\gappto\liftarm@animateframestrace{\begin{scope}}
+\xappto\liftarm@animateframestrace{[shift={(\liftarm@value-\liftarm@origin,0)}]}
+\ifdefempty{\liftarm@tracefigure}{
+\gappto\liftarm@animateframestrace{\fill[Black] (0,0) circle}
+\xappto\liftarm@animateframestrace{[radius=0.66*\liftarm@holeradius];}
+}
+{
+\xappto\liftarm@animateframestrace{\expandonce\liftarm@tracefigure}
+}
+\gappto\liftarm@animateframestrace{\end{scope}\end{scope}}
+\ifdefempty{\liftarm@numberofframes}{
+\csxappto{liftarm@animatetimeline0}{\theliftarm@animateframenumber x0,}
+}
+{
+\csxappto{liftarm@animatetimeline\theliftarm@animatestepnumber}{\theliftarm@animateframenumber x\liftarm@numberofframes,}
+}
+}
+\fi
+\fi
+\end{scope}
+\end{scope}
+\fi
+}
+\newcommand{\liftarmconnect}[5][]{
+\begin{scope}
+\pgfkeys{/liftarm,#1}
+\coordinate (liftarm@A) at (#2);
+\coordinate (liftarm@B) at (#4);
+\begin{scope}
+\pgfkeys{/liftarm,liftarm 1 options}
+\ifcsname liftarm@connect\endcsname
+\pgfmathsetmacro{\liftarm@connectlengthAtemp}{\liftarm@connect-\pgfkeysvalueof{/liftarm/origin}}
+\else
+\pgfmathsetmacro{\liftarm@connectlengthAtemp}{#3-\pgfkeysvalueof{/liftarm/origin}}
+\fi
+\xdef\liftarm@connectlengthA{\liftarm@connectlengthAtemp}
+\ifdim \liftarm@connectlengthA pt=0 pt
+\PackageWarning{liftarm}{The length of the first liftarm is 0.}
+\fi
+\end{scope}
+\begin{scope}
+\pgfkeys{/liftarm,liftarm 2 options}
+\ifcsname liftarm@connect\endcsname
+\pgfmathsetmacro{\liftarm@connectlengthBtemp}{\liftarm@connect-\pgfkeysvalueof{/liftarm/origin}}
+\else
+\pgfmathsetmacro{\liftarm@connectlengthBtemp}{#5-\pgfkeysvalueof{/liftarm/origin}}
+\fi
+\xdef\liftarm@connectlengthB{\liftarm@connectlengthBtemp}
+\ifdim \liftarm@connectlengthB pt=0 pt
+\PackageWarning{liftarm}{The length of the second liftarm is 0.}
+\fi
+\end{scope}
+\path
+let
+\p1=(liftarm@A),
+\p2=(liftarm@B),
+\n1={\x1/\pgf@xx},
+\n2={\y1/\pgf@yy},
+\n3={\x2/\pgf@xx},
+\n4={\y2/\pgf@yy}
+in
+[
+/liftarm/globalize={\liftarm@connectxalet}{\n3},
+/liftarm/globalize={\liftarm@connectyalet}{\n4},
+/liftarm/globalize={\liftarm@connectxblet}{\n1},
+/liftarm/globalize={\liftarm@connectyblet}{\n2}
+]
+;
+\pgfmathsetmacro{\liftarm@connectxa}{\liftarm@connectxalet}
+\pgfmathsetmacro{\liftarm@connectya}{\liftarm@connectyalet}
+\pgfmathsetmacro{\liftarm@connectxb}{\liftarm@connectxblet}
+\pgfmathsetmacro{\liftarm@connectyb}{\liftarm@connectyblet}
+\pgfmathsetmacro{\liftarm@absdiff}{abs(\liftarm@connectxa-\liftarm@connectxb)}
+\ifdim \liftarm@absdiff pt<0.001 pt
+\pgfmathsetmacro{\liftarm@connectanglegamma}{90}
+\ifdim \liftarm@connectya pt<\liftarm@connectyb pt
+\pgfmathsetmacro{\liftarm@connectangleshift}{0}
+\else
+\pgfmathsetmacro{\liftarm@connectangleshift}{180}
+\fi
+\else
+\pgfmathsetmacro{\liftarm@connectanglegamma}{atan((\liftarm@connectyb-\liftarm@connectya)/(\liftarm@connectxb-\liftarm@connectxa))}
+\ifdim \liftarm@connectxa pt<\liftarm@connectxb pt
+\pgfmathsetmacro{\liftarm@connectangleshift}{0}
+\else
+\pgfmathsetmacro{\liftarm@connectangleshift}{180}
+\fi
+\fi
+\pgfmathsetmacro{\liftarm@connectlength}{sqrt((\liftarm@connectyb-\liftarm@connectya)^2+(\liftarm@connectxb-\liftarm@connectxa)^2)}
+\ifdim \liftarm@connectlength pt=0 pt
+\PackageWarning{liftarm}{The length between the origins of the liftarms is 0.}
+\fi
+\pgfmathsetmacro{\liftarm@connectabsconnectlengthAminusconnectlengthB}{abs(\liftarm@connectlengthA-\liftarm@connectlengthB)}
+\ifdim \liftarm@connectabsconnectlengthAminusconnectlengthB pt>\liftarm@connectlength pt
+\PackageWarning{liftarm}{The liftarms can not be connected.}
+\fi
+\pgfmathsetmacro{\liftarm@connectconnectlengthAplusconnectlengthB}{\liftarm@connectlengthA+\liftarm@connectlengthB}
+\ifdim \liftarm@connectconnectlengthAplusconnectlengthB pt<\liftarm@connectlength pt
+\PackageWarning{liftarm}{The liftarms can not be connected.}
+\fi
+\pgfmathsetmacro{\liftarm@connectanglealpha}{acos(((\liftarm@connectlengthB)^2+(\liftarm@connectlength)^2-(\liftarm@connectlengthA)^2)/(2*(\liftarm@connectlength)*(\liftarm@connectlengthB)))}
+\pgfmathsetmacro{\liftarm@connectanglebeta}{acos(((\liftarm@connectlength)^2+(\liftarm@connectlengthA)^2-(\liftarm@connectlengthB)^2)/(2*\liftarm@connectlength*(\liftarm@connectlengthA)))}
+\pgfmathsetmacro{\liftarm@connectangledelta}{\liftarm@connectangleshift+180+\liftarm@connectanglegamma-\liftarm@connectanglebeta}
+\def\liftarm@liftarmA{\liftarm[liftarm 1 options]{#2}{#3}{\liftarm@connectangledelta}}
+\def\liftarm@liftarmB{\liftarm[liftarm 2 options]{#4}{#5}{\liftarm@connectangleshift+\liftarm@connectanglegamma+\liftarm@connectanglealpha}}
+\ifliftarm@connectreverse
+\liftarm@liftarmB
+\liftarm@liftarmA
+\else
+\liftarm@liftarmA
+\liftarm@liftarmB
+\fi
+\ifcsname liftarm@connectcoordinate\endcsname
+\coordinate (\liftarm@connectcoordinate) at ($(#2)+(\liftarm@connectangledelta:\liftarm@connectlengthA)$);
+\fi
+\end{scope}
+}
+\newcommand{\liftarm@construction}[2][]{\begin{tikzpicture}[#1]
+\liftarm@constructfigure
+#2
+\end{tikzpicture}}
+\newcommand{\liftarmconstruct}[3][]{\item #2\nopagebreak
+
+\gappto\liftarm@constructfigure{#3}
+\expandafter\liftarm@construction\expandafter[\liftarm@constructoptions]{#1}
+}
+\newenvironment{liftarmconstruction}[1][]{\def\liftarm@constructoptions{#1}\def\liftarm@constructfigure{}\begin{enumerate}}{\end{enumerate}}
+\newcounter{liftarm@animatenumberofsteps}
+\newcounter{liftarm@animateframenumber}
+\newcounter{liftarm@animatestepnumber}
+\newwrite\liftarm@animatewritetimeline
+\newcounter{liftarm@animatenumberofanimation}
+\newcommand{\liftarmanimate}[4][]{%
+\liftarm@animatetrue%
+\addtocounter{liftarm@animatenumberofanimation}{1}%
+\setcounter{liftarm@animatenumberofsteps}{-1}%
+\gdef\liftarm@animateframes{}%
+\gdef\liftarm@animateframestrace{}%
+\setcounter{liftarm@animatestepnumber}{-1}%
+\foreach\liftarm@n in {#3}{%
+\addtocounter{liftarm@animatenumberofsteps}{1}%
+\gappto\liftarm@animateframes{\newframe\addtocounter{liftarm@animatestepnumber}{1}#4}%
+\xappto\liftarm@animateframes{{\liftarm@n}}%
+}%
+\patchcmd{\liftarm@animateframes}{\newframe}{}{}{}%
+\csgdef{liftarm@animatetimeline0}{c,}%
+\foreach\liftarm@n in {1,...,\theliftarm@animatenumberofsteps}{%
+\csgdef{liftarm@animatetimeline\liftarm@n}{}%
+}%
+\setcounter{liftarm@animateframenumber}{\theliftarm@animatenumberofsteps}%
+\IfFileExists{\jobname\theliftarm@animatenumberofanimation.tln}{}{%
+\immediate\openout\liftarm@animatewritetimeline=\jobname\theliftarm@animatenumberofanimation.tln%
+\immediate\write\liftarm@animatewritetimeline{::c,0}%
+\immediate\closeout\liftarm@animatewritetimeline%
+}%
+\begin{animateinline}[#1,timeline=\jobname\theliftarm@animatenumberofanimation.tln]{#2}%
+\liftarm@animateframes%
+\liftarm@animateframestrace%
+\end{animateinline}%
+\immediate\openout\liftarm@animatewritetimeline=\jobname\theliftarm@animatenumberofanimation.tln%
+\foreach\liftarm@n in {0,...,\theliftarm@animatenumberofsteps}{%
+\immediate\write\liftarm@animatewritetimeline{::\csname liftarm@animatetimeline\liftarm@n\endcsname\liftarm@n}%
+}%
+\immediate\closeout\liftarm@animatewritetimeline%
+\liftarm@animatefalse%
+}
+\endinput

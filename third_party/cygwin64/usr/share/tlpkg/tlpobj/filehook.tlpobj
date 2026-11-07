@@ -1,0 +1,27 @@
+name filehook
+category Package
+revision 64822
+shortdesc Hooks for input files
+relocated 1
+longdesc The package provides several file hooks (AtBegin, AtEnd, ...)
+longdesc for files read by \input, \include and \InputIfFileExists.
+longdesc General hooks for all such files (e.g. all \included ones) and
+longdesc file specific hooks only used for named files are provided; two
+longdesc hooks are provided for the end of \included files -- one
+longdesc before, and one after the final \clearpage.
+runfiles size=14
+ RELOC/tex/latex/filehook/filehook-2019.sty
+ RELOC/tex/latex/filehook/filehook-2020.sty
+ RELOC/tex/latex/filehook/filehook-fink.sty
+ RELOC/tex/latex/filehook/filehook-listings.sty
+ RELOC/tex/latex/filehook/filehook-memoir.sty
+ RELOC/tex/latex/filehook/filehook-scrlfile.sty
+ RELOC/tex/latex/filehook/filehook.sty
+ RELOC/tex/latex/filehook/pgf-filehook.sty
+catalogue-contact-bugs https://github.com/MartinScharrer/filehook/issues
+catalogue-contact-home https://github.com/MartinScharrer/filehook
+catalogue-contact-repository https://github.com/MartinScharrer/filehook.git
+catalogue-ctan /macros/latex/contrib/filehook
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 0.8b

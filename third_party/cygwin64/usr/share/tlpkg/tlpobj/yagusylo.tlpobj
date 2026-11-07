@@ -1,0 +1,19 @@
+name yagusylo
+category Package
+revision 29803
+shortdesc A symbol loader
+relocated 1
+longdesc The name is by way of being an acronym for "Yet Another Grand
+longdesc Unified Symbols Loader"... The package allows the user to
+longdesc access a symbol without loading the package that usually
+longdesc provides it; this has the advantage of avoiding the name
+longdesc clashes that so commonly trouble those who load
+longdesc symbol-packages.
+runfiles size=7
+ RELOC/tex/latex/yagusylo/yagusylo.cfg
+ RELOC/tex/latex/yagusylo/yagusylo.sty
+catalogue-ctan /macros/latex/contrib/yagusylo
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-supp-symbol
+catalogue-version 1.2

@@ -1,0 +1,27 @@
+name esami
+category Package
+revision 67707
+shortdesc Typeset exams with scrambled questions and answers
+relocated 1
+longdesc The package enables the user to typeset exams with multiple
+longdesc choice, open questions and many other types of exercise. Both
+longdesc questions and answers may be randomly distributed within the
+longdesc exam, and the solutions are typeset automatically. Exercises
+longdesc may contain a wide number of random parameters and it is
+longdesc possible to do arithmetical operations on them. The package is
+longdesc localised in Italian, English, French, German, Greek, Serbian,
+longdesc and Spanish.
+runfiles size=28
+ RELOC/tex/latex/esami/es-UKenglish.lng
+ RELOC/tex/latex/esami/es-USenglish.lng
+ RELOC/tex/latex/esami/es-french.lng
+ RELOC/tex/latex/esami/es-german.lng
+ RELOC/tex/latex/esami/es-greek.lng
+ RELOC/tex/latex/esami/es-italian.lng
+ RELOC/tex/latex/esami/es-serbian.lng
+ RELOC/tex/latex/esami/es-spanish.lng
+ RELOC/tex/latex/esami/esami.sty
+catalogue-ctan /macros/latex/contrib/esami
+catalogue-license lppl
+catalogue-topics exam
+catalogue-version 2.8

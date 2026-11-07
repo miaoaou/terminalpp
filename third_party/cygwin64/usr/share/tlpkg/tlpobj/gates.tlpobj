@@ -1,0 +1,29 @@
+name gates
+category Package
+revision 29803
+shortdesc Support for writing modular and customisable code
+relocated 1
+longdesc The package provides the means of writing code in a modular
+longdesc fashion: big macros or functions are divided into small chunks
+longdesc (called gates) with names, which can be externally controlled
+longdesc (e.g. they can be disabled, subjected to conditionals,
+longdesc loops...) and/or augmented with new chunks. Thus complex code
+longdesc may easily be customised without having to rewrite it, or even
+longdesc understand its implementation: the behavior of existing gates
+longdesc can be modified, and new ones can be added, without endangering
+longdesc the whole design. This allows code to be hacked in ways the
+longdesc original authors might have never envisioned. The gates package
+longdesc is implemented independently for both TeX and Lua. The TeX
+longdesc implementation, running in any current environment, requires
+longdesc the texapi package, whereas the Lua version can be run with any
+longdesc Lua interpreter, not just LuaTeX.
+runfiles size=15
+ RELOC/tex/generic/gates/gates.lua
+ RELOC/tex/generic/gates/gates.sty
+ RELOC/tex/generic/gates/gates.tex
+ RELOC/tex/generic/gates/t-gates.tex
+catalogue-ctan /macros/generic/gates
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 0.2

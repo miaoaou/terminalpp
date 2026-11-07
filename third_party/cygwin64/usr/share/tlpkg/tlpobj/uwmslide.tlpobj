@@ -1,0 +1,21 @@
+name uwmslide
+category Package
+revision 27354
+shortdesc Slides with a simple Power Point like appearance
+relocated 1
+longdesc A slide format which produces slides with a simple Power Point
+longdesc like appearance. Several useful features include: use of
+longdesc standard titlepage to produce title slide; several slide
+longdesc environments including plain (page with a title), double slide
+longdesc (two column page with slide title), item slide (item list with
+longdesc title), left item slide, and right item slide. Logos are placed
+longdesc in the upper left corner of each slide if the logo file
+longdesc logo.eps is present. Preconfigured in landscape mode by default
+longdesc and uses Times Roman by default (originally, it was claimed,
+longdesc for simple conversion to PDF format).
+runfiles size=4
+ RELOC/tex/latex/uwmslide/uwmslide.cls
+catalogue-ctan /macros/latex/contrib/uwmslide
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license artistic
+catalogue-topics presentation

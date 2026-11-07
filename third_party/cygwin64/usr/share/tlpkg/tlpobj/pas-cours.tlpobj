@@ -1,0 +1,13 @@
+name pas-cours
+category Package
+revision 55859
+shortdesc Macros useful in preparing teaching material
+relocated 1
+longdesc Several groups of macros cover different branches of
+longdesc mathematics.
+runfiles size=2
+ RELOC/tex/latex/pas-cours/pas-cours.sty
+catalogue-ctan /macros/latex/contrib/pas-cours
+catalogue-license lppl
+catalogue-topics teaching
+catalogue-version 1.9

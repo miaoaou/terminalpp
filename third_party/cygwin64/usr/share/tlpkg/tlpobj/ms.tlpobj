@@ -1,0 +1,17 @@
+name ms
+category Package
+revision 57473
+shortdesc Various LaTeX packages by Martin Schroder
+relocated 1
+longdesc The remains of a bundle of LaTeX packages by Martin Schroder;
+longdesc the collection still comprises: count1to, make use of TeX
+longdesc counters; and multitoc, typeset the table of contents in
+longdesc multiple columns. ragged2e, prelim2e, everyshi (obsolete), and
+longdesc everysel (obsolete), which used to be part of this bundle, have
+longdesc become independent packages.
+runfiles size=4
+ RELOC/tex/latex/ms/count1to.sty
+ RELOC/tex/latex/ms/multitoc.sty
+catalogue-ctan /macros/latex/contrib/ms
+catalogue-license lppl
+catalogue-topics collection

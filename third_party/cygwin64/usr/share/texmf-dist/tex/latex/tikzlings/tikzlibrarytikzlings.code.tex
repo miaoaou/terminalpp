@@ -1,0 +1,34 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% TikZ library for the tikzlings package
+% A package to bring cute little animals and other beings into tikz
+% Maintained by samcarter
+%
+% Project repository and bug tracker:
+% https://github.com/samcarter/tikzlings
+%
+% Released under the LaTeX Project Public License v1.3c or later
+% See http://www.latex-project.org/lppl.txt
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikzlings}
+
+\ExplSyntaxOn
+
+\clist_map_inline:Nn \g__tikzlings_names_clist
+  {
+    \tikzset
+      {
+        % Create a csname in the argument but don't expand it now
+        #1/.pic/.expanded = { \exp_not:c {#1} },
+        #1/.search~also = { , /tikz, /pgf, /thing },
+      }
+  }
+
+\ExplSyntaxOff
+
+\tikzset{
+  tikzling/.pic={\tikzling},
+  tikzling/.search also={,/tikz,/pgf,/thing},  
+  thing/.search also={,/tikz,/pgf},  
+}

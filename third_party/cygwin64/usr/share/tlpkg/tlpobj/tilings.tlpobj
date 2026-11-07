@@ -1,0 +1,24 @@
+name tilings
+category Package
+revision 67292
+shortdesc A TikZ library for drawing tiles and tilings
+relocated 1
+longdesc This package provides a TikZ library for working with tiles,
+longdesc tilings, and tessellations. Using it, one can define tiles,
+longdesc place tiles, deform tiles, and -- in some cases -- apply
+longdesc replacement rules to generate tessellations. It has pre-defined
+longdesc tiles for most of the Penrose tile sets and the aperiodical
+longdesc polykite tiles. This is a replacement for the penrose package,
+longdesc renamed as it now deals with more extensive tiles than just the
+longdesc Penrose tile sets.
+runfiles size=24
+ RELOC/tex/latex/tilings/tikzlibrarypenrose.code.tex
+ RELOC/tex/latex/tilings/tikzlibrarytilings.code.tex
+ RELOC/tex/latex/tilings/tikzlibrarytilings.penrose.code.tex
+ RELOC/tex/latex/tilings/tikzlibrarytilings.polykite.code.tex
+catalogue-contact-bugs https://github.com/loopspace/tilings/issues
+catalogue-contact-repository https://github.com/loopspace/tilings
+catalogue-ctan /graphics/pgf/contrib/tilings
+catalogue-license lppl1.3c
+catalogue-topics maths pgf-tikz expl3
+catalogue-version 2.0

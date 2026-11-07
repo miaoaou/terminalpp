@@ -1,0 +1,33 @@
+name uni-titlepage
+category Package
+revision 68917
+shortdesc Universal titlepages with configuration options and predefined styles
+relocated 1
+longdesc Creation of title pages is something most authors should not
+longdesc have to do. But reality is not perfect, so a lot of authors
+longdesc have to do it. This package not only provides several pages for
+longdesc the title instead of only one -- at least five are typical for
+longdesc a thesis! --, it also provides a bunch of predefined titlepage
+longdesc styles with several standard elements, and optionally
+longdesc additional elements.
+runfiles size=30
+ RELOC/tex/latex/uni-titlepage/title-DHBW.def
+ RELOC/tex/latex/uni-titlepage/title-JT-Aufsaetze.def
+ RELOC/tex/latex/uni-titlepage/title-JT-Geschichte.def
+ RELOC/tex/latex/uni-titlepage/title-JT-Typography.def
+ RELOC/tex/latex/uni-titlepage/title-KIT.def
+ RELOC/tex/latex/uni-titlepage/title-KOMAScript.def
+ RELOC/tex/latex/uni-titlepage/title-Markus-1.def
+ RELOC/tex/latex/uni-titlepage/title-Markus-2.def
+ RELOC/tex/latex/uni-titlepage/title-Spacer.def
+ RELOC/tex/latex/uni-titlepage/title-TU-DD.def
+ RELOC/tex/latex/uni-titlepage/title-TU-HH.def
+ RELOC/tex/latex/uni-titlepage/title-UKoLa.def
+ RELOC/tex/latex/uni-titlepage/title-WWUM.def
+ RELOC/tex/latex/uni-titlepage/uni-titlepage.sty
+catalogue-contact-home https://github.com/komascript/uni-titlepage
+catalogue-contact-repository https://github.com/komascript/uni-titlepage.git
+catalogue-ctan /macros/latex/contrib/uni-titlepage
+catalogue-license lppl1.3c
+catalogue-topics titlepage
+catalogue-version 1.2

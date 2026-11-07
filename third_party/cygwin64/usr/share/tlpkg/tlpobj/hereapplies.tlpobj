@@ -1,0 +1,20 @@
+name hereapplies
+category Package
+revision 68638
+shortdesc A LaTeX package for referencing groups of pages that share something in common
+relocated 1
+longdesc Here Applies is a LaTeX package that allows to collect groups
+longdesc of labels and reference them altogether. It can be used for
+longdesc creating informal glossaries that cross-link concepts to their
+longdesc applications, or simply mentioning multiple pages that share
+longdesc something in common.
+runfiles size=5
+ RELOC/tex/latex/hereapplies/hereapplies.sty
+catalogue-contact-announce https://github.com/madmurphy/hereapplies.sty/releases
+catalogue-contact-bugs https://github.com/madmurphy/hereapplies.sty/issues
+catalogue-contact-development https://github.com/madmurphy
+catalogue-contact-repository https://github.com/madmurphy/hereapplies.sty
+catalogue-ctan /macros/latex/contrib/hereapplies
+catalogue-license gpl3+
+catalogue-topics label-ref
+catalogue-version 1.0.2

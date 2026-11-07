@@ -1,0 +1,25 @@
+name pgf-spectra
+category Package
+revision 66961
+shortdesc Draw continuous or discrete spectra using PGF/TikZ
+relocated 1
+longdesc The purpose of this package is to draw the spectra of elements
+longdesc in a simple way. It is based on the package pst-spectra, but
+longdesc with some extra options. It relies on PGF/TikZ for drawing the
+longdesc desired spectrum, continuous or discrete. There are data
+longdesc available for the spectra of 98 elements and their ions (from
+longdesc the NASA database and from NIST). It also allows the user to
+longdesc draw spectra using their own data.
+runfiles size=280
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.data.LSE.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.data.NIST.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.input.library.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.library.data.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.library.pgfplots.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.library.rainbow.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.library.tempercolor.tex
+ RELOC/tex/latex/pgf-spectra/pgf-spectra.sty
+catalogue-ctan /graphics/pgf/contrib/pgf-spectra
+catalogue-license lppl1.3
+catalogue-topics physics pgf-tikz
+catalogue-version 3.0.1

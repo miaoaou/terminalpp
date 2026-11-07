@@ -1,0 +1,25 @@
+name probsoln
+category Package
+revision 44783
+shortdesc Generate problem sheets and their solution sheets
+relocated 1
+longdesc The package is designed for lecturers who have to generate new
+longdesc problem sheets for their students on a regular basis (e.g.
+longdesc yearly) by randomly selecting a specified number of problems
+longdesc defined in another file. The package allows you easily to
+longdesc generate a new problem sheet that is different from the
+longdesc previous year, thus alleviating the temptation of students to
+longdesc seek out the previous year's students and checking out their
+longdesc answers. The solutions to the problems can be defined along
+longdesc with the problem, making it easy to generate the solution sheet
+longdesc from the same source code; problems may be reused within a
+longdesc document, so that solutions may appear in a different section
+longdesc of the same document as the problems they cover.
+runfiles size=8
+ RELOC/tex/latex/probsoln/probsoln.sty
+catalogue-contact-bugs http://www.dickimaw-books.com/cgi-bin/bugtracker.cgi?category=probsoln
+catalogue-ctan /macros/latex/contrib/probsoln
+catalogue-date 2017-07-10 15:22:13 +0200
+catalogue-license lppl
+catalogue-topics exercise
+catalogue-version 3.05

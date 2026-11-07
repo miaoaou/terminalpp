@@ -1,0 +1,125 @@
+%%
+%% This is file `unicodefont.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% unicodefonttable.dtx  (with options: `standalone')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright 2019-2024 Frank Mittelbach
+%% 
+%% This file was generated from file(s) of the LaTeX `unicodefonttable Bundle'.
+%% --------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `unicodefonttable Bundle'. You may however distribute the `unicodefonttable Bundle'
+%% without such generated files.
+%% 
+%% The newest sources can be found below
+%% 
+%%    https://github.com/FrankMittelbach/fmitex-unicodetable
+%% 
+%% where one can also log issues in case there are any.
+%% 
+%% 
+%%%%% \iffalse meta-comment
+%% File: unicodefonttable.dtx (C) Copyright 2019-2024 Frank Mittelbach
+
+\def\unicodefonttabledate   {2024/03/01}
+\def\unicodefonttableversion{1.0h}
+
+
+\documentclass{article}
+\setlength\textwidth{470pt}
+\setlength\oddsidemargin{0pt}
+\addtolength\textheight{7\baselineskip}
+\addtolength\topmargin{-3\baselineskip}
+\usepackage{unicodefonttable}
+\def\DEFAULTfontname{Latin Modern Roman}
+\def\DEFAULTfontfeatures{}
+\def\DEFAULTtableconfig{}
+\def\DEFAULTunicodefont{}
+\begin{document}
+\typeout{^^J}
+\ifx\generatetable\undefined
+\else
+  \typein[\answer]{^^JReuse settings from last time (default yes)?^^J^^J%
+    [ font name = \DEFAULTfontname^^J
+      \space unicode? =  \ifx\DEFAULTunicodefont\empty yes^^J
+                           \space font features = \DEFAULTfontfeatures
+                         \else no\fi^^J
+      \space table config = \DEFAULTtableconfig \space]}
+\fi
+\ifx\answer\empty
+  \let\FontNameToTable\DEFAULTfontname
+  \let\IsUnicodeFont\DEFAULTunicodefont
+  \let\FontFeaturesToApply\DEFAULTfontfeatures
+  \let\TableConfigurationToApply\DEFAULTtableconfig
+\else
+\typein[\FontNameToTable]%
+       {^^JInput external font name as understood by fontspec, e.g.,^^J%
+         'TeX Gyre Pagella' or 'lmroman10-regular.otf'%
+         \ifx\DEFAULTfontname\empty\else
+            ^^J^^J[default \DEFAULTfontname]\fi:}
+\ifx\FontNameToTable\empty \let\FontNameToTable\DEFAULTfontname \fi
+\typein[\IsUnicodeFont]%
+       {^^JIs this a Unicode font?^^J^^J%
+        \ifx\DEFAULTunicodefont\empty  [default yes]\else [default no]\fi:}
+\ifx\IsUnicodeFont\empty
+    \let\IsUnicodeFont\DEFAULTunicodefont
+\else
+  \ifx\DEFAULTunicodefont\empty
+  \else
+     \let\IsUnicodeFont\empty
+  \fi
+\fi
+\ifx\IsUnicodeFont\empty
+  \typein[\FontFeaturesToApply]%
+         {^^JInput font feature key/value list to apply%
+           \ifx\DEFAULTfontfeatures\empty\else
+           ^^J^^J[default \DEFAULTfontfeatures]\fi:}
+  \ifx\FontFeaturesToApply\empty \let\FontFeaturesToApply\DEFAULTfontfeatures \fi
+\else
+  \let\FontFeaturesToApply\DEFAULTfontfeatures
+\fi
+\typein[\TableConfigurationToApply]%
+       {^^JInput table configuration key/value list to apply%
+        \ifx\DEFAULTtableconfig\empty\else
+          ^^J^^J[default
+          \expandafter\detokenize\expandafter{\DEFAULTtableconfig}]\fi:}
+\ifx\TableConfigurationToApply\empty
+  \let\TableConfigurationToApply\DEFAULTtableconfig
+\fi
+\edef\generatetable{\noexpand\displayfonttable
+  \ifx\IsUnicodeFont\empty\else *\fi
+  \ifx\TableConfigurationToApply\empty\else
+      [\expandafter\unexpanded\expandafter{\TableConfigurationToApply}]\fi
+  {\FontNameToTable}%
+  \ifx\FontFeaturesToApply\empty\else[\FontFeaturesToApply]\fi
+}
+\fi
+\makeatletter
+\protected@write\@auxout{}{\gdef\string\generatetable
+     {\expandafter\detokenize\expandafter{\generatetable}}}
+\protected@write\@auxout{}{\gdef\string\DEFAULTfontname{\FontNameToTable}}
+\protected@write\@auxout{}{\gdef\string\DEFAULTunicodefont{\IsUnicodeFont}}
+\protected@write\@auxout{}{\gdef\string\DEFAULTfontfeatures{\FontFeaturesToApply}}
+\protected@write\@auxout{}{\gdef\string\DEFAULTtableconfig
+                  {\expandafter\detokenize\expandafter{\TableConfigurationToApply}}}
+\makeatother
+\generatetable
+\end{document}
+
+\endinput
+%%
+%% End of file `unicodefont.tex'.

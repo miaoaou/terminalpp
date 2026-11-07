@@ -1,0 +1,17 @@
+name latexcolors
+category Package
+revision 49888
+shortdesc Use color definitions from latexcolor.com
+relocated 1
+longdesc Built on top of the xcolor package, the latexcolors package
+longdesc defines the set of colors shown on latexcolor.com for use in
+longdesc documents typeset with LaTeX & friends.
+runfiles size=10
+ RELOC/tex/latex/latexcolors/latexcolors.sty
+catalogue-contact-bugs https://github.com/tcpluess/latexcolors/issues
+catalogue-contact-repository https://github.com/tcpluess/latexcolors
+catalogue-ctan /macros/latex/contrib/latexcolors
+catalogue-date 2019-01-30 22:22:09 +0100
+catalogue-license lppl1.3
+catalogue-topics colour
+catalogue-version 0.1a

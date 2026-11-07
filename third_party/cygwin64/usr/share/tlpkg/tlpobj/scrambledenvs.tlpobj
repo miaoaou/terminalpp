@@ -1,0 +1,20 @@
+name scrambledenvs
+category Package
+revision 60615
+shortdesc Create and print scrambled environments
+relocated 1
+longdesc This package allows you to create and print scrambled
+longdesc environments for purposes such as randomized hint environments.
+longdesc You can mark a location with a series of hints, and then print
+longdesc the hints at the end in a pseudo-random order. The general
+longdesc structure follows: there is an outer environment which creates
+longdesc the label, an inner environment that creates the references,
+longdesc and a print command that prints out all of the hints. This
+longdesc generalizes beyond hints; one can create scrambled solutions as
+longdesc well, etc.
+runfiles size=3
+ RELOC/tex/latex/scrambledenvs/scrambledenvs.sty
+catalogue-ctan /macros/latex/contrib/scrambledenvs
+catalogue-license lppl1.3
+catalogue-topics notes random
+catalogue-version 1.1.0

@@ -1,0 +1,20 @@
+name paper
+category Package
+revision 34521
+shortdesc Versions of article class, tuned for scholarly publications
+relocated 1
+longdesc A pair of classes derived from article, tuned for producing
+longdesc papers for journals. The classes introduce new layout options
+longdesc and font commands for sections/parts, and define a new keywords
+longdesc environment, subtitle and institution commands for the title
+longdesc section and new commands for revisions.
+runfiles size=12
+ RELOC/tex/latex/paper/journal.cls
+ RELOC/tex/latex/paper/journal.sty
+ RELOC/tex/latex/paper/paper.cls
+ RELOC/tex/latex/paper/paper.sty
+catalogue-ctan /macros/latex/contrib/paper
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics journalpub
+catalogue-version 1.0l

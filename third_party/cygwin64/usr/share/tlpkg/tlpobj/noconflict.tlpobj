@@ -1,0 +1,16 @@
+name noconflict
+category Package
+revision 30140
+shortdesc Resolve macro name conflict between packages
+relocated 1
+longdesc The package provides several commands to prefix (and hence
+longdesc obscure) a macro's (or a sequence of macros') name, and to
+longdesc restore the original macro(s) at places in a document where
+longdesc they are needed.
+runfiles size=1
+ RELOC/tex/latex/noconflict/noconflict.sty
+catalogue-ctan /macros/latex/contrib/noconflict
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 1.0

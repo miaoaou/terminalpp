@@ -1,0 +1,21 @@
+name litetable
+category Package
+revision 70352
+shortdesc Class schedules with colorful course blocks
+relocated 1
+longdesc This template provides a beautiful design of class schedule
+longdesc with colorful course blocks. If you find bugs when using this
+longdesc template, or if you have better suggestions or ideas, or want
+longdesc to participate in the development of the template or other
+longdesc templates by me, welcome to contact me via email
+longdesc xiamyphys@gmail.com.
+runfiles size=3
+ RELOC/tex/latex/litetable/litetable.cls
+catalogue-contact-bugs https://github.com/xiamyphys/LiteTable/issues
+catalogue-contact-development https://github.com/xiamyphys
+catalogue-contact-repository https://github.com/xiamyphys/LiteTable
+catalogue-contact-support https://qm.qq.com/q/RGFmHwBecC
+catalogue-ctan /macros/latex/contrib/litetable
+catalogue-license lppl1.3c
+catalogue-topics table class doc-templ
+catalogue-version 2.4c

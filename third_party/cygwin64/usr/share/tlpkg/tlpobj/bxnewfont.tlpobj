@@ -1,0 +1,20 @@
+name bxnewfont
+category Package
+revision 44173
+shortdesc Enhanced \newfont command
+relocated 1
+longdesc This package provides a new command \newfontx. It is similar to
+longdesc the old (and deprecated) command \newfont in function, but is
+longdesc more compatible with NFSS. In particular, one can safely change
+longdesc font size after invoking a font command defined by \newfontx.
+longdesc The new command will be useful to users who know much of the
+longdesc old \newfont command, but are unfamiliar with the details of
+longdesc NFSS.
+runfiles size=4
+ RELOC/tex/latex/bxnewfont/bxnewfont.sty
+catalogue-contact-home https://github.com/zr-tex8r/BXnewfont
+catalogue-ctan /macros/latex/contrib/bxnewfont
+catalogue-date 2017-05-02 23:06:45 +0200
+catalogue-license mit
+catalogue-topics font-sel
+catalogue-version 0.2b

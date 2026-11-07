@@ -1,0 +1,15 @@
+name tikzscale
+category Package
+revision 30637
+shortdesc Resize pictures while respecting text size
+relocated 1
+longdesc The package extends the \includegraphics command to support
+longdesc tikzpictures. It allows scaling of TikZ images and PGFPlots to
+longdesc a given width or height without changing the text size.
+runfiles size=5
+ RELOC/tex/latex/tikzscale/tikzscale.sty
+catalogue-ctan /graphics/pgf/contrib/tikzscale
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-supp
+catalogue-version 0.2.6

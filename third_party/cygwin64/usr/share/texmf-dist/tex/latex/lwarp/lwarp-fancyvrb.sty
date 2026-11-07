@@ -1,0 +1,518 @@
+%%
+%% This is file `lwarp-fancyvrb.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lwarp.dtx  (with options: `fancyvrb')
+%% This is a generated file.
+%% Copyright 2016-2022 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+\AtBeginDocument{\RequirePackage{xcolor}}% for \convertcolorspec
+
+\LWR@ProvidesPackagePass{fancyvrb}[2023/11/06]
+\fvset{frame=none}%
+
+\define@key{FV}{gobble}{%
+  \@tempcnta=#1\relax
+  \ifnum\@tempcnta<\@ne
+    \let\FV@Gobble\relax
+  \else
+    \ifnum\@tempcnta>9
+      \FV@Error{gobble parameter must be less than 10}\FV@eha
+    \else
+      \renewcommand{\FV@@@@Gobble}[\@tempcnta]{}%
+      \let\FV@Gobble\FV@@Gobble%
+      \boolfalse{LWR@HTMLsanitize@tmpb@enable}%     lwarp
+    \fi
+  \fi}
+
+\ifxetexorluatex
+\def\LWR@HTML@FancyVerbSpace{\textvisiblespace}
+\else
+\@ifundefined{verbvisiblespace}%
+  {%
+    \@ifundefined{textvisiblespace}%
+    {\begingroup\catcode`\ =12 \gdef\LWR@HTML@FancyVerbSpace{\tt }\endgroup}
+    {\def\LWR@HTML@FancyVerbSpace{\textvisiblespace}}
+  }%
+  {\def\LWR@HTML@FancyVerbSpace{\verbvisiblespace}}
+\fi
+\LWR@formatted{FancyVerbSpace}
+
+\def\LWR@print@FancyVerbTab{|}
+\def\LWR@HTML@FancyVerbTab{|}%
+\LWR@formatted{FancyVerbTab}
+
+\fvset{tabsize=8,showtabs=false}
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@CatCodes}{BF2C1F38D5FEF0658C18B636ACBDA40E}
+
+\def\FV@CatCodes{%
+  \let\do\@makeother\dospecials  % The usual stuff.
+  \FV@ActiveWhiteSpace           % See below.
+  \FV@FontScanPrep               % See below.
+  \FV@CatCodesHook               % A style hook.
+  \FancyVerbCodes                % A user-defined hook.
+  \catcode`\>=12%                % lwarp
+  \catcode`\<=12%                % lwarp
+}
+\VerifyCommand[lwarp][fancyvrb]{\FV@GetLine}{9B86134119C575F099B5B567A9B65A9F}
+
+\def\FV@GetLine{%
+    \@noligs%
+    \catcode`\>=12%     lwarp, and the next line as well
+    \catcode`\<=12
+    \expandafter\FV@CheckScan\FancyVerbGetLine%
+}
+
+\VerifyCommand[lwarp][fancyvrb]{\FancyVerbGetLine}{498B88BACBD0811BAC0791BDF4F3B335}
+
+\begingroup
+\catcode`\^^M=\active%
+\gdef\FancyVerbGetLine#1^^M{%
+  \@nil%
+  \FV@CheckEnd{#1}%
+  \ifx\@tempa\FV@EnvironName%            % True if end is found
+    \ifx\@tempb\FV@@@CheckEnd\else\FV@BadEndError\fi%
+    \let\next\FV@EndScanning%
+  \else%
+    \ifbool{LWR@HTMLsanitize@tmpb@enable}%                 lwarp
+        {\def\FV@Line{\LWR@HTMLsanitize@use@tmpb{#1}}}%     lwarp
+        {\def\FV@Line{#1}}%                                 lwarp
+    \def\next{\FV@PreProcessLine\FV@GetLine}%
+  \fi%
+  \next}%
+\endgroup
+\VerifyCommand[lwarp][fancyvrb]{\FV@List}{8FB649FAF7C9487B257B76AF4FFB27D1}
+
+\def\FV@List#1{%
+  \begingroup
+  \FV@UseKeyValues
+  \FV@LeaveVMode
+  \if@inlabel\else\setbox\@labels=\box\voidb@x\fi
+  \FV@ListNesting{#1}%
+  \FV@ListParameterHook
+  \FV@ListVSpace
+  \FV@SetLineWidth
+  \FV@InterLinePenalty
+  \let\FV@ProcessLine\FV@ListProcessLine%           lwarp
+  \FV@CatCodes
+  \FV@FormattingPrep
+  \FV@ObeyTabsInit
+  \FV@BeginListFrame}
+\VerifyCommand[lwarp][fancyvrb]{\FV@ListProcessLine}{660F9938234FC1043ACF7B02B3F37372}
+
+\def\FV@ListProcessLine#1{%
+   \hbox to \hsize{%
+      \hbox to \VerbatimHTMLWidth {%
+       \ifcsvoid{FV@LeftListNumber}{}{\kern 2.5em}%
+        \FV@LeftListNumber%
+      \FancyVerbFormatLine{#1}%
+      \hss%
+      \FV@RightListNumber%
+    }%
+      \hss% required to avoid underfull hboxes
+}
+}
+
+\VerifyCommand[lwarp][fancyvrb]{\FVC@SaveVerb}{68373ED055890622906844A5611810C8}
+
+\begingroup
+\catcode`\^^M=\active%
+\gdef\FVC@SaveVerb#1#2{%
+  \@namedef{FV@SV@#1}{}%
+  \begingroup%
+    \FV@UseKeyValues%
+    \FV@CatCodes%
+    \outer\def^^M{\FV@EOL}%
+    \global\let\@tempg\FancyVerbAfterSave%
+    \catcode`#2=12%
+    \def\@tempa{\def\FancyVerbGetVerb####1####2}%
+    \expandafter\@tempa\string#2{%
+        \endgroup%
+        \@namedef{FV@SV@#1}{%
+            \LWR@HTMLsanitize@use@tmpb{##2}%    lwarp
+        }\@tempg%
+    }%
+    \FancyVerbGetVerb\FV@EOL}%
+\endgroup
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@UseVerb}{A3A9D802CCDBEC8D2FDAB626346B5EDD}
+
+\def\FV@UseVerb#1{%
+    \ifbool{LWR@verbtags}%              lwarp
+        {\LWR@htmltag{span class=\textquotedbl{}fancyvrb\textquotedbl}}% lwarp
+        {}%                             lwarp
+    \mbox{\FV@UseKeyValues\FV@FormattingPrep#1}%
+    \ifbool{LWR@verbtags}%              lwarp
+        {\LWR@htmltag{/span}}%          lwarp
+        {}%                             lwarp
+}
+
+\VerifyCommand[lwarp][fancyvrb]{\FVC@Verb}{806B03D5A78CAB39E0514667991695C9}
+
+\begingroup
+\catcode`\^^M=\active%
+\gdef\FVC@Verb#1{%
+  \begingroup%
+    \FV@UseKeyValues%
+    \FV@FormattingPrep%
+    \FV@CatCodes%
+    \outer\def^^M{}%
+    \catcode`#1=12%
+    \def\@tempa{\def\FancyVerbGetVerb####1####2}%
+    \expandafter\@tempa\string#1{%
+        \ifbool{LWR@verbtags}%                  lwarp
+            {%                                  lwarp
+                \LWR@htmltag{span class=\textquotedbl{}fancyvrb\textquotedbl}%  lwarp
+                \def\tmpb{##2}%                 lwarp
+                \LWR@HTMLsanitize@tmpb%         lwarp
+                \mbox{\tmpb}%                   lwarp
+                \LWR@htmltag{/span}%            lwarp
+            }% lwarp
+            {\mbox{##2}}%
+        \endgroup%
+    }%
+    \FancyVerbGetVerb\FV@EOL%
+}%
+\endgroup
+\VerifyCommand[lwarp][fancyvrb]{\FV@ReadLine}{3C3481D735295DAEB5B30DDE9152287D}
+
+\begingroup
+\catcode`\^^M=\active
+\gdef\FV@ReadLine{%
+  \ifeof\FV@InFile\else
+    \immediate\read\FV@InFile to\tmpb%
+    \LWR@HTMLsanitize@tmpb%
+    \expandafter\FV@@ReadLine\tmpb^^M\relax^^M\@nil%
+  \fi}
+\endgroup
+\newcommand*{\LWR@FVstyle}{}
+\AfterEndPreamble{
+
+\LWR@traceinfo{Patching fancyvrb.}
+
+\VerifyCommand[lwarp][fancyvrb]{\VerbatimFootnotes}{931C9BE6284EB9D8B1516D566C997A87}
+
+\def\VerbatimFootnotes{%
+    \let\@footnotetext\V@footnotetext%
+    \let\footnote\V@footnote%
+    \let\LWR@footnotetext\V@footnotetext% lwarp
+}
+\VerifyCommand[lwarp][fancyvrb]{\V@@footnotetext}{89E1586855997F951F57C3936CBDF87E}
+
+\def\V@@footnotetext{%
+\LWR@traceinfo{V@footnotetext}%
+    \LWR@newautopagelabel{page}%
+    \global\setbox\LWR@footnotebox=\vbox\bgroup%
+    \unvbox\LWR@footnotebox%
+    \protected@edef\@currentlabel{%
+        \csname p@footnote\endcsname\@thefnmark%
+    }% @currentlabel
+    \renewrobustcmd{\textsuperscript}[1]{\LWR@htmlspan{sup}{##1}}%
+    \booltrue{LWR@verbtags}%
+    \booltrue{LWR@HTMLsanitize@tmpb@enable}%
+
+    \LWR@htmltagc{\LWR@tagregularparagraph}\LWR@orignewline%
+    \@makefntext{}%
+    \bgroup%
+    \aftergroup\V@@@footnotetext%
+    \let\LWR@newautopagelabel\LWR@null@newautopagelabel%
+    \ignorespaces%
+}%
+\def\V@@@footnotetext{%
+    \LWR@orignobreakspace\LWR@orignewline%
+    \LWR@htmltagc{/\LWR@tagregularparagraph}\LWR@orignewline%
+    \strut\egroup%
+}
+\preto\FVB@Verbatim{\LWR@forcenewpage}
+\preto\FVB@LVerbatim{\LWR@forcenewpage}
+\def\LWR@HTML@FV@BeginListFrame@Single{%
+  \FV@SingleFrameLine{\z@}%
+}
+\LWR@formatted{FV@BeginListFrame@Single}
+
+\def\LWR@HTML@FV@EndListFrame@Single{%
+  \FV@SingleFrameLine{\@ne}%
+}
+\LWR@formatted{FV@EndListFrame@Single}
+
+\def\LWR@HTML@FV@BeginListFrame@Lines{%
+  \FV@SingleFrameLine{\z@}%
+}
+\LWR@formatted{FV@BeginListFrame@Lines}
+
+\def\LWR@HTML@FV@EndListFrame@Lines{%
+    \FV@SingleFrameLine{\@ne}%
+}
+\LWR@formatted{FV@EndListFrame@Lines}
+
+\newcommand*{\LWR@HTML@FV@SingleFrameSep}{}%
+\LWR@formatted{FV@SingleFrameSep}
+
+\newcommand*{\LWR@fvstartnone}{%
+\LWR@traceinfo{fvstartnone}%
+    \ifdefstring{\LWR@FVstyle}{\LWR@currenttextcolorstyle}%
+        {%
+            \LWR@findcurrenttextcolor%
+            \ifdefstring{\LWR@tempcolor}{000000}%
+                {\BlockClass{fancyvrb}}%
+                {\BlockClass[\LWR@FVstyle]{fancyvrb}}%
+        }%
+        {%
+            \BlockClass[\LWR@FVstyle]{fancyvrb}%
+        }%
+\LWR@stoppars
+\ifx\FV@LabelPositionTopLine\relax\else
+    \ifx\FV@LabelBegin\relax\else
+        \FancyVerbRuleColor{\LWR@FVfindbordercolor}
+        \ifbool{LWR@verbtags}%      lwarp
+            {%                      lwarp
+                \LWR@findcurrenttextcolor%
+                \LWR@htmltagc{%     lwarp
+                    div class=\textquotedbl{}fancyvrblabel\textquotedbl\ % space
+                        style=\textquotedbl{}%
+                            color: \LWR@origpound\LWR@tempcolor%
+                        \textquotedbl%
+                }%
+                \LWR@orignewline%   lwarp
+            }%                      lwarp
+            {}%                     lwarp
+        \LWR@print@textrm{\FV@LabelBegin}% \textrm preserves emdash
+        \LWR@orignewline%               lwarp
+        \ifbool{LWR@verbtags}%          lwarp
+            {%                          lwarp
+                \LWR@htmltagc{/div}%    lwarp
+                \LWR@orignewline%       lwarp
+            }%                          lwarp
+            {}%                         lwarp
+    \fi
+\fi
+\LWR@atbeginverbatim{verbatim}%
+}
+
+\newcommand*{\LWR@fvendnone}{%
+\LWR@traceinfo{fvendnone}%
+\LWR@afterendverbatim%
+\LWR@stoppars%
+\ifx\FV@LabelPositionBottomLine\relax\else
+    \ifx\FV@LabelEnd\relax\else
+        \FancyVerbRuleColor{\LWR@FVfindbordercolor}%    lwarp
+        \ifbool{LWR@verbtags}%                          lwarp
+            {%                                          lwarp
+                \LWR@findcurrenttextcolor%
+                \LWR@htmltagc{%                 lwarp
+                    div class=\textquotedbl{}fancyvrblabel\textquotedbl\ % space
+                        style=\textquotedbl{}%
+                            color: \LWR@origpound\LWR@tempcolor%
+                        \textquotedbl%
+                }%
+                \LWR@orignewline%               lwarp
+            }%                                  lwarp
+            {}%                                 lwarp
+        \LWR@print@textrm{\FV@LabelEnd}%        lwarp
+        \LWR@orignewline%                       lwarp
+        \ifbool{LWR@verbtags}%                  lwarp
+            {%                                  lwarp
+                \LWR@htmltagc{/div}%            lwarp
+                \LWR@orignewline%               lwarp
+            }%                                  lwarp
+            {}%                                 lwarp
+    \fi
+\fi
+\endBlockClass%     lwarp
+}
+
+\newcommand*{\LWR@fvstartsingle}{%
+\LWR@traceinfo{fvstartsingle}%
+\LWR@fvstartnone%
+\FV@BeginListFrame@Single%
+}
+
+\newcommand*{\LWR@fvendsingle}{%
+\LWR@traceinfo{fvendsingle}%
+\FV@EndListFrame@Single%
+\LWR@fvendnone%
+}
+
+\newcommand*{\LWR@fvstartline}{%
+\LWR@traceinfo{fvstartline}%
+\LWR@fvstartnone%
+\FV@BeginListFrame@Lines%
+}
+
+\newcommand*{\LWR@fvendline}{%
+\LWR@traceinfo{fvendline}%
+\FV@EndListFrame@Lines%
+\LWR@fvendnone%
+}
+\newcommand*{\LWR@FVfindbordercolor}{%
+\FancyVerbRuleColor%
+\LWR@findcurrenttextcolor%
+\color{black}%
+}
+
+\newcommand*{\LWR@FVborderstyle}[1]{%
+padding#1: \strip@pt\dimexpr \FV@FrameSep\relax\relax pt ; % space
+\LWR@FVfindbordercolor\LWR@indentHTMLtwo%
+border#1: \strip@pt\dimexpr \FV@FrameRule\relax\relax pt % space
+solid {\FancyVerbRuleColor{\LWR@origpound\LWR@tempcolor}} ; % space
+}
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@none}{C60E1656944AB4C4D2B74410E88FE7C0}
+
+\def\LWR@HTML@FV@Frame@none{%
+\renewcommand*{\LWR@FVstyle}{\LWR@currenttextcolorstyle}%   lwarp
+\let\FV@BeginListFrame\LWR@fvstartnone%
+\let\FV@LeftListFrame\relax%
+\let\FV@RightListFrame\relax%
+\let\FV@EndListFrame\LWR@fvendnone}
+\LWR@formatted{FV@Frame@none}
+
+\FV@Frame@none% default values
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@single}{CDF78DB9C6408F48D05302D07091C629}
+
+\def\LWR@HTML@FV@Frame@single{%
+\renewcommand*{\LWR@FVstyle}{%
+    \LWR@currenttextcolorstyle\LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{}%
+}%
+\let\FV@BeginListFrame\LWR@fvstartsingle%
+\let\FV@LeftListFrame\FV@LeftListFrame@Single%
+\let\FV@RightListFrame\FV@RightListFrame@Single%
+\let\FV@EndListFrame\LWR@fvendsingle}
+\LWR@formatted{FV@Frame@single}
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@lines}{1AADD6691DA93C9A66227F5C5B34EAE4}
+
+\def\LWR@HTML@FV@Frame@lines{%
+\renewcommand*{\LWR@FVstyle}{%
+    \LWR@currenttextcolorstyle\LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{-top}%
+    \LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{-bottom}%
+}%
+\let\FV@BeginListFrame\LWR@fvstartline%
+\let\FV@LeftListFrame\relax%
+\let\FV@RightListFrame\relax%
+\let\FV@EndListFrame\LWR@fvendline}
+\LWR@formatted{FV@Frame@lines}
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@topline}{7E102D81F4FD367B398B8E85F48A7754}
+
+\def\LWR@HTML@FV@Frame@topline{%
+\renewcommand*{\LWR@FVstyle}{%
+    \LWR@currenttextcolorstyle\LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{-top}%
+}%
+\let\FV@BeginListFrame\LWR@fvstartline%
+\let\FV@LeftListFrame\relax%
+\let\FV@RightListFrame\relax%
+\let\FV@EndListFrame\LWR@fvendnone}
+\LWR@formatted{FV@Frame@topline}
+
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@bottomline}{A51600F812F57F4211EF9E34F261564A}
+
+\def\LWR@HTML@FV@Frame@bottomline{%
+\renewcommand*{\LWR@FVstyle}{%
+    \LWR@currenttextcolorstyle\LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{-bottom}%
+}%
+\let\FV@BeginListFrame\LWR@fvstartnone%
+\let\FV@LeftListFrame\relax%
+\let\FV@RightListFrame\relax%
+\let\FV@EndListFrame\LWR@fvendline}
+\LWR@formatted{FV@Frame@bottomline}
+\def\FV@FrameFillLine{}
+\VerifyCommand[lwarp][fancyvrb]{\FV@Frame@leftline}{2A77982C6520FD64F6DBFA1C03B670BA}
+
+\def\LWR@HTML@FV@Frame@leftline{%
+\renewcommand*{\LWR@FVstyle}{%
+    \LWR@currenttextcolorstyle\LWR@indentHTMLtwo%
+    \LWR@FVborderstyle{-left}%
+}%
+\ifx\FancyVerbFillColor\relax%
+\let\FV@FrameFillLine\relax%
+\else%
+\@tempdima\FV@FrameRule\relax%
+\multiply\@tempdima-\tw@%
+\edef\FV@FrameFillLine{%
+{\noexpand\FancyVerbFillColor{\vrule\@width\number\@tempdima sp}%
+\kern-\number\@tempdima sp}}%
+\fi%
+\let\FV@BeginListFrame\LWR@fvstartnone%
+\let\FV@LeftListFrame\FV@LeftListFrame@Single%
+\let\FV@RightListFrame\relax%
+\let\FV@EndListFrame\LWR@fvendnone}
+\LWR@formatted{FV@Frame@leftline}
+\VerifyCommand[lwarp][fancyvrb]{\FV@SingleFrameLine}{2D8B1DAED851500F255E357437FF065C}
+
+\def\LWR@HTML@FV@SingleFrameLine#1{%
+    \ifnum#1=\z@\relax
+      \let\FV@Label\FV@LabelBegin
+    \else
+      \let\FV@Label\FV@LabelEnd
+    \fi
+    \ifx\FV@Label\relax
+    \else
+      \ifnum#1=\z@
+        \ifx\FV@LabelPositionTopLine\relax
+        \else
+        \fi
+      \else
+        \ifx\FV@LabelPositionBottomLine\relax
+        \else
+        \fi
+      \fi
+    \fi
+}
+\LWR@formatted{FV@SingleFrameLine}
+
+\xpretocmd{\FV@BeginVBox}
+    {%
+        \LWR@forcenewpage%
+        \LWR@atbeginverbatim{bverbatim}%
+    }
+    {}
+    {\LWR@patcherror{fancyvrb}{FV@BeginVBox}}
+
+\xapptocmd{\FV@EndVBox}
+    {%
+        \LWR@afterendverbatim%
+    }
+    {}
+    {\LWR@patcherror{fancyvrb}{FV@EndVBox}}
+
+} % \AfterEndPreamble
+
+\VerifyCommand[lwarp][fancyvrb]{\FVB@VerbatimOut}{A0AC591D2DB283DCEBCCC75968FF88CF}
+
+\def\FVB@VerbatimOut#1{%
+  \@bsphack
+  \begingroup
+    \FV@UseKeyValues
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \def\FV@ProcessLine{\immediate\write\FV@OutFile}%
+    \immediate\openout\FV@OutFile #1\relax
+    \let\FV@FontScanPrep\relax
+%% DG/SR modification begin - May. 18, 1998 (to avoid problems with ligatures)
+    \let\@noligs\relax
+%% DG/SR modification end
+  \boolfalse{LWR@HTMLsanitize@tmpb@enable}%        lwarp
+    \FV@Scan}
+
+
+\endinput
+%%
+%% End of file `lwarp-fancyvrb.sty'.

@@ -1,0 +1,14 @@
+name bxeepic
+category Package
+revision 30559
+shortdesc Eepic facilities using pict2e
+relocated 1
+longdesc The package provides an eepic driver to use pict2e facilities.
+runfiles size=7
+ RELOC/tex/latex/bxeepic/bxdpxp2e.def
+ RELOC/tex/latex/bxeepic/bxeepic.sty
+catalogue-ctan /macros/latex/contrib/bxeepic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics graphics-in-tex
+catalogue-version 0.2

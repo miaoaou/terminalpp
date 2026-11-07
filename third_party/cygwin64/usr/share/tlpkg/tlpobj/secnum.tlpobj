@@ -1,0 +1,15 @@
+name secnum
+category Package
+revision 61813
+shortdesc A macro to format section numbering intuitively
+relocated 1
+longdesc This package provides a macro \setsecnum to format section
+longdesc numbering intuitively. \setsecnum{1.1.1} will set the section
+longdesc numbering format to arabic.arabic.arabic and the depth to 3.
+longdesc The package uses LaTeX3.
+runfiles size=3
+ RELOC/tex/latex/secnum/secnum.sty
+catalogue-contact-repository https://github.com/GauSyu/secnum
+catalogue-ctan /macros/latex/contrib/secnum
+catalogue-license lppl1.3c
+catalogue-topics headings expl3

@@ -1,0 +1,10 @@
+% SPDX-License-Identifier: GPL-2.0-only OR LPPL-1.3c
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{pgf-umlcd}[2022/05/22 v0.3 Some LaTeX macros for UML Class Diagrams.]
+
+\RequirePackage{tikz}
+\usetikzlibrary{umlcd}
+
+\DeclareOption{school}{\tikzset{umlcd style school/.style={rounded corners}}\pgfumlcd@schooltrue}
+\DeclareOption{simplified}{\pgfumlcd@simplifiedtrue}
+\ProcessOptions\relax

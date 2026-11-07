@@ -1,0 +1,1423 @@
+%%
+%% This is file `glossary-table.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% glossaries-extra.dtx  (with options: `glossary-table.sty,package')
+%% 
+%%  glossaries-extra.dtx
+%%  Copyright 2023 Nicola Talbot
+%% 
+%%  This work may be distributed and/or modified under the
+%%  conditions of the LaTeX Project Public License, either version 1.3
+%%  of this license or (at your option) any later version.
+%%  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%%  and version 1.3 or later is part of all distributions of LaTeX
+%%  version 2005/12/01 or later.
+%% 
+%%  This work has the LPPL maintenance status `maintained'.
+%% 
+%%  The Current Maintainer of this work is Nicola Talbot.
+%% 
+%%  This work consists of the files glossaries-extra.dtx and glossaries-extra.ins and the derived files glossaries-extra.sty, glossaries-extra-abbrstyles.def, glossaries-extra-bib2gls.sty, glossaries-extra-stylemods.sty, glossary-bookindex.sty, glossary-longextra.sty, glossary-topic.sty, glossary-table.sty, example-glossaries-xr.tex, example-glossaries-acronym-desc.bib, example-glossaries-acronym.bib, example-glossaries-acronyms-lang.bib, example-glossaries-brief.bib, example-glossaries-childmultipar.bib, example-glossaries-childnoname.bib, example-glossaries-cite.bib, example-glossaries-images.bib, example-glossaries-long.bib, example-glossaries-longchild.bib, example-glossaries-multipar.bib, example-glossaries-parent.bib, example-glossaries-symbolnames.bib, example-glossaries-symbols.bib, example-glossaries-url.bib, example-glossaries-user.bib, example-glossaries-utf8.bib, example-glossaries-xr.bib, glossaries-extra-2021-11-22.sty, glossaries-extra-bib2gls-2021-11-22.sty, glossaries-extra-stylemods-2021-11-22.sty, glossary-bookindex-2021-11-22.sty, glossary-longextra-2021-11-22.sty, glossary-topic-2021-11-22.sty.
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{glossary-table}[2023/09/29 v1.53 (NLCT)]
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\ifdef\gls@start@measuring
+{}
+{\PackageError{glossary-table}%
+ {glossaries.sty v4.51+ required. Please update glossaries.sty}
+ {Your version of glossaries.sty is too old. Minimum version 4.51 required}
+}
+\newcount\glstableblockperrowcount
+\glstableblockperrowcount=2\relax
+\define@key{printglosstable}{blocks}{\glstableblockperrowcount=#1\relax}
+\newcount\glstablecurrentblockindex
+\newcount\glstabletotalcols
+\glstabletotalcols=4\relax
+\newcommand{\glstablenameheader}{\entryname}
+\newcommand{\glstabledescheader}{\descriptionname}
+\newcommand{\glstableotherheader}{\MFUsentencecase{\glstableotherfield}}
+\newcommand{\glstablesymbolheader}{\symbolname}
+\define@boolkey{printglosstable}{header}[true]{}
+\KV@printglosstable@headertrue
+\define@boolkey{printglosstable}{rules}[true]{}
+\KV@printglosstable@rulestrue
+\define@boolkey{printglosstable}{caption}[true]{}
+\KV@printglosstable@captiontrue
+\define@key{printglosstable}{blocksep}{\renewcommand{\glstable@blockalignsep}{#1}}
+\newcommand{\glstable@blockalignsep}{|}
+\newcommand{\glstablesubentryalign}{%
+ \glstableleftalign{\dimexpr\glstablesubentrywidth-\tabcolsep}@{}}
+\newcommand{\glstablesubentrywidth}{\glstabledescwidth}
+\newenvironment{glstablesubentries}%
+ {%
+   \protected@edef\@gls@dotabular{%
+     \noexpand\begin{tabular}[t]{\glstablesubentryalign}}%
+   \@gls@dotabular
+ }%
+ {\end{tabular}}
+\newcommand{\glstablePreChildren}{\glstableifpar{\par}}
+\newcommand{\glstableblocksubentrysep}{\glstablenewline}
+\define@choicekey{printglosstable}{par}
+[\@glstable@par@val\@glstable@par@n]
+{false,justified,ragged}
+{%
+  \ifcase\@glstable@par@n
+    \renewcommand{\glstable@parcase}[3]{##1}%
+  \or
+    \renewcommand{\glstable@parcase}[3]{##2}%
+  \or
+    \renewcommand{\glstable@parcase}[3]{##3}%
+  \fi
+}
+\newcommand{\glstable@parcase}[3]{#1}
+\newcommand{\glstableifpar}[1]{\glstable@parcase{}{#1}{#1}}
+\newcommand{\glstableleftalign}[1]{%
+ \glstable@parcase{l}{p{#1}}{>{\protect\raggedright}p{#1}}%
+}
+\newcommand{\glstablerightalign}[1]{%
+ \glstable@parcase{r}{p{#1}}{>{\protect\raggedleft}p{#1}}%
+}
+\newcommand{\glstablecenteralign}[1]{%
+ \glstable@parcase{c}{p{#1}}{>{\protect\centering}p{#1}}%
+}
+\newcommand{\glstablenamecolalign}{\glstableleftalign{\glstablenamewidth}}
+\newcommand{\glstabledesccolalign}{\glstableleftalign{\glstabledescwidth}}
+\newcommand{\glstableothercolalign}{\glstableleftalign{\glstableotherwidth}}
+\newcommand{\glstablesymbolcolalign}{\glstablecenteralign{\glstablesymbolwidth}}
+\newcommand{\glstableNameTarget}[1]{%
+ \glstarget{#1}{\glstableName{#1}}%
+}
+\newcommand{\glstableNameFmt}[1]{#1}
+\newcommand{\glstableName}[1]{%
+ \glsentryitem{#1}%
+ \glstableNameFmt{\glossentryname{#1}}}
+\newcommand{\glstableSubNameTarget}[1]{%
+ \glstarget{#1}{\glstableSubName{#1}}%
+}
+\newcommand{\glstableSubNameFmt}[1]{}
+\newcommand{\glstableSubName}[1]{%
+ \glssubentryitem{#1}%
+ \glstableSubNameFmt{\glossentryname{#1}}%
+}
+\newcommand{\glstableotherfield}{}
+\newcommand{\glstableifhasotherfield}[3]{%
+  \ifdefvoid\glstableotherfield
+  {#3}%
+  {%
+    \ifglsfieldvoid{\glstableotherfield}{#1}{#3}{#2}%
+  }%
+}
+\define@key{printglosstable}{other}{\renewcommand{\glstableotherfield}{#1}}
+\newcommand{\glstableOther}[1]{%
+ \glstableOtherFmt{\glsxtrusefield{#1}{\glstableotherfield}}}
+\newcommand{\glstableOtherFmt}[1]{#1}
+\newcommand{\glstableSubOther}[1]{\glstableOther{#1}}
+\newcommand{\glstableOtherWithSep}[3]{%
+ \glstableifhasotherfield{#2}%
+ {#1\glstableOther{#2}#3}%
+ {}%
+}
+\newcommand{\glstableSubOtherWithSep}[3]{%
+ \glstableifhasotherfield{#2}%
+ {#1\glstableSubOther{#2}#3}%
+ {}%
+}
+\newcommand{\glstableNameSingleFmt}[1]{%
+  \glstableNameTarget{#1}%
+  \ifglshasdesc{#1}%
+  {%
+    \glstableNameSinglePostName
+    \glstableNameSingleSuppl
+    {%
+      \ifglshassymbol{#1}%
+      {\glstableSymbol{#1}\glstableNameSingleSymSep}%
+      {}%
+      \glstableOtherWithSep{}{#1}{\glstableOtherSep}%
+      \glstableDesc{#1}%
+    }%
+  }%
+  {%
+   \ifglshassymbol{#1}%
+   {%
+      \glstableNameSinglePostName
+      \glstableNameSingleSuppl
+      {%
+        \glstableSymbol{#1}%
+        \glstableifhasotherfield{#1}%
+        {%
+          \glstableNameSingleSymSep\glstableOther{#1}%
+        }%
+        {}%
+      }%
+   }%
+   {%
+      \glstableifhasotherfield{#1}%
+      {%
+       \glstableNameSinglePostName
+       \glstableNameSingleSuppl{\glstableOther{#1}}%
+      }%
+      {%
+      }%
+    }%
+  }%
+}
+\newcommand{\glstableNameSingleSuppl}[1]{(#1)}
+\newcommand{\glstableNameSinglePostName}{ }
+\newcommand{\glstableNameSingleSymSep}{ }
+\newcommand{\glstableOtherSep}{, }
+\newcommand{\glstableSubOtherSep}{\glstableOtherSep}
+\newcommand{\glstableSubDescSep}{\glstableSubOtherSep}
+\newcommand{\glstableSubNameSingleFmt}[1]{%
+ \glstableSubNameTarget{#1}%
+ \ifglshasdesc{#1}%
+ {%
+   \ifglshassymbol{#1}%
+   {%
+     \glstableifhasotherfield{#1}%
+     {%
+       \glstableNameSinglePostSubName
+       \glstableNameSingleSubSuppl
+       {%
+         \glstableSubSymbol{#1}%
+         \glstableNameSingleSymSep
+         \glstableSubOtherWithSep{}{#1}{\glstableSubOtherSep}%
+         \glstableSubDesc{#1}%
+       }%
+     }%
+     {%
+      \glstableNameSinglePostSubName
+      \glstableNameSingleSubSuppl
+      {%
+        \glstableSubSymbol{#1}%
+        \glstableNameSingleSymSep
+        \glstableSubDesc{#1}%
+      }%
+    }%
+   }%
+   {%
+     \glstableNameSinglePostSubName
+     \glstableNameSingleSubSuppl
+     {%
+       \glstableSubOtherWithSep{}{#1}{\glstableSubOtherSep}%
+       \glstableSubDesc{#1}%
+     }%
+   }%
+ }%
+ {%
+   \ifglshassymbol{#1}%
+   {%
+     \glstableNameSinglePostSubName
+     \glstableNameSingleSubSuppl
+     {%
+       \glstableifhasotherfield{#1}%
+       {%
+         \glstableSubSymbol{#1}\glstableNameSingleSymSep
+         \glstableSubOther{#1}%
+       }%
+       {%
+         \glstableSubSymbol{#1}%
+       }%
+     }%
+   }%
+   {%
+     \glstableifhasotherfield{#1}%
+     {%
+       \glstableNameSinglePostSubName
+       \glstableNameSingleSubSuppl{\glstableSubOther{#1}}%
+     }%
+     {%
+     }%
+   }%
+ }%
+}
+\newcommand{\glstableNameSingleSubSuppl}[1]{#1}
+\newcommand{\glstableNameSinglePostSubName}{ }
+\newcommand{\glstableSubSep}{\space}
+\newcommand{\glstableSubNameSep}{}
+\newcommand{\glstableNameNoDesc}[1]{%
+  \glstableNameTarget{#1}%
+  \glstableOtherWithSep{\glstableSubNameSep}{##1}{}%
+}
+\newcommand{\glstableSubNameNoDesc}[1]{%
+  \glstableSubNameTarget{#1}%
+  \glstableSubOtherWithSep{\glstableSubNameSep}{#1}{}%
+}
+\newcommand{\glstableSubNameSymbolNoDesc}[1]{%
+  \glstableSubNameTarget{#1}%
+  \glstableifhasotherfield{#1}%
+  {%
+    \glstableSubOther{#1}%
+    \ifglshassymbol{#1}%
+    {\glstableSubOtherSep\glstableSubSymbol{#1}}%
+    {}%
+  }%
+  {%
+    \ifglshassymbol{#1}%
+    {\glstableSubSymbol{#1}}%
+    {}%
+  }%
+}
+\newcommand{\glstableSymbolFmt}[1]{#1}
+\newcommand{\glstableSymbol}[1]{\glstableSymbolFmt{\glossentrysymbol{#1}}}
+\newcommand{\glstableSubSymbolFmt}[1]{\glstableSymbolFmt{#1}}
+\newcommand{\glstableSubSymbol}[1]{\glstableSubSymbolFmt{\glossentrysymbol{#1}}}
+\newcommand{\glstableSubSymbolWithSep}[3]{%
+ \ifglshassymbol{#2}%
+ {#1\glstableSubSymbol{#2}#3}%
+ {}%
+}
+\newcommand{\glstableSymbolNameTarget}[1]{%
+ \glstarget{#1}{\glstableSymbolName{#1}}%
+}
+\newcommand{\glstableSymbolNameFmt}[1]{%
+ \glstableSymbolFmt{#1}%
+}
+\newcommand{\glstableSymbolName}[1]{%
+ \glsentryitem{#1}\glstableSymbolNameFmt{\glossentrysymbol{#1}}%
+}
+\newcommand{\glstableSubSymbolNameTarget}[1]{%
+ \glstarget{#1}{\glstableSubSymbolName{#1}}%
+}
+\newcommand{\glstableSubSymbolNameFmt}[1]{}
+\newcommand{\glstableSubSymbolName}[1]{%
+ \glssubentryitem{#1}\glstableSubSymbolNameFmt{\glossentrysymbol{#1}}%
+}
+\newcommand{\glstableDesc}[1]{%
+ \glstableDescFmt{\glossentrydesc{#1}\glspostdescription}%
+}
+\newcommand{\glstableDescFmt}[1]{#1}
+\newcommand{\glstableDescWithOther}[1]{%
+  \glstableifhasotherfield{#1}%
+  {%
+    \glstableOther{#1}%
+    \ifglshasdesc{#1}{\glstableOtherSep\glstableDesc{#1}}{}%
+  }%
+  {%
+    \ifglshasdesc{#1}{\glstableDesc{#1}}{}%
+  }%
+}
+\newcommand{\glstableSubDescFmt}[1]{\glstableDescFmt{#1}}
+\newcommand{\glstableSubDesc}[1]{%
+ \glstableSubDescFmt{\glossentrydesc{#1}\glspostdescription}%
+}
+\newcommand{\glstableSubDescWithOther}[1]{\glstableDescWithOther{#1}}
+\newcommand{\glstableSubDescSymbolOther}[1]{%
+  \ifglshasdesc{#1}%
+  {%
+    \glstableSubDesc{#1}%
+    \ifglshassymbol{#1}%
+    {%
+      \glstableSubDescSep
+      \glstableSubSymbol{#1}%
+      \glstableSubOtherWithSep{\glstableSubSep}{#1}{}%
+    }%
+    {%
+      \glstableSubOtherWithSep{\glstableSubOtherSep}{#1}{}%
+    }%
+  }%
+  {%
+    \ifglshassymbol{#1}%
+    {%
+      \glstableSubSymbol{#1}%
+      \glstableSubOtherWithSep{\glstableSubSep}{#1}{}%
+    }%
+    {\glstableSubOther{#1}}%
+  }%
+}
+\newcommand{\glstableOtherNoDesc}[1]{%
+ \glstableOtherIfSet{#1}%
+}
+\newcommand{\glstableOtherIfSet}[1]{%
+  \glstableifhasotherfield{#1}{\glstableOther{#1}}{}%
+}
+\newcommand{\glstableSubOtherNoDesc}[1]{%
+ \glstableOtherNoDesc{#1}%
+}
+\newcommand{\glstableSubOtherIfSet}[1]{%
+ \glstableOtherIfSet{#1}%
+}
+\newcommand{\glstableHeaderFmt}[1]{\textbf{#1}}
+\define@key{printglosstable}{block-style}
+{\glstablesetstyle{#1}}
+\newcount\glstablecolsperblock
+\glstablecolsperblock=2\relax
+\newcommand{\glstableblockheader}{}
+\newcommand{\glstableblockalign}{}
+\newcommand{\glstableblockentry}[1]{}
+\newcommand{\glstableblocksubentry}[1]{}
+\newcommand{\glstableinitlengthupdates}{}
+\newcommand{\glstablelengthupdate}[1]{}
+\newcommand{\glstablefinishlengthupdates}{}
+\newcommand{\glstablesetstyle}[1]{%
+  \ifcsdef{@glstable@style@#1}%
+  {\csuse{@glstable@style@#1}}%
+  {\PackageError{glossary-table}{Unknown style `#1'}{}}%
+}
+\newcommand{\glstablenewstyle}[2]{%
+  \ifcsdef{@glstable@style@#1}%
+  {\PackageError{glossary-table}{style `#1' already defined}{}}%
+  {\csdef{@glstable@style@#1}{#2}}%
+}
+\glstablenewstyle{name-desc}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstablenamewidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableDescWithOther{##1}%
+   \glstableChildEntries{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubDescWithOther{##1}%
+ }%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstabledescheader}%
+ \renewcommand{\glstableblockalign}{\glstablenamecolalign\glstabledesccolalign}%
+}
+\glstablesetstyle{name-desc}
+\glstablenewstyle{name}{%
+ \glstablecolsperblock=1\relax
+ \renewcommand{\glstableinitlengthupdates}{}%
+ \renewcommand{\glstablelengthupdate}[1]{}%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstablenamewidth}{\glstableblockwidth}%
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameSingleFmt{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameSingleFmt{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstableblockwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader}%
+ \renewcommand{\glstableblockalign}{\glstablenamecolalign}%
+}
+\glstablenewstyle{name-symbol}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstablenamewidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbol{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstablenamewidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth}%
+   \ifdim\glstablenamewidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstablesymbolwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameNoDesc{##1}%
+   \glstableChildEntries{##1}%
+ & \glstableSymbol{##1}}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameSymbolNoDesc{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstablenamewidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstablesymbolheader}%
+ \renewcommand{\glstableblockalign}{\glstablenamecolalign\glstablesymbolcolalign}%
+}
+\glstablenewstyle{desc-name}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstablenamewidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableDescWithOther{##1}%
+   \glstableChildEntries{##1}%
+ &
+   \glstableNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubDescWithOther{##1}\glstableSubNameSep
+   \glstableSubNameTarget{##1}%
+ }%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstabledescheader &
+   \glstableHeaderFmt\glstablenameheader
+ }%
+ \renewcommand{\glstableblockalign}{\glstabledesccolalign\glstablenamecolalign}%
+}
+\glstablenewstyle{symbol-name}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstablenamewidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbol{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstablenamewidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth}%
+   \ifdim\glstablenamewidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstablesymbolwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableSymbol{##1} &
+   \glstableNameNoDesc{##1}%
+   \glstableChildEntries{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubSymbolWithSep{}{##1}{\glstableSubSep}%
+   \glstableSubNameNoDesc{##1}%
+ }%
+ \renewcommand{\glstablesubentrywidth}{\glstablenamewidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstablenameheader
+ }%
+ \renewcommand{\glstableblockalign}{\glstablesymbolcolalign\glstablenamecolalign}%
+}
+\glstablenewstyle{name-symbol-desc}{%
+ \glstablecolsperblock=3\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbol{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth - \glstablenamewidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth
+    - 0.5\glstablesymbolwidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableSymbol{##1} &
+   \glstableDescWithOther{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubSymbolWithSep{}{##1}{\glstableSubSep}%
+   \glstableSubDescWithOther{##1}%
+ }%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstabledescheader}%
+ \renewcommand{\glstableblockalign}{%
+   \glstablenamecolalign\glstablesymbolcolalign\glstabledesccolalign}%
+}
+\glstablenewstyle{name-other-desc}{%
+ \glstablecolsperblock=3\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+     \glsmeasurewidth{\glstableotherwidth}%
+       {\glstableHeaderFmt\glstableotherheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+     \setlength{\glstableotherwidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+   \glstablemeasureandupdate{\glstableotherwidth}{\glstableOther{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstableotherwidth - \glstablenamewidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth
+    - 0.5\glstableotherwidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableOther{##1} &
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubOtherWithSep{}{##1}{\glstableSubOtherSep}%
+   \glstableSubDesc{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstabledescheader}%
+ \renewcommand{\glstableblockalign}{%
+   \glstablenamecolalign\glstableothercolalign\glstabledesccolalign}%
+}
+\glstablenewstyle{desc-other-name}{%
+  \glstablesetstyle{name-other-desc}%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1} &
+   \glstableOther{##1} &
+   \glstableNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubDesc{##1}%
+   \glstableSubOtherWithSep{\glstableSubOtherSep}{##1}{}%
+   \glstableSubNameSep
+   \glstableSubNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstabledescheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablenameheader
+ }%
+ \renewcommand{\glstableblockalign}{%
+   \glstabledesccolalign
+   \glstableothercolalign
+   \glstablenamecolalign
+ }%
+}
+\glstablenewstyle{name-symbol-other-desc}{%
+ \glstablecolsperblock=4\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+     \glsmeasurewidth{\glstableotherwidth}%
+       {\glstableHeaderFmt\glstableotherheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+     \setlength{\glstablesymbolwidth}{0pt}%
+     \setlength{\glstableotherwidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbol{##1}}%
+   \glstablemeasureandupdate{\glstableotherwidth}{\glstableOther{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth - \glstablenamewidth - \glstableotherwidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.25\glstableblockwidth}%
+     \setlength{\glstablesymbolwidth}{\glstablenamewidth}%
+     \setlength{\glstableotherwidth}{\glstablenamewidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableSymbol{##1} &
+   \glstableOther{##1} &
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubSymbolWithSep{}{##1}{\glstableSubSep}%
+   \glstableSubOtherWithSep{}{##1}{\glstableSubOtherSep}%
+   \glstableSubDesc{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstabledescheader}%
+ \renewcommand{\glstableblockalign}{%
+   \glstablenamecolalign
+   \glstablesymbolcolalign
+   \glstableothercolalign
+   \glstabledesccolalign}%
+}
+\glstablenewstyle{name-desc-symbol}{%
+ \glstablecolsperblock=3\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstabledescwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbol{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstabledescwidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth - \glstablenamewidth}%
+   \ifdim\glstabledescwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth
+    - 0.5\glstablesymbolwidth}%
+     \setlength{\glstabledescwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableDescWithOther{##1}%
+   \glstableChildEntries{##1}%
+ &
+   \glstableSymbol{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubDescWithOther{##1}%
+   \glstableSubSymbolWithSep{\glstableSubSep}{##1}{}%
+ }%
+ \renewcommand{\glstablesubentrywidth}{\glstabledescwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstabledescheader &
+   \glstableHeaderFmt\glstablesymbolheader
+ }%
+ \renewcommand{\glstableblockalign}{%
+   \glstablenamecolalign\glstabledesccolalign\glstablesymbolcolalign}%
+}
+\glstablenewstyle{desc-symbol-other-name}{%
+  \glstablesetstyle{name-symbol-other-desc}%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1} &
+   \glstableSymbol{##1} &
+   \glstableOther{##1} &
+   \glstableNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubDescSymbolOther{##1}%
+   \glstableSubNameSep
+   \glstableSubNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstabledescheader &
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablenameheader
+ }%
+ \renewcommand{\glstableblockalign}{%
+   \glstabledesccolalign
+   \glstablesymbolcolalign
+   \glstableothercolalign
+   \glstablenamecolalign
+ }%
+}
+\glstablenewstyle{desc-other-symbol-name}{%
+  \glstablesetstyle{name-symbol-other-desc}%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1} &
+   \glstableOther{##1} &
+   \glstableSymbol{##1} &
+   \glstableNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubDesc{##1}%
+   \glstableSubOtherWithSep{\glstableSubOtherSep}{##1}{}%
+   \glstableSubSymbolWithSep{\glstableSubSep}{##1}{}%
+   \glstableSubNameSep
+   \glstableSubNameTarget{##1}%
+ }%
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstabledescheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstablenameheader
+ }%
+ \renewcommand{\glstableblockalign}{%
+   \glstabledesccolalign
+   \glstableothercolalign
+   \glstablesymbolcolalign
+   \glstablenamecolalign
+ }%
+}
+\glstablenewstyle{name-other-symbol-desc}{%
+  \glstablesetstyle{name-symbol-other-desc}%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} &
+   \glstableOther{##1} &
+   \glstableSymbol{##1} &
+   \glstableDesc{##1}%
+   \glstableChildEntries{##1}%
+ }%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep
+   \glstableSubOtherWithSep{}{##1}{\glstableSubOtherSep}%
+   \glstableSubSymbolWithSep{}{##1}{\glstableSubSep}%
+   \glstableSubDesc{##1}%
+ }%
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstabledescheader
+ }%
+ \renewcommand{\glstableblockalign}{%
+   \glstablenamecolalign
+   \glstableothercolalign
+   \glstablesymbolcolalign
+   \glstabledesccolalign
+ }%
+}
+\glstablenewstyle{name-other}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+   \fi
+   \setlength{\glstableotherwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstableotherwidth}{\dimexpr\glstableblockwidth
+    - \glstablenamewidth}%
+   \ifdim\glstableotherwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstableotherwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableNameTarget{##1} & \glstableOtherNoDesc{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubNameTarget{##1}\glstableSubNameSep \glstableSubOtherNoDesc{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstableotherwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablenameheader &
+   \glstableHeaderFmt\glstableotherheader}%
+ \renewcommand{\glstableblockalign}{\glstablenamecolalign\glstableothercolalign}%
+}
+\glstablenewstyle{other-name}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablenamewidth}%
+       {\glstableHeaderFmt\glstablenameheader}%
+   \else
+     \setlength{\glstablenamewidth}{0pt}%
+   \fi
+   \setlength{\glstableotherwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablenamewidth}{\glstableName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstableotherwidth}{\dimexpr\glstableblockwidth
+    - \glstablenamewidth}%
+   \ifdim\glstableotherwidth<0pt\relax
+     \setlength{\glstablenamewidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstableotherwidth}{\glstablenamewidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableOtherNoDesc{##1}%
+   \glstableChildEntries{##1}%
+ &
+   \glstableNameTarget{##1}}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubOtherNoDesc{##1}\glstableSubNameSep
+   \glstableSubNameTarget{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstableotherwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablenameheader}%
+ \renewcommand{\glstableblockalign}{\glstableothercolalign\glstablenamecolalign}%
+}
+\glstablenewstyle{symbol-other}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstableotherwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbolName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstableotherwidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth}%
+   \ifdim\glstableotherwidth<0pt\relax
+     \setlength{\glstablesymbolwidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstableotherwidth}{\glstablesymbolwidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableSymbolNameTarget{##1} & \glstableOtherNoDesc{##1}%
+   \glstableChildEntries{##1}%
+}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubSymbolNameTarget{##1}\glstableSubNameSep
+   \glstableSubOtherNoDesc{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstableotherwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstablesymbolheader &
+   \glstableHeaderFmt\glstableotherheader}%
+ \renewcommand{\glstableblockalign}{\glstablesymbolcolalign\glstableothercolalign}%
+}
+\glstablenewstyle{other-symbol}{%
+ \glstablecolsperblock=2\relax
+ \renewcommand{\glstableinitlengthupdates}{%
+   \ifKV@printglosstable@header
+     \glsmeasurewidth{\glstablesymbolwidth}%
+       {\glstableHeaderFmt\glstablesymbolheader}%
+   \else
+     \setlength{\glstablesymbolwidth}{0pt}%
+   \fi
+   \setlength{\glstableotherwidth}{0pt}%
+ }%
+ \renewcommand{\glstablelengthupdate}[1]{%
+   \glstablemeasureandupdate{\glstablesymbolwidth}{\glstableSymbolName{##1}}%
+ }%
+ \renewcommand{\glstablefinishlengthupdates}{%
+   \setlength{\glstableotherwidth}{\dimexpr\glstableblockwidth
+    - \glstablesymbolwidth}%
+   \ifdim\glstableotherwidth<0pt\relax
+     \setlength{\glstablesymbolwidth}{\dimexpr0.5\glstableblockwidth}%
+     \setlength{\glstableotherwidth}{\glstablesymbolwidth}%
+   \fi
+ }%
+ \renewcommand{\glstableblockentry}[1]{%
+   \glstableOtherNoDesc{##1}%
+   \glstableChildEntries{##1}%
+ & \glstableSymbolNameTarget{##1}}%
+ \renewcommand{\glstableblocksubentry}[1]{%
+   \glstableSubOtherWithSep{}{##1}{\glstableSubSep}%
+   \glstableSubSymbol{##1}%
+   \glstableSubNameSep
+   \glstableSubSymbolNameTarget{##1}}%
+ \renewcommand{\glstablesubentrywidth}{\glstableotherwidth}
+ \renewcommand{\glstableblockheader}{%
+   \glstableHeaderFmt\glstableotherheader &
+   \glstableHeaderFmt\glstablesymbolheader}%
+ \renewcommand{\glstableblockalign}{\glstableothercolalign\glstablesymbolcolalign}%
+}
+\newcommand{\glstablecaption}[3]{%
+ \caption[#1]{#3#2}%
+}
+\newcommand{\glstablepostnextcaption}{ (\MFUsentencecase{\glsxtrcontinuedname})}
+\newcommand{\glstablenextcaption}[2]{%
+ \caption[]{#1\glstablepostnextcaption}%
+}
+\newcommand{\glstablefoot}[1]{}
+\newcommand{\glstablelastfoot}[1]{\glstablerowspan{#1}}
+\newcommand{\glstablehead}[1]{}
+\newcommand{\glstablefirsthead}[1]{\glstablerowspan{#1}}
+\newlength\glstablepostpreambleskip
+\setlength\glstablepostpreambleskip{5pt}
+\newlength\glstableprepostambleskip
+\setlength\glstableprepostambleskip{5pt}
+\newcommand{\glstablefootstrut}{%
+ \rule{0pt}{\dimexpr\baselineskip+\glstableprepostambleskip}%
+}
+\newcommand{\glstablerowspan}[1]{%
+ \multicolumn{\glstabletotalcols}{c}{\parbox{\glstablespanwidth}{#1}}%
+}
+\newcommand{\glstablespanwidth}{\LTcapwidth}
+\newcommand{\glstable@begin}{%
+ \PackageError{glossary-table}{table style can only be used with
+  \string\printunsrttable}{}%
+}
+\newcommand{\glstable@filter}[1]{%
+  \ifnum\glscurrententrylevel>0\relax
+    \printunsrtglossaryskipentry
+  \else
+    \glstableiffilter{#1}%
+    {\printunsrtglossaryskipentry}%
+    {%
+      \glstable@calclengths{\glstablelengthupdate{#1}}%
+    }%
+  \fi
+}
+\newcommand{\glstableiffilter}[3]{#3}
+\newlength\glstablenamewidth
+\newlength\glstableblockwidth
+\newlength\glstabledescwidth
+\newlength\glstablesymbolwidth
+\newlength\glstableotherwidth
+\newcommand{\glstableifmeasuring}[2]{#2}
+\newcommand{\glstable@stepentry}[1]{%
+ \ifglsentrycounter
+  \stepcounter{glossaryentry}%
+ \fi
+}
+\newcommand{\glstable@stepsubentry}[1]{%
+ \ifglssubentrycounter
+  \stepcounter{glossarysubentry}%
+ \fi
+}
+\newcommand{\glstablemeasureandupdate}[2]{%
+  \glsmeasurewidth{\dimen@}{#2}%
+  \ifdim\dimen@>#1\relax
+    \setlength{#1}{\dimen@}%
+  \fi
+}
+\newcommand{\glstable@ifhaspreamble}[2]{%
+ \ifdefempty\glossarypreamble
+ {#2}%
+ {%
+  \ifx\@glstable@defaultpreamble\glossarypreamble
+    \ifcsvoid{@glossarypreamble@\currentglossary}{#2}{#1}%
+  \else
+    #1%
+  \fi
+ }%
+}
+\define@key{printglosstable}{type}{\renewcommand{\@glo@type}{#1}}
+\define@key{printglosstable}{preamble}{\renewcommand{\glossarypreamble}{#1}}
+\define@key{printglosstable}{postamble}{\renewcommand{\glossarypostamble}{#1}}
+\newcommand\glstable@init{}
+\define@cmdkey{printglosstable}[glstable@]{init}{}
+\define@choicekey{printglosstable}{groups}
+[\@glstable@groups@val\@glstable@groups@n]
+{false,true,noskip,addskip}[true]%
+{%
+ \ifcase\@glstable@groups@n\relax
+  \let\glstable@groupheading\@gobble
+  \glsxtr@printgloss@groupsfalse
+ \or
+  \let\glstable@groupheading\glstablegroupheading
+  \glsxtr@printgloss@groupstrue
+ \or
+  \let\glstable@groupheading\glstablegroupheading
+  \glsxtr@printgloss@groupstrue
+  \glsnogroupskiptrue
+ \or
+  \let\glstable@groupheading\glstablegroupheading
+  \glsxtr@printgloss@groupstrue
+  \glsnogroupskipfalse
+ \fi
+}
+\newcommand{\glstable@groupheading}[1]{}
+\newcommand{\glstablegroupheading}[1]{%
+ \multicolumn{\glstabletotalcols}{c}{%
+   \glsxtrgetgrouptitle{#1}{\glsxtrcurrentgrptitle}%
+   \glstableGroupHeaderFmt\glsxtrcurrentgrptitle
+ }%
+ \glstablePostGroupNewLine
+}
+\newcommand{\glstablePostGroupNewLine}{\glstablenewline*}
+\newcommand{\glstableGroupHeaderFmt}{\glstableHeaderFmt}
+\newcommand{\glstable@preentryhook}[1]{%
+  \if@glstable@afterheading
+  \else
+   \advance\glstablecurrentblockindex by 1\relax
+   \ifnum\glstablecurrentblockindex<\glstableblockperrowcount
+     \appto#1{&}%
+   \else
+     \appto#1{\glstablenewline}%
+   \fi
+  \fi
+}
+\newcommand{\glstablenewline}{\tabularnewline}
+\newcommand{\glstable@postentryhook}[1]{%
+ \ifnum\glstableblockperrowcount=\glstablecurrentblockindex
+   \glstablecurrentblockindex=0\relax
+ \fi
+ \@glstable@afterheadingfalse
+}
+\newcommand{\glstable@grouphook}[1]{%
+  \if@glstable@afterheading
+  \else
+    \preto#1{\glstablenewline}%
+    \advance\glstablecurrentblockindex by 1\relax
+    \ifnum\glstablecurrentblockindex<\glstableblockperrowcount\relax
+      \expandafter\glstable@n@to@amps\expandafter
+      {\numexpr\glstableblockperrowcount-\glstablecurrentblockindex}%
+      {\preto}{#1}%
+    \fi
+  \fi
+  \glstablecurrentblockindex=0\relax
+  \@glstable@afterheadingtrue
+}
+\newcommand{\glstable@finish}[1]{%
+  \if@glstable@afterheading
+  \else
+    \advance\glstablecurrentblockindex by 1\relax
+    \ifnum\glstablecurrentblockindex<\glstableblockperrowcount\relax
+      \expandafter\glstable@n@to@amps\expandafter
+      {\numexpr\glstableblockperrowcount-\glstablecurrentblockindex}%
+      {\appto}{#1}%
+    \fi
+  \fi
+}
+\let\@glstable@defaultpreamble\glossarypreamble
+\newcommand{\@glstable@clearpage}{}
+\newcommand{\@glstable@clearpage@iflt}[1]{%
+  \par
+  \ifdim #1>\dimexr\pagegoal-\pagetotal\relax
+   \clearpage
+  \fi
+}
+\define@key{printglosstable}{clearpage}[true]{%
+  \ifstrequal{#1}{true}%
+  {%
+    \renewcommand{\@glstable@clearpage}{\clearpage}%
+  }%
+  {%
+    \ifstrequal{#1}{false}%
+    {%
+      \renewcommand{\@glstable@clearpage}{}%
+    }%
+    {%
+      \renewcommand{\@glstable@clearpage}{\@glstable@clearpage@iflt{#1}}%
+    }%
+  }%
+}
+\newif\if@glstable@afterheading
+\NewDocumentCommand\printunsrttable{O{}}{%
+ \bgroup
+  \def\@glo@type{\glsdefaulttype}%
+  \def\glossarytitle{%
+   \ifcsdef{@glotype@\@glo@type @title}%
+   {\csuse{@glotype@\@glo@type @title}}%
+   {\glossaryname}%
+  }%
+  \def\glossarytoctitle{\glossarytitle}%
+  \let\glossarypreamble\@glstable@defaultpreamble
+  \glsxtr@printgloss@groupsfalse
+  \glsnogroupskiptrue
+  \setkeys*{printglosstable}{#1}%
+  \ifKV@printglosstable@caption
+   \if@glsxtr@floats
+    \renewcommand{\glscounter}{table}%
+   \fi
+  \fi
+  \glstable@init
+  \let\glstable@calclengths\glstableifpar
+  \ifglsnogroupskip
+  \else
+   \ifundef\glspenaltygroupskip
+   {%
+     \PackageError{glossary-table}{\string\printunsrttable[nogroupskip=false]
+     requires glossary-longbooktabs.sty}%
+     {You need to load glossary-longbooktabs.sty in addition to
+     loading glossary-table.sty if you want the group skip}%
+     \glsnogroupskiptrue
+   }%
+   {\glspatchLToutput}%
+  \fi
+  \let\currentglossary\@glo@type
+  \protected@edef\glstable@opts{type=\@glo@type,style=table}%
+  \ifdefempty\XKV@rm{}{\epreto\glstable@opts{\expandonce\XKV@rm,}}%
+  \glstabletotalcols=\numexpr\glstablecolsperblock*\glstableblockperrowcount\relax
+  \glstable@calclengths
+  {%
+    \edef\glstablespanwidth{\dimexpr\linewidth-2\tabcolsep-1pt}%
+    \glstableblockwidth=\dimexpr
+     (\linewidth-\glstabletotalcols\tabcolsep-\glstabletotalcols\tabcolsep)
+      /\glstableblockperrowcount-1pt
+      \relax
+    \glstableinitlengthupdates
+  }%
+  \def\glstable@alignment{}%
+  \ifKV@printglosstable@rules
+    \def\glstable@header{\toprule}%
+  \else
+    \def\glstable@header{}%
+  \fi
+  \global\glstablecurrentblockindex=0\relax
+  \loop
+    \ifnum\glstablecurrentblockindex>0\relax
+     \protected@eappto\glstable@alignment{\glstable@blockalignsep}%
+    \fi
+    \protected@eappto\glstable@alignment{\glstableblockalign}%
+    \ifKV@printglosstable@header
+     \ifnum\glstablecurrentblockindex>0\relax
+      \appto\glstable@header{&}%
+     \fi
+     \eappto\glstable@header{\expandonce\glstableblockheader}%
+    \fi
+     \advance\glstablecurrentblockindex by 1\relax
+  \ifnum\glstablecurrentblockindex<\glstableblockperrowcount
+  \repeat
+  \ifKV@printglosstable@header
+    \appto\glstable@header{\glstablenewline}%
+    \ifKV@printglosstable@rules
+      \appto\glstable@header{\midrule}%
+    \fi
+  \fi
+  \protected@edef\glstable@begin{%
+    \noexpand\begin{longtable}{\expandonce\glstable@alignment}%
+  }%
+  \ifKV@printglosstable@caption
+    \appto\glstable@begin{%
+      \expandafter\glstablecaption\expandafter
+        {\glossarytoctitle}{\glossarytitle}%
+        {\@@glossaryseclabel}%
+      \glstablenewline
+    }%
+  \fi
+  \glstable@ifhaspreamble
+  {%
+    \eappto\glstable@begin{%
+      \noexpand\glstablefirsthead
+       {\expandonce\glossarypreamble}%
+      \noexpand\glstablenewline[\glstablepostpreambleskip]%
+      \expandonce\glstable@header
+      \noexpand\endfirsthead
+    }%
+    \ifKV@printglosstable@caption
+      \appto\glstable@begin{%
+        \expandafter\glstablenextcaption\expandafter
+         {\glossarytoctitle}{\glossarytitle}%
+        \glstablenewline
+      }%
+    \fi
+    \ifx\glstablehead\@gobble
+    \else
+      \eappto\glstable@begin{%
+        \noexpand\glstablehead{\expandonce\glossarypreamble}%
+        \noexpand\glstablenewline[\glstablepostpreambleskip]%
+      }%
+    \fi
+  }%
+  {%
+    \eappto\glstable@begin{%
+      \expandonce\glstable@header
+      \noexpand\endfirsthead
+    }%
+    \ifKV@printglosstable@caption
+      \appto\glstable@begin{%
+        \expandafter\glstablenextcaption\expandafter
+         {\glossarytoctitle}{\glossarytitle}%
+        \glstablenewline
+      }%
+    \fi
+  }%
+  \eappto\glstable@begin{%
+    \expandonce\glstable@header
+    \noexpand\endhead
+  }%
+  \ifdefvoid\glossarypostamble
+  {%
+    \ifKV@printglosstable@rules
+      \appto\glstable@begin{\bottomrule\endfoot}%
+    \fi
+  }
+  {%
+    \ifKV@printglosstable@rules
+      \eappto\glstable@begin{%
+       \noexpand\bottomrule
+       \noexpand\glstablefoot
+        {\noexpand\glstablefootstrut\expandonce\glossarypostamble}%
+       \noexpand\glstablenewline
+       \noexpand\endfoot
+       \noexpand\bottomrule
+       \noexpand\glstablelastfoot
+        {\noexpand\glstablefootstrut\expandonce\glossarypostamble}%
+       \noexpand\glstablenewline
+       \noexpand\endlastfoot
+      }%
+    \else
+      \eappto\glstable@begin{%
+       \noexpand\glstablefoot{\expandonce\glossarypostamble}%
+       \noexpand\glstablenewline[\glstableprepostambleskip]%
+       \noexpand\endfoot
+       \noexpand\glstablelastfoot{\expandonce\glossarypostamble}%
+       \noexpand\glstablenewline[\glstableprepostambleskip]%
+       \noexpand\endlastfoot
+      }%
+    \fi
+  }%
+  \let\printunsrtglossaryentryprocesshook\glstable@filter
+  \renewcommand{\printunsrtglossarypreentryprocesshook}{%
+    \glstable@preentryhook
+  }%
+  \renewcommand{\printunsrtglossarypostentryprocesshook}{%
+    \glstable@postentryhook
+  }%
+  \renewcommand{\printunsrtglossarygrouphook}{%
+    \glstable@grouphook
+  }%
+  \renewcommand{\printunsrtglossarypreend}{%
+    \glstable@finish
+  }%
+  \let\glossarypostamble\relax
+  \let\glossarypreamble\relax
+  \renewcommand{\glossarysection}[2][]{}%
+  \glstablecurrentblockindex=0\relax
+  \@glstable@afterheadingtrue
+  \@glstable@clearpage
+  \let\glstable@org@predoglossary\printunsrtglossarypredoglossary
+  \renewcommand{\printunsrtglossarypredoglossary}
+  {%
+    \glstable@calclengths{\glstablefinishlengthupdates}%
+    \glstable@org@predoglossary
+  }%
+  \glsxtrifemptyglossary{\currentglossary}
+  {%
+    \GlossariesExtraWarning{Glossary `\currentglossary' is empty}%
+    \edef\@glsxtr@tmp{\noexpand\setkeys{printgloss}{\expandonce\glstable@opts}}%
+    \@glsxtr@tmp
+    \glstable@begin% \begin{longtable}{specs}
+    \end{longtable}%
+  }%
+  {%
+    \expandafter\printunsrtglossary\expandafter[\glstable@opts]\relax
+  }%
+ \egroup
+}
+\newcommand{\glstableiffilterchild}[3]{#3}
+\newcommand{\glstable@child}[1]{%
+  \glstableiffilterchild{#1}{}%
+  {%
+    \ifdefempty\glstable@dochildren{}%
+    {\appto\glstable@dochildren{\glstableblocksubentrysep}}%
+    \appto\glstable@dochildren{\glstableblocksubentry{#1}}%
+  }%
+}
+\newcommand{\glstableChildEntries}[1]{%
+  \def\glstable@dochildren{}%
+  \GlsXtrIfFieldNonZero*{childcount}{#1}%
+  {%
+    \glsxtrfieldforlistloop{#1}{childlist}{\glstable@child}%
+    \ifdefempty\glstable@dochildren
+    {}%
+    {%
+      \preto\glstable@dochildren{%
+        \glstablePreChildren
+        \begin{glstablesubentries}%
+      }%
+      \appto\glstable@dochildren{\end{glstablesubentries}}%
+    }%
+  }%
+  {}%
+  \glstable@dochildren
+}
+\newcommand{\glstable@n@to@amps}[3]{%
+ \ifnum#1>0\relax
+   \count@=0\relax
+   \loop
+     \advance\count@ by 1\relax
+     #2#3{&}%
+   \ifnum\count@<#1
+   \repeat
+ \fi
+}
+\newglossarystyle{table}%
+{%
+  \renewenvironment{theglossary}%
+  {%
+   \glstable@begin
+  }
+  {%
+    \end{longtable}%
+  }%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{\glstable@groupheading{##1}}%
+  \renewcommand*{\glssubgroupheading}[4]{}%
+  \ifglsnogroupskip
+    \renewcommand*{\glsgroupskip}{}%
+  \else
+    \renewcommand*{\glsgroupskip}{\glspenaltygroupskip}%
+  \fi
+  \renewcommand{\glossentry}[2]{%
+    \glstableblockentry{##1}%
+  }%
+  \renewcommand{\subglossentry}[3]{}%
+}
+\endinput
+%%
+%% End of file `glossary-table.sty'.

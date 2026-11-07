@@ -1,0 +1,17 @@
+name cheatsheet
+category Package
+revision 45069
+shortdesc A simple cheatsheet class
+relocated 1
+longdesc The package provides a clean, multi-column design intended for
+longdesc cheat sheets. It imports the most useful packages and encloses
+longdesc the document in a multicol environment.
+runfiles size=2
+ RELOC/tex/latex/cheatsheet/cheatsheet.cls
+catalogue-contact-bugs https://github.com/ACHinrichs/LaTeX-templates/issues
+catalogue-contact-repository https://github.com/ACHinrichs/LaTeX-templates
+catalogue-ctan /macros/latex/contrib/cheatsheet
+catalogue-date 2017-08-20 06:11:29 +0200
+catalogue-license mit
+catalogue-topics tut-cheat
+catalogue-version 0.8

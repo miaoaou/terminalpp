@@ -1,0 +1,22 @@
+name beamer-rl
+category Package
+revision 69254
+shortdesc Right to left presentation with beamer and babel
+relocated 1
+longdesc This class provides patches of some beamer templates and
+longdesc commands for presentation from right to left. It requires Babel
+longdesc with the LuaTeX engine.
+runfiles size=16
+ RELOC/tex/lualatex/beamer-rl/beamer-rl.cls
+ RELOC/tex/lualatex/beamer-rl/pgfpages-rl.sty
+ RELOC/tex/lualatex/beamer-rl/translator-basic-dictionary-Arabic.dict
+ RELOC/tex/lualatex/beamer-rl/translator-bibliography-dictionary-Arabic.dict
+ RELOC/tex/lualatex/beamer-rl/translator-environment-dictionary-Arabic.dict
+ RELOC/tex/lualatex/beamer-rl/translator-numbers-dictionary-Arabic.dict
+ RELOC/tex/lualatex/beamer-rl/translator-theorem-dictionary-Arabic.dict
+catalogue-contact-bugs https://github.com/seloumi/beamer-rl/issues
+catalogue-contact-repository https://github.com/seloumi/beamer-rl
+catalogue-ctan /macros/luatex/latex/beamer-rl
+catalogue-license lppl1.3c
+catalogue-topics class presentation bidi multilingual luatex
+catalogue-version 1.9

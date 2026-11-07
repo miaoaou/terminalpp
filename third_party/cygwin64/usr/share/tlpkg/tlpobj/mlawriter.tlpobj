@@ -1,0 +1,13 @@
+name mlawriter
+category Package
+revision 67558
+shortdesc Write MLA style documents in Plain TeX
+relocated 1
+longdesc With this Plain TeX extension, papers can be written in MLA
+longdesc style. These appear as if they were written in MS Word.
+runfiles size=1
+ RELOC/tex/plain/mlawriter/mlawriter.tex
+catalogue-ctan /macros/plain/contrib/mlawriter
+catalogue-license cc0
+catalogue-topics plain-ext
+catalogue-version 1.1.0

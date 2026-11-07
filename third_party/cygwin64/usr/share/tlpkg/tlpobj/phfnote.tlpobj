@@ -1,0 +1,21 @@
+name phfnote
+category Package
+revision 60733
+shortdesc Basic formatting for short documents
+relocated 1
+longdesc This package provides basic formatting for short documents such
+longdesc as notes on a specific topic, short documentation, or quick
+longdesc memos. It aims to cover all basic needs for such purposes:
+longdesc include a standard set of relevant packages, a nice title which
+longdesc doesn't take up too much space, better page margin sizes, and
+longdesc some basic styling to make the note look nicer. At the same
+longdesc time, it is highly flexible and customizable.
+runfiles size=23
+ RELOC/bibtex/bst/phfnote/naturemagdoi.bst
+ RELOC/tex/latex/phfnote/phfnote.sty
+ RELOC/tex/latex/phfnote/phfnotepreset-xpkgdoc.def
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfnote
+catalogue-license lppl1.3
+catalogue-topics memorandum
+catalogue-version 4.0

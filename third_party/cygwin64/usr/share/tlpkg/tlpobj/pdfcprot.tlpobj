@@ -1,0 +1,22 @@
+name pdfcprot
+category Package
+revision 18735
+shortdesc Activating and setting of character protruding using pdfLaTeX
+relocated 1
+longdesc This package provides an easy interface to adjust the character
+longdesc protrusion for different fonts and choosing the right
+longdesc adjustment automatically depending on the font. The package is
+longdesc largely superseded by microtype.
+runfiles size=14
+ RELOC/tex/latex/pdfcprot/pdfcprot.sty
+ RELOC/tex/latex/pdfcprot/pplmnOT1.cpa
+ RELOC/tex/latex/pdfcprot/pplmnOT2.cpa
+ RELOC/tex/latex/pdfcprot/pplmnT1.cpa
+ RELOC/tex/latex/pdfcprot/pplmnT2A.cpa
+ RELOC/tex/latex/pdfcprot/pplmnTS1.cpa
+catalogue-also microtype
+catalogue-ctan /macros/latex/contrib/pdfcprot
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics micro-layout
+catalogue-version 1.7a

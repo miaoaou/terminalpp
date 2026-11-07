@@ -1,0 +1,363 @@
+%%
+%% This is file `regstats.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% regstats.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Project: regstats
+%% Version: 2023-04-04 v1.1a
+%% Info: Counting used registers
+%% 
+%% Copyright (C) 2011 - 2023 by
+%%     H.-Martin Muench <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    https://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005-12-01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file regstats.dtx,
+%% the README, and the derived files
+%%    regstats.sty, regstats.pdf,
+%%    regstats.ins, regstats.drv,
+%%    regstats-example.tex, regstats-example.pdf,
+%%    regstats-example.log.
+%% 
+%% In memoriam
+%%  Claudia Simone Barth + 1996-01-30
+%%  Tommy Muench         + 2014-01-02
+%%  Hans-Klaus Muench    + 2014-08-24
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{regstats}[2023/04/04 v1.1a Counting used registers (HMM)]
+
+%% Allows to count the number of used registers
+%% (counter, dimen, skip, muskip, box, token, input, output,
+%%  math families, languages, insertions)
+%% and compare these to the maximum available number of such registers.
+
+\RequirePackage{kvoptions}% Key value format for package options (HO)
+
+\SetupKeyvalOptions{family=regstats,prefix=regstats@}
+\DeclareBoolOption{left}% \regstats@left
+\DeclareBoolOption{timer}
+\DeclareBoolOption{proof}% OBSOLETE
+
+\ProcessKeyvalOptions*
+
+\ifregstats@proof
+  \PackageWarningNoLine{regstats}{Option proof is obsolete. Please do not use it\MessageBreak%
+    when loading the regstats package}
+\else
+  \PackageInfo{regstats}{Option proof is obsolete.\MessageBreak%
+    If you used proof=false, please remove this\@gobble}
+\fi
+
+\IfFileExists{iftex.sty}{\RequirePackage{iftex}}{
+  \RequirePackage{ifpdf}
+  \RequirePackage{ifetex}
+  \RequirePackage{ifluatex}
+  }
+
+\@ifundefined{ifluatex}{\newif\ifluatex \luatexfalse}{\relax}
+\@ifundefined{ifetex}{\newif\ifetex \etexfalse}{\relax}
+
+\ifregstats@timer
+  \ifpdf \RequirePackage{intcalc}
+  \else \PackageError{regstats}{Option timer only works with pdf(la)tex\MessageBreak%
+          and with lua(la)tex}{Neither appears to be used here.}
+        \regstats@timerfalse
+  \fi
+\fi
+
+\newcommand{\regst@ts@timer}{\message{^^J}%
+  \@tempcnta=0%
+  \ifluatex%
+    \@tempcnta=%
+      \directlua{
+        if starttime then
+          tex.sprint((os.clock()-starttime)*65536)
+        else
+          tex.sprint(0)
+        end
+       }\relax%
+  \else \ifpdf \@tempcnta=\the\pdfelapsedtime\relax\fi%
+  \fi%
+  \ifnum \the\@tempcnta = 0%
+    \ifluatex%
+      \PackageError{regstats}{Did you forget to start the timer?}{%
+        Before \string\documentclass\space you need to say\MessageBreak%
+        \string\directlua{starttime = os.clock()}}%
+    \fi%
+    \PackageError{regstats}{Could not determine the time used for compilation}{Reason is unknown.}%
+  \else%
+    \xdef\regstatselapsedtime{\the\@tempcnta}%
+    \divide \@tempcnta by 65536% scaled-seconds -> seconds
+    \xdef\regstatsseconds{\the\@tempcnta}%
+    \ifnum \regstatsseconds > 59%
+      \xdef\regstatsseconds{\intcalcMod{\the\@tempcnta}{60}}%
+      \divide \@tempcnta by 60% seconds -> minutes
+    \else%
+      \@tempcnta=0% minutes = 0
+    \fi%
+    \ifnum \regstatsseconds < 10%
+      \message{Time elapsed for the last compiler run:^^J%
+        about \the\@tempcnta:0\regstatsseconds\space%
+        (m:ss; \regstatselapsedtime /65536 s).^^J}%
+    \else%
+      \message{Time elapsed for the last compiler run:^^J%
+        about \the\@tempcnta:\regstatsseconds \space%
+        (m:ss; \regstatselapsedtime /65536 s).^^J}%
+    \fi%
+  \fi%
+  }
+
+\ifregstats@timer\else\renewcommand{\regst@ts@timer}{\relax}\fi
+
+\long\def\regstats@firstofone#1{#1}
+
+\providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+
+\let\regst@tsNoeTeX\relax
+
+\xdef\regstats@lft{}
+
+\IfFormatAtLeastTF{2022/11/01}{
+   \let\regst@ts@statistics\regstats@firstofone% We do not use \AtVeryVeryEnd.
+   \newcommand{\regst@ts@st@tistics}[1]{\AddToHook{begindocument}{%
+     \AddToHook{begindocument/end}{\IfPackageLoadedTF{morewrites}{\def\regs@tsmw{65250}}{%
+                                                                  \ifluatex\def\regs@tsmw{124}\else\def\regs@tsmw{16}\fi}%
+     \AddToHook{enddocument}{\AddToHook{enddocument/afterlastpage}{\AddToHook{enddocument/afteraux}{%
+                                                       \AddToHook{enddocument/info}{\AddToHook{enddocument/end}{#1}}}}}}}}
+ }{\RequirePackage{atveryend}
+   \let\regst@ts@statistics\AtVeryVeryEnd
+   \IfFormatAtLeastTF{2011/06/27}{
+      \@ifpackagelater{atveryend}{2011/06/29}{% 2011/06/30, v1.8, or even more recent: OK
+       }{% else: older package version, no \AtVeryVeryEnd
+         \let\regst@ts@statistics\regstats@firstofone
+        }
+    }{% else: older fmtversion: also OK
+     }
+   \newcommand{\regst@ts@st@tistics}[1]{\AtBeginDocument{\AtEndDocument{\AfterLastShipout{\AtVeryEndDocument{%
+                                                                                           \AtEndAfterFileList{#1}}}}}}
+   \AtBeginDocument{%
+     \@ifclassloaded{seminar}{% no \AtVeryVeryEnd
+       \let\regst@ts@statistics\regstats@firstofone}{\relax}
+     \@ifpackageloaded{slidesec}{% no \AtVeryVeryEnd
+       \let\regst@ts@statistics\regstats@firstofone}{\relax}
+     \@ifpackageloaded{morewrites}{\def\regs@tsmw{32767}}{\ifluatex\def\regs@tsmw{124}\else\def\regs@tsmw{15}\fi}%
+     \ifetex\else%
+       \@ifpackageloaded{etex}{\relax}{% else
+        \gdef\regst@tsNoeTeX{%
+         \PackageWarning{regstats}{Neither eTeX nor the e-TeX-package found.\MessageBreak%
+           That can mean that e-TeX was disabled or\MessageBreak%
+           that your distribution of TeX does not contain e-TeX\MessageBreak%
+           or that you simply forgot to say \string\usepackage{etex}\MessageBreak%
+           in the preamble of \jobname.tex.\MessageBreak%
+           The number of available counter, dimen, skip,\MessageBreak%
+           muskip, box, and toks registers as well as the\MessageBreak%
+           number of insertions would be larger when using\MessageBreak%
+           eTeX or the e-TeX-package;%
+          }%
+        }%
+       }%
+     \fi%
+     }
+  }
+
+\regst@ts@st@tistics{%
+\regst@ts@statistics{%
+  \xdef\regstats@message{\relax}%
+  \newcommand{\regstats@regstatA}[3]{%
+    \ifx\regst@tsNoeTeX\relax \xdef\regstats@max{#3}\else\xdef\regstats@max{#2}\fi%
+    \@tempcnta=\regstats@max \relax%
+    \advance\@tempcnta by -#1\relax%
+    \xdef\regstats@free{\the\@tempcnta}%
+    }%
+  \newcommand{\regstats@regstatB}[3]{%
+    \@tempcnta=\regstats@max\relax%
+    \advance\@tempcnta by -#1\relax%
+    \xdef\regstats@free{\the\@tempcnta}%
+    \@tempcnta=#1\relax%
+    \ifnum \the\@tempcnta = 0%
+      \@tempcnta=2\relax% zero: same as plural
+    \fi%
+    \ifnum \the\@tempcnta > 1%
+      \gdef\regstats@pl{#3}% plural
+    \else%
+      \gdef\regstats@pl{#2}% singular
+    \fi%
+    \@tempcnta=#1\relax%
+    \multiply\@tempcnta by 100\relax%
+    \@tempcntb=\regstats@max\relax%
+    \divide\@tempcnta by\@tempcntb\relax%
+    \xdef\regstats@used{\space(\the\@tempcnta\@percentchar\space used)}%
+    \ifregstats@left%
+      \ifnum \regstats@free > 0\relax%
+        \xdef\regstats@lft{, left: \regstats@free}%
+      \else%
+        \ifnum \regstats@free = 0\relax%
+          \xdef\regstats@lft{, left: \regstats@free !!!}%
+        \else% \regstats@free < 0
+          \xdef\regstats@lft{, left: \regstats@free ??? **********}%
+        \fi%
+      \fi%
+    \fi%
+  }%
+  \xdef\regstats@counter{\the\count10}%
+  \xdef\regstats@dimen{\the\count11}%
+  \xdef\regstats@skip{\the\count12}%
+  \xdef\regstats@muskip{\the\count13}%
+  \xdef\regstats@box{\the\count14}%
+  \xdef\regstats@toks{\the\count15}%
+  \xdef\regstats@read{\the\count16}%
+  \xdef\regstats@write{\the\count17}%
+  \xdef\regstats@fam{\the\count18}%
+  \xdef\regstats@language{\the\count19}%
+  \xdef\regstats@insert{\the\count20}%
+  \xdef\regstats@message{\regstats@message\message{^^J}}%
+  \xdef\regstats@message{\regstats@message\message{Here is how much of TeX's registers you used^^J}}%
+  \xdef\regstats@message{\regstats@message\message{\space (numbers of available registers are estimated!):^^J}}%
+  \regstats@regstatA{\regstats@counter}{255}{32767}%
+  \ifetex\newcounter{regstatscount}\xdef\regstats@counter{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@counter}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@counter\space  counter register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@dimen}{255}{32767}%
+  \ifetex\newdimen{\regstatsdimen}\xdef\regstats@dimen{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@dimen}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@dimen\space    dimen   register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@skip}{255}{32767}%
+  \ifetex\newskip\regstatsskip\xdef\regstats@skip{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@skip}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@skip\space     skip    register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@muskip}{255}{32767}%
+  \ifetex\newmuskip\regstatsmuskip\xdef\regstats@muskip{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@muskip}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@muskip\space   muskip  register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@box}{255}{32767}%
+  \ifetex\newbox\regstatsbox\xdef\regstats@box{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@box}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@box\space      box     register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@toks}{255}{32767}%
+  \ifetex\newtoks\regstatstoks\xdef\regstats@toks{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@toks}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@toks\space     toks    register\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@read}{15}{15}%
+  \ifnum \regstats@free > 0\relax\newread\regstatsread\xdef\regstats@read{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@read}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@read\space     input stream\regstats@pl\space (read) %
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@write}{15}{\regs@tsmw}%
+  \ifnum \regstats@free > 0\relax\newwrite\regstatswrite\xdef\regstats@write{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@write}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@write\space    output stream\regstats@pl\space (write) %
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@fam}{15}{\ifluatex 255 \else 15\fi}%
+  \ifnum \regstats@free > 0\relax\newfam\regstatsfam\xdef\regstats@fam{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@fam}{y}{ies}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@fam\space      math famil\regstats@pl\space (fam) %
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \regstats@regstatA{\regstats@language}{255}{255}%
+  \ifnum \regstats@free > 0\relax\newlanguage\regstatslanguage\xdef\regstats@language{\the\allocationnumber}\fi%
+  \regstats@regstatB{\regstats@language}{}{s}%
+  \xdef\regstats@message{\regstats@message\message{ \regstats@language\space language code\regstats@pl\space%
+        out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+  %
+  \ifx\regst@tsNoeTeX\relax%
+    \newinsert\regstatsinsert%
+    \xdef\regstats@insert{\the\allocationnumber}%
+    \xdef\regstats@max{200}%
+    \ifnum \regstats@insert < \regstats@max\relax%
+      \xdef\regstats@free{\regstats@insert}%
+      \@tempcnta=200\relax%
+      \advance\@tempcnta by -\regstats@insert\relax%
+      \xdef\regstats@insert{\the\@tempcnta}%
+      \regstats@regstatB{\regstats@insert}{}{s}%
+      \xdef\regstats@message{\regstats@message\message{ \regstats@insert\space insertion\regstats@pl\space%
+            out of \regstats@max\regstats@used\regstats@lft ^^J}}%
+    \else%
+      \ifnum \regstats@insert = 200\relax%
+        \xdef\regstats@message{\regstats@message\message{Number of insertions could not be calculated. ^^J}}%
+      \else%
+        \ifnum % \regstats@insert > 200 AND %
+          \regstats@insert < 253\relax%
+          \@tempcnta=253\relax%
+          \advance\@tempcnta by -\regstats@insert\relax%
+          \@tempcntb=-200\relax%
+          \advance\@tempcntb by \regstats@insert\relax%
+          \ifluatex%
+            \@tempcntb=-65534\relax%
+            \advance\@tempcntb by \regstats@insert\relax%
+            \xdef\regstats@message{\regstats@message\message{at least \the\@tempcnta\space insertions out of 253 used, %
+                                                                                                about 65 000 left ^^J}}%
+          \else%
+            \xdef\regstats@message{\regstats@message\message{at least \the\@tempcnta\space insertions out of 253 used, %
+                                                                                  maybe \the\@tempcntb\space left ^^J}}%
+          \fi%
+        \else% \regstats@insert > 252, LuaTeX
+          \@tempcntb=65534\relax%
+          \advance\@tempcntb by -\regstats@insert\relax%
+          \advance\@tempcntb by -253\relax%
+          \xdef\regstats@message{\regstats@message\message{a lot of insertions out of 65 534 used, %
+                                                                                  about \the\@tempcntb\space left ^^J}}%
+        \fi%
+      \fi%
+    \fi%
+  \else%
+    \xdef\regstats@max{101}%
+    \@tempcnta=\regstats@max\relax%
+    \advance\@tempcnta by -\regstats@insert\relax%
+    \xdef\regstats@insert{\the\@tempcnta}%
+    \@tempcnta=\regstats@max\relax%
+    \advance\@tempcnta by -\regstats@insert\relax%
+    \xdef\regstats@free{\the\@tempcnta}%
+    \regstats@regstatB{\regstats@insert}{}{s}%
+    \xdef\regstats@message{\regstats@message\message{ \regstats@insert\space insertion\regstats@pl\space out of %
+                                                                         \regstats@max\regstats@used\regstats@lft ^^J}}%
+    \xdef\regstats@message{\regstats@message\message{* The number of available inserts might be increased by using %
+                                                                                          \string\reserveinserts .^^J}}%
+  \fi%
+  \regstats@message%
+  \ifluatex%
+  \else%
+    \def\regs@wmst{16}%
+    \ifx\regs@tsmw\regs@wmst\relax%
+      \message{The morewrites package was not loaded.^^J}%
+      \message{\space With recent LaTeX and morewrites about 32 766 output streams would be available.^^J}%
+    \fi%
+  \fi%
+  \regst@tsNoeTeX%
+  \regst@ts@timer%
+  }%
+}
+\endinput
+%%
+%% End of file `regstats.sty'.

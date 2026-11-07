@@ -1,0 +1,20 @@
+name gitver
+category Package
+revision 63920
+shortdesc Get the current git hash of a project and typeset it in the document
+relocated 1
+longdesc This package will get a description of the current git version
+longdesc of the document and store it in a command \gitVer. If memoir or
+longdesc fancyhdr are in use, it will also add this to the document
+longdesc footers unless the option "noheader" is passed. The package
+longdesc also defines a command \versionBox which outputs a box
+longdesc containing the version and date of compilation. The package
+longdesc requires hyperref, catchfile, pdftexcmds, and datetime.
+runfiles size=2
+ RELOC/tex/latex/gitver/gitver.sty
+catalogue-contact-bugs https://github.com/charlesbaynham/gitver/issues
+catalogue-contact-repository https://github.com/charlesbaynham/gitver
+catalogue-ctan /macros/latex/contrib/gitver
+catalogue-license lppl1.3c
+catalogue-topics version-control doc-mgmt expl3
+catalogue-version 1.4

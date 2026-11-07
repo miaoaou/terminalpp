@@ -1,0 +1,15 @@
+name pawpict
+category Package
+revision 21629
+shortdesc Using graphics from PAW
+relocated 1
+longdesc Support for the easy inclusion of graphics made by PAW (Physics
+longdesc Analysis Workstation). You need to have PAW installed on your
+longdesc system to benefit from this package.
+runfiles size=1
+ RELOC/tex/latex/pawpict/pawpict.sty
+catalogue-ctan /macros/latex/contrib/pawpict
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics physics graphics-prep
+catalogue-version 1.0

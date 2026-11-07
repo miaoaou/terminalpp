@@ -1,0 +1,2 @@
+rm -f /usr/share/icons/ubuntu-mono-dark/icon-theme.cache
+rm -f /usr/share/icons/ubuntu-mono-light/icon-theme.cache

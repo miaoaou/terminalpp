@@ -1,0 +1,30 @@
+name dlfltxb
+category Package
+revision 17337
+shortdesc Macros related to "Introdktion til LaTeX"
+relocated 1
+longdesc The bundle contains various macros either used for creating the
+longdesc author's book "Introduktion til LaTeX" (in Danish), or
+longdesc presented in the book as code tips. The bundle comprises:
+longdesc dlfltxbcodetips: various macros helpful in typesetting
+longdesc mathematics; dlfltxbmarkup: provides macros used throughout,
+longdesc for registering macro names, packages etc. in the text, in the
+longdesc margin and in the index, all by using categorised keys (note, a
+longdesc configuration file may be used; a sample is included in the
+longdesc distribution); dlfltxbtocconfig: macros for the two tables of
+longdesc contents that the book has; dlfltxbmisc: various macros for
+longdesc typesetting LaTeX arguments, and the macro used in the
+longdesc bibliography that can wrap a URL up into a BibTeX entry.
+longdesc Interested parties may review the book itself on the web at the
+longdesc author's institution (it is written in Danish).
+runfiles size=26
+ RELOC/bibtex/bst/dlfltxb/dlfltxbbibtex.bst
+ RELOC/tex/latex/dlfltxb/dlfltxbcodetips.sty
+ RELOC/tex/latex/dlfltxb/dlfltxbmarkup.sty
+ RELOC/tex/latex/dlfltxb/dlfltxbmarkupbookkeys.sty
+ RELOC/tex/latex/dlfltxb/dlfltxbmisc.sty
+ RELOC/tex/latex/dlfltxb/dlfltxbtocconfig.sty
+catalogue-ctan /macros/latex/contrib/dlfltxb
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics book-ex danish

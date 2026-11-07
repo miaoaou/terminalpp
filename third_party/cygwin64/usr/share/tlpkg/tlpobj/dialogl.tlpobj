@@ -1,0 +1,16 @@
+name dialogl
+category Package
+revision 28946
+shortdesc Macros for constructing interactive LaTeX scripts
+relocated 1
+longdesc Gathers together a bunch of code and examples about how to
+longdesc write macros to carry on a dialogue with the user.
+runfiles size=29
+ RELOC/tex/latex/dialogl/dialog.sty
+ RELOC/tex/latex/dialogl/grabhedr.sty
+ RELOC/tex/latex/dialogl/listout.tex
+ RELOC/tex/latex/dialogl/menus.sty
+catalogue-ctan /macros/latex/contrib/dialogl
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics macro-supp

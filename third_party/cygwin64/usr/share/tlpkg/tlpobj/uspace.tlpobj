@@ -1,0 +1,13 @@
+name uspace
+category Package
+revision 63123
+shortdesc Giving meaning to various Unicode space characters
+relocated 1
+longdesc LaTeX package that gives meaning to various Unicode space
+longdesc characters.
+runfiles size=1
+ RELOC/tex/latex/uspace/uspace.sty
+catalogue-ctan /macros/latex/contrib/uspace
+catalogue-license mit
+catalogue-topics enc-juggle inputenc hyphenation unicode
+catalogue-version 0.05

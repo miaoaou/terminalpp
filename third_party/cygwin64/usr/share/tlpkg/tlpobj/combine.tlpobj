@@ -1,0 +1,22 @@
+name combine
+category Package
+revision 19361
+shortdesc Bundle individual documents into a single document
+relocated 1
+longdesc The combine class lets you bundle individual documents into a
+longdesc single document, such as when preparing a conference
+longdesc proceedings. The auxiliary combinet package puts the titles and
+longdesc authors from \maketitle commands into the main document's Table
+longdesc of Contents. The package cooperates with the abstract and
+longdesc titling packages.
+runfiles size=16
+ RELOC/tex/latex/combine/combcite.sty
+ RELOC/tex/latex/combine/combine.cls
+ RELOC/tex/latex/combine/combinet.sty
+ RELOC/tex/latex/combine/combnat.sty
+catalogue-also docmute includex newclude standalone
+catalogue-ctan /macros/latex/contrib/combine
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics subdocs
+catalogue-version 0.7a

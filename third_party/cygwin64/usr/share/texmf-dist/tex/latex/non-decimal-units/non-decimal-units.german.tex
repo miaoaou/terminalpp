@@ -1,0 +1,21 @@
+%%% CURRENCY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nduNewBaseUnit { reichsthaler } {
+	symbol = { Rthl. } ,
+	factor = { 30~groschen } ,
+}
+
+\nduNewBaseUnit { groschen } {
+	symbol = { Gr. } ,
+	factor = { 12~pfennig } ,
+}
+
+\nduNewBaseUnit { pfennig } {
+	symbol = { Pf. } ,
+}
+
+\nduNewUnitGroup { german~reichsthaler } {
+	reichsthaler ,
+	groschen ,
+	pfennig
+}

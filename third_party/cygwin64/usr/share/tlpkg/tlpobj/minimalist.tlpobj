@@ -1,0 +1,34 @@
+name minimalist
+category Package
+revision 70302
+shortdesc Write your articles or books in a simple and clear way
+relocated 1
+longdesc This package offers you a LaTeX style file and two classes to
+longdesc typeset articles or books in a simple and clear way. These
+longdesc classes currently have native support for English, French,
+longdesc German, Italian, Portuguese (European and Brazilian), and
+longdesc Spanish typesetting. They compile with any major TeX engine.
+longdesc You may also wish to consider the packages einfart and
+longdesc simplivre, which are enhanced versions of the classes provided
+longdesc here. They have unicode support, thus can only be used with
+longdesc either XeLaTeX or LuaLaTeX. Currently they have native support
+longdesc for Chinese (both simplified and traditional), English, French,
+longdesc German, Italian, Japanese, Portuguese (European and Brazilian),
+longdesc Russian and Spanish typesetting, and also use more beautiful
+longdesc fonts.
+depend projlib
+runfiles size=71
+ RELOC/tex/latex/minimalist/minimalist-classical.sty
+ RELOC/tex/latex/minimalist/minimalist-classicthesis.sty
+ RELOC/tex/latex/minimalist/minimalist-default.sty
+ RELOC/tex/latex/minimalist/minimalist-flow.sty
+ RELOC/tex/latex/minimalist/minimalist-plain.sty
+ RELOC/tex/latex/minimalist/minimalist-stream.sty
+ RELOC/tex/latex/minimalist/minimalist.sty
+ RELOC/tex/latex/minimalist/minimart.cls
+ RELOC/tex/latex/minimalist/minimbook.cls
+catalogue-also einfart simplivre
+catalogue-contact-repository https://github.com/Jinwen-XU/minimalist
+catalogue-ctan /macros/latex/contrib/minimalist
+catalogue-license lppl1.3c
+catalogue-topics class article-like book-pub multilingual expl3

@@ -1,0 +1,23 @@
+name homework
+category Package
+revision 70044
+shortdesc A LaTeX class for writing your homework
+relocated 1
+longdesc The current document class is for writing homework. It has the
+longdesc following features. Simple and clear interface. Built-in
+longdesc support for many theorem-type environments, already configured
+longdesc and ready to use. Multilingual support. Page numbers are of the
+longdesc form "Page [current] of [total]", which can help you ensure
+longdesc that there are no missing pages when you print your homework
+longdesc for submission. Support writing problem statements and
+longdesc solutions (or proofs) in different colors. Every statement and
+longdesc solution has its own QED symbol, in hollow or solid shape,
+longdesc respectively. You can mark the unfinished parts, and a report
+longdesc shall be generated at the end of your document for reminding.
+depend einfart
+runfiles size=4
+ RELOC/tex/latex/homework/homework.cls
+catalogue-contact-repository https://github.com/Jinwen-XU/homework
+catalogue-ctan /macros/latex/contrib/homework
+catalogue-license lppl1.3c
+catalogue-topics class essay multilingual expl3

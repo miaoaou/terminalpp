@@ -1,0 +1,22 @@
+name beamerswitch
+category Package
+revision 64182
+shortdesc Convenient mode selection in Beamer documents
+relocated 1
+longdesc This class is a wrapper around the beamer class to make it
+longdesc easier to use the same document to generate the different forms
+longdesc of the presentation: the slides themselves, an abbreviated
+longdesc slide set for transparencies or online reference, an n-up
+longdesc handout version (various layouts are provided), and a
+longdesc transcript or set of notes using the article class. The class
+longdesc provides a variety of handout layouts, and allows the mode to
+longdesc be chosen from the command line (without changing the document
+longdesc itself).
+runfiles size=12
+ RELOC/tex/latex/beamerswitch/beamerswitch.cls
+catalogue-contact-bugs https://github.com/alex-ball/beamerswitch/issues
+catalogue-contact-repository https://github.com/alex-ball/beamerswitch
+catalogue-ctan /macros/latex/contrib/beamer-contrib/beamerswitch
+catalogue-license lppl1.3c
+catalogue-topics presentation class
+catalogue-version 1.9

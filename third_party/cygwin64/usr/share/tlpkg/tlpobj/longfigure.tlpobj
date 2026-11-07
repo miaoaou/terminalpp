@@ -1,0 +1,16 @@
+name longfigure
+category Package
+revision 34302
+shortdesc Provides a figure-like environment that break over pages
+relocated 1
+longdesc The longfigure package uses and relabels components of the
+longdesc well-known longtable package, written by David Carlisle, to
+longdesc provide a table-like environment that can display a stream of
+longdesc figures as a single figure that can break across pages.
+runfiles size=4
+ RELOC/tex/latex/longfigure/longfigure.sty
+catalogue-ctan /macros/latex/contrib/longfigure
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics table table-long graphics-incl
+catalogue-version 1.0

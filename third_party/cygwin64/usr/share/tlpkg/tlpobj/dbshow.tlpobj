@@ -1,0 +1,25 @@
+name dbshow
+category Package
+revision 61634
+shortdesc A package to store and display data with custom filters, orders, and styles
+relocated 1
+longdesc The package provides four core functions: data storage and
+longdesc display data filtering data sorting data display All data is
+longdesc saved once and then you can display these data with custom
+longdesc filters, orders and styles. The package can be used, for
+longdesc example, to record and display something you'd like to review,
+longdesc maybe the question you always answered incorrectly or some
+longdesc forgettable knowledge. But obviously, the package is much more
+longdesc powerful and extensible for more interesting tasks depending on
+longdesc the individual.
+runfiles size=10
+ RELOC/tex/latex/dbshow/dbshow.sty
+catalogue-contact-bugs https://github.com/ZhiyuanLck/dbshow/issues
+catalogue-contact-development https://github.com/ZhiyuanLck/dbshow/pulls
+catalogue-contact-home https://github.com/ZhiyuanLck/dbshow
+catalogue-contact-repository https://github.com/ZhiyuanLck/dbshow/releases
+catalogue-contact-support https://github.com/ZhiyuanLck/dbshow/issues
+catalogue-ctan /macros/latex/contrib/dbshow
+catalogue-license lppl1.3c
+catalogue-topics data-disp data-prep data-sel expl3
+catalogue-version 1.5

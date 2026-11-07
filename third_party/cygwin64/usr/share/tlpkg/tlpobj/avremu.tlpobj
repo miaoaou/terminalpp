@@ -1,0 +1,24 @@
+name avremu
+category Package
+revision 35373
+shortdesc An 8-Bit Microcontroller Simulator written in LaTeX
+relocated 1
+longdesc A fully working package to simulate a Microprocessor in pure
+longdesc LaTeX. The simulator is able to calculate complex pictures,
+longdesc like Mandelbrot sets.
+runfiles size=27
+ RELOC/tex/latex/avremu/avr.binary.tex
+ RELOC/tex/latex/avremu/avr.bitops.tex
+ RELOC/tex/latex/avremu/avr.draw.tex
+ RELOC/tex/latex/avremu/avr.instr.tex
+ RELOC/tex/latex/avremu/avr.io.tex
+ RELOC/tex/latex/avremu/avr.memory.tex
+ RELOC/tex/latex/avremu/avr.numbers.tex
+ RELOC/tex/latex/avremu/avr.testsuite.tex
+ RELOC/tex/latex/avremu/avremu.sty
+catalogue-contact-repository https://gitlab.brokenpipe.de/stettberger/avremu
+catalogue-ctan /macros/latex/contrib/avremu
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics emulation
+catalogue-version 0.1

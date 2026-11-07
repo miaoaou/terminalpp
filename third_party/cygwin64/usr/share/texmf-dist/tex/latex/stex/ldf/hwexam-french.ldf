@@ -1,0 +1,19 @@
+% French Language Bindings for the sTeX hwexam package
+% Translations thanks to Samuel Lelièvre <samuel.lelievre@gmail.com>
+% Copyright (c) 2019 Michael Kohlhase, all rights reserved
+%               this file is released under the
+%               LaTeX Project Public License (LPPL)
+%
+% The original of this file is in the public repository at 
+% http://github.com/sLaTeX/sTeX/
+
+\tl_set:Nn\assignmentautorefname{Devoir}
+\tl_set:Nn\hwexam@given@kw{Distribué}
+\tl_set:Nn\hwexam@due@kw{À~rendre}
+\tl_set:Nn\correction@forgrading@kw{Réservé~pour~la~correction}
+\tl_set:Nn\hwexam@testemptypage@kw{Page~laissée~blanche~exprès}
+\tl_set:Nn\correction@probs@kw{Pb}%
+\tl_set:Nn\correction@pts@kw{pt}%
+\tl_set:Nn\correction@reached@kw{Score}%
+\tl_set:Nn\correction@sum@kw{Total}%
+\tl_set:Nn\correction@grade@kw{Note}%

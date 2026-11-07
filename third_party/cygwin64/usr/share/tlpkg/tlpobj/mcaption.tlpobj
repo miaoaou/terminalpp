@@ -1,0 +1,17 @@
+name mcaption
+category Package
+revision 15878
+shortdesc Put captions in the margin
+relocated 1
+longdesc The mcaption package provides an mcaption environment which
+longdesc puts figure or table captions in the margin. The package works
+longdesc with the standard classes and with the KOMA-Script document
+longdesc classes scrartcl, scrreprt and scrbook. The package requires
+longdesc the changepage package.
+runfiles size=2
+ RELOC/tex/latex/mcaption/mcaption.sty
+catalogue-ctan /macros/latex/contrib/mcaption
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics caption
+catalogue-version 3.0

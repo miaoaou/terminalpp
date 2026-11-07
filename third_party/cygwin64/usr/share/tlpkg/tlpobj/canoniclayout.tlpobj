@@ -1,0 +1,14 @@
+name canoniclayout
+category Package
+revision 64889
+shortdesc Create canonical page layouts with memoir
+relocated 1
+longdesc A canonic text layout has specified relations to a circle
+longdesc inscribed within the enclosing page. The package allows the
+longdesc user to use a canonic layout with the memoir class.
+runfiles size=2
+ RELOC/tex/latex/canoniclayout/canoniclayout.sty
+catalogue-ctan /macros/latex/contrib/canoniclayout
+catalogue-license lppl1.3
+catalogue-topics geometry
+catalogue-version 1.0

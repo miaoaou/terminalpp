@@ -1,0 +1,7 @@
+name tex.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of tex
+binfiles arch=x86_64-cygwin size=97
+ bin/x86_64-cygwin/initex
+ bin/x86_64-cygwin/tex.exe

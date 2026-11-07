@@ -1,0 +1,42 @@
+name fmtcount
+category Package
+revision 53912
+shortdesc Display the value of a LaTeX counter in a variety of formats
+relocated 1
+longdesc The package provides commands that display the value of a LaTeX
+longdesc counter in a variety of formats (ordinal, text, hexadecimal,
+longdesc decimal, octal, binary etc). The package offers some
+longdesc multilingual support; configurations for use in English (both
+longdesc British and American usage), French (including Belgian and
+longdesc Swiss variants), German, Italian, Portuguese and Spanish
+longdesc documents are provided. This package was originally provided as
+longdesc part of the author's datetime package, but is now distributed
+longdesc separately.
+runfiles size=71
+ RELOC/scripts/fmtcount/fmtcount.perl
+ RELOC/tex/latex/fmtcount/fc-UKenglish.def
+ RELOC/tex/latex/fmtcount/fc-USenglish.def
+ RELOC/tex/latex/fmtcount/fc-american.def
+ RELOC/tex/latex/fmtcount/fc-brazilian.def
+ RELOC/tex/latex/fmtcount/fc-british.def
+ RELOC/tex/latex/fmtcount/fc-english.def
+ RELOC/tex/latex/fmtcount/fc-francais.def
+ RELOC/tex/latex/fmtcount/fc-french.def
+ RELOC/tex/latex/fmtcount/fc-frenchb.def
+ RELOC/tex/latex/fmtcount/fc-german.def
+ RELOC/tex/latex/fmtcount/fc-germanb.def
+ RELOC/tex/latex/fmtcount/fc-italian.def
+ RELOC/tex/latex/fmtcount/fc-ngerman.def
+ RELOC/tex/latex/fmtcount/fc-ngermanb.def
+ RELOC/tex/latex/fmtcount/fc-portuges.def
+ RELOC/tex/latex/fmtcount/fc-portuguese.def
+ RELOC/tex/latex/fmtcount/fc-spanish.def
+ RELOC/tex/latex/fmtcount/fcnumparser.sty
+ RELOC/tex/latex/fmtcount/fcprefix.sty
+ RELOC/tex/latex/fmtcount/fmtcount.sty
+catalogue-contact-bugs https://github.com/nlct/fmtcount/issues
+catalogue-contact-repository https://github.com/nlct/fmtcount
+catalogue-ctan /macros/latex/contrib/fmtcount
+catalogue-license lppl1.3
+catalogue-topics numbers
+catalogue-version 3.07

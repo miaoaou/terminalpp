@@ -1,0 +1,14 @@
+name hvqrurl
+category Package
+revision 69723
+shortdesc Insert a QR code in the margin
+relocated 1
+longdesc This package allows to draw an URL as a QR code into the margin
+longdesc of a one- or twosided document. The following packages are
+longdesc loaded by default: qrcode, marginnote, url, xcolor and xkeyval.
+runfiles size=1
+ RELOC/tex/latex/hvqrurl/hvqrurl.sty
+catalogue-ctan /macros/latex/contrib/hvqrurl
+catalogue-license lppl1.3
+catalogue-topics qrcode
+catalogue-version 0.07

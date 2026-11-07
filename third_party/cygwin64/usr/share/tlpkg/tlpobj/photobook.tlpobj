@@ -1,0 +1,44 @@
+name photobook
+category Package
+revision 68313
+shortdesc A document class for typesetting photo books
+relocated 1
+longdesc The photobook LaTeX document class extends the book class
+longdesc defining a set of parameters, meta-macros, macros and
+longdesc environments with reasonable defaults to help typeset, build
+longdesc and print books mainly based on visual/image content.
+depend adjustbox
+depend atbegshi
+depend changepage
+depend colorspace
+depend environ
+depend eso-pic
+depend etoolbox
+depend fancyhdr
+depend fancyvrb
+depend flowfram
+depend geometry
+depend graphics
+depend hyperref
+depend iftex
+depend kvoptions
+depend listofitems
+depend mdframed
+depend numprint
+depend pagecolor
+depend pdfcomment
+depend pdfpages
+depend pgf
+depend textpos
+depend xargs
+depend xcolor
+depend xint
+depend xkeyval
+runfiles size=43
+ RELOC/tex/latex/photobook/photobook.cls
+catalogue-contact-home https://github.com/flynx/photobook
+catalogue-contact-repository https://github.com/flynx/photobook
+catalogue-ctan /macros/latex/contrib/photobook
+catalogue-license bsd3
+catalogue-topics class
+catalogue-version 0.1.29

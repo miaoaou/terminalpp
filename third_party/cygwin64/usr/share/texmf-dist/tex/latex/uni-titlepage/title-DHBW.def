@@ -1,0 +1,152 @@
+%%
+%% This is file `title-DHBW.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uni-titlepage.dtx  (with options: `driver,DHBW')
+%% Copyright (c) 2009-2022 by Markus Kohm <komascript(at)gmx.info>
+%% 
+%% This file was generated from file(s) of uni-titlepage distribution.
+%% 
+%% ----------------------------------------------------------------------
+%% 
+%% This work may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, version 1.3c of the license.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer and author of this work is Markus Kohm.
+%% 
+%% This file may only be distributed together with
+%% the file `uni-titlepage.dtx'.
+%% You may however distribute the file `uni-titlepage.dtx' without this file.
+%% 
+\ProvidesFile{%
+  title%
+  -DHBW%
+ .def%
+}[%
+2023-11-20 v1.2
+KOMA presents the title page project
+]
+\begingroup
+  \def\PackageNotLoadedError#1{%
+    \GenericError{%
+      (#1)\@spaces\@spaces\@spaces\@spaces
+    }{%
+      File `#1' Error: package `uni-titlepage' hasn't been loaded%
+    }{%
+      This definition file was made to be loaded by package
+      `uni-titlepage'.\MessageBreak
+      You may not use it without package `uni-titlepage'!\MessageBreak
+      See the documentation of package `uni-titlepage' for explanation.%
+    }%
+  }%
+  \ifx\csname uni-titlepage.sty@vers\endcsname\relax
+    \PackageNotLoadedError{%
+      title-DHBW.def%
+    }%
+  \fi
+\endgroup
+\DefineFamilyMember[%
+  DHBW%
+]{title}
+\providecommand*{\presentationinformationDHBW}{%
+  for the \examinationname{} of\\[.5\baselineskip]
+  \usenonemptytitleelement{academicgrade}\\[0pt plus 1fill]
+  of  \usenonemptytitleelement{discipline}\\[.5\baselineskip]
+  at the \usenonemptytitleelement{university}\ifx\@place\@empty\else\space\@place\fi
+}
+\providecaptionname{american,australian,british,canadian,%
+  english,newzealand,UKenglish,USenglish}{\presentationinformationDHBW}{%
+  for the \examinationname\\[.5\baselineskip]
+  \usenonemptytitleelement{academicgrade}\\[0pt plus 1fill]
+  of degree course \usenonemptytitleelement{discipline}\\[.5\baselineskip]
+  at the \usenonemptytitleelement{university}\ifx\@place\@empty\else\space\@place\fi
+}%
+\providecaptionname{german,ngerman,austrian,naustrian,%
+  swissgerman,nswissgerman}{\presentationinformationDHBW}{%
+  f\"ur die \examinationname{} zum\\[.5\baselineskip]
+  \usenonemptytitleelement{academicgrade}\\[0pt plus 1fill]
+  des Studienganges \usenonemptytitleelement{discipline}\\[.5\baselineskip]
+  an der \usenonemptytitleelement{university}\ifx\@place\@empty\else\space\@place\fi
+}%
+\renewcommand*{\inittitle}{%
+  \ifx\@university\@empty
+    \university{%
+      Dualen Hochschule%
+    }%
+  \fi
+  \ifx\@place\@empty
+    \place{%
+      Baden-W\"urttemberg%
+    }
+  \fi
+  \ifx\@mainlogo\@empty
+    \IfFileExists{DHBW_d_MOS_195x95_rgb_300.jpg}{%
+      \scr@ifundefinedorrelax{includegraphics}{%
+        \if@atdocument\else\RequirePackage{graphicx}\fi
+      }{}%
+      \scr@ifundefinedorrelax{includegraphics}{}{%
+        \mainlogo{%
+          \includegraphics[width=57mm,height=27mm]
+                          {DHBW_d_MOS_195x95_rgb_300.jpg}%
+        }%
+      }%
+    }{}%
+  \fi
+  \ifx\@titlehead\@empty
+    \titlehead{\hspace*{\fill}\@mainlogo}%
+  \fi
+  \ifx\@titlepagefont\@empty
+    \renewcommand*{\@titlepagefont}{%
+      \normalfont\sffamily
+    }%
+  \fi
+}
+\renewcommand*{\makemaintitle}{%
+  \begin{%
+    fullsizetitle}
+    \setlength{\parskip}{\z@}%
+    \setlength{\parindent}{\z@}%
+    \setlength{\parfillskip}{\z@\@plus 1fil}%
+    \linespread{1}\selectfont
+    \@titlepagefont
+    \vspace*{12mm}%
+    \centering
+    \begin{minipage}[t][\dimexpr\vsize-36mm\relax]{\dimexpr\hsize-40mm\relax}%
+      \@titlehead\par
+      \centering
+      \Large
+      \vfill
+      {\titlefont{\Large\usenonemptytitleelement{title}}}\par
+      \vfill
+      {\subject@font{\Large\usenonemptytitleelement{subject}\par}}%
+      \vfill
+      \presentationinformationDHBW\par
+      \vfill
+      \fromname\\[.5\baselineskip]
+      \usenonemptytitleelement{author}\par
+      \vfill
+      \@date\par
+      \vfill
+      \begin{tabular}{*2{p{.5\dimexpr\linewidth-3\tabcolsep\relax}}@{}}
+        \durationname                            & \@duration \\[.5ex]
+        \matriculationnumbername, \coursename    & \usenonemptytitleelement{matriculationnumber},
+                                                   \usenonemptytitleelement{course}\\[.5ex]
+        \companyname                             & \usenonemptytitleelement{company} \\[.5ex]
+        \advisorname{} \ofthename{} \companyname & \usenonemptytitleelement{advisor} \\[.5ex]
+        \refereename{} \ofthename{} \@university & \usenonemptytitleelement{referee}
+      \end{tabular}
+    \end{minipage}
+  \end{%
+    fullsizetitle}
+}
+\endinput
+%%
+%% End of file `title-DHBW.def'.

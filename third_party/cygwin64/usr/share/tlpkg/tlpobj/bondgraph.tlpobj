@@ -1,0 +1,13 @@
+name bondgraph
+category Package
+revision 21670
+shortdesc Create bond graph figures in LaTeX documents
+relocated 1
+longdesc The package draws bond graphs using PGF and TikZ.
+runfiles size=2
+ RELOC/tex/latex/bondgraph/bondgraph.sty
+catalogue-ctan /macros/latex/contrib/bondgraph
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram
+catalogue-version 1.0

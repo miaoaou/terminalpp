@@ -1,0 +1,15 @@
+name glossaries-finnish
+category Package
+revision 54080
+shortdesc Finnish language module for glossaries package
+relocated 1
+longdesc Finnish language module for glossaries package.
+runfiles size=3
+ RELOC/tex/latex/glossaries-finnish/glossaries-finnish-ascii.ldf
+ RELOC/tex/latex/glossaries-finnish/glossaries-finnish-utf8.ldf
+ RELOC/tex/latex/glossaries-finnish/glossaries-finnish.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-finnish
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.0

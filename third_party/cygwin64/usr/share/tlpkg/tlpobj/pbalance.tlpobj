@@ -1,0 +1,19 @@
+name pbalance
+category Package
+revision 67201
+shortdesc Balance last page in two-column mode
+relocated 1
+longdesc This package balances the columns on the last page of a
+longdesc two-column document. If the page is "simple" (no footnotes,
+longdesc floats, or marginpars), is uses the balance package; otherwise,
+longdesc it uses \enlargethispage to make the left column shorter,
+longdesc balancing the columns.
+runfiles size=8
+ RELOC/tex/latex/pbalance/pbalance.sty
+catalogue-also flushend
+catalogue-contact-bugs https://gitlab.com/lago/pbalance/-/issues
+catalogue-contact-home https://gitlab.com/lago/pbalance
+catalogue-ctan /macros/latex/contrib/pbalance
+catalogue-license lppl1.3c
+catalogue-topics multicol
+catalogue-version 1.4.0

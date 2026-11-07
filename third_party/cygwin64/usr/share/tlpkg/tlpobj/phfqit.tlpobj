@@ -1,0 +1,21 @@
+name phfqit
+category Package
+revision 60734
+shortdesc Macros for typesetting Quantum Information Theory
+relocated 1
+longdesc This package provides macros to typeset some general
+longdesc mathematical operators (identity operator, trace, diagonal,
+longdesc rank, ...), a powerful implementation of the bra-ket notation
+longdesc (kets, bras, brakets, matrix elements etc. which can be sized
+longdesc as required), delimited expressions such as averages and norms,
+longdesc and some basic Lie algebra/group names. Macros for entropy
+longdesc measures for quantum information theory (smooth min- and
+longdesc max-entropy, smooth relative entropies, etc.) are also
+longdesc provided.
+runfiles size=5
+ RELOC/tex/latex/phfqit/phfqit.sty
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfqit
+catalogue-license lppl1.3
+catalogue-topics maths physics
+catalogue-version 4.1

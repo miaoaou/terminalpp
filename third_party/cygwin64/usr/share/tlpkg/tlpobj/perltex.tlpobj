@@ -1,0 +1,25 @@
+name perltex
+category Package
+revision 52162
+shortdesc Define LaTeX macros in terms of Perl code
+longdesc PerlTeX is a combination Perl script (perltex.pl) and LaTeX2e
+longdesc package (perltex.sty) that, together, give the user the ability
+longdesc to define LaTeX macros in terms of Perl code. Once defined, a
+longdesc Perl macro becomes indistinguishable from any other LaTeX
+longdesc macro. PerlTeX thereby combines LaTeX's typesetting power with
+longdesc Perl's programmability. PerlTeX will make use of persistent
+longdesc named pipes, and thereby run more efficiently, on operating
+longdesc systems that offer them (mostly Unix-like systems). Also
+longdesc provided is a switch to generate a PerlTeX-free,
+longdesc document-specific, noperltex.sty that is useful when
+longdesc distributing a document to places where PerlTeX is not
+longdesc available.
+depend perltex.ARCH
+runfiles size=6
+ texmf-dist/scripts/perltex/perltex.pl
+ texmf-dist/tex/latex/perltex/perltex.sty
+catalogue-ctan /macros/latex/contrib/perltex
+catalogue-date 2019-09-23 11:07:45 +0200
+catalogue-license lppl
+catalogue-topics callback
+catalogue-version 2.2

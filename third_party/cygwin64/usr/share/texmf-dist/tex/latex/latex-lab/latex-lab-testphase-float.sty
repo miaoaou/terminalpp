@@ -1,0 +1,298 @@
+%%
+%% This is file `latex-lab-testphase-float.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% latex-lab-float.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright 2021-2023 LaTeX Project
+%% 
+%% This file was generated from file(s) of the  `LaTeX-lab Bundle'.
+%% ------------------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `LaTeX-lab Bundle'. You may however distribute the `LaTeX-lab Bundle'
+%% without such generated files.
+%% 
+%% The newest sources can be found below
+%% 
+%%    https://github.com/latex3/latex2e/required/latex-lab
+%% 
+%% where one can also log issues in case there are any.
+%% 
+%% 
+%% File: latex-lab-float.dtx (C) Copyright 2023 LaTeX Project
+\def\ltlabfloatdate{2023-07-20}
+\def\ltlabfloatversion{0.81a}
+\ProvidesExplPackage {latex-lab-testphase-float} {\ltlabfloatdate} {\ltlabfloatversion}
+  {Code related to the tagging of floats}
+\prop_new:N \g__tag_float_sect_prop
+\seq_new:N  \g__tag_float_types_seq
+\seq_gput_right:Nn \g__tag_float_types_seq {figure}
+\seq_gput_right:Nn \g__tag_float_types_seq {table}
+\tl_new:N\@current@float@struct
+\bool_new:N       \g__tag_float_sect_bool
+\bool_gset_true:N  \g__tag_float_sect_bool
+\cs_new_protected:Npn\__tag_float_init_collect:
+  {
+    \bool_if:NT\g__tag_float_sect_bool
+      {
+        \seq_map_inline:Nn\g__tag_float_types_seq
+          {
+            \tag_struct_begin:n{tag=##1s,stash}
+            \prop_gput:Nnx\g__tag_float_sect_prop {##1-struct}{\int_use:N\c@g__tag_struct_abs_int}
+            \tag_struct_end:
+          }
+      }
+  }
+\cs_new_protected:Npn \__tag_float_stop_sect:
+  {
+    \bool_if:NT\g__tag_float_sect_bool
+     {
+      \seq_map_inline:Nn\g__tag_float_types_seq
+        {
+          \prop_get:NnNT\g__tag_float_sect_prop{##1-used}\l__tag_tmpa_tl
+            {
+              \exp_args:Ne
+              \tag_struct_use_num:n{\prop_item:Nn\g__tag_float_sect_prop{##1-struct}}
+              \prop_gremove:Nn \g__tag_float_sect_prop{##1-used}
+            }
+        }
+     }
+  }
+
+\keys_define:nn { tag / tool}
+ {
+   flush-floats .code:n =
+     {
+       \keys_set:nn {tag / tool} {sec-stop=#1}
+       \__tag_float_stop_sect:
+       \__tag_float_init_collect:
+     },
+   flush-float .default:n = Document
+ }
+\AddToHook{begindocument/end}[latex-lab/float]
+  {\__tag_float_init_collect:}
+\AddToHook{tagpdf/finish/before}[latex-lab/float]
+  {\par\__tag_sec_end:n{-10}\__tag_float_stop_sect:}
+\DeclareHookRule{tagpdf/finish/before}{latex-lab/float}{before}{tagpdf}
+\keys_define:nn { tag / tool}
+  {
+   split-float .code:n =
+    {
+      \__tag_float_end:
+      \__tag_float_begin:
+      \MakeLinkTarget[tagstructure]{g__tag_struct_abs_int}
+    }
+ }
+
+\cs_new_protected:Npn \__tag_float_stop_par:
+  {
+    \tag_mc_end:
+    \bool_if:NF \g__tag_float_sect_bool
+     {
+      \tag_struct_end:
+     }
+  }
+\cs_new_protected:Npn \__tag_float_start_par:
+  {
+    \bool_if:NF \g__tag_float_sect_bool
+     {
+      \tag_struct_begin:n{tag=text}%
+     }
+   \tag_mc_begin:n{tag=P}
+  }
+
+\cs_new_protected:Npn \__tag_float_begin:
+ {%
+  \bool_if:NTF\g__tag_float_sect_bool
+   {
+     \exp_args:Ne
+     \tag_struct_begin:n{tag=float,parent=0\prop_item:No\g__tag_float_sect_prop{\@captype-struct}}%
+     \prop_gput:Nxx \g__tag_float_sect_prop {\@captype-used}{true}
+   }
+   {
+     \tag_struct_begin:n{tag=float}
+   }
+     \tl_set:Nx\@current@float@struct{\tag_get:n{struct_num}}%
+     \typeout{Float structure: \@current@float@struct}
+ }
+
+\cs_new_protected:Npn\__tag_float_end:{\tag_struct_end:} %end Aside
+
+\ExplSyntaxOff
+\def\@xfloat #1[#2]{%
+  \@nodocument
+  \def \@captype {#1}%
+   \def \@fps {#2}%
+   \@onelevel@sanitize \@fps
+   \def \reserved@b {!}%
+   \ifx \reserved@b \@fps
+     \@fpsadddefault
+   \else
+     \ifx \@fps \@empty
+       \@fpsadddefault
+     \fi
+   \fi
+   \ifhmode
+     \@bsphack
+     \@nameuse{__tag_float_stoppar:} %<---end P
+     \@floatpenalty -\@Mii
+   \else
+     \@floatpenalty-\@Miii
+   \fi
+  \ifinner
+     \@parmoderr\@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist
+      {%
+       \@tempcnta \sixt@@n
+       \expandafter \@tfor \expandafter \reserved@a
+         \expandafter :\expandafter =\@fps
+         \do
+          {%
+           \if \reserved@a h%
+             \ifodd \@tempcnta
+             \else
+               \advance \@tempcnta \@ne
+             \fi
+           \else\if \reserved@a t%
+             \@setfpsbit \tw@
+           \else\if \reserved@a b%
+             \@setfpsbit 4%
+           \else\if \reserved@a p%
+             \@setfpsbit 8%
+           \else\if \reserved@a !%
+             \ifnum \@tempcnta>15
+               \advance\@tempcnta -\sixt@@n\relax
+             \fi
+           \else
+             \@latex@error{Unknown float option `\reserved@a'}%
+             {Option `\reserved@a' ignored and `p' used.}%
+             \@setfpsbit 8%
+           \fi\fi\fi\fi\fi
+           }%
+       \@tempcntb \csname ftype@\@captype \endcsname
+       \multiply \@tempcntb \@xxxii
+       \advance \@tempcnta \@tempcntb
+       \global \count\@currbox \@tempcnta
+       }%
+    \@fltovf
+  \fi
+  \@nameuse{__tag_float_begin:}%
+  \global \setbox\@currbox
+    \color@vbox
+      \normalcolor
+      \vbox \bgroup
+        \hsize\columnwidth
+        \@parboxrestore
+        \@floatboxreset
+        \MakeLinkTarget[tagstructure]{g__tag_struct_abs_int}%
+}%
+\def\end@float{%
+  \@endfloatbox
+  \@nameuse{__tag_float_end:}%
+  \ifnum\@floatpenalty <\z@
+    \@largefloatcheck
+    \@cons\@currlist\@currbox
+    \ifnum\@floatpenalty <-\@Mii
+      \penalty -\@Miv
+      \@tempdima\prevdepth
+      \vbox{}%
+      \prevdepth\@tempdima
+      \penalty\@floatpenalty
+    \else
+      \vadjust{\penalty -\@Miv \vbox{}\penalty\@floatpenalty}\@Esphack
+      \@nameuse{__tag_float_start_par:} %restart P safe here??
+    \fi
+  \fi
+}
+\def\end@dblfloat{%
+  \if@twocolumn
+    \@endfloatbox
+    \@nameuse{__tag_float_end:}%
+    \ifnum\@floatpenalty <\z@
+      \@largefloatcheck
+      \global\dp\@currbox1sp %
+      \@cons\@currlist\@currbox
+      \ifnum\@floatpenalty <-\@Mii
+        \penalty -\@Miv
+        \@tempdima\prevdepth
+        \vbox{}%
+        \prevdepth\@tempdima
+        \penalty\@floatpenalty
+      \else
+        \vadjust{\penalty -\@Miv \vbox{}\penalty\@floatpenalty}\@Esphack
+        \@nameuse{__tag_float_start_par:} %restart P safe here??
+      \fi
+    \fi
+  \else
+    \end@float
+  \fi
+}%
+\ExplSyntaxOn
+\def\hyper@nopatch@caption{}
+\let\@kernel@refstepcounter\refstepcounter %as long it is not in the kernel
+\def\caption{%
+   \ifx\@captype\@undefined
+     \@latex@error{\noexpand\caption outside float}\@ehd
+     \expandafter\@gobble
+   \else
+     \@kernel@refstepcounter\@captype
+     \expandafter\@firstofone
+   \fi
+   {\@dblarg{\@caption\@captype}}%
+}
+\providecommand\theHg__tag_struct_abs_int{\int_use:N\c@g__tag_struct_abs_int}
+
+\AddToHook{begindocument}
+  {
+    \long\def\@makecaption#1#2{%
+      \vskip\abovecaptionskip
+      \xdef\@currentHref{tagstructure.\@current@float@struct}%
+      \tag_stop:n{caption}
+      \sbox\@tempboxa{#1:~#2}%
+      \tag_start:n{caption}
+      \tagtool{para=false}
+      \tag_struct_begin:n{tag=Caption,parent=\@current@float@struct}
+     \seq_gpop_right:cN {g__tag_struct_kids_\@current@float@struct _seq}\l__tag_tmpa_tl
+     \seq_gput_left:cV  {g__tag_struct_kids_\@current@float@struct _seq}\l__tag_tmpa_tl
+      \ifdim \wd\@tempboxa >\hsize
+        \tag_struct_begin:n{tag=Lbl}
+        \tag_mc_begin:n{}
+          #1:~
+        \tag_mc_end:
+        \tag_struct_end:
+        \tag_mc_begin:n{}
+          #2\par
+        \tag_mc_end:
+      \else
+          \global \@minipagefalse
+        \hb@xt@\hsize{\hfil
+         \tag_struct_begin:n{tag=Lbl}
+          \tag_mc_begin:n{}
+           #1:~
+          \tag_mc_end:
+         \tag_struct_end:
+         \tag_mc_begin:n{}
+          #2
+         \tag_mc_end:\hfil}%
+       \fi
+       \tag_struct_end: %caption
+      \vskip\belowcaptionskip}
+  }
+
+\endinput
+%%
+%% End of file `latex-lab-testphase-float.sty'.

@@ -1,0 +1,22 @@
+name ffcode
+category Package
+revision 69706
+shortdesc Fixed-font code blocks formatted nicely
+relocated 1
+longdesc This LaTeX package helps you write source code in your academic
+longdesc papers and make it looks neat. It uses minted and tcolorbox,
+longdesc configuring them the right way, to ensure that code fragments
+longdesc and code blocks look nicer.
+depend environ
+depend microtype
+depend minted
+depend pgf
+depend tcolorbox
+depend xkeyval
+runfiles size=1
+ RELOC/tex/latex/ffcode/ffcode.sty
+catalogue-contact-repository https://github.com/yegor256/ffcode
+catalogue-ctan /macros/latex/contrib/ffcode
+catalogue-license mit
+catalogue-topics listing verbatim line-nos
+catalogue-version 0.9.2

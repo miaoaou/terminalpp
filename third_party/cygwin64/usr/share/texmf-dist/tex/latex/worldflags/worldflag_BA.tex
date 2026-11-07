@@ -1,0 +1,20 @@
+% --------------------------------------------------------------------------
+% Bosnia and Herzogovina:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1/2}
+\definecolor{blue}{RGB}{0,47,108}
+\definecolor{gold}{RGB}{255,205,0}
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,\flagwidth);
+\coordinate (h1) at (0.265\flaglength,1);
+\coordinate (h2) at (0.765\flaglength,1);
+\coordinate (h3) at (0.765\flaglength,0);
+\fill [blue](0,0) rectangle (\flaglength,1);
+\fill[gold] (h1)--(h2)--(h3)--cycle;
+\pgfmathparse{atan(\flagwidth/(\flaglength-\flagwidth))}\edef\alpha{\pgfmathresult}
+\pgfmathparse{0.1425/sin(\alpha)}\edef\xx{\pgfmathresult}
+\foreach \n in {0,1,...,8} {\starV{white}%
+  {($(h3)+(-\n*\flaglength/16,\n\flagwidth/8)+(-\xx,0.03\flagwidth)$)}{0.095}{0}}
+\end{scope}
+\framecode{}
+\end{flagdescription}

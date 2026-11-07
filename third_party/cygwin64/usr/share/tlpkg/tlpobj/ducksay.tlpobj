@@ -1,0 +1,21 @@
+name ducksay
+category Package
+revision 64655
+shortdesc Draw ASCII art of animals saying a specified message
+relocated 1
+longdesc The package draws ASCII art of animals saying a specified
+longdesc message. The following macros are available: \ducksay
+longdesc \duckthink \DefaultAnimal \AddAnimal \DucksayOptions Multi-line
+longdesc messages are now fully supported. The package comes with two
+longdesc versions, choosable with the version key.
+runfiles size=13
+ RELOC/tex/latex/ducksay/ducksay.animals.tex
+ RELOC/tex/latex/ducksay/ducksay.code.v1.tex
+ RELOC/tex/latex/ducksay/ducksay.code.v2.tex
+ RELOC/tex/latex/ducksay/ducksay.sty
+catalogue-contact-bugs https://github.com/Skillmon/ltx_ducksay/issues
+catalogue-contact-repository https://github.com/Skillmon/ltx_ducksay
+catalogue-ctan /macros/latex/contrib/ducksay
+catalogue-license lppl1.3c
+catalogue-topics games amusements graphics
+catalogue-version 2.6

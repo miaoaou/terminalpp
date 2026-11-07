@@ -1,0 +1,17 @@
+name coollist
+category Package
+revision 67048
+shortdesc Manipulate COntent Oriented LaTeX Lists
+relocated 1
+longdesc Lists are defined as a sequence of tokens separated by a comma.
+longdesc The coollist package allows the user to access certain elements
+longdesc of the list while neglecting others--essentially turning lists
+longdesc into a sort of array. List elements are accessed by specifying
+longdesc the position of the object within the list (the index of the
+longdesc item).
+runfiles size=3
+ RELOC/tex/latex/coollist/coollist.sty
+catalogue-ctan /macros/latex/contrib/coollist
+catalogue-license lgpl
+catalogue-topics data-manip
+catalogue-version 1.4

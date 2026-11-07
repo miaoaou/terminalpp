@@ -1,0 +1,20 @@
+name worksheet
+category Package
+revision 48423
+shortdesc Easy creation of worksheets
+relocated 1
+longdesc This package provides macros and an environment for easy
+longdesc worksheet creation: Use the exercise environment for formating
+longdesc exercises in a simple, efficient design; typeset customized and
+longdesc automatically numbered worksheet titles in the same way as
+longdesc standard LaTeX titles (using \maketitle); provide course and
+longdesc author information with a scrlayer-scrpage based automated
+longdesc header; conforming to different babel languages. (Currently
+longdesc English, French, and German are supported.)
+runfiles size=4
+ RELOC/tex/latex/worksheet/worksheet.sty
+catalogue-ctan /macros/latex/contrib/worksheet
+catalogue-date 2018-08-18 05:31:14 +0200
+catalogue-license lppl1.3c
+catalogue-topics exercise exam
+catalogue-version 1.1

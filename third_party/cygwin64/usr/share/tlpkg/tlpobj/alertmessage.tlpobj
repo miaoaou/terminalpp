@@ -1,0 +1,19 @@
+name alertmessage
+category Package
+revision 38055
+shortdesc Alert messages for LaTeX
+relocated 1
+longdesc Some macros to display alert messages (informations, errors,
+longdesc warnings and success messages).
+runfiles size=5
+ RELOC/tex/latex/alertmessage/alertmessage.sty
+ RELOC/tex/latex/alertmessage/img/alertmessage-error.png
+ RELOC/tex/latex/alertmessage/img/alertmessage-info.png
+ RELOC/tex/latex/alertmessage/img/alertmessage-success.png
+ RELOC/tex/latex/alertmessage/img/alertmessage-warning.png
+catalogue-contact-repository https://github.com/pidupuis/latex-alert-message
+catalogue-ctan /macros/latex/contrib/alertmessage
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics boxing
+catalogue-version 1.1

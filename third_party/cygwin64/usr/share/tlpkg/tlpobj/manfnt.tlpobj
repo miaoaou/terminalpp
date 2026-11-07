@@ -1,0 +1,13 @@
+name manfnt
+category Package
+revision 54684
+shortdesc LaTeX support for the TeX book symbols
+relocated 1
+longdesc A LaTeX package for easy access to the symbols of the Knuth's
+longdesc 'manual' font, such as the Dangerous Bend and Manual-errata
+longdesc Arrow.
+runfiles size=1
+ RELOC/tex/latex/manfnt/manfnt.sty
+catalogue-ctan /macros/latex/contrib/manfnt
+catalogue-license lppl
+catalogue-topics font-supp

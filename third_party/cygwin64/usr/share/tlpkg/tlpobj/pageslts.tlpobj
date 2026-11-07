@@ -1,0 +1,21 @@
+name pageslts
+category Package
+revision 39164
+shortdesc Variants of last page labels
+relocated 1
+longdesc The package was designed as an extension of the lastpage
+longdesc package -- as well as that package's LastPage label (created
+longdesc \AtEndDocument) it adds a VeryLastPage (created
+longdesc \AfterLastShipout). When more than one page numbering scheme is
+longdesc in operation (as in a book class document with frontmatter),
+longdesc the labels above do not give the total number of pages, so the
+longdesc package also provides labels pagesLTS.<numbering scheme>, where
+longdesc the numbering scheme is arabic, roman, etc. The package relies
+longdesc on the undolabl package.
+runfiles size=12
+ RELOC/tex/latex/pageslts/pageslts.sty
+catalogue-ctan /macros/latex/contrib/pageslts
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics label-ref
+catalogue-version 1.2f

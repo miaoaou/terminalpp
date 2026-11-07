@@ -1,0 +1,17 @@
+name tikzpagenodes
+category Package
+revision 64967
+shortdesc A single TikZ node for the whole page
+relocated 1
+longdesc The package provides special PGF/TikZ nodes for the text,
+longdesc marginpar, footer and header area of the current page. They are
+longdesc inspired by the 'current page' node defined by PGF/TikZ itself.
+runfiles size=2
+ RELOC/tex/latex/tikzpagenodes/tikzpagenodes.sty
+catalogue-contact-bugs https://github.com/MartinScharrer/tikzpagenodes/issues
+catalogue-contact-home https://github.com/MartinScharrer/tikzpagenodes
+catalogue-contact-repository https://github.com/MartinScharrer/tikzpagenodes.git
+catalogue-ctan /graphics/pgf/contrib/tikzpagenodes
+catalogue-license lppl
+catalogue-topics graphics macro-supp pgf-tikz
+catalogue-version 1.1

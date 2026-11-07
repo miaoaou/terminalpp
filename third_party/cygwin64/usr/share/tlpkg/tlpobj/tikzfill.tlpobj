@@ -1,0 +1,26 @@
+name tikzfill
+category Package
+revision 67847
+shortdesc TikZ libraries for filling with images and patterns
+relocated 1
+longdesc This is a collection of TikZ libraries which add further
+longdesc options to fill TikZ paths with images and patterns. The
+longdesc libraries comprise fillings with images from files and from
+longdesc TikZ pictures. Also, patterns of hexagons and of rhombi are
+longdesc provided.
+runfiles size=13
+ RELOC/tex/latex/tikzfill/tikzfill-common.sty
+ RELOC/tex/latex/tikzfill/tikzfill.hexagon.sty
+ RELOC/tex/latex/tikzfill/tikzfill.image.sty
+ RELOC/tex/latex/tikzfill/tikzfill.rhombus.sty
+ RELOC/tex/latex/tikzfill/tikzfill.sty
+ RELOC/tex/latex/tikzfill/tikzlibraryfill.hexagon.code.tex
+ RELOC/tex/latex/tikzfill/tikzlibraryfill.image.code.tex
+ RELOC/tex/latex/tikzfill/tikzlibraryfill.rhombus.code.tex
+catalogue-contact-bugs https://github.com/T-F-S/tikzfill/issues
+catalogue-contact-home https://github.com/T-F-S/tikzfill
+catalogue-contact-repository https://github.com/T-F-S/tikzfill.git
+catalogue-ctan /graphics/pgf/contrib/tikzfill
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz expl3
+catalogue-version 1.0.1

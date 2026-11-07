@@ -1,0 +1,21 @@
+name tokenizer
+category Package
+revision 15878
+shortdesc A tokenizer
+relocated 1
+longdesc A tokenizer for LaTeX. \GetTokens{Target1}{Target2}{Source}
+longdesc splits source into two tokens at the first encounter of a
+longdesc comma. The first token is saved in a newly created command with
+longdesc the name passed as <Target1> and the second token likewise. A
+longdesc package option 'trim' causes leading and trailing space to be
+longdesc removed from each token; with this option, the \TrimSpaces
+longdesc command is defined, which removes leading and trailing spaces
+longdesc from its argument.
+runfiles size=2
+ RELOC/tex/latex/tokenizer/tokenizer.sty
+catalogue-also csvtools
+catalogue-ctan /macros/latex/contrib/tokenizer
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics data-import data-disp csv-support
+catalogue-version 1.1.0

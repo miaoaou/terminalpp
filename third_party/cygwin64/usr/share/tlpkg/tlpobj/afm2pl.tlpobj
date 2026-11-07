@@ -1,0 +1,23 @@
+name afm2pl
+category TLCore
+revision 66186
+shortdesc convert AFM to TeX property list (.pl) metrics
+longdesc Program home page: http://tex.aanhet.net/afm2pl/
+depend afm2pl.ARCH
+runfiles size=24
+ texmf-dist/fonts/enc/dvips/afm2pl/afm2pl-ot1.enc
+ texmf-dist/fonts/enc/dvips/afm2pl/afm2pl-ot1ital.enc
+ texmf-dist/fonts/enc/dvips/afm2pl/afm2pl-ot1tt.enc
+ texmf-dist/fonts/enc/dvips/afm2pl/afm2pl-texnanlc.enc
+ texmf-dist/fonts/enc/dvips/afm2pl/afm2pl-texnanuc.enc
+ texmf-dist/fonts/lig/afm2pl/accents.lig
+ texmf-dist/fonts/lig/afm2pl/bound.lig
+ texmf-dist/fonts/lig/afm2pl/default.lig
+ texmf-dist/fonts/lig/afm2pl/defpost.lig
+ texmf-dist/fonts/lig/afm2pl/defpre.lig
+ texmf-dist/fonts/lig/afm2pl/forge.lig
+ texmf-dist/fonts/lig/afm2pl/ligtex.lig
+ texmf-dist/tex/fontinst/afm2pl/README
+ texmf-dist/tex/fontinst/afm2pl/ly1.etx
+ texmf-dist/tex/fontinst/afm2pl/ly1c.etx
+ texmf-dist/tex/fontinst/afm2pl/makesc8y.tex

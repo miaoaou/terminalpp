@@ -1,0 +1,30 @@
+name morehype
+category Package
+revision 38815
+shortdesc Hypertext tools for use with LaTeX
+relocated 1
+longdesc The bundle provides three packages: texlinks: shorthand macros
+longdesc for TeX-related external hyperlinks with hyperref, the blog
+longdesc package in the present bundle, etc; hypertoc: adjust the
+longdesc presentation of coloured frames in hyperref tables of contents
+longdesc (article class only); blog: fast generation of simple HTML by
+longdesc expanding LaTeX macros, using the fifinddo package.
+runfiles size=64
+ RELOC/tex/latex/morehype/atari_ht.fdf
+ RELOC/tex/latex/morehype/blog.sty
+ RELOC/tex/latex/morehype/blogdot.cfg
+ RELOC/tex/latex/morehype/blogdot.sty
+ RELOC/tex/latex/morehype/blogexec.sty
+ RELOC/tex/latex/morehype/blogligs.sty
+ RELOC/tex/latex/morehype/hypertoc.sty
+ RELOC/tex/latex/morehype/lnavicol.sty
+ RELOC/tex/latex/morehype/markblog.sty
+ RELOC/tex/latex/morehype/morehype.RLS
+ RELOC/tex/latex/morehype/texblog.fdf
+ RELOC/tex/latex/morehype/texlinks.sty
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/latex/contrib/morehype
+catalogue-date 2017-05-06 08:56:51 +0200
+catalogue-license lppl1.3
+catalogue-topics hyper
+catalogue-version r0.83

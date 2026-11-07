@@ -1,0 +1,209 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% «format a number to a specific number of decimal places, performing rounding» ----------
+% «left shift the dot in a number adding zeros if necessary» -----------------------------------
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@dot{.}%
+\def\pgfPT@nove{9}%
+\def\pgfPT@zero{0}%
+\def\pgfPT@minus{-}%
+\def\pgfPT@na{---}%
+\def\pgfPT@has@minus#1{\expandafter\pgfPT@test@has@minus#1\relax}%
+\def\pgfPT@test@has@minus#1#2\relax{%
+\edef\pgfPT@test{#1}\ifx\pgfPT@test\pgfPT@minus\relax%
+\edef\pgfPT@num@sign{-}\edef\pgfPT@thenum{#2}%
+\else%
+\edef\pgfPT@num@sign{}\edef\pgfPT@thenum{#1#2}%
+\fi}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@formatnumber{decimal places}{number}
+\def\pgfPT@formatnumber#1#2{%
+\ifx#2\@empty\relax\else%
+\ifnum#1=-1\relax#2% print the number as-is
+\else%
+\pgfPT@counta=0\pgfPT@countb=0\pgfPT@countc=0\pgfPT@countd=0\pgfPT@tempfalse\pgfPT@foundfalse%
+\edef\pgfPT@digits@todot{}\edef\pgfPT@digits@afterdot{}%
+\pgfPT@has@minus{#2}%
+\expandafter\pgfPT@numberdecompose\pgfPT@thenum\relax%
+\ifnum\pgfPT@countb>#1\relax%
+\pgfPT@countc=\pgfPT@countb\advance\pgfPT@countc by -#1%
+\edef\pgfPT@digits@toround{\pgfPT@digits@todot\pgfPT@digits@afterdot}%
+\pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@digits@toround\relax%
+\pgfPT@temptrue\expandafter\pgfPT@number@round\pgfPT@digits@toround\relax%
+\pgfPT@temptrue\expandafter\pgfPT@str@gobbleN\pgfPT@digits@toround\relax%
+\pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@digits@toround\relax%
+\pgfPT@counte=#1%
+\pgfPT@temptrue\expandafter\pgfPT@str@insertdot\pgfPT@digits@toround\relax%
+\fi%
+{\pgfPT@num@sign\pgfPT@digits@todot\ifnum#1>0\relax\ifpgfPT@found.\fi\fi\pgfPT@digits@afterdot}%
+\fi\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@number@round#1#2\relax{%
+\def\pgfPT@testa{#1}\def\pgfPT@testb{#2}%
+\ifpgfPT@temp\edef\pgfPT@digits@toround{}\pgfPT@countf=0\pgfPT@counte=0\pgfPT@tempfalse\fi%
+\ifnum\pgfPT@counte<\pgfPT@countc\relax%
+\ifx\pgfPT@testa\pgfPT@nove%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround0}\pgfPT@countf=1%
+\else%
+\pgfPT@num=#1\relax%
+\ifnum\pgfPT@countf=1\relax\advance\pgfPT@num by 1\pgfPT@countf=0\fi%
+\ifnum\pgfPT@num>4\relax\pgfPT@countf=1\fi%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround\the\pgfPT@num}%
+\fi%
+\advance\pgfPT@counte by1%
+\else%
+\ifx\pgfPT@testa\pgfPT@nove%
+\ifnum\pgfPT@countf=1\relax%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround0}\pgfPT@countf=1%
+\else%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround9}\pgfPT@countf=0%
+\fi%
+\else%
+\pgfPT@num=#1\relax%
+\ifnum\pgfPT@countf=1\relax\advance\pgfPT@num by 1\pgfPT@countf=0\fi%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround\the\pgfPT@num}%
+\fi%
+\fi%
+\ifx\pgfPT@testb\pgfPT@relax%
+\ifnum\pgfPT@countf=1\relax%
+\advance\pgfPT@countd by1%
+\edef\pgfPT@digits@toround{\pgfPT@digits@toround1}%
+\fi%
+\else\pgfPT@number@round#2\relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@str@insertdot#1#2\relax{%
+\def\pgfPT@testa{#1}\def\pgfPT@testb{#2}%
+\ifpgfPT@temp\edef\pgfPT@digits@todot{}\edef\pgfPT@digits@afterdot{}\pgfPT@countf=0\pgfPT@tempfalse\pgfPT@foundfalse\fi%
+\ifpgfPT@found%
+\ifnum\pgfPT@counte=0\relax\edef\pgfPT@digits@afterdot{}\else%
+\ifnum\pgfPT@countf=\pgfPT@counte\relax%
+\edef\pgfPT@testb{\pgfPT@relax}%
+\else%
+\edef\pgfPT@digits@afterdot{\pgfPT@digits@afterdot#1}%
+\fi%
+\fi%
+\else%
+\ifnum\pgfPT@countf=\pgfPT@countd\relax\pgfPT@foundtrue\edef\pgfPT@digits@afterdot{\pgfPT@digits@afterdot#1}\pgfPT@countf=0\relax%
+\else\edef\pgfPT@digits@todot{\pgfPT@digits@todot#1}\fi%
+\fi%
+\advance\pgfPT@countf by 1%
+\ifx\pgfPT@testb\pgfPT@relax\else\pgfPT@str@insertdot#2\relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@numberdecompose#1#2\relax{%
+\def\pgfPT@testa{#1}\def\pgfPT@testb{#2}%
+\ifpgfPT@temp%
+\edef\pgfPT@digits@afterdot{\pgfPT@digits@afterdot#1}%
+\advance\pgfPT@countb by1%
+\else%
+\ifx\pgfPT@testa\pgfPT@dot\pgfPT@temptrue\pgfPT@foundtrue\advance\pgfPT@counta by-1\else%
+\edef\pgfPT@digits@todot{\pgfPT@digits@todot#1}\advance\pgfPT@countd by1\fi\fi%
+\advance\pgfPT@counta by1%
+\ifx\pgfPT@testb\pgfPT@relax\else\pgfPT@numberdecompose#2\relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@str@invert#1#2\relax{\def\pgfPT@testa{#1}\def\pgfPT@testb{#2}%
+\ifpgfPT@temp\edef\pgfPT@digits@toround{}\pgfPT@tempfalse\fi%
+\edef\pgfPT@digits@toround{#1\pgfPT@digits@toround}%
+\ifx\pgfPT@testb\pgfPT@relax{}\else\pgfPT@str@invert#2\relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@str@gobbleN#1#2\relax{%
+\def\pgfPT@testa{#1}\def\pgfPT@testb{#2}%
+\ifpgfPT@temp\edef\pgfPT@digits@toround{}\pgfPT@counte=0\pgfPT@tempfalse\fi%
+\ifnum\pgfPT@counte<\pgfPT@countc\relax%
+\advance\pgfPT@counte by 1%
+\edef\pgfPT@digits@toround{#2}\expandafter\pgfPT@str@gobbleN#2\relax%
+\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@shiftdot[number of places to the left]{number}
+% usage:
+% \pgfPT@shiftdot[3]{15.46} will output 0.01546
+% \pgfPT@shiftdot[3]{1546} will output 1.546
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@shiftdot[#1]#2{\ignorespaces%
+\edef\pgfPT@test{#2}%
+\ifx\pgfPT@test\pgfPT@na\relax\edef\pgfPT@test{}\fi%
+\ifx\pgfPT@test\pgfPT@relax\relax%
+\edef\pgfPT@shiftval{#2}%
+\else%
+\edef\pgfPT@displace{#1}%
+\expandafter\@pgfPT@shiftdot#2.\relax%
+\fi%
+}%
+\def\@pgfPT@shiftdot#1.#2\relax{\ignorespaces%
+\edef\pgfPT@digits@toround{#1}%
+\edef\pgfPT@afterdot{#2}%
+\ifx\pgfPT@afterdot\@empty\relax\else\expandafter\pgfPT@rem@vefinaldot\pgfPT@afterdot\relax\fi%
+\pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@digits@toround\relax%
+\pgfPT@countf=0\relax%
+\pgfPT@temptrue\expandafter\pgfPT@movedot\pgfPT@digits@toround\relax%
+\ifx\pgfPT@testb\pgfPT@relax\relax%
+    \pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@predot\relax%
+    \edef\pgfPT@shiftval{0.\pgfPT@digits@toround\pgfPT@afterdot}%
+\else\ifx\pgfPT@testb\pgfPT@zero\relax%
+    \pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@predot\relax%
+    \let\pgfPT@predot\pgfPT@digits@toround%
+    \edef\pgfPT@shiftval{\pgfPT@testc.\pgfPT@predot\pgfPT@afterdot}%
+\else%
+    \edef\pgfPT@testb@semzeros{}%
+    \pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@predot\relax%
+    \let\pgfPT@predot\pgfPT@digits@toround%
+    \pgfPT@temptrue\expandafter\pgfPT@str@invert\pgfPT@postdot\relax%
+    \let\pgfPT@postdot\pgfPT@digits@toround%
+    \expandafter\pgfPT@strlen\pgfPT@postdot\relax%
+    \pgfPT@counte=0%
+    \global\advance\pgfPT@countf by-1\relax%
+    \expandafter\pgfPT@removezeros\pgfPT@postdot\relax%
+    \ifx\pgfPT@testb@semzeros\pgfPT@relax\relax\edef\pgfPT@testb@semzeros{\pgfPT@digits@toround}\fi%
+    \edef\pgfPT@shiftval{\pgfPT@testb@semzeros.\pgfPT@predot\pgfPT@afterdot}%
+\fi\fi%
+}%
+%
+\def\pgfPT@rem@vefinaldot#1.\relax{\edef\pgfPT@afterdot{#1}}%
+%
+\def\pgfPT@movedot#1#2\relax{\ignorespaces%
+\def\pgfPT@testc{#1}
+\def\pgfPT@testb{#2}%
+\ifpgfPT@temp\edef\pgfPT@predot{}\edef\pgfPT@postdot{}\pgfPT@tempfalse\fi%
+\ifnum\pgfPT@countf<\pgfPT@displace\relax%
+    \edef\pgfPT@predot{\pgfPT@predot#1}%
+    \edef\pgfPT@postdot{#2}%
+    \global\advance\pgfPT@countf by1\relax%
+    \expandafter\pgfPT@movedot#20\relax%
+\fi%
+}%
+%
+\def\pgfPT@removezeros#1#2\relax{\ignorespaces%
+\edef\pgfPT@testa{#1}\edef\pgfPT@testb{#2}%
+\global\advance\pgfPT@counte by1\relax%
+\pgfPT@checkifdigitiszero{#1}%
+\ifpgfPT@temp\edef\pgfPT@testb@semzeros{#2}\ifnum\pgfPT@counte<\pgfPT@countf\relax\pgfPT@removezeros#2\relax\fi%
+\else%
+    \ifnum\pgfPT@counte<\pgfPT@countf\relax%
+        \edef\pgfPT@testb@semzeros{#1#2}%
+    \else%
+        \edef\pgfPT@testb@semzeros{\pgfPT@testb@semzeros}%
+    \fi%
+\fi%
+}%
+%
+\def\pgfPT@checkifdigitiszero#1{\ifnum#1=0\relax\pgfPT@temptrue\else\pgfPT@tempfalse\fi}%
+%
+\def\pgfPT@strlen#1\relax{\ignorespaces%
+\pgfPT@countf=0%
+\def\pgfPT@tmp{#1}%
+\ifx\pgfPT@tmp\pgfPT@relax\relax\else\@pgfPT@str@len#1 \relax\fi%
+}%
+%
+\def\@pgfPT@str@len#1#2 \relax{\ignorespaces%
+\global\advance\pgfPT@countf by1\relax%
+\def\pgfPT@tmp{#2}%
+\ifx\pgfPT@tmp\pgfPT@relax\relax\else\@pgfPT@str@len#2 \relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+\endinput%

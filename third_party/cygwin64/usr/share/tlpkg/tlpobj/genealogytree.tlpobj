@@ -1,0 +1,43 @@
+name genealogytree
+category Package
+revision 66513
+shortdesc Pedigree and genealogical tree diagrams
+relocated 1
+longdesc Pedigree and genealogical tree diagrams are proven tools to
+longdesc visualize genetic and relational connections between
+longdesc individuals. The naming ("tree") derives from historical family
+longdesc diagrams. However, even the smallest family entity consisting
+longdesc of two parents and several children is hardly a 'mathematical'
+longdesc tree -- it is a more general graph. The package provides a set
+longdesc of tools to typeset genealogical trees (i.e., to typeset a set
+longdesc of special graphs for the description of family-like
+longdesc structures). The package uses an autolayout algorithm which can
+longdesc be customized, e. g., to prioritize certain paths.
+runfiles size=77
+ RELOC/tex/latex/genealogytree/genealogytree.sty
+ RELOC/tex/latex/genealogytree/gtrcore.contour.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.drawing.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.node.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.options.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.parser.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.processing.code.tex
+ RELOC/tex/latex/genealogytree/gtrcore.symbols.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.catalan.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.chinese.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.danish.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.dutch.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.english.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.french.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.german.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.italian.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.portuguese.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.spanish.code.tex
+ RELOC/tex/latex/genealogytree/gtrlang.swedish.code.tex
+ RELOC/tex/latex/genealogytree/gtrlib.debug.code.tex
+ RELOC/tex/latex/genealogytree/gtrlib.fanchart.code.tex
+ RELOC/tex/latex/genealogytree/gtrlib.templates.code.tex
+catalogue-also pst-pdgr
+catalogue-ctan /macros/latex/contrib/genealogytree
+catalogue-license lppl1.3
+catalogue-topics genealogy pgf-tikz humanities
+catalogue-version 2.3.0

@@ -1,0 +1,30 @@
+name mdwtools
+category Package
+revision 15878
+shortdesc Miscellaneous tools by Mark Wooding
+relocated 1
+longdesc This collection of tools includes: support for short commands
+longdesc starting with @, macros to sanitise the OT1 encoding of the
+longdesc cmtt fonts; a 'do after' command; improved footnote support;
+longdesc mathenv for various alignment in maths; list handling; mdwmath
+longdesc which adds some minor changes to LaTeX maths; a rewrite of
+longdesc LaTeX's tabular and array environments; verbatim handling; and
+longdesc syntax diagrams.
+runfiles size=31
+ RELOC/tex/latex/mdwtools/at.sty
+ RELOC/tex/latex/mdwtools/cmtt.sty
+ RELOC/tex/latex/mdwtools/doafter.sty
+ RELOC/tex/latex/mdwtools/footnote.sty
+ RELOC/tex/latex/mdwtools/mTTcmtt.fd
+ RELOC/tex/latex/mdwtools/mTTenc.def
+ RELOC/tex/latex/mdwtools/mathenv.sty
+ RELOC/tex/latex/mdwtools/mdwlist.sty
+ RELOC/tex/latex/mdwtools/mdwmath.sty
+ RELOC/tex/latex/mdwtools/mdwtab.sty
+ RELOC/tex/latex/mdwtools/sverb.sty
+ RELOC/tex/latex/mdwtools/syntax.sty
+catalogue-ctan /macros/latex/contrib/mdwtools
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics list-supp notes footnote syntax maths macro-supp table verbatim
+catalogue-version 1.05.4

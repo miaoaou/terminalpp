@@ -1,0 +1,977 @@
+%%
+%% This is file `latex-lab-testphase-table.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% latex-lab-table.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright 2021-2023 LaTeX Project
+%% 
+%% This file was generated from file(s) of the  `LaTeX-lab Bundle'.
+%% ------------------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `LaTeX-lab Bundle'. You may however distribute the `LaTeX-lab Bundle'
+%% without such generated files.
+%% 
+%% The newest sources can be found below
+%% 
+%%    https://github.com/latex3/latex2e/required/latex-lab
+%% 
+%% where one can also log issues in case there are any.
+%% 
+%% 
+%% File: latex-lab-table.dtx (C) Copyright 2023 LaTeX Project
+\def\ltlabtbldate{2023-10-30}
+\def\ltlabtblversion{0.85d}
+\ProvidesExplPackage {latex-lab-testphase-table} {\ltlabtbldate} {\ltlabtblversion}
+  {Code related to the tagging of tables}
+\RequirePackage{array}
+\tl_new:N  \l__tbl_celltag_tl
+\tl_set:Nn \l__tbl_celltag_tl {TD}
+\tl_new:N  \l__tbl_rowtag_tl
+\tl_set:Nn \l__tbl_rowtag_tl {TR}
+\tl_new:N  \l__tbl_cellattribute_tl
+\tl_set:Nn \l__tbl_cellattribute_tl {}
+\tl_new:N  \l__tbl_rowattribute_tl
+\tl_set:Nn \l__tbl_rowattribute_tl {}
+\int_new:N \g__tbl_missing_cells_int
+\clist_new:N \l__tbl_tmpa_clist
+\seq_new:N \l__tbl_tmpa_seq
+\tl_new:N \l__tbl_tmpa_tl
+\NewSocket{tagsupport/tblcell/begin}{0}
+\NewSocket{tagsupport/tblcell/end}{0}
+\NewSocket{tagsupport/tblrow/begin}{0}
+\NewSocket{tagsupport/tblrow/end}{0}
+\NewSocket{tagsupport/tbl/init}{0}
+\NewSocket{tagsupport/tbl/finalize}{0}
+\NewSocket{tagsupport/tbl/finalize/longtable}{0}
+\NewSocket{tagsupport/tblhmode/begin}{0}
+\NewSocket{tagsupport/tblhmode/end}{0}
+\NewSocket{tagsupport/tblvmode/begin}{0}
+\NewSocket{tagsupport/tblvmode/end}{0}
+\NewSocketPlug{tagsupport/tblcell/begin}{TD}
+  {
+    \tag_struct_begin:n
+      {
+        tag             =\l__tbl_celltag_tl,
+        attribute-class =\l__tbl_cellattribute_tl
+      }
+    \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+    \int_step_inline:nn { \g__tbl_span_tl - 1 }
+      {
+        \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+      }
+    \tag_mc_begin:n{}
+  }
+\NewSocketPlug{tagsupport/tblcell/end}{TD}
+  {
+    \tag_mc_end:
+    \tag_struct_end:
+  }
+\NewSocketPlug{tagsupport/tblcell/begin}{TDpbox}
+  {
+    \tag_struct_begin:n
+      {
+        tag             =\l__tbl_celltag_tl,
+        attribute-class =\l__tbl_cellattribute_tl
+      }
+    \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+    \int_step_inline:nn { \g__tbl_span_tl - 1 }
+      {
+        \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+      }
+    \tagpdfparaOn
+    \tl_set:Nn \l__tag_para_main_tag_tl {Div}
+  }
+\NewSocketPlug{tagsupport/tblcell/end}{TDpbox}
+  {
+    \tag_struct_end:
+  }
+\NewSocketPlug{tagsupport/tblrow/begin}{TR}
+  {
+    \seq_gclear:N \g__tbl_struct_cur_seq
+    \tag_struct_begin:n
+     {
+       tag            =\l__tbl_rowtag_tl,
+       attribute-class=\l__tbl_rowattribute_tl
+     }
+   \seq_gput_right:Ne \g__tbl_struct_rows_seq { \tag_get:n {struct_num} }
+  }
+\NewSocketPlug{tagsupport/tblrow/end}{TR}
+  {
+    \__tag_tbl_add_missing_cells:n { \g__tbl_missing_cells_int }
+    \seq_gput_right:Ne \g__tbl_struct_cells_seq
+      {
+        \seq_use:Nn \g__tbl_struct_cur_seq {,}
+      }
+    \int_compare:nNnTF { \g__tbl_row_int } = { \seq_count:N\g__tbl_struct_cells_seq }
+      {
+        \typeout
+          {==>~
+            stucture~stored~for~row~\int_use:N\g__tbl_row_int :~
+            \seq_use:Nn \g__tbl_struct_cur_seq {,}
+          }
+      }
+      { \ERROR } % should not happen ...
+    \tag_struct_end:
+  }
+\NewSocketPlug{tagsupport/tbl/init}{Table}
+  {
+    \tag_if_active:T
+      {
+        \bool_set_false:N \l__tag_para_bool
+      }
+  }
+\NewSocketPlug{tagsupport/tbl/finalize}{Table}
+  {
+    \__tbl_set_header_rows:
+  }
+\NewSocketPlug{tagsupport/tbl/finalize/longtable}{Table}
+  {
+     \bool_lazy_and:nnTF
+       { \seq_if_empty_p:N \g__tbl_LT@head_rows_seq  }
+       { \seq_if_empty_p:N \g__tbl_LT@firsthead_rows_seq }
+       { \__tbl_set_header_rows: }
+       {
+         \seq_if_empty:NTF \g__tbl_LT@firsthead_rows_seq
+           {
+             \clist_set:Ne \l__tbl_header_rows_clist
+               {\seq_use:Nn \g__tbl_LT@head_rows_seq {,}}
+             \__tbl_set_header_rows:
+           }
+           {
+             \clist_set:Ne \l__tbl_header_rows_clist
+               { \seq_use:Nn \g__tbl_LT@firsthead_rows_seq {,} }
+             \__tbl_set_header_rows:
+             \pdf_version_compare:NnTF < {2.0}
+              {
+                \seq_map_inline:Nn \g__tbl_LT@head_rows_seq
+                  {
+                    \seq_gset_item:cnn
+                      {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                      { ##1 }
+                      {}
+                    \tl_set:Ne \l__tbl_tmpa_tl
+                      { \seq_item:Nn\g__tbl_struct_rows_seq {##1} }
+                    \prop_if_exist:cT
+                      { g__tag_struct_ \l__tbl_tmpa_tl _prop }
+                      {
+                        %\prop_gremove:cn {g__tag_struct_ \l__tbl_tmpa_tl _prop} {P}
+                      }
+                  }
+              }
+              {
+                \seq_map_inline:Nn \g__tbl_LT@head_rows_seq
+                  {
+                    \tl_set:Ne \l__tbl_tmpa_tl
+                      { \seq_item:Nn\g__tbl_struct_rows_seq {##1} }
+                    \prop_if_exist:cT
+                      { g__tag_struct_ \l__tbl_tmpa_tl _prop }
+                      {
+                        \__tbl_struct_prop_gput:Vnn \l__tbl_tmpa_tl {S}{/Artifact}
+                      }
+                   }
+               }
+            }
+       }
+     \bool_lazy_and:nnF
+       { \seq_if_empty_p:N \g__tbl_LT@foot_rows_seq  }
+       { \seq_if_empty_p:N \g__tbl_LT@lastfoot_rows_seq }
+       {
+         \seq_if_empty:NTF \g__tbl_LT@lastfoot_rows_seq
+           {
+             \seq_map_inline:Nn \g__tbl_LT@foot_rows_seq
+               {
+                 \tl_set:Ne \l__tbl_tmpa_tl
+                   {
+                     \seq_item:cn
+                       {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                       {##1}
+                   }
+                 \seq_gset_item:cnn
+                   {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                   { ##1 }
+                   {}
+                 \seq_gput_right:cV
+                   {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                   \l__tbl_tmpa_tl
+               }
+           }
+           {
+             \seq_map_inline:Nn \g__tbl_LT@lastfoot_rows_seq
+               {
+                 \tl_set:Ne \l__tbl_tmpa_tl
+                   {
+                     \seq_item:cn
+                       {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                       {##1}
+                   }
+                 \seq_gset_item:cnn
+                   {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                   { ##1 }
+                   {}
+                 \seq_gput_right:cV
+                   {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                   \l__tbl_tmpa_tl
+               }
+            \pdf_version_compare:NnTF < {2.0}
+              {
+                \seq_map_inline:Nn \g__tbl_LT@foot_rows_seq
+                  {
+                    \seq_gset_item:cnn
+                      {g__tag_struct_kids_ \g__tbl_struct_table_tl _seq}
+                      { ##1 }
+                      {}
+                    \tl_set:Ne \l__tbl_tmpa_tl
+                      { \seq_item:Nn\g__tbl_struct_rows_seq {##1} }
+                    \prop_if_exist:cT
+                      { g__tag_struct_ \l__tbl_tmpa_tl _prop }
+                      {
+                        %\prop_gremove:cn {g__tag_struct_ \l__tbl_tmpa_tl _prop} {P}
+                      }
+                  }
+              }
+              {
+                \seq_map_inline:Nn \g__tbl_LT@foot_rows_seq
+                  {
+                    \tl_set:Ne \l__tbl_tmpa_tl
+                      { \seq_item:Nn\g__tbl_struct_rows_seq {##1} }
+                    \prop_if_exist:cT
+                      { g__tag_struct_ \l__tbl_tmpa_tl _prop }
+                      {
+                        \__tbl_struct_prop_gput:Vnn \l__tbl_tmpa_tl {S}{/Artifact}
+                      }
+                   }
+               }
+           }
+       }
+  }
+\NewSocketPlug{tagsupport/tblhmode/begin}{Table}
+  {
+    \mode_leave_vertical:
+    \tag_mc_end_push:
+     \bool_lazy_and:nnT
+      { \bool_if_exist_p:N \l__tag_para_bool } { \l__tag_para_bool }
+      { \tag_struct_end:n { text } }
+    \tag_struct_begin:n {tag=Table}
+    \tl_gset:Ne \g__tbl_struct_table_tl { \tag_get:n {struct_num} }
+  }
+\NewSocketPlug{tagsupport/tblhmode/end}{Table}
+  {
+    \tag_struct_end:
+    \bool_lazy_and:nnT
+      { \bool_if_exist_p:N \l__tag_para_bool } { \l__tag_para_bool }
+      { \tag_struct_begin:n { tag=\l__tag_para_tag_tl } }
+    \tag_mc_begin_pop:n{}
+  }
+\NewSocketPlug{tagsupport/tblvmode/begin}{Table}
+  {
+    \tag_struct_begin:n {tag=Table}
+    \tl_gset:Ne \g__tbl_struct_table_tl { \tag_get:n {struct_num} }
+  }
+\NewSocketPlug{tagsupport/tblvmode/end}{Table}
+  {
+    \tag_struct_end:
+    \par
+  }
+\AddToHook{env/tabular/before}  {\UseSocket{tagsupport/tblhmode/begin}}
+\AddToHook{env/tabular/after}   {\UseSocket{tagsupport/tblhmode/end}}
+\AddToHook{env/tabular*/before} {\UseSocket{tagsupport/tblhmode/begin}}
+\AddToHook{env/tabular*/after}  {\UseSocket{tagsupport/tblhmode/end}}
+\AddToHook{env/tabularx/before} {\UseSocket{tagsupport/tblhmode/begin}}
+\AddToHook{env/tabularx/after}  {\UseSocket{tagsupport/tblhmode/end}}
+\AddToHook{env/longtable/before}{\UseSocket{tagsupport/tblvmode/begin}}
+\AddToHook{env/longtable/after} {\UseSocket{tagsupport/tblvmode/end}}
+\AddToHook{env/array/begin} {\__tag_tbl_disable:}
+\tag_if_active:T
+  { \cs_generate_variant:Nn \__tag_attr_new_entry:nn {ee} }
+\cs_new_protected:Npn \__tbl_set_colspan:n #1
+  {
+    \tag_if_active:T
+      {
+        \int_compare:nNnT {#1}>{1}
+         {
+           \prop_get:NeNF \g__tag_attr_entries_prop
+              {colspan-\int_eval:n{#1}}
+              \l__tbl_tmpa_tl
+              {
+                \__tag_attr_new_entry:ee
+                  {colspan-\int_eval:n{#1}}
+                  {/O /Table /ColSpan~\int_eval:n{#1}}
+              }
+           \tl_set:Ne \l__tbl_cellattribute_tl
+              {colspan-\int_eval:n{#1}}
+         }
+      }
+  }
+
+\cs_new_protected:Npn \__tag_tbl_disable:
+ {
+   \AssignSocketPlug{tagsupport/tblcell/begin}{noop}
+   \AssignSocketPlug{tagsupport/tblcell/end}{noop}
+   \AssignSocketPlug{tagsupport/tblrow/begin}{noop}
+   \AssignSocketPlug{tagsupport/tblrow/end}{noop}
+   \AssignSocketPlug{tagsupport/tbl/init}{noop}
+   \AssignSocketPlug{tagsupport/tbl/finalize}{noop}
+   \AssignSocketPlug{tagsupport/tbl/finalize/longtable}{noop}
+   \AssignSocketPlug{tagsupport/tblhmode/begin}{noop}
+   \AssignSocketPlug{tagsupport/tblhmode/end}{noop}
+   \AssignSocketPlug{tagsupport/tblvmode/begin}{noop}
+   \AssignSocketPlug{tagsupport/tblvmode/end}{noop}
+ }
+
+\cs_new_protected:Npn \__tag_tbl_enable:
+ {
+   \AssignSocketPlug{tagsupport/tblcell/begin}{TD}
+   \AssignSocketPlug{tagsupport/tblcell/end}{TD}
+   \AssignSocketPlug{tagsupport/tblrow/begin}{TR}
+   \AssignSocketPlug{tagsupport/tblrow/end}{TR}
+   \AssignSocketPlug{tagsupport/tbl/init}{Table}
+   \AssignSocketPlug{tagsupport/tbl/finalize}{Table}
+   \AssignSocketPlug{tagsupport/tbl/finalize/longtable}{Table}
+   \AssignSocketPlug{tagsupport/tblhmode/begin}{Table}
+   \AssignSocketPlug{tagsupport/tblhmode/end}{Table}
+   \AssignSocketPlug{tagsupport/tblvmode/begin}{Table}
+   \AssignSocketPlug{tagsupport/tblvmode/end}{Table}
+ }
+
+\keys_define:nn { __tag / setup }
+  {
+    table-tagging .choices:nn = { true, on }
+      { \__tag_tbl_enable: },
+    table-tagging .choices:nn = { false, off }
+      { \__tag_tbl_disable: },
+    table-tagging .default:n = true,
+    table-tagging .initial:n = true
+  }
+\AddToHook{begindocument}
+ {
+  \cs_if_exist:NT \@kernel@before@head
+   {
+     \tl_put_right:Nn \@kernel@before@head {\__tag_tbl_disable:}
+     \tl_put_right:Nn \@kernel@before@foot {\__tag_tbl_disable:}
+   }
+ }
+\AddToHook{begindocument}
+  {
+   \tag_if_active:T
+     {
+       \tagpdfsetup
+         {
+           newattribute =
+            {TH-col}{/O /Table /Scope /Column},
+           newattribute =
+             {TH-row}{/O /Table /Scope /Row},
+           newattribute =
+             {TH-both}{/O /Table /Scope /Both},
+         }
+         \seq_gput_left:Ne\g__tag_attr_class_used_seq
+           {\pdf_name_from_unicode_e:n{TH-col}}
+         \seq_gput_left:Ne\g__tag_attr_class_used_seq
+           {\pdf_name_from_unicode_e:n{TH-row}}
+         \seq_gput_left:Ne\g__tag_attr_class_used_seq
+           {\pdf_name_from_unicode_e:n{TH-both}}
+     }
+  }
+
+\clist_new:N  \l__tbl_header_rows_clist
+\cs_if_free:NTF \__tag_struct_prop_gput:nnn
+   {
+     \cs_new_protected:Npn \__tbl_struct_prop_gput:nnn #1#2#3
+       { \prop_gput:cnn { g__tag_struct_#1_prop }{#2}{#3} }
+   }
+   { \cs_new_protected:Npn  \__tbl_struct_prop_gput:nnn #1#2#3
+       { \__tag_struct_prop_gput:nnn {#1}{#2}{#3} }
+   }
+\cs_generate_variant:Nn \__tbl_struct_prop_gput:nnn {nne,Vnn}
+\cs_new_protected:Npn \__tbl_set_header_rows:
+  {
+    \clist_map_inline:Nn \l__tbl_header_rows_clist
+      {
+        \clist_set:Ne\l__tbl_tmpa_clist
+          {
+            \seq_item:Nn \g__tbl_struct_cells_seq {##1}
+          }
+        \clist_map_inline:Nn \l__tbl_tmpa_clist
+          {
+            \prop_if_exist:cT { g__tag_struct_####1_prop }
+              {
+                \__tbl_struct_prop_gput:nnn{ ####1 }{S}{/TH}
+                \prop_get:cnNTF
+                  { g__tag_struct_####1_prop }
+                  { C }
+                  \l__tbl_tmpa_tl
+                  {\__tbl_struct_prop_gput:nne{ ####1 }{C}{[/TH-col~\l__tbl_tmpa_tl]} }
+                  {\__tbl_struct_prop_gput:nnn{ ####1 }{C}{/TH-col}}
+             }
+          }
+      }
+  }
+\keys_define:nn { __tag / setup }
+  {
+    table-header-rows .clist_set:N = \l__tbl_header_rows_clist
+  }
+\cs_new_protected:Npn \__tbl_show_curr_cell_data: {
+   \typeout { ==>~ current~cell~data:~
+              \int_use:N \g__tbl_row_int ,
+              \int_use:N \g__tbl_col_int ,
+              \g__tbl_span_tl
+            }
+}
+\def\insert@column{%
+  \__tbl_show_curr_cell_data:
+  \UseSocket{tagsupport/tblcell/begin}%
+  \the@toks \the \@tempcnta
+  \ignorespaces \@sharp \unskip
+  \the@toks \the \count@ \relax
+  \UseSocket{tagsupport/tblcell/end}%
+}
+\def\@classz{\@classx
+   \@tempcnta \count@
+   \prepnext@tok
+   \@addtopreamble{\ifcase \@chnum
+      \hfil
+      \hskip1sp%
+      \d@llarbegin
+      \insert@column
+      \d@llarend \do@row@strut \hfil \or
+      \hskip1sp\d@llarbegin \insert@column \d@llarend \do@row@strut \hfil \or
+      \hfil\hskip1sp\d@llarbegin \insert@column \d@llarend \do@row@strut \or
+    \setbox\ar@mcellbox\vbox
+    \@startpbox{\@nextchar}
+    \AssignSocketPlug{tagsupport/tblcell/begin}{TDpbox}
+    \AssignSocketPlug{tagsupport/tblcell/end}{TDpbox}
+    \insert@column \@endpbox
+    \ar@align@mcell
+    \do@row@strut \or
+   \vtop \@startpbox{\@nextchar}
+    \AssignSocketPlug{tagsupport/tblcell/begin}{TDpbox}
+    \AssignSocketPlug{tagsupport/tblcell/end}{TDpbox}
+    \insert@column \@endpbox\do@row@strut \or
+   \vbox \@startpbox{\@nextchar}
+    \AssignSocketPlug{tagsupport/tblcell/begin}{TDpbox}
+    \AssignSocketPlug{tagsupport/tblcell/end}{TDpbox}
+    \insert@column \@endpbox\do@row@strut
+  \fi}\prepnext@tok}
+\def\@array[#1]#2{%
+  \@tempdima \ht \strutbox
+  \advance \@tempdima by\extrarowheight
+  \setbox \@arstrutbox \hbox{\vrule
+             \@height \arraystretch \@tempdima
+             \@depth \arraystretch \dp \strutbox
+             \@width \z@}%
+  \tl_set_eq:NN \l__tbl_saved_table_cols_tl  \g__tbl_table_cols_tl
+  \begingroup
+  \@mkpream{#2}
+  \__tbl_determine_table_cols:
+  \xdef\@preamble{%
+    \noexpand
+     \ar@ialign
+     \@halignto
+     \bgroup \@arstrut
+      \UseSocket{tagsupport/tblrow/begin}%
+      \__tbl_init_cell_data:
+      \@preamble
+      \tabskip \z@ \cr}%
+  \endgroup
+  \@arrayleft
+  \UseSocket{tagsupport/tbl/init}
+  \if #1t\vtop \else \if#1b\vbox \else \vcenter \fi \fi
+  \bgroup
+  \let \@sharp ##\let \protect \relax
+  \lineskip \z@
+  \baselineskip \z@
+  \m@th
+  \let\\\@arraycr \let\tabularnewline\\\let\par\@empty
+  \@preamble}
+\let\@@array\@array
+\cs_new_protected:Npn \__tbl_init_cell_data: {
+        \int_gset:Nn \g__tbl_col_int {1}
+        \tl_gset:Nn  \g__tbl_span_tl {1}
+}
+\cs_new_protected:Npn \__tbl_update_cell_data: {
+        \int_gadd:Nn \g__tbl_col_int { \g__tbl_span_tl }
+        \tl_gset:Nn  \g__tbl_span_tl {1}
+}
+\cs_new:Npn \__tbl_determine_table_cols:  {
+  \seq_set_split:NnV\l__tbl_tmpa_seq {&}\@preamble
+  \tl_gset:Ne \g__tbl_table_cols_tl { \seq_count:N \l__tbl_tmpa_seq }
+  \typeout{ ==>~ Table~ has~ \g__tbl_table_cols_tl \space columns }
+}
+\protected\def\@arraycr{
+  \relax
+  \__tbl_store_missing_cells:n{@arraycr}
+  %
+  \iffalse{\fi\ifnum 0=`}\fi
+  \@ifstar \@xarraycr \@xarraycr}
+\cs_new:Npn \__tbl_store_missing_cells:n #1 {
+  \int_compare:nNnT \g__tbl_col_int > 0
+      {
+        \int_gset:Nn \g__tbl_missing_cells_int
+            {
+              \g__tbl_table_cols_tl
+            - \g__tbl_col_int
+            - \g__tbl_span_tl
+            + 1
+            }
+        \int_compare:nNnT \g__tbl_missing_cells_int < 0 \ERROR % should not happen
+        \typeout{==>~
+          (#1)~
+          This~ row~ needs~
+          \int_use:N \g__tbl_missing_cells_int \space
+          additional~ cell(s)
+        }
+      }
+}
+\cs_new:Npn \__tag_tbl_add_missing_cells:n #1
+  {
+    \int_compare:nNnT {#1}>{0}
+      {
+       \typeout{==>~
+          ~Inserting~\int_eval:n{#1}~additional~cell(s)~into~previous~row:}
+      }
+    \int_step_inline:nn { #1 }
+      {
+        \UseSocket{tagsupport/tblcell/begin}
+        \UseSocket{tagsupport/tblcell/end}
+      }
+  }
+\def\endarray{
+  \__tbl_store_missing_cells:n{endarray}
+  \crcr \egroup
+  \UseSocket{tagsupport/tbl/finalize}
+  \int_gset:Nn \g__tbl_col_int { \l__tbl_saved_col_tl }
+  \int_gset:Nn \g__tbl_row_int { \l__tbl_saved_row_tl }
+  \tl_gset_eq:NN \g__tbl_span_tl \l__tbl_saved_span_tl
+  \tl_gset_eq:NN \g__tbl_table_cols_tl   \l__tbl_saved_table_cols_tl
+  \tl_gset_eq:NN \g__tbl_struct_table_tl  \l__tbl_saved_struct_table_tl
+  \seq_gset_eq:NN \g__tbl_struct_rows_seq \l__tbl_saved_struct_rows_seq
+  \seq_gset_eq:NN \g__tbl_struct_cells_seq\l__tbl_saved_struct_cells_seq
+  \seq_gset_eq:NN \g__tbl_struct_cur_seq  \l__tbl_saved_struct_cur_seq
+  \typeout{==>~ restored~cell~data:~
+                \int_use:N \g__tbl_row_int,
+                \int_use:N \g__tbl_col_int,
+                \l__tbl_saved_span_tl \space
+                (
+                \int_compare:nNnTF \g__tbl_table_cols_tl = 0
+                    { outer~ level }
+                    { max:~ \g__tbl_table_cols_tl }
+                )
+          }
+  \egroup
+  \@arrayright \gdef\@preamble{}%
+}
+\def\@addamp {
+  \if@firstamp
+    \@firstampfalse
+  \else
+    \edef\@preamble{\@preamble &
+        \__tbl_update_cell_data:
+    }
+  \fi
+}
+\int_new:N \g__tbl_col_int
+\int_new:N \g__tbl_row_int
+\tl_new:N  \g__tbl_span_tl
+\tl_new:N  \g__tbl_table_cols_tl
+
+\tl_gset:Nn \g__tbl_span_tl {1}
+\tl_gset:Nn \g__tbl_table_cols_tl {0}  % indicates outer level
+\tl_new:N \l__tbl_saved_col_tl
+\tl_new:N \l__tbl_saved_row_tl
+\tl_new:N \l__tbl_saved_span_tl
+\tl_new:N \l__tbl_saved_table_cols_tl
+
+\tl_set:Nn \l__tbl_saved_col_tl{0}
+\tl_set:Nn \l__tbl_saved_row_tl{0}
+\tl_set:Nn \l__tbl_saved_span_tl{1}
+\tl_set:Nn \l__tbl_saved_table_cols_tl{0}  % indicates outer level
+\tl_new:N  \g__tbl_struct_table_tl
+\tl_new:N  \l__tbl_saved_struct_table_tl
+\seq_new:N \g__tbl_struct_rows_seq
+\seq_new:N \l__tbl_saved_struct_rows_seq
+\seq_new:N \g__tbl_struct_cells_seq
+\seq_new:N \l__tbl_saved_struct_cells_seq
+\seq_new:N \g__tbl_struct_cur_seq
+\seq_new:N \l__tbl_saved_struct_cur_seq
+\def\ar@ialign{%
+  \tl_set:No \l__tbl_saved_col_tl {\int_use:N \g__tbl_col_int }
+  \tl_set:No \l__tbl_saved_row_tl {\int_use:N \g__tbl_row_int }
+  \tl_set_eq:NN \l__tbl_saved_span_tl  \g__tbl_span_tl
+  \tl_set_eq:NN  \l__tbl_saved_struct_table_tl \g__tbl_struct_table_tl
+  \seq_set_eq:NN \l__tbl_saved_struct_rows_seq \g__tbl_struct_rows_seq
+  \seq_set_eq:NN \l__tbl_saved_struct_cells_seq \g__tbl_struct_cells_seq
+  \seq_set_eq:NN \l__tbl_saved_struct_cur_seq \g__tbl_struct_cur_seq
+  \typeout{==>~ saved~cell~data:~
+                \l__tbl_saved_row_tl,
+                \l__tbl_saved_col_tl,
+                \l__tbl_saved_span_tl \space
+                (
+                \int_compare:nNnTF \l__tbl_saved_table_cols_tl = 0
+                    { outer~ level }
+                    { max:~ \l__tbl_saved_table_cols_tl }
+                )
+          }
+  \int_gzero:N \g__tbl_row_int
+  \int_gzero:N \g__tbl_col_int
+  \tl_gset:Nn  \g__tbl_span_tl {1}
+  \seq_gclear:N\g__tbl_struct_rows_seq
+  \seq_gclear:N\g__tbl_struct_cells_seq
+  \seq_gclear:N\g__tbl_struct_cur_seq
+  \everycr{%
+    \noalign{%
+      \int_compare:nNnT \g__tbl_col_int > 0
+         { \UseSocket{tagsupport/tblrow/end} }
+      \int_gincr:N \g__tbl_row_int          % this row about to start
+      \int_gzero:N \g__tbl_col_int          % we are before first col
+    }%
+  }%
+  \tabskip\z@skip\halign}
+\long\def\multicolumn#1#2#3{%
+  % alternative: determine first col with vmode test ...
+  %  \ifvmode
+  %    \multispan{#1}\typeout{A==> vmode}%
+  %  \else
+  %    \multispan{#1}\typeout{A==> not vmode}
+  %  \fi
+  % but this makes the \crcr handling really complicated which would
+  % then need to become something like
+  %    \ifvmode \expandafter \@gobble
+  %    \else \expandafter \@iden \fi {\cr\noalign{do something}}%
+  % so not used.
+  % Instead:
+   \multispan{#1}\begingroup
+   \int_compare:nNnTF \g__tbl_col_int = 0
+       {
+         \UseSocket{tagsupport/tblrow/begin}
+         \int_gset:Nn \g__tbl_col_int {1}
+       }
+       {
+         \int_gadd:Nn \g__tbl_col_int { \g__tbl_span_tl }
+       }
+   \tl_gset:Nn \g__tbl_span_tl {#1}
+  \def\@addamp{\if@firstamp\@firstampfalse \else
+                \@preamerr 5\fi}%
+   \@mkpream{#2}\@addtopreamble\@empty
+   \endgroup
+   \__tbl_set_colspan:n {#1}
+   \def\@sharp{#3}%
+   \@arstrut \@preamble
+   \null
+   \ignorespaces}
+\let\@kernel@refstepcounter\refstepcounter
+\def\hyper@nopatch@longtable{}
+\def\__tbl_patch_LT@array[#1]#2{%
+  \UseSocket{tagsupport/tbl/init}%
+  \@kernel@refstepcounter{table}\stepcounter{LT@tables}%
+  \tl_gset:Ne \@currentHref {table.\cs_if_exist_use:N\theHtable}
+  \int_gzero:N \g__tbl_row_int
+  \seq_gclear:N\g__tbl_struct_rows_seq
+  \seq_gclear:N\g__tbl_struct_cells_seq
+  \seq_gclear:N\g__tbl_struct_cur_seq
+  \seq_gclear:N\g__tbl_LT@firsthead_rows_seq
+  \seq_gclear:N\g__tbl_LT@head_rows_seq
+  \seq_gclear:N\g__tbl_LT@lastfoot_rows_seq
+  \seq_gclear:N\g__tbl_LT@foot_rows_seq
+  \if l#1%
+    \LTleft\z@ \LTright\fill
+  \else\if r#1%
+    \LTleft\fill \LTright\z@
+  \else\if c#1%
+    \LTleft\fill \LTright\fill
+  \fi\fi\fi
+  \let\LT@mcol\multicolumn
+  \let\LT@@tabarray\@tabarray
+  \let\LT@@hl\hline
+  \def\@tabarray{%
+    \let\hline\LT@@hl
+    \LT@@tabarray}%
+  \let\\\LT@tabularcr
+  \let\tabularnewline\\%
+  \def\newpage{\noalign{\break}}%
+  \def\pagebreak{\noalign{\ifnum`}=0\fi\@testopt{\LT@no@pgbk-}4}%
+  \def\nopagebreak{\noalign{\ifnum`}=0\fi\@testopt\LT@no@pgbk4}%
+  \let\hline\LT@hline \let\kill\LT@kill\let\caption\LT@caption
+  \@tempdima\ht\strutbox
+  \let\@endpbox\LT@endpbox
+  \ifx\extrarowheight\@undefined
+    \let\@acol\@tabacol
+    \let\@classz\@tabclassz \let\@classiv\@tabclassiv
+    \def\@startpbox{\vtop\LT@startpbox}%
+    \let\@@startpbox\@startpbox
+    \let\@@endpbox\@endpbox
+    \let\LT@LL@FM@cr\@tabularcr
+  \else
+    \advance\@tempdima\extrarowheight
+    \col@sep\tabcolsep
+    \let\@startpbox\LT@startpbox\let\LT@LL@FM@cr\@arraycr
+  \fi
+  \setbox\@arstrutbox\hbox{\vrule
+    \@height \arraystretch \@tempdima
+    \@depth \arraystretch \dp \strutbox
+    \@width \z@}%
+  \let\@sharp##\let\protect\relax
+   \begingroup
+    \@mkpream{#2}%
+    \__tbl_determine_table_cols:
+    \xdef\LT@bchunk{%
+       \int_gzero:N \g__tbl_col_int
+       \global\advance\c@LT@chunks\@ne
+       \global\LT@rows\z@\setbox\z@\vbox\bgroup
+       \LT@setprevdepth
+       \tabskip\LTleft \noexpand\halign to\hsize\bgroup
+       \tabskip\z@ \@arstrut
+       \UseSocket{tagsupport/tblrow/begin}%
+       \__tbl_init_cell_data:
+       \@preamble \tabskip\LTright \cr}%
+  \endgroup
+  \expandafter\LT@nofcols\LT@bchunk&\LT@nofcols
+  \LT@make@row
+  \m@th\let\par\@empty
+  \everycr{%
+    \noalign{%
+      \typeout{--longtable-->~chunk~row:~ \the\LT@rows \space
+               row:~ \the\g__tbl_row_int   \space
+               column:~ \the\g__tbl_col_int
+      }
+      \int_compare:nNnT \g__tbl_col_int > 0
+          {
+            \UseSocket{tagsupport/tblrow/end}
+          }
+      \int_gzero:N \g__tbl_col_int           % before first col
+      \int_compare:nNnT \LT@rows < \LTchunksize
+         { \int_gincr:N \g__tbl_row_int  }   % this row about to start
+    }%
+  }%
+  \lineskip\z@\baselineskip\z@
+  \LT@bchunk}
+\def\__tbl_patch_endlongtable{%
+  \__tbl_store_missing_cells:n{endlongtable}
+  \crcr
+  \noalign{%
+    \UseSocket{tagsupport/tbl/finalize/longtable}
+    \int_gzero:N \g__tbl_row_int      % this prevents considering the next
+                                    % \crcr as another row end.
+    \let\LT@entry\LT@entry@chop
+    \xdef\LT@save@row{\LT@save@row}}%
+  \LT@echunk
+  \LT@start
+  \unvbox\z@
+  \LT@get@widths
+  \if@filesw
+    {\let\LT@entry\LT@entry@write\immediate\write\@auxout{%
+      \gdef\expandafter\noexpand
+        \csname LT@\romannumeral\c@LT@tables\endcsname
+          {\LT@save@row}}}%
+  \fi
+  \ifx\LT@save@row\LT@@save@row
+  \else
+    \LT@warn{Column~\@width s~have~changed\MessageBreak
+             in~table~\thetable}%
+    \LT@final@warn
+  \fi
+  \endgraf\penalty -\LT@end@pen
+  \ifvoid\LT@foot\else
+    \global\advance\vsize\ht\LT@foot
+    \global\advance\@colroom\ht\LT@foot
+    \dimen@\pagegoal\advance\dimen@\ht\LT@foot\pagegoal\dimen@
+  \fi
+  \endgroup
+  \global\@mparbottom\z@
+  \endgraf\penalty\z@\addvspace\LTpost
+  \ifvoid\footins\else\insert\footins{}\fi}
+\def\__tbl_patch_LT@t@bularcr{%
+  \global\advance\LT@rows\@ne
+  \ifnum\LT@rows=\LTchunksize
+    \__tbl_store_missing_cells:n{echunk}
+    \gdef\LT@setprevdepth{%
+      \prevdepth\z@
+      \global\let\LT@setprevdepth\relax}%
+    \expandafter\LT@xtabularcr
+  \else
+    \ifnum0=`{}\fi
+    \expandafter\LT@LL@FM@cr
+  \fi}
+
+\def\__tbl_patch_LT@end@hd@ft#1{%
+  \__tbl_store_missing_cells:n{head/foot}
+  \int_step_inline:nn
+   { \LT@rows + 1 }
+   {
+     \seq_gput_left:ce
+       {g__tbl_\cs_to_str:N #1 _rows_seq }
+       { \int_eval:n {\g__tbl_row_int + 1 - ##1 } }
+   }
+  \int_gset:Nn \LT@rows { \LTchunksize }
+  \LT@echunk
+  \ifx\LT@start\endgraf
+    \LT@err
+     {Longtable head or foot not at start of table}%
+     {Increase LTchunksize}%
+  \fi
+  \setbox#1\box\z@
+  \LT@get@widths
+  \LT@bchunk}
+
+\def\__tbl_patch_LT@start{%
+  \let\LT@start\endgraf
+  \endgraf\penalty\z@\vskip\LTpre\endgraf
+   \ifdim \pagetotal<\pagegoal \else
+      \dimen@=\pageshrink
+      \advance \dimen@ 1sp %
+      \kern\dimen@\penalty 9999\endgraf \kern-\dimen@
+   \fi
+  \dimen@\pagetotal
+  \advance\dimen@ \ht\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \dp\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \ht\LT@foot
+  \edef\LT@reset@vfuzz{\vfuzz\the\vfuzz\vbadness\the\vbadness\relax}%
+  \vfuzz\maxdimen
+  \vbadness\@M
+  \setbox\tw@\copy\z@
+  \setbox\tw@\vsplit\tw@ to \ht\@arstrutbox
+  \setbox\tw@\vbox{\unvbox\tw@}%
+  \LT@reset@vfuzz
+  \advance\dimen@ \ht
+        \ifdim\ht\@arstrutbox>\ht\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@\dp
+        \ifdim\dp\@arstrutbox>\dp\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@ -\pagegoal
+  \ifdim \dimen@>\z@
+    \vfil\break
+  \else
+    \ifdim\pageshrink>\z@\pageshrink\z@\fi
+  \fi
+      \global\@colroom\@colht
+  \ifvoid\LT@foot\else
+    \global\advance\vsize-\ht\LT@foot
+    \global\advance\@colroom-\ht\LT@foot
+    \dimen@\pagegoal\advance\dimen@-\ht\LT@foot\pagegoal\dimen@
+    \maxdepth\z@
+  \fi
+  \MakeLinkTarget{table}
+  \ifvoid\LT@firsthead\copy\LT@head\else\box\LT@firsthead\fi\nobreak
+  \tagmcbegin{artifact}
+   \tag_mc_reset_box:N\LT@head
+  \tagmcend
+  \output{\LT@output}}
+\def\__tbl_patch_LT@output{%
+  \ifnum\outputpenalty <-\@Mi
+    \ifnum\outputpenalty > -\LT@end@pen
+      \LT@err{floats and marginpars not allowed in a longtable}\@ehc
+    \else
+      \setbox\z@\vbox{\unvbox\@cclv}%
+      \ifdim \ht\LT@lastfoot>\ht\LT@foot
+        \dimen@\pagegoal
+        \advance\dimen@\ht\LT@foot
+        \advance\dimen@-\ht\LT@lastfoot
+        \ifdim\dimen@<\ht\z@
+          \setbox\@cclv\vbox{\unvbox\z@\copy\LT@foot\vss}%
+          \@makecol
+          \@outputpage
+          \global\vsize\@colroom
+          \setbox\z@\vbox{\box\LT@head}%
+        \fi
+      \fi
+        \unvbox\z@\box\ifvoid\LT@lastfoot\LT@foot\else\LT@lastfoot\fi
+        \tagmcbegin{artifact}
+        \tag_mc_reset_box:N \LT@foot
+        \tagmcend
+    \fi
+  \else
+    \setbox\@cclv\vbox{\unvbox\@cclv\copy\LT@foot\vss}%
+    \tagmcbegin{artifact}
+    \tag_mc_reset_box:N \LT@foot
+    \tagmcend
+    \@makecol
+    \@outputpage
+      \global\vsize\@colroom
+    \copy\LT@head\nobreak
+  \fi}
+\def\__tbl_patch_LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{%
+  % test can go after merge
+    \str_if_exist:cT { l__socket_tagsupport/parbox/before_plug_str }
+      {
+        \AssignSocketPlug{tagsupport/parbox/before}{noop}
+        \AssignSocketPlug{tagsupport/parbox/after}{noop}
+      }
+    \hbox to\z@{\hss\parbox[t]\LTcapwidth{%
+    \reset@font
+    \tag_stop:n{caption}
+    \sbox\@tempboxa{#1{#2:~}#3}%
+    \tag_start:n{caption}
+    \ifdim\wd\@tempboxa>\hsize
+      #1{#2:~}#3%
+    \else
+      \hbox to\hsize{\hfil#1{#2:~}#3\hfil}%
+    \fi
+    \endgraf\vskip\baselineskip}%
+  \hss}}}
+\AddToHook{package/longtable/after}
+  {
+   \seq_new:N \g__tbl_LT@firsthead_rows_seq
+   \seq_new:N \g__tbl_LT@head_rows_seq
+   \seq_new:N \g__tbl_LT@lastfoot_rows_seq
+   \seq_new:N \g__tbl_LT@foot_rows_seq
+   \cs_set_eq:NN \LT@array\__tbl_patch_LT@array
+   \cs_set_eq:NN \endlongtable\__tbl_patch_endlongtable
+   \cs_set_eq:NN \LT@start\__tbl_patch_LT@start
+   \cs_set_eq:NN \LT@output\__tbl_patch_LT@output
+   \cs_set_eq:NN \LT@t@bularcr\__tbl_patch_LT@t@bularcr
+   \cs_set_eq:NN \LT@end@hd@ft\__tbl_patch_LT@end@hd@ft
+   \cs_set_eq:NN \LT@makecaption\__tbl_patch_LT@makecaption
+  }
+
+\def\__tbl_patch_TX@endtabularx{%
+   \expandafter\expandafter\expandafter
+     \TX@find@endtabularxa\csname end\TX@\endcsname
+     \endtabularx\TX@\endtabularx\TX@find@endtabularxa
+  \expandafter\TX@newcol\expandafter{\tabularxcolumn{\TX@col@width}}%
+  \let\verb\TX@verb
+  \def\@elt##1{\global\value{##1}\the\value{##1}\relax}%
+  \edef\TX@ckpt{\cl@@ckpt}%
+  \let\@elt\relax
+  \TX@old@table\maxdimen
+  \TX@col@width\TX@target
+  \global\TX@cols\@ne
+  \TX@typeout@
+    {\@spaces Table Width\@spaces Column Width\@spaces X Columns}%
+  \tag_stop:n{tabularx}
+  \TX@trial{\def\NC@rewrite@X{%
+          \global\advance\TX@cols\@ne\NC@find p{\TX@col@width}}}%
+  \loop
+    \TX@arith
+    \ifTX@
+    \TX@trial{}%
+  \repeat
+  \tag_start:n{tabularx}
+  {\let\@footnotetext\TX@ftntext\let\@xfootnotenext\TX@xftntext
+    \csname tabular*\expandafter\endcsname\expandafter\TX@target
+      \the\toks@
+    \csname endtabular*\endcsname}%
+  \global\TX@ftn\expandafter{\expandafter}\the\TX@ftn
+  \ifnum0=`{\fi}%
+   \expandafter\expandafter\expandafter
+   \TX@find@endtabularxbb
+    \expandafter\end\expandafter{\TX@}%
+    \endtabularx\TX@\endtabularx\TX@find@endtabularxb
+}
+
+\AddToHook{package/tabularx/after}
+  {\cs_set_eq:NN \TX@endtabularx\__tbl_patch_TX@endtabularx }
+\endinput
+%%
+%% End of file `latex-lab-testphase-table.sty'.

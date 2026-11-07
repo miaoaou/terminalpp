@@ -1,0 +1,19 @@
+name quoting
+category Package
+revision 32818
+shortdesc Consolidated environment for displayed text
+relocated 1
+longdesc As an alternative to the LaTeX standard environments quotation
+longdesc and quote, the package provides a consolidated environment for
+longdesc displayed text. First-line indentation may be activated by
+longdesc adding a blank line before the quoting environment. A key-value
+longdesc interface (using kvoptions) allows the user to configure font
+longdesc properties and spacing and to control orphans within and after
+longdesc the environment.
+runfiles size=1
+ RELOC/tex/latex/quoting/quoting.sty
+catalogue-ctan /macros/latex/contrib/quoting
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics quotation
+catalogue-version 0.1c

@@ -1,0 +1,16 @@
+name linop
+category Package
+revision 41304
+shortdesc Typeset linear operators as they appear in quantum theory or linear algebra
+relocated 1
+longdesc This small package aims to provide two simple commands and many
+longdesc options to easily write linear operators as they appear in
+longdesc many-body physics, quantum theory, and linear algebra, in any
+longdesc of the ways commonly in use.
+runfiles size=1
+ RELOC/tex/latex/linop/linop.sty
+catalogue-ctan /macros/latex/contrib/linop
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics maths physics
+catalogue-version 0.1

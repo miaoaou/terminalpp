@@ -1,0 +1,27 @@
+name skeyval
+category Package
+revision 30560
+shortdesc Key-value parsing combining features of xkeyval and pgfkeys
+relocated 1
+longdesc The package integrates the features of xkeyval and of pgfkeys
+longdesc by introducing a new type of handlers. Style keys, links,
+longdesc changing key callbacks and values on the fly, and other
+longdesc features of pgfkeys are introduced in a new context.
+runfiles size=148
+ RELOC/tex/latex/skeyval/skeyval-bc.sty
+ RELOC/tex/latex/skeyval/skeyval-core.tex
+ RELOC/tex/latex/skeyval/skeyval-for.tex
+ RELOC/tex/latex/skeyval/skeyval-ltxcmds.tex
+ RELOC/tex/latex/skeyval/skeyval-ltxpatch.sty
+ RELOC/tex/latex/skeyval/skeyval-pstkey.sty
+ RELOC/tex/latex/skeyval/skeyval-pstkey.tex
+ RELOC/tex/latex/skeyval/skeyval-testclass.cls
+ RELOC/tex/latex/skeyval/skeyval-testpkg.sty
+ RELOC/tex/latex/skeyval/skeyval-view.sty
+ RELOC/tex/latex/skeyval/skeyval.sty
+catalogue-also skeycommand
+catalogue-ctan /macros/latex/contrib/skeyval
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics keyval
+catalogue-version 1.3

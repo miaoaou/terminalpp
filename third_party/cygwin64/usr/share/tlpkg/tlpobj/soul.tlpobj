@@ -1,0 +1,24 @@
+name soul
+category Package
+revision 67365
+shortdesc Hyphenation for letterspacing, underlining, and more
+relocated 1
+longdesc The package provides hyphenable spacing out (letterspacing),
+longdesc underlining, striking out, etc., using the TeX hyphenation
+longdesc algorithm to find the proper hyphens automatically. It also
+longdesc provides a mechanism that can be used to implement similar
+longdesc tasks, that have to treat text syllable by syllable. This is
+longdesc shown in two examples. This version is a merge of the original
+longdesc soul package from Melchior Franz and the soulutf8 package from
+longdesc Heiko Oberdiek and supports also UTF8.
+runfiles size=13
+ RELOC/tex/generic/soul/soul-ori.sty
+ RELOC/tex/generic/soul/soul.sty
+ RELOC/tex/generic/soul/soulutf8.sty
+catalogue-alias soulutf8
+catalogue-contact-bugs https://github.com/ho-tex/soul/issues
+catalogue-contact-repository https://github.com/ho-tex/soul
+catalogue-ctan /macros/generic/soul
+catalogue-license lppl1.3
+catalogue-topics underline letterspace
+catalogue-version 3.1

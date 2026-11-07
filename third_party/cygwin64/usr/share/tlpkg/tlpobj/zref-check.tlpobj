@@ -1,0 +1,23 @@
+name zref-check
+category Package
+revision 68846
+shortdesc Flexible cross-references with contextual checks based on zref
+relocated 1
+longdesc This package provides an user interface for making LaTeX
+longdesc cross-references flexibly, while allowing to have them checked
+longdesc for consistency with the document structure as typeset.
+longdesc Statements such as "above", "on the next page", "previously",
+longdesc "as will be discussed", "on the previous chapter" and so on can
+longdesc be given to \zcheck in free-form, and a set of "checks" can be
+longdesc specified to be run against a given "label", which will result
+longdesc in a warning at compilation time if any of these checks fail.
+longdesc \zctarget and the zcregion environment are also defined as a
+longdesc means to easily set label targets to arbitrary places in the
+longdesc text which can be referred to by \zcheck.
+runfiles size=10
+ RELOC/tex/latex/zref-check/zref-check.sty
+catalogue-contact-repository https://github.com/gusbrs/zref-check
+catalogue-ctan /macros/latex/contrib/zref-check
+catalogue-license lppl1.3c
+catalogue-topics label-ref expl3
+catalogue-version 0.3.5

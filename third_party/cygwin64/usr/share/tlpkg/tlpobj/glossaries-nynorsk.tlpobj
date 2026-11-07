@@ -1,0 +1,13 @@
+name glossaries-nynorsk
+category Package
+revision 67201
+shortdesc Nynorsk language module for the glossaries package
+relocated 1
+longdesc Norwegian Nynorsk language module for the glossaries package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-nynorsk/glossaries-nynorsk.ldf
+catalogue-contact-home https://github.com/switchcraft/glossaries-nynorsk
+catalogue-ctan /macros/latex/contrib/glossaries-nynorsk
+catalogue-license lppl1.3
+catalogue-topics glossary norwegian
+catalogue-version 1.0

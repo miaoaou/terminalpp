@@ -1,0 +1,21 @@
+name grffile
+category Package
+revision 52756
+shortdesc Extended file name support for graphics (legacy package)
+relocated 1
+longdesc The original package extended the file name processing of
+longdesc package graphics to support a larger range of file names. The
+longdesc base LaTeX code now supports multiple dots and spaces, and this
+longdesc package by default is a stub that just loads graphicx. However,
+longdesc \usepackage{grffile}[=v1] may be used to access version 1(.18)
+longdesc of the package if that is needed.
+runfiles size=5
+ RELOC/tex/latex/grffile/grffile-2017-06-30.sty
+ RELOC/tex/latex/grffile/grffile.sty
+catalogue-contact-bugs https://github.com/ho-tex/grffile/issues
+catalogue-contact-repository https://github.com/ho-tex/grffile
+catalogue-ctan /macros/latex/contrib/grffile
+catalogue-date 2019-11-11 23:25:54 +0100
+catalogue-license lppl1.3c
+catalogue-topics file-mgmt
+catalogue-version 2.1

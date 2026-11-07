@@ -1,0 +1,16 @@
+name svninfo
+category Package
+revision 62157
+shortdesc Typeset Subversion keywords
+relocated 1
+longdesc A package for incorporating the values of Subversion keywords
+longdesc into typeset documents. Information about Subversion (a
+longdesc replacement for CVS) is available from the project's home site.
+runfiles size=5
+ RELOC/tex/latex/svninfo/svninfo.cfg
+ RELOC/tex/latex/svninfo/svninfo.sty
+catalogue-also svn svn-multi svn-prov
+catalogue-ctan /macros/latex/contrib/svninfo
+catalogue-license lppl1
+catalogue-topics version-control doc-mgmt
+catalogue-version 0.7.4

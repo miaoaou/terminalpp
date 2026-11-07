@@ -1,0 +1,15 @@
+name changelayout
+category Package
+revision 16094
+shortdesc Change the layout of individual pages and their text
+relocated 1
+longdesc The package is an extension of the changepage package to permit
+longdesc the user to change the layout of individual pages and their
+longdesc texts.
+runfiles size=5
+ RELOC/tex/latex/changelayout/changelayout.sty
+catalogue-ctan /macros/latex/contrib/changelayout
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics geometry-adj
+catalogue-version 1.0

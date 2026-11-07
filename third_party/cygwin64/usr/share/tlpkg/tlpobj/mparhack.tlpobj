@@ -1,0 +1,15 @@
+name mparhack
+category Package
+revision 59066
+shortdesc Work around a LaTeX bug in marginpars
+relocated 1
+longdesc Works around the LaTeX bug that marginpars will sometimes come
+longdesc out at the wrong margin.
+runfiles size=2
+ RELOC/tex/latex/mparhack/mparhack.sty
+catalogue-contact-bugs https://github.com/u-fischer/mparhack/issues
+catalogue-contact-repository https://github.com/u-fischer/mparhack
+catalogue-ctan /macros/latex/contrib/mparhack
+catalogue-license gpl2+
+catalogue-topics marginal
+catalogue-version 1.5

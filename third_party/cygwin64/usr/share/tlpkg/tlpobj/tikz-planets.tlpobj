@@ -1,0 +1,18 @@
+name tikz-planets
+category Package
+revision 55002
+shortdesc Illustrate celestial mechanics and the solar system
+relocated 1
+longdesc This TikZ-package makes it easy to illustrate celestial
+longdesc mechanics and the solar system. You can use it to draw sketches
+longdesc of the eclipses, the phases of the Moon, etc. The package
+longdesc requires the standard packages TikZ, xcolor, xstring, and
+longdesc pgfkeys.
+runfiles size=4
+ RELOC/tex/latex/tikz-planets/planets.sty
+catalogue-contact-bugs https://framagit.org/Moutmout/tikz-planets/-/issues/
+catalogue-contact-repository https://framagit.org/Moutmout/tikz-planets
+catalogue-ctan /graphics/pgf/contrib/tikz-planets
+catalogue-license cc-by-sa-4
+catalogue-topics graphics pgf-tikz astronomy
+catalogue-version 1.0.2

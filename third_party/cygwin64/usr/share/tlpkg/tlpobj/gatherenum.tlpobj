@@ -1,0 +1,24 @@
+name gatherenum
+category Package
+revision 67201
+shortdesc A crossover of align* and enumerate
+relocated 1
+longdesc This package (ab)uses the inline enumeration capabilities of
+longdesc enumitem to add a "displayed" enumeration mode, triggered by
+longdesc adding 'gathered' to the key-value option list of the enumerate
+longdesc environment. The end result is similar to a regular enumerate
+longdesc environment wrapped in a multicols environment, with the
+longdesc following advantages: Gathered enumerate can pack items
+longdesc depending on their actual width rather than a fixed, constant
+longdesc number per line. Gathered enumeration fills items in a
+longdesc line-major order (instead of column-major order), which my
+longdesc students found less confusing. YMMV. The package depends on
+longdesc enumitem, expl3, and xparse,
+runfiles size=1
+ RELOC/tex/latex/gatherenum/gatherenum.sty
+catalogue-contact-bugs https://gitlab.com/frnchfrgg-latex/gatherenum/-/issues
+catalogue-contact-repository https://gitlab.com/frnchfrgg-latex/gatherenum
+catalogue-ctan /macros/latex/contrib/gatherenum
+catalogue-license gpl3+
+catalogue-topics list expl3
+catalogue-version 1.8

@@ -1,0 +1,14 @@
+name pas-tableur
+category Package
+revision 66860
+shortdesc Create a spreadsheet layout
+relocated 1
+longdesc The package provides commands for creating a grid of
+longdesc rectangles, and commands for populating locations in the grid.
+longdesc PGF/TikZ is used for placement and population of the cells.
+runfiles size=4
+ RELOC/tex/latex/pas-tableur/pas-tableur.sty
+catalogue-ctan /macros/latex/contrib/pas-tableur
+catalogue-license lppl
+catalogue-topics alignment pgf-tikz
+catalogue-version 2.05

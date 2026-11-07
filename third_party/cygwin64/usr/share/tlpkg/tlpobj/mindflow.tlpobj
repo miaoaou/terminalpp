@@ -1,0 +1,14 @@
+name mindflow
+category Package
+revision 65236
+shortdesc Write your ideas in a clear way
+relocated 1
+longdesc This package provides an environment that has its own line
+longdesc numbers or markers and can be well distinguished from the main
+longdesc text, for writing your ideas or annotations.
+runfiles size=2
+ RELOC/tex/latex/mindflow/mindflow.sty
+catalogue-contact-repository https://github.com/Jinwen-XU/mindflow
+catalogue-ctan /macros/latex/contrib/mindflow
+catalogue-license lppl1.3c
+catalogue-topics notes

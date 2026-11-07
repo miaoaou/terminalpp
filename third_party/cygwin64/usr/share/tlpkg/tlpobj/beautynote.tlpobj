@@ -1,0 +1,19 @@
+name beautynote
+category Package
+revision 70155
+shortdesc A package designed to meet the publication of books and the production of LaTeX templates, with elegant chapter
+relocated 1
+longdesc The package is a specially designed to meet the publication of
+longdesc books and the production of LaTeX templates, with elegant
+longdesc chapter styles and unique page styles.
+runfiles size=5
+ RELOC/tex/latex/beautynote/beautynote.cls
+catalogue-contact-announce https://github.com/BeautyLaTeX/beautynote/releases
+catalogue-contact-bugs https://github.com/BeautyLaTeX/beautynote/issues
+catalogue-contact-development https://github.com/BeautyLaTeX
+catalogue-contact-home https://github.com/BeautyLaTeX/beautynote
+catalogue-contact-repository https://github.com/BeautyLaTeX/beautynote
+catalogue-contact-support https://github.com/BeautyLaTeX/beautynote/issues
+catalogue-ctan /macros/latex/contrib/beautynote
+catalogue-license lppl1.3c
+catalogue-topics book-pub class doc-templ expl3

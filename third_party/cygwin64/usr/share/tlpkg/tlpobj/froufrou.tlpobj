@@ -1,0 +1,16 @@
+name froufrou
+category Package
+revision 67201
+shortdesc Fancy section separators
+relocated 1
+longdesc This package provides fancy separators, which are visual cues
+longdesc that indicate a change of subject or context without actually
+longdesc starting a new chapter or section.
+runfiles size=3
+ RELOC/tex/latex/froufrou/froufrou.sty
+catalogue-contact-bugs https://gitlab.com/lago/froufrou/-/issues
+catalogue-contact-repository https://gitlab.com/lago/froufrou
+catalogue-ctan /macros/latex/contrib/froufrou
+catalogue-license lppl1.3c
+catalogue-topics decoration
+catalogue-version 1.4.0

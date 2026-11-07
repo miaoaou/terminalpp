@@ -1,0 +1,15 @@
+name lcd
+category Package
+revision 16549
+shortdesc Alphanumerical LCD-style displays
+relocated 1
+longdesc A LaTeX package that will display text as on an (early) LCD
+longdesc display (the output is very visibly pixellated). Assumes 8-bit
+longdesc input in its internal verbatim-style environment.
+runfiles size=3
+ RELOC/tex/latex/lcd/lcd.sty
+catalogue-ctan /macros/latex/contrib/lcd
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-in-tex
+catalogue-version 0.3

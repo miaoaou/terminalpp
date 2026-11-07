@@ -1,0 +1,17 @@
+name tikz2d-fr
+category Package
+revision 67239
+shortdesc Work with some 2D TikZ commands (French)
+relocated 1
+longdesc This is a small package to work with some (French) 2D commands
+longdesc for TikZ: "freehand style" mainlevee define and mark points
+longdesc \DefinirPoints, \MarquerPoints draw colored segments
+longdesc \TracerSegments
+runfiles size=2
+ RELOC/tex/latex/tikz2d-fr/tikz2d-fr.sty
+catalogue-contact-home https://github.com/cpierquet/tikz2dfr
+catalogue-contact-support https://github.com/cpierquet/tikz2dfr/issues
+catalogue-ctan /graphics/pgf/contrib/tikz2d-fr
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz
+catalogue-version 0.1.1

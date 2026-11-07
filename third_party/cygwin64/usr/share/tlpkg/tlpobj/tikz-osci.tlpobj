@@ -1,0 +1,17 @@
+name tikz-osci
+category Package
+revision 68636
+shortdesc Produce oscilloscope "screen shots"
+relocated 1
+longdesc This package enables you to produce oscilloscope "screen
+longdesc shots".
+runfiles size=5
+ RELOC/tex/latex/tikz-osci/tikz-osci.sty
+catalogue-also pst-osci
+catalogue-contact-bugs https://framagit.org/ThibGiauffret/latex_packages/-/issues
+catalogue-contact-home https://www.ensciences.fr/read.php?article=1220
+catalogue-contact-repository https://framagit.org/ThibGiauffret/latex_packages/-/tree/master/tikz-osci
+catalogue-ctan /graphics/pgf/contrib/tikz-osci
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz graphics-use physics
+catalogue-version 0.4.0

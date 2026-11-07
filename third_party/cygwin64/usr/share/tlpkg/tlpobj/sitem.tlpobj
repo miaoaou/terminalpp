@@ -1,0 +1,14 @@
+name sitem
+category Package
+revision 22136
+shortdesc Save the optional argument of \item
+relocated 1
+longdesc The package modifies \item commands to save the optional
+longdesc argument in a box.
+runfiles size=1
+ RELOC/tex/latex/sitem/sitem.sty
+catalogue-ctan /macros/latex/contrib/sitem
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics list
+catalogue-version 1.0

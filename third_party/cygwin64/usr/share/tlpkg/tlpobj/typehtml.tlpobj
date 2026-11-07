@@ -1,0 +1,13 @@
+name typehtml
+category Package
+revision 17134
+shortdesc Typeset HTML directly from LaTeX
+relocated 1
+longdesc Can handle almost all of HTML2, and most of the math fragment
+longdesc of the draft HTML3.
+runfiles size=7
+ RELOC/tex/latex/typehtml/typehtml.sty
+catalogue-ctan /macros/latex/contrib/typehtml
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics foreign-import

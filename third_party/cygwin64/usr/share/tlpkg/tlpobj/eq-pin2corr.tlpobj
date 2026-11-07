@@ -1,0 +1,19 @@
+name eq-pin2corr
+category Package
+revision 59477
+shortdesc Add PIN security to the "Correct" button of a quiz created by exerquiz
+relocated 1
+longdesc This package is an add-on to the quiz environment of the
+longdesc exerquiz package (part of the acrotex bundle). It adds PIN
+longdesc security to a quiz created by the quiz environment. To correct
+longdesc a quiz, the document consumer must press the "Correct" button
+longdesc of the quiz and successfully enter the correct PIN number. The
+longdesc PIN security is designed for the instructor to mark and record
+longdesc the student's effort on that quiz. The package works for the
+longdesc usual workflows.
+runfiles size=2
+ RELOC/tex/latex/eq-pin2corr/eq-pin2corr.sty
+catalogue-also exerquiz
+catalogue-ctan /macros/latex/contrib/eq-pin2corr
+catalogue-license lppl1.2
+catalogue-topics exercise exam security pdf-feat pdf-forms acrobat

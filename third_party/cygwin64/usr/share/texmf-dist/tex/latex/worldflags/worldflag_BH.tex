@@ -1,0 +1,12 @@
+% --------------------------------------------------------------------------
+% Bahrein:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{218,41,28}
+\fill [white] (0,0) rectangle (\flaglength,1);
+\fill [red] (\flaglength,0)--(0.325\flaglength,0)--++(-0.125\flagwidth,0)
+ \foreach \n in{1,...,5}
+   {--++(\flagwidth/4,\flagwidth/10)--++(-\flagwidth/4,\flagwidth/10)}
+  --(\flaglength,1)--cycle;
+\framecode{}
+\end{flagdescription}

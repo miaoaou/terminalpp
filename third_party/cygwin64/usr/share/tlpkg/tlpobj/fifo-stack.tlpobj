@@ -1,0 +1,19 @@
+name fifo-stack
+category Package
+revision 33288
+shortdesc FIFO and stack implementation for package writers
+relocated 1
+longdesc A LaTeX implementation of a combined FIFO Stack modified from
+longdesc the existing stack package by Benjamin Bayart. The package
+longdesc renames the original's \Push and \Pop commands \FSPush and
+longdesc \FSPop, and which work on the top/end of the FIFO/Stack), and
+longdesc adds the ability to \FSUnshift and \FSShift from the bottom
+longdesc (front) of the FIFO/Stack.
+runfiles size=2
+ RELOC/tex/latex/fifo-stack/fifo-stack.sty
+catalogue-contact-repository https://github.com/diSimplex/latexFifoStack
+catalogue-ctan /macros/latex/contrib/fifo-stack
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl
+catalogue-topics macro-supp
+catalogue-version 1.0

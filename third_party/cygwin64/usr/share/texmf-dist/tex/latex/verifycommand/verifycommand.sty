@@ -1,0 +1,209 @@
+%%
+%% This is file `verifycommand.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% verifycommand.dtx  (with options: `package')
+%% This is a generated file.
+%% Copyright 2024 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{verifycommand}
+    [2024/01/11 v1.00 Verify definitions have not changed.]
+
+
+
+
+
+\RequirePackage{etoolbox}
+\RequirePackage{iftex}
+\newbool{VERCMD@enable}
+\booltrue{VERCMD@enable}
+\DeclareOption{disable}{%
+    \boolfalse{VERCMD@enable}%
+    \typeout{----}%
+    \typeout{Package verifycommand: Turned off by option 'disable'.}%
+    \typeout{----}%
+}
+
+\ProcessOptions\relax
+\catcode`\&=0
+&catcode`&\=12
+&def&VERCMD@backslash{\}
+&catcode`&\=0
+\catcode`\&=4
+\newcommand{\VERCMD@mdfivesum}[1]{%
+    \PackageError{verifycommand}
+        {No MD5 macro was found}
+        {%
+            Verifycommand must find the macros \protect\pdfmdfivesum\space
+            or \protect\mdfivesum.%
+        }
+}
+\ifdef{\pdfmdfivesum}
+    {\let\VERCMD@mdfivesum\pdfmdfivesum}
+    {}
+\ifLuaTeX
+\RequirePackage{pdftexcmds}
+\let\VERCMD@mdfivesum\pdf@mdfivesum
+\fi
+\ifXeTeX
+\@ifundefined{pdffivesum}{}
+    {\let\VERCMD@mdfivesum\pdfmdfivesum}
+\@ifundefined{mdfivesum}{}
+    {\let\VERCMD@mdfivesum\mdfivesum}
+\fi
+
+\def\VERCMD@mdfive#1{%
+    \edef\VERCMD@temp{\VERCMD@mdfivesum{\meaning#1}}%
+}
+\newcommand*{\VERCMD@whatchanged}{}
+
+\newcommand*{\VERCMD@addchanged}[2]{%
+    \ifdefempty{\VERCMD@whatchanged}%
+        {}%
+        {\apptocmd{\VERCMD@whatchanged}{^^J}{}{}}%
+    \apptocmd{\VERCMD@whatchanged}{Definition changed: #2^^J}{}{}%
+    \apptocmd{\VERCMD@whatchanged}{Definition changed: \space\space\space#1}{}{}%
+}
+
+\AfterEndDocument{
+    \ifdefempty{\VERCMD@whatchanged}{}{%
+        \typeout{--------------------------------}%
+        \typeout{WARNING: Something may fail.}%
+        \typeout{\VERCMD@whatchanged}%
+        \typeout{--------------------------------}%
+    }
+}
+
+\def\VERCMD@ProgWarning#1{%
+    \GenericWarning{%
+        \@spaces\@spaces
+    }{%
+        Warning: #1%
+    }%
+}
+
+\newcommand*{\VERCMD@Warning}[3]{%
+    \ifblank{#1}%
+        {%
+            \VERCMD@ProgWarning{%
+                Something may fail.  A definition has changed:\MessageBreak
+                \ifblank{#2}{}{#2: }\string#3\MessageBreak
+                \VERCMD@temp\MessageBreak
+            }
+            \expandafter\VERCMD@addchanged\expandafter{\VERCMD@temp}{\string#3}%
+        }%
+        {%
+            \PackageWarning{#1}{%
+                Something may fail.  A definition has changed:\MessageBreak%
+                \ifblank{#2}{}{#2: }%
+                \string#3\MessageBreak%
+                \VERCMD@temp\MessageBreak%
+            }%
+            \expandafter\VERCMD@addchanged\expandafter{\VERCMD@temp}{\ifblank{#2}{}{#2: }\string#3}%
+        }%
+}
+\ExplSyntaxOn
+\NewDocumentCommand{\VerifyCommand}{O{} O{} m m}{%
+    \ifbool{VERCMD@enable}{%
+    \edef\VERCMD@temp{Unknown~definition}%
+     \ifcsdef{\cs_to_str:N #3~code}%
+        {%
+            \expandafter\VERCMD@mdfive%
+                \csname \cs_to_str:N #3~code\endcsname%
+        }%
+        {%
+             \ifcsdef{\VERCMD@backslash\cs_to_str:N #3~}%
+                {%
+                    \expandafter\VERCMD@mdfive%
+                        \csname \cs_to_str:N #3~code\endcsname%
+                }%
+                {%
+                     \ifcsdef{\cs_to_str:N #3~}%
+                        {%
+                            \expandafter\VERCMD@mdfive%
+                                \csname \cs_to_str:N #3~\endcsname%
+                        }%
+                        {%
+                             \ifcsdef{\VERCMD@backslash\cs_to_str:N #3}%
+                                {%
+                                    \expandafter\VERCMD@mdfive%
+                                        \csname \VERCMD@backslash\cs_to_str:N #3\endcsname%
+                                }%
+                                {%
+                                     \ifdef{#3}%
+                                        {\VERCMD@mdfive#3}%
+                                        {}%
+                                }%
+                        }%
+                }%
+        }%
+    \ifdefstring{\VERCMD@temp}{#4}%
+        {}%
+        {%
+            \VERCMD@Warning{#1}{#2}{#3}%
+        }%
+    }% if package enabled
+    {}% if package not enabled
+}
+\NewDocumentCommand{\VerifyEnvironment}{O{} O{} m m m}{%
+    \ifbool{VERCMD@enable}{%
+    \edef\VERCMD@temp{Unknown~definition}%
+     \ifcsdef{environment~#3~code}%
+        {%
+            \expandafter\VERCMD@mdfive%
+                \csname environment~#3~code\endcsname%
+        }%
+        {%
+             \ifcsdef{\VERCMD@backslash#3}%
+                {%
+                    \expandafter\VERCMD@mdfive%
+                        \csname \VERCMD@backslash#3\endcsname%
+                }%
+                {%
+                     \ifcsdef{#3}%
+                        {\expandafter\VERCMD@mdfive\csname #3\endcsname}%
+                        {}%
+                }%
+        }%
+    \ifdefstring{\VERCMD@temp}{#4}%
+        {}%
+        {%
+            \VERCMD@Warning{#1}{#2}{#3}%
+        }%
+    \edef\VERCMD@temp{Unknown~definition}%
+     \ifcsdef{environment~#3~end~aux~}%
+        {%
+            \expandafter\VERCMD@mdfive
+                \csname environment~#3~end~aux~\endcsname%
+        }%
+        {%
+             \ifcsdef{end#3}%
+                {%
+                    \expandafter\VERCMD@mdfive%
+                        \csname end#3\endcsname%
+                }%
+                {}%
+        }%
+    \ifdefstring{\VERCMD@temp}{#5}%
+        {}%
+        {%
+            \VERCMD@Warning{#1}{#2}{(end)#3}%
+        }%
+    }% if package enabled
+    {}% if package not enabled
+}
+\ExplSyntaxOff
+\endinput
+%%
+%% End of file `verifycommand.sty'.

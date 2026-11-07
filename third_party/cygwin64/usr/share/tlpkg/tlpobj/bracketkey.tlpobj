@@ -1,0 +1,14 @@
+name bracketkey
+category Package
+revision 17129
+shortdesc Produce bracketed identification keys
+relocated 1
+longdesc The package provides an environment bracketkey for use when
+longdesc producing lists of species.
+runfiles size=1
+ RELOC/tex/latex/bracketkey/bracketkey.sty
+catalogue-ctan /macros/latex/contrib/bracketkey
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics biology
+catalogue-version 1.0

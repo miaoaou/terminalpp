@@ -1,0 +1,20 @@
+name scalerel
+category Package
+revision 42809
+shortdesc Constrained scaling and stretching of objects
+relocated 1
+longdesc The package provides four commands for vertically scaling and
+longdesc stretching objects. Its primary function is the ability to
+longdesc scale/stretch and shift one object to conform to the size of a
+longdesc specified second object. This feature can be useful in both
+longdesc equations and schematic diagrams. Additionally, the scaling and
+longdesc stretching commands offer constraints on maximum width and/or
+longdesc minimum aspect ratio, which are often used to preserve
+longdesc legibility or for the sake of general appearance.
+runfiles size=2
+ RELOC/tex/latex/scalerel/scalerel.sty
+catalogue-ctan /macros/latex/contrib/scalerel
+catalogue-date 2016-12-29 16:00:53 +0100
+catalogue-license lppl1.3
+catalogue-topics graphics-manip
+catalogue-version 1.8

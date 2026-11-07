@@ -1,0 +1,18 @@
+name unicode-math-input
+category Package
+revision 69591
+shortdesc Allow entering Unicode symbols in math formulas
+relocated 1
+longdesc This package allows entering Unicode symbols in math formulas.
+longdesc Unlike the unicode-math package, this does not change the math
+longdesc output encoding.
+depend iftex
+depend l3packages
+runfiles size=34
+ RELOC/tex/latex/unicode-math-input/unicode-math-input-table.tex
+ RELOC/tex/latex/unicode-math-input/unicode-math-input.sty
+catalogue-contact-repository https://github.com/user202729/TeXlib
+catalogue-ctan /macros/latex/contrib/unicode-math-input
+catalogue-license lppl1.3c
+catalogue-topics unicode maths expl3
+catalogue-version 0.1.1

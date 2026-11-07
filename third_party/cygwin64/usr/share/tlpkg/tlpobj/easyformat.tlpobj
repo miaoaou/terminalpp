@@ -1,0 +1,19 @@
+name easyformat
+category Package
+revision 44543
+shortdesc Easily add boldface, italics and smallcaps
+relocated 1
+longdesc This package allows the use of underscores and circumflexes to
+longdesc begin resp. end italic, bold or SMALLCAPS formatting, as an
+longdesc alternative to the standard LaTeX \textit{...}, \textbf{...}
+longdesc and/or \textsc{...}. The meaning of underscore and circumflex
+longdesc in mathmode remain the same.
+runfiles size=2
+ RELOC/tex/latex/easyformat/easyformat.sty
+catalogue-contact-bugs https://github.com/ElecProg/easyformat/issues
+catalogue-contact-repository https://github.com/ElecProg/easyformat
+catalogue-ctan /macros/latex/contrib/easyformat
+catalogue-date 2017-06-10 09:03:50 +0200
+catalogue-license gpl3+
+catalogue-topics markup
+catalogue-version 1.4.0

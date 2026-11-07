@@ -1,0 +1,14 @@
+name ellipse
+category Package
+revision 39025
+shortdesc Draw ellipses and elliptical arcs using the standard LaTeX2e picture environment
+relocated 1
+longdesc Draw ellipses and elliptical arcs using the standard LaTeX2e
+longdesc picture environment.
+runfiles size=3
+ RELOC/tex/latex/ellipse/ellipse.sty
+catalogue-ctan /graphics/ellipse
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics
+catalogue-version 1.0

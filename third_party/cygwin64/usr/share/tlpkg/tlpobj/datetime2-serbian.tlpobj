@@ -1,0 +1,29 @@
+name datetime2-serbian
+category Package
+revision 67201
+shortdesc Serbian language module for the datetime2 package
+relocated 1
+longdesc This module provides the "serbian" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. It provides both
+longdesc Cyrillic and Latin, Ekavian and Ijekavian variants of Serbian
+longdesc date formats, regionalized and non-regionalized.
+runfiles size=35
+ RELOC/tex/latex/datetime2-serbian/datetime2-serbian-base-ascii.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-serbian-base-utf8.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-serbian-base.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-serbian.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-serbianc.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Cyrl-BA.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Cyrl-ME.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Cyrl-RS.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Cyrl.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Latn-BA.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Latn-ME.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Latn-RS.ldf
+ RELOC/tex/latex/datetime2-serbian/datetime2-sr-Latn.ldf
+catalogue-contact-bugs https://gitlab.com/andrejr/datetime2-serbian/-/issues
+catalogue-contact-home https://gitlab.com/andrejr/datetime2-serbian
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-serbian
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual serbian
+catalogue-version 2.1.0

@@ -1,0 +1,16 @@
+name logpap
+category Package
+revision 15878
+shortdesc Generate logarithmic graph paper with LaTeX
+relocated 1
+longdesc The logpap package provides four macros for drawing
+longdesc logarithmic-logarithmic, logarithmic-linear, linear-logarithmic
+longdesc and (because it was easy to implement) linear-linear graph
+longdesc paper with LaTeX.
+runfiles size=7
+ RELOC/tex/latex/logpap/logpap.sty
+catalogue-ctan /macros/latex/contrib/logpap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics diagram
+catalogue-version 0.6

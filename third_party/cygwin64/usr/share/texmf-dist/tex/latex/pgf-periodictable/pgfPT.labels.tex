@@ -1,0 +1,356 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% «The language labels to use in the title and the legend of the Periodic Table» --------------
+% v2.0.1: Improved German language after suggestions made by Ole Schwen
+% v2.1.0: Added support for user language
+% --------------------------------------------------------------------------------------------------
+%
+% The labels available in pt, en, fr, de, it, es, br, user are:
+%            titulo, La, Ac, solido, liquido, gasoso, sintetico,
+%            Z, name, CS, Ar, Arstar, radio, R, Rcov, Rion,
+%            Ei, eneg, eaff, O, Tmelt, TmeltC, Tboil, TboilC, eDist, eConfign,
+%            eConfignl, d, Cp, kT, ls, lsa, lsb, lsc, lsca, DiscY, DiscC, spectra
+%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@labels@titulo{Tabela Peri\'{o}dica dos Elementos/pt,Periodic Table of Elements/en,Tableau P\'{e}riodique des \'{E}l\'{e}ments/fr,Periodensystem der Elemente/de,Tavola Periodica degli Elementi/it,Tabla Peri\'{o}dica de los Elementos/es,Tabela Peri\'{o}dica dos Elementos/br,\pgfPT@user@labels@titulo/user}%
+\def\pgfPT@labels@La{lantan\'{o}ides/pt,lanthanoids/en,lanthano\"{i}des/fr,Lanthanoide/de,lantanoidi/it,lantanoides/es,lantan\'{o}ides/br,\pgfPT@user@labels@La/user}%
+\def\pgfPT@labels@Ac{actin\'{o}ides/pt,actinoids/en,actino\"{i}de/fr,Actinoide/de,actinoidi/it,actinoides/es,actin\'{o}ides/br,\pgfPT@user@labels@Ac/user}%
+\def\pgfPT@labels@solido{s\'{o}lido/pt,solid/en,solide/fr,fest/de,solido/it,s\'{o}lido/es,s\'{o}lido/br,\pgfPT@user@labels@solido/user}%
+\def\pgfPT@labels@liquido{l\'{i}quido/pt,liquid/en,liquide/fr,fl\"{u}ssig/de,liquido/it,l\'{i}quido/es,l\'{i}quido/br,\pgfPT@user@labels@liquido/user}%
+\def\pgfPT@labels@gasoso{gasoso/pt,gaseous/en,gazeux/fr,gasf\"{o}rmig/de,gassoso/it,gaseoso/es,gasoso/br,\pgfPT@user@labels@gasoso/user}%
+\def\pgfPT@labels@sintetico{sint\'{e}tico/pt,synthetic/en,synth\'{e}tique/fr,synthetisch/de,sintetico/it,sint\'{e}tico/es,sint\'{e}tico/br,\pgfPT@user@labels@sintetico/user}%
+%
+\def\pgfPT@labels@Z{N\'{u}mero At\'{o}mico/pt,Atomic \mbox{Number}/en,Num\'{e}ro \mbox{Atomique}/fr,Ord\-nungs\-zahl/de,Numero \mbox{Atomico}/it,N\'{u}mero \mbox{At\'{o}mico}/es,N\'{u}mero At\^{o}mico/br,\pgfPT@user@labels@Z/user}%
+\def\pgfPT@labels@name{Nome/pt,Name/en,Nom/fr,Name/de,Nome/it,Nombre/es,Nome/br,\pgfPT@user@labels@name/user}%
+\def\pgfPT@labels@CS{S\'{i}mbolo Qu\'{i}mico/pt,Chemical Symbol/en,Symbole Chimique/fr,Chemisches Symbol/de,Simbolo Chimico/it,S\'{i}mbolo Qu\'{i}mico/es,S\'{i}mbolo Qu\'{i}mico/br,\pgfPT@user@labels@CS/user}%
+\def\pgfPT@labels@Ar@m{Massa \mbox{At\'{o}mica} Relativa/pt,Relative \mbox{Atomic} Mass/en,Masse \mbox{Atomique} Relative/fr,Relative Atom\-masse/de,Massa \mbox{Atomica} Relativa/it,Masa \mbox{At\'{o}mica} Relativa/es,Massa \mbox{At\^{o}mica} Relativa/br,\pgfPT@user@labels@Ar@m/user}%
+\def\pgfPT@labels@Arstar@m{Massa At\'{o}mica Relativa Padr\~{a}o/pt,Standard Relative Atomic Mass/en,Masse Atomique Relative Standard/fr,Relative Standard\-atommasse/de,Massa Atomica Relativa Standard/it,Masa At\'{o}mica Relativa Est\'{a}ndar/es,Massa At\^{o}mica Relativa Padr\~{a}o/br,\pgfPT@user@labels@Arstar@m/user}%
+\def\pgfPT@labels@Ar@w{Peso At\'{o}mico/pt,Atomic Weight/en,Poids Atomique/fr,Atom\-gewicht/de,Peso Atomico/it,Peso At\'{o}mico/es,Peso At\^{o}mico/br,\pgfPT@user@labels@Ar@w/user}%
+\def\pgfPT@labels@Arstar@w{Peso At\'{o}mico Padr\~{a}o/pt,Standard Atomic Weight/en,Standard\-atomgewicht/de,Poids Atomique Standard/fr,Peso Atomico Standard/it,Peso At\'{o}mico Est\'{a}ndar/es,Peso At\^{o}mico Padr\~{a}o/br,\pgfPT@user@labels@Arstar@w/user}%
+\def\pgfPT@labels@radio{Radioativo/pt,Radioactive/en,Radioactif/fr,radioaktiv/de,Radioattivo/it,Radioactivo/es,Radioativo/br,\pgfPT@user@labels@radio/user}%
+\def\pgfPT@labels@R{Raio At\'{o}mico/pt,Atomic Radius/en,Rayon Ato\-mi\-que/fr,Atom\-radius/de,Raggio Atomico/it,Radio At\'{o}mico/es,Raio At\^{o}mico/br,\pgfPT@user@labels@R/user}%
+\def\pgfPT@labels@Rcov{Raio \mbox{Covalente}/pt,Covalente Radius/en,Rayon Covalent/fr,Kovalenz\-radius/de,Raggio Covalente/it,Radio Covalente/es,Raio Covalente/br,\pgfPT@user@labels@Rcov/user}%
+\def\pgfPT@labels@Rion{Raio I\'{o}nico/pt,Ionic Radius/en,Rayon ionique/fr,Ionen\-radius/de,Raggio Ionico/it,Radio I\'{o}nico/es,Raio I\^{o}nico/br,\pgfPT@user@labels@Rion/user}%
+\def\pgfPT@labels@Ei{Energia de Ioniza\c{c}\~{a}o/pt,Ionization Energy/en,\'{E}nergie d'Ionisation/fr,Ionisierungs\-energie/de,Energia di Ionizzazione/it,Energ\'{i}a de Ionizaci\'{o}n/es,Energia de Ioniza\c{c}\~{a}o/br,\pgfPT@user@labels@Ei/user}%
+\def\pgfPT@labels@eneg{Eletrone\-gatividade/pt,Electrone\-gativity/en,\'{E}lectron\'{e}\-gativit\'{e}/fr,Elektro\-negativit\"{a}t/de,Elettrone\-gativit\`{a}/it,Electrone\-gatividad/es,Eletrone\-gatividade/br,\pgfPT@user@labels@eneg/user}%
+\def\pgfPT@labels@eaff{Eletro\-afinidade/pt,Electro\-affinity/en,\'{E}lectro\-affinit\'{e}/fr,Elektro\-affinit\"{a}t/de,Elettro\-affinit\`{a}/it,Electro\-afinidad/es,Eletro\-afinidade/br,\pgfPT@user@labels@eaff/user}%
+\def\pgfPT@labels@O{Estados de Oxida\c{c}\~{a}o/pt,Oxidation States/en,\'{E}tats d'Oxydation/fr,Oxidations\-zust\"{a}nde/de,Stati di \mbox{ossidazione}/it,Estados de Oxidaci\'{o}n/es,Estados de Oxida\c{c}\~{a}o/br,\pgfPT@user@labels@O/user}%
+\def\pgfPT@labels@Tmelt{Ponto de Fus\~{a}o/pt,Melting Point/en,Point de Fusion/fr,Schmelz\-punkt/de,Punto di Fusione/it,Punto de Fusi\'{o}n/es,Ponto de Fus\~{a}o/br,\pgfPT@user@labels@Tmelt/user}%
+\def\pgfPT@labels@TmeltC{Ponto de Fus\~{a}o/pt,Melting Point/en,Point de Fusion/fr,Schmelz\-punkt/de,Punto di Fusione/it,Punto de Fusi\'{o}n/es,Ponto de Fus\~{a}o/br,\pgfPT@user@labels@TmeltC/user}%
+\def\pgfPT@labels@Tboil{Ponto de Ebuli\c{c}\~{a}o/pt,Boiling Point/en,Point d'\'{E}bullition/fr,Siede\-punkt/de,Punto di Ebollizione/it,Punto de Ebullici\'{o}n/es,Ponto de Ebuli\c{c}\~{a}o/br,\pgfPT@user@labels@Tboil/user}%
+\def\pgfPT@labels@TboilC{Ponto de Ebuli\c{c}\~{a}o/pt,Boiling Point/en,Point d'\'{E}bullition/fr,Siede\-punkt/de,\mbox{Punto di} \mbox{Ebollizione}/it,\mbox{Punto de} \mbox{Ebullici\'{o}n}/es,Ponto de Ebuli\c{c}\~{a}o/br,\pgfPT@user@labels@TboilC/user}%
+\def\pgfPT@labels@eDist{Distribui\c{c}\~{a}o Eletr\'{o}nica/pt,Electron \mbox{Distribution}/en,Distribution d'\'{E}lectrons/fr,Elektronen\-verteilung/de,Distribuzione degli Elettroni/it,Distribuci\'{o}n de Electrones/es,Distribui\c{c}\~{a}o de El\'{e}trons/br,\pgfPT@user@labels@eDist/user}%
+\def\pgfPT@labels@eConfig{Configura\c{c}\~{a}o Eletr\'{o}nica/pt,Electronic Configuration/en,Configuration \'{E}lectronique/fr,Elektronen\-konfiguration/de,Configurazione Elettronica/it,Configuraci\'{o}n Electr\'{o}nica/es,Configura\c{c}\~{a}o Eletr\^{o}nica/br,\pgfPT@user@labels@eConfig/user}%
+\let\pgfPT@labels@eConfign\pgfPT@labels@eConfig%
+\let\pgfPT@labels@eConfignl\pgfPT@labels@eConfig%
+\def\pgfPT@labels@d{Densidade/pt,Density/en,Densit\'{e}/fr,Dichte/de,Densit\`{a}/it,Densidad/es,Densidade/br,\pgfPT@user@labels@d/user}%
+\def\pgfPT@labels@Cp{Calor \mbox{Espec\'{i}fico}/pt,\mbox{Specific Heat} Capacity/en,Capacit\'{e} \mbox{Thermique} \mbox{Sp\'{e}cifique}/fr,Spezifische \mbox{W\"{a}rme\-kapazit\"{a}t}/de,Calore specifico/it,Calor \mbox{Espec\'{i}fico}/es,Calor \mbox{Espec\'{i}fico}/br,\pgfPT@user@labels@Cp/user}%
+\def\pgfPT@labels@kT{Condutividade T\'{e}rmica/pt,Thermal \mbox{Conductivity}/en,Conductivit\'{e} \mbox{Thermique}/fr,W\"{a}rme\-leit\-f\"{a}higkeit/de,Conducibilit\`{a} Termica/it,Condutividad T\'{e}rmica/es,Condutividade T\'{e}rmica/br,\pgfPT@user@labels@kT/user}%
+\def\pgfPT@labels@ls{Estrutura da Rede Cristalina/pt,Lattice Structure/en,Structure de R\'{e}seau Cristaline/fr,Gitter\-struktur/de,Struttura Reticolare/it,Estructura Reticular/es,Estrutura da Rede Cristalina/br,\pgfPT@user@labels@ls/user}%
+\def\pgfPT@labels@lsa{Constante da Rede: a/pt,Lattice constant: a/en,Constante \mbox{de R\'{e}seau}: a/fr,Gitter\-konstante: a/de,Costante \mbox{Reticolare}: a/it,Constante de la Reticula: a/es,Constante da Rede: a/br,\pgfPT@user@labels@lsa/user}%
+\def\pgfPT@labels@lsb{Constante da Rede: b/pt,Lattice constant: b/en,Constante \mbox{de R\'{e}seau}: b/fr,Gitter\-konstante: b/de,Costante \mbox{Reticolare}: b/it,Constante de la Reticula: b/es,Constante da Rede: b/br,\pgfPT@user@labels@lsb/user}%
+\def\pgfPT@labels@lsc{Constante da Rede: c/pt,Lattice constant: c/en,Constante \mbox{de R\'{e}seau}: c/fr,Gitter\-konstante: c/de,Costante \mbox{Reticolare}: c/it,Constante de la Reticula: c/es,Constante da Rede: c/br,\pgfPT@user@labels@lsc/user}%
+\def\pgfPT@labels@lsca{Raz\~{a}o c\mbox{/}a da Rede/pt,Lattice c\mbox{/}a ratio/en,Rapport c\mbox{/}a du R\'{e}seau/fr,Gitter c\mbox{/}a-Verh\"{a}ltnis/de,Rapporto c\mbox{/}a del Reticolo/it,Relaci\'{o}n c\mbox{/}a de la Reticula/es,Raz\~{a}o c\mbox{/}a da Rede/br,\pgfPT@user@labels@lsca/user}%
+\def\pgfPT@labels@DiscY{Ano da \mbox{Descoberta}/pt,Year of \mbox{Discovery}/en,\mbox{Ann\'{e}e de la} \mbox{D\'{e}couverte}/fr,Jahr der Entdeckung/de,\mbox{Anno della} Scoperta/it,A\~{n}o del Descubri\-miento/es,Ano da \mbox{Descoberta}/br,\pgfPT@user@labels@DiscY/user}%
+\def\pgfPT@labels@BC@en{BC}%
+\def\pgfPT@labels@BC@pt{a.C.}%
+\def\pgfPT@labels@BC@fr{av.J-C.}%
+\def\pgfPT@labels@BC@de{v.\,Chr.}%
+\def\pgfPT@labels@BC@it{a.C.}%
+\def\pgfPT@labels@BC@es{a.C.}%
+\def\pgfPT@labels@BC@br{a.C.}%
+\def\pgfPT@labels@BC@user{\pgfPT@user@labels@BC}%
+\def\pgfPT@labels@DiscC{Pa\'{i}s da \mbox{Descoberta}/pt,\mbox{Country of} \mbox{Discovery}/en,Pays de \mbox{D\'{e}couverte}/fr,Land der Entdeckung/de,Paese di Scoperta/it,Pa\'{i}s de Descubri\-miento/es,Pa\'{i}s da \mbox{Descoberta}/br,\pgfPT@user@labels@DiscC/user}%
+\def\pgfPT@labels@spectra{Espetro de Emiss\~{a}o/pt,Emission Spectrum/en,Spectre d'\'{E}mission/fr,Emissions\-spektrum/de,Spettro di \mbox{Emissione}/it,Espectro de Emisi\'{o}n/es,Espectro de Emiss\~{a}o/br,\pgfPT@user@labels@spectra/user}%
+% acronyms for legend:
+\def\pgfPT@acr@Z{Z/pt,Z/en,Z/fr,Z/de,Z/it,Z/es,Z/br,Z/user}%
+\def\pgfPT@acr@name{N/pt,N/en,N/fr,N/de,N/it,N/es,N/br,\pgfPT@user@acr@name/user}%
+\def\pgfPT@acr@CS{SQ/pt,CS/en,SC/fr,CS/de,SC/it,SQ/es,SQ/br,\pgfPT@user@acr@CS/user}%
+\def\pgfPT@acr@Ar{Ar/pt,Ar/en,Ar/fr,Ar/de,Ar/it,Ar/es,Ar/br,Ar/user}%
+\def\pgfPT@acr@Arstar{Ar/pt,Ar/en,Ar/fr,Ar/de,Ar/it,Ar/es,Ar/br,Ar/user}%
+\def\pgfPT@acr@radio{Ra/pt,Ra/en,Ra/fr,Ra/de,Ra/it,Ra/es,Ra/br,\pgfPT@user@acr@radio/user}%
+\def\pgfPT@acr@R{R/pt,R/en,R/fr,R/de,R/it,R/es,R/br,R/user}%
+\def\pgfPT@acr@Rcov{Rc/pt,Rc/en,Rc/fr,Rc/de,Rc/it,Rc/es,Rc/br,Rc/user}%
+\def\pgfPT@acr@Rion{Ri/pt,Ri/en,Ri/fr,Ri/de,Ri/it,Ri/es,Ri/br,Ri/user}%
+\def\pgfPT@acr@Ei{Ei/pt,Ei/en,Ei/fr,Ei/de,Ei/it,Ei/es,Ei/br,Ei/user}%
+\def\pgfPT@acr@eneg{en/pt,en/en,en/fr,en/de,en/it,en/es,en/br,en/user}%
+\def\pgfPT@acr@eaff{Eea/pt,Eea/en,Eea/fr,Eea/de,Eea/it,Eea/es,Eea/br,Eaa/user}%
+\def\pgfPT@acr@O{O/pt,O/en,O/fr,O/de,O/it,O/es,O/br,O/user}%
+\def\pgfPT@acr@Tmelt{Pf/pt,MP/en,Pf/fr,smp/de,Pf/it,Pf/es,Pf/br,\pgfPT@user@acr@Tmelt/user}%
+\def\pgfPT@acr@TmeltC{Pf/pt,MP/en,Pf/fr,smp/de,Pf/it,Pf/es,Pf/br,\pgfPT@user@acr@Tmelt/user}%
+\def\pgfPT@acr@Tboil{Pe/pt,BP/en,Pe/fr,sdp/de,Pe/it,Pe/es,Pe/br,\pgfPT@user@acr@Tboil/user}%
+\def\pgfPT@acr@TboilC{Pe/pt,BP/en,Pe/fr,sdp/de,Pe/it,Pe/es,Pe/br,\pgfPT@user@acr@Tboil/user}%
+\def\pgfPT@acr@eDist{de/pt,ed/en,de/fr,ev/de,de/it,de/es,de/br,\pgfPT@user@acr@eDist/user}%
+\def\pgfPT@acr@eConfign{ce/pt,ec/en,ce/fr,ek/de,ce/it,ce/es,ce/br,\pgfPT@user@acr@eConfign/user}%
+\def\pgfPT@acr@eConfignl{ce/pt,ec/en,ce/fr,ek/de,ce/it,ce/es,ce/br,\pgfPT@user@acr@eConfign/user}%
+\def\pgfPT@acr@d{d/pt,d/en,d/fr,d/de,d/it,d/es,d/br,d/user}%
+\def\pgfPT@acr@Cp{Cp/pt,Cp/en,Cp/fr,Cp/de,Cp/it,Cp/es,Cp/br,Cp/user}%
+\def\pgfPT@acr@kT{kT/pt,kT/en,kT/fr,kT/de,kT/it,kT/es,kT/br,kT/user}%
+\def\pgfPT@acr@ls{er/pt,ls/en,sr/fr,gs/de,sr/it,er/es,er/br,\pgfPT@user@acr@ls/user}%
+\def\pgfPT@acr@lsa{er a/pt,ls a/en,sr a/fr,gs a/de,sr a/it,er a/es,er a/br,\pgfPT@user@acr@lsa/user}%
+\def\pgfPT@acr@lsb{er b/pt,ls b/en,sr b/fr,gs b/de,sr b/it,er b/es,er b/br,\pgfPT@user@acr@lsb/user}%
+\def\pgfPT@acr@lsc{er c/pt,ls c/en,sr c/fr,gs c/de,sr c/it,er c/es,er c/br,\pgfPT@user@acr@lsc/user}%
+\def\pgfPT@acr@lsca{er ca/pt,ls ca/en,sr ca/fr,gs ca/de,sr ca/it,er ca/es,er ca/br,\pgfPT@user@acr@lsca/user}%
+\def\pgfPT@acr@DiscY{ad/pt,yd/en,ad/fr,je/de,as/it,ad/es,ad/br,\pgfPT@user@acr@DiscY/user}%
+\def\pgfPT@acr@DiscC{pd/pt,cd/en,pa/fr,le/de,ps/it,pd/es,pd/br,\pgfPT@user@acr@DiscC/user}%
+\def\pgfPT@acr@spectra{ee/pt,es/en,se/fr,es/de,se/it,ee/es,ee/br,\pgfPT@user@acr@spectra/user}%
+% BLOCOS
+\def\pgfPT@labels@blocos{Bloco s/pt,s-block/en,Bloc s/fr,s-Block/de,Blocco s/it,Bloque s/es,Bloco s/br,\pgfPT@user@labels@blocos/user}%
+\def\pgfPT@labels@blocop{Bloco p/pt,p-block/en,Bloc p/fr,p-Block/de,Blocco p/it,Bloque p/es,Bloco p/br,\pgfPT@user@labels@blocop/user}%
+\def\pgfPT@labels@blocod{Bloco d/pt,d-block/en,Bloc d/fr,d-Block/de,Blocco d/it,Bloque d/es,Bloco d/br,\pgfPT@user@labels@blocod/user}%
+\def\pgfPT@labels@blocof{Bloco f/pt,f-block/en,Bloc f/fr,f-Block/de,Blocco f/it,Bloque f/es,Bloco f/br,\pgfPT@user@labels@blocof/user}%
+% FAMILIAS
+\def\pgfPT@labels@blocor{ELEMENTOS REPRESENTATIVOS/pt,REPRESENTATIVE ELEMENTS/en,\'{E}L\'{E}MENTS DU GROUPE PRINCIPAL/fr,HAUPTGRUPPENELEMENTE/de,ELEMENTI RAPPRESENTATIVI/it,ELEMENTOS REPRESENTATIVOS/es,ELEMENTOS REPRESENTATIVOS/br,\pgfPT@user@labels@blocor/user}%
+\def\pgfPT@labels@blocot{METAIS DE TRANSI\c{C}\~{A}O/pt,TRANSITION METALS/en,M\'{E}TAUX DE TRANSITION/fr,\"{U}BERGANGSMETALLE/de,METALLI DI TRANSIZIONE/it,METALES DE TRANSICI\'{O}N/es,METAIS DE TRANSI\c{C}\~{A}O/br,\pgfPT@user@labels@blocot/user}%
+\def\pgfPT@labels@blocoi{METAIS DE TRANSI\c{C}\~{A}O INTERNOS/pt,INTERNAL TRANSITION METALS/en,M\'{E}TAUX DE TRANSITION INTERNES/fr,INTERNE \"{U}BERGANGSMETALLE/de,METALLI DI TRANSIZIONE INTERNI/it,METALES DE TRANSICI\'{O}N INTERNOS/es,METAIS DE TRANSI\c{C}\~{A}O INTERNOS/br,\pgfPT@user@labels@blocoi/user}%
+% VARIACOES
+\def\pgfPT@labels@Raum{O raio at\'{o}mico aumenta ao longo do grupo/pt,The atomic radius increases along the group/en,Le rayon atomique augmente le long du groupe/fr,Der Atomradius nimmt entlang der Gruppe zu/de,Il raggio atomico aumenta lungo il gruppo/it,El radio at\'{o}mico aumenta a lo largo del grupo/es,O raio at\^{o}mico aumenta ao longo do grupo/br,\pgfPT@user@labels@Raum/user}%
+\def\pgfPT@labels@Rdim{O raio at\'{o}mico diminui ao longo do per\'{i}odo/pt,The atomic radius decreases over the period/en,Le rayon atomique diminue au cours de la p\'{e}riode/fr,Der Atomradius nimmt mit der Periode ab/de,Il raggio atomico diminuisce nel periodo/it,El radio at\'{o}mico disminuye a lo largo del per\'{i}odo/es,O raio at\^{o}mico diminui ao longo do per\'{i}odo/br,\pgfPT@user@labels@Rdim/user}%
+\def\pgfPT@labels@Eiaum{A energia de ioniza\c{c}\~{a}o aumenta ao longo do per\'{i}odo/pt,The ionization energy increases over the period/en,L'\'{e}nergie d'ionisation augmente au cours de la p\'{e}riode/fr,Die Ionisationsenergie nimmt mit der Periode zu/de,L'energia di ionizzazione aumenta nel periodo/it,La energ\'{i}a de ionizaci\'{o}n aumenta a lo largo del per\'{i}odo/es,A energia de ioniza\c{c}\~{a}o aumenta ao longo do per\'{i}odo/br,\pgfPT@user@labels@Eiaum/user}%
+\def\pgfPT@labels@Eidim{A energia de ioniza\c{c}\~{a}o diminui ao longo do grupo/pt,The ionization energy decreases along the group/en,L'\'{e}nergie d'ionisation diminue le long du groupe/fr,Die Ionisationsenergie nimmt entlang der Gruppe ab/de,L'energia di ionizzazione diminuisce lungo il gruppo/it,La energ\'{i}a de ionizaci\'{o}n disminuye a lo largo del grupo/es,A energia de ioniza\c{c}\~{a}o diminui ao longo do grupo/br,\pgfPT@user@labels@Eidim/user}%
+\def\pgfPT@labels@eaffaum{A eletroafinidade aumenta ao longo do per\'{i}odo/pt,The electron affinity increases over the period/en,L'\'{e}lectroaffinit\'{e} augmente au cours de la p\'{e}riode/fr,Die Elektroaffinit\"{a}t nimmt mit der Periode zu/de,L'elettroaffinit\`{a} di ionizzazione aumenta nel periodo/it,La electroafinidad aumenta a lo largo del per\'{i}odo/es,A eletroafinidade aumenta ao longo do per\'{i}odo/br,\pgfPT@user@labels@eaffaum/user}%
+\def\pgfPT@labels@eaffdim{A eletroafinidade diminui ao longo do grupo/pt,The electron affinity decreases along the group/en,L'\'{e}lectroaffinit\'{e} diminue le long du groupe/fr,Die Elektroaffinit\"{a}t nimmt entlang der Gruppe ab/de,L'elettroaffinit\`{a} diminuisce lungo il gruppo/it,La electroafinidad disminuye a lo largo del grupo/es,A eletroafinidade diminui ao longo do grupo/br,\pgfPT@user@labels@eaffdim/user}%
+%
+%%%%%%%%%%%%%%% Lattice Names %%%%%%%%%%%%%%%%%%%%%%%
+\def\pgfPT@labels@ls@bcc{c\'{u}bica de corpo centrado/pt,body centered cubic/en,cubique centr\'{e}e/fr,kubisch raumzentriert/de,cubico a corpo centrato/it,c\'{u}bica centrado/es,c\'{u}bica de corpo centrado/br,\pgfPT@user@labels@ls@bcc/user}%
+\def\pgfPT@labels@ls@bcort{ortorr\^{o}mbica de bases centradas/pt,base centered orthorhombic/en,orthorhombique \`{a} base centr\'{e}e/fr,orthorhombisch basiszentriert/de,ortorombico a base centrata/it,ortorr\'{o}mbico con bases centradas/es,ortorr\^{o}mbica de bases centradas/br,\pgfPT@user@labels@ls@bcort/user}%
+\def\pgfPT@labels@ls@ctetr{tetragonal de corpo centrado/pt,body centered tetragonal/en,quadratique centr\'{e}e/fr,tetragonal innenzentriert/de,tetragonale a corpo centrato/it,tetragonal centrado/es,tetragonal de corpo centrado/br,\pgfPT@user@labels@ls@ctetr/user}%
+\def\pgfPT@labels@ls@dia{diamante/pt,diamond/en,diamant/fr,diamant/de,diamante/it,diamante/es,diamante/br,\pgfPT@user@labels@ls@dia/user}%
+\def\pgfPT@labels@ls@fcc{c\'{u}bica de faces centradas/pt,face centered cubic/en,cubique \`{a} faces centr\'{e}es/fr,kubisch fl\"{a}chenzentriert/de,cubico a facce centrate/it,c\'{u}bica centrada en las caras/es,c\'{u}bica de faces centradas/br,\pgfPT@user@labels@ls@fcc/user}%
+\def\pgfPT@labels@ls@fcort{ortorr\^{o}mbica de faces centradas/pt,face centered orthorhombic/en,orthorhombique \`{a} faces centr\'{e}es/fr,orthorhombisch fl\"{a}chenzentriert/de,ortorombico a facce centrate/it,ortorr\'{o}mbica centrada en la cara/es,ortorr\^{o}mbica de faces centradas/br,\pgfPT@user@labels@ls@fcort/user}%
+\def\pgfPT@labels@ls@hcp{hexagonal compacta/pt,hexagonal close packed/en,hexagonal compact/fr,hexagonal-dichteste Packung/de,esagonale compatto/it,empaquetado hexagonal cerrado/es,hexagonal compacta/br,\pgfPT@user@labels@ls@hcp/user}%
+\def\pgfPT@labels@ls@hex{hexagonal /pt,hexagonal/en,hexagonal/fr,hexagonal/de,esagonale/it,hexagonal/es,hexagonal /br,\pgfPT@user@labels@ls@hex/user}%
+\def\pgfPT@labels@ls@mono{monocl\'{i}nica/pt,monoclinic/en,monoclinique/fr,monoklin/de,monoclino/it,monocl\'{i}nico/es,monocl\'{i}nica/br,\pgfPT@user@labels@ls@mono/user}%
+\def\pgfPT@labels@ls@rho{rombo\'{e}drica/pt,rhombohedral/en,rhombo\'{e}drique/fr,rhomboedrisch/de,romboedrico/it,rombo\'{e}drico/es,rombo\'{e}drica/br,\pgfPT@user@labels@ls@rho/user}%
+\def\pgfPT@labels@ls@sc{c\'{u}bica simples/pt,simple cubic/en,cubique simple/fr,kubisch primitiv/de,cubico semplice/it,c\'{u}bica simple/es,c\'{u}bica simples/br,\pgfPT@user@labels@ls@sc/user}%
+\def\pgfPT@labels@ls@tric{tricl\'{i}nica simples/pt,simple triclinic/en,triclinique simple/fr,triklin/de,triclino/it,tricl\'{i}nica simple/es,tricl\'{i}nica simples/br,\pgfPT@user@labels@ls@tric/user}%
+\def\pgfPT@labels@ls@tetr{tetragonal/pt,tetragonal/en,quadratique/fr,tetragonal/de,tetragonale/it,tetragonal/es,tetragonal/br,\pgfPT@user@labels@ls@tetr/user}%
+%
+%%%%%%%%%%%%%%% Units %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcount\pgfPT@count@note%
+\def\pgfPT@labels@unit@kJmol{\hspace{.5ex}\mbox{(\hspace{.1ex}kJ/\hspace{.1ex}mol\hspace{.1ex})}}%
+\def\pgfPT@labels@unit@pm{\hspace{.5ex}\mbox{(\hspace{.1ex}pm\hspace{.1ex})}}%
+\def\pgfPT@labels@unit@A{\hspace{.5ex}\mbox{(\hspace{.1ex}{\AA}\hspace{.1ex})}}%
+\def\pgfPT@labels@unit@ls{\edef\pgfPT@angstrom{A}\ifx\pgfPTlsunit\pgfPT@angstrom\relax\pgfPT@labels@unit@A\else\pgfPT@labels@unit@pm\fi}%
+\def\pgfPT@labels@unit@kelvin{\hspace{.5ex}\mbox{(\hspace{.1ex}K\hspace{.1ex})}}%
+\def\pgfPT@labels@unit@degC{\hspace{.5ex}\mbox{(\hspace{.1ex}%
+\pgfmathsetlength{\pgfPT@dimc}{.555*\pgfPT@dima}\raisebox{.777ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont o}C\hspace{.1ex})}}%
+\def\pgfPT@labels@unit@d{%
+\ifx\pgfPTdunit\pgfPT@unit@d@gcm\relax%
+\hspace{.5ex}\mbox{(\hspace{.1ex}\pgfPT@box@zerodepth{g}\hspace{.1ex}/cm%
+\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont3}\hspace{.1ex})}%
+\else\ifx\pgfPTdunit\pgfPT@unit@d@gdm\relax%
+\hspace{.5ex}\mbox{(\hspace{.1ex}\pgfPT@box@zerodepth{g}\hspace{.1ex}/dm%
+\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont3}\hspace{.1ex})}%
+\else% use both...
+% other
+\hspace{.5ex}\mbox{(\hspace{.1ex}\pgfPT@box@zerodepth{g}\hspace{.1ex}/cm%
+\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont3}\hspace{.1ex}}%
+% gas
+;\hspace{.2ex}\mbox{\hspace{.1ex}\pgfPT@box@zerodepth{g}\hspace{.1ex}/dm%
+\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont3}\hspace{.6ex}}%
+\edef\pgfPT@lang@pt{pt}\edef\pgfPT@lang@en{en}\edef\pgfPT@lang@fr{fr}\edef\pgfPT@lang@de{de}\edef\pgfPT@lang@it{it}\edef\pgfPT@lang@es{es}\edef\pgfPT@lang@br{br}\edef\pgfPT@lang@user{user}%
+\expandafter\pgfPT@getFirstLanguage\pgfPTlanguages, \relax%
+\ifx\pgfPT@FirstLanguage\pgfPT@lang@pt\relax%
+para os \textcolor{gasoso}{gases}%pt
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@en\relax%
+for the \textcolor{gasoso}{gases}%en
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@fr\relax%
+pour les \textcolor{gasoso}{gaz}%fr
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@de\relax%
+f\"{u}r die \textcolor{gasoso}{Gase}%de
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@it\relax%
+per i \textcolor{gasoso}{gas}%it
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@es\relax%
+para los \textcolor{gasoso}{gases}%es
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@br\relax%
+para os \textcolor{gasoso}{gases}%br
+\else\ifx\pgfPT@FirstLanguage\pgfPT@lang@user\relax%
+-- \textcolor{gasoso}{\pgfPT@user@labels@gasoso}%user
+\else% use en
+for the \textcolor{gasoso}{gases}%en
+\fi\fi\fi\fi\fi\fi\fi\fi%
+)\fi\fi%
+}%
+\def\pgfPT@labels@unit@Cp{\ignorespaces\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}%
+\hspace{.5ex}\mbox{(\hspace{.1ex}\pgfPT@box@zerodepth{J}\hspace{.125ex}mol%
+\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont-1}\hspace{.1ex}K%
+\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont-1}%
+\ifpgfPTlegacro%
+    \relax\hspace{.1ex})%
+\else%
+    \ifpgfPT@kT%
+        \ifdim\pgfPT@data@kT@y=\pgfPT@data@Cp@y\relax%
+            \ifdim\pgfPT@data@kT@x<\pgfPT@data@Cp@x\relax%
+                \edef\pgfPT@note@letter{b}%
+            \else%
+                \edef\pgfPT@note@letter{a}%
+            \fi%
+        \else%
+            \ifdim\pgfPT@data@kT@y>\pgfPT@data@Cp@y\relax%
+                \edef\pgfPT@note@letter{a}%
+            \else%
+                \edef\pgfPT@note@letter{b}%
+            \fi%
+        \fi%
+    \else%
+        \edef\pgfPT@note@letter{a}%
+    \fi%pgfPT@kT
+\hspace{.1ex}) \raisebox{.777ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont(\pgfPT@note@letter)}%
+\fi%pgfPTlegacro
+}%
+}%
+\def\pgfPT@labels@unit@kT{\ignorespaces\pgfmathsetlength{\pgfPT@dimc}{.666*\pgfPT@dima}%\global\advance\pgfPT@count@note by1%%
+\hspace{.5ex}\mbox{(\hspace{.1ex}\pgfPT@box@zerodepth{W}\hspace{.125ex}m%
+\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont-1}\hspace{.1ex}K%
+\raisebox{.555ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont-1}%
+\ifpgfPTlegacro%
+    \relax\hspace{.1ex})%
+\else%
+    \ifpgfPT@Cp%
+        \ifdim\pgfPT@data@kT@y=\pgfPT@data@Cp@y\relax%
+            \ifdim\pgfPT@data@kT@x<\pgfPT@data@Cp@x\relax%
+                \edef\pgfPT@note@letter{a}%
+            \else%
+                \edef\pgfPT@note@letter{b}%
+            \fi%
+        \else%
+            \ifdim\pgfPT@data@kT@y>\pgfPT@data@Cp@y\relax%
+                \edef\pgfPT@note@letter{b}
+            \else
+                \edef\pgfPT@note@letter{a}%
+            \fi%
+        \fi%
+    \else%
+        \edef\pgfPT@note@letter{a}%
+    \fi%
+\hspace{.1ex}) \raisebox{.777ex}{\fontsize{\pgfPT@dimc}{\pgfPT@dimc}\selectfont(\pgfPT@note@letter)}%
+\fi%pgfPTlegacro
+}%
+}%
+\def\pgfPT@labels@unit@none{}%
+% #1 -> what
+\def\pgfPT@setUnit#1{\ignorespaces%
+\def\@pgfPT@unitslist{Z/none,name/none,CS/none,Ar/none,Arstar/none,radio/none,R/pm,Rcov/pm,Rion/pm,Ei/kJmol,eneg/none,eaff/kJmol,O/none,Tmelt/kelvin,TmeltC/degC,Tboil/kelvin,TboilC/degC,eDist/none,eConfign/none,eConfignl/none,d/d,Cp/Cp,kT/kT,ls/none,lsa/ls,lsb/ls,lsc/pm,lsca/none,DiscY/none,DiscC/none,DiscBy/none}%
+\edef\pgfPT@testa{#1}\def\pgfPT@testb{none}%
+\foreach \pgfPT@what/\pgfPT@unit in \@pgfPT@unitslist{%
+        \ifx\pgfPT@testa\pgfPT@what\relax\ifx\pgfPT@testb\pgfPT@unit\relax\else\csname pgfPT@labels@unit@\pgfPT@unit\endcsname\fi\breakforeach\fi%
+        }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% aux macros for legend
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% #1 -> what
+% Output \pgfPT@tmp@label@defaultLanguage and \pgfPT@tmp@labels@otherLanguages
+\def\pgfPT@legend#1{\ignorespaces%
+\pgfPT@setlabels[\pgfPTlanguages]{#1}%
+    \edef\pgfPT@tmp@label@defaultLanguage{}\edef\pgfPT@tmp@labels@otherLanguages{}\pgfPT@counta=0\relax%
+    \@for\pgf@tmp:=\pgfPTlanguages\do{%
+        \ifnum\pgfPT@counta=0\relax%
+            \edef\pgfPT@tmp@label@defaultLanguage{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+        \else%
+            \edef\pgfPT@tmp@labels@otherLanguages{\pgfPT@tmp@labels@otherLanguages\pgfPT@mbox@zerodepth{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}\vskip0pt}%
+        \fi%
+        \advance\pgfPT@counta by 1\relax%
+    }%
+}%
+% #1 -> what
+% Output \pgfPT@tmp@label@<roman>
+\def\pgfPT@leglabel#1{\ignorespaces%
+\pgfPT@setlabels[\pgfPTlanguages]{#1}%
+    \pgfPT@counta=0\relax%
+    \@for\pgf@tmp:=\pgfPTlanguages\do{%
+        \advance\pgfPT@counta by 1\relax%
+        \expandafter\edef\csname pgfPT@tmp@label@\@roman{\pgfPT@counta}\endcsname{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+    }%
+}%
+% #1->unit (optional); #2 -> what
+\def\pgfPT@putleglabel{\@ifnextchar[\@pgfPT@putleglabel{\@pgfPT@putleglabel[]}}%
+\def\@pgfPT@putleglabel[#1]#2{\ignorespaces%
+\ifnum\pgfPT@counta=1\relax%
+    \pgfmathsetlength{\pgfPT@dimc}{.85*\pgfPT@legendscaleY*\csname pgfPT@data@#2@ht\endcsname}%
+    \setbox0=\vbox{\pgfPT@tmp@label@i#1}%
+    \ifdim\ht0>\pgfPT@dimc\relax\setbox0=\vbox{\resizebox{!}{\pgfPT@dimc}{\pgfPT@box@zerodepth{\usebox0}}}\fi%
+    \ifdim\wd0>.95\textwidth\relax\resizebox{.8\textwidth}{!}{\pgfPT@box@zerodepth{\usebox0}}\else\pgfPT@box@zerodepth{\usebox0}\fi%
+\else%
+    {\tiny\selectfont\xdef\thetinysize{\f@size}}%
+    \pgfPT@countc=0\relax\pgfPT@countd=0\relax%
+    \ifnum\pgfPT@countb=2\relax\pgfmathsetlength{\pgfPT@dimc}{-.25ex*(\f@size/\thetinysize)}\else%
+    \ifnum\pgfPT@countb=3\relax\pgfmathsetlength{\pgfPT@dimc}{-.2ex*(\f@size/\thetinysize)}\else%
+    \pgfmathsetlength{\pgfPT@dimc}{-.25ex*(\f@size/\thetinysize)}\fi\fi%
+    \def\pgfPT@test@unit{#1}%
+    \vbox{%
+    \@whilenum\pgfPT@countc<\pgfPT@counta\do{\ignorespaces%
+        \advance\pgfPT@countc by 1\relax%
+            \ifnum\pgfPT@countc>1\relax%
+                \fontsize{\the\pgfPT@dimb}{\the\pgfPT@dimb}\selectfont\color{\pgfPTotherLangColor}\vskip\pgfPT@dimc%
+            \fi%
+            \ifnum\pgfPT@countc=1\relax% 1ª l\'{i}ngua
+                \setbox0=\hbox{\csname pgfPT@tmp@label@\@roman{\pgfPT@countc}\endcsname#1}%
+                \pgfmathsetlength{\pgfPT@boxht}{\ht0}%
+            \else%
+                \setbox0=\hbox{\csname pgfPT@tmp@label@\@roman{\pgfPT@countc}\endcsname}%
+            \fi%
+            \ifnum\pgfPT@countd=0\relax% 1ª l\'{i}ngua
+                \pgfPT@countd=1\relax%
+                \ifdim\wd0>.75\textwidth\relax%
+                    \resizebox{.75\textwidth}{!}{\pgfPT@box@zerodepth{\usebox0}}%
+                    \else%
+                    \mbox{\pgfPT@box@zerodepth{\usebox0}}%
+                \fi%
+            \else\ifnum\pgfPT@countd=1\relax% 2ª l\'{i}ngua
+                \pgfPT@countd=2\relax%
+                \ifdim\wd0>.65\textwidth\relax%
+                    \ifx\pgfPT@test@unit\@empty\relax\setbox0=\hbox{\resizebox{.65\textwidth}{!}{\pgfPT@box@zerodepth{\usebox0}}}\usebox0%
+                    \else\setbox0=\hbox{\resizebox{.5\textwidth}{!}{\pgfPT@box@zerodepth{\usebox0}}}\usebox0\fi%
+                \else%
+                    \ifx\pgfPT@test@unit\@empty\relax\setbox0=\hbox{\resizebox{!}{.8\height}{\pgfPT@box@zerodepth{\usebox0}}}\usebox0%
+                    \else\setbox0=\hbox{\resizebox{.5\textwidth}{!}{\pgfPT@box@zerodepth{\usebox0}}}%
+                        \ifdim\pgfPT@boxht>.5\ht0\relax\setbox0=\hbox{\resizebox{!}{.5\pgfPT@boxht}{\pgfPT@box@zerodepth{\usebox0}}}\usebox0\else\usebox0\fi%
+                        %\usebox0%
+                    \fi%
+                \fi%
+                \pgfmathsetlength{\pgfPT@boxht}{\ht0}%
+            \else% 3ª, 4ª, ... l\'{i}ngua
+                \resizebox{!}{\pgfPT@boxht}{\pgfPT@box@zerodepth{\usebox0}}%
+            \fi\fi%
+    }%end while do
+}%end vbox
+\fi%
+}%
+% #1 -> what
+\def\pgfPT@pinEstado#1{\ignorespaces%
+\pgfPT@setlabels[\pgfPTlanguages]{#1}%
+    \edef\pgfPT@tmp@label@defaultLanguage{}\edef\pgfPT@tmp@labels@otherLanguages{}\pgfPT@counta=0\relax%
+    \@for\pgf@tmp:=\pgfPTlanguages\do{%
+        \ifnum\pgfPT@counta=0\relax%
+            \edef\pgfPT@tmp@label@defaultLanguage{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+        \else%
+            \ifnum\pgfPT@counta=1\relax%
+                \edef\pgfPT@tmp@labels@otherLanguages{\ \csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+            \else%
+            \edef\pgfPT@tmp@labels@otherLanguages{\pgfPT@tmp@labels@otherLanguages\ /\ \csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+            \fi%
+        \fi%
+        \advance\pgfPT@counta by 1\relax%
+    }%
+}%
+% #1 -> what
+\def\pgfPT@acroDesc#1{\ignorespaces%
+\pgfPT@setacroDesc[\pgfPTlanguages]{#1}%
+    \edef\pgfPT@tmp@acro@defaultLanguage{}\edef\pgfPT@tmp@acro@otherLanguages{}\pgfPT@counta=0\relax%
+    \@for\pgf@tmp:=\pgfPTlanguages\do{%
+        \ifnum\pgfPT@counta=0\relax%
+            \edef\pgfPT@tmp@acro@defaultLanguage{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+        \else%
+            \ifnum\pgfPT@counta=1\relax%
+                \edef\pgfPT@tmp@acro@otherLanguages{\csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+            \else%
+            \edef\pgfPT@tmp@acro@otherLanguages{\pgfPT@tmp@acro@otherLanguages\ /\ \csname pgfPT@labels@#1@\pgf@tmp\endcsname}%
+            \fi%
+        \fi%
+        \advance\pgfPT@counta by 1\relax%
+    }%
+}%
+\endinput

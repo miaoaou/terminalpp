@@ -1,0 +1,21 @@
+name phfcc
+category Package
+revision 60731
+shortdesc Convenient inline commenting in collaborative documents
+relocated 1
+longdesc Easily define helper macros to insert comments in a LaTeX
+longdesc document. A convenient syntax enables you to mark text
+longdesc additions (e.g., "... \phf{I'm adding this text} ..." or "...
+longdesc \phf I'm adding this text\endphf ..."), an in-line comment
+longdesc (e.g., "... We're the best \phf[I'm not sure about this.]
+longdesc ..."), and text removals (e.g., "... \phf*{remove me} ...").
+longdesc New colors are assigned automatically to each commenter by
+longdesc default, and the appearance of all comments is highly
+longdesc customizable.
+runfiles size=6
+ RELOC/tex/latex/phfcc/phfcc.sty
+catalogue-contact-repository https://github.com/phfaist/phfqitltx
+catalogue-ctan /macros/latex/contrib/phfcc
+catalogue-license lppl1.3
+catalogue-topics editorial cond-comp
+catalogue-version 2.0

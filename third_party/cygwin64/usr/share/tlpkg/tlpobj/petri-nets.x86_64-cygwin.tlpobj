@@ -1,0 +1,6 @@
+name petri-nets.x86_64-cygwin
+category Package
+revision 39165
+shortdesc x86_64-cygwin files of petri-nets
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/pn2pdf

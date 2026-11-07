@@ -1,0 +1,34 @@
+name datetime2-english
+category Package
+revision 52479
+shortdesc English language module for the datetime2 package
+relocated 1
+longdesc This module provides the following styles that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. The region not only
+longdesc determines the date/time format but also the time zone
+longdesc abbreviations if the zone mapping setting is on. english
+longdesc (English - no region) en-GB (English - United Kingdom of Great
+longdesc Britain and Northern Ireland) en-US (English - United States of
+longdesc America) en-CA (English - Canada) en-AU (English - Commonwealth
+longdesc of Australia) en-NZ (English - New Zealand) en-GG (English -
+longdesc Bailiwick of Guernsey) en-JE (English - Bailiwick of Jersey)
+longdesc en-IM (English - Isle of Man) en-MT (English - Republic of
+longdesc Malta) en-IE (English - Republic of Ireland)
+runfiles size=26
+ RELOC/tex/latex/datetime2-english/datetime2-en-AU.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-CA.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-GB.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-GG.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-IE.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-IM.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-JE.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-MT.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-NZ.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-en-US.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-english-base.ldf
+ RELOC/tex/latex/datetime2-english/datetime2-english.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-english
+catalogue-date 2019-10-21 13:10:15 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.05

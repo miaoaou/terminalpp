@@ -1,0 +1,18 @@
+name mkpic
+category Package
+revision 33700
+shortdesc Perl interface to mfpic
+longdesc mkpic provides an easy interface for making small pictures with
+longdesc mfpic. To this end you create an input file consisting of
+longdesc commands, one per line, with space separated parameters (or you
+longdesc modify the DATA section of the mkpic script, which is used if
+longdesc you run it without an input file). For an extensive description
+longdesc see the file mkpicdoc.pdf, which is part of the distribution.
+depend mkpic.ARCH
+runfiles size=7
+ texmf-dist/scripts/mkpic/mkpic
+catalogue-ctan /support/mkpic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics graphics
+catalogue-version 1.02

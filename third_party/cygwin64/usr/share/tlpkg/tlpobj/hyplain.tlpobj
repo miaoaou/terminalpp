@@ -1,0 +1,19 @@
+name hyplain
+category Package
+revision 15878
+shortdesc Basic support for multiple languages in Plain TeX
+relocated 1
+longdesc The package offers a means to set up hyphenation suitable for
+longdesc several languages and/or dialects, and to select them or switch
+longdesc between them while typesetting.
+runfiles size=4
+ RELOC/tex/plain/hyplain/hylang.tex
+ RELOC/tex/plain/hyplain/hypdfplain.ini
+ RELOC/tex/plain/hyplain/hyplain.tex
+ RELOC/tex/plain/hyplain/hyrules.tex
+catalogue-also babel
+catalogue-ctan /macros/plain/contrib/hyplain
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics multilingual hyphenation plain-ext
+catalogue-version 1.0

@@ -1,0 +1,26 @@
+name jslectureplanner
+category Package
+revision 70443
+shortdesc Creation and management of university course material
+relocated 1
+longdesc The jslectureplanner package facilitates the generation and
+longdesc management of university course material. It provides an
+longdesc interface to set up and access centralized course data that can
+longdesc be reused in all course documents. Furthermore, the package is
+longdesc able to calculate the session dates of a whole semester and
+longdesc generate course programs, if the course is held weekly and the
+longdesc date of the first lecture is specified. Moreover, the package
+longdesc can be used to generate a sectioned course bibliography via
+longdesc BibLaTeX. The bundle also includes a package jsmembertable.sty
+longdesc that helps in generating course member and presence lists.
+runfiles size=22
+ RELOC/tex/latex/jslectureplanner/cologne.lps
+ RELOC/tex/latex/jslectureplanner/english.lps
+ RELOC/tex/latex/jslectureplanner/german-default.lps
+ RELOC/tex/latex/jslectureplanner/jslectureplanner.sty
+ RELOC/tex/latex/jslectureplanner/jsmembertable.sty
+catalogue-contact-repository https://github.com/jspitz/jslectureplanner
+catalogue-ctan /macros/latex/contrib/jslectureplanner
+catalogue-license lppl1.3
+catalogue-topics teaching planning
+catalogue-version 1.13

@@ -1,0 +1,22 @@
+name sttools
+category Package
+revision 60736
+shortdesc Various macros
+relocated 1
+longdesc A collection of tools and macros, providing: miscellaneous
+longdesc float control, page styles for floats, multipage tabulars, even
+longdesc columns at end of twocolumn region, switching between one- and
+longdesc two-column anywhere, simulating the effect of "midfloats", a
+longdesc package to manipulate numerical lists and arrays.
+runfiles size=27
+ RELOC/tex/latex/sttools/cuted.sty
+ RELOC/tex/latex/sttools/floatpag.sty
+ RELOC/tex/latex/sttools/flushend.sty
+ RELOC/tex/latex/sttools/midfloat.sty
+ RELOC/tex/latex/sttools/stabular.sty
+ RELOC/tex/latex/sttools/stfloats.sty
+ RELOC/tex/latex/sttools/texsort.sty
+catalogue-ctan /macros/latex/contrib/sttools
+catalogue-license lppl1.3
+catalogue-topics collection
+catalogue-version 3.0

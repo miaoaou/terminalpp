@@ -1,0 +1,30 @@
+name tipauni
+category Package
+revision 65817
+shortdesc Producing Unicode characters with TIPA commands
+relocated 1
+longdesc Package TIPA uses the T3 encoding for producing IPA characters.
+longdesc The package is widely used in the field of linguistics, but
+longdesc because of the old encoding, the output documents are less
+longdesc productive than Unicode-based documents. This package redefines
+longdesc most of the TIPA-commands for outputting Unicode characters.
+longdesc Users can now use their beloved TIPA shortcuts with the
+longdesc benefits of Unicode, i.e. searchability, copy-pasting, changing
+longdesc the font and many more. As this package needs the fontspec
+longdesc package for loading an IPA font, it needs to be compiled with
+longdesc XeLaTeX or LuaLaTeX. This package can also be viewed as an
+longdesc ASCII-based input method for producing IPA characters in
+longdesc Unicode. It needs the New Computer Modern font for printing IPA
+longdesc characters.
+runfiles size=9
+ RELOC/tex/latex/tipauni/tipauni-newcm-book.fontspec
+ RELOC/tex/latex/tipauni/tipauni-newcm-regular.fontspec
+ RELOC/tex/latex/tipauni/tipauni.sty
+catalogue-contact-bugs https://puszcza.gnu.org.ua/bugs/?group=tipauni
+catalogue-contact-home https://puszcza.gnu.org.ua/projects/tipauni
+catalogue-contact-repository https://git.gnu.org.ua/tipauni.git
+catalogue-contact-support mailto:tipauni-help@gnu.org.ua
+catalogue-ctan /macros/unicodetex/latex/tipauni
+catalogue-license gpl3+ fdl
+catalogue-topics phonetic linguistic unicode
+catalogue-version 0.7a

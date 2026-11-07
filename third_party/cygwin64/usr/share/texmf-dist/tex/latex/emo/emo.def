@@ -1,0 +1,47 @@
+\ProvidesFile{emo.def}[2023-04-26]
+\expandafter\def\csname emo@emoji@keycap-one\endcsname{1️⃣}
+\def\emo@emoji@biohazard{☣️}
+\expandafter\def\csname emo@emoji@balance-scale\endcsname{⚖️}
+\expandafter\def\csname emo@emoji@check-mark-button\endcsname{✅}
+\expandafter\def\csname emo@emoji@check-mark\endcsname{✔️}
+\expandafter\def\csname emo@emoji@cross-mark\endcsname{❌}
+\def\emo@emoji@plus{➕}
+\def\emo@emoji@eu{🇪🇺}
+\expandafter\def\csname emo@emoji@japanese-bargain-button\endcsname{🉐}
+\def\emo@emoji@foggy{🌁}
+\expandafter\def\csname emo@emoji@globe-africa-europe\endcsname{🌍}
+\expandafter\def\csname emo@emoji@party-popper\endcsname{🎉}
+\expandafter\def\csname emo@emoji@classical-building\endcsname{🏛️}
+\expandafter\def\csname emo@emoji@desert-island\endcsname{🏝️}
+\def\emo@emoji@stadium{🏟️}
+\expandafter\def\csname emo@emoji@rainbow-flag\endcsname{🏳️‍🌈}
+\def\emo@emoji@label{🏷️}
+\expandafter\def\csname emo@emoji@baby-chick\endcsname{🐤}
+\def\emo@emoji@eye{👁️}
+\def\emo@emoji@busts{👥}
+\def\emo@emoji@collision{💥}
+\expandafter\def\csname emo@emoji@currency-exchange\endcsname{💱}
+\expandafter\def\csname emo@emoji@floppy-disk\endcsname{💾}
+\expandafter\def\csname emo@emoji@chart-increasing\endcsname{📈}
+\expandafter\def\csname emo@emoji@triangular-ruler\endcsname{📐}
+\def\emo@emoji@pager{📟}
+\expandafter\def\csname emo@emoji@loupe-left\endcsname{🔍}
+\def\emo@emoji@detective{🕵️}
+\def\emo@emoji@wastebasket{🗑️}
+\expandafter\def\csname emo@emoji@enraged-face\endcsname{😡}
+\expandafter\def\csname emo@emoji@stop-sign\endcsname{🛑}
+\def\emo@emoji@robot{🤖}
+\def\emo@emoji@handshake{🤝}
+\expandafter\def\csname emo@emoji@person-facepalming\endcsname{🤦}
+\expandafter\def\csname emo@emoji@zany-face\endcsname{🤪}
+\expandafter\def\csname emo@emoji@exploding-head\endcsname{🤯}
+\expandafter\def\csname emo@emoji@pleading-face\endcsname{🥺}
+\def\emo@emoji@parrot{🦜}
+\def\emo@emoji@judge{🧑‍⚖️}
+\expandafter\def\csname emo@emoji@roll-of-paper\endcsname{🧻}
+\def\emo@emoji@receipt{🧾}
+
+\ifemo@extra
+\def\emo@emoji@lingchi{凌遲}
+\def\emo@emoji@YHWH{\begingroup\textdir TRT יהוה\endgroup}
+\fi

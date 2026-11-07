@@ -1,0 +1,43 @@
+name tcolorbox
+category Package
+revision 69370
+shortdesc Coloured boxes, for LaTeX examples and theorems, etc
+relocated 1
+longdesc This package provides an environment for coloured and framed
+longdesc text boxes with a heading line. Optionally, such a box may be
+longdesc split in an upper and a lower part; thus the package may be
+longdesc used for the setting of LaTeX examples where one part of the
+longdesc box displays the source code and the other part shows the
+longdesc output. Another common use case is the setting of theorems. The
+longdesc package supports saving and reuse of source code and text
+longdesc parts. The package depends on the pgf, verbatim, environ, and
+longdesc etoolbox packages.
+runfiles size=149
+ RELOC/tex/latex/tcolorbox/blueshade.png
+ RELOC/tex/latex/tcolorbox/crinklepaper.png
+ RELOC/tex/latex/tcolorbox/goldshade.png
+ RELOC/tex/latex/tcolorbox/pink_marble.png
+ RELOC/tex/latex/tcolorbox/tcbbreakable.code.tex
+ RELOC/tex/latex/tcolorbox/tcbdocumentation.code.tex
+ RELOC/tex/latex/tcolorbox/tcbexternal.code.tex
+ RELOC/tex/latex/tcolorbox/tcbfitting.code.tex
+ RELOC/tex/latex/tcolorbox/tcbhooks.code.tex
+ RELOC/tex/latex/tcolorbox/tcblistings.code.tex
+ RELOC/tex/latex/tcolorbox/tcblistingscore.code.tex
+ RELOC/tex/latex/tcolorbox/tcblistingsutf8.code.tex
+ RELOC/tex/latex/tcolorbox/tcbmagazine.code.tex
+ RELOC/tex/latex/tcolorbox/tcbminted.code.tex
+ RELOC/tex/latex/tcolorbox/tcbposter.code.tex
+ RELOC/tex/latex/tcolorbox/tcbprocessing.code.tex
+ RELOC/tex/latex/tcolorbox/tcbraster.code.tex
+ RELOC/tex/latex/tcolorbox/tcbskins.code.tex
+ RELOC/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
+ RELOC/tex/latex/tcolorbox/tcbtheorems.code.tex
+ RELOC/tex/latex/tcolorbox/tcbvignette.code.tex
+ RELOC/tex/latex/tcolorbox/tcbxparse.code.tex
+ RELOC/tex/latex/tcolorbox/tcolorbox.sty
+catalogue-contact-bugs https://github.com/T-F-S/tcolorbox/issues
+catalogue-ctan /macros/latex/contrib/tcolorbox
+catalogue-license lppl1.3
+catalogue-topics boxing colour verbatim listing macro-demo
+catalogue-version 6.2.0

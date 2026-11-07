@@ -1,0 +1,15 @@
+name dynkin-diagrams
+category Package
+revision 67267
+shortdesc Draw Dynkin, Coxeter, and Satake diagrams using TikZ
+relocated 1
+longdesc Draws Dynkin, Coxeter, and Satake diagrams in LaTeX documents,
+longdesc using the TikZ package. The package requires amsmath, amssymb,
+longdesc etoolbox, expl3, mathtools, pgfkeys, pgfopts, TikZ, xparse, and
+longdesc xstring.
+runfiles size=38
+ RELOC/tex/latex/dynkin-diagrams/dynkin-diagrams.sty
+catalogue-ctan /graphics/pgf/contrib/dynkin-diagrams
+catalogue-license lppl1.3c
+catalogue-topics graphics diagram pgf-tikz expl3
+catalogue-version 3.1415926535897932384

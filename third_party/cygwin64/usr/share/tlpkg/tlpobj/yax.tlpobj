@@ -1,0 +1,22 @@
+name yax
+category Package
+revision 54080
+shortdesc Yet Another Key System
+relocated 1
+longdesc YaX is advertised as a key system, but it rather organizes
+longdesc attributes in parameters, which parameters can be executed, so
+longdesc that YaX is halfway between key management and macro definition
+longdesc (and actually hopes to provide a user's interface). Values
+longdesc assigned to attributes can be retrieved and tested in various
+longdesc ways, with full expandability ensured as much as possible.
+longdesc Finally, YaX's syntax is a quite peculiar (as few braces as
+longdesc possible), but may be customized. YaX is based on texapi and
+longdesc thus requires e-TeX.
+runfiles size=8
+ RELOC/tex/generic/yax/t-yax.tex
+ RELOC/tex/generic/yax/yax.sty
+ RELOC/tex/generic/yax/yax.tex
+catalogue-ctan /macros/generic/yax
+catalogue-license lppl
+catalogue-topics keyval etex
+catalogue-version 1.03

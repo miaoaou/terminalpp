@@ -1,0 +1,17 @@
+name fncychap
+category Package
+revision 20710
+shortdesc Seven predefined chapter heading styles
+relocated 1
+longdesc Each style can be modified using a set of simple commands.
+longdesc Optionally one can modify the formatting routines in order to
+longdesc create additional chapter headings. This package was previously
+longdesc known as FancyChapter.
+runfiles size=5
+ RELOC/tex/latex/fncychap/fncychap.sty
+catalogue-also memoirchapterstyles
+catalogue-ctan /macros/latex/contrib/fncychap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics headings
+catalogue-version 1.34

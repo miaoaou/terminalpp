@@ -1,0 +1,16 @@
+name coolstr
+category Package
+revision 67015
+shortdesc String manipulation in LaTeX
+relocated 1
+longdesc Coolstr is a subpackage of the cool bundle that deals with the
+longdesc manipulation of strings. A string is defined as a sequence of
+longdesc characters (not tokens). The package provides the ability to
+longdesc access a specific character of a string, as well as determine
+longdesc if the string contains numeric or integer data.
+runfiles size=3
+ RELOC/tex/latex/coolstr/coolstr.sty
+catalogue-ctan /macros/latex/contrib/coolstr
+catalogue-license lgpl
+catalogue-topics string
+catalogue-version 2.2

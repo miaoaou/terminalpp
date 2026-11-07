@@ -1,0 +1,18 @@
+name rotpages
+category Package
+revision 18740
+shortdesc Typeset sets of pages upside-down and backwards
+relocated 1
+longdesc The rotpages package allows you to format documents where small
+longdesc sets of pages are rotated by 180 degrees and rearranged, so
+longdesc that they can be read by turning the printed copy upside-down.
+longdesc It was developed for collecting exercises and solutions: using
+longdesc the package, you can print the exercise text normally and the
+longdesc solutions rotated.
+runfiles size=2
+ RELOC/tex/latex/rotpages/rotpages.sty
+catalogue-ctan /macros/latex/contrib/rotpages
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics layout
+catalogue-version 3.0

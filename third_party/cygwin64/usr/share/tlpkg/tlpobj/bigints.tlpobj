@@ -1,0 +1,14 @@
+name bigints
+category Package
+revision 29803
+shortdesc Writing big integrals
+relocated 1
+longdesc The package provides facilities for drawing big integral signs
+longdesc when needed. An example would be when the integrand is a
+longdesc matrix.
+runfiles size=2
+ RELOC/tex/latex/bigints/bigints.sty
+catalogue-ctan /macros/latex/contrib/bigints
+catalogue-date 2019-02-04 13:21:37 +0100
+catalogue-license lppl
+catalogue-topics maths

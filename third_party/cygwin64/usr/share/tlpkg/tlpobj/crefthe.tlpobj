@@ -1,0 +1,19 @@
+name crefthe
+category Package
+revision 70156
+shortdesc Cross referencing with proper definite articles and declensions
+relocated 1
+longdesc By default, when using cleveref's \cref to reference
+longdesc theorem-like environments, the names do not contain definite
+longdesc articles. In languages such as French, Italian, Portuguese,
+longdesc Spanish, etc. this results in incorrect grammar. For this
+longdesc purpose, the current package offers \crefthe, which handles the
+longdesc definite articles properly (especially for the article
+longdesc contractions in many European languages).
+runfiles size=7
+ RELOC/tex/latex/crefthe/crefthe.sty
+catalogue-alias ccref
+catalogue-contact-repository https://github.com/Jinwen-XU/crefthe
+catalogue-ctan /macros/latex/contrib/crefthe
+catalogue-license lppl1.3c
+catalogue-topics label-ref expl3

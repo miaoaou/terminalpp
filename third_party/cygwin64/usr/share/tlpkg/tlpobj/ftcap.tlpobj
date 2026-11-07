@@ -1,0 +1,17 @@
+name ftcap
+category Package
+revision 17275
+shortdesc Allows \caption at the beginning of a table-environment
+relocated 1
+longdesc For several reasons a \caption may be desirable at the top of a
+longdesc table environment. This package changes the table environment
+longdesc such that \abovecaptionskip and \belowcaptionskip are swapped.
+longdesc The package should also work with a non-standard table
+longdesc environment.
+runfiles size=1
+ RELOC/tex/latex/ftcap/ftcap.sty
+catalogue-ctan /macros/latex/contrib/ftcap
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics caption table
+catalogue-version 1.4

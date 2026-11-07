@@ -1,0 +1,16 @@
+name elmath
+category Package
+revision 15878
+shortdesc Mathematics in Greek texts
+relocated 1
+longdesc This package has been designed to facilitate the use of Greek
+longdesc letters in mathematical mode. The package allows one to
+longdesc directly type in Greek letters (in ISO 8859-7 encoding) in math
+longdesc mode.
+runfiles size=3
+ RELOC/tex/latex/elmath/elmath.sty
+catalogue-ctan /macros/latex/contrib/elmath
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics greek maths
+catalogue-version 1.2

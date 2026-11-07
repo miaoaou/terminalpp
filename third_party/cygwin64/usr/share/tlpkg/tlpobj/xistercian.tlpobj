@@ -1,0 +1,19 @@
+name xistercian
+category Package
+revision 61366
+shortdesc Cistercian numerals in LaTeX
+relocated 1
+longdesc xistercian allows you to use Cistercian numerals in LaTeX. The
+longdesc glyphs are created using PGF and to a certain degree
+longdesc configurable. You can use Cistercian numerals as page numbers
+longdesc using \pagenumbering{cistercian}. The two main macros are:
+longdesc \cistercian{<counter>} formats the LaTeX2e counter as a
+longdesc Cistercian numeral \cisterciannum{<integer>} formats the
+longdesc integer (given as a string) as a Cistercian numeral
+runfiles size=7
+ RELOC/tex/latex/xistercian/xistercian.sty
+catalogue-contact-repository https://github.com/Skillmon/ltx_xistercian
+catalogue-ctan /graphics/pgf/contrib/xistercian
+catalogue-license lppl1.3c
+catalogue-topics numbers pgf-tikz graphics expl3
+catalogue-version 1.2

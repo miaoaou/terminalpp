@@ -1,0 +1,15 @@
+name pmgraph
+category Package
+revision 15878
+shortdesc "Poor man's" graphics
+relocated 1
+longdesc A set of extensions to LaTeX picture environment, including a
+longdesc wider range of vectors, and a lot more box frame styles.
+runfiles size=19
+ RELOC/tex/latex/pmgraph/pmgraph.sty
+catalogue-also pict2e
+catalogue-ctan /macros/latex/contrib/pmgraph
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics graphics-in-tex
+catalogue-version 1.0

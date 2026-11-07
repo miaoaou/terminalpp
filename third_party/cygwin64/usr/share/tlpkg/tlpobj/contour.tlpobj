@@ -1,0 +1,20 @@
+name contour
+category Package
+revision 18950
+shortdesc Print a coloured contour around text
+relocated 1
+longdesc This package generates a coloured contour around a given text
+longdesc in order to enable printing text over a background without the
+longdesc need of a coloured box around the text.
+runfiles size=7
+ RELOC/tex/latex/contour/contour.cfg
+ RELOC/tex/latex/contour/contour.sty
+ RELOC/tex/latex/contour/dvips.cnt
+ RELOC/tex/latex/contour/dvipsone.cnt
+ RELOC/tex/latex/contour/pdftex.cnt
+ RELOC/tex/latex/contour/vtex.cnt
+catalogue-ctan /macros/latex/contrib/contour
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics decoration colour
+catalogue-version 2.14

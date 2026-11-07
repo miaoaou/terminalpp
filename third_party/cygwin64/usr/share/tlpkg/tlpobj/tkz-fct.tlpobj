@@ -1,0 +1,16 @@
+name tkz-fct
+category Package
+revision 61949
+shortdesc Tools for drawing graphs of functions
+relocated 1
+longdesc The tkz-fct package is designed to give math teachers (and
+longdesc students) easy access to programming graphs of functions with
+longdesc TikZ and gnuplot.
+runfiles size=6
+ RELOC/tex/latex/tkz-fct/tkz-fct.sty
+catalogue-also pgf
+catalogue-contact-home http://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-fct
+catalogue-license lppl1.3
+catalogue-topics graphics graphics-plot pgf-tikz
+catalogue-version 1.7c

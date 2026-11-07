@@ -1,0 +1,14 @@
+name bookshelf
+category Package
+revision 55475
+shortdesc Create a nice image from a BibTeX file
+relocated 1
+longdesc This package turns a BibTeX bibliography file into a
+longdesc randomly-coloured, randomly-sized shelf of books, with the
+longdesc title and author in a randomly-chosen typeface.
+runfiles size=4
+ RELOC/tex/latex/bookshelf/bookshelf.cls
+catalogue-ctan /graphics/bookshelf
+catalogue-license lppl1.3
+catalogue-topics amusements decoration graphics-use
+catalogue-version 0.5

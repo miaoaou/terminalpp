@@ -1,0 +1,14 @@
+name glossaries-dutch
+category Package
+revision 35685
+shortdesc Dutch language module for glossaries package
+relocated 1
+longdesc Dutch language module for glossariesr package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-dutch/glossaries-dutch.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-dutch
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.1

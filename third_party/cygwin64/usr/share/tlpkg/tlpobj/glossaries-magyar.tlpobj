@@ -1,0 +1,16 @@
+name glossaries-magyar
+category Package
+revision 35665
+shortdesc Magyar language module for glossaries package
+relocated 1
+longdesc Magyar language module for glossariesr package.
+runfiles size=3
+ RELOC/tex/latex/glossaries-magyar/glossaries-magyar-noenc.ldf
+ RELOC/tex/latex/glossaries-magyar/glossaries-magyar-utf8.ldf
+ RELOC/tex/latex/glossaries-magyar/glossaries-magyar.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-magyar
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary
+catalogue-version 1.0

@@ -1,0 +1,300 @@
+% eulerpx.sty
+%
+% Copyright (C) 2016, 2017 Jabir Ali Ouassou
+% Copyright (C) 2021, 2022 Luuk Tijssen
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX 
+% Project Public License, either version 1.3 of this license or (at your option) 
+% any later version. The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Luuk Tijssen.
+%
+% This work consists of the file eulerpx.sty.
+
+\def\fileversion{v1.0}
+\def\filedate{2022/07/14}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eulerpx}[\filedate\space\fileversion]
+\typeout{Package: `eulerpx' \fileversion\space <\filedate>}
+
+\RequirePackage{amsmath}
+\RequirePackage{xkeyval}
+
+%% Macro definitions
+
+% Apply font-wide scaling factor
+\def\epx@scale#1{%
+  \xdef\zeu@Scale{#1}%
+  \xdef\zeu@@Scale{s*[#1]}%
+}
+
+% Use text symbols in math
+\def\epx@mathsymbol#1{%
+  \mathchoice
+    {\mbox{{\normalsize#1}}}
+    {\mbox{{\normalsize#1}}}
+    {\mbox{{\scriptsize#1}}}
+    {\mbox{{\tiny#1}}}%
+}
+\def\epx@mathop#1{%
+  \mathchoice
+    {\vcenter{\hbox{{\normalsize#1}}}}
+    {\vcenter{\hbox{{\normalsize#1}}}}
+    {\vcenter{\hbox{{\scriptsize#1}}}}
+    {\vcenter{\hbox{{\tiny#1}}}}%
+}
+
+% \let#1=#2, only if #2 exists
+\def\epx@let#1#2{%
+  \ifdefined#2
+    \let#1=#2
+  \else
+    \PackageWarning{eulerpx}{%
+      Missing character `\protect#2',\MessageBreak
+      substituting `\protect#1'%
+    }
+  \fi
+}
+
+%% Package options
+
+\newif\ifepx@npxmath
+\newif\ifepx@slant
+\DeclareOptionX{scale}{\epx@scale{#1}}
+\DeclareOptionX{scaled}{\epx@scale{#1}}
+\DeclareOptionX{nonpxmath}{\epx@npxmathfalse}
+\DeclareOptionX{noslant}{\epx@slantfalse}
+
+\epx@scale{1.0}
+\epx@npxmathtrue
+\epx@slanttrue
+\ProcessOptionsX
+
+%% Font setup
+
+\ifepx@npxmath
+  %\@ifpackageloaded{newpxmath}{%
+  %    \PackageWarning{eulerpx}{%
+  %      Package `newpxmath' already loaded\MessageBreak
+  %      package options may differ%
+  %  }}{%
+      \RequirePackage[upint,scaled=\zeu@Scale]{newpxmath}%
+  %  }%
+\fi
+
+\ifepx@slant
+  \epx@let{\geq}{\geqslant}
+  \let\ge=\geq
+  \epx@let{\leq}{\leqslant}
+  \let\le=\leq
+  \epx@let{\ngeq}{\ngeqslant}
+  \epx@let{\nleq}{\nleqslant}
+\fi
+
+% eulervm.sty, ca. lines 133--146/
+% newpxmath.sty, ca. lines 197--209
+% Miscellaneous text font symbols
+\DeclareMathSymbol{,}{\mathpunct}{operators}{44}
+\DeclareMathSymbol{.}{\mathord}{operators}{46}
+\DeclareMathSymbol{\ldotp}{\mathpunct}{operators}{46}
+%\def\mathsection{\epx@mathsymbol{\textsection}} % doesn't respect \boldmath
+
+% Declare text font as operator font
+\DeclareSymbolFont{operators}{OT1}{\rmdefault}{m}{n}
+\SetSymbolFont{operators}{bold}{OT1}{\rmdefault}{b}{n}
+\def\operator@font{\mathgroup\symoperators}
+
+% Declare text font as math alphabets
+\DeclareSymbolFontAlphabet{\mathrm}{operators}
+\DeclareMathAlphabet{\mathsf}{\encodingdefault}{\sfdefault}{m}{n}
+\DeclareMathAlphabet{\mathit}{OT1}{\rmdefault}{m}{it}
+\DeclareMathAlphabet{\mathtt}{\encodingdefault}{\ttdefault}{m}{n}
+\SetMathAlphabet{\mathsf}{bold}{\encodingdefault}{\sfdefault}{b}{n}
+\SetMathAlphabet{\mathit}{bold}{OT1}{\rmdefault}{b}{it}
+\SetMathAlphabet{\mathtt}{bold}{\encodingdefault}{\ttdefault}{b}{n}
+\DeclareMathAlphabet{\mathbf}{OT1}{\rmdefault}{b}{n}
+
+% Declare Euler Roman as symbol font
+\DeclareSymbolFont{EulerRoman}{U}{zeur}{m}{n}
+\SetSymbolFont{EulerRoman}{bold}{U}{zeur}{b}{n}
+\DeclareSymbolFontAlphabet{\mathnormal}{EulerRoman}
+
+% Declare Euler math alphabets
+% Euler Script
+\let\varmathscr=\mathscr
+\let\mathscr=\undefined
+\DeclareMathAlphabet\mathscr{U}{zeus}{m}{n}
+\SetMathAlphabet\mathscr{bold}{U}{zeus}{b}{n}
+
+% eulervm.sty, ca. lines 217--227
+% Euler Fraktur
+\DeclareFontFamily{U}{euf}{}%
+\DeclareFontShape{U}{euf}{m}{n}{%
+  <-6>\zeu@@Scale eufm5%
+  <6-9>\zeu@@Scale eufm7%
+  <9->\zeu@@Scale eufm10%
+}{}%
+\DeclareFontShape{U}{euf}{b}{n}{%
+  <-6>\zeu@@Scale eufb5%
+  <6-9>\zeu@@Scale eufb7%
+  <9->\zeu@@Scale eufb10%
+}{}%
+
+\let\varmathfrak=\mathfrak
+\let\mathfrak=\undefined
+\DeclareMathAlphabet\mathfrak{U}{euf}{m}{n}
+\SetMathAlphabet\mathfrak{bold}{U}{euf}{b}{n}
+
+%% Symbol declarations
+
+% Upper-case Greek letters
+\DeclareMathSymbol{\Gamma}{\mathalpha}{EulerRoman}{0}
+\DeclareMathSymbol{\Delta}{\mathalpha}{EulerRoman}{1}
+\DeclareMathSymbol{\Theta}{\mathalpha}{EulerRoman}{2}
+\DeclareMathSymbol{\Lambda}{\mathalpha}{EulerRoman}{3}
+\DeclareMathSymbol{\Xi}{\mathalpha}{EulerRoman}{4}
+\DeclareMathSymbol{\Pi}{\mathalpha}{EulerRoman}{5}
+\DeclareMathSymbol{\Sigma}{\mathalpha}{EulerRoman}{6}
+\DeclareMathSymbol{\Upsilon}{\mathalpha}{EulerRoman}{7}
+\DeclareMathSymbol{\Phi}{\mathalpha}{EulerRoman}{8}
+\DeclareMathSymbol{\Psi}{\mathalpha}{EulerRoman}{9}
+\DeclareMathSymbol{\Omega}{\mathalpha}{EulerRoman}{10}
+
+% Lower-case Greek letters
+\DeclareMathSymbol{\alpha}{\mathord}{EulerRoman}{11}
+\DeclareMathSymbol{\beta}{\mathord}{EulerRoman}{12}
+\DeclareMathSymbol{\gamma}{\mathord}{EulerRoman}{13}
+\DeclareMathSymbol{\delta}{\mathord}{EulerRoman}{14}
+\DeclareMathSymbol{\epsilon}{\mathord}{EulerRoman}{15}
+\DeclareMathSymbol{\zeta}{\mathord}{EulerRoman}{16}
+\DeclareMathSymbol{\eta}{\mathord}{EulerRoman}{17}
+\DeclareMathSymbol{\theta}{\mathord}{EulerRoman}{18}
+\DeclareMathSymbol{\iota}{\mathord}{EulerRoman}{19}
+\DeclareMathSymbol{\kappa}{\mathord}{EulerRoman}{20}
+\DeclareMathSymbol{\lambda}{\mathord}{EulerRoman}{21}
+\DeclareMathSymbol{\mu}{\mathord}{EulerRoman}{22}
+\DeclareMathSymbol{\nu}{\mathord}{EulerRoman}{23}
+\DeclareMathSymbol{\xi}{\mathord}{EulerRoman}{24}
+\DeclareMathSymbol{\pi}{\mathord}{EulerRoman}{25}
+\DeclareMathSymbol{\rho}{\mathord}{EulerRoman}{26}
+\DeclareMathSymbol{\sigma}{\mathord}{EulerRoman}{27}
+\DeclareMathSymbol{\tau}{\mathord}{EulerRoman}{28}
+\DeclareMathSymbol{\upsilon}{\mathord}{EulerRoman}{29}
+\DeclareMathSymbol{\phi}{\mathord}{EulerRoman}{30}
+\DeclareMathSymbol{\chi}{\mathord}{EulerRoman}{31}
+\DeclareMathSymbol{\psi}{\mathord}{EulerRoman}{32}
+\DeclareMathSymbol{\omega}{\mathord}{EulerRoman}{33}
+\DeclareMathSymbol{\varepsilon}{\mathord}{EulerRoman}{34}
+\DeclareMathSymbol{\vartheta}{\mathord}{EulerRoman}{35}
+\DeclareMathSymbol{\varpi}{\mathord}{EulerRoman}{36}
+\let\varsigma=\sigma
+\let\varrho=\rho
+\DeclareMathSymbol{\varphi}{\mathord}{EulerRoman}{39}
+
+% Arabic (lining) numerals
+%\DeclareMathSymbol{0}{\mathalpha}{EulerRoman}{48}
+%\DeclareMathSymbol{1}{\mathalpha}{EulerRoman}{49}
+%\DeclareMathSymbol{2}{\mathalpha}{EulerRoman}{50}
+%\DeclareMathSymbol{3}{\mathalpha}{EulerRoman}{51}
+%\DeclareMathSymbol{4}{\mathalpha}{EulerRoman}{52}
+%\DeclareMathSymbol{5}{\mathalpha}{EulerRoman}{53}
+%\DeclareMathSymbol{6}{\mathalpha}{EulerRoman}{54}
+%\DeclareMathSymbol{7}{\mathalpha}{EulerRoman}{55}
+%\DeclareMathSymbol{8}{\mathalpha}{EulerRoman}{56}
+%\DeclareMathSymbol{9}{\mathalpha}{EulerRoman}{57}
+%
+%\DeclareMathSymbol{.}{\mathord}{EulerRoman}{58}
+%\DeclareMathSymbol{\ldotp}{\mathpunct}{EulerRoman}{58}
+%\DeclareMathSymbol{,}{\mathpunct}{EulerRoman}{59}
+
+\DeclareMathSymbol{\partial}{\mathord}{EulerRoman}{64}
+
+% Upper-case Roman letters
+\DeclareMathSymbol{A}{\mathalpha}{EulerRoman}{65}
+\DeclareMathSymbol{B}{\mathalpha}{EulerRoman}{66}
+\DeclareMathSymbol{C}{\mathalpha}{EulerRoman}{67}
+\DeclareMathSymbol{D}{\mathalpha}{EulerRoman}{68}
+\DeclareMathSymbol{E}{\mathalpha}{EulerRoman}{69}
+\DeclareMathSymbol{F}{\mathalpha}{EulerRoman}{70}
+\DeclareMathSymbol{G}{\mathalpha}{EulerRoman}{71}
+\DeclareMathSymbol{H}{\mathalpha}{EulerRoman}{72}
+\DeclareMathSymbol{I}{\mathalpha}{EulerRoman}{73}
+\DeclareMathSymbol{J}{\mathalpha}{EulerRoman}{74}
+\DeclareMathSymbol{K}{\mathalpha}{EulerRoman}{75}
+\DeclareMathSymbol{L}{\mathalpha}{EulerRoman}{76}
+\DeclareMathSymbol{M}{\mathalpha}{EulerRoman}{77}
+\DeclareMathSymbol{N}{\mathalpha}{EulerRoman}{78}
+\DeclareMathSymbol{O}{\mathalpha}{EulerRoman}{79}
+\DeclareMathSymbol{P}{\mathalpha}{EulerRoman}{80}
+\DeclareMathSymbol{Q}{\mathalpha}{EulerRoman}{81}
+\DeclareMathSymbol{R}{\mathalpha}{EulerRoman}{82}
+\DeclareMathSymbol{S}{\mathalpha}{EulerRoman}{83}
+\DeclareMathSymbol{T}{\mathalpha}{EulerRoman}{84}
+\DeclareMathSymbol{U}{\mathalpha}{EulerRoman}{85}
+\DeclareMathSymbol{V}{\mathalpha}{EulerRoman}{86}
+\DeclareMathSymbol{W}{\mathalpha}{EulerRoman}{87}
+\DeclareMathSymbol{X}{\mathalpha}{EulerRoman}{88}
+\DeclareMathSymbol{Y}{\mathalpha}{EulerRoman}{89}
+\DeclareMathSymbol{Z}{\mathalpha}{EulerRoman}{90}
+
+\DeclareMathSymbol{\ell}{\mathord}{EulerRoman}{96}
+
+% Lower-case Roman letters
+\DeclareMathSymbol{a}{\mathalpha}{EulerRoman}{97}
+\DeclareMathSymbol{b}{\mathalpha}{EulerRoman}{98}
+\DeclareMathSymbol{c}{\mathalpha}{EulerRoman}{99}
+\DeclareMathSymbol{d}{\mathalpha}{EulerRoman}{100}
+\DeclareMathSymbol{e}{\mathalpha}{EulerRoman}{101}
+\DeclareMathSymbol{f}{\mathalpha}{EulerRoman}{102}
+\DeclareMathSymbol{g}{\mathalpha}{EulerRoman}{103}
+\DeclareMathSymbol{h}{\mathalpha}{EulerRoman}{104}
+\DeclareMathSymbol{i}{\mathalpha}{EulerRoman}{105}
+\DeclareMathSymbol{j}{\mathalpha}{EulerRoman}{106}
+\DeclareMathSymbol{k}{\mathalpha}{EulerRoman}{107}
+\DeclareMathSymbol{l}{\mathalpha}{EulerRoman}{108}
+\DeclareMathSymbol{m}{\mathalpha}{EulerRoman}{109}
+\DeclareMathSymbol{n}{\mathalpha}{EulerRoman}{110}
+\DeclareMathSymbol{o}{\mathalpha}{EulerRoman}{111}
+\DeclareMathSymbol{p}{\mathalpha}{EulerRoman}{112}
+\DeclareMathSymbol{q}{\mathalpha}{EulerRoman}{113}
+\DeclareMathSymbol{r}{\mathalpha}{EulerRoman}{114}
+\DeclareMathSymbol{s}{\mathalpha}{EulerRoman}{115}
+\DeclareMathSymbol{t}{\mathalpha}{EulerRoman}{116}
+\DeclareMathSymbol{u}{\mathalpha}{EulerRoman}{117}
+\DeclareMathSymbol{v}{\mathalpha}{EulerRoman}{118}
+\DeclareMathSymbol{w}{\mathalpha}{EulerRoman}{119}
+\DeclareMathSymbol{x}{\mathalpha}{EulerRoman}{120}
+\DeclareMathSymbol{y}{\mathalpha}{EulerRoman}{121}
+\DeclareMathSymbol{z}{\mathalpha}{EulerRoman}{122}
+
+\DeclareMathSymbol{\imath}{\mathord}{EulerRoman}{123}
+\DeclareMathSymbol{\jmath}{\mathord}{EulerRoman}{124}
+\DeclareMathSymbol{\wp}{\mathord}{EulerRoman}{125}
+
+% Miscellaneous Euler symbols
+%\DeclareMathSymbol{\hslash}{\mathord}{EulerRoman}{128}
+%\let\hbar=\hslash
+% don't respect \boldmath
+\def\Re{\epx@mathsymbol{\usefont{U}{zeus}{m}{n}\char60}}
+\def\Im{\epx@mathsymbol{\usefont{U}{zeus}{m}{n}\char61}}
+\let\varaleph=\aleph
+\def\aleph{\epx@mathsymbol{\usefont{U}{zeus}{m}{n}\char64}}
+\def\mathsection{\epx@mathsymbol{\usefont{U}{zeus}{m}{n}\char120}}
+
+\def\epx@smallsum{\epx@mathop{\usefont{U}{zeuex}{m}{n}\char80}}
+\def\epx@sum{\epx@mathop{\usefont{U}{zeuex}{m}{n}\char88}}
+\let\varsum=\sum
+\let\sum=\undefined
+\DeclareMathOperator*{\sum}{%
+  \mathchoice{\epx@sum}{\epx@smallsum}{\epx@smallsum}{\epx@smallsum}%
+}
+
+%\let\varsmallsum=\smallsum
+%\def\smallsum{\epx@mathop{\usefont{U}{zeur}{m}{n}\char6}}
+
+\endinput

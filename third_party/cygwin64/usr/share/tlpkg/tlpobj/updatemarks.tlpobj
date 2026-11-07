@@ -1,0 +1,17 @@
+name updatemarks
+category Package
+revision 69986
+shortdesc Extract and update marks from boxes
+relocated 1
+longdesc This package can help you update marks if you put your title in
+longdesc boxes. It also patches the multicol package to let the new mark
+longdesc mechanism of LaTeX work (partially).
+runfiles size=8
+ RELOC/tex/latex/updatemarks/updatemarks-nums.sty
+ RELOC/tex/latex/updatemarks/updatemarks.sty
+catalogue-contact-bugs https://github.com/Sophanatprime/updatemarks/issues
+catalogue-contact-repository https://github.com/Sophanatprime/updatemarks
+catalogue-ctan /macros/latex/contrib/updatemarks
+catalogue-license lppl1.3c
+catalogue-topics page-hf expl3
+catalogue-version 0.2e

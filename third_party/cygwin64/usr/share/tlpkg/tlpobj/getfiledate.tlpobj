@@ -1,0 +1,16 @@
+name getfiledate
+category Package
+revision 16189
+shortdesc Find the date of last modification of a file
+relocated 1
+longdesc The package fetches from the system the date of last
+longdesc modification or opening of an existing file, using the function
+longdesc \pdffilemoddate (present in recent versions of pdfTeX); the
+longdesc user may specify how the date is to be presented.
+runfiles size=2
+ RELOC/tex/latex/getfiledate/getfiledate.sty
+catalogue-ctan /macros/latex/contrib/getfiledate
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics file-mgmt
+catalogue-version 1.2

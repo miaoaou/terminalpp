@@ -1,0 +1,19 @@
+name koma-moderncvclassic
+category Package
+revision 25025
+shortdesc Makes the style and command of moderncv (style classic) available for koma-classes and thus compatible with BibLaTeX
+relocated 1
+longdesc This package provides an imitation of the moderncv class with
+longdesc the classic style (by Xavier Danaux), to be used in conjunction
+longdesc with the koma-classes. Thus it is possible to configure
+longdesc pagelayout, headings etc. the way it is done in koma-classes.
+longdesc Moreover, it is possible to use BibLaTeX, while the original
+longdesc moderncv-class is incompatible with BibLaTeX.
+runfiles size=4
+ RELOC/tex/latex/koma-moderncvclassic/koma-moderncvclassic.sty
+catalogue-also moderncv koma-script
+catalogue-ctan /macros/latex/contrib/koma-moderncvclassic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics cv
+catalogue-version 0.5

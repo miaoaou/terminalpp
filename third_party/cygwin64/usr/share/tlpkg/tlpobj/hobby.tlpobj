@@ -1,0 +1,21 @@
+name hobby
+category Package
+revision 68137
+shortdesc An implementation of Hobby's algorithm for PGF/TikZ
+relocated 1
+longdesc This package defines a path generation function for PGF/TikZ
+longdesc which implements Hobby's algorithm for a path built out of
+longdesc Bezier curves which passes through a given set of points. The
+longdesc path thus generated may by used as a TikZ 'to path'. The
+longdesc implementation is in LaTeX3.
+runfiles size=20
+ RELOC/tex/latex/hobby/hobby-l3draw.sty
+ RELOC/tex/latex/hobby/hobby.code.tex
+ RELOC/tex/latex/hobby/pgflibraryhobby.code.tex
+ RELOC/tex/latex/hobby/pml3array.sty
+ RELOC/tex/latex/hobby/tikzlibraryhobby.code.tex
+catalogue-contact-repository https://github.com/loopspace/hobby
+catalogue-ctan /graphics/pgf/contrib/hobby
+catalogue-license lppl1.3c
+catalogue-topics graphics-curve graphics-supp graphics-in-tex pgf-tikz expl3
+catalogue-version 1.12

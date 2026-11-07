@@ -1,0 +1,26 @@
+name mycv
+category Package
+revision 26807
+shortdesc A list-driven CV class, allowing TikZ decorations
+relocated 1
+longdesc The class provides a set of functionality for writing
+longdesc "curriculum vitae" with different layouts. The idea is that a
+longdesc user can write some custom configuration directives, by means
+longdesc of which is possible both to produce different c.v. layouts and
+longdesc quickly switch among them. In order to process such directives,
+longdesc the class uses a set of lists, provided by the package
+longdesc etextools. Basic support for using TikZ decorations is also
+longdesc provided.
+runfiles size=11
+ RELOC/scripts/mycv/mycv_split_contents.pl
+ RELOC/tex/latex/mycv/mycv.cls
+ RELOC/tex/latex/mycv/mycv_base.def
+ RELOC/tex/latex/mycv/mycv_dec.sty
+ RELOC/tex/latex/mycv/mycv_misc.def
+ RELOC/tex/latex/mycv/mycv_style.sty
+ RELOC/tex/latex/mycv/mycv_version.def
+catalogue-ctan /macros/latex/contrib/mycv
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics cv class
+catalogue-version 1.5.6

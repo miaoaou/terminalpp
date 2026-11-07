@@ -1,0 +1,9 @@
+name latex-bin.x86_64-cygwin
+category TLCore
+revision 54035
+shortdesc x86_64-cygwin files of latex-bin
+binfiles arch=x86_64-cygwin size=4
+ bin/x86_64-cygwin/dvilualatex
+ bin/x86_64-cygwin/latex
+ bin/x86_64-cygwin/lualatex
+ bin/x86_64-cygwin/pdflatex

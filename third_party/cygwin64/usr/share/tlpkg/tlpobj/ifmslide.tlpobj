@@ -1,0 +1,40 @@
+name ifmslide
+category Package
+revision 20727
+shortdesc Presentation slides for screen and printouts
+relocated 1
+longdesc This package is used to produce printed slides with LaTeX and
+longdesc online presentations with pdfLaTeX. It is provided by the
+longdesc 'Institute of Mechanics' (ifm) Univ. of Technology Darmstadt,
+longdesc Germany. It is based on ideas of pdfslide, but completely
+longdesc rewritten for compatibility with texpower and seminar. The
+longdesc manual describes all functions and provides a sample.
+runfiles size=211
+ RELOC/tex/latex/ifmslide/aqua_ravines.eps
+ RELOC/tex/latex/ifmslide/aqua_ravines.jpg
+ RELOC/tex/latex/ifmslide/button1c.eps
+ RELOC/tex/latex/ifmslide/button1c.pdf
+ RELOC/tex/latex/ifmslide/button1e.eps
+ RELOC/tex/latex/ifmslide/button1e.pdf
+ RELOC/tex/latex/ifmslide/buttonec.eps
+ RELOC/tex/latex/ifmslide/buttonec.pdf
+ RELOC/tex/latex/ifmslide/buttonee.eps
+ RELOC/tex/latex/ifmslide/buttonee.pdf
+ RELOC/tex/latex/ifmslide/buttongc.eps
+ RELOC/tex/latex/ifmslide/buttongc.pdf
+ RELOC/tex/latex/ifmslide/buttonge.eps
+ RELOC/tex/latex/ifmslide/buttonge.pdf
+ RELOC/tex/latex/ifmslide/ifmlogoc.eps
+ RELOC/tex/latex/ifmslide/ifmlogoc.pdf
+ RELOC/tex/latex/ifmslide/ifmlogog.eps
+ RELOC/tex/latex/ifmslide/ifmlogog.pdf
+ RELOC/tex/latex/ifmslide/ifmslide.cfg
+ RELOC/tex/latex/ifmslide/ifmslide.sty
+ RELOC/tex/latex/ifmslide/liquid_helium.eps
+ RELOC/tex/latex/ifmslide/liquid_helium.jpg
+catalogue-also prosper
+catalogue-ctan /macros/latex/contrib/ifmslide
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics presentation
+catalogue-version 0.47

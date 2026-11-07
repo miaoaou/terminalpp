@@ -1,0 +1,48 @@
+name nicetext
+category Package
+revision 38914
+shortdesc Minimal markup for simple text (Wikipedia style) and documentation
+relocated 1
+longdesc The bundle offers "minimal" markup syntax for various simple
+longdesc kinds of text. The user will typically involve little more than
+longdesc is printed, and will still get LaTeX quality. The bundle
+longdesc provides four packages: wiki addresses general texts, marked up
+longdesc in the simple style used on Wikipedia; niceverb is yet another
+longdesc means of documenting LaTeX packages: it offers syntax-aware
+longdesc typesetting of meta-variables (macro arguments) and for
+longdesc referring to commands (and their syntax) in footnotes, section
+longdesc titles etc.; fifinddo aims to parse plain text or (La)TeX files
+longdesc using TeX, and to write the results to an external file; the
+longdesc package is used by another member of the bundle: makedoc, which
+longdesc provides the means to produce typeset documentation direct from
+longdesc package files.
+runfiles size=62
+ RELOC/tex/latex/nicetext/fifinddo.sty
+ RELOC/tex/latex/nicetext/makedoc.cfg
+ RELOC/tex/latex/nicetext/makedoc.sty
+ RELOC/tex/latex/nicetext/mdoccorr.cfg
+ RELOC/tex/latex/nicetext/nicetext.RLS
+ RELOC/tex/latex/nicetext/niceverb.sty
+ RELOC/tex/latex/nicetext/run/README-run.txt
+ RELOC/tex/latex/nicetext/run/arseneau.tex
+ RELOC/tex/latex/nicetext/run/atari.cfg
+ RELOC/tex/latex/nicetext/run/atari.txt
+ RELOC/tex/latex/nicetext/run/copyfile.cfg
+ RELOC/tex/latex/nicetext/run/copyfile.tex
+ RELOC/tex/latex/nicetext/run/fddial0g.sty
+ RELOC/tex/latex/nicetext/run/fdtxttex.cfg
+ RELOC/tex/latex/nicetext/run/fdtxttex.tex
+ RELOC/tex/latex/nicetext/run/fdtxttex.tpl
+ RELOC/tex/latex/nicetext/run/lines.txt
+ RELOC/tex/latex/nicetext/run/makedoc.tpl
+ RELOC/tex/latex/nicetext/run/sample.txt
+ RELOC/tex/latex/nicetext/run/substr.tex
+ RELOC/tex/latex/nicetext/run/u8atablg.fdf
+ RELOC/tex/latex/nicetext/wiki.sty
+catalogue-also easylatex txt2latex makedtx doc gmdoc
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/latex/contrib/nicetext
+catalogue-date 2017-05-06 09:07:27 +0200
+catalogue-license lppl1.3
+catalogue-topics markup
+catalogue-version r0.67

@@ -1,0 +1,16 @@
+name xcolor-material
+category Package
+revision 42289
+shortdesc Defines the 256 colors from Google Material Color Palette
+relocated 1
+longdesc The package is built on top of the great xcolor package. It
+longdesc provides a useful definition of the beautiful Google Material
+longdesc Color Palette, available at Google Material design, for its use
+longdesc in document writing with LaTeX and Friends.
+runfiles size=5
+ RELOC/tex/latex/xcolor-material/xcolor-material.sty
+catalogue-ctan /macros/latex/contrib/xcolor-material
+catalogue-date 2016-11-16 08:03:52 +0100
+catalogue-license lppl1.3
+catalogue-topics colour
+catalogue-version 0.1

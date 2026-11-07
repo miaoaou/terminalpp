@@ -1,0 +1,23 @@
+% --------------------------------------------------------------------------
+% Guyana:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{green}{RGB}{0,177,64}
+\definecolor{gold}{RGB}{254,219,0}
+\fill [green] (0,0) rectangle (\flaglength,1);
+\newdimen\d\d=0.05\flagwidth
+\fill [white] (0,0)--(\flaglength,0.5)--(0,1)--cycle;
+\pgfmathparse{\d/cos(atan2(\flagwidth,2*\flaglength))}
+\edef\y{\pgfmathresult}
+\pgfmathparse{\d/sin(atan2(0.5\flagwidth,\flaglength))}
+\edef\x{\pgfmathresult}
+\fill [gold] (0,\y*1pt)--(\flaglength-\x*1pt,0.5)--(0,\flagwidth-\y*1pt)--cycle;
+\fill [black] (0,0)--(0.5\flaglength,0.5)--(0,1)--cycle;
+\pgfmathparse{\d/cos(atan2(\flagwidth,\flaglength))}
+\edef\y{\pgfmathresult}
+\pgfmathparse{\d/sin(atan2(\flagwidth,\flaglength))}
+\edef\x{\pgfmathresult}
+\fill [red] (0,\y*1pt)--(0.5\flaglength-\x*1pt,0.5)--(0,\flagwidth-\y*1pt)--cycle;
+\framecode{}
+\end{flagdescription}

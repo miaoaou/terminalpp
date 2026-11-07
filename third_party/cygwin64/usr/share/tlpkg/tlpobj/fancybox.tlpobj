@@ -1,0 +1,16 @@
+name fancybox
+category Package
+revision 18304
+shortdesc Variants of \fbox and other games with boxes
+relocated 1
+longdesc Provides variants of \fbox: \shadowbox, \doublebox, \ovalbox,
+longdesc \Ovalbox, with helpful tools for using box macros and flexible
+longdesc verbatim macros. You can box mathematics, floats, center,
+longdesc flushleft, and flushright, lists, and pages.
+runfiles size=7
+ RELOC/tex/latex/fancybox/fancybox.sty
+catalogue-ctan /macros/latex/contrib/fancybox
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics boxing
+catalogue-version 1.4

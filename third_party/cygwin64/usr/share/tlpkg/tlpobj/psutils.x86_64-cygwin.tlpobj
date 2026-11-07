@@ -1,0 +1,14 @@
+name psutils.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of psutils
+binfiles arch=x86_64-cygwin size=38
+ bin/x86_64-cygwin/epsffit.exe
+ bin/x86_64-cygwin/extractres
+ bin/x86_64-cygwin/includeres
+ bin/x86_64-cygwin/psbook.exe
+ bin/x86_64-cygwin/psjoin
+ bin/x86_64-cygwin/psnup.exe
+ bin/x86_64-cygwin/psresize.exe
+ bin/x86_64-cygwin/psselect.exe
+ bin/x86_64-cygwin/pstops.exe

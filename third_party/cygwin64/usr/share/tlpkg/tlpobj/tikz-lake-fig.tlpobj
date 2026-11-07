@@ -1,0 +1,17 @@
+name tikz-lake-fig
+category Package
+revision 55288
+shortdesc Schematic diagrams of lakes
+relocated 1
+longdesc This package contains a collection of schematic diagrams of
+longdesc lakes for use in LaTeX documents. Diagrams include
+longdesc representations of material budgets, fluxes, and connectivity
+longdesc arrangements.
+runfiles size=7
+ RELOC/tex/latex/tikz-lake-fig/tikz-lake-fig.sty
+catalogue-contact-repository https://github.com/jsta/tikz-lake-fig
+catalogue-contact-support https://github.com/jsta/tikz-lake-fig/issues
+catalogue-ctan /graphics/pgf/contrib/tikz-lake-fig
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz
+catalogue-version 1.0

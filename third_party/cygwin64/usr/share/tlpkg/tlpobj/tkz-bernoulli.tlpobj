@@ -1,0 +1,16 @@
+name tkz-bernoulli
+category Package
+revision 68780
+shortdesc Draw Bernoulli trees with TikZ
+relocated 1
+longdesc This is a package for representing Bernoulli trees with
+longdesc PGF/TikZ.
+runfiles size=3
+ RELOC/tex/latex/tkz-bernoulli/tkz-bernoulli.sty
+catalogue-contact-home https://github.com/cpierquet/tkz-bernoulli
+catalogue-contact-repository https://github.com/cpierquet/tkz-bernoulli
+catalogue-contact-support https://github.com/cpierquet/tkz-bernoulli/issues
+catalogue-ctan /graphics/pgf/contrib/tkz-bernoulli
+catalogue-license lppl1.3c
+catalogue-topics tree
+catalogue-version 0.1.3

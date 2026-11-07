@@ -1,0 +1,17 @@
+name textmerg
+category Package
+revision 20677
+shortdesc Merge text in TeX and LaTeX
+relocated 1
+longdesc Repetetively produce documents from a fixed part and a variable
+longdesc part. Such an operation is commonly used as "mail merge" to
+longdesc produce mail shots.
+runfiles size=2
+ RELOC/tex/generic/textmerg/textmerg.sty
+catalogue-contact-repository https://github.com/rf-latex/textmerg
+catalogue-contact-support https://github.com/rf-latex/textmerg/issues
+catalogue-ctan /macros/latex/contrib/textmerg
+catalogue-date 2018-09-15 15:55:01 +0200
+catalogue-license pd
+catalogue-topics doc-gen
+catalogue-version 2.01

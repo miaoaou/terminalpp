@@ -1,0 +1,20 @@
+name handout
+category Package
+revision 43962
+shortdesc Create handout for auditors of a talk
+relocated 1
+longdesc In some fields of scholarship, a beamer does not offer good
+longdesc support when giving a talk in a proceeding. For example, in
+longdesc classical philology, the main sources are text, and it will be
+longdesc better to distribute a handout to the audience with extracts of
+longdesc the texts about which we will talk. The package supports
+longdesc preparation of such handouts when writing the talk.
+runfiles size=1
+ RELOC/tex/latex/handout/handout.sty
+catalogue-contact-bugs https://github.com/maieul/handout/issues
+catalogue-contact-repository https://github.com/maieul/handout
+catalogue-ctan /macros/latex/contrib/handout
+catalogue-date 2017-04-21 20:47:11 +0200
+catalogue-license lppl1.3
+catalogue-topics presentation
+catalogue-version 1.6.0

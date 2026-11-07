@@ -1,0 +1,20 @@
+name minipage-marginpar
+category Package
+revision 15878
+shortdesc Minipages with marginal notes
+relocated 1
+longdesc This package allows \marginpar-commands inside of minipages and
+longdesc other boxes. (It takes another approach than marginnote by
+longdesc Markus Kohm: it saves all \marginpar-commands and typesets them
+longdesc outside (i.e., after) the box.) The package defines an
+longdesc environment minipagewithmarginpars (to be used like
+longdesc minipage)--and the internal commands may be used by other
+longdesc packages to define similar environments or commands.
+runfiles size=2
+ RELOC/tex/latex/minipage-marginpar/minipage-marginpar.sty
+ RELOC/tex/latex/minipage-marginpar/mpgmpar.sty
+catalogue-ctan /macros/latex/contrib/minipage-marginpar
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics notes boxing
+catalogue-version 0.2

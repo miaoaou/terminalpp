@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Cape Verde:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{10/17}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{blue}{RGB}{0,48,135}
+\definecolor{gold}{RGB}{255,205,0}
+\fill [blue] (0,0) rectangle (\flaglength,1);
+\hbar{white}{0.375}{0.25}
+\hbar{white}{0.375}{1/4}
+\hbar{red}{0.375}{1/12}
+\coordinate (c) at (0.63889*\stretchfactor,0.375);
+\foreach \n in {18,54,...,342}
+  {\starV{gold}{($(c)+(\n:0.26389)$)}{0.04722\flagwidth}{0}}
+\framecode{}
+\end{flagdescription}

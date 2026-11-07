@@ -1,0 +1,15 @@
+name grfpaste
+category Package
+revision 17354
+shortdesc Include fragments of a dvi file
+relocated 1
+longdesc Provides a mechanism to include fragments of dvi files with the
+longdesc graphicx package, so that you can use \includegraphics to
+longdesc include dvi files. The package requires the dvipaste program.
+runfiles size=2
+ RELOC/tex/latex/grfpaste/grfpaste.sty
+catalogue-ctan /macros/latex/contrib/grfpaste
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-incl
+catalogue-version 0.2

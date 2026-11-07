@@ -1,0 +1,79 @@
+%%
+%% hideanswer.sty
+%%
+%% Copyright (C) 2022 Yukoh KUSAKABE (screen-name)
+%%   https://www.metaphysica.info/
+%%   https://twitter.com/metaphysicainfo
+%%
+%% This package released under
+%% [the MIT license](https://ctan.org/license/mit).
+%%
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hideanswer}[2022/07/09 v1.1]
+%
+%% for \color
+\RequirePackage{color}
+%
+%% for \includegraphics
+\RequirePackage{graphicx}
+%
+% for \NewDocumentEnvironment
+\RequirePackage{xparse}
+%
+%% \if@hdans@hideswitch
+\newif\if@hdans@hideswitch
+\@hdans@hideswitchfalse
+%
+%% \sethideanswer
+%% \unsethideanswer
+\DeclareRobustCommand{\sethideanswer}{\@hdans@hideswitchtrue}
+\DeclareRobustCommand{\unsethideanswer}{\@hdans@hideswitchfalse}
+%
+%% \hideanswer{<text>}
+%% \hideanswer*{<text>}
+\DeclareRobustCommand{\hideanswer}{\@ifstar{\@hdans@hideanswer@star}{\@hdans@hideanswerh@nostar}}
+\DeclareRobustCommand{\@hdans@hideanswer@star}[1]{\if@hdans@hideswitch\else\color{white}\fi{#1}\if@hdans@hideswitch\else\color{black}\fi}
+\DeclareRobustCommand{\@hdans@hideanswerh@nostar}[1]{\if@hdans@hideswitch\color{white}\else\fi{#1}\if@hdans@hideswitch\color{black}\else\fi}
+%
+%% \begin{hideanswerdiv}
+%% \begin{hideanswerdiv*}
+\newenvironment{hideanswerdiv}%
+{\if@hdans@hideswitch\color{white}\else\fi}%
+{\if@hdans@hideswitch\color{black}\else\fi}
+\newenvironment{hideanswerdiv*}%
+{\if@hdans@hideswitch\else\color{white}\fi}%
+{\if@hdans@hideswitch\else\color{black}\fi}
+%
+%% \smashanswer{<text>}
+%% \smashanswer*{<text>}
+\DeclareRobustCommand{\smashanswer}{\@ifstar{\@hdans@smashanswer@star}{\@hdans@smashanswer@nostar}}
+\DeclareRobustCommand{\@hdans@smashanswer@star}[1]{\if@hdans@hideswitch{#1}\else\fi}
+\DeclareRobustCommand{\@hdans@smashanswer@nostar}[1]{\if@hdans@hideswitch\else{#1}\fi}
+%
+%% \begin{smashanswerdiv}
+%% \begin{smashanswerdiv*}
+\NewDocumentEnvironment{smashanswerdiv}{+b}
+{\if@hdans@hideswitch\else #1\fi}{}
+\NewDocumentEnvironment{smashanswerdiv*}{+b}
+{\if@hdans@hideswitch #1\else\fi}{}
+%
+%% \hidegraphics[<includegraphics>]{<includegraphics>}
+%% \hidegraphics*[<includegraphics>]{<includegraphics>}
+\DeclareRobustCommand{\hidegraphics}{\@ifstar{\@hdans@hidegraphics@star}{\@hdans@hidegraphics@nostar}}
+\DeclareRobustCommand{\@hdans@hidegraphics@star}[2][]{\if@hdans@hideswitch\includegraphics[#1]{#2}\else\phantom{\includegraphics[#1]{#2}}\fi}
+\DeclareRobustCommand{\@hdans@hidegraphics@nostar}[2][]{\if@hdans@hideswitch\phantom{\includegraphics[#1]{#2}}\else\includegraphics[#1]{#2}\fi}
+%
+%% \smashgraphics[<includegraphics>]{<includegraphics>}
+%% \smashgraphics*[<includegraphics>]{<includegraphics>}
+\DeclareRobustCommand{\smashgraphics}{\@ifstar{\@hdans@smashgraphics@star}{\@hdans@smashgraphics@nostar}}
+\DeclareRobustCommand{\@hdans@smashgraphics@star}[2][]{\if@hdans@hideswitch\includegraphics[#1]{#2}\else\fi}
+\DeclareRobustCommand{\@hdans@smashgraphics@nostar}[2][]{\if@hdans@hideswitch\else\includegraphics[#1]{#2}\fi}
+%
+%% \switchanswer{<text when sethide>}{<text when unsethide>}
+%% \switchanswer*{<text when unsethide>}{<text when sethide>}
+\DeclareRobustCommand{\switchanswer}{\@ifstar{\@hdans@switchanswer@star}{\@hdans@switchanswerh@nostar}}
+\DeclareRobustCommand{\@hdans@switchanswer@star}[2]{\if@hdans@hideswitch{#1}\else{#2}\fi}
+\DeclareRobustCommand{\@hdans@switchanswerh@nostar}[2]{\if@hdans@hideswitch{#2}\else{#1}\fi}
+%
+%% EOF

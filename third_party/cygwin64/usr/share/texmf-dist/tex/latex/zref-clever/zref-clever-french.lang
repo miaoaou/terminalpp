@@ -1,0 +1,255 @@
+%%
+%% This is file `zref-clever-french.lang',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% zref-clever.dtx  (with options: `lang-french')
+%% 
+%% This file was generated from file(s) of the LaTeX package "zref-clever".
+%% 
+%% Copyright (C) 2021-2023  gusbrs
+%% 
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file:
+%% 
+%%    https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by gusbrs.
+%% 
+%% This work consists of the files zref-clever.dtx,
+%%                                 zref-clever.ins,
+%%                                 zref-clever-doc.tex,
+%%                                 zref-clever-code.tex,
+%%                   and the files generated from them.
+%% 
+%% The released version of this package is available from CTAN.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+%% The development version of the package can be found at
+%% 
+%%    https://github.com/gusbrs/zref-clever
+%% 
+%% for those people who are interested.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+namesep  = {\nobreakspace} ,
+pairsep  = {~et\nobreakspace} ,
+listsep  = {,~} ,
+lastsep  = {~et\nobreakspace} ,
+tpairsep = {~et\nobreakspace} ,
+tlistsep = {,~} ,
+tlastsep = {~et\nobreakspace} ,
+notesep  = {~} ,
+rangesep = {~à\nobreakspace} ,
+
+type = book ,
+  gender = m ,
+  Name-sg = Livre ,
+  name-sg = livre ,
+  Name-pl = Livres ,
+  name-pl = livres ,
+
+type = part ,
+  gender = f ,
+  Name-sg = Partie ,
+  name-sg = partie ,
+  Name-pl = Parties ,
+  name-pl = parties ,
+
+type = chapter ,
+  gender = m ,
+  Name-sg = Chapitre ,
+  name-sg = chapitre ,
+  Name-pl = Chapitres ,
+  name-pl = chapitres ,
+
+type = section ,
+  gender = f ,
+  Name-sg = Section ,
+  name-sg = section ,
+  Name-pl = Sections ,
+  name-pl = sections ,
+
+type = paragraph ,
+  gender = m ,
+  Name-sg = Paragraphe ,
+  name-sg = paragraphe ,
+  Name-pl = Paragraphes ,
+  name-pl = paragraphes ,
+
+type = appendix ,
+  gender = f ,
+  Name-sg = Annexe ,
+  name-sg = annexe ,
+  Name-pl = Annexes ,
+  name-pl = annexes ,
+
+type = page ,
+  gender = f ,
+  Name-sg = Page ,
+  name-sg = page ,
+  Name-pl = Pages ,
+  name-pl = pages ,
+  rangesep = {-} ,
+  rangetopair = false ,
+
+type = line ,
+  gender = f ,
+  Name-sg = Ligne ,
+  name-sg = ligne ,
+  Name-pl = Lignes ,
+  name-pl = lignes ,
+
+type = figure ,
+  gender = f ,
+  Name-sg = Figure ,
+  name-sg = figure ,
+  Name-pl = Figures ,
+  name-pl = figures ,
+
+type = table ,
+  gender = f ,
+  Name-sg = Table ,
+  name-sg = table ,
+  Name-pl = Tables ,
+  name-pl = tables ,
+
+type = item ,
+  gender = m ,
+  Name-sg = Point ,
+  name-sg = point ,
+  Name-pl = Points ,
+  name-pl = points ,
+
+type = footnote ,
+  gender = f ,
+  Name-sg = Note ,
+  name-sg = note ,
+  Name-pl = Notes ,
+  name-pl = notes ,
+
+type = endnote ,
+  gender = f ,
+  Name-sg = Note ,
+  name-sg = note ,
+  Name-pl = Notes ,
+  name-pl = notes ,
+
+type = note ,
+  gender = f ,
+  Name-sg = Note ,
+  name-sg = note ,
+  Name-pl = Notes ,
+  name-pl = notes ,
+
+type = equation ,
+  gender = f ,
+  Name-sg = Équation ,
+  name-sg = équation ,
+  Name-pl = Équations ,
+  name-pl = équations ,
+  refbounds-first-sg = {,(,),} ,
+  refbounds = {(,,,)} ,
+
+type = theorem ,
+  gender = m ,
+  Name-sg = Théorème ,
+  name-sg = théorème ,
+  Name-pl = Théorèmes ,
+  name-pl = théorèmes ,
+
+type = lemma ,
+  gender = m ,
+  Name-sg = Lemme ,
+  name-sg = lemme ,
+  Name-pl = Lemmes ,
+  name-pl = lemmes ,
+
+type = corollary ,
+  gender = m ,
+  Name-sg = Corollaire ,
+  name-sg = corollaire ,
+  Name-pl = Corollaires ,
+  name-pl = corollaires ,
+
+type = proposition ,
+  gender = f ,
+  Name-sg = Proposition ,
+  name-sg = proposition ,
+  Name-pl = Propositions ,
+  name-pl = propositions ,
+
+type = definition ,
+  gender = f ,
+  Name-sg = Définition ,
+  name-sg = définition ,
+  Name-pl = Définitions ,
+  name-pl = définitions ,
+
+type = proof ,
+  gender = f ,
+  Name-sg = Démonstration ,
+  name-sg = démonstration ,
+  Name-pl = Démonstrations ,
+  name-pl = démonstrations ,
+
+type = result ,
+  gender = m ,
+  Name-sg = Résultat ,
+  name-sg = résultat ,
+  Name-pl = Résultats ,
+  name-pl = résultats ,
+
+type = remark ,
+  gender = f ,
+  Name-sg = Remarque ,
+  name-sg = remarque ,
+  Name-pl = Remarques ,
+  name-pl = remarques ,
+
+type = example ,
+  gender = m ,
+  Name-sg = Exemple ,
+  name-sg = exemple ,
+  Name-pl = Exemples ,
+  name-pl = exemples ,
+
+type = algorithm ,
+  gender = m ,
+  Name-sg = Algorithme ,
+  name-sg = algorithme ,
+  Name-pl = Algorithmes ,
+  name-pl = algorithmes ,
+
+type = listing ,
+  gender = m ,
+  Name-sg = Listing ,
+  name-sg = listing ,
+  Name-pl = Listings ,
+  name-pl = listings ,
+
+type = exercise ,
+  gender = m ,
+  Name-sg = Exercice ,
+  name-sg = exercice ,
+  Name-pl = Exercices ,
+  name-pl = exercices ,
+
+type = solution ,
+  gender = f ,
+  Name-sg = Solution ,
+  name-sg = solution ,
+  Name-pl = Solutions ,
+  name-pl = solutions ,
+%% 
+%%
+%% End of file `zref-clever-french.lang'.

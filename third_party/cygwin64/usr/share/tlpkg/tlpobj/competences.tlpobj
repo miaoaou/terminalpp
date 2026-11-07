@@ -1,0 +1,17 @@
+name competences
+category Package
+revision 47573
+shortdesc Track skills of classroom checks
+relocated 1
+longdesc This package is an attempt to track skills assessed during a
+longdesc classroom check. Each question can be associated with one or
+longdesc more skills and be assigned a number of points to be earned. At
+longdesc the end of the text, a table set summarizes the skills
+longdesc assessed, and in what proportions.
+runfiles size=2
+ RELOC/tex/latex/competences/competences.sty
+catalogue-ctan /macros/latex/contrib/competences
+catalogue-date 2018-05-05 05:37:43 +0200
+catalogue-license lppl1.3
+catalogue-topics exam
+catalogue-version 1.0

@@ -1,0 +1,17 @@
+name epigraph-keys
+category Package
+revision 61719
+shortdesc Epigraphs using key values
+relocated 1
+longdesc This package lays out epigraphs: quotations across a page,
+longdesc usually to open or close a chapter. It is intended as a simple
+longdesc replacement for the more sophisticated epigraph package. The
+longdesc package depends on pgfkeys, conditionals (which is distributed
+longdesc as part of the songbook package), enumitem, and microtype.
+runfiles size=1
+ RELOC/tex/latex/epigraph-keys/epigraph-keys.sty
+catalogue-also epigraph
+catalogue-ctan /macros/latex/contrib/epigraph-keys
+catalogue-license lppl1.3c
+catalogue-topics epigram
+catalogue-version 1.0

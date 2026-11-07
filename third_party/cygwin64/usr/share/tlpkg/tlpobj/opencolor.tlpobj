@@ -1,0 +1,16 @@
+name opencolor
+category Package
+revision 66363
+shortdesc Definitions from the Open Color library
+relocated 1
+longdesc This package provides hexadecimal color definitions of the 130
+longdesc colors included in the Open Color library.
+runfiles size=2
+ RELOC/tex/latex/opencolor/opencolor.sty
+catalogue-also colorweb
+catalogue-contact-bugs https://github.com/piazzai/opencolor/issues
+catalogue-contact-repository https://github.com/piazzai/opencolor
+catalogue-ctan /macros/latex/contrib/opencolor
+catalogue-license mit
+catalogue-topics colour
+catalogue-version 1.0.1

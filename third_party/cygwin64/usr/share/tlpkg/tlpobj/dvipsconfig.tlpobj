@@ -1,0 +1,52 @@
+name dvipsconfig
+category Package
+revision 13293
+shortdesc Collection of dvips PostScript headers
+relocated 1
+longdesc This is a collection of dvips PostScript header and dvips
+longdesc config files. They control certain features of the printer,
+longdesc including: A4, A3, usletter, simplex, duplex / long edge,
+longdesc duplex / short edge, screen frequencies of images, black/white
+longdesc invers, select transparency / paper for tektronix 550/560,
+longdesc manual feeder, envelope feeder, and tray 1, 2 and 3, and
+longdesc printing a PostScript grid underneath the page material--very
+longdesc useful for measuring and eliminating paper feed errors!
+runfiles size=39
+ RELOC/dvips/dvipsconfig/README
+ RELOC/dvips/dvipsconfig/addpsctrl
+ RELOC/dvips/dvipsconfig/config.a3
+ RELOC/dvips/dvipsconfig/config.a4
+ RELOC/dvips/dvipsconfig/config.a4grid
+ RELOC/dvips/dvipsconfig/config.duplong
+ RELOC/dvips/dvipsconfig/config.dupshort
+ RELOC/dvips/dvipsconfig/config.envelope
+ RELOC/dvips/dvipsconfig/config.inv
+ RELOC/dvips/dvipsconfig/config.manualfeed
+ RELOC/dvips/dvipsconfig/config.mmgrid
+ RELOC/dvips/dvipsconfig/config.psgrid
+ RELOC/dvips/dvipsconfig/config.screen100
+ RELOC/dvips/dvipsconfig/config.screen100_0
+ RELOC/dvips/dvipsconfig/config.screen110
+ RELOC/dvips/dvipsconfig/config.screen120
+ RELOC/dvips/dvipsconfig/config.screen130
+ RELOC/dvips/dvipsconfig/config.screen140
+ RELOC/dvips/dvipsconfig/config.screen150
+ RELOC/dvips/dvipsconfig/config.screen35
+ RELOC/dvips/dvipsconfig/config.screen50
+ RELOC/dvips/dvipsconfig/config.screen70
+ RELOC/dvips/dvipsconfig/config.screen80
+ RELOC/dvips/dvipsconfig/config.screen85
+ RELOC/dvips/dvipsconfig/config.screen90
+ RELOC/dvips/dvipsconfig/config.simplex
+ RELOC/dvips/dvipsconfig/config.tek550paper
+ RELOC/dvips/dvipsconfig/config.tek550transparency
+ RELOC/dvips/dvipsconfig/config.tray1
+ RELOC/dvips/dvipsconfig/config.tray2
+ RELOC/dvips/dvipsconfig/config.tray3
+ RELOC/dvips/dvipsconfig/config.usledger
+ RELOC/dvips/dvipsconfig/config.usletter
+catalogue-ctan /dviware/dvipsconfig
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics dvi-print
+catalogue-version 1.6

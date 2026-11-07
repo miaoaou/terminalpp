@@ -1,0 +1,20 @@
+name create-theorem
+category Package
+revision 70177
+shortdesc Initializing and configuring theorem-like environments, with multilingual support
+relocated 1
+longdesc This package provides commands for naming, initializing and
+longdesc configuring theorem-like environments. These commands have
+longdesc key-value based interfaces and are especially useful in
+longdesc multilingual documents, allowing the easy declaration of
+longdesc theorem-like environments that can automatically adapt to the
+longdesc language settings.
+depend crefthe
+runfiles size=52
+ RELOC/tex/latex/create-theorem/create-theorem-preset-names-cleveref.tex
+ RELOC/tex/latex/create-theorem/create-theorem-preset-names-plural-cleveref.tex
+ RELOC/tex/latex/create-theorem/create-theorem.sty
+catalogue-contact-repository https://github.com/Jinwen-XU/create-theorem
+catalogue-ctan /macros/latex/contrib/create-theorem
+catalogue-license lppl1.3c
+catalogue-topics multilingual maths maths-theorem expl3

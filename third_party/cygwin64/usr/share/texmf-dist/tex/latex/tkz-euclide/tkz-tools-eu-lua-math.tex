@@ -1,0 +1,310 @@
+% tkz-tools-lua-math.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-tools-lua-math.tex}     
+\makeatletter
+%<-------------------------------------------------------------------------->
+%<-------------------------------------------------------------------------->
+%                           Lengths
+%<-------------------------------------------------------------------------->
+%<-------------------------------------------------------------------------->
+
+\begin{luacode*} 
+  function normalize(angleA,angleB)       
+      if angleA > 0 then
+       if angleA > angleB then
+          angleA = angleA - 360
+          end
+      else
+     if angleA > angleB then
+          angleB = angleB + 360
+        end
+      end
+      return angleA, angleB
+  end
+  
+  function math.angle(x1, y1, x2, y2)
+      local a = math.deg(math.atan(y2 - y1, x2 - x1))
+      if a < 0 then
+          return a + 360
+      else
+          return a
+      end
+  end
+  
+  function tkzop(...)
+  inf = math.huge
+  return ...
+end
+ 
+function tkzround(nb, ND)
+  local p = 10^(ND or 0)
+   return math.floor(nb * p + 0.5) / p
+end   
+\end{luacode*}
+
+\def\tkz@Dec#1{%
+     \directlua{tex.print(string.format('\@percentchar.6f',#1))}
+     }
+\def\tkz@Op#1{\directlua{tex.sprint(tostring(tkzop(#1)))}}
+\def\tkz@Log#1{\directlua{tex.sprint(math.log(#1))}}
+\def\tkz@Exp#1{\directlua{tex.sprint(math.exp(#1))}}
+\def\tkz@Sqrt#1{\directlua{tex.sprint(math.sqrt(#1))}}
+\def\tkz@Abs#1{\directlua{tex.sprint(math.abs(#1))}}
+\def\tkz@Pi{\directlua{tex.sprint(math.pi)}}
+\def\tkz@Cos#1{\directlua{tex.sprint(math.cos(#1))}}
+\def\tkz@Sin#1{\directlua{tex.sprint(tostring(math.sin(#1)))}}
+\def\tkz@Tan#1{\directlua{tex.sprint(math.tan(#1))}}
+\def\tkz@Rad#1{\directlua{tex.sprint(math.rad(#1))}}
+\def\tkz@Acos#1{\directlua{tex.sprint(math.acos(#1))}}
+\def\tkz@Asin#1{\directlua{tex.sprint(math.asin(#1))}}
+\def\tkz@Atan#1{\directlua{tex.sprint(math.atan(#1))}}
+\def\tkz@Round#1#2{\directlua{tex.sprint(tostring(tkzround(#1,#2)))}}
+\def\tkz@Angle#1#2#3#4{\directlua{tex.sprint(math.angle(#1,#2,#3,#4))}}
+\def\tkz@Ceil#1{\directlua{tex.sprint(math.ceil(#1))}}
+\def\tkz@Floor#1{\directlua{tex.sprint(math.floor(#1))}}
+\def\tkz@Huge{\directlua{tex.sprint(math.huge)}}
+\def\tkz@Max#1{\directlua{tex.sprint(math.max(#1))}}
+\def\tkz@Min#1{\directlua{tex.sprint(math.min(#1))}}
+\def\tkz@Random#1{\directlua{tex.sprint(math.random(#1))}}
+\def\tkz@veclen#1#2{%
+  \directlua{%
+    tex.print(string.format('\@percentchar.6f',math.sqrt((#1)^2+(#2)^2)))%
+  }%
+}
+\let\tkzSqrt\tkz@Sqrt
+\let\tkzPi\tkz@Pi
+\let\tkzExp\tkz@Exp
+\let\tkzLog\tkz@Log
+\let\tkzSin\tkz@Sin
+\let\tkzCos\tkz@Cos
+
+%  \tkzpointnormalised    normalise un point A-->A' tq ||v(OA')=1||
+% example
+% \tkzpointnormalised{%
+% \pgfpointdiff{\pgfpointanchor{A}{center}}
+%              {\pgfpointanchor{B}{center}}}
+
+% or
+% \pgf@x=1 cm
+% \pgf@y=12 cm 
+% \tkzpointnormalised{}
+%<--------------------------------------------------------------------------
+\def\tkzpointnormalised#1{%
+\pgf@process{#1}%
+\pgf@xa=\pgf@x%
+\pgf@ya=\pgf@y%
+\edef\tkz@temp@xa{\strip@pt\pgf@xa}%
+\edef\tkz@temp@ya{\strip@pt\pgf@ya}%
+\edef\tkz@den{\tkz@veclen{\tkz@temp@xa}{\tkz@temp@ya}}
+\edef\tkz@coordx{\tkz@Op{\tkz@temp@xa/\tkz@den}}
+\edef\tkz@coordx{\tkz@Dec{\tkz@Round{\tkz@coordx}{5}}}
+\edef\tkz@coordy{\tkz@Op{\tkz@temp@ya/\tkz@den}}
+\edef\tkz@coordy{\tkz@Dec{\tkz@Round{\tkz@coordy}{5}}}
+\pgf@x = \tkz@coordx pt
+\pgf@y = \tkz@coordy pt
+}
+%\def\tkz@Dec#1{\directlua{tex.print(string.format('\@percentchar.12f',#1))}}
+%<-------------------------------------------------------------------------->
+% restaure and save length
+\def\tkz@save@length{\global\let\tkz@temp@length\tkzLengthResult}%
+\def\tkz@restore@length{\global\let\tkzLengthResult\tkz@temp@length }% 
+%<-------------------------------------------------------------------------->
+%    \tkzCalcLength      Distance entre deux points en pt ou en cm  avec xfp 
+% \veclen mais avec fp 
+%  option cm le résultat est en cm sinon en pt with cm=false
+%<-------------------------------------------------------------------------->
+\pgfkeys{tkzcalclen/.cd,
+       cm/.is if         = tkzLengthIncm,
+       cm/.default       = true,
+       cm                = true}   
+
+\def\tkzCalcLength{\pgfutil@ifnextchar[{\tkz@CalcLength}{\tkz@CalcLength[]}}  
+\def\tkz@CalcLength[#1](#2,#3){%
+\pgfqkeys{/tkzcalclen}{#1}%   
+\begingroup
+\tkz@@CalcLength(#2,#3){tkzLengthResult}
+\iftkzLengthIncm 
+   \edef\tkz@xfpMathLen{\tkz@Dec{\tkz@Round{\tkzLengthResult/28.45274}{6}}}
+   \global\let\tkzLengthResult\tkz@xfpMathLen  
+\fi 
+\endgroup
+}%
+
+\def\tkz@@CalcLength(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}%
+             {\pgfpointanchor{#2}{center}}%
+\edef\tkz@xa{\strip@pt\pgf@x}%
+\edef\tkz@ya{\strip@pt\pgf@y}%
+\edef\tkz@xfpMathLen{\tkz@veclen{\tkz@xa}{\tkz@ya}}
+\global\expandafter\edef\csname #3\endcsname{\tkz@xfpMathLen}
+}
+
+\def\tkz@@CalcLengthcm(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}%
+             {\pgfpointanchor{#2}{center}}%
+\edef\tkz@xa{\strip@pt\pgf@x}%
+\edef\tkz@ya{\strip@pt\pgf@y}%
+\edef\tkz@xfpMathLen{\tkz@veclen{\tkz@xa}{\tkz@ya}}
+\edef\tkz@xfpMathLen{\tkz@Dec{\tkz@Round{\tkz@xfpMathLen/28.45274}{6}}}
+\global\expandafter\edef\csname #3\endcsname{\tkz@xfpMathLen}
+}
+\def\tkz@@CalcLengthb(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}%
+             {\pgfpointanchor{#2}{center}}%
+\edef\tkz@xfpMathLen{\fpeval{sqrt((\pgf@x)^2+(\pgf@y)^2)}}
+\edef\tkz@xfpMathLen{\fpeval{round(\tkz@xfpMathLen,6)}}
+\global\expandafter\edef\csname #3\endcsname{\tkz@xfpMathLen}
+}
+%<-------------------------------------------------------------------------->
+\def\tkzGetLength#1{%
+\global\expandafter\edef\csname #1\endcsname{\tkzLengthResult}}  
+%<-------------------------------------------------------------------------->
+%     \tkzpttocm  passage de pt   cm div par 28.45274
+%<-------------------------------------------------------------------------->
+\def\tkzpttocm(#1)#2{%
+\begingroup  
+  \edef\tkz@mathresult{\tkz@Round{#1/28.45274}{6}}
+ \global\expandafter\edef\csname #2\endcsname{\tkz@mathresult}%
+\endgroup
+}%
+%<-------------------------------------------------------------------------->
+%     \tkzcmtopt  passage de cm   pt mul par 28.45274
+%<--------------------------------------------------------------------------
+\def\tkzcmtopt(#1)#2{%
+\begingroup 
+  \edef\tkz@mathresult{\tkz@Round{#1*28.45274}{6}}
+  \global\expandafter\edef\csname #2\endcsname{\tkz@mathresult}% 
+\endgroup  
+}% 
+%<---------------------------------------------------------–>
+ \def\tkzGetResult#1{%
+   \global\expandafter\edef\csname #1\endcsname{\tkzMathResult}}
+%<---------------------------------------------------------–>
+%  Schrodinger's cat idea 03/01/20
+\tikzset{veclen/.code={%
+\pgfmathdeclarefunction*{veclen}{2}{%
+\begingroup%
+    \pgfmath@x##1pt\relax%
+    \pgfmath@y##2pt\relax%
+    \pgf@xa=\pgf@x%
+    \pgf@ya=\pgf@y%
+    \edef\tkz@temp@xa{\strip@pt\pgf@xa}% 
+    \edef\tkz@temp@ya{\strip@pt\pgf@ya}%
+    \edef\tkz@xfpMathLen{\tkz@veclen{\tkz@temp@xa}{\tkz@temp@ya}}%
+    \pgfmath@returnone\tkz@xfpMathLen pt%
+\endgroup%
+}}}%
+%<---------------------------------------------------------–>
+\def\tkzSwapPoints(#1,#2){
+   \pgfnodealias{tkzPointTmp}{#2}
+   \pgfnodealias{#2}{#1}
+   \pgfnodealias{#1}{tkzPointTmp}}
+%<---------------------------------------------------------–>
+\def\tkzPermute(#1,#2,#3){
+   \tkzURotateWithNodes(#1,#3,#2)(#3)  \tkzGetPoint{tkzpt}
+   \tkzURotateWithNodes(#1,#2,#3)(#2)  \tkzGetPoint{#2}
+   \tkzSwapPoints(tkzpt,#3)
+}
+%<---------------------------------------------------------–>
+\def\tkzDotProduct(#1,#2,#3){%
+\begingroup
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}% 
+\edef\tkzax{\strip@pt\pgf@x}%
+\edef\tkzay{\strip@pt\pgf@y}%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#2}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#2}{center}}% 
+\edef\tkzbx{\strip@pt\pgf@x}%
+\edef\tkzby{\strip@pt\pgf@y}%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#3}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#3}{center}}% 
+\edef\tkzcx{\strip@pt\pgf@x}%
+\edef\tkzcy{\strip@pt\pgf@y}%
+\edef\tkz@tmp{\tkz@Dec{\tkz@Round{((\tkzbx-(\tkzax))*(\tkzcx-(\tkzax))+(\tkzby-(\tkzay))*(\tkzcy-(\tkzay)))/809.55841}{6}}}
+\global\let\tkzMathResult\tkz@tmp
+\endgroup
+}
+
+% #1,#2 and #3 aligned
+\def\tkzIsLinear(#1,#2,#3){%
+\begingroup
+\tkz@@CalcLengthcm(#1,#2){tkz@la}
+\tkz@@CalcLengthcm(#1,#3){tkz@lb}
+\tkzDotProduct(#1,#2,#3)
+\edef\tkzResult{\tkz@Dec{\tkz@Abs{\tkzMathResult}-(\tkz@la)*(\tkz@lb)}}
+\ifdim \tkzResult pt < 0.01 pt\relax%
+\global\tkzLineartrue
+\else
+\global\tkzLinearfalse
+\fi
+\endgroup
+}
+%<---------------------------------------------------------–>
+% syntax : vec(#2,#1) ortho vec(#3,#1)
+\def\tkzIsOrtho(#1,#2,#3){%
+\begingroup
+\tkzDotProduct(#1,#2,#3)
+\edef\tkzResult{\tkz@Dec{\tkz@Abs{\tkzMathResult}}}
+\ifdim \tkzResult pt < 1 pt\relax%
+\global\tkzOrthotrue
+\else
+\global\tkzOrthofalse
+\fi
+\endgroup
+}
+%<---------------------------------------------------------–>
+% \tkzPowerCircle(M)(O,A) --> OM^2-OA^2
+\def\tkzPowerCircle(#1)(#2,#3){%     
+\begingroup 
+\tkz@@CalcLengthcm(#2,#3){tkz@ra}
+\tkz@@CalcLengthcm(#1,#2){tkz@om}
+\gdef\tkzMathResult{\tkz@Dec{(\tkz@om)^2-(\tkz@ra)^2}}
+\endgroup
+}
+%<---------------------------------------------------------–>
+\def\tkzDefRadicalAxis(#1,#2)(#3,#4){%
+\begingroup
+\tkz@@CalcLengthcm(#1,#3){tkz@d}
+\tkz@@CalcLengthcm(#1,#2){tkz@ra}
+\tkz@@CalcLengthcm(#3,#4){tkz@rb}
+\edef\tkzMathResult{\tkz@Dec{\tkz@d-(\tkz@ra+\tkz@rb)}}
+\edef\tkzMathResultb{\tkz@Dec{\tkz@Abs{(\tkz@d-(\tkz@ra+\tkz@rb))}}}
+\edef\tkzMathResultc{\tkz@Dec{\tkz@Abs{\tkz@d-\tkz@Abs{(\tkz@ra-(\tkz@rb))}}}}
+\ifdim \tkzMathResultc pt < 0.1 pt\relax%
+ \tkzURotateAngle(#2,90)(#3) \tkzGetPoint{tkzFirstPointResult}
+  \tkzURotateAngle(#2,-90)(#3) \tkzGetPoint{tkzSecondPointResult}
+\else
+\ifdim \tkzMathResultb pt < 0.1 pt\relax%
+ \tkzURotateAngle(#2,90)(#3) \tkzGetPoint{tkzFirstPointResult}
+  \tkzURotateAngle(#2,-90)(#3) \tkzGetPoint{tkzSecondPointResult}
+  \else
+\ifdim \tkzMathResult pt > 1 pt\relax%
+  \tkzURotateAngle(#1,60)(#3)    \tkzGetPoint{tkz@aux}
+  \tkzInterCC(#1,#2)(tkz@aux,#1) \tkzGetPoints{tkz@pta}{tkz@ptb}
+  \tkzInterCC(#3,#4)(tkz@aux,#1) \tkzGetPoints{tkz@ptc}{tkz@ptd}
+  \tkzInterLL(tkz@pta,tkz@ptb)(tkz@ptc,tkz@ptd) \tkzGetPoint{tkz@pta}
+  \tkzUProjection(#1,#3)(tkz@pta)  \tkzGetPoint{tkz@ptb}
+  \pgfnodealias{tkzSecondPointResult}{tkz@ptb}
+  \pgfnodealias{tkzFirstPointResult}{tkz@pta}
+\else
+\tkzInterCCR(#1,\tkz@ra)(#3,\tkz@rb){tkzFirstPointResult}{tkzSecondPointResult}
+\fi
+\fi
+\fi
+\endgroup
+} 
+
+\makeatother
+\endinput

@@ -1,0 +1,21 @@
+% --------------------------------------------------------------------------
+% Malawi:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{green}{RGB}{0,150,57}
+\hstripesIII{black}{red}{green}
+\begin{scope}
+\clip (0,0.691667) rectangle (\flaglength,1);
+\begin{scope}[fill=red,y=1mm, x=1mm,shift={(0.5\flaglength,0.62\flagwidth)},
+   scale=\flagwidth/856.75]
+\fill (0,0) circle (64.740285);
+\foreach \n in {-15,...,15}
+{\fill[rotate=5*\n,shift={(0,102)}] (0,0) .. controls (-2.1667,0) and (-3,-3.25)
+  .. (-3,-6.5) .. controls (-3,-14.3333) and (-2.0404,-18.4285) .. (0,-30)
+  .. controls (2.0404,-18.4285) and (3,-14.3333) .. (3,-6.5) .. controls
+  (3,-3.25) and (2.1667,0) .. (0,0) -- cycle;}
+\end{scope}
+\end{scope}
+\framecode{}
+\end{flagdescription}

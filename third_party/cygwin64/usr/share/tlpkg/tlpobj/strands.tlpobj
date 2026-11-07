@@ -1,0 +1,15 @@
+name strands
+category Package
+revision 59906
+shortdesc Draw objects constructed from strands
+relocated 1
+longdesc This package permits to draw objects constructed from strands,
+longdesc like set partitions, permutations, braids, etc. It depends on
+longdesc forarray, ifthen, TikZ, xfp, xstring, and xkeyval.
+runfiles size=12
+ RELOC/tex/latex/strands/strands.sty
+catalogue-contact-repository https://github.com/arcisd/Strands-Package
+catalogue-ctan /graphics/pgf/contrib/strands
+catalogue-license lppl1.3
+catalogue-topics graphics pgf-tikz
+catalogue-version 1.1

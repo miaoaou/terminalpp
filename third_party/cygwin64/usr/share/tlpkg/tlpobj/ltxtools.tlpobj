@@ -1,0 +1,21 @@
+name ltxtools
+category Package
+revision 24897
+shortdesc A collection of LaTeX API macros
+relocated 1
+longdesc This is a bundle of macros that the author uses in the coding
+longdesc of others of his macro files.
+runfiles size=73
+ RELOC/tex/latex/ltxtools/ltxtools-base.sty
+ RELOC/tex/latex/ltxtools/ltxtools-doc.sty
+ RELOC/tex/latex/ltxtools/ltxtools-environ.sty
+ RELOC/tex/latex/ltxtools/ltxtools-incluput.sty
+ RELOC/tex/latex/ltxtools/ltxtools-index.sty
+ RELOC/tex/latex/ltxtools/ltxtools-review.sty
+ RELOC/tex/latex/ltxtools/ltxtools-trace.sty
+ RELOC/tex/latex/ltxtools/ltxtools.sty
+catalogue-ctan /macros/latex/contrib/ltxtools
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 0.0.1a

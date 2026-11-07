@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Tanzania:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{gold}{RGB}{252,227, 0}
+\definecolor{blue}{RGB}{0,94,184}
+\definecolor{green}{RGB}{0,150,57}
+\fill [blue] (0,0)--(\flaglength,0)--(\flaglength,1)--cycle;
+\fill [green] (0,0)--(0,1)--(\flaglength,1)--cycle;
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\draw [gold,line width=0.39583\flagwidth] (0,0)--(\flaglength,1);
+\draw [black,line width=0.27083\flagwidth] (0,0)--(\flaglength,1);
+\end{scope}
+\framecode{}
+\end{flagdescription}

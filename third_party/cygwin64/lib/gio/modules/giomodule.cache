@@ -1,0 +1,2 @@
+cygdconfsettings.dll: gsettings-backend
+cyggiofam.dll: gio-local-file-monitor,gio-nfs-file-monitor

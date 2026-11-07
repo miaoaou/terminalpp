@@ -1,0 +1,18 @@
+name hvextern
+category Package
+revision 69651
+shortdesc Write and execute external code, and insert the output
+relocated 1
+longdesc This package allows to write MetaPost, TeX, ConTeXt, LaTeX,
+longdesc LuaTeX, LuaLaTeX, XeTeX, XeLaTeX, Lua, Perl, or Python source
+longdesc code into an external file, run that file via shell-escape to
+longdesc create PDF, PNG, or text output, and include that output
+longdesc automatically into the main LaTeX document.
+runfiles size=14
+ RELOC/tex/latex/hvextern/hvextern-checkfile.lua
+ RELOC/tex/latex/hvextern/hvextern.lua
+ RELOC/tex/latex/hvextern/hvextern.sty
+catalogue-ctan /macros/latex/contrib/hvextern
+catalogue-license lppl1.3
+catalogue-topics ext-code comp-supp image-supp expl3
+catalogue-version 0.39

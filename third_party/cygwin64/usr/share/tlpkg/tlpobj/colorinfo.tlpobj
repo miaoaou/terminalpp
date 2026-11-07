@@ -1,0 +1,12 @@
+name colorinfo
+category Package
+revision 15878
+shortdesc Retrieve colour model and values for defined colours
+relocated 1
+runfiles size=2
+ RELOC/tex/latex/colorinfo/colorinfo.sty
+catalogue-ctan /macros/latex/contrib/colorinfo
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license lppl
+catalogue-topics colour
+catalogue-version 0.3c

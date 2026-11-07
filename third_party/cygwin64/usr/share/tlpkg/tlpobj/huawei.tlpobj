@@ -1,0 +1,54 @@
+name huawei
+category Package
+revision 69858
+shortdesc Template for Huawei documents
+relocated 1
+longdesc This unofficial package provides a class for creating documents
+longdesc for people working with Huawei Technologies Co., Ltd.
+depend anyfontsize
+depend biblatex
+depend caption
+depend catchfile
+depend changepage
+depend currfile
+depend datetime
+depend enumitem
+depend environ
+depend fancyhdr
+depend ffcode
+depend filehook
+depend fmtcount
+depend fontsize
+depend footmisc
+depend geometry
+depend hyperref
+depend lastpage
+depend libertine
+depend listings
+depend listingsutf8
+depend makecell
+depend microtype
+depend pagecolor
+depend paralist
+depend pdfcol
+depend pgf
+depend pgfopts
+depend ragged2e
+depend setspace
+depend svg
+depend tcolorbox
+depend textpos
+depend tikzfill
+depend titling
+depend transparent
+depend trimspaces
+depend wrapfig
+depend xcolor
+runfiles size=67
+ RELOC/tex/latex/huawei/huawei-cover-picture.pdf
+ RELOC/tex/latex/huawei/huawei.cls
+catalogue-contact-home https://github.com/yegor256/huawei.cls
+catalogue-ctan /macros/latex/contrib/huawei
+catalogue-license mit
+catalogue-topics class misc-paper
+catalogue-version 0.18.3

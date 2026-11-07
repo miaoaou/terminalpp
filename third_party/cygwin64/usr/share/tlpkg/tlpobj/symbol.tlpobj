@@ -1,0 +1,33 @@
+name symbol
+category Package
+revision 61719
+catalogue urw-base35
+shortdesc URW 'Base 35' font pack for LaTeX
+relocated 1
+longdesc A set of fonts for use as "drop-in" replacements for Adobe's
+longdesc basic set, comprising: Century Schoolbook (substituting for
+longdesc Adobe's New Century Schoolbook); Dingbats (substituting for
+longdesc Adobe's Zapf Dingbats); Nimbus Mono L (substituting for Abobe's
+longdesc Courier); Nimbus Roman No9 L (substituting for Adobe's Times);
+longdesc Nimbus Sans L (substituting for Adobe's Helvetica); Standard
+longdesc Symbols L (substituting for Adobe's Symbol); URW Bookman; URW
+longdesc Chancery L Medium Italic (substituting for Adobe's Zapf
+longdesc Chancery); URW Gothic L Book (substituting for Adobe's Avant
+longdesc Garde); and URW Palladio L (substituting for Adobe's Palatino).
+execute addMap usy.map
+runfiles size=25
+ RELOC/dvips/symbol/config.usy
+ RELOC/fonts/afm/adobe/symbol/psyb.afm
+ RELOC/fonts/afm/adobe/symbol/psyr.afm
+ RELOC/fonts/afm/urw/symbol/usyr.afm
+ RELOC/fonts/map/dvips/symbol/usy.map
+ RELOC/fonts/tfm/adobe/symbol/psyr.tfm
+ RELOC/fonts/tfm/monotype/symbol/msyr.tfm
+ RELOC/fonts/tfm/urw35vf/symbol/usyr.tfm
+ RELOC/fonts/type1/urw/symbol/usyr.pfb
+ RELOC/fonts/type1/urw/symbol/usyr.pfm
+ RELOC/tex/latex/symbol/uusy.fd
+catalogue-also tex-gyre
+catalogue-ctan /fonts/urw/base35
+catalogue-license gpl
+catalogue-topics font font-type1 font-collection

@@ -1,0 +1,17 @@
+name hologo
+category Package
+revision 61719
+shortdesc A collection of logos with bookmark support
+relocated 1
+longdesc The package defines a single command \hologo, whose argument is
+longdesc the usual case-confused ASCII version of the logo. The command
+longdesc is bookmark-enabled, so that every logo becomes available in
+longdesc bookmarks without further work.
+runfiles size=14
+ RELOC/tex/generic/hologo/hologo.sty
+catalogue-contact-bugs https://github.com/ho-tex/hologo/issues
+catalogue-contact-repository https://github.com/ho-tex/hologo
+catalogue-ctan /macros/generic/hologo
+catalogue-license lppl1.3c
+catalogue-topics logo macro-gen
+catalogue-version 1.15

@@ -1,0 +1,24 @@
+%% File: centeredline.sty
+%% Version: 1.2 (2022/10/10)
+%% License: LPPL 1.3c
+%% Copyright (C) 2019, 2022 Jean-Francois Burnol <jfbu at free dot fr>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{centeredline}[2022/10/10 v1.2 centering a line the JFB way]
+% \centeredline: OUR OWN LITTLE MACRO FOR CENTERING LINES
+%
+% March 7, 2013 : first version
+% June 9,  2013 : \ignorespaces added
+% Oct. 10, 2022 : \unpenalty\newline replaces \\\relax
+%
+% See README.md for documentation.
+\newcommand*\centeredline{%
+      \ifhmode \unpenalty\newline
+        \def\centeredline@@{\hss\egroup\hskip\z@skip\ignorespaces}%
+      \else
+        \def\centeredline@@{\hss\egroup}%
+      \fi
+      \afterassignment\centeredline@
+      \let\next=}%
+\def\centeredline@
+    {\hbox to \linewidth \bgroup \hss \bgroup \aftergroup\centeredline@@}%
+\endinput

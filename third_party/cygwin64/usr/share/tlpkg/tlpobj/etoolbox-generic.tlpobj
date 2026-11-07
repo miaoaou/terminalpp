@@ -1,0 +1,15 @@
+name etoolbox-generic
+category Package
+revision 68513
+shortdesc A loader for etoolbox.sty in non-LaTeX formats
+relocated 1
+longdesc This package implements a wrapper which allows the user to load
+longdesc the LaTeX-independent part of LaTeX package etoolbox in other
+longdesc formats. It was implemented as an auxiliary package of Memoize.
+runfiles size=1
+ RELOC/tex/generic/etoolbox-generic/etoolbox-generic.tex
+catalogue-contact-repository https://github.com/sasozivanovic/etoolbox-generic
+catalogue-ctan /macros/generic/etoolbox-generic
+catalogue-license lppl1.3c
+catalogue-topics macro-supp macro-gen etex
+catalogue-version 2.5k

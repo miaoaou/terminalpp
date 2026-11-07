@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Marshall Islands
+% --------------------------------------------------------------------------
+\begin{flagdescription}{10/19}
+\definecolor{blue}{RGB}{0,48,135}
+\definecolor{orange}{RGB}{229,114 0}
+\fill [blue] (0,0) rectangle (\flaglength,1);
+\fill [white] (0,0.016)--(\flaglength,0.592)--(\flaglength,0.788)--(0,0.032)--cycle;
+\fill [orange] (0,0.032)--(\flaglength,0.788)--(\flaglength,0.984)--(0,0.048)--cycle;
+\begin{scope}[xshift=0.366\flagwidth,yshift=0.634\flagwidth]
+  \tikzmath{function test(\x){if mod(\x,6)==0 then {return 0.31;} else {return 0.222;};};}
+  \fill [white](0:0.31)
+  \foreach \n in {1,...,24} {--(15*\n-7.5:0.098)--(15*\n:{test(\n)})}--cycle;
+\end{scope}
+\framecode{}
+\end{flagdescription}

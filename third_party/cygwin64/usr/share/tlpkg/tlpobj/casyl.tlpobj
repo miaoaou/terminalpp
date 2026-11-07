@@ -1,0 +1,17 @@
+name casyl
+category Package
+revision 15878
+shortdesc Typeset Cree/Inuktitut in Canadian Aboriginal Syllabics
+relocated 1
+longdesc The bundle constitutes a font (as Metafont source) and LaTeX
+longdesc macros for its use within a document.
+runfiles size=9
+ RELOC/fonts/source/public/casyl/casyll10.mf
+ RELOC/fonts/tfm/public/casyl/casyll10.tfm
+ RELOC/tex/latex/casyl/casyltex.sty
+catalogue-also oinuit
+catalogue-ctan /language/casyl
+catalogue-date 2017-10-29 14:24:36 +0100
+catalogue-license pd
+catalogue-topics linguistic font font-mf
+catalogue-version 2.0

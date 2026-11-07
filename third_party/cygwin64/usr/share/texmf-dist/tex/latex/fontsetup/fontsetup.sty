@@ -1,0 +1,186 @@
+\ProvidesPackage{fontsetup}[2024/2/24 v2.1.1 For easily using font families with mathematics]
+\RequirePackage{iflang}
+\RequirePackage{iftex}
+% Provide a test to know if a 16bits TeX is used.
+\iftutex
+  \RequirePackage{fontspec}
+  \RequirePackage{unicode-math}
+  \ifxetex
+    \@ifpackagewith{fontsetup}{gfsdidotclassic}{\RequirePackage{ucharclasses}}{}
+    \@ifpackagewith{fontsetup}{minion}{\RequirePackage{ucharclasses}}{}
+    \@ifpackagewith{fontsetup}{msgaramond}{\RequirePackage{ucharclasses}}{}
+    \@ifpackagewith{fontsetup}{palatino}{\RequirePackage{ucharclasses}}{}
+  \fi
+\else
+  \PackageError{fontsetup}{Use Unicode-compliant TeX-engines}{%
+    The package requires Unicode-compliant engines, e.g.,\MessageBreak
+    Xe/LuaLaTeX. Kindly run your code with one of them.%
+  }%
+\fi
+\newif\if@upint
+\newif\if@varnothing
+\newif\if@newcmbb
+\newif\if@erewhon
+\newif\if@xcharter
+\newif\if@gfs
+\newif\if@libertinus
+\newif\if@palatino
+\newif\if@msgaramond
+\newif\if@minion
+\newif\if@packagewithoptions
+\newcommand*\greeksetup{%
+  \newcommand*\leftgrquotes{\char"201C}%
+  \newcommand*\rightgrquotes{\char"201E}%
+}
+\newcommand*\cvfoursetup{%
+  \defaultfontfeatures[cv04-Book]{CharacterVariant=4}%
+  \defaultfontfeatures[cv04-Regular]{CharacterVariant=4}%
+  \defaultfontfeatures[cv04Sans-Book]{CharacterVariant=4}%
+  \defaultfontfeatures[cv04Sans-Regular]{CharacterVariant=4}%
+  \defaultfontfeatures[cv04Mono-Book]{CharacterVariant=4}%
+  \defaultfontfeatures[cv04Sans-Regular]{CharacterVariant=4}%
+}
+\IfLanguageName{greek}{\greeksetup}{\@ifpackageloaded{xgreek}{\greeksetup}{}}
+\newcommand*\ncmsetup{%
+  \if@upint
+    \if@varnothing
+      \if@newcmbb
+        \setmathfont[StylisticSet=2,StylisticSet=3,CharacterVariant=1]{NewCMMath-\regularorbook.otf}%
+      \else
+        \setmathfont[StylisticSet=2,CharacterVariant=1]{NewCMMath-\regularorbook.otf}%
+      \fi
+    \else
+      \if@newcmbb
+        \setmathfont[StylisticSet=2,StylisticSet=3]{NewCMMath-\regularorbook.otf}%
+      \else
+        \setmathfont[StylisticSet=2]{NewCMMath-\regularorbook.otf}%
+      \fi
+    \fi
+  \else
+    \if@varnothing
+      \if@newcmbb
+        \setmathfont[StylisticSet=3,CharacterVariant=1]{NewCMMath-\regularorbook.otf}%
+      \else
+        \setmathfont[CharacterVariant=1]{NewCMMath-\regularorbook.otf}%
+      \fi
+    \else
+      \if@newcmbb
+        \setmathfont[StylisticSet=3]{NewCMMath-\regularorbook.otf}%
+      \else
+        \setmathfont{NewCMMath-\regularorbook.otf}%
+      \fi
+    \fi
+  \fi
+  \IfLanguageName{greek}{\cvfoursetup}{\@ifpackageloaded{xgreek}{\cvfoursetup}{}}}
+\DeclareOption{upint}{\@upinttrue}
+\DeclareOption{varnothing}{\@varnothingtrue}
+\DeclareOption{newcmbb}{\@newcmbbtrue}
+\DeclareOption{default}{%
+  \input{fspdefault}%
+  \begingroup
+  \newcommand*{\regularorbook}{Book}%
+  \ncmsetup
+  \endgroup
+  \@packagewithoptionstrue
+}
+\DeclareOption{olddefault}{%
+  \input{fspolddefault}%
+  \begingroup
+  \newcommand*{\regularorbook}{Regular}%
+  \ncmsetup
+  \endgroup
+  \@packagewithoptionstrue
+}
+% Install Cambria as a system font.
+% cambria.ttc, cambriai.ttf, cambriab.ttf, cambriaz.ttf
+\DeclareOption{cambria}{\input{fspcambria}\@packagewithoptionstrue}
+\DeclareOption{concrete}{\input{fspconcrete}\@packagewithoptionstrue}
+\DeclareOption{ebgaramond}{\input{fspebgaramondot}\@packagewithoptionstrue}
+\DeclareOption{erewhon}{\input{fsperewhon}\@erewhontrue\@packagewithoptionstrue}
+\DeclareOption{euler}{\input{fspeulerot}\@packagewithoptionstrue}
+\DeclareOption{fira}{\input{fspfiraot}\@packagewithoptionstrue}
+\DeclareOption{gfsartemisia}{\input{fspgfsartemisiaot}\@packagewithoptionstrue}
+\DeclareOption{gfsdidot}{\input{fspgfsdidotot}\@packagewithoptionstrue}
+\DeclareOption{gfsdidotclassic}{\input{fspgfsdidotclassicot}\@gfstrue\@packagewithoptionstrue}
+\DeclareOption{gfsneohellenic}{\input{fspgfsneohellenicot}\@packagewithoptionstrue}
+\DeclareOption{kerkis}{\input{fspkerkisot}\@packagewithoptionstrue}
+\DeclareOption{libertinus}{\@libertinustrue\@packagewithoptionstrue}
+% Install Lucida in TeX tree
+\DeclareOption{lucida}{\input{fsplucidaot}\@packagewithoptionstrue}
+% Install MinionPro and provided fspMinionGreekSmallCaps as system fonts.
+\DeclareOption{minion}{\input{fspminion}\@miniontrue\@packagewithoptionstrue}
+% Install Microsoft Garamond as a system font.
+% Gara.ttf, Garai, Garabd
+\DeclareOption{msgaramond}{\input{fspmsgaramondot}\@msgaramondtrue\@packagewithoptionstrue}
+\DeclareOption{neoeuler}{\input{fspeulerot}\@packagewithoptionstrue}% compatibility
+% Not released yet
+% \DeclareOption{neokadmus}{\input{neokadmus}}
+\DeclareOption{oldstandard}{\input{fspoldstandard}%
+  \if@upint
+    \setmathfont[StylisticSet=2]{OldStandard-Math.otf}%
+  \fi
+  \@packagewithoptionstrue
+}
+% Install Linotype Palatino as a system font.
+% pala.ttf palai, palab, palabi.
+% Install fspPalatinoGreekSmallCaps as a System font.
+\DeclareOption{palatino}{\input{fsppalatinoot}\@palatinotrue\@packagewithoptionstrue}
+\DeclareOption{stixtwo}{\input{fspstixtwoot}\@packagewithoptionstrue}
+\DeclareOption{talos}{\input{fsptalos}\@packagewithoptionstrue}
+\DeclareOption{times}{\input{fsptimesot}\@packagewithoptionstrue}
+\DeclareOption{xcharter}{%
+  \input{fspxcharter}%
+  \@xchartertrue
+  \@packagewithoptionstrue
+}
+\DeclareOption*{\PackageWarning{fontsetup}{Unknown ‘\CurrentOption’}}
+\ProcessOptions
+\if@packagewithoptions
+\else
+  \input{fspdefault}%
+  \begingroup
+  \newcommand*{\regularorbook}{Book}%
+  \ncmsetup
+  \endgroup
+\fi
+\AtBeginDocument{%
+  \if@erewhon
+    \RequirePackage{fourier-otf}
+  \fi
+  \if@xcharter
+    \RequirePackage{xcharter-otf}
+     \if@upint
+       \setmathfont[StylisticSet=3]{XCharter-Math.otf}%
+     \fi
+  \fi
+  \if@gfs
+    \ifxetex
+      \PassOptionsToPackage{ucharclasses}{Latin,Greek}
+      \setDefaultTransitions{\defaultfont}{}
+      \setTransitionsForLatin{\latinfont}{}
+      \setTransitionsForGreek{\defaultfont}{}
+    \fi
+  \fi
+  \if@libertinus
+    \RequirePackage{libertinus-otf}
+  \fi
+  \if@palatino
+    \PassOptionsToPackage{ucharclasses}{Latin, Greek}
+    \setDefaultTransitions{\defaultfont}{}
+    \setTransitionsForLatin{\defaultfont}{}
+    \setTransitionsForGreek{\greekfont}{}
+  \fi
+  \if@msgaramond
+    \PassOptionsToPackage{ucharclasses}{Latin,Greek}
+    \setDefaultTransitions{\defaultfont}{}
+    \setTransitionsForLatin{\defaultfont}{}
+    \setTransitionsForGreek{\greekfont}{}
+  \fi
+  \if@minion
+    \PassOptionsToPackage{ucharclasses}{Latin,Greek}
+    \setDefaultTransitions{\defaultfont}{}
+    \setTransitionsForLatin{\defaultfont}{}
+    \setTransitionsForGreek{\greekfont}{}
+  \fi
+}
+\endinput

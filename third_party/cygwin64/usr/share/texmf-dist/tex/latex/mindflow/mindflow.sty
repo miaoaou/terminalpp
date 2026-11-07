@@ -1,0 +1,259 @@
+%%
+%% This is file `mindflow.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% mindflow.dtx  (with options: `package')
+%% 
+%% Copyright (C) 2021 by Jinwen XU
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3c of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mindflow}
+    [2022/12/06 The mindflow environment]
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{%
+    family = @mindflow,
+    prefix = @mindflow@
+}
+\DeclareBoolOption[true]{on}               % Turn on mindflow
+\DeclareBoolOption[false]{off}             % Turn off mindflow
+\DeclareBoolOption[false]{leftmarker}      % Left marker
+\DeclareBoolOption[false]{rightmarker}     % Right marker
+\DeclareBoolOption[false]{linenumber}      % Left line numbers
+\DeclareBoolOption[false]{leftlinenumber}  % Left line numbers
+\DeclareBoolOption[false]{rightlinenumber} % Right line numbers
+\DeclareBoolOption[false]{incolumn}        % Separation line fits in column
+\DeclareBoolOption[false]{nonbreakable}    % Use the tcolorbox version
+\DeclareBoolOption[false]{mathlines}       % Add line numbers to equations
+
+\ProcessKeyvalOptions*\relax
+
+\if@mindflow@on
+  \@mindflow@offfalse
+\fi
+\if@mindflow@linenumber
+  \@mindflow@leftlinenumbertrue
+\fi
+\if@mindflow@mathlines
+  \PassOptionsToPackage{mathlines}{lineno}
+\fi
+
+%%================================
+%% Initialization
+%%================================
+\RequirePackage{lineno}
+\RequirePackage{xcolor}
+
+\colorlet{mfSavedColor}{.}
+\colorlet{mindflowLine}{mfSavedColor!40}
+\colorlet{mindflowText}{mfSavedColor!40}
+\colorlet{mindflowMarker}{mfSavedColor!20}
+\colorlet{mindflowNum}{mfSavedColor!8}
+
+\newcommand{\mindflowTextFont}{\footnotesize}
+\newcommand{\mindflowNumFont}{\scriptsize\ttfamily}
+\newcommand{\mindflowMarkerFont}{\scriptsize\ttfamily}
+\newcommand{\mindflowLeft}{*}
+\newcommand{\mindflowRight}{*}
+\newlength{\mindflowLineHeight}
+\setlength{\mindflowLineHeight}{0.4pt}
+
+%%================================
+%% The mindflow environment
+%%================================
+\PassOptionsToPackage{all}{nowidow}
+\RequirePackage{nowidow}
+\RequirePackage{verbatim}
+
+\newif\ifLNturnsON
+\def\LocallyStopLineNumbers{\LNturnsONfalse%
+    \ifLineNumbers\LNturnsONtrue\fi\nolinenumbers}
+\def\ResumeLineNumbers{\ifLNturnsON\linenumbers\fi}
+
+\newif\ifICturnsON
+\def\AutoIncolumn{\ICturnsONfalse%
+    \if@mindflow@incolumn\ICturnsONtrue\fi%
+    \if@twocolumn\@mindflow@incolumntrue\fi%
+}
+\def\ResumeIncolumn{\ifICturnsON\@mindflow@incolumntrue\fi}
+
+\newcounter{recordLN}
+\newcounter{mfLN}
+\setcounter{mfLN}{1}
+
+\newcommand*{\mfSepLine}{%
+  \par%\nobreak%
+  \LocallyStopLineNumbers%
+  \vspace*{-.5\baselineskip}%
+  \noindent%
+  \if@mindflow@incolumn%
+    \makebox[\linewidth]{\color{mindflowLine}\rule{\linewidth}{\mindflowLineHeight}}%
+  \else%
+    \hspace*{-\paperwidth}%
+    \makebox[\linewidth]{\color{mindflowLine}\rule{4\paperwidth}{\mindflowLineHeight}}%
+  \fi%
+  \par%\nobreak%
+  \ResumeLineNumbers%
+}
+
+\newcommand{\mindflow@makeLineNumber}{%
+  \hss%
+  \if@mindflow@leftlinenumber%
+    \normalfont\mindflowNumFont\color{mindflowNum}\LineNumber\hspace{1em}%
+  \fi%
+  \color{mindflowMarker}%
+  \if@mindflow@leftmarker%
+    \normalfont\mindflowMarkerFont\mindflowLeft\hspace{1em}%
+  \fi%
+  \rlap{\hskip\textwidth%
+    \if@mindflow@rightmarker%
+      \hspace{1em}\mindflowRight%
+    \fi%
+    \if@mindflow@rightlinenumber%
+      \hspace{1em}%
+      \normalfont\mindflowNumFont\color{mindflowNum}\LineNumber%
+    \fi%
+  }%
+}%
+
+\let\mindflowOFF=\comment
+\let\endmindflowOFF=\endcomment
+
+\def\mindflowON{%
+  \postdisplaypenalty=10000
+  \parskip=0pt
+  \medskip%
+  \setcounter{recordLN}{\value{linenumber}}%
+  \setcounter{linenumber}{\value{mfLN}}%
+  \AutoIncolumn%
+  \mfSepLine%
+  \normalfont\mindflowTextFont\color{mindflowText}%
+  \linenumbers%
+  \let\makeLineNumber\mindflow@makeLineNumber%
+  \nopagebreak%
+}
+\def\endmindflowON{%
+  \nowidow[3]%
+  \mfSepLine%
+  \setcounter{mfLN}{\value{linenumber}}%
+  \setcounter{linenumber}{\value{recordLN}}%
+  \ResumeIncolumn%
+  \medskip%
+}
+
+\colorlet{mindflowBackground}{white}
+
+\if@mindflow@nonbreakable
+\PassOptionsToPackage{many}{tcolorbox}
+\RequirePackage{tcolorbox}
+\newlength{\mindflow@parindent}
+\newlength{\mindflow@parskip}
+\newtcolorbox{mindflow@nonbreakable}[1]{
+  enhanced jigsaw,
+  colback=mindflowBackground,colframe=mindflowLine,
+  leftrule=0pt, rightrule=0pt, sharp corners,
+  toprule=\mindflowLineHeight, bottomrule=\mindflowLineHeight,
+  boxsep=0pt, top=.3\baselineskip, bottom=.3\baselineskip,
+  fontupper=\mindflowTextFont,extras={colupper={mindflowText}},
+  before upper={
+    \setlength{\parindent}{\mindflow@parindent}%
+    \setlength{\parskip}{\mindflow@parskip}%
+  },#1
+}
+\def\mindflowON{%
+  \LocallyStopLineNumbers%
+  \setcounter{recordLN}{\value{linenumber}}%
+  \setcounter{linenumber}{\value{mfLN}}%
+  \AutoIncolumn%
+  \setlength{\mindflow@parindent}{\parindent}%
+  \setlength{\mindflow@parskip}{\parskip}%
+  \if@mindflow@incolumn%
+    \begin{mindflow@nonbreakable}{left=0pt,right=0pt}
+  \else%
+    \begin{mindflow@nonbreakable}{%
+      grow to left by=\linewidth,left=\linewidth,
+      grow to right by=\linewidth,right=\linewidth}
+  \fi
+    \begin{internallinenumbers}%
+      \let\makeLineNumber\mindflow@makeLineNumber%
+}
+\def\endmindflowON{%
+      \nowidow[3]%
+    \end{internallinenumbers}%
+  \end{mindflow@nonbreakable}\par%
+  \ResumeLineNumbers%
+  \setcounter{mfLN}{\value{linenumber}}%
+  \setcounter{linenumber}{\value{recordLN}}%
+  \ResumeIncolumn%
+}
+\fi
+
+\if@mindflow@off
+  \let\mindflow=\mindflowOFF
+  \let\endmindflow=\endmindflowOFF
+\else
+  \let\mindflow=\mindflowON
+  \let\endmindflow=\endmindflowON
+\fi
+
+%%================================
+%% \mindflowset
+%%================================
+\define@key{mindflow}{on}[true]{%
+  \csname @mindflow@on#1\endcsname%
+  \if@mindflow@off%
+    \let\mindflow=\mindflowOFF%
+    \let\endmindflow=\endmindflowOFF%
+  \else%
+    \let\mindflow=\mindflowON%
+    \let\endmindflow=\endmindflowON%
+  \fi%
+}
+\define@key{mindflow}{off}[true]{%
+  \csname @mindflow@off#1\endcsname%
+  \if@mindflow@off%
+    \let\mindflow=\mindflowOFF%
+    \let\endmindflow=\endmindflowOFF%
+  \else%
+    \let\mindflow=\mindflowON%
+    \let\endmindflow=\endmindflowON%
+  \fi%
+}
+\define@key{mindflow}{leftmarker}[true]{\csname @mindflow@leftmarker#1\endcsname}
+\define@key{mindflow}{rightmarker}[true]{\csname @mindflow@rightmarker#1\endcsname}
+\define@key{mindflow}{linenumber}[true]{\csname @mindflow@leftlinenumber#1\endcsname}
+\define@key{mindflow}{leftlinenumber}[true]{\csname @mindflow@leftlinenumber#1\endcsname}
+\define@key{mindflow}{rightlinenumber}[true]{\csname @mindflow@rightlinenumber#1\endcsname}
+\define@key{mindflow}{incolumn}[true]{\csname @mindflow@incolumn#1\endcsname}
+\define@key{mindflow}{linecolor}{\colorlet{mindflowLine}{#1}}
+\define@key{mindflow}{textcolor}{\colorlet{mindflowText}{#1}}
+\define@key{mindflow}{numcolor}{\colorlet{mindflowNum}{#1}}
+\define@key{mindflow}{markercolor}{\colorlet{mindflowMarker}{#1}}
+\define@key{mindflow}{backgroundcolor}{
+  \if@mindflow@nonbreakable
+    \colorlet{mindflowBackground}{#1}
+  \else
+    \PackageWarning{mindflow}{The key ``backgroundcolor'' is only available when the package option\MessageBreak ``nonbreakable'' is enabled.}
+  \fi
+}
+\define@key{mindflow}{textfont}{\renewcommand{\mindflowTextFont}{#1}}
+\define@key{mindflow}{numfont}{\renewcommand{\mindflowNumFont}{#1}}
+\define@key{mindflow}{markerfont}{\renewcommand{\mindflowMarkerFont}{#1}}
+\define@key{mindflow}{left}{\renewcommand{\mindflowLeft}{#1}}
+\define@key{mindflow}{right}{\renewcommand{\mindflowRight}{#1}}
+\define@key{mindflow}{lineheight}{\setlength{\mindflowLineHeight}{#1}}
+
+\newcommand{\mindflowset}[1]{%
+  \setkeys{mindflow}{#1}%
+}
+\endinput
+%%
+%% End of file `mindflow.sty'.

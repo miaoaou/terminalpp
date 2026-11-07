@@ -1,0 +1,145 @@
+%%
+%% This is file `floatbytocbasic.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% floatbytocbasic.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from floatbytocbasic.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file floatbytocbasic.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\ProvidesPackage{floatbytocbasic}
+             [2023-08-16 v1.0
+              improved float package using tocbasic]
+\@ifpackageloaded{floatrow}{%
+  \PackageWarning{floatbytocbasic}{%
+    package incompatible with package floatrow.\MessageBreak
+    Automatically using floatrowbytocbasic%
+  }%
+  \RequirePackage{floatrowbytocbasic}%
+  \endinput
+}{}
+\RequirePackage{tocbasic}[2023/07/07]
+\RequirePackage{float}
+\RequirePackage{xpatch}
+\@ifundefined{NewDocumentCommand}{%
+  \RequirePackage{xparse}%
+}{}
+\@ifundefined{NewCommandCopy}{\let\deffloat\newfloat}{%
+  \NewCommandCopy\deffloat\newfloat
+}
+\xpretocmd\deffloat{%
+  \Ifattoclist{#3}{%
+    \let\reserved@a\relax
+    \owneroftoc[\def\reserved@a]{#3}\relax
+    \@ifundefined{reserved@a}{}{%
+      \Ifstr{\reserved@a}{float}{%
+        \PackageInfo{floatbytocbasic}{%
+          reusing file extension `#3' for\MessageBreak
+          float type `#1'%
+        }%
+      }{%
+        \PackageWarning{floatbytocbasic}{%
+          reusing file extension `#3' of owner\MessageBreak
+          `\reserved@a' for float `#1'\MessageBreak
+          not recommended%
+        }%
+      }%
+    }%
+  }{\addtotoclist[float]{#3}}%
+}{}{%
+  \PackageError{floatbytocbasic}{incompatible definition of
+    \string\newfloat}{%
+    Package `floatbytocbasic' depends on the original definition of package
+    `float'.\MessageBreak
+    Some changes to that definition are tolerated.\MessageBreak
+    \@ifundefined{deffloat}%
+    {But it seems the definition is completely missing!}%
+    {But the current definition is incompatible!}%
+    \MessageBreak
+    Make sure, you have installed the original package `float' as referred
+    by\Messagebreak
+    section ``References'' of the manual.%
+  }%
+}
+\RenewDocumentCommand{\newfloat}{mmmo}{%
+  \@tempswatrue
+  \Ifattoclist{#3}{%
+    \let\reserved@a\relax
+    \owneroftoc[\def\reserved@a]{#3}\relax
+    \@ifundefined{reserved@a}{}{%
+      \Ifstr{\reserved@a}{float}{}{%
+        \PackageError{floatbytocbasic}{%
+          reusing `#3' of owner `\reserved@a' not allowed%
+        }{%
+          Each file extension should be used only once.\MessageBreak
+          Reusing is only allowed with the same owner/category.\MessageBreak
+          You, the class, or another package already uses `#3'.\MessageBreak
+          \@eha
+        }%
+        \@tempswafalse
+      }%
+    }%
+  }{}%
+  \if@tempswa
+    \expandafter\@ifdefinable\csname #1\endcsname{%
+      \IfValueTF{#4}{%
+        \deffloat{#1}{#2}{#3}[#4]%
+      }{%
+        \deffloat{#1}{#2}{#3}%
+      }%
+    }%
+  \fi
+}
+\NewDocumentCommand{\providefloat}{mmmo}{%
+  \@ifundefined{#1}{%
+    \newfloat{#1}{#2}{#3}[#4]%
+  }{}%
+}
+\NewDocumentCommand{\renewfloat}{mmmo}{%
+  \@ifundefined{#1}{%
+    \@latex@error{Environment #1 undefined}\@ehc
+    \removefromtoclist{#3}%
+  }{%
+    \Ifattoclist{#3}{%
+      \removefromtoclist{#3}%
+    }{%
+      \PackageError{floatbytocbasic}{extension `#3' not yet registered}{%
+        I can only renew floats with already registered
+        extensions.\MessageBreak
+        \@ehc
+      }%
+    }%
+  }%
+  \expandafter\let\csname #1\endcsname\relax
+  \expandafter\let\csname end#1\endcsname\relax
+  \newfloat{#1}{#2}{#3}[#4]%
+}
+\renewcommand*\listof[2]{%
+  \@ifundefined{ext@#1}{%
+    \PackageError{floatbytocbasic}{unknown float type `#1'}\@eha
+  }{%
+    \@ifundefined{l@#1}{\expandafter\let\csname l@#1\endcsname\l@figure
+      \@ifundefined{l@#1}{%
+        \DeclareTOCStyleEntry[level=1,numwidth=2.3em,indent=1.5em]
+        {default}{#1}%
+      }{}%
+    }{}%
+    \listoftoc[{#2}]{\csname ext@#1\endcsname}%
+  }%
+}%
+\endinput
+%%
+%% End of file `floatbytocbasic.sty'.

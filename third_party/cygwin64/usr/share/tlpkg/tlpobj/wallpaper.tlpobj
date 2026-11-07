@@ -1,0 +1,16 @@
+name wallpaper
+category Package
+revision 15878
+shortdesc Easy addition of wallpapers (background images) to LaTeX documents, including tiling
+relocated 1
+longdesc This collection contains files to add wallpapers (background
+longdesc images) to LaTeX documents. It uses the eso-pic package, but
+longdesc provides simple commands to include effects such as tiling. An
+longdesc example is provided, which works under both LaTeX and pdfLaTeX.
+runfiles size=2
+ RELOC/tex/latex/wallpaper/wallpaper.sty
+catalogue-ctan /macros/latex/contrib/wallpaper
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics layout-page
+catalogue-version 1.10

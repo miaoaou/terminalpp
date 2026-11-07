@@ -1,0 +1,19 @@
+name movie15
+category Package
+revision 26473
+shortdesc Multimedia inclusion package
+relocated 1
+longdesc The package provides an interface to embed movies, sounds and
+longdesc 3D objects into PDF documents for use with LaTeX as well as
+longdesc pdfLaTeX. The package defines a command \includemovie with
+longdesc PDF-1.5 compatibility. Option 'autoplay' causes the media clip
+longdesc to be started right after the page has loaded. This is useful
+longdesc for side by side movie clips to be played back synchronously.
+longdesc The package is now superseded by media9
+runfiles size=39
+ RELOC/tex/latex/movie15/movie15.sty
+catalogue-also flashmovie
+catalogue-ctan /macros/latex/contrib/movie15
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics multimedia obsolete

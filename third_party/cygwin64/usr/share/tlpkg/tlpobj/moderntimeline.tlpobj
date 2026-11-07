@@ -1,0 +1,16 @@
+name moderntimeline
+category Package
+revision 55518
+shortdesc Timelines for use with moderncv
+relocated 1
+longdesc The package provides commands to configure and to draw time
+longdesc line diagrams; such diagrams are designed to fit into
+longdesc Curriculum Vitae documents written using the moderncv class.
+runfiles size=3
+ RELOC/tex/latex/moderntimeline/moderntimeline.sty
+catalogue-contact-bugs https://github.com/raphink/moderntimeline/issues
+catalogue-contact-repository https://github.com/raphink/moderntimeline
+catalogue-ctan /macros/latex/contrib/moderntimeline
+catalogue-license lppl1.3
+catalogue-topics cv diagram
+catalogue-version 0.11

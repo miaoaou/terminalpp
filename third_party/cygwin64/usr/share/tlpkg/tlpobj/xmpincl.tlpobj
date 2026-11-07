@@ -1,0 +1,21 @@
+name xmpincl
+category Package
+revision 60593
+shortdesc Include eXtensible Metadata Platform data in pdfLaTeX
+relocated 1
+longdesc The XMP (eXtensible Metadata platform) is a framework to add
+longdesc metadata to digital material to enhance the workflow in
+longdesc publication. The essence is that the metadata is stored in an
+longdesc XML file, and this XML stream is then embedded in the file to
+longdesc which it applies. How you create this XML file is up to you,
+longdesc but the author started investigating this because he wanted to
+longdesc embed licensing information in the files he created. The
+longdesc license the author chose is one of the Creative Commons
+longdesc licenses, and their web-site offers this information in a valid
+longdesc XML-file, suitable for direct inclusion.
+runfiles size=1
+ RELOC/tex/latex/xmpincl/xmpincl.sty
+catalogue-ctan /macros/latex/contrib/xmpincl
+catalogue-license gpl
+catalogue-topics metadata pdf-feat
+catalogue-version 2.4

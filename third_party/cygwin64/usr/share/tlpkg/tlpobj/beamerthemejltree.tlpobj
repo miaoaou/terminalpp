@@ -1,0 +1,13 @@
+name beamerthemejltree
+category Package
+revision 21977
+shortdesc Contributed beamer theme
+relocated 1
+longdesc A theme for beamer presentations.
+runfiles size=1
+ RELOC/tex/latex/beamerthemejltree/beamerthemeJLTree.sty
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerthemeJLTree.sty
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics presentation
+catalogue-version 1.1

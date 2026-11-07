@@ -1,0 +1,16 @@
+name qcircuit
+category Package
+revision 48400
+shortdesc Macros to generate quantum ciruits
+relocated 1
+longdesc The package supports those within the quantum information
+longdesc community who typeset quantum circuits, using xy-pic package,
+longdesc offering macros designed to help users generate circuits.
+runfiles size=4
+ RELOC/tex/latex/qcircuit/qcircuit.sty
+catalogue-contact-repository https://github.com/CQuIC/qcircuit
+catalogue-ctan /graphics/qcircuit
+catalogue-date 2018-08-14 19:25:41 +0200
+catalogue-license gpl2
+catalogue-topics diagram-circ graphics-in-tex
+catalogue-version 2.6.0

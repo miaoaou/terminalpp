@@ -1,0 +1,18 @@
+name snaptodo
+category Package
+revision 61155
+shortdesc A todo that snaps to the closer side
+relocated 1
+longdesc This package is an alternative to todonotes, from which it
+longdesc differs in the following ways: Depending on where you call
+longdesc \snaptodo, the note is put in the left or the right margin,
+longdesc whichever is closer. The notes bump each other so they never
+longdesc overlap; the lines never overlap either. Aesthetic and
+longdesc customizable style.
+runfiles size=2
+ RELOC/tex/latex/snaptodo/snaptodo.sty
+catalogue-contact-bugs https://github.com/Symbol1/snaptodo/issues
+catalogue-contact-repository https://github.com/Symbol1/snaptodo
+catalogue-ctan /macros/latex/contrib/snaptodo
+catalogue-license lppl1.3c
+catalogue-topics notes editorial

@@ -1,0 +1,16 @@
+name datetime2-finnish
+category Package
+revision 47047
+shortdesc Finnish language module for the datetime2 package
+relocated 1
+longdesc This module provides the "finnish" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty.
+runfiles size=5
+ RELOC/tex/latex/datetime2-finnish/datetime2-finnish-ascii.ldf
+ RELOC/tex/latex/datetime2-finnish/datetime2-finnish-utf8.ldf
+ RELOC/tex/latex/datetime2-finnish/datetime2-finnish.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-finnish
+catalogue-date 2018-03-21 05:28:56 +0100
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.2

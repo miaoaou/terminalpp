@@ -1,0 +1,27 @@
+name pdfcolmk
+category Package
+revision 52912
+shortdesc Improved colour support under pdfTeX (legacy stub)
+relocated 1
+longdesc The package used to provide macros that emulated the 'colour
+longdesc stack' functionality of dvips. The colour stack deals with
+longdesc colour manipulations when asynchronous events (like
+longdesc page-breaking) occur. At the time the package was written,
+longdesc pdfTeX did not (yet) have such a stack, though dvips had had
+longdesc one for a long time. This package was an experimental solution
+longdesc to the problem, and worked best with pdfeTeX. For current
+longdesc releases of pdfTeX (later than version 1.40.0, released in
+longdesc 2007), this package is not needed, since "real" colour stacks
+longdesc are available. The present pdfcolmk is therefore just an empty
+longdesc stub that does nothing at all, just in case there are still
+longdesc documents that reference it. The documented source of the
+longdesc original package is still available at the github repository.
+runfiles size=1
+ RELOC/tex/latex/pdfcolmk/pdfcolmk.sty
+catalogue-contact-bugs https://github.com/ho-tex/pdfcolmk/issues
+catalogue-contact-repository https://github.com/ho-tex/pdfcolmk
+catalogue-ctan /macros/latex/contrib/pdfcolmk
+catalogue-date 2019-11-24 21:15:10 +0100
+catalogue-license lppl1.3c
+catalogue-topics colour obsolete
+catalogue-version 2.0

@@ -1,0 +1,14 @@
+name memory
+category Package
+revision 30452
+shortdesc Containers for data in LaTeX
+relocated 1
+longdesc The package allows the user to declare single object or array
+longdesc containers.
+runfiles size=1
+ RELOC/tex/latex/memory/memory.sty
+catalogue-ctan /macros/latex/contrib/memory
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics macro-supp
+catalogue-version 1.2

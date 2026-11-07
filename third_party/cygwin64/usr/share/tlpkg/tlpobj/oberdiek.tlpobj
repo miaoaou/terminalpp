@@ -1,0 +1,95 @@
+name oberdiek
+category Package
+revision 69038
+shortdesc A bundle of packages submitted by Heiko Oberdiek
+relocated 1
+longdesc The bundle comprises packages to provide: aliascnt: 'alias
+longdesc counters'; bmpsize: get bitmap size and resolution data;
+longdesc centernot: a horizontally-centred \not symbol; chemarr:
+longdesc extensible chemists' reaction arrows; classlist: record
+longdesc information about document class(es) used; colonequals: poor
+longdesc man's mathematical relation symbols; dvipscol: dvips colour
+longdesc stack management; engord: define counter-printing operations
+longdesc producing English ordinals; eolgrab: collect arguments
+longdesc delimited by end of line; flags: setting and clearing flags in
+longdesc bit fields and converting the bit field into a decimal number;
+longdesc holtxdoc: extra documentation macros; hypbmsec: bookmarks in
+longdesc sectioning commands; hypcap: anjusting anchors of captions;
+longdesc hypgotoe: experimental package for links to embedded files;
+longdesc hyphsubst: substitute hyphenation patterns; ifdraft: switch for
+longdesc option draft; iflang: provides expandable checks for the
+longdesc current language; pdfcolparallel: fixes colour problems in
+longdesc package parallel; pdfcolparcolumns: fixes colour problems in
+longdesc package parcolumns; pdfcrypt: setting PDF encryption;
+longdesc protecteddef: define a command that protected against
+longdesc expansion; resizegather: automatically resize overly large
+longdesc equations; rotchiffre: performs simple rotation cyphers;
+longdesc scrindex: redefines environment 'theindex' of package 'index',
+longdesc if a class from KOMA-Script is loaded; setouterhbox: set \hbox
+longdesc in outer horizontal mode; settobox: getting box sizes;
+longdesc stackrel: extensions of the \stackrel command; stampinclude:
+longdesc selects the files for \include by inspecting the timestamp of
+longdesc the .aux file(s); tabularht: tabulars with height
+longdesc specification; tabularkv: key value interface for tabular
+longdesc parameters; telprint: print German telephone numbers;
+longdesc thepdfnumber: canonical numbers for use in PDF files and
+longdesc elsewhere; twoopt: commands with two optional arguments; Each
+longdesc of the packages is represented by two files, a .dtx (documented
+longdesc source) and a PDF file; the .ins file necessary for
+longdesc installation is extracted by running the .dtx file with Plain
+longdesc TeX.
+depend auxhook
+depend grfext
+depend grffile
+depend iftex
+depend infwarerr
+depend kvoptions
+depend pdftexcmds
+runfiles size=91
+ RELOC/bibtex/bib/oberdiek/oberdiek-bundle.bib
+ RELOC/bibtex/bib/oberdiek/oberdiek-source.bib
+ RELOC/tex/generic/oberdiek/engord.sty
+ RELOC/tex/generic/oberdiek/eolgrab.sty
+ RELOC/tex/generic/oberdiek/fibnum.sty
+ RELOC/tex/generic/oberdiek/hyphsubst.sty
+ RELOC/tex/generic/oberdiek/iflang.sty
+ RELOC/tex/generic/oberdiek/pdfcrypt.sty
+ RELOC/tex/generic/oberdiek/protecteddef.sty
+ RELOC/tex/generic/oberdiek/rotchiffre.sty
+ RELOC/tex/generic/oberdiek/setouterhbox.sty
+ RELOC/tex/generic/oberdiek/telprint.sty
+ RELOC/tex/generic/oberdiek/thepdfnumber.sty
+ RELOC/tex/latex/oberdiek/aliascnt.sty
+ RELOC/tex/latex/oberdiek/bmpsize-base.sty
+ RELOC/tex/latex/oberdiek/bmpsize-dvipdfm.def
+ RELOC/tex/latex/oberdiek/bmpsize-dvipdfmx.def
+ RELOC/tex/latex/oberdiek/bmpsize-dvips.def
+ RELOC/tex/latex/oberdiek/bmpsize-test.tex
+ RELOC/tex/latex/oberdiek/bmpsize.sty
+ RELOC/tex/latex/oberdiek/centernot.sty
+ RELOC/tex/latex/oberdiek/chemarr.sty
+ RELOC/tex/latex/oberdiek/classlist.sty
+ RELOC/tex/latex/oberdiek/colonequals.sty
+ RELOC/tex/latex/oberdiek/dvipscol.sty
+ RELOC/tex/latex/oberdiek/enparen.sty
+ RELOC/tex/latex/oberdiek/flags.sty
+ RELOC/tex/latex/oberdiek/holtxdoc.sty
+ RELOC/tex/latex/oberdiek/hypbmsec.sty
+ RELOC/tex/latex/oberdiek/hypcap.sty
+ RELOC/tex/latex/oberdiek/hypgotoe.sty
+ RELOC/tex/latex/oberdiek/ifdraft.sty
+ RELOC/tex/latex/oberdiek/pdfcolparallel.sty
+ RELOC/tex/latex/oberdiek/pdfcolparcolumns.sty
+ RELOC/tex/latex/oberdiek/resizegather.sty
+ RELOC/tex/latex/oberdiek/scrindex.sty
+ RELOC/tex/latex/oberdiek/settobox.sty
+ RELOC/tex/latex/oberdiek/stackrel.sty
+ RELOC/tex/latex/oberdiek/stampinclude.sty
+ RELOC/tex/latex/oberdiek/tabularht.sty
+ RELOC/tex/latex/oberdiek/tabularkv.sty
+ RELOC/tex/latex/oberdiek/twoopt.sty
+catalogue-contact-bugs https://github.com/ho-tex/oberdiek/issues
+catalogue-contact-repository https://github.com/ho-tex/oberdiek
+catalogue-ctan /macros/latex/contrib/oberdiek
+catalogue-license lppl1.3c
+catalogue-topics collection

@@ -1,0 +1,17 @@
+name notespages
+category Package
+revision 41906
+shortdesc Filling documents with notes pages and notes areas
+relocated 1
+longdesc This package package provides one macro to insert a single
+longdesc notes page and another to fill the document with multiple notes
+longdesc pages, until the total number of pages (so far) is a multiple
+longdesc of a given number. A third command can be used to fill half
+longdesc empty pages with a notes area.
+runfiles size=6
+ RELOC/tex/latex/notespages/notespages.sty
+catalogue-ctan /macros/latex/contrib/notespages
+catalogue-date 2016-08-21 23:18:57 +0200
+catalogue-license lppl1.3
+catalogue-topics blank-page notes
+catalogue-version 0.8.1

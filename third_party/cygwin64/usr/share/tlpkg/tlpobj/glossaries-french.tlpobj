@@ -1,0 +1,14 @@
+name glossaries-french
+category Package
+revision 42873
+shortdesc French language module for glossaries package
+relocated 1
+longdesc French language module for glossaries package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-french/glossaries-french.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-french
+catalogue-date 2017-01-04 23:59:43 +0100
+catalogue-license lppl1.3
+catalogue-topics glossary french
+catalogue-version 1.1

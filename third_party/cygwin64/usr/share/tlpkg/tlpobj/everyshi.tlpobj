@@ -1,0 +1,21 @@
+name everyshi
+category Package
+revision 57001
+shortdesc Take action at every \shipout
+relocated 1
+longdesc This package provides hooks into \sshipout called \EveryShipout
+longdesc and \AtNextShipout analogous to \AtBeginDocument. With the
+longdesc introduction of the LaTeX hook management this package became
+longdesc obsolete in 2020 and is only provided for backwards
+longdesc compatibility. For current versions of LaTeX it is only mapping
+longdesc the hooks to the original everyshi macros. In case you use an
+longdesc older LaTeX format, everyshi will automatically fall back to
+longdesc its old implementation by loading everyshi-2001-05-15.
+runfiles size=2
+ RELOC/tex/latex/everyshi/everyshi-2001-05-15.sty
+ RELOC/tex/latex/everyshi/everyshi.sty
+catalogue-also bophook atbegshi
+catalogue-ctan /macros/latex/contrib/everyshi
+catalogue-license lppl1.3c
+catalogue-topics defer-stuff obsolete
+catalogue-version 4.00

@@ -1,0 +1,19 @@
+name fancypar
+category Package
+revision 58895
+shortdesc Decoration of individual paragraphs
+relocated 1
+longdesc Decorates individual paragraphs of a document, offering five
+longdesc pre-defined styles. The command offers an optional 'key-value'
+longdesc argument with the user may define parameters of the selected
+longdesc style. Predefined styles offer a spiral-notebook, a zebra-like,
+longdesc a dashed, a marked design, and an underlined style. Users may
+longdesc also define their own styles. Decorated paragraphs may not
+longdesc include displayed mathematics.
+runfiles size=2
+ RELOC/tex/latex/fancypar/fancypar.sty
+catalogue-also boites framed
+catalogue-ctan /macros/latex/contrib/fancypar
+catalogue-license lppl1.3
+catalogue-topics decoration
+catalogue-version 1.3

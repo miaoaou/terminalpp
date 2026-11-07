@@ -1,0 +1,13 @@
+name tikz-inet
+category Package
+revision 15878
+shortdesc Draw interaction nets with TikZ
+relocated 1
+longdesc The package extends TikZ with macros to draw interaction nets.
+runfiles size=4
+ RELOC/tex/latex/tikz-inet/tikz-inet.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-inet
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics logic
+catalogue-version 0.1

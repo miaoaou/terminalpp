@@ -1,0 +1,14 @@
+name crossreference
+category Package
+revision 15878
+shortdesc Crossreferences within documents
+relocated 1
+longdesc The package defines cross-references (essentially 'grand' label
+longdesc references), which may be listed in a table of
+longdesc cross-references.
+runfiles size=1
+ RELOC/tex/latex/crossreference/crossreference.sty
+catalogue-ctan /macros/latex/contrib/crossreference
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics label-ref

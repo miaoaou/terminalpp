@@ -1,0 +1,40 @@
+name wallcalendar
+category Package
+revision 45568
+shortdesc A wall calendar class with custom layouts
+relocated 1
+longdesc This package provides a wall calendar class with custom layouts
+longdesc and support for internationalization. It comes with the
+longdesc following layouts: Full page photo, the calendar days overlaid
+longdesc with opacity Full page photo, the photo above the calendar days
+longdesc Small landscape photo, with a calendar grid Year planner
+longdesc Thumbnails and captions Varnish mask There is also support for
+longdesc loading event marks from a CSV file.
+runfiles size=44
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-czech.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-dutch.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-english.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-french.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-german.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-hungarian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-italian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-japanese.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-norwegian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-portuguese.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-romanian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-serbian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-slovakian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-slovenian.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-spanish.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-swedish.tex
+ RELOC/tex/lualatex/wallcalendar/i18n/wallcalendar-thai.tex
+ RELOC/tex/lualatex/wallcalendar/wallcalendar-csv.lua
+ RELOC/tex/lualatex/wallcalendar/wallcalendar-date.lua
+ RELOC/tex/lualatex/wallcalendar/wallcalendar-helpers.lua
+ RELOC/tex/lualatex/wallcalendar/wallcalendar.cls
+catalogue-contact-repository https://github.com/profound-labs/wallcalendar
+catalogue-ctan /macros/luatex/latex/wallcalendar
+catalogue-date 2017-10-22 08:00:15 +0200
+catalogue-license lppl
+catalogue-topics class calendar luatex use-lua
+catalogue-version 1.3.1

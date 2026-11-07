@@ -1,0 +1,16 @@
+name tablefootnote
+category Package
+revision 32804
+shortdesc Permit footnotes in tables
+relocated 1
+longdesc The package provides the command \tablefootnote to be used in a
+longdesc table or sidewaystable environment, where \footnote will not
+longdesc work (and when using \footnotemark and \footnotetext, and
+longdesc adjusting the counter as necessary, is too much work).
+runfiles size=5
+ RELOC/tex/latex/tablefootnote/tablefootnote.sty
+catalogue-ctan /macros/latex/contrib/tablefootnote
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics table footnote
+catalogue-version 1.1c

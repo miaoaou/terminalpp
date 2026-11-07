@@ -1,0 +1,12 @@
+name fjodor
+category Package
+revision 53207
+shortdesc A selection of layout styles
+relocated 1
+longdesc The package provides several page layouts, selectable by
+longdesc package options.
+runfiles size=2
+ RELOC/tex/latex/fjodor/fjodor.sty
+catalogue-ctan /macros/latex/contrib/fjodor
+catalogue-license gpl
+catalogue-topics geometry

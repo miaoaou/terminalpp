@@ -1,0 +1,17 @@
+name counterz
+category Package
+revision 67335
+shortdesc Additional tools for counters
+relocated 1
+longdesc The package facilitates the use of stealth prefixes for counter
+longdesc names in order to help distinguish between counters from
+longdesc multiple input files. The package also provides a means to
+longdesc generate random counters and save such counter values for
+longdesc future typesetting.
+runfiles size=3
+ RELOC/tex/latex/counterz/counterz.sty
+catalogue-contact-repository https://github.com/roguewhistler/counterz
+catalogue-ctan /macros/latex/contrib/counterz
+catalogue-license lppl1.3c
+catalogue-topics counter-mgmt
+catalogue-version 1.1.1

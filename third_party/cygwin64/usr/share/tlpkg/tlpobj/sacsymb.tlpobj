@@ -1,0 +1,16 @@
+name sacsymb
+category Package
+revision 65768
+shortdesc "Sacred Symbols" prepared with TikZ
+relocated 1
+longdesc The author tells us: This is "a package with symbols prepared
+longdesc with TikZ. These symbols are the variables used in the space of
+longdesc the collapse of the wave function of a quantum field associated
+longdesc with the micro-tubule while exploring an Orchestrated,
+longdesc objective reduction (Orch OR) theory of consciousness as
+longdesc applied to the three brains model of psychological experience."
+runfiles size=2
+ RELOC/tex/latex/sacsymb/sacsymb.sty
+catalogue-ctan /graphics/pgf/contrib/sacsymb
+catalogue-license lppl1
+catalogue-topics graphics-symb pgf-tikz

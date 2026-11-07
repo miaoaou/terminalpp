@@ -1,0 +1,128 @@
+%%
+%% This is file `overpic.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% overpic.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 1997-... by Rolf Niepraschk <Rolf.Niepraschk@gmx.de>
+%% --------------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{overpic}[2024/01/06 2.1 picture overlays (RN)]
+\RequirePackage{keyval,graphicx,epic}
+\newcommand*\OVP@scale{\z@}
+\define@key{OVP}{rel}{%
+  \def\OVP@scale{#1}%
+  \ifnum\OVP@scale>\z@
+    \let\OVP@calc\OVP@calc@rel
+  \else
+    \PackageError{overpic}{Invalid number for option `rel'}\@ehc
+  \fi
+}
+\define@key{OVP}{percent}[]{%
+  \setkeys{OVP}{rel=100}%
+}
+\define@key{OVP}{permil}[]{%
+  \setkeys{OVP}{rel=\@m}%
+}
+\define@key{OVP}{abs}[]{%
+  \let\OVP@calc\OVP@calc@abs
+}
+\def\OVP@boolkey#1#2{%
+  \csname OVP@#2\ifx\relax#1\relax true\else#1\fi\endcsname}
+\newif\ifOVP@grid
+\define@key{OVP}{grid}[true]{\lowercase{\OVP@boolkey{#1}}{grid}}
+\define@key{OVP}{tics}{\count@=#1}
+\define@key{OVP}{unit}{\unitlength=\dimexpr#1\relax}
+\newcommand*\OVP@calc@abs{%
+  \divide\@tempcnta by \unitlength
+  \divide\@tempcntb by \unitlength
+  \ifnum\count@=\z@\count@=10\fi
+}
+\newcommand*\OVP@calc@rel{%
+  \ifnum\@tempcnta>\@tempcntb
+    \divide\@tempcnta by \OVP@scale
+    \unitlength=\@tempcnta sp %
+    \@tempcnta=\OVP@scale
+    \divide\@tempcntb by \unitlength
+  \else
+    \divide\@tempcntb by \OVP@scale
+    \unitlength=\@tempcntb sp %
+    \@tempcntb=\OVP@scale
+    \divide\@tempcnta by \unitlength
+  \fi
+  \ifnum\count@=\z@
+    \count@=\OVP@scale
+    \divide\count@ by 10 %
+  \fi
+}
+\DeclareOption{percent}{\setkeys{OVP}{rel=100}}
+\DeclareOption{permil}{\setkeys{OVP}{rel=\@m}}
+\DeclareOption{abs}{\setkeys{OVP}{abs}}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{graphicx}}
+\ExecuteOptions{percent}
+\ProcessOptions
+\AtBeginDocument{%
+  \@ifpackageloaded{xkeyval}{%
+    \def\OVP@setkeys@relaxed{%
+      \let\OVP@setkeys\setkeys
+      \def\setkeys{\OVP@setkeys*}
+    }
+    \def\OVP@setkeys@strict{%
+      \let\setkeys\OVP@setkeys
+    }
+  }{%
+    \def\OVP@setkeys@relaxed{%
+      \let\OVP@KV@errx\KV@errx
+      \let\KV@errx\@gobble
+    }
+    \def\OVP@setkeys@strict{%
+      \let\KV@errx\OVP@KV@errx
+    }
+  }
+}
+\newsavebox\OVP@box
+\newenvironment{overpic}[2][]{%
+  \OVP@setkeys@relaxed
+  \sbox\OVP@box{\includegraphics[#1]{#2}}%
+  \count@=\z@ \OVP@gridfalse
+  \setkeys{OVP}{#1}%
+  \OVP@setkeys@strict
+  \OVP@picture{#1}%
+}{\endpicture}
+\newenvironment{Overpic}[2][]{%
+  \sbox\OVP@box{#2}%
+  \count@=\z@ \OVP@gridfalse
+  \setkeys{OVP}{#1}%
+  \OVP@picture{#1}%
+}{\endpicture}
+\newcommand*\OVP@picture[1]{%
+  \settodepth{\@tempcnta}{\usebox\OVP@box}%
+  \settoheight{\@tempcntb}{\usebox\OVP@box}%
+  \advance\@tempcntb\@tempcnta
+  \settowidth{\@tempcnta}{\usebox\OVP@box}%
+  \OVP@calc
+  \picture(\@tempcnta,\@tempcntb)%
+    \put(0,0){\makebox(0,0)[bl]{\usebox\OVP@box}}%
+    \ifOVP@grid
+      \put(0,0){\normalfont\fontsize\@viipt\@viiipt\selectfont
+        \grid(\@tempcnta,\@tempcntb)(\count@,\count@)[0,0]}%
+    \fi
+}
+\newcommand*\setOverpic[1]{%
+  \setkeys{OVP}{#1}%
+}
+\endinput
+%%
+%% End of file `overpic.sty'.

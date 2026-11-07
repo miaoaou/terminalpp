@@ -1,0 +1,22 @@
+name simplivre
+category Package
+revision 70314
+shortdesc Write your books in a simple and clear way
+relocated 1
+longdesc This package provides a LaTeX class for typesetting books with
+longdesc a simple and clear design. Currently, it has native support for
+longdesc Chinese (simplified and traditional), English, French, German,
+longdesc Italian, Japanese, Portuguese (European and Brazilian), Russian
+longdesc and Spanish typesetting. It compiles with either XeLaTeX or
+longdesc LuaLaTeX. This is part of the minimalist class series and
+longdesc depends on minimalist.sty from the minimalist package. The
+longdesc package name "simplivre" is taken from the French words
+longdesc "simple" and "livre" (= "book").
+depend minimalist
+runfiles size=9
+ RELOC/tex/latex/simplivre/simplivre.cls
+catalogue-also minimalist
+catalogue-contact-repository https://github.com/Jinwen-XU/minimalist/tree/main/simplivre
+catalogue-ctan /macros/unicodetex/latex/simplivre
+catalogue-license lppl1.3c
+catalogue-topics class book-pub multilingual expl3

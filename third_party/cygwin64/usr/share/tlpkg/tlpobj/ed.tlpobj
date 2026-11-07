@@ -1,0 +1,18 @@
+name ed
+category Package
+revision 25231
+shortdesc Editorial Notes for LaTeX documents
+relocated 1
+longdesc This package defines a couple of editorial notes that simplify
+longdesc collaboration on a LaTeX text. These allow authors to annotate
+longdesc status information in the source. In draft mode, the
+longdesc annotations are shown for communication, and in publication
+longdesc mode these are suppressed.
+runfiles size=2
+ RELOC/tex/latex/ed/ed.sty
+catalogue-contact-home https://gl.kwarc.info/kwarc/macros/tree/master/ed
+catalogue-ctan /macros/latex/contrib/ed
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1
+catalogue-topics editorial
+catalogue-version 1.8

@@ -1,0 +1,22 @@
+name beautybook
+category Package
+revision 68438
+shortdesc A beautiful book template for maths and science
+relocated 1
+longdesc The package contains LaTeX classes (both a Chinese and an
+longdesc English version) as well as style files for creating beautiful
+longdesc science books.
+runfiles size=42
+ RELOC/tex/latex/beautybook/Beautybook-CN.cls
+ RELOC/tex/latex/beautybook/Beautybook-EN.cls
+ RELOC/tex/latex/beautybook/stys/Beautybook-bottompage.sty
+ RELOC/tex/latex/beautybook/stys/Beautybook-cover-birkar.sty
+ RELOC/tex/latex/beautybook/stys/Beautybook-cover-cn.sty
+ RELOC/tex/latex/beautybook/stys/Beautybook-cover-en.sty
+ RELOC/tex/latex/beautybook/stys/Beautybook-cover-enfig.sty
+catalogue-contact-bugs https://github.com/BeautyLaTeX/latex-template/issues
+catalogue-contact-development https://github.com/BeautyLaTeX
+catalogue-contact-repository https://github.com/BeautyLaTeX/latex-template
+catalogue-ctan /macros/latex/contrib/beautybook
+catalogue-license lppl1.3c
+catalogue-topics book-pub class doc-templ expl3

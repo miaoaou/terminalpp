@@ -1,0 +1,17 @@
+name ipsum
+category Package
+revision 68861
+shortdesc Insert multilingual placeholder text
+relocated 1
+longdesc This is a package to work with multilingual Lorem Ipsum dummy
+longdesc texts.
+runfiles size=13
+ RELOC/tex/latex/ipsum/ipsum.sty
+catalogue-also lipsum
+catalogue-contact-bugs https://github.com/cpierquet/ipsum/issues
+catalogue-contact-home https://github.com/cpierquet/ipsum
+catalogue-contact-repository https://github.com/cpierquet/ipsum
+catalogue-ctan /macros/latex/contrib/ipsum
+catalogue-license lppl1.3c
+catalogue-topics dummy-gen
+catalogue-version 0.1.2

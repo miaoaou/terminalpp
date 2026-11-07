@@ -1,0 +1,17 @@
+name jumplines
+category Package
+revision 37553
+shortdesc Articles with teasers and continuation later on
+relocated 1
+longdesc Jumplines is a package for typesetting (newspaper) articles
+longdesc that show a teaser (some few lines of text/content) and are
+longdesc continued at a later place, with optional hyperlinking and a
+longdesc list of articles. It requires lualatex for colour support in
+longdesc split boxes.
+runfiles size=5
+ RELOC/tex/latex/jumplines/jumplines.sty
+catalogue-ctan /macros/latex/contrib/jumplines
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics luatex journalpub
+catalogue-version 0.2

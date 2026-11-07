@@ -1,0 +1,87 @@
+%%
+%% This is file `markdownthemewitiko_graphicx_http.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% markdown.dtx  (with options: `themes-witiko-graphicx-http')
+%% 
+%% Copyright (C) 2016-2024 Vít Starý Novotný
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Vít Starý Novotný.
+%% 
+%% Send bug reports, requests for additions and questions
+%% either to the GitHub issue tracker at
+%% 
+%%   https://github.com/Witiko/markdown/issues
+%% 
+%% or to the e-mail address <witiko@mail.muni.cz>.
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\ProvidesPackage{markdownthemewitiko_graphicx_http}[2021/03/22]%
+\let\markdown@witiko@graphicx@http@oldRendererImagePrototype
+  \markdownRendererImagePrototype
+\RequirePackage{catchfile,grffile}
+\newcount\markdown@witiko@graphicx@http@counter
+\markdown@witiko@graphicx@http@counter=0
+\newcommand\markdown@witiko@graphicx@http@filename{%
+  \markdownOptionCacheDir/witiko_graphicx_http%
+  .\the\markdown@witiko@graphicx@http@counter}%
+\newcommand\markdown@witiko@graphicx@http@download[2]{%
+  wget -O #2 #1 || curl --location -o #2 #1 || rm -f #2}
+\begingroup
+\catcode`\%=12
+\catcode`\^^A=14
+\global\def\markdownRendererImagePrototype#1#2#3#4{^^A
+  \begingroup
+    \edef\filename{\markdown@witiko@graphicx@http@filename}^^A
+    \markdownIfOption{frozenCache}{}{^^A
+      \immediate\write18{^^A
+        mkdir -p "\markdownOptionCacheDir";
+        if printf '%s' "#3" | grep -q -E '^https?:';
+        then
+          OUTPUT_PREFIX="\markdownOptionCacheDir";
+          OUTPUT_BODY="$(printf '%s' '#3' | md5sum | cut -d' ' -f1)";
+          OUTPUT_SUFFIX="$(printf '%s' '#3' | sed 's/.*[.]//')";
+          OUTPUT="$OUTPUT_PREFIX/$OUTPUT_BODY.$OUTPUT_SUFFIX";
+          if ! [ -e "$OUTPUT" ];
+          then
+            \markdown@witiko@graphicx@http@download{'#3'}{"$OUTPUT"};
+            printf '%s' "$OUTPUT" > "\filename";
+          fi;
+        else
+          printf '%s' '#3' > "\filename";
+        fi}}^^A
+    \CatchFileDef{\filename}{\filename}{\endlinechar=-1}^^A
+    \markdown@witiko@graphicx@http@oldRendererImagePrototype^^A
+      {#1}{#2}{\filename}{#4}^^A
+  \endgroup
+  \global\advance\markdown@witiko@graphicx@http@counter by 1\relax}^^A
+\endgroup
+\endinput
+%%
+%% End of file `markdownthemewitiko_graphicx_http.sty'.

@@ -1,0 +1,16 @@
+name dpfloat
+category Package
+revision 17196
+shortdesc Support for double-page floats
+relocated 1
+longdesc Provides fullpage and leftfullpage environments, that may be
+longdesc used inside a figure, table, or other float environment. If the
+longdesc first of a 2-page spread uses a "leftfullpage" environment, the
+longdesc float will only be typeset on an even-numbered page, and the
+longdesc two floats will appear side-by-side in a two-sided document.
+runfiles size=1
+ RELOC/tex/latex/dpfloat/dpfloat.sty
+catalogue-ctan /macros/latex/contrib/dpfloat
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics float

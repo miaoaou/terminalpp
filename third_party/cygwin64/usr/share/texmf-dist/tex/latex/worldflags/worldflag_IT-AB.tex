@@ -1,0 +1,70 @@
+% --------------------------------------------------------------------------
+% Italy - Abruzzo (2023-07-05)
+% --------------------------------------------------------------------------
+\if\flagvariant0\begin{flagdescription}{2/3}
+\else\begin{flagdescription}{0.68912}\fi
+\definecolor{gold}{RGB}{253,227,109}
+\definecolor{brown}{RGB}{157,134,56}
+\definecolor{red}{RGB}{227,4,67}
+\definecolor{white}{RGB}{255,255,255}
+\definecolor{blue}{RGB}{29,92,167}
+\definecolor{green}{RGB}{119,183,41}
+\background{red}
+\newdimen\lw\lw=0.003\flagwidth
+% Rand
+\if\flagvariant1
+\newdimen\delta\delta=0.0228\flagwidth
+\fill [brown] (0,0)-|(\flaglength,1)-|(0,\flagwidth-\delta)-|
+      (\flaglength-\delta,\delta)-|cycle;
+\foreach \n in {1,...,113}
+  \draw [gold,line width=0.005\flagwidth,line cap=round]
+     (\flaglength-0.002\flagwidth,\n/113-0.005)--++(-0.02,0);
+\pgfmathparse{\flaglength/\flagwidth*112-1}
+\foreach \n in {1,...,\pgfmathresult}
+  \draw [gold,line width=0.005\flagwidth,line cap=round]
+     (\n/113-0.005,0.002)--++(0,0.02) (\n/113-0.005,0.998)--++(0,-0.02);
+\fi
+% Wappen
+\if\flagvariant0
+  \begin{scope}[xshift=0.5\flaglength,yshift=0.5\flagwidth,scale=\flagwidth/350.25]
+  \begin{scope}[y=0.8pt, x=0.8pt, yscale=-1,shift={(-330,-230)}]
+\else
+  \begin{scope}[xshift=0.5\flaglength,yshift=0.5\flagwidth,scale=\flagwidth/368.25]
+  \begin{scope}[y=0.8pt, x=0.8pt, yscale=-1,shift={(-335,-230)}]
+\fi
+  \path[fill=white,nonzero rule] (425.4580,323.5576) .. controls
+    (425.4580,333.4980) and (417.3984,341.5576) .. (407.4580,341.5576) --
+    (346.7080,341.5576) .. controls (336.7676,341.5576) and (328.7080,349.6143) ..
+    (328.7080,359.5576) .. controls (328.7080,349.6143) and (320.6484,341.5576) ..
+    (310.7080,341.5576) -- (248.8330,341.5576) .. controls (238.8926,341.5576) and
+    (230.8330,333.4980) .. (230.8330,323.5576) -- (230.8330,100.2451) --
+    (425.4580,100.2451) -- cycle(425.4580,323.5576);
+  \path[fill=blue,nonzero rule] (425.5283,323.7686) .. controls
+    (425.5283,333.7090) and (417.4688,341.7686) .. (407.5283,341.7686) --
+    (346.7783,341.7686) .. controls (336.8379,341.7686) and (328.7783,349.8252) ..
+    (328.7783,359.7686) .. controls (328.7783,349.8252) and (320.7188,341.7686) ..
+    (310.7783,341.7686) -- (248.9033,341.7686) .. controls (238.9629,341.7686) and
+    (230.9033,333.7090) .. (230.9033,323.7686) -- (230.9033,282.1846) --
+    (425.5283,139.7900) -- cycle(425.5283,323.7686);
+  \path[fill=green,nonzero rule] (230.2324,253.8340) -- (383.5137,100.5527) --
+    (425.3379,100.7461) -- (426.0820,180.4893) -- (264.7646,341.8066) --
+    (246.0527,341.6895) .. controls (235.6025,340.3154) and (233.1094,333.5156) ..
+    (230.7217,326.6426) -- cycle(230.2324,253.8340);
+  \path[draw=brown,line cap=butt,line join=miter,line width=2.700\lw,miter
+    limit=4.00] (426.5156,324.6562) .. controls (426.5156,334.5967) and
+    (418.4561,342.6562) .. (408.5156,342.6562) -- (347.7656,342.6562) .. controls
+    (337.8252,342.6562) and (329.7656,350.7158) .. (329.7656,360.6562) .. controls
+    (329.7656,350.7158) and (321.7061,342.6562) .. (311.7656,342.6562) --
+    (249.8906,342.6562) .. controls (239.9502,342.6562) and (231.8906,334.5967) ..
+    (231.8906,324.6562) -- (231.8906,101.3438) -- (426.5156,101.3438) --
+    cycle(426.5156,324.6562);
+\end{scope}
+\end{scope}
+
+
+
+
+
+
+\framecode{}
+\end{flagdescription}

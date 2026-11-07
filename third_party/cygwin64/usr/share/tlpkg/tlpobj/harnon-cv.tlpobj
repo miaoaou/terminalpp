@@ -1,0 +1,14 @@
+name harnon-cv
+category Package
+revision 26543
+shortdesc A CV document class with a vertical timeline for experience
+relocated 1
+longdesc The class offers another modern, neat, design, and provides a
+longdesc simple means of adding an 'experience timeline'.
+runfiles size=2
+ RELOC/tex/latex/harnon-cv/harnon-cv.cls
+catalogue-ctan /macros/latex/contrib/harnon-cv
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics cv class
+catalogue-version 1.0

@@ -1,0 +1,16 @@
+name normalcolor
+category Package
+revision 40125
+shortdesc Changing \normalcolor
+relocated 1
+longdesc This package provides a command \setnormalcolor with the same
+longdesc syntax as the command \color either of package color or of
+longdesc package xcolor. However, \setnormalcolor will not change the
+longdesc current colour but the normal / default color.
+runfiles size=1
+ RELOC/tex/latex/normalcolor/normalcolor.sty
+catalogue-ctan /macros/latex/contrib/normalcolor
+catalogue-date 2016-11-16 07:56:28 +0100
+catalogue-license lppl1.3
+catalogue-topics colour
+catalogue-version r11

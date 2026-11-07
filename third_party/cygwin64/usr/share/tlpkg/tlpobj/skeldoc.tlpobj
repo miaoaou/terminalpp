@@ -1,0 +1,20 @@
+name skeldoc
+category Package
+revision 57922
+shortdesc Placeholders for unfinished documents
+relocated 1
+longdesc This package lets you produce placeholder elements for
+longdesc documents under development, similar to the skeleton screens
+longdesc used while loading contents in many applications and websites.
+longdesc It also has a mechanism for attaching explanatory endnotes to
+longdesc these placeholders, or to anything else in your document. The
+longdesc same note mechanism can also be used with ordinary content,
+longdesc e.g., as a to-do mechanism.
+runfiles size=7
+ RELOC/tex/latex/skeldoc/skeldoc.sty
+catalogue-contact-bugs https://github.com/mlhetland/skeldoc.sty/issues
+catalogue-contact-repository https://github.com/mlhetland/skeldoc.sty
+catalogue-ctan /macros/latex/contrib/skeldoc
+catalogue-license mit
+catalogue-topics dummy-gen editorial notes rule expl3
+catalogue-version 0.1.2

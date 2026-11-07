@@ -1,0 +1,17 @@
+name lectures
+category Package
+revision 53642
+shortdesc A document class for quickly drafting nice looking lecture notes
+relocated 1
+longdesc This LaTeX documentclass provides a number of gimmicks to draft
+longdesc nice looking lecture notes, such as a number of theorem
+longdesc environments, automatic spacing and alignment of figures and
+longdesc much more. More information is available in the package readme.
+runfiles size=6
+ RELOC/tex/latex/lectures/lectures.cls
+catalogue-contact-bugs https://github.com/LucaCappelletti94/lectures/issues
+catalogue-contact-repository https://github.com/LucaCappelletti94/lectures
+catalogue-ctan /macros/latex/contrib/lectures
+catalogue-license mit
+catalogue-topics class presentation teaching
+catalogue-version 1.0.5

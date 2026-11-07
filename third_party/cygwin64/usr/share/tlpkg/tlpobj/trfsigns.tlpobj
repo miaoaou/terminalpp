@@ -1,0 +1,14 @@
+name trfsigns
+category Package
+revision 15878
+shortdesc Typeset transform signs
+relocated 1
+longdesc A package for typesetting various transformation signs for
+longdesc Laplace transforms, Fourier transforms and others.
+runfiles size=2
+ RELOC/tex/latex/trfsigns/trfsigns.sty
+catalogue-ctan /macros/latex/contrib/trfsigns
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics maths-symbol
+catalogue-version 1.01

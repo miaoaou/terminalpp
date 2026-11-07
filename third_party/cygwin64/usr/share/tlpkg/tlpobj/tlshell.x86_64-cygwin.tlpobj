@@ -1,0 +1,6 @@
+name tlshell.x86_64-cygwin
+category TLCore
+revision 45015
+shortdesc x86_64-cygwin files of tlshell
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/tlshell

@@ -1,0 +1,165 @@
+% tkz-obj-eu-draw-circles.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-obj-eu-draw-circles.tex} 
+\makeatletter 
+%<--------------------------------------------------------------------------–>
+%                    tkzSetUpCircle  
+%<--------------------------------------------------------------------------–>
+\pgfkeys{%
+    /tkzsetupcirc/.cd,
+    color/.code              =   \def\tkz@circle@color{#1},
+    line width/.code         =   \def\tkz@circle@linewidth{#1},
+    style/.code              =   \def\tkz@circle@style{#1},
+  /tkzsetupcirc/.search also =   {/tikz}
+ } 
+ %<--------------------------------------------------------------------------–>
+ 
+\def\tkzSetUpCircle{\pgfutil@ifnextchar[{\tkz@SetUpCircle}{\tkz@SetUpCircle[]}}
+\def\tkz@SetUpCircle[#1]{%
+\pgfkeys{%
+    tkzsetupcirc/.cd,
+    line width                  = \tkz@euc@circlelw,
+    color                       = \tkz@euc@circlecolor,
+    style                       = \tkz@euc@circlestyle
+}
+\pgfqkeys{/tkzsetupcirc}{#1}
+\tikzset{%
+    circle style/.append style   = { %
+    color                        = \tkz@circle@color,
+    line width                   = \tkz@circle@linewidth,
+    style                        = \tkz@circle@style,
+    #1}
+    }
+}% end setup 
+ %<--------------------------------------------------------------------------–>
+
+\def\tkzDrawCircle{\pgfutil@ifnextchar[{\tkz@DrawCircle}{\tkz@DrawCircle[]}}
+\def\tkz@DrawCircle[#1](#2,#3){%  
+\begingroup 
+\node [draw,circle through=(#3), circle style,#1] at (#2) {};  
+%perhaps I need to use the last method
+     %  \tkzCalcLength(#2,#3) \tkzGetLength{tkz@ncradius}
+			% \draw[circle style,#1](#2) circle (\tkz@ncradius);
+\endgroup
+}
+%<--------------------------------------------------------------------------–> 
+\def\tkz@multicircles#1 #2\@nil{% 
+\protected@edef\tkz@temp{
+\noexpand \tkzDrawCircle[\tkz@optcircle](#1)}\tkz@temp% 
+\def\tkz@nextArg{#2}%
+\ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+\fi
+\next#2\@nil
+}%
+%<--------------------------------------------------------------------------–>
+\def\tkzDrawCircles{\pgfutil@ifnextchar[{\tkz@DrawCircles}{\tkz@DrawCircles[]}} 
+\def\tkz@DrawCircles[#1](#2){%
+\xdef\tkz@optcircle{#1} 
+\begingroup
+   \let\next\tkz@multicircles
+   \next#2 \@nil %    
+\endgroup     
+}% 
+%<--------------------------------------------------------------------------–>
+% #2 #3 rayon
+
+\def\tkzDrawSemiCircle{\pgfutil@ifnextchar[{\tkz@DrawSemiCircle}{%
+                                            \tkz@DrawSemiCircle[]}}
+\def\tkz@DrawSemiCircle[#1](#2,#3){% 
+\begingroup 
+    \pgfpointdiff{\pgfpointanchor{#2}{center}}%
+                 {\pgfpointanchor{#3}{center}}%
+    \tkz@ax=\pgf@x%
+    \tkz@ay=\pgf@y%
+    \path(#2)--++(-\tkz@ax,-\tkz@ay) coordinate (tkz@pt); 
+    \tkzDrawArc[#1,delta=0](#2,#3)(tkz@pt)
+\endgroup
+}%
+%<--------------------------------------------------------------------------–> 
+\def\tkz@multisemicircles#1 #2\@nil{% 
+\protected@edef\tkz@temp{
+\noexpand \tkzDrawSemiCircle[\tkz@optsemicircle](#1)}\tkz@temp% 
+\def\tkz@nextArg{#2}%
+\ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+\fi
+\next#2\@nil
+}%
+%<--------------------------------------------------------------------------–>
+\def\tkzDrawSemiCircles{\pgfutil@ifnextchar[{\tkz@DrawSemiCircles}{%
+\tkz@DrawSemiCircles[]}} 
+\def\tkz@DrawSemiCircles[#1](#2){%
+\xdef\tkz@optsemicircle{#1} 
+\begingroup
+   \let\next\tkz@multisemicircles
+   \next#2 \@nil %    
+\endgroup     
+}% 
+%<---------------------------- Fill Circle  --------------------------------–>
+\def\tkzFillCircle{\pgfutil@ifnextchar[{\tkz@FillCircle}{\tkz@FillCircle[]}}
+\def\tkz@FillCircle[#1](#2,#3){%
+\begingroup      
+   \node [fill,circle through=(#3),#1] at (#2) {};   
+\endgroup
+}%
+\def\tkz@multifillcircles#1 #2\@nil{% 
+\protected@edef\tkz@temp{
+\noexpand \tkzFillCircle[\tkz@optfillcircle](#1)}\tkz@temp% 
+\def\tkz@nextArg{#2}%
+\ifx\tkzutil@empty\tkz@nextArg
+     \let\next\@gobble
+\fi
+\next#2\@nil
+}%
+\def\tkzFillCircles{\pgfutil@ifnextchar[{\tkz@FillCircles}{%
+\tkz@FillCircles[]}} 
+\def\tkz@FillCircles[#1](#2){%
+\xdef\tkz@optfillcircle{#1} 
+\begingroup
+   \let\next\tkz@multifillcircles
+   \next#2 \@nil %    
+\endgroup     
+}% 
+
+%<--------------------------- Clip Circle  ---------------------------------–>
+\pgfkeys{/tkzclipc/.cd,    
+         out code/.is if         =  tkzClipOutCircle,
+         out/.code               =  \tkzClipOutCirclefalse
+}%
+%<--------------------------------------------------------------------------–>
+\def\tkzClipCircle{\pgfutil@ifnextchar[{\tkz@ClipCircle}{\tkz@ClipCircle[]}}
+\def\tkz@ClipCircle[#1](#2,#3){%    
+\tkzClipOutCircletrue
+\pgfqkeys{/tkzclipc}{#1}
+   \tkz@@CalcLength(#2,#3){tkzLengthResult}
+   \iftkzClipOutCircle
+     \clip (#2) circle (\tkzLengthResult pt);
+   \else
+     \clip (#2) circle (\tkzLengthResult pt) [tkzreverseclip] ;
+    \fi
+} 
+%<--------------------------- Label Circle  --------------------------------–>
+\def\tkzLabelCircle{\pgfutil@ifnextchar[{\tkz@LabelCircle}{%
+                                         \tkz@LabelCircle[]}}
+% [option]  (#2,#3) #2 center #3  un point du cercle  #4 angle #5 the label
+\def\tkz@LabelCircle[#1](#2,#3)(#4)#5{%
+\begingroup      
+   \tkzURotateAngle(#2,#4)(#3)
+   \node[label style,#1] at (tkzPointResult) {#5};        
+\endgroup
+}
+\makeatother 
+\endinput

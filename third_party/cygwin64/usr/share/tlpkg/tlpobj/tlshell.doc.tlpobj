@@ -1,0 +1,7 @@
+name tlshell.doc
+category TLCore
+revision 70419
+shortdesc doc files of tlshell
+docfiles size=2
+ texmf-dist/doc/support/tlshell/README
+ tlpkg/tltcl/README.TEXLIVE

@@ -1,0 +1,17 @@
+name utf8add
+category Package
+revision 61074
+shortdesc Additional support for UTF-8 encoded LaTeX input
+relocated 1
+longdesc This bundle contains the LaTeX packages utf8add.sty and
+longdesc utf8hax.sty. The utf8add package provides additional support
+longdesc for the use of UTF-8 encoded input. This is intended for making
+longdesc LaTeX input more readable. The utf8hax package is using UTF-8
+longdesc characters for easier access to math in LaTeX, however making
+longdesc the LaTeX input less readable.
+runfiles size=7
+ RELOC/tex/latex/utf8add/utf8add.sty
+ RELOC/tex/latex/utf8add/utf8hax.sty
+catalogue-ctan /macros/latex/contrib/utf8add
+catalogue-license gpl3+
+catalogue-topics inputenc

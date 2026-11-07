@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% «The macros for process the language(s) data to display in the Periodic Table» ------------
+% --------------------------------------------------------------------------------------------------
+% v2.1.0: Added support for user language
+% Labels available in: pt, en, fr, de, it, es, br, user
+% --------------------------------------------------------------------------------------------------
+% \pgfPTsetLanguage{<language flag>}
+% --------------------------------------------------------------------------------------------------
+%   Used to change the default language
+%   Language flags:
+%       - pt, Portuguese (Portugal)
+%       - en, English
+%       - fr, French
+%       - de, German
+%       - it, Italian
+%       - es, Spanish
+%       - br, Portuguese (Brazil)
+%       - user, user language
+\def\pgfPTsetLanguage#1{%
+% changed in  v2.1.0
+\edef\pgfPT@tmp{#1}%
+\ifx\pggPT@userlanguage@ISOcode\pgfPT@tmp\relax\edef\pgfPT@tmp{user}\fi%
+%\pgfPT@validLang{#1}%
+\pgfPT@validLang{\pgfPT@tmp}%
+%
+\ifx\pgfPT@langOK\undefined\relax%
+\PackageError{pgfPT}{invalid language flag '#1'. It will be ignored (default 'en'\space will be used)}{}%
+\xdef\pgfPT@defaultLanguage{en}%
+\else\xdef\pgfPT@defaultLanguage{#1}\global\let\pgfPT@langOK\undefined\relax\global\let\pgfPTlanguages\pgfPT@tmp\relax%
+\fi}%
+% --------------------------------------------------------------------------------------------------
+% List of available languages
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@languagesList{pt,en,fr,de,it,es,br,user}%
+% --------------------------------------------------------------------------------------------------
+% Validating language
+\def\pgfPT@validLang#1{\ignorespaces%
+\edef\pgfPT@lang{#1}%
+\@for\@pgfPT@tmp:=\pgfPT@languagesList\do{%
+        \edef\pgfPT@currLang{\@pgfPT@tmp}%
+        \ifx\pgfPT@lang\pgfPT@currLang\relax\xdef\pgfPT@langOK{OK}\fi%
+    }%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@getFirstLanguage#1,#2\relax{%
+\pgfPT@validLang{#1}%
+\ifx\pgfPT@langOK\undefined\relax%
+\PackageError{pgfPT}{invalid language flag '#1'. It will be ignored (default 'en'\space will be used)}{}%
+\xdef\pgfPT@FirstLanguage{en}%
+\else\xdef\pgfPT@FirstLanguage{#1}\global\let\pgfPT@langOK\undefined\relax%
+\fi}%
+% --------------------------------------------------------------------------------------------------
+%
+% ########################################################
+% macros for processing Periodic Table Labels
+% ########################################################
+%
+% --------------------------------------------------------------------------------------------------
+% DATA @ pgfPT.labels.tex ->
+%       \pgfPT@labels@titulo{Tabela Periódica dos Elementos/pt,Periodic Table of Elements/en,Periodic...
+%       \pgfPT@labels@La{...
+%       \pgfPT@labels@...
+%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@setlabels[languages list]{label}
+% OUTPUT:
+%       \pgfPT@labels@<label>@lang1{txt} , \pgfPT@labels@<label>@lang2{txt} , ...
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@setlabels{\@ifnextchar[\@pgfPT@setlabels{\@pgfPT@setlabels[\pgfPT@defaultLanguage]}}%
+\def\@pgfPT@setlabels[#1]#2{\ignorespaces%
+\@for\@pgfPT@lang:=#1\do{%
+        \pgfPT@validLang{\@pgfPT@lang}%
+        \ifx\pgfPT@langOK\undefined\relax%
+            \PackageError{pgfPT}{invalid language flag '\@pgfPT@lang'. It will be ignored...}{}%
+        \else%
+            \global\let\pgfPT@langOK\undefined\relax%
+            \@pgfPT@buildlabelmacro{\@pgfPT@lang}{#2}%
+        \fi%
+    }%
+}%
+% Aux macro
+% \@pgfPT@buildlabelmacro{language}{label}
+% OUTPUT:
+%       \pgfPT@labels@<label>@lang{txt}
+\def\@pgfPT@buildlabelmacro#1#2{\ignorespaces%
+\edef\@pgf@tmplist{\csname pgfPT@labels@#2\endcsname}%
+\edef\@pgfPT@testlanguage{#1}%
+\@for\@pgfPT@tmp:=\@pgf@tmplist\do{%
+        \expandafter\@pgfPT@list@info\@pgfPT@tmp\relax%
+        \ifx\@pgfPT@testlanguage\@pgfPT@list@info@ii\expandafter\edef\csname pgfPT@labels@#2@#1\endcsname{\@pgfPT@list@info@i}\fi%
+    }%
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@setacro[languages list]{label}
+% OUTPUT:
+%       \pgfPT@acro@@{txt}
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@setacro{\@ifnextchar[\@pgfPT@setacro{\@pgfPT@setacro[\pgfPT@defaultLanguage]}}%
+\def\@pgfPT@setacro[#1]#2{\ignorespaces%
+\expandafter\@pgfPT@setacro@setlang#1, \relax%
+\pgfPT@validLang{\@pgfPT@setacro@lang}%
+\ifx\pgfPT@langOK\undefined\relax%
+    \PackageError{pgfPT}{invalid language flag '\@pgfPT@setacro@lang'. It will be ignored...}{}%
+\else%
+    \global\let\pgfPT@langOK\undefined\relax%
+    \edef\pgfPT@acrolist{\csname pgfPT@acr@#2\endcsname}%
+    \edef\@pgfPT@testa{\@pgfPT@setacro@lang}%
+    \foreach \@@pgfPT@acro/\@@pgfPT@langflag in \pgfPT@acrolist{%
+                \edef\@pgfPT@testb{\@@pgfPT@langflag}\relax%
+                \ifx\@pgfPT@testa\@pgfPT@testb\relax\xdef\pgfPT@theacro{\@@pgfPT@acro}\relax\breakforeach\fi%
+                }%
+\fi%
+}%
+\def\@pgfPT@setacro@setlang#1,#2\relax{\edef\@pgfPT@setacro@lang{#1}}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@setacroDesc[languages list]{label}
+% OUTPUT:
+%       \pgfPT@acro@<acro>@<lang>
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@setacroDesc{\@ifnextchar[\@pgfPT@setacroDesc{\@pgfPT@setacroDesc[\pgfPT@defaultLanguage]}}%
+\def\@pgfPT@setacroDesc[#1]#2{\ignorespaces%
+\@for\@pgfPT@lang:=#1\do{%
+        \pgfPT@validLang{\@pgfPT@lang}%
+        \ifx\pgfPT@langOK\undefined\relax%
+            \PackageError{pgfPT}{invalid language flag '\@pgfPT@lang'. It will be ignored...}{}%
+        \else%
+            \global\let\pgfPT@langOK\undefined\relax%
+            \@pgfPT@buildlabelmacro{\@pgfPT@lang}{#2}%
+        \fi%
+    }%
+}%
+% --------------------------------------------------------------------------------------------------
+%
+% ########################################################
+% macros for processing Element Names
+% ########################################################
+%
+% --------------------------------------------------------------------------------------------------
+% DATA @ pgfPT.names.tex ->
+%       \pgfPT@nomes@i{Hidrogénio/pt,Hydrogen/en,...
+%       \pgfPT@nomes@ii{...
+%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@getnames[languages list]{Z}
+% OUTPUT:
+%       \pgfPTdata@name@<roman Z>@lang{name}
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@setnames{\@ifnextchar[\@pgfPT@setnames{\@pgfPT@setnames[\pgfPT@defaultLanguage]}}%
+\def\@pgfPT@setnames[#1]#2{\ignorespaces%
+\@for\@pgfPT@lang:=#1\do{%
+        \pgfPT@validLang{\@pgfPT@lang}%
+        \ifx\pgfPT@langOK\undefined\relax%
+            \PackageError{pgfPT}{invalid language flag '\@pgfPT@lang'. It will be ignored...}{}%
+        \else%
+            \global\let\pgfPT@langOK\undefined\relax%
+            \@pgfPT@buildnamemacro{\@pgfPT@lang}{#2}%
+        \fi%
+    }%
+}%
+% Aux macro
+% \@pgfPT@buildnamemacro{language}{Z}
+% OUTPUT:
+%       \pgfPTdata@name@<roman Z>@lang{txt}
+\def\@pgfPT@buildnamemacro#1#2{\ignorespaces%
+\edef\@pgf@tmplist{\csname pgfPT@nomes@\@roman{#2}\endcsname}%
+\edef\@pgfPT@testlanguage{#1}%
+\@for\@pgfPT@tmp:=\@pgf@tmplist\do{%
+        \expandafter\@pgfPT@list@info\@pgfPT@tmp\relax%
+        \ifx\@pgfPT@testlanguage\@pgfPT@list@info@ii\expandafter\edef\csname pgfPTdata@name@\@roman{#2}@#1\endcsname{\@pgfPT@list@info@i}\fi%
+    }%
+}%
+%
+% ########################################################
+% macros for common processing
+% ########################################################
+% --------------------------------------------------------------------------------------------------
+% \@pgfPT@list@info list element 1/list element 2\relax
+% OUTPUT:
+%       \@pgfPT@list@info@i{list element 1}
+%       \@pgfPT@list@info@ii{list element 2}
+%  ----------------------------------------------------------------------------------------------------------------
+\def\@pgfPT@list@info#1/#2\relax{\edef\@pgfPT@list@info@i{#1}\edef\@pgfPT@list@info@ii{#2}}%
+\endinput

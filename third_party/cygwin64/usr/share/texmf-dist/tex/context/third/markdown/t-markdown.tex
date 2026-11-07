@@ -1,0 +1,169 @@
+%%
+%% This is file `t-markdown.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% markdown.dtx  (with options: `context')
+%% 
+%% Copyright (C) 2016-2024 Vít Starý Novotný
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Vít Starý Novotný.
+%% 
+%% Send bug reports, requests for additions and questions
+%% either to the GitHub issue tracker at
+%% 
+%%   https://github.com/Witiko/markdown/issues
+%% 
+%% or to the e-mail address <witiko@mail.muni.cz>.
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\unprotect
+\ifx\ExplSyntaxOn\undefined
+  \input expl3-generic
+\fi
+\ExplSyntaxOn
+\tl_const:Nn \c__markdown_option_layer_context_tl { context }
+\cs_generate_variant:Nn
+  \tl_const:Nn
+  { NV }
+\tl_if_exist:NF
+  \c__markdown_top_layer_tl
+  {
+    \tl_const:NV
+      \c__markdown_top_layer_tl
+      \c__markdown_option_layer_context_tl
+  }
+\ExplSyntaxOff
+\writestatus{loading}{ConTeXt User Module / markdown}%
+\startmodule[markdown]
+\def\dospecials{\do\ \do\\\do\{\do\}\do\$\do\&%
+  \do\#\do\^\do\_\do\%\do\~}%
+\input markdown/markdown
+\let\startmarkdown\relax
+\let\stopmarkdown\relax
+\let\inputmarkdown\relax
+\ExplSyntaxOn
+\cs_new:Npn
+  \setupmarkdown
+  [ #1 ]
+  {
+    \__markdown_setup:n
+      { #1 }
+  }
+\cs_new:Nn \__markdown_caseless:N
+  {
+    \regex_replace_all:nnN
+      { ([a-z])([A-Z]) }
+      { \1 \c { str_lowercase:n } \cB\{ \2 \cE\} }
+      #1
+    \tl_set:Nx
+      #1
+      { #1 }
+  }
+\seq_gput_right:Nn \g__markdown_cases_seq { __markdown_caseless:N }
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_context_tl
+  {
+    \__markdown_define_option_commands_and_keyvals:
+    \__markdown_define_renderers:
+    \__markdown_define_renderer_prototypes:
+  }
+\ExplSyntaxOff
+\def\markdownMakeOther{%
+  \count0=128\relax
+  \loop
+    \catcode\count0=11\relax
+    \advance\count0 by 1\relax
+  \ifnum\count0<256\repeat
+  \catcode`|=12}%
+\long\def\inputmarkdown{%
+  \dosingleempty
+  \doinputmarkdown}%
+\long\def\doinputmarkdown[#1]#2{%
+  \begingroup
+    \iffirstargument
+      \setupmarkdown[#1]%
+    \fi
+    \markdownInput{#2}%
+  \endgroup}%
+\startluacode
+  document.markdown_buffering = false
+  local function preserve_trailing_spaces(line)
+    if document.markdown_buffering then
+      line = line:gsub("[ \t][ \t]$", "\t\t")
+    end
+    return line
+  end
+  resolvers.installinputlinehandler(preserve_trailing_spaces)
+\stopluacode
+\begingroup
+  \catcode`\|=0%
+  \catcode`\\=12%
+  |gdef|startmarkdown{%
+    |ctxlua{document.markdown_buffering = true}%
+    |markdownReadAndConvert{\stopmarkdown}%
+                           {|stopmarkdown}}%
+  |gdef|stopmarkdown{%
+    |ctxlua{document.markdown_buffering = false}%
+    |markdownEnd}%
+|endgroup
+\ExplSyntaxOn
+\cs_gset:Nn
+  \__markdown_load_theme:nn
+  {
+    \file_if_exist:nTF
+      { t - markdown theme #2.tex }
+      {
+        \msg_info:nnn
+          { markdown }
+          { loading-context-theme }
+          { #1 }
+        \usemodule
+          [ t ]
+          [ markdown theme #2 ]
+      }
+      {
+        \__markdown_plain_tex_load_theme:nn
+          { #1 }
+          { #2 }
+      }
+  }
+\msg_new:nnn
+  { markdown }
+  { loading-context-theme }
+  { Loading~ConTeXt~Markdown~theme~#1 }
+\ExplSyntaxOff
+\markdownIfOption{noDefaults}{}{
+  \setupmarkdown[theme=witiko/markdown/defaults]
+}
+\stopmodule
+\protect
+\endinput
+%%
+%% End of file `t-markdown.tex'.

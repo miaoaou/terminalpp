@@ -1,0 +1,18 @@
+name foliono
+category Package
+revision 58877
+shortdesc Use folio numbers to replace page numbers
+relocated 1
+longdesc This package adds functionality to create several styles of
+longdesc folio numbers. Folio numbering preceded the modern page
+longdesc numbering convention and was in common use until the 18th
+longdesc century. In folio numbering the numbers are placed only on odd
+longdesc (right-side) pages and the numbers typically comprise of two
+longdesc parts: quire and folio numbers. The intended use for this
+longdesc package is to help creating old-style books.
+runfiles size=4
+ RELOC/tex/latex/foliono/foliono.sty
+catalogue-ctan /macros/latex/contrib/foliono
+catalogue-license lppl1.3c
+catalogue-topics numbers page-nos
+catalogue-version 1.000

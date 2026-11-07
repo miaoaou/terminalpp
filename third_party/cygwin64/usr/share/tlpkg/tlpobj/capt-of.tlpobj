@@ -1,0 +1,18 @@
+name capt-of
+category Package
+revision 29803
+shortdesc Captions on more than floats
+relocated 1
+longdesc Defines a command \captionof for putting a caption to something
+longdesc that's not a float. Note that the caption package includes a
+longdesc \captionof command that is an extension of that provided by
+longdesc this package.
+runfiles size=1
+ RELOC/tex/latex/capt-of/capt-of.sty
+catalogue-also caption captdef
+catalogue-contact-repository https://github.com/rf-latex/capt-of
+catalogue-contact-support https://github.com/rf-latex/capt-of/issues
+catalogue-ctan /macros/latex/contrib/capt-of
+catalogue-date 2018-09-14 18:00:39 +0200
+catalogue-license lppl
+catalogue-topics caption

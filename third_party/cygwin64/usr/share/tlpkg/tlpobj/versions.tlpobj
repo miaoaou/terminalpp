@@ -1,0 +1,18 @@
+name versions
+category Package
+revision 21921
+shortdesc Optionally omit pieces of text
+relocated 1
+longdesc Stephan Bellantoni's version has provided preamble commands for
+longdesc selecting environments to be included/excluded. This package
+longdesc does the same, but corrects, improves, and extends it in both
+longdesc implementation and function.
+runfiles size=4
+ RELOC/tex/latex/versions/versions.sty
+catalogue-also version optional verbatim comment
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/latex/contrib/versions
+catalogue-date 2017-05-06 09:36:54 +0200
+catalogue-license lppl1.3
+catalogue-topics cond-comp
+catalogue-version 0.55

@@ -1,0 +1,13 @@
+name fontsize
+category Package
+revision 60161
+shortdesc A small package to set arbitrary sizes for the main font of the document
+relocated 1
+longdesc The package allows you to set arbitrary sizes for the main font
+longdesc of the document, through the fontsize=<size> option.
+runfiles size=10
+ RELOC/tex/latex/fontsize/fontsize.sty
+catalogue-ctan /macros/latex/contrib/fontsize
+catalogue-license lppl1.3
+catalogue-topics font-supp-misc
+catalogue-version 0.8.5

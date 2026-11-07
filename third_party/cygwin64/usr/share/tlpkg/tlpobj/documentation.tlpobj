@@ -1,0 +1,15 @@
+name documentation
+category Package
+revision 34521
+shortdesc Documentation support for C, Java and assembler code
+relocated 1
+longdesc The package provides a simple means of typesetting computer
+longdesc programs such that the result is acceptable for inclusion in
+longdesc reports, etc.
+runfiles size=2
+ RELOC/tex/latex/documentation/documentation.sty
+catalogue-ctan /macros/latex/contrib/documentation
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics listing
+catalogue-version 0.1

@@ -1,0 +1,52 @@
+name europasscv
+category Package
+revision 56829
+shortdesc Unofficial class for the new version of the Europass curriculum vitae
+relocated 1
+longdesc This class is an unofficial LaTeX implementation of the
+longdesc Europass CV, the standard model for curriculum vitae as
+longdesc recommended by the European Commission. It includes the major
+longdesc style updates that came out in 2013, featuring a neater, more
+longdesc compact and somewhat fancier layout.
+runfiles size=43
+ RELOC/tex/latex/europasscv/def/europasscv_ca.def
+ RELOC/tex/latex/europasscv/def/europasscv_cs.def
+ RELOC/tex/latex/europasscv/def/europasscv_da.def
+ RELOC/tex/latex/europasscv/def/europasscv_de.def
+ RELOC/tex/latex/europasscv/def/europasscv_el.def
+ RELOC/tex/latex/europasscv/def/europasscv_en.def
+ RELOC/tex/latex/europasscv/def/europasscv_es.def
+ RELOC/tex/latex/europasscv/def/europasscv_fr.def
+ RELOC/tex/latex/europasscv/def/europasscv_hu.def
+ RELOC/tex/latex/europasscv/def/europasscv_it.def
+ RELOC/tex/latex/europasscv/def/europasscv_nb.def
+ RELOC/tex/latex/europasscv/def/europasscv_pl.def
+ RELOC/tex/latex/europasscv/def/europasscv_pt.def
+ RELOC/tex/latex/europasscv/def/europasscv_ro.def
+ RELOC/tex/latex/europasscv/def/europasscv_sk.def
+ RELOC/tex/latex/europasscv/def/europasscv_sl.def
+ RELOC/tex/latex/europasscv/def/europasscv_sv.def
+ RELOC/tex/latex/europasscv/def/europasscv_tr.def
+ RELOC/tex/latex/europasscv/europasscv-bibliography.sty
+ RELOC/tex/latex/europasscv/europasscv.cls
+ RELOC/tex/latex/europasscv/europasslogo2013.pdf
+ RELOC/tex/latex/europasscv/icons/address_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/git_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/github_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/gitlab_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/im_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/linkedin_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/mail_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/mobile_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/orcid_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/telephone_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/website_europass_icon.pdf
+ RELOC/tex/latex/europasscv/icons/work_europass_icon.pdf
+catalogue-also europecv curve currvita cv esieecv vita
+catalogue-contact-announce https://github.com/gmazzamuto/europasscv/releases
+catalogue-contact-bugs https://github.com/gmazzamuto/europasscv/issues
+catalogue-contact-home https://www.devrandom.it/software/europasscv/
+catalogue-contact-repository https://github.com/gmazzamuto/europasscv
+catalogue-ctan /macros/latex/contrib/europasscv
+catalogue-license lppl1.3
+catalogue-topics cv class

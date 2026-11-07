@@ -1,0 +1,20 @@
+name tikzmarmots
+category Package
+revision 54080
+shortdesc Drawing little marmots in TikZ
+relocated 1
+longdesc This is a LaTeX package for marmots to be used in TikZ
+longdesc pictures. These little figures are constructed in such a way
+longdesc that they may even "borrow" some garments and other attributes
+longdesc from the TikZducks.
+runfiles size=3
+ RELOC/tex/latex/tikzmarmots/tikzlibrarymarmots.code.tex
+ RELOC/tex/latex/tikzmarmots/tikzmarmots.sty
+catalogue-also tikzducks tikzlings
+catalogue-contact-bugs https://github.com/samcarter/tikzmarmots/issues
+catalogue-contact-repository https://github.com/samcarter/tikzmarmots
+catalogue-contact-support https://github.com/samcarter/tikzmarmots/issues
+catalogue-ctan /graphics/pgf/contrib/tikzmarmots
+catalogue-license lppl1.3c
+catalogue-topics amusements graphics pgf-tikz
+catalogue-version 1.0

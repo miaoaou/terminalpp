@@ -1,0 +1,19 @@
+name autoarea
+category Package
+revision 59552
+catalogue pictex-autoarea
+shortdesc Automatic computation of bounding boxes with PiCTeX
+relocated 1
+longdesc This package makes PiCTeX recognize lines and arcs in
+longdesc determining the "bounding box" of a picture. (PiCTeX so far
+longdesc accounted for put commands only). The "bounding box" is
+longdesc essential for proper placement of a picture between running
+longdesc text and margins and for keeping the running text away.
+runfiles size=3
+ RELOC/tex/latex/autoarea/autoarea.sty
+catalogue-also pictex
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /graphics/pictex-addons/autoarea
+catalogue-license lppl
+catalogue-topics graphics-in-tex
+catalogue-version 0.3a

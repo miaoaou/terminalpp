@@ -1,0 +1,18 @@
+name ebezier
+category Package
+revision 15878
+shortdesc Device independent picture environment enhancement
+relocated 1
+longdesc Ebezier is a device independent extension for the standard
+longdesc picture environment. Linear, quadratic, and cubic bezier curves
+longdesc are supplied in connection with higher level circle drawing
+longdesc commands. Additionally some macros for the calculation of curve
+longdesc lenghts are part of this package.
+runfiles size=5
+ RELOC/tex/latex/ebezier/ebezier.sty
+catalogue-also pst-bezier
+catalogue-ctan /macros/latex/contrib/ebezier
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-curve graphics-in-tex
+catalogue-version 4

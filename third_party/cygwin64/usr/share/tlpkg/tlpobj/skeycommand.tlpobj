@@ -1,0 +1,17 @@
+name skeycommand
+category Package
+revision 24652
+shortdesc Create commands using parameters and keyval in parallel
+relocated 1
+longdesc The package provides tools for defining LaTeX commands and
+longdesc environments using combinations of parameters and keys. All the
+longdesc facilities of the ltxkeys and skeyval packages are available to
+longdesc the user of skeycommand.
+runfiles size=5
+ RELOC/tex/latex/skeycommand/skeycommand.sty
+catalogue-also skeyval
+catalogue-ctan /macros/latex/contrib/skeycommand
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics keyval macro-supp
+catalogue-version 0.4

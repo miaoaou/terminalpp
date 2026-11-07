@@ -1,0 +1,16 @@
+name hang
+category Package
+revision 43280
+shortdesc Environments for hanging paragraphs and list items
+relocated 1
+longdesc This package provides environments for hanging paragraphs and
+longdesc list items. In addition, it defines environments for labeled
+longdesc paragraphs and list items.
+runfiles size=1
+ RELOC/tex/latex/hang/hang.sty
+catalogue-also hanging
+catalogue-ctan /macros/latex/contrib/hang
+catalogue-date 2017-02-19 05:41:33 +0100
+catalogue-license lppl1.3
+catalogue-topics layout list
+catalogue-version 2.1

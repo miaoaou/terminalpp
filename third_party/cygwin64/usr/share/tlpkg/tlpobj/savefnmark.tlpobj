@@ -1,0 +1,17 @@
+name savefnmark
+category Package
+revision 15878
+shortdesc Save name of the footnote mark for reuse
+relocated 1
+longdesc Sometimes the same footnote applies to more than one location
+longdesc in a table. With this package the mark of a footnote can be
+longdesc saved into a name, and re-used subsequently without creating
+longdesc another footnote at the bottom.
+runfiles size=1
+ RELOC/tex/latex/savefnmark/savefnmark.sty
+catalogue-also fixfoot
+catalogue-ctan /macros/latex/contrib/savefnmark
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics footnote
+catalogue-version 1.0

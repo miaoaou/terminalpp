@@ -1,0 +1,14 @@
+name practicalreports
+category Package
+revision 52312
+shortdesc Some macros for writing practical reports
+relocated 1
+longdesc This package provides a handful of macros for writing up
+longdesc science practical reports.
+runfiles size=2
+ RELOC/tex/latex/practicalreports/practicalreports.sty
+catalogue-ctan /macros/latex/contrib/practicalreports
+catalogue-date 2019-10-07 15:19:08 +0200
+catalogue-license lppl1.3c
+catalogue-topics report-like
+catalogue-version 2.0.3

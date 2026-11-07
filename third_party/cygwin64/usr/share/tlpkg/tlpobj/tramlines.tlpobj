@@ -1,0 +1,14 @@
+name tramlines
+category Package
+revision 65692
+shortdesc A package for creating tramlines (lines above and below a title used by lawyers in the UK)
+relocated 1
+longdesc This package automatically creates tramlines (lines above and
+longdesc below a title used by lawyers in the UK and the Commonwealth).
+runfiles size=1
+ RELOC/tex/latex/tramlines/tramlines.sty
+catalogue-contact-home https://github.com/ezgranet/tramlines
+catalogue-ctan /macros/latex/contrib/tramlines
+catalogue-license lppl1.3c cc-by-sa-3
+catalogue-topics headings legal
+catalogue-version 1.1.0

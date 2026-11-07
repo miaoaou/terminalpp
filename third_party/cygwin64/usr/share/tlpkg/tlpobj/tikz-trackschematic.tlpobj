@@ -1,0 +1,28 @@
+name tikz-trackschematic
+category Package
+revision 63480
+shortdesc A TikZ library for creating track diagrams in railways
+relocated 1
+longdesc This TikZ library is a toolbox of symbols geared primarily
+longdesc towards creating track schematic for either research or
+longdesc educational purposes. It provides a TikZ frontend to some of
+longdesc the symbols which may be needed to describe situations and
+longdesc layouts in railway operation. The library is divided into
+longdesc sublibraries: topology, trafficcontrol, vehicles,
+longdesc constructions, electrics, symbology, and measures.
+runfiles size=43
+ RELOC/tex/latex/tikz-trackschematic/tikz-trackschematic.sty
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.constructions.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.electrics.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.measures.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.symbology.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.topology.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.trafficcontrol.code.tex
+ RELOC/tex/latex/tikz-trackschematic/tikzlibrarytrackschematic.vehicles.code.tex
+catalogue-contact-home https://www.railtoolkit.org/projects/tikz-trackschematic/
+catalogue-contact-repository https://github.com/railtoolkit/tikz-trackschematic
+catalogue-ctan /graphics/pgf/contrib/tikz-trackschematic
+catalogue-license isc
+catalogue-topics pgf-tikz graphics diagram
+catalogue-version 0.7.1

@@ -1,0 +1,637 @@
+%%
+%% This is file `wrapfig2.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% wrapfig2.dtx  (with options: `package')
+%% 
+%% Copyright (C) 1991-2004 by Donald Arseneau  (asnd@triumf.ca)
+%% Copyright (C) 2021-2024 by Claudio Beccari (claudio.beccari@gmail.com)
+%% License information appended
+%% 
+\NeedsTeXFormat{LaTeX2e}[2019/01/01]
+\ProvidesPackage{wrapfig2}%
+ [2024-01-18 v.7.0.0 Wrap text around figures, tables, framed text blocks]
+\ifcsname c@WF@wrappedlines\endcsname
+\PackageError{wrapfig2}{
+\MessageBreak
+**************************************************\MessageBreak
+  Package `wrapfig' has already been loaded perhaps   \MessageBreak
+  by other packages, for example caption or subcaption.\MessageBreak
+  Such packages are incompatible with wrapfig2        \MessageBreak
+  Loading of`wrapfig2' is aborted                     \MessageBreak
+**************************************************\MessageBreak
+}{You might type X <return> and might get along without\MessageBreak
+  this package if you don't use the new environment   \MessageBreak
+ `wraptext' and the new commands; otherwise you get   \MessageBreak
+  errors about such environment not being defined;    \MessageBreak
+  you must kill your job!}
+\expandafter\endinput\fi
+
+\def\WF@warning{\PackageWarning{wrapfig2}}
+\DeclareOption{verbose}{\def\WF@info{\PackageInfo{wrapfig2}}}
+\newif\ifWFnew \let\ifWFnew\iftrue
+\newif\ifWFfive \let\ifWFfive\iffalse
+\DeclareOption{WFold}{\let\ifWFnew\iffalse}
+\DeclareOption{WFfive}{\let\ifWFnew\iffalse\let\ifWFfive\iftrue}
+\ProcessOptions
+
+\@ifpackageloaded{xparse}{}{\RequirePackage{xparse}}
+\@ifpackageloaded{xfp}{}{\RequirePackage{xfp}}
+\@ifpackageloaded{etoolbox}{}{\RequirePackage{etoolbox}}
+\@ifpackageloaded{float}{}{\RequirePackage{float}}
+\@ifpackageloaded{color}{}%
+  {\@ifpackageloaded{xcolor}{}%
+     {\RequirePackage{xcolor}}%
+ }
+\@ifpackageloaded{pict2e}{}{\RequirePackage{pict2e}}
+\@ifpackageloaded{xkeyval}{}{\RequirePackage{xkeyval}}
+
+\ifcsdef{text}{\let\amsTextText\text}{}
+
+\ifboolexpr{ bool{WFfive} or bool{WFnew} }%
+   {\floatstyle{plain}%
+  \ifcsname chapter\endcsname
+    \newfloat{text}{tbp}{lotx}[chapter]%
+  \else
+    \newfloat{text}{tbp}{lotx}%
+  \fi
+  \floatname{text}{Text}% redefine to localise in other languages
+  \let\WF@text@caption\float@caption
+  }{}
+
+\newdimen\wrapoverhang \wrapoverhang\z@
+\newdimen\WF@size
+\newcount\c@WF@wrappedlines
+\newbox\WF@box
+\newbox\NWF@box
+\newtoks\WF@everypar
+\newif\ifWF@float
+\newcount\WF@correctlines@switch
+\let\@@parshape\parshape
+\let\WF@@everypar\everypar
+
+\newlength\WFfrthick
+\newlength\WFfrgap
+\newlength\WFfrwidth
+\newlength\WFfrheight
+\newdimen\insertwidth
+\newlength\WFXR \newlength\WFYD
+\newlength\WFXL \newlength\WFYU
+\newdimen\radius
+\newdimen\WFinsertwidthL
+\newdimen\WFinsertwidthH
+
+\definecolor{WFbackground}{rgb}{0.95,0.95,0.95}
+\definecolor{WFframe}{rgb}{0.1,0.1,0.1}
+\colorlet{WFtext}{black}
+\def\SetWFbgd#1{\colorlet{WFbackground}{#1}}
+\def\SetWFfrm#1{\colorlet{WFframe}{#1}}
+\def\SetWFtxt#1{\colorlet{WFtext}{#1}}
+
+\def\WFsplitdimens#1,#2!{\fboxrule=#1\relax\fboxsep=#2\relax}
+
+\providecommand\setfontsize{}
+\RenewDocumentCommand\setfontsize{O{1.2} m}{%
+  \fontsize{#2}{\fpeval{#1*#2}}\selectfont}
+
+\def\WFscalefactor{0.8}%
+\newcommand*\WFscalewidth{%
+  \WFinsertwidthL=\fpeval{\WFscalefactor*0.5\columnwidth}\p@
+  \WFinsertwidthH=\fpeval{0.5\columnwidth/\WFscalefactor}\p@
+  \ifdim\insertwidth<\WFinsertwidthL
+    \insertwidth=\WFinsertwidthL
+  \else
+    \ifdim\insertwidth>\WFinsertwidthH
+      \insertwidth=\WFinsertwidthH
+    \fi
+  \fi
+}%
+
+\DeclareOptionX<wraptext>{scalefactor}[0.8]{\def\WFscalefactor{#1}}
+\DeclareOptionX<wraptext>{fboxrule}[1pt]{\fboxrule=#1}
+\DeclareOptionX<wraptext>{fboxsep}[1ex]{\fboxsep=#1}
+\DeclareOptionX<wraptext>{framecolor}[WFframe]{\SetWFfrm{#1}}
+\DeclareOptionX<wraptext>{backgroundcolor}[WFbackground]{\SetWFbgd{#1}}
+\DeclareOptionX<wraptext>{textcolor}[WFtext]{\SetWFtxt{#1}}
+\DeclareOptionX<wraptext>{fontstyle}[\normalfont]{#1}
+\DeclareOptionX<wraptext>{radius}[\fboxsep]{\radius=#1}
+\DeclareOptionX<wraptext>{insertionwidth}[0.5\columnwidth]{\insertwidth=#1}
+\DeclareOptionX*{\PackageWarning{wrapfig2}%
+  {`\CurrentOption' ignored}}
+
+\ExecuteOptionsX<wraptext>{scalefactor, fboxrule, fboxsep,
+framecolor, backgroundcolor, textcolor, fontstyle, radius,
+insertionwidth}
+
+\ProcessOptionsX*
+
+\NewDocumentEnvironment{wrapfigure}{o m o G{0pt}}%
+  {\wrapfloat{figure}[#1]{#2}[#3]{#4}}%
+  {\endwrapfloat}
+
+\NewDocumentEnvironment{wraptable}{o m o G{0pt}}%
+  {\wrapfloat{table}[#1]{#2}[#3]{#4}}%
+  {\endwrapfloat}
+
+\ifboolexpr{ bool{WFfive} or bool{WFnew} }%
+{\NewDocumentCommand\includeframedtext{%
+  O{\insertwidth} m O{} o}{\bgroup%
+  \ExecuteOptionsX<wraptext>{#3}%  executes possible options
+  \insertwidth=#1\WFscalewidth
+  \framedbox{\insertwidth}{\fboxrule}{\fboxsep}[\radius]{#2}\egroup}
+}{}
+
+\NewDocumentCommand\framedbox{m m m  O{#3} m}{\bgroup
+\dimen0=\dimexpr#1-(#2+#3)*2\relax
+\setbox0\hbox{\parbox{\dimen0}{\color{WFtext}#5}}%
+\WFfrthick=#2\relax
+\WFXR=\dimexpr\wd0/2\relax \WFXL=-\WFXR%
+\WFYU=\dimexpr(\ht0+\dp0)/2\relax \WFYD=-\WFYU%
+\dimen4=#1\relax \dimen6=\dimexpr\ht0+\dp0+(#2+#3)*2\relax
+\dimen8=#4
+{\begin{picture}(\dimen4,\dimen6)(-0.5\dimen4,-0.5\dimen6)
+\Frame*{\dimen4}{\dimen6}{\dimen8}%
+\ifdim\WFfrthick>0pt\Frame{\dimen4}{\dimen6}{\dimen8}\fi
+\put(0mm,0mm){\makebox(0,0){\box0}}%
+\end{picture}}%
+\egroup\ignorespaces}
+
+\NewDocumentCommand\Frame{s m m m}{%
+\bgroup
+\WFXR=\dimexpr#2/2\relax \WFXL=-\WFXR%
+\WFYU=\dimexpr#3/2\relax \WFYD=-\WFYU%
+\IfBooleanTF{#1}{\linethickness{0pt}\color{WFbackground}}%
+{\linethickness{\WFfrthick}\color{WFframe}}%
+\moveto(\WFXR,\WFYD+#4)%
+\circlearc{\WFXR-#4}{\WFYU-#4}{#4}{0}{90}%
+\circlearc{\WFXL+#4}{\WFYU-#4}{#4}{90}{180}%
+\circlearc{\WFXL+#4}{\WFYD+#4}{#4}{180}{270}%
+\circlearc{\WFXR-#4}{\WFYD+#4}{#4}{270}{360}%
+\closepath
+\IfBooleanTF{#1}{\fillpath}{\strokepath}%
+\egroup\ignorespaces}
+
+\ifboolexpr{bool{WFnew} or bool{WFfive}}{% definition for versions 5 to 7
+\NewDocumentEnvironment{wraptext}{O{0} m O{0pt} G{0.5\columnwidth} s}{%
+  \insertwidth=#4\WFscalewidth
+  \def\textplacement{#2}%
+  \def\textcorrection{#1}%
+  \def\textoverhang{#3}%
+  \IfBooleanT{#5}{\PackageWarning{wrapfig2}{%
+  *********************************************\MessageBreak
+  With wraptext the optional star is useless   \MessageBreak
+  because the first optional argument always   \MessageBreak
+  means the "lines number CORRECTION"          \MessageBreak
+  *********************************************\MessageBreak}}
+  \bgroup\edef\x{\egroup\noexpand\wrapfloat{text}%
+    [\textcorrection]{\textplacement}[\textoverhang]{\insertwidth}*}\x%
+  \def\caption{\unskip\unskip
+    \refstepcounter\@captype
+    \let\@tempf\@caption
+    \unless\ifcsname @float@c@\@captype\endcsname
+      \expandafter\expandafter\let
+        \expandafter\@tempf\csname @float@c@\@captype\endcsname
+    \fi
+    \@dblarg{\@caption\@captype}%
+    }%
+}{\endwrapfloat\ignorespaces}%
+}{%                          definition for version 4 fall back
+  \NewDocumentEnvironment{wraptext}%
+        {O{l} D||{0.5\columnwidth} D<>{0} D(){text}}%
+  {%                                           Open environment
+    \insertwidth=#2
+    \def\textplacement{#1}%
+    \def\textcorrection{#3}%
+    \def\WF@caption@label{#4}%
+    \setbox0\hbox\bgroup
+      \minipage{\dimexpr\insertwidth-2pt-6ex}%
+}{%                                           Close environment
+  \endminipage\egroup
+    \begin{lrbox}{\NWF@box}%
+      \framedbox{\box0}{1pt}{1ex}%
+    \end{lrbox}
+    \edef\NWF@wli]{\fpeval{%
+      round((\ht\NWF@box+\dp\NWF@box)/\baselineskip,0)+2+\textcorrection}%
+                          }%
+    \unles\ifhmode
+      \leavevmode\noindent
+    \fi
+    \bgroup\edef\x{\egroup\noexpand\wrapfloat{\WF@caption@label}[\NWF@wli]%
+        {\textplacement}{\the\insertwidth}}\x
+      \box\NWF@box
+    \endwrapfloat
+    \ignorespaces
+  }
+}
+
+\NewDocumentEnvironment{wrapfloat}{m o m o G{\z@}}%
+{%                                        open environment code
+    \def\@captype{#1}\WF@wr[#2]{#3}[#4]{#5}%
+}{%                                      close environment code
+  \ifdim\hsize>\z@
+    \par\hrule\@width\hsize\@height\z@ %       force width with
+  \else
+
+    \egroup \box\z@  %                            or close hbox
+  \fi
+ \egroup %           close the vtop box; its width now is known
+  \WF@floatstyhook %                      support for float.sty
+  \def\width{\wd\WF@box}%
+  \setlength\wrapoverhang{\WF@ovh}%
+  \xdef\WF@ovh{\the\wrapoverhang}%          save until wrapping
+  \ifdim\ht\WF@box>\topskip \ht\WF@box\z@ \fi%        too high,
+  \ifdim\ht\WF@box<.5\p@ %                   too short, move up
+    \global\setbox\WF@box\vtop{\vskip-1.4ex\unvbox\WF@box}%
+  \fi
+   \global\WF@size=%       compute total box hight with \fpeval
+     \fpeval{\ht\WF@box+\dp\WF@box+1.5\baselineskip+\tw@\intextsep}\p@
+   \aftergroup\WF@startfloating%     use even when not floating
+  \unless\ifWF@float
+    \ifhmode
+      {\unskip \parfillskip\z@skip \par \vskip-\parskip}%
+      \aftergroup\noindent
+    \fi
+  \fi
+  \global\@ignoretrue
+}
+
+\NewDocumentCommand\WF@wr{o m o m s}{%
+  \xdef\WF@wfname{wrap\@captype\space}%
+  \unless\ifvoid\WF@box
+    \WFclear \WF@collision
+  \fi
+  \xdef\WF@place{\string`\@car#2r\@nil}%
+  \ifnum\lccode\WF@place=\WF@place
+      \global\WF@floatfalse
+  \else
+      \global\WF@floattrue
+  \fi
+  \ifx\parshape\WF@fudgeparshape
+    \unless\ifWF@float\\WF@collision\fi
+  \else
+    \ifx\par\@@par
+      \ifnum\@@parshape>\z@\WF@conflict\fi
+    \else
+      \WF@conflict
+    \fi
+   \fi
+   \IfValueTF{#1}%     save optional line number or correction
+     {\gdef\WF@wli{#1}}%
+     {\gdef\WF@wli{0}}%
+  \IfValueTF{#3}%                       save optional overhang
+      {\gdef\WF@ovh{#3}}%
+      {\gdef\WF@ovh{\z@}}%
+   \global\setbox\WF@box\vtop\bgroup
+     \setlength\hsize{#4}%                           set width
+   \ifdim\hsize>\z@
+     \@parboxrestore
+   \else
+     \setbox\z@\hbox\bgroup
+     \let\wf@@caption\caption
+     \let\caption\wf@caption
+     \ignorespaces
+   \fi
+  \IfBooleanTF{#5}%          if star, set the numerical switch
+              {\global\WF@correctlines@switch=\@ne}%
+              {\global\WF@correctlines@switch=\z@}%
+
+}
+\def\wf@caption{\relax% redefine \wf@caption if \hsize is zero
+  \ifdim\hsize>\z@
+    \let\caption\wf@@caption
+  \else
+    \unskip \egroup \hsize\wd\z@
+    \@parboxrestore \box\z@%                      export \box0
+  \fi
+  \caption
+}
+
+\def\WF@startfloating{%
+ \WF@everypar\expandafter{\the\everypar}\let\everypar\WF@everypar
+ \WF@@everypar{\ifvoid\WF@box\else\WF@floathand\fi \the\everypar
+ \WF@wraphand
+}}
+
+\def\WF@floathand{%
+  \ifx\parshape\WF@fudgeparshape
+    \WF@fltmes
+  \else
+    \ifx\par\@@par
+      \ifnum\@@parshape=\z@
+        \ifdim\hangindent=\z@
+          \setbox\z@\lastbox \begingroup
+          \@@par \WF@@everypar{}\WF@putfigmaybe
+          \endgroup %           after this group start wrapping
+          \unless\ifvoid\z@ %               replace indentation
+              \box\z@
+          \fi
+        \else
+          \WF@fltmes
+        \fi
+      \else
+        \WF@fltmes
+      \fi
+    \else
+      \WF@fltmes
+    \fi
+  \fi}
+
+\def\WF@putfigmaybe{%
+\ifinner
+  \vskip-\parskip \global\WF@floatfalse
+  \let\pagetotal\maxdimen %   kludge flag for "not top of page"
+\else %                                              outer page
+  {\advance\parskip\@tempdima\vskip-\parskip}%  back up to base
+  \penalty\interlinepenalty %            update page parameters
+  \@tempdimb\dimexpr\pagegoal - \pagetotal \relax%    room left
+  \ifdim \@tempdimb<\z@ %                     page already full
+    \global\WF@floatfalse
+    \unless\ifdim-\@tempdimb>\pageshrink \pagebreak \fi
+  \else
+    \ifdim\WF@size>\@tempdimb%   box does not fit in \@tempdimb
+      \ifWF@float
+        \dimen@ 0.5\baselineskip
+      \else
+        \dimen@ 2\baselineskip
+      \fi
+      \ifdim\pagestretch>\dimen@ \dimen@\pagestretch \fi
+      \ifdim\pagefilstretch>\z@ \dimen@\@tempdimb \fi
+      \ifdim\pagefillstretch>\z@ \dimen@\@tempdimb \fi
+      \advance\dimen@ 0.5\baselineskip
+      \ifdim\dimen@>\@tempdimb %          stretch page contents
+        \global\WF@floatfalse \pagebreak
+      \fi
+    \else %                              box fits in \@tempdimb
+      \global\WF@floatfalse
+    \fi
+  \fi
+  \vskip\@tempdima%                    return erased page depth
+\fi
+\noindent
+\ifWF@float
+  \WF@fltmes
+\else %                                    place insertion here
+  \WF@info{Put \WF@wfname here:}%
+  {\ifodd
+     \if@twoside\c@page\else\@ne\fi% assign l/r to i/o placement
+     \lccode`i`l\lccode`o`r\else \lccode`i`r\lccode`o`l%
+   \fi
+   \xdef\WF@place{\the\lccode\lccode\WF@place}%
+                 }%                    twice to get only l or r
+  \hbox to\z@{%                llap o rlap depending on l or r;
+    \@tempdima\wd\WF@box \@tempdimb\WF@ovh
+    \advance\@tempdima-\@tempdimb \advance\@tempdima\columnsep
+    \@tempdimb\hsize \advance\@tempdimb-\@tempdima
+    \xdef\WF@adjlw{\the\@tempdima}%
+    \ifnum `l=\WF@place %                        object on left
+      \hss
+      \def\@tempa{\kern\columnsep}%  take right gap into action
+    \else %                                     object on right
+      \@tempdima\z@ %                       no left indentation
+      \kern\@tempdimb \kern\columnsep
+      \def\@tempa{\hss}%     object overlaps space to the right
+    \fi
+    \ifdim\@tempdimb<\hsize
+      \xdef\WF@wrapil{\the\@tempdima \the\@tempdimb}%
+      \xdef\WF@adjtlm{\the\@tempdima}%
+    \else
+      \xdef\WF@wrapil{\z@ \the\hsize}%
+      \xdef\WF@adjlw{\z@}\xdef\WF@adjtlm{\z@}%
+    \fi
+    \ifdim\pagetotal=\z@ %   put object at top of page \thepage
+      \global\advance\WF@size-\intextsep
+    \else %                    put object in middle of the page
+      \setbox\WF@box\hbox{\lower\intextsep\box\WF@box}%
+    \fi
+    \dp\WF@box\z@
+    \box\WF@box
+    \@tempa
+  }%                                           end \hbox to 0pt
+  \aftergroup\WF@startwrapping
+\fi
+}
+
+\def\WF@startwrapping{%
+  \ifnum\WF@wli=\z@ %                   no number was specified
+    \setcounter{WF@wrappedlines}%
+      {\fpeval{round(\WF@size/\baselineskip,0)}}%
+    \xdef\WF@wli{\value{WF@wrappedlines}}%
+  \else
+    \ifnum\WF@correctlines@switch>\z@ %  line number correction
+      \setcounter{WF@wrappedlines}
+        {\fpeval{round((\WF@size)/\baselineskip,0)+\WF@wli}}%
+      \xdef\WF@wli{\the\c@WF@wrappedlines}%
+    \else
+      \setcounter{WF@wrappedlines}{\WF@wli}%    absolute number
+      \stepcounter{WF@wrappedlines}%
+    \fi
+  \fi
+  \ifnum\c@WF@wrappedlines>\@ne %                   fine tuning
+    \let\parshape\WF@fudgeparshape \let\WF@pspars\@empty \let\WF@@par\par
+    \def\@setpar##1{\def\WF@@par{##1}}\def\par{\@par}\let\@par\WF@mypar
+    \xdef\WF@restoretol{\tolerance\the\tolerance}\tolerance9999\relax
+    \advance\linewidth-\WF@adjlw \advance\@totalleftmargin\WF@adjtlm
+  \fi
+}
+
+\def\WF@wraphand{%         for indenting one or more paragraphs
+  \ifnum\c@WF@wrappedlines<\tw@
+    \WF@finale
+  \else \begingroup %                 create a parshape command
+    \@tempcnta\@ne \let\WF@wrapil\relax \gdef\WF@ps{}%
+    \@whilenum
+      \@tempcnta<\c@WF@wrappedlines\do{%   repeated indentation
+      \xdef\WF@ps{\WF@ps\WF@wrapil}\advance\@tempcnta\@ne
+      }%
+    \endgroup
+    \ifx\WF@pspars\@empty
+      \@@parshape\c@WF@wrappedlines \WF@ps \WF@noil
+    \else %use external `parshape' values to modify my parshape
+      \WF@modps
+    \fi
+  \fi
+}
+
+\def\WF@mypar{\relax
+  \WF@@par
+  \ifnum\@@parshape=\z@
+    \let\WF@pspars\@empty %                      reset parshape
+  \fi
+  \global\advance\c@WF@wrappedlines-\prevgraf \prevgraf\z@
+  \ifnum\c@WF@wrappedlines<\tw@
+    \WF@finale
+  \fi
+}
+
+\def\WF@modps{\begingroup
+  \afterassignment\@tempdimb \@tempdima\WF@pspars%
+  \advance\@tempdima-\WF@adjtlm \advance\@tempdimb\WF@adjlw
+  \let\WF@wrapil\WF@pspars
+  \edef\@tempb{\@@parshape\c@WF@wrappedlines
+                \WF@ps \the\@tempdima \the\@tempdimb}%
+  \expandafter\endgroup\@tempb
+}
+
+\let\@@setpar\@setpar
+\def\WF@noil{\z@ \hsize}
+\let\WF@pspars\@empty
+
+\def\WF@fudgeparshape{\relax
+  \ifnum\c@WF@wrappedlines<\tw@
+    \WF@finale
+  \else
+    \afterassignment\WF@fudgeparshapee \fam
+  \fi
+}
+
+\def\WF@fudgeparshapee{%
+  \ifnum\fam=\@ne \expandafter
+    \WF@parshapeee
+  \else
+    \WF@conflict \@@parshape\fam
+  \fi
+}
+
+\def\WF@parshapeee#1#2{%
+  \begingroup\delimitershortfall#1%
+  \nulldelimiterspace#2%       \advance \nulldelimiterspace by
+  \edef\@tempa{\def\noexpand\WF@pspars{%
+      \the\delimitershortfall \the\nulldelimiterspace}}%
+  \expandafter\endgroup\@tempa \WF@wraphand
+}
+
+\def\WF@finale{%
+  \ifx\parshape\WF@fudgeparshape
+    \WF@restoretol \let\@setpar\@@setpar \let\par\WF@@par
+    \advance\linewidth\WF@adjlw \advance\@totalleftmargin-\WF@adjtlm
+    \WF@info{Finish wrapping text}%
+    \ifx\par\@@par
+      \def\@par{\let\par\@@par\par}%
+    \else
+      \let\@par\WF@@par
+    \fi
+    \let\parshape\@@parshape
+    \parshape=\ifx\WF@pspars\@empty
+                \z@
+              \else
+                \@ne \WF@pspars
+              \fi
+  \fi
+  \ifvoid\WF@box
+    \ifx\everypar\WF@everypar
+      \let\everypar\WF@@everypar \everypar\expandafter{\the\WF@everypar}%
+    \fi
+  \fi
+}
+
+\newcommand{\WFclear}{\par
+  \unless\ifvoid\WF@box
+    \vskip\bigskipamount \box\WF@box
+    \let\everypar\WF@@everypar \everypar\expandafter{\the\WF@everypar}%
+  \fi
+  \global\c@WF@wrappedlines\z@ \WF@finale
+  \global\WF@correctlines@switch\z@
+}
+
+\begingroup
+ \toks0={\let\everypar\WF@@everypar
+         \everypar\expandafter{\the\WF@everypar}%
+         \let\parshape\@@parshape
+         \let\@setpar\@@setpar
+        }
+ \toks1=\expandafter{\@arrayparboxrestore}%
+ \toks2=\expandafter{\clearpage}%
+ \edef\@tempa{%
+      \def\noexpand\@arrayparboxrestore{\the\toks0 \the\toks1}%
+      \def\noexpand\clearpage
+      {\noexpand\protect\noexpand\WFclear \the\toks2}}%
+ \expandafter\endgroup\@tempa
+
+\@ifundefined{@capwidth}{\let\@capwidth\hsize}{}%
+
+\def\WF@conflict{\WF@warning
+  {\WF@wfname used inside a conflicting environment}}%
+
+\def\WF@collision{\WF@warning{Collision between wrapping environments}}%
+
+\def\WF@fltmes{%                             message for floats
+  \ifWF@float
+    \WF@info{\WF@wfname floats}%
+ \else
+   \WF@warning{Stationary \WF@wfname forced to float}%
+ \fi
+}
+
+\let\WF@warning\@warning
+\let\WF@info\@gobble
+
+\let\WF@floatstyhook\relax
+
+\@ifundefined{newfloat}{}{%     \newfloat comes from somewhere
+  \@ifundefined{restylefloat}{%
+    \@ifclassloaded{memoir}{%
+      \toks@=\expandafter\expandafter\expandafter
+       {\csname\string\newfloat\endcsname [{#1}]{#2}{#3}{#4}%
+       \newenvironment{wrap#2}{\wrapfloat{#2}}{\endwrapfloat}%
+      }%                Mmmm; this might be wrong. Not tested
+\edef\@tempa{\def\expandafter\noexpand\csname\string\newfloat
+\endcsname[##1]##2##3##4{\the\toks@}}%
+      \@tempa
+     }%                                      end memoir support
+     {}%                       other origins of \newfloat here?
+  }{%                  float.sty handler. Ops: Two versions for
+  \@ifundefined{float@restyle}%
+    {%                                         older float.sty
+      \toks@=\expandafter{\restylefloat{##1}%    env. might be
+      \@namedef{wrap#1}{%
+        \def\@captype{#1}\@nameuse{fst@#1}%
+        \def\WF@floatstyhook{\let\@currbox\WF@box
+          \columnwidth\wd\WF@box
+          \global\setbox\WF@box\float@makebox}%
+      \@ifnextchar[\WF@wr{\WF@wr[]}}%
+      \expandafter\let\csname endwrap#1\endcsname \endwrapfigure
+      }%
+    \edef\@tempa{\def\noexpand\restylefloat##1{\the\toks@}}%
+  }{% newer float.sty: uses \float@restyle, and \float@makebox
+      \toks@=\expandafter{\float@restyle{#1}%    env. might be
+        \@namedef{wrap#1}{\def\@captype{#1}\@nameuse{fst@#1}%
+          \def\WF@floatstyhook{\let\@currbox\WF@box
+            \global\setbox\WF@box\float@makebox{\wd\WF@box}}%
+        \@ifnextchar[\WF@wr{\WF@wr[]}}%
+        \expandafter\let\csname endwrap#1\endcsname
+        \endwrapfigure
+      }%
+      \edef\@tempa{\def\noexpand\float@restyle##1{\the\toks@}}%
+    }%
+    \@tempa %                             perform redefinitions
+    }%                                    end float.sty handler
+}%                               end redefinitions of \newfloat
+
+\ifcsname newfloatlist\endcsname%          support ccaption.sty
+  \toks@=\expandafter\expandafter\expandafter
+    {\csname\string\newfloatlist\endcsname [{#1}]{#2}{#3}{#4}{#5}%
+  \@namedef{wrap#2}{\wrapfloat{#2}}%
+  \expandafter\let\csname endwrap#2\endcsname \endwrapfloat
+  }%
+  \edef\@tempa{%
+  \def\expandafter\noexpand\csname\string\newfloatlist\endcsname
+   [##1]##2##3##4##5{\the\toks@}}%
+  \@tempa
+\fi
+
+\ifcsdef{amsTextText}{\let\text\amsTextText}{}
+
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained"
+%% 
+%% This work consists of file wrapfig2.dtx, and the derived
+%% files wrapfig2.sty and wrapfig2.pdf, plus this file README.txt.
+%% 
+%%
+%% End of file `wrapfig2.sty'.

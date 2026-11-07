@@ -1,0 +1,216 @@
+% colorframed.sty    v0.9b    2022/10/01
+% Copyright (C) 2022 Jean-François Burnol
+% Distributed under the terms of the LPPL 1.3c, see README.md
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{colorframed}
+    [2022/10/01 v0.9b fix `framed' breakable boxes colour leaks (JFB)]
+% Apart from code comments here, documentation is in colorframed-doc.pdf
+\RequirePackage{framed}
+\RequirePackage{color}
+% First we must make \MakeFramed/\endMakeFramed colour safe.
+\expandafter\def\expandafter\MakeFramed\expandafter#\expandafter1\expandafter
+  {\MakeFramed{#1}\color@begingroup}
+\expandafter\def\expandafter\endMakeFramed\expandafter
+  {\expandafter\color@endgroup\endMakeFramed}
+%
+% `framed'
+\def\FrameCommand{%
+    \setlength\fboxrule{\FrameRule}\setlength\fboxsep{\FrameSep}%
+    \CustomFBox{}{}\fboxrule\fboxrule\fboxrule\fboxrule % replaces \fbox
+}
+% The frame colour can be set via modifying this macro.
+\def\colorframedbordercolorcommand{\normalcolor}
+%
+% `shaded', `shaded*', `snugshade', `snugshade*'
+% The \colorbox in \FrameCommand is replaced by \colorframedcolorbox
+\renewenvironment{shaded}{%
+  \def\FrameCommand{\fboxsep=\FrameSep 
+                    \colorframedcolorbox{shadecolor}}%<<<< MODIFIED
+  \MakeFramed {\FrameRestore}}%
+ {\endMakeFramed}
+\renewenvironment{shaded*}{%
+  \def\FrameCommand{\fboxsep=\FrameSep
+                    \colorframedcolorbox{shadecolor}}%<<<< MODIFIED
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+\renewenvironment{snugshade}{%
+  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+  \colorframedcolorbox{shadecolor}{##1}%<<<< MODIFIED
+      \hskip-\fboxsep
+      % There is no \@totalrightmargin, so:
+      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+  \MakeFramed {\advance\hsize-\width 
+    \@totalleftmargin\z@ \linewidth\hsize
+    \@setminipage}%
+ }{\par\unskip\@minipagefalse\endMakeFramed}
+\renewenvironment{snugshade*}{%
+  \def\FrameCommand##1{\hskip\@totalleftmargin 
+  \colorframedcolorbox{shadecolor}{##1}%<<<< MODIFIED
+      % There is no \@totalrightmargin, so:
+      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+  \MakeFramed {\advance\hsize-\width 
+    \@totalleftmargin\z@ \linewidth\hsize
+    \advance\labelsep\fboxsep
+    \@setminipage}%
+ }{\par\unskip\@minipagefalse\endMakeFramed}
+% The \colorframedcolorbox was obtained via a process of trimming from some
+% far more capable box, hence some possibly strange looking or sub-optimal
+% code; but we did not want to keep extra capabilities and have to provide
+% interface for that...
+\def\colorframedcolorbox#1#2{%
+  % #1 is in our usage always "shadecolor" (which has to be defined by user)
+  % #2 is in our usage always a box or rule
+  \leavevmode% this is not needed in our usage
+  \hbox{%
+    \setbox\@tempboxa\hbox{\kern\fboxsep{#2}\kern\fboxsep}%
+    \ht\@tempboxa
+       \dimexpr\ht\@tempboxa+\fboxsep\relax
+    \dp\@tempboxa
+       \dimexpr\dp\@tempboxa+\fboxsep\relax
+    % BACKGROUND
+    % draw background and move back to reference point
+    {\color{#1}%
+     \vrule\@height\ht\@tempboxa
+           \@depth\dp\@tempboxa
+           \@width\wd\@tempboxa
+     \kern-\wd\@tempboxa
+    }%
+    % CONTENTS
+    \box\@tempboxa
+  }%
+}
+%
+% `oframed' and `titled-frame'
+% The \CustomFBox redefinition.
+% Refer to framed.sty for significance of the parameters.
+% We have not wrapped #3, #4, #5, #6 thicknesses in \dimexpr.
+% Generally speaking, no attempt here to make this macro more
+% versatile than is the original.
+% Our version tries to let #1 and #2 have same effect as in original
+% (where they are only used for titled-frame environment, and
+%  it thus seems to be sort of a convention that #2 has no height.)
+\long\def\CustomFBox#1#2#3#4#5#6#7{%
+  \leavevmode\begingroup
+  \setbox\@tempboxa\hbox{%
+    \color@begingroup
+      \kern\fboxsep{#7}\kern\fboxsep
+    \color@endgroup}%
+  \hbox{%
+    \ht\@tempboxa
+       \dimexpr\ht\@tempboxa+\fboxsep+#3\relax % cf "overlap" remark below
+    \dp\@tempboxa
+       \dimexpr\dp\@tempboxa+\fboxsep+#4\relax
+        \setbox\z@\hbox
+                  {\vrule\@width#5\relax
+                   \kern\wd\@tempboxa
+                   \vrule\@width#6\relax
+                  }%
+            \ht\z@\ht\@tempboxa
+            \dp\z@\dp\@tempboxa
+    \vbox{%
+        \colorframedbordercolorcommand % defaults to \normalcolor
+        \hrule\@height#3\relax
+        #1%
+        \kern-#3\relax % see discussion of issue #2
+        \copy\z@ % deliberate overlap hrules+vrules to avoid anti-aliasing artefacts
+        \kern-#4\relax
+        #2%
+        \hrule\@height#4\relax
+        \kern-\dp\@tempboxa
+       }%
+    \kern-\wd\z@
+    \kern#5\relax
+    \box\@tempboxa
+    \kern#6\relax
+  }%
+  \endgroup
+}
+% The titled-frame environment depends in part on this macro,
+% whose original in framed.sty has various colour problems.
+% We have indicated the modifications, additionally to using
+% our modified \CustomFBox.
+% Original let the continuation label use same colour as frame.
+% Let make this customizable.
+\let\colorframedTFconlabcolorcommand\empty
+\renewcommand\TitleBarFrame[3][]{\begingroup
+  \ifx\delimiter#1\delimiter
+    \let\TF@conlab\@empty
+  \else
+    \def\TF@conlab{%
+     \nointerlineskip
+     \hbox{%<<<< ADDED (needed due to \smash doing \leavevmode nowadays)
+           \colorframedTFconlabcolorcommand%<<<< ADDED
+     \smash{\rlap{\kern\wd\@tempboxa\kern\fboxrule\kern\fboxsep #1}}}%
+          }%<<<< ADDED
+  \fi
+  %\let\TF@savecolor\current@color%<<<< REMOVED
+  %\textcolor{TFFrameColor}{%      <<<< REMOVED
+  \def\colorframedbordercolorcommand{\color{TFFrameColor}}%<<<< ADDED
+  \CustomFBox
+    {\TF@Title{#2}}{\TF@conlab}%
+    \fboxrule\fboxrule\fboxrule\fboxrule
+    {%\let\current@color\TF@savecolor\set@color%<<<< REMOVED
+    #3}%
+  %}%                              <<<< REMOVED
+  \endgroup
+}
+% There are various issues with \TitleBarFrame/\TF@Title/TF@conlab
+% we provide an alternative
+\def\colorframedTFconlabsep{3pt}
+\newcommand\colorframedTitleBarFrame[3][]{\begingroup
+  \ifx\delimiter#1\delimiter
+    \let\TF@conlab\@empty
+  \else
+    \def\TF@conlab{%
+     \nointerlineskip
+     \hbox{\colorframedTFconlabcolorcommand
+     \smash{\rlap{\kern\wd\@tempboxa
+                  % 2\fboxrule, not \fboxrule\fboxsep!
+                  \kern2\fboxrule
+                  \kern\dimexpr\colorframedTFconlabsep\relax #1}}}%
+          }%
+  \fi
+  \def\colorframedbordercolorcommand{\color{TFFrameColor}}%
+  \CustomFBox
+    {\colorframed@TF@Title{#2}}{\TF@conlab}%
+    \fboxrule\fboxrule\fboxrule\fboxrule
+    {#3}%
+  \endgroup
+}
+% The title bar for \colorframedTitleBarFrame, it will wrap its argument
+% as paragraphs in case it is too long, the horizontal placement is improved
+% and it will be suitably vertically centered. Nota Bene: for #1 to be
+% allowed to contain \par, the \textbf in titled-frame must be replaced by
+% some \bfseries.
+% Macro to customize the horizontal placement. For example
+% \def\colorframedTFtitleshift{0pt}
+% if \fboxrule is set by the environment to a high value.
+% Don't use negative value, some parts of the title may then be hidden
+% behind the left border.
+\def\colorframedTFtitlesep{\fboxsep}
+\newcommand\colorframed@TF@Title[1]{%
+  \ifx\delimiter#1\delimiter\else
+  %\kern-0.04pt\relax
+  \kern-.5\fboxrule
+  \begingroup
+  \setbox\@tempboxa\vbox{%
+   \kern0.8ex
+   \hbox{\kern\fboxrule
+         \kern\dimexpr\colorframedTFtitlesep\relax
+         \vbox{\hsize\dimexpr\linewidth-2\fboxrule-
+                             2\dimexpr\colorframedTFtitlesep\relax\relax
+               \noindent\color{TFTitleColor}%
+               #1\par}}%
+   \kern0.8ex}%
+  \hrule\@height\ht\@tempboxa
+  \kern-\ht\@tempboxa
+  \box\@tempboxa
+  \endgroup
+  %\nointerlineskip 
+  %\kern-0.04pt\relax
+  \hrule\@height.5\fboxrule
+  \fi
+}
+% maybe provide a titled-frame variant using the above and acting like
+% snugshade respective to being used in a list?
+\endinput

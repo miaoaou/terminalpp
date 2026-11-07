@@ -1,0 +1,25 @@
+%\unimathsetup{math-style=upright}
+\setmainfont[ItalicFont=cmunoti.otf,
+	 BoldFont=cmunobx.otf,
+	 BoldItalicFont=cmunobi.otf,
+     % RawFeature=+pnum,% variable width numbers
+     SmallCapsFeatures={Numbers=OldStyle}]{cmunorm.otf}
+\defaultfontfeatures{Scale=MatchLowercase}
+%\setmathfont{LibertinusMath-Regular.otf}
+\setmathfont{Euler-Math.otf}
+%Get missing glyphs (in euler-math) from Tex Gyre Pagella Math
+\setmathfont[%
+  range={"00A2,"00A6,"00A9,"00AB,"00B0,"00B8,"00BB,"00BF,"00C0-"00D6,"00D8-"00EF,
+          "00F1-"00F6,"00F8-"0107,"010C-"0126,"0128-"130,"0132-"01B4,"0218-"021B,
+          "02DB,"02DD,"0326,"032C,"032D,"0333,"033F,"03C2,"03F1,"0E3F,"1EA0-"1EF9,
+          "2017,"201A,"201C-"201D,"2039-"203D,"2052,"2061,"20A1,"20AB,"20B1,"20B2,
+          "20D3,"20D4,"20D8,"20DC,"20DB,"20D5,"20D6,"20EA,"20EB,"2103,"2109,"210A,
+          "2116,"2117,"211E-"2122,"212A,"212E,"212F,"2134,"2145,"2149,"21B4,"21B5,
+          "21F3,"23B2,"23B3,"23D0,"23E0,"23E1,"2500-"259F,"266A,"26AD,"26AE,"27A1,
+          "27EE,"27EF,"2B04-"2B07,"2B0C,"2B0D,"2E18,"3016,"3017,"01D4B6-"01D4CF,
+          "01D4EA-"01D503,"01D6D3-"01D6E0,"01D70D-"01D71A,"01D747-"01D754,
+          "01D78A-"01D78F,"01D764-"01D7C9}]{texgyrepagella-math.otf}
+\setmathfont[range=up/{greek,Greek}, script-features={}, sscript-features={}
+            ]{Euler-Math.otf}
+\setmathfont[range=up/{latin,Latin,num}, script-features={}, sscript-features={}
+            ]{Euler-Math.otf}

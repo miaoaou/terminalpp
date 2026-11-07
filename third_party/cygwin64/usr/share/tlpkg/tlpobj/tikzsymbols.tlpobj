@@ -1,0 +1,14 @@
+name tikzsymbols
+category Package
+revision 61300
+shortdesc Some symbols created using TikZ
+relocated 1
+longdesc The package provides various emoticons, cooking symbols and
+longdesc trees.
+runfiles size=33
+ RELOC/tex/latex/tikzsymbols/tikzsymbols.sty
+catalogue-contact-repository https://github.com/Vidabe/tikzsymbols
+catalogue-ctan /graphics/pgf/contrib/tikzsymbols
+catalogue-license lppl1.3c
+catalogue-topics graphics-symb pgf-tikz
+catalogue-version 4.12a

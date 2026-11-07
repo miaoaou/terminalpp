@@ -1,0 +1,162 @@
+%%
+%% This is file `lwarp-imakeidx.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lwarp.dtx  (with options: `imakeidx')
+%% This is a generated file.
+%% Copyright 2016-2022 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+\LWR@ProvidesPackagePass{imakeidx}[2016/10/15]
+\catcode`\_=12%
+\define@key{imki}{name}{\def\imki@name{#1_html}}
+\catcode`\_=8%
+\catcode`\_=12%
+
+\renewcommand*{\printindex}[1][\imki@jobname]{%
+\LWR@maybe@orignewpage%
+\LWR@startpars%
+\ifstrequal{#1}{\imki@jobname}{%
+  \@ifundefined{#1@idxfile}{%
+        \imki@error{#1}%
+    }{%
+        \imki@putindex{#1}%
+    }%
+}{%
+  \@ifundefined{#1_html@idxfile}{\imki@error{#1_html}}{\imki@putindex{#1_html}}%
+}%
+}
+
+\catcode`\_=8%
+\VerifyCommand[lwarp][imakeidx]{\@index}{443B697F3326243540BE3FB7665606F6}
+
+\catcode`\_=12%
+
+\def\@index[#1]{%
+    \ifstrequal{#1}{\imki@jobname}%
+    {%
+        \@ifundefined{#1@idxfile}%
+        {%
+            \PackageWarning{lwarp-imakeidx}{Undefined index file `#1'}%
+            \begingroup
+            \@sanitize
+            \imki@nowrindex%
+        }%
+        {%
+            \edef\@idxfile{#1}%
+            \begingroup
+            \@sanitize
+            \@wrindex\@idxfile%
+        }%
+    }%
+    {%
+        \@ifundefined{#1_html@idxfile}%
+        {%
+            \PackageWarning{lwarp-imakeidx}{Undefined index file `#1_html'}%
+            \begingroup
+            \@sanitize
+            \imki@nowrindex%
+        }%
+        {%
+            \edef\@idxfile{#1_html}%
+            \begingroup
+            \@sanitize
+            \@wrindex\@idxfile%
+        }%
+    }%
+}
+
+\catcode`\_=8%
+\appto\theindex{%
+    \LetLtxMacro\item\LWR@indexitem%
+    \LetLtxMacro\subitem\LWR@indexsubitem%
+    \LetLtxMacro\subsubitem\LWR@indexsubsubitem%
+}
+\VerifyCommand[lwarp][imakeidx]{\imki@wrindexentrysplit}{D8ABE70A4355F52E36723AFAB74F71E7}
+
+\renewcommand\imki@wrindexentrysplit[3]{%
+    \addtocounter{LWR@autoindex}{1}%
+    \expandafter\protected@write\csname#1@idxfile\endcsname{}%
+        {\string\indexentry{#2}{\arabic{LWR@autoindex}}}%
+    \label{LWRindex-\arabic{LWR@autoindex}}%
+}
+
+\VerifyCommand[lwarp][imakeidx]{\imki@wrindexentryunique}{9131E144394D273F316D03FA91BA0E2B}
+
+\renewcommand\imki@wrindexentryunique[3]{%
+    \addtocounter{LWR@autoindex}{1}%
+    \protected@write\@indexfile{}%
+        {\string\indexentry[#1]{#2}{\arabic{LWR@autoindex}}}%
+    \label{LWRindex-\arabic{LWR@autoindex}}%
+}
+\newcommand*{\LWR@imki@setxdydefopts}{%
+    \edef\imki@options{ \space %
+        -M \space \LWR@xindyStyle\space %
+        -L \space \LWR@xindyLanguage\space %
+        -C \space \LWR@xindyCodepage\space %
+    }%
+}
+\newcommand*{\LWR@imki@setdefopts}[1]{%
+\ifblank{#1}{%
+    \edef\imki@options{\space -s \space \LWR@makeindexStyle \space}%
+    \ifdefstring{\imki@progdefault}{xindy}{\LWR@imki@setxdydefopts}{}%
+    \ifdefstring{\imki@progdefault}{texindy}{\LWR@imki@setxdydefopts}{}%
+    \ifdefstring{\imki@progdefault}{truexindy}{\LWR@imki@setxdydefopts}{}%
+}{%
+    \edef\imki@options{\space #1 \space}%
+}%
+}
+\VerifyCommand[lwarp][imakeidx]{\imki@makeindex}{83AEF6DF7A13F7D0565457DFB83D42B5}
+
+\xpatchcmd{\imki@makeindex}
+    {\let\imki@options\space}
+    {\LWR@imki@setdefopts{}}%
+    {}
+    {\LWR@patcherror{imakeidx}{makeindex}}
+\define@key{imki}{options}{\LWR@imki@setdefopts{#1}}
+\VerifyCommand[lwarp][imakeidx]{\imki@resetdefaults}{3D417615569AC35F199A3FBD03B640E3}
+
+\xpatchcmd{\imki@resetdefaults}
+    {\def\imki@options{ }}
+    {\LWR@imki@setdefopts{}}
+    {}
+    {\LWR@patcherror{imakeidx}{resetdefaults}}
+\AtBeginDocument{
+\renewenvironment*{theindex}{%
+    \imki@maybeaddtotoc
+     \imki@indexlevel{\indexname}
+    \LetLtxMacro\item\LWR@indexitem%
+    \LetLtxMacro\subitem\LWR@indexsubitem%
+    \LetLtxMacro\subsubitem\LWR@indexsubsubitem%
+}{}
+}% AtBeginDocument
+\imki@resetdefaults
+\ifimki@splitindex
+  \let\imki@startidx\imki@startidxunique
+  \AtBeginDocument{\let\@wrindex\imki@wrindexunique}
+  \let\imki@putindex\imki@putindexunique
+  \let\imki@wrindexentry\imki@wrindexentryunique
+  \let\imki@startidxsplit\@undefined
+  \let\imki@wrindexsplit\@undefined
+  \let\imki@putindexsplit\@undefined
+\else
+  \let\imki@startidx\imki@startidxsplit
+  \AtBeginDocument{\let\@wrindex\imki@wrindexsplit}
+  \let\imki@putindex\imki@putindexsplit
+  \let\imki@wrindexentry\imki@wrindexentrysplit
+  \let\imki@startidxunique\@undefined
+  \let\imki@wrindexunique\@undefined
+  \let\imki@putindexunique\@undefined
+\fi
+
+\endinput
+%%
+%% End of file `lwarp-imakeidx.sty'.

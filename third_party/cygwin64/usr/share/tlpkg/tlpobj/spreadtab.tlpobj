@@ -1,0 +1,15 @@
+name spreadtab
+category Package
+revision 68256
+shortdesc Spreadsheet features for LaTeX tabular environments
+relocated 1
+longdesc The package allows the user to construct tables in a manner
+longdesc similar to a spreadsheet. The cells of a table have row and
+longdesc column indices and these can be used in formulas to generate
+longdesc values in other cells.
+runfiles size=26
+ RELOC/tex/latex/spreadtab/spreadtab.sty
+catalogue-ctan /macros/latex/contrib/spreadtab
+catalogue-license lppl1.3c
+catalogue-topics table
+catalogue-version 0.52

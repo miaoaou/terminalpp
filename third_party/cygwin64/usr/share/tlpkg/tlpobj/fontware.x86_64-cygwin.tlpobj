@@ -1,0 +1,9 @@
+name fontware.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of fontware
+binfiles arch=x86_64-cygwin size=52
+ bin/x86_64-cygwin/pltotf.exe
+ bin/x86_64-cygwin/tftopl.exe
+ bin/x86_64-cygwin/vftovp.exe
+ bin/x86_64-cygwin/vptovf.exe

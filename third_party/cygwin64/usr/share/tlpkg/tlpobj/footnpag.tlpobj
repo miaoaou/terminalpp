@@ -1,0 +1,14 @@
+name footnpag
+category Package
+revision 15878
+shortdesc Per-page numbering of footnotes
+relocated 1
+longdesc Allows footnotes on individual pages to be numbered from 1,
+longdesc rather than being numbered sequentially through the document.
+runfiles size=5
+ RELOC/tex/latex/footnpag/footnpag.sty
+catalogue-also footmisc
+catalogue-ctan /macros/latex/contrib/footnpag
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics footnote

@@ -1,0 +1,14 @@
+name glossaries-italian
+category Package
+revision 35665
+shortdesc Italian language module for glossaries package
+relocated 1
+longdesc Italian language module for glossaries package.
+runfiles size=1
+ RELOC/tex/latex/glossaries-italian/glossaries-italian.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-italian
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary italian
+catalogue-version 1.0

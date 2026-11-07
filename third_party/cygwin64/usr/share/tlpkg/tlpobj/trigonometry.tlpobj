@@ -1,0 +1,15 @@
+name trigonometry
+category Package
+revision 43006
+shortdesc Demonstration code for cos and sin in TeX macros
+relocated 1
+longdesc A document that both provides macros that are usable elsewhere,
+longdesc and demonstrates the macros. The code uses the "classical"
+longdesc analytical expansion of sin and cos (the more recent trig uses
+longdesc a "numerical analyst's" expansion).
+runfiles size=2
+ RELOC/tex/generic/trigonometry/trigonometry.tex
+catalogue-ctan /macros/generic/trigonometry
+catalogue-date 2017-01-24 05:45:54 +0100
+catalogue-license knuth
+catalogue-topics calculation

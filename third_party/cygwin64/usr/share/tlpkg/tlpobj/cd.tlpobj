@@ -1,0 +1,16 @@
+name cd
+category Package
+revision 34452
+shortdesc Typeset CD covers
+relocated 1
+longdesc Normal usage will ordinarily require no more than a simple data
+longdesc file per cover; the package will make a full insert for a CD
+longdesc case (it copes with both normal and slim cases).
+runfiles size=6
+ RELOC/tex/latex/cd/cd.cls
+catalogue-also cdcover
+catalogue-ctan /macros/latex/contrib/cd
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics labels
+catalogue-version 1.4

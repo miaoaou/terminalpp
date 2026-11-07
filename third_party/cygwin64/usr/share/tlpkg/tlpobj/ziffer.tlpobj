@@ -1,0 +1,19 @@
+name ziffer
+category Package
+revision 32279
+shortdesc Conversion of punctuation in maths mode
+relocated 1
+longdesc The package modifies the behaviour of characters in maths mode
+longdesc so that: '.' is used as a one-thousand separator (as is common
+longdesc in Germany) ',' is used as a decimal separator (as is common in
+longdesc Germany) '--' is represented with spacing as appropriate to
+longdesc such constructs as '1.000,--'. These conversions may be
+longdesc switched on and off.
+runfiles size=1
+ RELOC/tex/latex/ziffer/ziffer.sty
+catalogue-also icomma
+catalogue-ctan /macros/latex/contrib/ziffer
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics numbers
+catalogue-version 2.1

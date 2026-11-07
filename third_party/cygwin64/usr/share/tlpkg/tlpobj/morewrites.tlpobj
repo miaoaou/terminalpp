@@ -1,0 +1,21 @@
+name morewrites
+category Package
+revision 69679
+shortdesc Always room for a new write stream
+relocated 1
+longdesc The package aims to solve the error "No room for a new \write",
+longdesc which occurs when the user, or when the user's packages have
+longdesc 'allocated too many streams' using \newwrite (TeX has a fixed
+longdesc maximum number - 16 - such streams built-in to its code). The
+longdesc package hooks into TeX primitive commands associated with
+longdesc writing to files; it should be loaded near the beginning of the
+longdesc sequence of loading packages for a document. The package uses
+longdesc the l3kernel bundle.
+runfiles size=9
+ RELOC/tex/latex/morewrites/morewrites.sty
+ RELOC/tex/latex/morewrites/primargs.sty
+catalogue-also rvwrite
+catalogue-contact-repository https://github.com/blefloch/latex-morewrites
+catalogue-ctan /macros/latex/contrib/morewrites
+catalogue-license lppl1.3c
+catalogue-topics io-mgmt expl3

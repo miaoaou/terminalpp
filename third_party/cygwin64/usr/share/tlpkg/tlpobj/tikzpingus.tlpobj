@@ -1,0 +1,40 @@
+name tikzpingus
+category Package
+revision 68310
+shortdesc Penguins with TikZ
+relocated 1
+longdesc tikzpingus is a package similar to tikzducks but with penguins
+longdesc and a vast set of gadgets and extras (capable of changing the
+longdesc wing-positions, body-types, and more).
+runfiles size=77
+ RELOC/makeindex/tikzpingus/indexstyle.ist
+ RELOC/tex/latex/tikzpingus/tikzpingus-bee.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-christmas.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-cloak.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-devil.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-emotions.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-flags.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-formal.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-fun.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-glasses.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-hats.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-horse.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-magic.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-medieval.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-movement.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-safe.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-science-fiction.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-shirts.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-signs.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-sport.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus-technology.lib.tex
+ RELOC/tex/latex/tikzpingus/tikzpingus.sty
+catalogue-contact-announce https://github.com/EagleoutIce/tikzpingus/releases
+catalogue-contact-bugs https://github.com/EagleoutIce/tikzpingus/issues
+catalogue-contact-home https://github.com/EagleoutIce/tikzpingus
+catalogue-contact-repository https://github.com/EagleoutIce/tikzpingus
+catalogue-contact-support https://github.com/EagleoutIce/tikzpingus/issues
+catalogue-ctan /graphics/pgf/contrib/tikzpingus
+catalogue-license gpl3
+catalogue-topics amusements graphics pgf-tikz
+catalogue-version 1.1

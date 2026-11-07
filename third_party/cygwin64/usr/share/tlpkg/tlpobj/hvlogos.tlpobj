@@ -1,0 +1,14 @@
+name hvlogos
+category Package
+revision 69581
+shortdesc Print TeX-related names as logo
+relocated 1
+longdesc This package is more or less an extension to Heiko Oberdiek's
+longdesc package hologo. It prints TeX-related names as logos. The
+longdesc package requires fetamont, hologo, dantelogo, and xspace.
+runfiles size=2
+ RELOC/tex/latex/hvlogos/hvlogos.sty
+catalogue-ctan /macros/latex/contrib/hvlogos
+catalogue-license lppl
+catalogue-topics logo
+catalogue-version 0.12

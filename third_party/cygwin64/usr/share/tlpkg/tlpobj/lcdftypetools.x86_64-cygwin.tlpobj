@@ -1,0 +1,16 @@
+name lcdftypetools.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of lcdftypetools
+binfiles arch=x86_64-cygwin size=1040
+ bin/x86_64-cygwin/cfftot1.exe
+ bin/x86_64-cygwin/mmafm.exe
+ bin/x86_64-cygwin/mmpfb.exe
+ bin/x86_64-cygwin/otfinfo.exe
+ bin/x86_64-cygwin/otftotfm.exe
+ bin/x86_64-cygwin/t1dotlessj.exe
+ bin/x86_64-cygwin/t1lint.exe
+ bin/x86_64-cygwin/t1rawafm.exe
+ bin/x86_64-cygwin/t1reencode.exe
+ bin/x86_64-cygwin/t1testpage.exe
+ bin/x86_64-cygwin/ttftotype42.exe

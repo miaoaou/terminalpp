@@ -1,0 +1,24 @@
+Font information for TeX Live on Cygwin
+=======================================
+
+Some of the texlive-collection-* packages provide fonts in
+/usr/share/texmf-dist/fonts/{opentype,truetype,type1}.  These fonts
+can be made available to fontconfig, so that applications that rely on
+fontconfig (xetex, emacs-X11,...) can use them.  This is *not* done by
+default.
+
+If you want the opentype and truetype TeX Live fonts to be available
+to fontconfig, run the script
+
+    /usr/bin/texlive-enable-fontconfig
+
+This only has to be done once.  It does not enable the type1 fonts
+because xetex has only limited supported for these.  See the thread
+starting at
+
+  https://www.cygwin.com/ml/cygwin/2016-06/msg00197.html .
+
+If you want to enable the type1 fonts also, uncomment the lines in
+/usr/bin/texlive-enable-fontconfig and
+/usr/share/fontconfig/conf.avail/09-texlive.conf involving type1
+font directories.

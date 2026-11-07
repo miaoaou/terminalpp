@@ -1,0 +1,34 @@
+name beamertheme-trigon
+category Package
+revision 65985
+shortdesc A modern, elegant, and versatile theme for Beamer
+relocated 1
+longdesc This package provides a modern, elegant and versatile theme for
+longdesc Beamer, with a high degree of customization. Trigon found its
+longdesc origin and inspiration in the graphical guidelines resulting
+longdesc from the visual identity overhaul of the University of Liege.
+longdesc Although directly inspired from these guidelines, the theme was
+longdesc stripped out of any mention or specificities related to the
+longdesc University and its faculties. This makes the Trigon theme
+longdesc perfectly suitable for many different contexts. The final
+longdesc product provides a modern, elegant and versatile theme with a
+longdesc high degree of customization. The main design focuses on
+longdesc triangular shapes for major layout elements and noise
+longdesc minimization for the main body of the work. The theme's
+longdesc implementation is heavily inspired from the Metropolis theme.
+longdesc Most options from Metropolis have been ported to Trigon in
+longdesc order to improve customization and ease-of-use. Trigon also
+longdesc includes different styles and layouts for the main title page,
+longdesc the section page and the default slide background.
+runfiles size=11
+ RELOC/tex/latex/beamertheme-trigon/beamercolorthemetrigon.sty
+ RELOC/tex/latex/beamertheme-trigon/beamerfontthemetrigon.sty
+ RELOC/tex/latex/beamertheme-trigon/beamerinnerthemetrigon.sty
+ RELOC/tex/latex/beamertheme-trigon/beamerouterthemetrigon.sty
+ RELOC/tex/latex/beamertheme-trigon/beamerthemetrigon.sty
+catalogue-contact-bugs https://gitlab.com/thlamb/beamertheme-trigon/-/issues
+catalogue-contact-repository https://gitlab.com/thlamb/beamertheme-trigon
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-trigon
+catalogue-license cc-by-sa-4
+catalogue-topics presentation
+catalogue-version 0.7.0

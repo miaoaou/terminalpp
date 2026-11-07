@@ -1,0 +1,19 @@
+name metalogox
+category Package
+revision 70491
+shortdesc Adjust TeX logos, with font detection
+relocated 1
+longdesc This package extends the metalogo package to automatically
+longdesc adjust the appearance of the logos TeX, LaTeX, LaTeX2e,
+longdesc XeLaTeX, and LuaLaTeX, depending on the font detected or the
+longdesc option given to metalogox. Most of the serif and sans fonts
+longdesc listed at The LaTeX Font Catalogue are supported. The package
+longdesc also supports the hologo and hvlogos packages.
+runfiles size=8
+ RELOC/tex/latex/metalogox/metalogox.sty
+catalogue-also metalogo
+catalogue-contact-repository https://github.com/bdtc/metalogox
+catalogue-ctan /macros/latex/contrib/metalogox
+catalogue-license lppl1.3
+catalogue-topics logo
+catalogue-version 1.06

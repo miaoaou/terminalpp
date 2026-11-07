@@ -1,0 +1,16 @@
+name epigraph
+category Package
+revision 54857
+shortdesc A package for typesetting epigraphs
+relocated 1
+longdesc Epigraphs are the pithy quotations often found at the start (or
+longdesc end) of a chapter. Both single epigraphs and lists of epigraphs
+longdesc are catered for. Various aspects are easily configurable.
+runfiles size=2
+ RELOC/tex/latex/epigraph/epigraph.sty
+catalogue-also epigraph-keys
+catalogue-contact-repository https://github.com/wspr/herries-press/
+catalogue-ctan /macros/latex/contrib/epigraph
+catalogue-license lppl1.3c
+catalogue-topics epigram
+catalogue-version 1.5e

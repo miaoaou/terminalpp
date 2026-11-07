@@ -1,0 +1,16 @@
+name tikzbricks
+category Package
+revision 63952
+shortdesc Drawing bricks with TikZ
+relocated 1
+longdesc A small LaTeX package to draw bricks with TikZ. The user can
+longdesc modify color, shape, and viewpoint.
+runfiles size=2
+ RELOC/tex/latex/tikzbricks/tikzbricks.sty
+catalogue-also tikzducks tikzmarmots tikzlings
+catalogue-contact-repository https://github.com/samcarter/tikzbricks
+catalogue-contact-support https://github.com/samcarter/tikzbricks/issues
+catalogue-ctan /graphics/pgf/contrib/tikzbricks
+catalogue-license lppl1.3c
+catalogue-topics amusements graphics pgf-tikz
+catalogue-version 0.4

@@ -1,0 +1,18 @@
+name datetime2-turkish
+category Package
+revision 52331
+shortdesc Turkish language module for the datetime2 package
+relocated 1
+longdesc This module provides the "turkish" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-turkish/datetime2-turkish-ascii.ldf
+ RELOC/tex/latex/datetime2-turkish/datetime2-turkish-utf8.ldf
+ RELOC/tex/latex/datetime2-turkish/datetime2-turkish.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-turkish
+catalogue-date 2019-10-10 13:05:36 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

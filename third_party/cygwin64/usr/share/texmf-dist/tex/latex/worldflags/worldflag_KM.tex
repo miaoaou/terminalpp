@@ -1,0 +1,16 @@
+% --------------------------------------------------------------------------
+% Comoros:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{3/5}
+\definecolor{red}{RGB}{200,16,46}
+\definecolor{blue}{RGB}{0,114,206}
+\definecolor{green}{RGB}{76,141,43}
+\definecolor{gold}{RGB}{255,199,44}
+\coordinate (c) at (5/6*\stretchfactor,0.5);
+\coordinate (m) at (0.28333*\stretchfactor,0.5);
+\hstripesIV{gold}{white}{red}{blue}
+\fill [green] (0,0)--(c)--(0,1)--cycle;
+\moon{white}{(m)}{0.225}{($(m)+(0.1,0)$)}{0.225}
+\foreach \n in {-18,-6,6,18} {\starV{white}{($(m)+(0.1,\n/120)$)}{\flagwidth/30}{-18}}
+\framecode{}
+\end{flagdescription}

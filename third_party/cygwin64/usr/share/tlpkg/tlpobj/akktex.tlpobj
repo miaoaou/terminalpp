@@ -1,0 +1,44 @@
+name akktex
+category Package
+revision 26055
+shortdesc A collection of packages and classes
+relocated 1
+longdesc The bundle provides: new document classes for technical
+longdesc documents, thesis works, manuscripts and lecture notes; many
+longdesc mathematical packages providing a large number of macros for
+longdesc mathematical texts; layout providing a non-empty parskip with
+longdesc extended length corrections and new section definition
+longdesc commands; easy label creation for counters; and german language
+longdesc tools and predefined abbreviations.
+runfiles size=37
+ RELOC/tex/latex/akktex/akkconditional.sty
+ RELOC/tex/latex/akktex/akkcounterlabelpattern.sty
+ RELOC/tex/latex/akktex/akkcs.sty
+ RELOC/tex/latex/akktex/akkdoc.sty
+ RELOC/tex/latex/akktex/akkgerman.sty
+ RELOC/tex/latex/akktex/akkgermanabbreviations.sty
+ RELOC/tex/latex/akktex/akklecture.cls
+ RELOC/tex/latex/akktex/akklongpage.sty
+ RELOC/tex/latex/akktex/akkmath.sty
+ RELOC/tex/latex/akktex/akkmathbasic.sty
+ RELOC/tex/latex/akktex/akkmathdisc.sty
+ RELOC/tex/latex/akktex/akkmathfun.sty
+ RELOC/tex/latex/akktex/akkmathnum.sty
+ RELOC/tex/latex/akktex/akkmathpaper.sty
+ RELOC/tex/latex/akktex/akkmathproof.sty
+ RELOC/tex/latex/akktex/akkmathrel.sty
+ RELOC/tex/latex/akktex/akkmathset.sty
+ RELOC/tex/latex/akktex/akkmathtext.sty
+ RELOC/tex/latex/akktex/akknum.sty
+ RELOC/tex/latex/akktex/akkparskip.sty
+ RELOC/tex/latex/akktex/akkscript.cls
+ RELOC/tex/latex/akktex/akksection.sty
+ RELOC/tex/latex/akktex/akkstring.sty
+ RELOC/tex/latex/akktex/akktecdoc.cls
+ RELOC/tex/latex/akktex/akktex.sty
+ RELOC/tex/latex/akktex/akkwidepage.sty
+catalogue-ctan /macros/latex/contrib/akktex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics class maths
+catalogue-version 0.3.2

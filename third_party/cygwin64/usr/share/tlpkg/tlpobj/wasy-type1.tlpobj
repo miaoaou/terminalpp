@@ -1,0 +1,32 @@
+name wasy-type1
+category Package
+revision 53534
+shortdesc Type 1 versions of wasy fonts
+relocated 1
+longdesc Converted (Adobe Type 1) outlines of the wasy fonts.
+depend wasy
+execute addMixedMap wasy.map
+runfiles size=91
+ RELOC/fonts/afm/public/wasy-type1/wasy10.afm
+ RELOC/fonts/afm/public/wasy-type1/wasy5.afm
+ RELOC/fonts/afm/public/wasy-type1/wasy6.afm
+ RELOC/fonts/afm/public/wasy-type1/wasy7.afm
+ RELOC/fonts/afm/public/wasy-type1/wasy8.afm
+ RELOC/fonts/afm/public/wasy-type1/wasy9.afm
+ RELOC/fonts/afm/public/wasy-type1/wasyb10.afm
+ RELOC/fonts/afm/public/wasy-type1/wasysl10.afm
+ RELOC/fonts/map/dvips/wasy-type1/wasy.map
+ RELOC/fonts/type1/public/wasy-type1/wasy10.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasy5.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasy6.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasy7.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasy8.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasy9.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasyb10.pfb
+ RELOC/fonts/type1/public/wasy-type1/wasysl10.pfb
+catalogue-alias wasy2-ps
+catalogue-also wasy wasysym
+catalogue-ctan /fonts/wasy-type1
+catalogue-license pd
+catalogue-topics font font-type1 font-symbol
+catalogue-version 001.002

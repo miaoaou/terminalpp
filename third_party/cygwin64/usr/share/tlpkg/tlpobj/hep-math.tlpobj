@@ -1,0 +1,16 @@
+name hep-math
+category Package
+revision 67632
+shortdesc Extended math macros
+relocated 1
+longdesc The hep-math package provides some additional features beyond
+longdesc the mathtools and amsmath packages. To use the package place
+longdesc \usepackage{hep-math} in the preamble
+runfiles size=3
+ RELOC/tex/latex/hep-math/hep-math.sty
+catalogue-contact-bugs https://github.com/janhajer/hep-paper/issues
+catalogue-contact-repository https://github.com/janhajer/hep-paper
+catalogue-ctan /macros/latex/contrib/hep-math
+catalogue-license lppl1.3c
+catalogue-topics maths
+catalogue-version 1.2

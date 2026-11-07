@@ -1,0 +1,18 @@
+name endheads
+category Package
+revision 43750
+shortdesc Running headers of the form "Notes to pp.xx-yy"
+relocated 1
+longdesc Endheads provides running headers of the form "Notes to pp.
+longdesc xx-yy" for endnotes sections. It also enables one to reset the
+longdesc endnotes counter, and put a line marking the chapter change in
+longdesc the endnotes, at the beginning of every chapter. Endheads
+longdesc requires the fancyhdr, needspace, ifthen, and endnotes
+longdesc packages.
+runfiles size=2
+ RELOC/tex/latex/endheads/endheads.sty
+catalogue-ctan /macros/latex/contrib/endheads
+catalogue-date 2017-04-08 06:57:54 +0200
+catalogue-license lppl
+catalogue-topics endnote page-hf
+catalogue-version 1.6

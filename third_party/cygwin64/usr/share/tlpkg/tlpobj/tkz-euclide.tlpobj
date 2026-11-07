@@ -1,0 +1,60 @@
+name tkz-euclide
+category Package
+revision 69702
+shortdesc Tools for drawing Euclidean geometry
+relocated 1
+longdesc The tkz-euclide package is a set of files designed to give math
+longdesc teachers and students easy access to the programming of
+longdesc Euclidean geometry with TikZ.
+runfiles size=116
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-angles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-circles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-compass.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-ellipses.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-lines.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-points.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-polygons.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-protractor.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-sectors.tex
+ RELOC/tex/latex/tkz-euclide/tkz-draw-eu-show.tex
+ RELOC/tex/latex/tkz-euclide/tkz-euclide.cfg
+ RELOC/tex/latex/tkz-euclide/tkz-euclide.sty
+ RELOC/tex/latex/tkz-euclide/tkz-lib-eu-marks.tex
+ RELOC/tex/latex/tkz-euclide/tkz-lib-eu-shape.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-axesmin.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-circles-by.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-circles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-grids.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lines.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-circles-by.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-circles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-points-by.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-points-spc.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-points-with.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-lua-points.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-points-by.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-points-rnd.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-points-spc.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-points-with.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-points.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-polygons.tex
+ RELOC/tex/latex/tkz-euclide/tkz-obj-eu-triangles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-BB.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-angles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-base.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-colors.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-intersections.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-lua-angles.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-lua-base.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-lua-intersections.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-lua-math.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-math.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-modules.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-text.tex
+ RELOC/tex/latex/tkz-euclide/tkz-tools-eu-utilities.tex
+catalogue-also eukleides pst-eucl
+catalogue-contact-home https://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-euclide
+catalogue-license lppl1.3
+catalogue-topics maths graphics-use use-luatex pgf-tikz
+catalogue-version 5.06c

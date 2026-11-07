@@ -1,0 +1,17 @@
+name dashundergaps
+category Package
+revision 58150
+shortdesc Produce gaps that are underlined, dotted or dashed
+relocated 1
+longdesc The package provides commands (\underline, \dotuline and
+longdesc \dashuline) each of which underlines its argument with one of
+longdesc the styles the package is capable of. A phantom mode is
+longdesc provided, where the underline (of whatever form) can serve for
+longdesc a 'fill-in block' for student evaluation sheets.
+runfiles size=3
+ RELOC/tex/latex/dashundergaps/dashundergaps.sty
+catalogue-contact-repository https://github.com/FrankMittelbach/fmitex-dashundergaps
+catalogue-ctan /macros/latex/contrib/dashundergaps
+catalogue-license lppl1.3c
+catalogue-topics underline line-patt
+catalogue-version 2.0h

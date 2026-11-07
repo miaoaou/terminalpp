@@ -1,0 +1,17 @@
+name termsim
+category Package
+revision 61414
+shortdesc Simulate Win10, Ubuntu, and Mac terminals
+relocated 1
+longdesc This LaTeX3 package provides environments terminal and
+longdesc terminal*, and macros \termfile and \termfile* to simulate
+longdesc Win10, Ubuntu and Mac terminals. It is based on tcolorbox,
+longdesc minted and listings.
+runfiles size=4
+ RELOC/tex/latex/termsim/termsim.sty
+catalogue-contact-bugs https://github.com/registor/termsim/issues
+catalogue-contact-repository https://github.com/registor/termsim
+catalogue-ctan /macros/latex/contrib/termsim
+catalogue-license lppl1.3c
+catalogue-topics listing boxing comp-sci expl3
+catalogue-version 1.1.1

@@ -1,0 +1,15 @@
+name method
+category Package
+revision 17485
+shortdesc Typeset method and variable declarations
+relocated 1
+longdesc The package supports typesetting of programming language method
+longdesc and variable declarations. It supports declarations in German,
+longdesc French and English.
+runfiles size=3
+ RELOC/tex/latex/method/method.sty
+catalogue-ctan /macros/latex/contrib/method
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics listing
+catalogue-version 2.0b

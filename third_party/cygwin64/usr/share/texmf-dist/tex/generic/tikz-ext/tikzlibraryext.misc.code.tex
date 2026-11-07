@@ -1,0 +1,209 @@
+% Copyright 2022 by Qrrbrbirlbel
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Free Documentation License.
+%
+\usepgfkeyslibrary{ext.pgfkeys-plus}%
+
+%% full arc
+%% https://tex.stackexchange.com/a/144297/16595
+%% The postfix operator R is added to PGFmath,
+%% it allows the use of angular segments.
+%% full arc = 10 makes it so that
+%%   1R =  36°
+%%   2R =  72°
+%%   …
+%%  10R = 360°
+%% Calling the full arc key with an empty value 
+%% makes 1R = 1°
+\pgfset{full arc/.code=%
+  \def\pgf@temp{#1}%
+  \ifx\pgfutil@empty\pgf@temp
+    \let\pgfmath@fullarc@factor\pgfutil@empty
+  \else
+    \pgfmathsetmacro\pgfmath@fullarc@factor{360/(#1)}%
+  \fi,full arc=}
+\pgfmathdeclareoperator{R}{full arc}{1}{postfix}{950}
+\pgfmathdeclarefunction{full arc}{1}{%
+  \begingroup
+    \pgfmath@x=#1pt\relax
+    \ifx\pgfmath@fullarc@factor\pgfutil@empty\else
+      \pgfmath@x\pgfmath@fullarc@factor\pgfmath@x
+    \fi
+    \pgfmath@returnone\pgfmath@x
+  \endgroup}
+
+\pgfutil@IfUndefined{tikzext@pgf@foreach@no@list@parse@to}{% stupid test
+  \input pgffor-ext.code.tex
+}{}
+
+%% PGFmath
+%% strrepeat("x", 5) = "xxxxx"
+\pgfmathdeclarefunction{strrepeat}{2}{%
+  \begingroup\pgfmathint{#2}\pgfmath@count\pgfmathresult
+    \let\pgfmathresult\pgfutil@empty
+    \pgfutil@loop\ifnum\pgfmath@count>0\relax
+      \expandafter\def\expandafter\pgfmathresult\expandafter{\pgfmathresult#1}%
+      \advance\pgfmath@count-1\relax
+    \pgfutil@repeat\pgfmath@smuggleone\pgfmathresult\endgroup}
+
+%% isInString("foo", "foobar") = true (= 1)
+%% isInString("boo", "foobar") = false (= 0)
+\pgfmathdeclarefunction{isInString}{2}{%
+  \pgfutil@in@{#1}{#2}%
+  \ifpgfutil@in@\def\pgfmathresult{1}\else\def\pgfmathresult{0}\fi}
+
+%% strcat("foo", "bar") = "foobar" (can have more than two parameters)
+\pgfutil@IfUndefined{pgfmathstrcat@}{
+  \pgfmathdeclarefunction{strcat}{...}{%
+    \begingroup
+      \let\pgfmathresult\pgfutil@empty
+      \pgfmathstrcat@@#1\pgfmath@stop}
+  \def\pgfmathstrcat@@#1{%
+    \ifx\pgfmath@stop#1%
+      \def\pgfmath@next{\pgfmath@smuggleone\pgfmathresult\endgroup}
+    \else
+      \expandafter\def\expandafter\pgfmathresult\expandafter{\pgfmathresult#1}%
+      \let\pgfmath@next\pgfmathstrcat@@
+    \fi
+    \pgfmath@next}
+}{}
+
+% http://tex.stackexchange.com/questions/244569/bounding-lines-around-tax-nodes/244619#244619
+\pgfmathdeclarefunction{atanXY}{2}{\pgfmathatantwo@{#2}{#1}}
+\pgfmathdeclarefunction{atanYX}{2}{\pgfmathatantwo@{#1}{#2}}
+
+%% http://tex.stackexchange.com/a/132939/16595
+\tikzset{
+  @edges through/.code={{{% three braces to protect \pgfeov
+    \pgfutil@ifnextchar[{\pgfkeysvalueof{/tikz/@@edges through/.@cmd}}
+                        {\pgfkeysvalueof{/tikz/@@edges through/.@cmd}[]}#1\pgfeov}}},
+  @@edges through/.style args={[#1]#2}{/tikz/insert path={edge[#1] (#2) (#2)}},
+  edges through/.style={/tikz/@edges through/.list={#1}}}
+\tikzset{
+  @edges to/.code={{{% three braces to protect \pgfeov
+    \pgfutil@ifnextchar[{\pgfkeysvalueof{/tikz/@@edges to/.@cmd}}
+                        {\pgfkeysvalueof{/tikz/@@edges to/.@cmd}[]}#1\pgfeov}}},
+  @@edges to/.style args={[#1]#2}{/tikz/insert path={edge[#1] (#2)}},
+  edges to/.style={/tikz/@edges to/.list={#1}}}
+\tikzset{
+  @tos to/.code={{{% three braces to protect \pgfeov
+    \pgfutil@ifnextchar[{\pgfkeysvalueof{/tikz/@@tos to/.@cmd}}
+                        {\pgfkeysvalueof{/tikz/@@tos to/.@cmd}[]}#1\pgfeov}}},
+  @@tos to/.style args={[#1]#2}{/tikz/insert path={to[#1] (#2)}},
+  tos to/.style={/tikz/@tos to/.list={#1}}}
+
+
+\pgfmathdeclarefunction{distancebetween}{2}{% only coordinates/nodes
+  \begingroup
+    \nullfont
+    \pgfpointdiff{\pgfpointanchor{#1}{center}}{\pgfpointanchor{#2}{center}}%
+    \edef\pgfmath@temp{{\pgf@sys@tonumber\pgf@x}{\pgf@sys@tonumber\pgf@y}}%
+    \expandafter\pgfmathveclen@\pgfmath@temp
+    \pgfmath@smuggleone\pgfmathresult
+  \endgroup}
+\pgfmathdeclarefunction{qdistancebetween}{1}{% only coordinates/nodes
+  \begingroup
+    \nullfont
+    \pgfpointdiff{\pgfpointorigin}{\pgfpointanchor{#1}{center}}%
+    \edef\pgfmath@temp{{\pgf@sys@tonumber\pgf@x}{\pgf@sys@tonumber\pgf@y}}%
+    \expandafter\pgfmathveclen@\pgfmath@temp
+    \pgfmath@smuggleone\pgfmathresult
+  \endgroup}
+
+\pgfmathdeclarefunction{qanglebetween}{1}{%
+  \begingroup
+    \nullfont
+    \pgfmathanglebetweenpoints{\pgfpointorigin}{\pgfpointanchor{#1}{center}}%
+    \pgfmath@smuggleone\pgfmathresult
+  \endgroup
+}
+
+\pgfmathdeclarefunction{anglebetween}{2}{%
+  \begingroup
+    \nullfont  
+    \pgfmathanglebetweenpoints{\pgfpointanchor{#1}{center}}{\pgfpointanchor{#2}{center}}%
+    \pgfmath@smuggleone\pgfmathresult
+  \endgroup
+}
+
+\pgfmathdeclarefunction{isEmpty}{1}{%
+  \begingroup
+    \def\pgfmath@temp{#1}%
+    \pgfutil@ifxempty\pgfmath@temp{\def\pgfmathresult{1}}{\def\pgfmathresult{0}}%                           
+    \pgfmath@smuggleone\pgfmathresult
+  \endgroup}
+
+\pgfset{
+  declare constant/.code={%
+    \let\pgfmathdeclareconstant@@@\pgfutil@empty
+    \pgfkeysvalueof{/pgf/declare function/execute at begin function}%
+    \pgfmathdeclareconstant@#1@=@;\pgf@stop
+    \pgfkeysvalueof{/pgf/declare function/execute at end function}%
+    \pgfmathdeclareconstant@@@
+  }}
+\def\pgfmathdeclareconstant@{%
+  \pgfutil@ifnextchar x\pgfmathdeclareconstant@@\pgfmathdeclareconstant@@
+}
+\def\pgfmathdeclareconstant@@#1=#2;#3\pgf@stop{%
+  \edef\pgfmath@local@temp{#1}%
+  \pgfutil@ifx\pgfmath@local@temp\pgfmath@local@at{}{%
+    \pgfutil@g@addto@macro\pgfmathdeclareconstant@@@{\pgfmathdeclarepseudoconstant{#1}{\def\pgfmathresult{#2}}}%
+    \pgfmathdeclareconstant@#3\pgf@stop
+  }%
+}
+
+%%% Some shape
+
+\tikzset{% quick versions of reverse clips
+  reverse clip/.is choice,
+  reverse clip/clockwise/.code={%
+    \begingroup
+      \pgfsetcornersarced{\pgfpointorigin}%
+      \pgfpathqmoveto{16000pt}{16000pt}%
+      \pgfpathqlineto{16000pt}{-16000pt}%
+      \pgfpathqlineto{-16000pt}{-16000pt}%
+      \pgfpathqlineto{-16000pt}{16000pt}%
+      \pgfpathclose
+    \endgroup
+  },
+  reverse clip/counter clockwise/.code={%
+    \begingroup
+      \pgfsetcornersarced{\pgfpointorigin}%
+      \pgfpathqmoveto{16000pt}{16000pt}%
+      \pgfpathqlineto{-16000pt}{16000pt}%
+      \pgfpathqlineto{-16000pt}{-16000pt}%
+      \pgfpathqlineto{16000pt}{-16000pt}%
+      \pgfpathclose
+    \endgroup
+  },
+  clip rule/.is choice,
+  clip rule/even odd/.code=\pgfseteorule,
+  clip rule/nonzero/.code=\pgfsetnonzerorule,
+  reverse clip/.default=counter clockwise,
+  remember path/.code={%
+    \tikz@addmode{%
+      \expandafter\pgfsyssoftpath@getcurrentpath\csname tikz@intersect@path@name@remember path-#1\endcsname
+      \immediate\write\pgfutil@auxout{%
+        \noexpand\expandafter\gdef\noexpand\csname tikz@intersect@path@name@remember path-#1\endcsname{%
+          \expandafter\expandafter\expandafter\unexpanded
+          \expandafter\expandafter\expandafter{%
+            \csname tikz@intersect@path@name@remember path-#1\endcsname
+          }%
+        }%
+      }%
+    }%
+  },
+  remembered path/.code={%
+    \pgfutil@IfUndefined{tikz@intersect@path@name@remember path-#1}{}{%
+      \tikz@addmode{%
+        \expandafter\pgfsyssoftpath@setcurrentpath
+        \expandafter{%
+          \csname tikz@intersect@path@name@remember path-#1\endcsname
+        }%
+      }%
+    }%
+  },%
+}       

@@ -1,0 +1,102 @@
+% tkz-tools-lua-angles.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”. 
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c tkz-tools-lua-angles.tex}   
+\makeatletter
+\def\tkzmathrotatepointaround#1#2#3{%
+  \pgf@process{%
+    \pgf@process{#1}%
+    \pgf@xc=\pgf@x%
+    \pgf@yc=\pgf@y%
+    \pgf@process{#2}%
+    \pgf@xa\pgf@x%
+    \pgf@ya\pgf@y%
+    \pgf@xb\pgf@x%
+    \pgf@yb\pgf@y%
+    \pgf@x=\pgf@xc%
+    \pgf@y=\pgf@yc%
+    \advance\pgf@x-\pgf@xa%
+    \advance\pgf@y-\pgf@ya%
+    \pgfmathsetmacro\angle{#3}%
+    \edef\sineangle{\tkz@Dec{\tkz@Sin{\tkz@Rad{\angle}}}}%
+    \edef\cosineangle{\tkz@Dec{\tkz@Cos{\tkz@Rad{\angle}}}}%
+    \pgf@xa\cosineangle\pgf@x%
+    \advance\pgf@xa-\sineangle\pgf@y%
+    \pgf@ya\sineangle\pgf@x%
+    \advance\pgf@ya\cosineangle\pgf@y%
+    \pgf@x\pgf@xb%
+    \pgf@y\pgf@yb%
+    \advance\pgf@x\pgf@xa%
+    \advance\pgf@y\pgf@ya%
+  }%
+}
+
+%<-------------------------------------------------------------------------->
+%                           Angles
+%<-------------------------------------------------------------------------->
+\def\tkzmathanglebetweenpoints#1#2{
+\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}%
+\edef\tkzax{\strip@pt\pgf@x}%
+\edef\tkzay{\strip@pt\pgf@y}%
+\pgfextractx{\pgf@x}{\pgfpointanchor{#2}{center}}%
+\pgfextracty{\pgf@y}{\pgfpointanchor{#2}{center}}%
+\edef\tkzbx{\strip@pt\pgf@x}%
+\edef\tkzby{\strip@pt\pgf@y}%
+\edef\tkz@tmp{\tkz@Angle{\tkzax}{\tkzay}{\tkzbx}{\tkzby}}
+\edef\pgfmathresult{\tkz@Dec{\tkz@Round{\tkz@tmp}{2}}}
+}
+%<--------------------------------------------------------------------------–>
+%<--------------------------------------------------------------------------–>
+% thanks karu : http://tex.stackexchange.com/questions/151667/tkzgetangle-strange-behavior/196224#196224  
+% \tkzGetAngle strange behavior
+% defines \tkz@FirstAngle and \tkz@SecondAngle sens  trigo
+%<--------------------------------------------------------------------------–>
+
+\def\tkzNormalizeAngle(#1,#2){%
+\directlua{angleA, angleB = normalize(#1,#2)
+token.set_macro("tkz@FirstAngle", angleA)
+token.set_macro("tkz@SecondAngle", angleB)
+}}
+%<--------------------------------------------------------------------------–>
+%                          Angle 
+% Recherche l'angle formé par #1 et #2 par rapport à l'horizontale
+%<--------------------------------------------------------------------------–>
+\def\tkzFindSlopeAngle(#1,#2){%
+\begingroup
+  \tkzmathanglebetweenpoints{#1}{#2}
+ \global\let\tkzAngleResult\pgfmathresult  
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                          Angle  avec trois nodes
+%<--------------------------------------------------------------------------–>
+\def\tkzFindAngle(#1,#2,#3){% new code 2016
+\begingroup
+    \tkzFindSlopeAngle(#2,#1)\tkzGetAngle{tkz@FirstAngle}
+    \tkzFindSlopeAngle(#2,#3)\tkzGetAngle{tkz@SecondAngle}
+    \tkzNormalizeAngle(\tkz@FirstAngle,\tkz@SecondAngle)
+    \edef\tkz@Angle{\fpeval{\tkz@SecondAngle-\tkz@FirstAngle}}
+    \global\let\tkzAngleResult\tkz@Angle
+\endgroup
+}
+
+%<--------------------------------------------------------------------------–>
+% Find angle
+%<--------------------------------------------------------------------------–>
+\def\tkzGetAngle#1{%
+  \global\expandafter\edef\csname #1\endcsname{\tkzAngleResult}
+}  
+\makeatother
+\endinput

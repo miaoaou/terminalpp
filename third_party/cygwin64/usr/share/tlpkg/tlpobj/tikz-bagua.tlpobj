@@ -1,0 +1,18 @@
+name tikz-bagua
+category Package
+revision 64103
+shortdesc Draw Bagua symbols in Yijing
+relocated 1
+longdesc This package provides commands for drawing symbols in Yijing (I
+longdesc Ching) or Zhouyi using TikZ. There is no need for extra special
+longdesc fonts for showing these symbols. The package relies on TikZ,
+longdesc bitset, xintexpr, xparse, and xstring.
+runfiles size=2
+ RELOC/tex/latex/tikz-bagua/tikz-bagua.sty
+catalogue-contact-development https://github.com/duplli
+catalogue-contact-home https://github.com/duplli/tikz-bagua
+catalogue-contact-repository https://github.com/duplli/tikz-bagua
+catalogue-ctan /graphics/pgf/contrib/tikz-bagua
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz numbers
+catalogue-version 1.01

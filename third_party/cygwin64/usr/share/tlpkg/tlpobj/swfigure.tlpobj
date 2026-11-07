@@ -1,0 +1,14 @@
+name swfigure
+category Package
+revision 63255
+shortdesc Insert large images that do not fit into a single page
+relocated 1
+longdesc Five different display modes are defined in order to place in a
+longdesc document large figures that do not fit into a single page. A
+longdesc single user macro is defined to handle all five display modes.
+runfiles size=5
+ RELOC/tex/latex/swfigure/swfigure.sty
+catalogue-ctan /macros/latex/contrib/swfigure
+catalogue-license lppl1.3c
+catalogue-topics graphics-incl
+catalogue-version 0.9.20

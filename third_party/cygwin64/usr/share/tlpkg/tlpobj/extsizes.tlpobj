@@ -1,0 +1,28 @@
+name extsizes
+category Package
+revision 17263
+shortdesc Extend the standard classes' size options
+relocated 1
+longdesc Provides classes extarticle, extreport, extletter, extbook and
+longdesc extproc which provide for documents with a base font size from
+longdesc 8-20pt. There is also a LaTeX package, extsizes.sty, which can
+longdesc be used with nonstandard document classes. But it cannot be
+longdesc guaranteed to work with any given class.
+runfiles size=35
+ RELOC/tex/latex/extsizes/autopagewidth.sty
+ RELOC/tex/latex/extsizes/extarticle.cls
+ RELOC/tex/latex/extsizes/extbook.cls
+ RELOC/tex/latex/extsizes/extletter.cls
+ RELOC/tex/latex/extsizes/extproc.cls
+ RELOC/tex/latex/extsizes/extreport.cls
+ RELOC/tex/latex/extsizes/extsizes.sty
+ RELOC/tex/latex/extsizes/size14.clo
+ RELOC/tex/latex/extsizes/size17.clo
+ RELOC/tex/latex/extsizes/size20.clo
+ RELOC/tex/latex/extsizes/size8.clo
+ RELOC/tex/latex/extsizes/size9.clo
+catalogue-ctan /macros/latex/contrib/extsizes
+catalogue-date 2018-03-02 11:58:24 +0100
+catalogue-license lppl
+catalogue-topics book-pub class
+catalogue-version 1.4a

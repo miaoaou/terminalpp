@@ -1,0 +1,20 @@
+name scanpages
+category Package
+revision 42633
+shortdesc Support importing and embellishing scanned documents
+relocated 1
+longdesc The bundle provides support for the process of creating
+longdesc documents based on pre-TeX-era material that is available as
+longdesc scanned pages, only.
+execute addMap scanpages.map
+runfiles size=6
+ RELOC/fonts/map/dvips/scanpages/scanpages.map
+ RELOC/fonts/tfm/public/scanpages/scanwipe.tfm
+ RELOC/fonts/type1/public/scanpages/scanwipe.pfb
+ RELOC/tex/latex/scanpages/scanpages.sty
+ RELOC/tex/latex/scanpages/uscanwipe.fd
+catalogue-ctan /macros/latex/contrib/scanpages
+catalogue-date 2016-12-02 22:31:43 +0100
+catalogue-license lppl1.3
+catalogue-topics misc-support
+catalogue-version 1.05a

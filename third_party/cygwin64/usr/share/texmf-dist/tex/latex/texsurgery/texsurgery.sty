@@ -1,0 +1,166 @@
+% TeXsurgery v 0.6.0
+%
+% This tex package is a companion to the `texsurgery` `python` project:
+%
+% https://framagit.org/pang/texsurgery
+%
+% This `LaTeX` library will make sure that
+%
+% `pdflatex document.tex`
+%
+% will work, with reasonable defaults, for a document that is intended to work with `texsurgery`, and also has other uses, always in tandem with the `texsurgery` `pypi` package.
+%
+% However, remember that `texsurgery` is a `python` project whose main focus is on __evaluating code inside a `jupyter` kernel__, and this is _only_ achieved by installing the `python` package and calling the `texsurgery` command
+%
+% `texsurgery -pdf document.tex`
+%
+% Both the texsurgery python package and the TexSurgery CTAN package are distributed under a BSD license.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{texsurgery}[2021/07/09 TeXsurgery package v0.6.0]
+
+\RequirePackage{verbatim}
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+\RequirePackage{environ}
+\RequirePackage{hyperref}
+
+% \RequirePackage{imakeidx}
+% \RequirePackage{xstring}
+% \RequirePackage{xcolor}
+% \definecolor{greycolour}{HTML}{525252}
+% \definecolor{sharelatexcolour}{HTML}{882B21}
+% \definecolor{mybluecolour}{HTML}{394773}
+% \newcommand{\wordcolour}{greycolour}
+
+% \DeclareOption{red}{\renewcommand{\wordcolour}{sharelatexcolour}}
+% \DeclareOption{blue}{\renewcommand{\wordcolour}{mybluecolour}}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{TSstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstalias{python}{Python}
+\lstalias{sage}{Python}
+% \lstset{style=TSstyle}
+
+
+% Counters
+\newcounter{TSeval}
+\newcounter{TSrun}
+\newcounter{TSrunsilent}
+
+% Boolean Options
+\newif\if@showcode
+\@showcodefalse
+\newif\if@noinstructions
+\@noinstructionsfalse
+
+
+\DeclareOption*{%
+    \lstalias{\CurrentOption}{Python} %sets Python highlight code as highlight by default for unrecognized kernels.
+    \PackageWarningNoLine{texsurgery}{‘\CurrentOption’ declared as a jupyter kernel}%
+    }
+\DeclareOption{showcode} {%
+    \@showcodetrue
+}%
+\DeclareOption{noinstructions} {%
+    \@noinstructionstrue
+}
+\ProcessOptions\relax
+
+
+
+%% Instructions warning
+\if@noinstructions
+   %
+\else
+    \AtBeginDocument{
+    \fbox{
+    \begin{minipage}{0.9\linewidth}
+        WARNING: TexSurgery is NOT intended to be a LaTeX package to show your code, but instead a Python module who replaces some commands and environments within a TeX document by evaluating code inside a jupyter kernel.
+\\    %
+        In order to achieve this goal, it is not enough to install the texsurgery LaTeX package and run \texttt{pdflatex document.tex}.
+        You must %
+    \begin{center}
+      \texttt{pip install texsurgery}
+    \end{center}
+        and the jupyter kernel for the language that you intend to use, and use the command \texttt{texsurgery document.tex}.
+    \\%
+        More info: \url{https://framagit.org/pang/texsurgery}.
+      \end{minipage}
+    }
+    \vspace{1cm}%
+    \\
+    }
+   \PackageWarningNoLine{texsurgery}{%
+##########
+    WARNING: TexSurgery is NOT intended to be a LaTeX package to show your code, but instead a Python module who replaces some commands and environments within a TeX document by evaluating code inside a jupyter kernel.
+%
+    In order to achieve this goal, it is not enough to install the texsurgery LaTeX package.
+    You must `pip install texsurgery` and the jupyter kernel for the language that you intend to use.
+%
+    More info: https://framagit.org/pang/texsurgery.
+##########
+    }%
+\fi
+
+%% SHOWCODE
+\if@showcode
+   \lstnewenvironment{run}[1][python]{%
+        \refstepcounter{TSrun}%
+        \lstset{language=#1, style=TSstyle, frame=single, title={\tt runblock\theTSrun.#1}}%
+        \medskip%
+    }{}
+    \lstnewenvironment{runsilent}[1][python]{%
+        \refstepcounter{TSrunsilent}%
+        \lstset{language=#1, style=TSstyle, frame=single, title={\tt runsilentblock\theTSrunsilent.#1}}%
+        \medskip%
+    }{}
+    \newcommand{\lstinlinesafe}{\lstinline[style=TSstyle]}
+    \newcommand{\eval}[2][]{{\hbox{\lstinlinesafe{#2}}}}
+%     \newcommand{\eval}[2][python]{%
+%         \refstepcounter{TSeval}%
+%         {\hbox{\lstinlinesafe[language=#1]{#2}}}
+%     }%
+    \newcommand{\sage}[1]{%
+        \eval{#1}%
+    }%
+\else
+   \NewEnviron{run}[1][python]{%
+   \refstepcounter{TSrun}%
+   \begin{center}\fbox{\ttfamily runblock\theTSrun.#1}\end{center}%
+   }%
+   \NewEnviron{runsilent}[1][python]{%
+   \refstepcounter{TSrunsilent}%
+   \begin{center}\fbox{\ttfamily runsilentblock\theTSrunsilent.#1}\end{center}%
+   }%
+   \newcommand{\eval}[2][python]{%
+    \refstepcounter{TSeval}%
+    \hbox{\fbox{\ttfamily evalcode\theTSeval.#1}}%
+   }%
+   \newcommand{\sage}[1]{%
+    \refstepcounter{TSeval}%
+    \eval[sagemath]{#1}%
+    }%
+\fi

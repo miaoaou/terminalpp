@@ -1,0 +1,19 @@
+name tikz-ladder
+category Package
+revision 62992
+shortdesc Draw ladder diagrams using TikZ
+relocated 1
+longdesc The tikz-ladder package contains a collection of symbols for
+longdesc typesetting ladder diagrams (PLC program) in agreement with the
+longdesc international standard IEC-61131-3/2013. It includes blocks
+longdesc (for representing functions and function blocks) besides
+longdesc contacts and coils. It extends the circuit library of TikZ and
+longdesc allows you to draw a ladder diagram in the same way as you
+longdesc would draw any other circuit.
+runfiles size=6
+ RELOC/tex/latex/tikz-ladder/tikzlibrarycircuits.plc.ladder.code.tex
+catalogue-also ladder
+catalogue-ctan /graphics/pgf/contrib/tikz-ladder
+catalogue-license lppl1
+catalogue-topics pgf-tikz diagram diagram-circ engineering
+catalogue-version 1.3

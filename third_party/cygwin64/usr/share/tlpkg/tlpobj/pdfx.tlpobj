@@ -1,0 +1,36 @@
+name pdfx
+category Package
+revision 50338
+shortdesc PDF/X and PDF/A support for pdfTeX, LuaTeX and XeTeX
+relocated 1
+longdesc The package helps LaTeX users to create PDF/X, PFD/A and other
+longdesc standards-compliant PDF documents with pdfTeX, LuaTeX and
+longdesc XeTeX.
+runfiles size=215
+ RELOC/tex/latex/pdfx/8bit.def
+ RELOC/tex/latex/pdfx/AdobeColorProfiles.tex
+ RELOC/tex/latex/pdfx/AdobeExternalProfiles.tex
+ RELOC/tex/latex/pdfx/CallasColorProfiles.tex
+ RELOC/tex/latex/pdfx/armglyphs.dfu
+ RELOC/tex/latex/pdfx/glyphtounicode-cmr.tex
+ RELOC/tex/latex/pdfx/glyphtounicode-ntx.tex
+ RELOC/tex/latex/pdfx/l8u-penc.def
+ RELOC/tex/latex/pdfx/l8uarb-penc.def
+ RELOC/tex/latex/pdfx/l8uarm-penc.def
+ RELOC/tex/latex/pdfx/l8ucyr-penc.def
+ RELOC/tex/latex/pdfx/l8udev-penc.def
+ RELOC/tex/latex/pdfx/l8ugrk-penc.def
+ RELOC/tex/latex/pdfx/l8uheb-penc.def
+ RELOC/tex/latex/pdfx/l8ulat-penc.def
+ RELOC/tex/latex/pdfx/l8umath-penc.def
+ RELOC/tex/latex/pdfx/pdfa.xmp
+ RELOC/tex/latex/pdfx/pdfe.xmp
+ RELOC/tex/latex/pdfx/pdfvt.xmp
+ RELOC/tex/latex/pdfx/pdfx.sty
+ RELOC/tex/latex/pdfx/pdfx.xmp
+ RELOC/tex/latex/pdfx/text89.def
+catalogue-ctan /macros/latex/contrib/pdfx
+catalogue-date 2019-03-10 21:28:05 +0100
+catalogue-license lppl
+catalogue-topics pdf-feat
+catalogue-version 1.6.3

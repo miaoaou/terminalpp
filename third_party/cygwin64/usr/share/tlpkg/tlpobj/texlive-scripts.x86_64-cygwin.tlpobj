@@ -1,0 +1,17 @@
+name texlive-scripts.x86_64-cygwin
+category TLCore
+revision 64356
+shortdesc x86_64-cygwin files of texlive-scripts
+binfiles arch=x86_64-cygwin size=13
+ bin/x86_64-cygwin/fmtutil
+ bin/x86_64-cygwin/fmtutil-sys
+ bin/x86_64-cygwin/fmtutil-user
+ bin/x86_64-cygwin/mktexfmt
+ bin/x86_64-cygwin/mktexmf
+ bin/x86_64-cygwin/mktexpk
+ bin/x86_64-cygwin/mktextfm
+ bin/x86_64-cygwin/rungs
+ bin/x86_64-cygwin/texhash
+ bin/x86_64-cygwin/updmap
+ bin/x86_64-cygwin/updmap-sys
+ bin/x86_64-cygwin/updmap-user

@@ -1,0 +1,20 @@
+name keystroke
+category Package
+revision 17992
+shortdesc Graphical representation of keys on keyboard
+relocated 1
+longdesc A LaTeX package which provides macros for the graphical
+longdesc representation of the keys on a computer keyboard.
+runfiles size=10
+ RELOC/tex/latex/keystroke/keystroke.sty
+ RELOC/tex/latex/keystroke/keystroke_left.eps
+ RELOC/tex/latex/keystroke/keystroke_left.pdf
+ RELOC/tex/latex/keystroke/keystroke_middle.eps
+ RELOC/tex/latex/keystroke/keystroke_middle.pdf
+ RELOC/tex/latex/keystroke/keystroke_right.eps
+ RELOC/tex/latex/keystroke/keystroke_right.pdf
+catalogue-ctan /macros/latex/contrib/keystroke
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics doc-supp
+catalogue-version 1.6

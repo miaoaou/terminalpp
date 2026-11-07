@@ -1,0 +1,21 @@
+name doi
+category Package
+revision 48634
+shortdesc Create correct hyperlinks for DOI numbers
+relocated 1
+longdesc You can hyperlink DOI numbers to doi.org. However, some
+longdesc publishers have elected to use nasty characters in their DOI
+longdesc numbering scheme ('<', '>', '_' and ';' have all been spotted).
+longdesc This will either upset (La)TeX, or your PDF reader. This
+longdesc package contains a single user-level command \doi{}, which
+longdesc takes a DOI number, and creates a correct hyperlink to the
+longdesc target of the DOI.
+runfiles size=1
+ RELOC/tex/latex/doi/doi.sty
+catalogue-contact-bugs https://github.com/ho-tex/doi/issues
+catalogue-contact-home https://github.com/ho-tex
+catalogue-contact-repository https://github.com/ho-tex/doi
+catalogue-ctan /macros/latex/contrib/doi
+catalogue-date 2018-09-09 21:40:17 +0200
+catalogue-license lppl
+catalogue-topics hyper

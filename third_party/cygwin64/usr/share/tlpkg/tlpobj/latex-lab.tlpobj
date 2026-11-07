@@ -1,0 +1,60 @@
+name latex-lab
+category Package
+revision 68720
+shortdesc LaTeX laboratory
+relocated 1
+longdesc This bundle holds optional files that are loaded in certain
+longdesc situations by kernel code (if available). While this code is
+longdesc still in development and the use is experimental, it is stored
+longdesc outside the format so that there can be intermediate releases
+longdesc not affecting the production use of LaTeX. Once the code is
+longdesc finalized and properly tested it will eventually move to the
+longdesc kernel and the corresponding file in this bundle will vanish.
+longdesc Note that none of these files are directly user accessible in
+longdesc documents (i.e., they aren't packages), so the process is
+longdesc transparent to documents already using the new functionality.
+runfiles size=88
+ RELOC/tex/latex/latex-lab/bib-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/block-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/documentmetadata-support.ltx
+ RELOC/tex/latex/latex-lab/firstaid-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/float-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/glyphtounicode-cmex.tex
+ RELOC/tex/latex/latex-lab/graphic-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-amsmath.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-footmisc.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-footnotes.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-kernel-changes.sty
+ RELOC/tex/latex/latex-lab/latex-lab-math.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-mathpkg.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-mathtools.ltx
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-bib.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-block.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-firstaid.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-float.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-graphic.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-math.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-minipage.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-new-or-1.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-new-or-2.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-sec.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-table.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-text.sty
+ RELOC/tex/latex/latex-lab/latex-lab-testphase-toc.sty
+ RELOC/tex/latex/latex-lab/math-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/minipage-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/new-or-1-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/new-or-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/phase-I-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/phase-II-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/phase-III-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/sec-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/table-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/tagpdf-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/tagpdf-ns-latex-lab.def
+ RELOC/tex/latex/latex-lab/text-latex-lab-testphase.ltx
+ RELOC/tex/latex/latex-lab/toc-latex-lab-testphase.ltx
+catalogue-contact-home https://www.latex-project.org
+catalogue-ctan /macros/latex/required/latex-lab
+catalogue-license lppl1.3c
+catalogue-topics format latex-devel

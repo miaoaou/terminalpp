@@ -1,0 +1,19 @@
+name authorindex
+category Package
+revision 51757
+shortdesc Index citations by author names
+longdesc This package allows the user to create an index of all authors
+longdesc cited in a LaTeX document. Each author entry in the index
+longdesc contains the pages where these citations occur. Alternatively,
+longdesc the package can list the labels of the citations that appear in
+longdesc the references rather than the text pages. The package relies
+longdesc on BibTeX being used to handle citations. Additionally, it
+longdesc requires Perl (version 5 or higher).
+depend authorindex.ARCH
+runfiles size=7
+ texmf-dist/scripts/authorindex/authorindex
+ texmf-dist/tex/latex/authorindex/authorindex.sty
+catalogue-ctan /indexing/authorindex
+catalogue-date 2019-07-27 18:23:09 +0200
+catalogue-license lppl
+catalogue-topics index cite-supp

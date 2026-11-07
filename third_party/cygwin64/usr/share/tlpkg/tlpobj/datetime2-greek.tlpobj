@@ -1,0 +1,18 @@
+name datetime2-greek
+category Package
+revision 47533
+shortdesc Greek language module for the datetime2 package
+relocated 1
+longdesc This module provides the "greek" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-greek/datetime2-greek-ascii.ldf
+ RELOC/tex/latex/datetime2-greek/datetime2-greek-utf8.ldf
+ RELOC/tex/latex/datetime2-greek/datetime2-greek.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-greek
+catalogue-date 2018-04-18 15:02:50 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

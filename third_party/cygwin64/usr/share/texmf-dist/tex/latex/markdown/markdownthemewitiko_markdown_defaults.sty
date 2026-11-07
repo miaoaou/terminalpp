@@ -1,0 +1,933 @@
+%%
+%% This is file `markdownthemewitiko_markdown_defaults.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% markdown.dtx  (with options: `themes-witiko-markdown-defaults-latex')
+%% 
+%% Copyright (C) 2016-2024 Vít Starý Novotný
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Vít Starý Novotný.
+%% 
+%% Send bug reports, requests for additions and questions
+%% either to the GitHub issue tracker at
+%% 
+%%   https://github.com/Witiko/markdown/issues
+%% 
+%% or to the e-mail address <witiko@mail.muni.cz>.
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\ProvidesPackage{markdownthemewitiko_markdown_defaults}[2024/01/03]%
+\markdownLoadPlainTeXTheme
+\markdownIfOption{plain}{\iffalse}{\iftrue}
+\@ifclassloaded{beamer}{}{%
+  \markdownIfOption{tightLists}{\RequirePackage{paralist}}{}%
+  \markdownIfOption{fancyLists}{\RequirePackage{paralist}}{}%
+}
+\ExplSyntaxOn
+\@ifpackageloaded{paralist}{
+  \tl_new:N
+    \l__markdown_latex_fancy_list_item_label_number_style_tl
+  \tl_new:N
+    \l__markdown_latex_fancy_list_item_label_delimiter_style_tl
+  \cs_new:Nn
+    \__markdown_latex_fancy_list_item_label_number:nn
+    {
+      \str_case:nn
+        { #1 }
+        {
+          { Decimal } { #2 }
+          { LowerRoman } { \int_to_roman:n { #2 } }
+          { UpperRoman } { \int_to_Roman:n { #2 } }
+          { LowerAlpha } { \int_to_alph:n { #2 } }
+          { UpperAlpha } { \int_to_Alph:n { #2 } }
+        }
+    }
+  \cs_new:Nn
+    \__markdown_latex_fancy_list_item_label_delimiter:n
+    {
+      \str_case:nn
+        { #1 }
+        {
+          { Default } { . }
+          { OneParen } { ) }
+          { Period } { . }
+        }
+    }
+  \cs_new:Nn
+    \__markdown_latex_fancy_list_item_label:nnn
+    {
+      \__markdown_latex_fancy_list_item_label_number:nn
+        { #1 }
+        { #3 }
+      \__markdown_latex_fancy_list_item_label_delimiter:n
+        { #2 }
+    }
+  \cs_new:Nn
+    \__markdown_latex_paralist_style:nn
+    {
+      \str_case:nn
+        { #1 }
+        {
+          { Decimal } { 1 }
+          { LowerRoman } { i }
+          { UpperRoman } { I }
+          { LowerAlpha } { a }
+          { UpperAlpha } { A }
+        }
+      \__markdown_latex_fancy_list_item_label_delimiter:n
+        { #2 }
+    }
+  \markdownSetup{rendererPrototypes={
+    ulBeginTight = {%
+      \group_begin:
+      \pltopsep=\topsep
+      \plpartopsep=\partopsep
+      \begin{compactitem}
+    },
+    ulEndTight = {
+      \end{compactitem}
+      \group_end:
+    },
+    fancyOlBegin = {
+      \group_begin:
+      \tl_set:Nn
+        \l__markdown_latex_fancy_list_item_label_number_style_tl
+        { #1 }
+      \tl_set:Nn
+        \l__markdown_latex_fancy_list_item_label_delimiter_style_tl
+        { #2 }
+      \__markdown_if_option:nTF
+        { startNumber }
+        {
+          \tl_set:Nn
+            \l_tmpa_tl
+            { \begin{enumerate} }
+        }
+        {
+          \tl_set:Nn
+            \l_tmpa_tl
+            { \begin{enumerate}[ }
+          \tl_put_right:Nx
+            \l_tmpa_tl
+            { \__markdown_latex_paralist_style:nn { #1 } { #2 } }
+          \tl_put_right:Nn
+            \l_tmpa_tl
+            { ] }
+        }
+      \tl_use:N
+        \l_tmpa_tl
+    },
+    fancyOlEnd = {
+      \end{enumerate}
+      \group_end:
+    },
+    olBeginTight = {%
+      \group_begin:
+      \plpartopsep=\partopsep
+      \pltopsep=\topsep
+      \begin{compactenum}
+    },
+    olEndTight = {
+      \end{compactenum}
+      \group_end:
+    },
+    fancyOlBeginTight = {
+      \group_begin:
+      \tl_set:Nn
+        \l__markdown_latex_fancy_list_item_label_number_style_tl
+        { #1 }
+      \tl_set:Nn
+        \l__markdown_latex_fancy_list_item_label_delimiter_style_tl
+        { #2 }
+      \tl_set:Nn
+        \l_tmpa_tl
+        {
+          \plpartopsep=\partopsep
+          \pltopsep=\topsep
+        }
+      \__markdown_if_option:nTF
+        { startNumber }
+        {
+          \tl_put_right:Nn
+            \l_tmpa_tl
+            { \begin{compactenum} }
+        }
+        {
+          \tl_put_right:Nn
+            \l_tmpa_tl
+            { \begin{compactenum}[ }
+          \tl_put_right:Nx
+            \l_tmpa_tl
+            { \__markdown_latex_paralist_style:nn { #1 } { #2 } }
+          \tl_put_right:Nn
+            \l_tmpa_tl
+            { ] }
+        }
+      \tl_use:N
+        \l_tmpa_tl
+    },
+    fancyOlEndTight = {
+      \end{compactenum}
+      \group_end:
+    },
+    fancyOlItemWithNumber = {
+      \item
+        [
+          \__markdown_latex_fancy_list_item_label:VVn
+            \l__markdown_latex_fancy_list_item_label_number_style_tl
+            \l__markdown_latex_fancy_list_item_label_delimiter_style_tl
+            { #1 }
+        ]
+    },
+    dlBeginTight = {
+      \group_begin:
+      \plpartopsep=\partopsep
+      \pltopsep=\topsep
+      \begin{compactdesc}
+    },
+    dlEndTight = {
+      \end{compactdesc}
+      \group_end:
+    }}}
+  \cs_generate_variant:Nn
+    \__markdown_latex_fancy_list_item_label:nnn
+    { VVn }
+}{
+  \markdownSetup{rendererPrototypes={
+    ulBeginTight = {\markdownRendererUlBegin},
+    ulEndTight = {\markdownRendererUlEnd},
+    fancyOlBegin = {\markdownRendererOlBegin},
+    fancyOlEnd = {\markdownRendererOlEnd},
+    olBeginTight = {\markdownRendererOlBegin},
+    olEndTight = {\markdownRendererOlEnd},
+    fancyOlBeginTight = {\markdownRendererOlBegin},
+    fancyOlEndTight = {\markdownRendererOlEnd},
+    dlBeginTight = {\markdownRendererDlBegin},
+    dlEndTight = {\markdownRendererDlEnd}}}
+}
+\ExplSyntaxOff
+\RequirePackage{amsmath}
+\@ifpackageloaded{unicode-math}{
+  \markdownSetup{rendererPrototypes={
+    untickedBox = {$\mdlgwhtsquare$},
+  }}
+}{
+  \RequirePackage{amssymb}
+  \markdownSetup{rendererPrototypes={
+    untickedBox = {$\square$},
+  }}
+}
+\RequirePackage{csvsimple}
+\RequirePackage{fancyvrb}
+\RequirePackage{graphicx}
+\markdownSetup{rendererPrototypes={
+  hardLineBreak = {\\},
+  leftBrace = {\textbraceleft},
+  rightBrace = {\textbraceright},
+  dollarSign = {\textdollar},
+  underscore = {\textunderscore},
+  circumflex = {\textasciicircum},
+  backslash = {\textbackslash},
+  tilde = {\textasciitilde},
+  pipe = {\textbar},
+  codeSpan = {%
+    \ifmmode
+      \text{#1}%
+    \else
+      \texttt{#1}%
+    \fi
+  }}}
+\ExplSyntaxOn
+\markdownSetup{
+  rendererPrototypes = {
+    contentBlock = {
+      \str_case:nnF
+        { #1 }
+        {
+          { csv }
+            {
+              \begin{table}
+                \begin{center}
+                  \csvautotabular{#3}
+                \end{center}
+                \tl_if_empty:nF
+                  { #4 }
+                  { \caption{#4} }
+              \end{table}
+            }
+          { tex } { \markdownEscape{#3} }
+        }
+        { \markdownInput{#3} }
+    },
+  },
+}
+\ExplSyntaxOff
+\markdownSetup{rendererPrototypes={
+  image = {%
+    \begin{figure}%
+      \begin{center}%
+        \includegraphics[alt={#1}]{#3}%
+      \end{center}%
+      \ifx\empty#4\empty\else
+        \caption{#4}%
+      \fi
+    \end{figure}},
+  ulBegin = {\begin{itemize}},
+  ulEnd = {\end{itemize}},
+  olBegin = {\begin{enumerate}},
+  olItem = {\item{}},
+  olItemWithNumber = {\item[#1.]},
+  olEnd = {\end{enumerate}},
+  dlBegin = {\begin{description}},
+  dlItem = {\item[#1]},
+  dlEnd = {\end{description}},
+  emphasis = {\emph{#1}},
+  tickedBox = {$\boxtimes$},
+  halfTickedBox = {$\boxdot$}}}
+\ExplSyntaxOn
+\seq_new:N \l__markdown_header_identifiers_seq
+\markdownSetup{
+  rendererPrototypes = {
+    headerAttributeContextBegin = {
+      \seq_clear:N \l__markdown_header_identifiers_seq
+      \markdownSetup
+        {
+          renderers = {
+            attributeIdentifier = {
+              \seq_put_right:Nn
+                \l__markdown_header_identifiers_seq
+                { ##1 }
+            },
+          },
+        }
+    },
+    headerAttributeContextEnd = {
+      \seq_map_inline:Nn
+        \l__markdown_header_identifiers_seq
+        { \label { ##1 } }
+    },
+  },
+}
+\ExplSyntaxOff
+\markdownSetup{rendererPrototypes={
+  superscript = {\textsuperscript{#1}},
+  subscript = {\textsubscript{#1}},
+  blockQuoteBegin = {\begin{quotation}},
+  blockQuoteEnd = {\end{quotation}},
+  inputVerbatim = {\VerbatimInput{#1}},
+  thematicBreak = {\noindent\rule[0.5ex]{\linewidth}{1pt}},
+  note = {\footnote{#1}}}}
+\RequirePackage{ltxcmds}
+\ExplSyntaxOn
+\cs_gset:Npn
+  \markdownRendererInputFencedCodePrototype#1#2#3
+  {
+    \tl_if_empty:nTF
+      { #2 }
+      { \markdownRendererInputVerbatim{#1} }
+      {
+        \regex_extract_once:nnN
+          { \w* }
+          { #2 }
+          \l_tmpa_seq
+        \seq_pop_left:NN
+          \l_tmpa_seq
+          \l_tmpa_tl
+        \ltx@ifpackageloaded
+          { minted }
+          {
+            \catcode`\#=6\relax
+            \exp_args:NV
+              \inputminted
+              \l_tmpa_tl
+              { #1 }
+            \catcode`\#=12\relax
+          }
+          {
+            \ltx@ifpackageloaded
+              { listings }
+              { \lstinputlisting[language=\l_tmpa_tl]{#1} }
+              { \markdownRendererInputFencedCode{#1}{}{} }
+          }
+      }
+  }
+\def\markdownLATEXStrongEmphasis#1{%
+  \str_if_in:NnTF
+    \f@series
+    { b }
+    { \textnormal{#1} }
+    { \textbf{#1} }
+}
+\ExplSyntaxOff
+\markdownSetup{rendererPrototypes={strongEmphasis={%
+  \protect\markdownLATEXStrongEmphasis{#1}}}}
+\@ifundefined{chapter}{%
+  \markdownSetup{rendererPrototypes = {
+    headingOne = {\section{#1}},
+    headingTwo = {\subsection{#1}},
+    headingThree = {\subsubsection{#1}},
+    headingFour = {\paragraph{#1}},
+    headingFive = {\subparagraph{#1}}}}
+}{%
+  \markdownSetup{rendererPrototypes = {
+    headingOne = {\chapter{#1}},
+    headingTwo = {\section{#1}},
+    headingThree = {\subsection{#1}},
+    headingFour = {\subsubsection{#1}},
+    headingFive = {\paragraph{#1}},
+    headingSix = {\subparagraph{#1}}}}
+}%
+\markdownSetup{
+  rendererPrototypes = {
+    ulItem = {%
+      \futurelet\markdownLaTeXCheckbox\markdownLaTeXUlItem
+    },
+  },
+}
+\def\markdownLaTeXUlItem{%
+  \ifx\markdownLaTeXCheckbox\markdownRendererTickedBox
+    \item[\markdownLaTeXCheckbox]%
+    \expandafter\@gobble
+  \else
+    \ifx\markdownLaTeXCheckbox\markdownRendererHalfTickedBox
+      \item[\markdownLaTeXCheckbox]%
+      \expandafter\expandafter\expandafter\@gobble
+    \else
+      \ifx\markdownLaTeXCheckbox\markdownRendererUntickedBox
+        \item[\markdownLaTeXCheckbox]%
+        \expandafter\expandafter\expandafter\expandafter
+          \expandafter\expandafter\expandafter\@gobble
+      \else
+        \item{}%
+      \fi
+    \fi
+  \fi
+}
+\@ifundefined{HCode}{}{
+  \markdownSetup{
+    rendererPrototypes = {
+      inlineHtmlTag = {%
+        \ifvmode
+          \IgnorePar
+          \EndP
+        \fi
+        \HCode{#1}%
+      },
+      inputBlockHtmlElement = {%
+        \ifvmode
+          \IgnorePar
+        \fi
+        \EndP
+        \special{t4ht*<#1}%
+        \par
+        \ShowPar
+      },
+    },
+  }
+}
+\newcount\markdownLaTeXCitationsCounter
+
+\RequirePackage{gobble}
+\def\markdownLaTeXBasicCitations#1#2#3#4#5#6{%
+  \advance\markdownLaTeXCitationsCounter by 1\relax
+  \ifx\relax#4\relax
+    \ifx\relax#5\relax
+      \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+        \cite{#1#2#6}%  Without prenotes and postnotes, just accumulate cites
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \@gobblethree
+      \fi
+    \else%  Before a postnote (#5), dump the accumulator
+      \ifx\relax#1\relax\else
+        \cite{#1}%
+      \fi
+      \cite[#5]{#6}%
+      \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+      \else
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \markdownLaTeXBasicCitations
+      \fi
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter{%
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter}%
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter{%
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter}%
+      \expandafter\expandafter\expandafter
+      \@gobblethree
+    \fi
+  \else%  Before a prenote (#4), dump the accumulator
+    \ifx\relax#1\relax\else
+      \cite{#1}%
+    \fi
+    \ifnum\markdownLaTeXCitationsCounter>1\relax
+      \space  % Insert a space before the prenote in later citations
+    \fi
+    #4~\expandafter\cite\ifx\relax#5\relax{#6}\else[#5]{#6}\fi
+    \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+    \else
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter
+      \markdownLaTeXBasicCitations
+    \fi
+    \expandafter\expandafter\expandafter{%
+    \expandafter\expandafter\expandafter}%
+    \expandafter\expandafter\expandafter{%
+    \expandafter\expandafter\expandafter}%
+    \expandafter
+    \@gobblethree
+  \fi\markdownLaTeXBasicCitations{#1#2#6},}
+\let\markdownLaTeXBasicTextCitations\markdownLaTeXBasicCitations
+
+\def\markdownLaTeXNatbibCitations#1#2#3#4#5{%
+  \advance\markdownLaTeXCitationsCounter by 1\relax
+  \ifx\relax#3\relax
+    \ifx\relax#4\relax
+      \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+        \citep{#1,#5}%  Without prenotes and postnotes, just accumulate cites
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \@gobbletwo
+      \fi
+    \else%  Before a postnote (#4), dump the accumulator
+      \ifx\relax#1\relax\else
+        \citep{#1}%
+      \fi
+      \citep[][#4]{#5}%
+      \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+      \else
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \markdownLaTeXNatbibCitations
+      \fi
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter{%
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter}%
+      \expandafter\expandafter\expandafter
+      \@gobbletwo
+    \fi
+  \else%  Before a prenote (#3), dump the accumulator
+    \ifx\relax#1\relax\relax\else
+      \citep{#1}%
+    \fi
+    \citep[#3][#4]{#5}%
+    \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+    \else
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter
+      \markdownLaTeXNatbibCitations
+    \fi
+    \expandafter\expandafter\expandafter{%
+    \expandafter\expandafter\expandafter}%
+    \expandafter
+    \@gobbletwo
+  \fi\markdownLaTeXNatbibCitations{#1,#5}}
+\def\markdownLaTeXNatbibTextCitations#1#2#3#4#5{%
+  \advance\markdownLaTeXCitationsCounter by 1\relax
+  \ifx\relax#3\relax
+    \ifx\relax#4\relax
+      \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+        \citet{#1,#5}%  Without prenotes and postnotes, just accumulate cites
+        \expandafter\expandafter\expandafter
+        \expandafter\expandafter\expandafter\expandafter
+        \@gobbletwo
+      \fi
+    \else%  After a prenote or a postnote, dump the accumulator
+      \ifx\relax#1\relax\else
+        \citet{#1}%
+      \fi
+      , \citet[#3][#4]{#5}%
+      \ifnum\markdownLaTeXCitationsCounter<\markdownLaTeXCitationsTotal\relax
+        ,
+      \else
+        \ifnum\markdownLaTeXCitationsCounter=\markdownLaTeXCitationsTotal\relax
+          ,
+        \fi
+      \fi
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter
+      \markdownLaTeXNatbibTextCitations
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter{%
+      \expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter}%
+      \expandafter\expandafter\expandafter
+      \@gobbletwo
+    \fi
+  \else%  After a prenote or a postnote, dump the accumulator
+    \ifx\relax#1\relax\relax\else
+      \citet{#1}%
+    \fi
+    , \citet[#3][#4]{#5}%
+    \ifnum\markdownLaTeXCitationsCounter<\markdownLaTeXCitationsTotal\relax
+      ,
+    \else
+      \ifnum\markdownLaTeXCitationsCounter=\markdownLaTeXCitationsTotal\relax
+        ,
+      \fi
+    \fi
+    \expandafter\expandafter\expandafter
+    \markdownLaTeXNatbibTextCitations
+    \expandafter\expandafter\expandafter{%
+    \expandafter\expandafter\expandafter}%
+    \expandafter
+    \@gobbletwo
+  \fi\markdownLaTeXNatbibTextCitations{#1,#5}}
+
+\def\markdownLaTeXBibLaTeXCitations#1#2#3#4#5{%
+  \advance\markdownLaTeXCitationsCounter by 1\relax
+  \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+    \autocites#1[#3][#4]{#5}%
+    \expandafter\@gobbletwo
+  \fi\markdownLaTeXBibLaTeXCitations{#1[#3][#4]{#5}}}
+\def\markdownLaTeXBibLaTeXTextCitations#1#2#3#4#5{%
+  \advance\markdownLaTeXCitationsCounter by 1\relax
+  \ifnum\markdownLaTeXCitationsCounter>\markdownLaTeXCitationsTotal\relax
+    \textcites#1[#3][#4]{#5}%
+    \expandafter\@gobbletwo
+  \fi\markdownLaTeXBibLaTeXTextCitations{#1[#3][#4]{#5}}}
+
+\markdownSetup{rendererPrototypes = {
+  cite = {%
+    \markdownLaTeXCitationsCounter=1%
+    \def\markdownLaTeXCitationsTotal{#1}%
+    \@ifundefined{autocites}{%
+      \@ifundefined{citep}{%
+        \expandafter\expandafter\expandafter
+        \markdownLaTeXBasicCitations
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+      }{%
+        \expandafter\expandafter\expandafter
+        \markdownLaTeXNatbibCitations
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+      }%
+    }{%
+      \expandafter\expandafter\expandafter
+      \markdownLaTeXBibLaTeXCitations
+      \expandafter{\expandafter}%
+    }},
+  textCite = {%
+    \markdownLaTeXCitationsCounter=1%
+    \def\markdownLaTeXCitationsTotal{#1}%
+    \@ifundefined{autocites}{%
+      \@ifundefined{citep}{%
+        \expandafter\expandafter\expandafter
+        \markdownLaTeXBasicTextCitations
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+      }{%
+        \expandafter\expandafter\expandafter
+        \markdownLaTeXNatbibTextCitations
+        \expandafter\expandafter\expandafter{%
+        \expandafter\expandafter\expandafter}%
+      }%
+    }{%
+      \expandafter\expandafter\expandafter
+      \markdownLaTeXBibLaTeXTextCitations
+      \expandafter{\expandafter}%
+    }}}}
+\RequirePackage{url}
+\RequirePackage{expl3}
+\ExplSyntaxOn
+\def\markdownRendererLinkPrototype#1#2#3#4{
+  \tl_set:Nn \l_tmpa_tl { #1 }
+  \tl_set:Nn \l_tmpb_tl { #2 }
+  \bool_set:Nn
+    \l_tmpa_bool
+    {
+      \tl_if_eq_p:NN
+        \l_tmpa_tl
+        \l_tmpb_tl
+    }
+  \tl_set:Nn \l_tmpa_tl { #4 }
+  \bool_set:Nn
+    \l_tmpb_bool
+    {
+      \tl_if_empty_p:N
+        \l_tmpa_tl
+    }
+  \bool_if:nTF
+    {
+      \l_tmpa_bool && \l_tmpb_bool
+    }
+    {
+      \markdownLaTeXRendererAutolink { #2 } { #3 }
+    }{
+      \markdownLaTeXRendererDirectOrIndirectLink { #1 } { #2 } { #3 } { #4 }
+    }
+}
+\def\markdownLaTeXRendererAutolink#1#2{%
+  \tl_set:Nn
+    \l_tmpa_tl
+    { #2 }
+  \tl_trim_spaces:N
+    \l_tmpa_tl
+  \tl_set:Nx
+    \l_tmpb_tl
+    {
+      \tl_range:Nnn
+        \l_tmpa_tl
+        { 1 }
+        { 1 }
+    }
+  \str_if_eq:NNTF
+    \l_tmpb_tl
+    \c_hash_str
+    {
+      \tl_set:Nx
+        \l_tmpb_tl
+        {
+          \tl_range:Nnn
+            \l_tmpa_tl
+            { 2 }
+            { -1 }
+        }
+      \exp_args:NV
+        \ref
+        \l_tmpb_tl
+    }{
+      \url { #2 }
+    }
+}
+\ExplSyntaxOff
+\def\markdownLaTeXRendererDirectOrIndirectLink#1#2#3#4{%
+  #1\footnote{\ifx\empty#4\empty\else#4: \fi\url{#3}}}
+\newcount\markdownLaTeXRowCounter
+\newcount\markdownLaTeXRowTotal
+\newcount\markdownLaTeXColumnCounter
+\newcount\markdownLaTeXColumnTotal
+\newtoks\markdownLaTeXTable
+\newtoks\markdownLaTeXTableAlignment
+\newtoks\markdownLaTeXTableEnd
+\AtBeginDocument{%
+  \@ifpackageloaded{booktabs}{%
+    \def\markdownLaTeXTopRule{\toprule}%
+    \def\markdownLaTeXMidRule{\midrule}%
+    \def\markdownLaTeXBottomRule{\bottomrule}%
+  }{%
+    \def\markdownLaTeXTopRule{\hline}%
+    \def\markdownLaTeXMidRule{\hline}%
+    \def\markdownLaTeXBottomRule{\hline}%
+  }%
+}
+\markdownSetup{rendererPrototypes={
+  table = {%
+    \markdownLaTeXTable={}%
+    \markdownLaTeXTableAlignment={}%
+    \markdownLaTeXTableEnd={%
+      \markdownLaTeXBottomRule
+      \end{tabular}}%
+    \ifx\empty#1\empty\else
+      \addto@hook\markdownLaTeXTable{%
+        \begin{table}
+        \centering}%
+      \addto@hook\markdownLaTeXTableEnd{%
+        \caption{#1}
+        \end{table}}%
+    \fi
+    \addto@hook\markdownLaTeXTable{\begin{tabular}}%
+    \markdownLaTeXRowCounter=0%
+    \markdownLaTeXRowTotal=#2%
+    \markdownLaTeXColumnTotal=#3%
+    \markdownLaTeXRenderTableRow
+  }
+}}
+\def\markdownLaTeXRenderTableRow#1{%
+  \markdownLaTeXColumnCounter=0%
+  \ifnum\markdownLaTeXRowCounter=0\relax
+    \markdownLaTeXReadAlignments#1%
+    \markdownLaTeXTable=\expandafter\expandafter\expandafter{%
+      \expandafter\the\expandafter\markdownLaTeXTable\expandafter{%
+        \the\markdownLaTeXTableAlignment}}%
+    \addto@hook\markdownLaTeXTable{\markdownLaTeXTopRule}%
+  \else
+    \markdownLaTeXRenderTableCell#1%
+  \fi
+  \ifnum\markdownLaTeXRowCounter=1\relax
+    \addto@hook\markdownLaTeXTable\markdownLaTeXMidRule
+  \fi
+  \advance\markdownLaTeXRowCounter by 1\relax
+  \ifnum\markdownLaTeXRowCounter>\markdownLaTeXRowTotal\relax
+    \the\markdownLaTeXTable
+    \the\markdownLaTeXTableEnd
+    \expandafter\@gobble
+  \fi\markdownLaTeXRenderTableRow}
+\def\markdownLaTeXReadAlignments#1{%
+  \advance\markdownLaTeXColumnCounter by 1\relax
+  \if#1d%
+    \addto@hook\markdownLaTeXTableAlignment{l}%
+  \else
+    \addto@hook\markdownLaTeXTableAlignment{#1}%
+  \fi
+  \ifnum\markdownLaTeXColumnCounter<\markdownLaTeXColumnTotal\relax\else
+    \expandafter\@gobble
+  \fi\markdownLaTeXReadAlignments}
+\def\markdownLaTeXRenderTableCell#1{%
+  \advance\markdownLaTeXColumnCounter by 1\relax
+  \ifnum\markdownLaTeXColumnCounter<\markdownLaTeXColumnTotal\relax
+    \addto@hook\markdownLaTeXTable{#1&}%
+  \else
+    \addto@hook\markdownLaTeXTable{#1\\}%
+    \expandafter\@gobble
+  \fi\markdownLaTeXRenderTableCell}
+
+\markdownIfOption{lineBlocks}{%
+  \RequirePackage{verse}
+  \markdownSetup{rendererPrototypes={
+    lineBlockBegin = {%
+      \begingroup
+        \def\markdownRendererHardLineBreak{\\}%
+        \begin{verse}%
+    },
+    lineBlockEnd = {%
+        \end{verse}%
+      \endgroup
+    },
+  }}
+}{}
+
+\ExplSyntaxOn
+\keys_define:nn
+  { markdown/jekyllData }
+  {
+    author  .code:n = { \author{#1} },
+    date    .code:n = { \date{#1}   },
+    title   .code:n = { \title{#1}  },
+  }
+\markdownSetup{
+  rendererPrototypes = {
+    jekyllDataEnd = {
+      \AddToHook{begindocument/end}{\maketitle}
+    },
+  },
+}
+\ExplSyntaxOff
+\markdownIfOption{strikeThrough}{%
+  \RequirePackage{soulutf8}%
+  \markdownSetup{
+    rendererPrototypes = {
+      strikeThrough = {%
+        \st{#1}%
+      },
+    }
+  }
+}{}
+\markdownIfOption{mark}{%
+  \RequirePackage{soulutf8}%
+  \markdownSetup{
+    rendererPrototypes = {
+      mark = {%
+        \hl{#1}%
+      },
+    }
+  }
+}{}
+\ExplSyntaxOn
+\__markdown_if_option:nT
+  { linkAttributes }
+  {
+    \RequirePackage{graphicx}
+    \markdownSetup{
+      rendererPrototypes = {
+        imageAttributeContextBegin = {
+          \group_begin:
+          \markdownSetup{
+            rendererPrototypes = {
+              attributeKeyValue = {
+                \setkeys
+                  { Gin }
+                  { { ##1 } = { ##2 } }
+              },
+            },
+          }
+        },
+        imageAttributeContextEnd = {
+          \group_end:
+        },
+      },
+    }
+  }
+\cs_gset:Npn
+  \markdownRendererInputRawInlinePrototype#1#2
+  {
+    \str_case:nnF
+      { #2 }
+      {
+        { latex }
+          {
+            \__markdown_plain_tex_default_input_raw_inline_renderer_prototype:nn
+              { #1 }
+              { tex }
+          }
+      }
+      {
+        \__markdown_plain_tex_default_input_raw_inline_renderer_prototype:nn
+          { #1 }
+          { #2 }
+      }
+  }
+\cs_gset:Npn
+  \markdownRendererInputRawBlockPrototype#1#2
+  {
+    \str_case:nnF
+      { #2 }
+      {
+        { latex }
+          {
+            \__markdown_plain_tex_default_input_raw_block_renderer_prototype:nn
+              { #1 }
+              { tex }
+          }
+      }
+      {
+        \__markdown_plain_tex_default_input_raw_block_renderer_prototype:nn
+          { #1 }
+          { #2 }
+      }
+  }
+\ExplSyntaxOff
+\fi % Closes `\markdownIfOption{plain}{\iffalse}{\iftrue}`
+\endinput
+%%
+%% End of file `markdownthemewitiko_markdown_defaults.sty'.

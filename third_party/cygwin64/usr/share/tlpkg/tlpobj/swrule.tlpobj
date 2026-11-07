@@ -1,0 +1,13 @@
+name swrule
+category Package
+revision 54267
+shortdesc Lines thicker in the middle than at the ends
+relocated 1
+longdesc Defines commands that create rules split into a (specified)
+longdesc number of pieces, whose size varies to produce the effect of a
+longdesc rule that swells in its centre.
+runfiles size=1
+ RELOC/tex/generic/swrule/swrule.sty
+catalogue-ctan /macros/generic/misc/swrule.sty
+catalogue-license other-free
+catalogue-topics decoration

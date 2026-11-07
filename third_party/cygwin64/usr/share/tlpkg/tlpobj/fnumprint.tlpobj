@@ -1,0 +1,21 @@
+name fnumprint
+category Package
+revision 29173
+shortdesc Print a number in 'appropriate' format
+relocated 1
+longdesc The package defines two macros which decide to typeset a number
+longdesc either as an Arabic number or as a word (or words) for the
+longdesc number. If the number is between zero and twelve (including
+longdesc zero and twelve) then words will be used; if the number is
+longdesc outside that range, it will be typeset using the package
+longdesc numprint Words for English representation of numbers are
+longdesc generated within the package, while those for German are
+longdesc generated using the package zahl2string.
+runfiles size=1
+ RELOC/tex/latex/fnumprint/fnumprint.sty
+catalogue-contact-repository https://github.com/ypid/latex-packages/tree/master/fnumprint
+catalogue-ctan /macros/latex/contrib/fnumprint
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics numbers
+catalogue-version 1.1a

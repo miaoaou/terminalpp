@@ -1,0 +1,19 @@
+name calculator
+category Package
+revision 64424
+shortdesc Use LaTeX as a scientific calculator
+relocated 1
+longdesc The calculator and calculus packages define several
+longdesc instructions which allow us to realise algebraic operations and
+longdesc to evaluate elementary functions and derivatives in our
+longdesc documents. The package's main goal is to define the arithmetic
+longdesc and functional calculations needed in the author's package
+longdesc xpicture, but the numeric abilities of "calculator" and
+longdesc "calculus" may be useful in other contexts.
+runfiles size=19
+ RELOC/tex/latex/calculator/calculator.sty
+ RELOC/tex/latex/calculator/calculus.sty
+catalogue-ctan /macros/latex/contrib/calculator
+catalogue-license lppl1.3
+catalogue-topics calculation maths
+catalogue-version 2.1

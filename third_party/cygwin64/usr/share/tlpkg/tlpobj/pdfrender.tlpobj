@@ -1,0 +1,16 @@
+name pdfrender
+category Package
+revision 69058
+shortdesc Control rendering parameters
+relocated 1
+longdesc The package provides interfaces for the user to control PDF
+longdesc parameters, such as line width or text rendering mode. The
+longdesc control operations work in a manner very similar to that of the
+longdesc color package.
+runfiles size=6
+ RELOC/tex/latex/pdfrender/pdfrender.sty
+catalogue-contact-bugs https://github.com/ho-tex/pdfrender/issues
+catalogue-ctan /macros/latex/contrib/pdfrender
+catalogue-license lppl1.3c
+catalogue-topics typesetting
+catalogue-version 1.8

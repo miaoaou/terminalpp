@@ -1,0 +1,563 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-spectra package -----------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\def\pgfspectra@library@data@loaded{}%
+\message{pgf-spectra data library loaded!}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% provide the macros
+%       \pgfspectradata[name of data set]{keys}
+%       \pgfspectratable[table options](name(s) of data set(s))
+%       \pgfspectrawrite[filename](name(s) of data set(s))
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter%
+\newdimen\pgfspectra@dima%
+\newdimen\pgfspectra@dimb%
+\newdimen\pgfspectra@dimc%
+\newcount\pgfspectra@elt@count%
+\edef\@pgfspectra@hash{\string#}%
+%  ----------------------------------------------------------------------------------------------------------
+% \pgfspectradata[name of data set]{keys}
+%
+%            keys with effect: charge,Imin,redshift,begin,end,precision,unit,element
+%  ----------------------------------------------------------------------------------------------------------
+\def\pgfspectradata{\@ifnextchar[\pgfspectra@data{\pgfspectra@data[]}}%
+\def\pgfspectra@data[#1]#2{\ignorespaces%
+% setting default values or user style
+\ifpgfspectra@StyleIsDef\pgfspectraStyleReset\pgfspectra@DoStyle\pgfspectra@StyleIsDeftrue\relax\else\pgfspectraStyleReset\relax\fi% NEW v2.0.0
+% process options (key values)
+\pgfkeys{/pgfspectra/.cd,#2}%
+% ----------------------------------------------------------------------------------------------------------
+% ----------------------------------------------------------------------------------------------------------
+% check if at least one element was provided...
+\ifx\pgfspectra@element\pgfspectra@wlN@NE\relax%
+NO ELEMENT(S) PROVIDED!\\ %
+\else% to the data list...
+% ----------------------------------------------------------------------------------------------------------
+% check limits... % NEW v2.0.0
+\ifnum\pgfspectra@end<10\relax\def\wldez{10}\let\pgfspectra@end\wldez\fi%
+\ifnum\pgfspectra@end>4000\relax\def\wlquatromil{4000}\let\pgfspectra@end\wlquatromil\fi%
+\ifnum\pgfspectra@begin<10\relax\def\wldez{10}\let\pgfspectra@begin\wldez\fi%
+\ifnum\pgfspectra@begin>4000\relax\def\wlquatromil{4000}\let\pgfspectra@begin\wlquatromil\fi%
+% ----------------------------------------------------------------------------------------------------------
+% setting limits...
+\pgfmathsetlength{\pgfspectra@dimb}{\pgfspectra@begin}%
+\pgfmathsetlength{\pgfspectra@dimc}{\pgfspectra@end}%
+% ----------------------------------------------------------------------------------------------------------
+% verifying redshift key
+\ifx\pgfspectra@redshift\@empty\relax%
+\pgfspectra@redshiftfalse%
+\else%
+\pgfspectra@processredshiftkey\pgfspectra@redshift\relax%
+\fi%
+% ----------------------------------------------------------------------------------------------------------
+% check if is only in visible range... or in UV... or in IV % NEW v2.2.0
+\pgfspectra@visibleRangeOnlyfalse%
+\pgfspectra@UVRangeOnlyfalse%
+\pgfspectra@IRRangeOnlyfalse%
+\ifnum\pgfspectra@end>\pgfspectra@begin\relax%
+    \ifnum\pgfspectra@end<380\relax% UV
+        \pgfspectra@UVRangeOnlytrue%
+    \else% VIS or IV
+        \ifnum\pgfspectra@end<781\relax%
+            \ifnum\pgfspectra@begin>379\relax\pgfspectra@visibleRangeOnlytrue\fi% VIS
+        \else%
+            \ifnum\pgfspectra@begin>780\relax\pgfspectra@IRRangeOnlytrue\fi% IR
+        \fi%
+    \fi%
+\else%
+    \ifnum\pgfspectra@begin<380\relax% UV
+        \pgfspectra@UVRangeOnlytrue%
+    \else% VIS or IV
+        \ifnum\pgfspectra@begin<781\relax%
+            \ifnum\pgfspectra@end>379\relax\pgfspectra@visibleRangeOnlytrue\fi% VIS
+        \else%
+            \ifnum\pgfspectra@end>780\relax\pgfspectra@IRRangeOnlytrue\fi% IR
+        \fi%
+    \fi%
+\fi%
+%  ----------------------------------------------------------------------------------------------------------
+% do the data list for the elements provided with the corresponding options
+    \def\pgfspectra@decompose##1/##2\relax{\edef\pgfspectra@wl@value{##1}\edef\pgfspectra@wl@int{##2}}%
+    \pgfspectra@countc=0%
+    \pgfspectra@elt@count=0%
+    \pgfkeys{/pgf/number format/.cd,fixed,fixed zerofill,precision=\pgfspectra@precision,assume math mode=true}%
+    \@for\@myarg:=\pgfspectra@element\do{\advance\pgfspectra@countc by1}%count number of elements
+    \edef\pgfspectra@data@list{}%
+    \@for\@myarg:=\pgfspectra@element\do{%
+            \pgfspectra@addt@list{}{}%
+            \pgfspectra@cur@elem@existtrue%
+            \def\pgfspectra@elt@chemsym{NOT FOUND!}%
+            \def\@search@result@err{NOT FOUND!}%
+            \pgfspectra@elt@data{\@myarg}\relax%
+            % check if element provided exists
+            \ifx\@search@result@err\pgfspectra@elt@chemsym Element\ ``\@myarg'' with charge ``\pgfspectra@charge'' not found!\pgfspectra@cur@elem@existfalse\else%
+            % if exists, set the wavelength's list
+                % CHANGED IN v2.2.0 to better accommodate relative intensities (also considering charges...) ---->
+                \ifpgfspectra@UVRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@UV\relax%
+                    \pgfspectra@setmaxint{UV}%
+                \else\ifpgfspectra@visibleRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@VIS\relax%
+                    \pgfspectra@setmaxint{VIS}%
+                \else\ifpgfspectra@IRRangeOnly%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@IR\relax%
+                    \pgfspectra@setmaxint{IR}%
+                \else%
+                    \expandafter\pgfspectra@getmaxint\pgfspectra@elt@Imax@ALL\relax%
+                    \pgfspectra@setmaxint{ALL}%
+                \fi\fi\fi%
+                % <----- v2.0.0
+                \pgfspectra@set@element@list{\pgfspectra@elt@elemdata}{\pgfspectra@elt@Imax}%
+            \fi%\@search@result@err\pgfspectra@elt@chemsym
+            % set the \pgfspectra@data@list to the interval [\pgfspectra@begin,\pgfspectra@end]
+            \edef\@pgfspectra@list@@{BEGIN}%
+            \@for\@myargi:=\pgfspectra@list@@\do{%
+                    \ifpgfspectra@intensity%
+                        \expandafter\pgfspectra@decompose\@myargi\relax%
+                        \pgfmathsetlength{\pgfspectra@dima}{\pgfspectra@wl@value}%
+                    \else%
+                        \edef\pgfspectra@wl@value{\@myargi}%
+                        \pgfmathsetlength{\pgfspectra@dima}{\@myargi}%
+                    \fi%
+                    \ifdim\pgfspectra@dima<\pgfspectra@dimb\relax%lambda<begin
+                    \else\ifdim\pgfspectra@dima>\pgfspectra@dimc\relax%lambda>end
+                    \else%begin<=lambda<=end
+                        \ifpgfspectra@intensity%
+                            \pgfmathprintnumberto{\pgfspectra@wl@value}{\pgfspectra@wlformatted}%
+                            \pgfmathprintnumberto[fixed,fixed zerofill,precision=2,assume math mode=true]{\pgfspectra@wl@int}{\pgfspectra@intformatted}%
+                            \edef\@pgfspectra@list@@{\@pgfspectra@list@@,\pgfspectra@wlformatted/\pgfspectra@intformatted}%
+                        \else%
+                            \pgfmathprintnumberto{\pgfspectra@wl@value}{\pgfspectra@wlformatted}%
+                            \edef\@pgfspectra@list@@{\@pgfspectra@list@@,\pgfspectra@wlformatted}%
+                        \fi%
+                    \fi\fi%
+                    }%end do
+            \ifnum\pgfspectra@charge=0\relax\edef\pgfspectra@elt@charge{0}\else%
+            \ifnum\pgfspectra@charge=1\relax\edef\pgfspectra@elt@charge{1}\else%
+            \ifnum\pgfspectra@charge=2\relax\edef\pgfspectra@elt@charge{2}\else%
+            \ifnum\pgfspectra@charge=3\relax\edef\pgfspectra@elt@charge{3}\else%
+            \ifnum\pgfspectra@charge=4\relax\edef\pgfspectra@elt@charge{4}\else%
+            \edef\pgfspectra@elt@charge{all}\fi\fi\fi\fi\fi%
+            \edef\pgfspectra@BEGIN{BEGIN}%
+            \ifx\@pgfspectra@list@@\pgfspectra@BEGIN\relax%
+                \edef\pgfspectra@data@list{\pgfspectra@data@list\pgfspectra@elt@chemsym(+\pgfspectra@elt@charge):no lines!;}%
+            \else%
+            \ifpgfspectra@cur@elem@exist%
+                \expandafter\@pgfspectra@list@purge \@pgfspectra@list@@[@pgfspectra@list@@]\relax%
+                \ifpgfspectra@intensity\relax\else%
+                    \expandafter\@pgfspectra@removeduplicates\@pgfspectra@list@@\relax%
+                \fi%
+                % processing redshift
+                \ifpgfspectra@redshift%
+                \edef\pgfspectra@list@@{\@pgfspectra@list@@}\pgfspectra@utils@redshift%
+                \edef\@pgfspectra@list@@{BEGIN}%
+                \@for\@myargi:=\pgfspectra@list@@\do{%
+                        \ifpgfspectra@intensity%
+                            \expandafter\pgfspectra@decompose\@myargi\relax%
+                            \pgfmathprintnumberto{\pgfspectra@wl@value}{\pgfspectra@wlformatted}%
+                            \pgfmathprintnumberto[fixed,fixed zerofill,precision=2,assume math mode=true]{\pgfspectra@wl@int}{\pgfspectra@intformatted}%
+                            \edef\@pgfspectra@list@@{\@pgfspectra@list@@,\pgfspectra@wlformatted/\pgfspectra@intformatted}%
+                        \else%
+                            \edef\pgfspectra@wl@value{\@myargi}%
+                            \pgfmathprintnumberto{\pgfspectra@wl@value}{\pgfspectra@wlformatted}%
+                            \edef\@pgfspectra@list@@{\@pgfspectra@list@@,\pgfspectra@wlformatted}%
+                        \fi%
+                        }%end do
+                \expandafter\@pgfspectra@list@purge \@pgfspectra@list@@[@pgfspectra@list@@]\relax%
+                \else%
+                \edef\pgfspectra@write@redshiftinfo{}\edef\pgfspectra@redshiftinfo{}%
+                \fi%
+                % processing the unit of wl and setting its value with the \pgfspectra@precision
+                \edef\pgfspectra@testa{}\edef\pgfspectra@testb{\pgfspectra@unit}%
+                \ifx\pgfspectra@testa\pgfspectra@testb\relax\edef\pgfspectra@unit{\pgfspectra@axisunit}\fi%
+                % setting info to write
+                \edef\pgfspectra@write@begin{\pgfspectra@begin}%
+                \edef\pgfspectra@write@end{\pgfspectra@end}%
+                \edef\pgfspectra@write@unit{nanometers}%
+                %
+                \ifx\pgfspectra@unit\pgfspectra@axisunit@um\relax%
+                \pgfspectra@countd=\pgfspectra@precision\advance\pgfspectra@countd by3\relax%
+                \pgfkeys{/pgf/number format/.cd,fixed zerofill,assume math mode=true,precision=\pgfspectra@countd}%
+                % overriding info to write
+                \pgfmathparse{\pgfspectra@begin/1000}\pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@write@begin}%
+                \pgfmathparse{\pgfspectra@end/1000}\pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@write@end}%
+                \edef\pgfspectra@write@unit{micrometers}%
+                %
+                \edef\@pgfspectra@list@@temp{BEGIN}%
+                \@for\@myarg:=\@pgfspectra@list@@\do{%
+                        \ifpgfspectra@intensity%
+                            \expandafter\pgfspectra@decompose\@myarg\relax%
+                            \pgfmathparse{\pgfspectra@wl@value/1000}%
+                            \pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@wlformatted}%
+                            \edef\@pgfspectra@list@@temp{\@pgfspectra@list@@temp,\pgfspectra@wlformatted/\pgfspectra@wl@int}%
+                        \else%
+                            \pgfmathparse{\@myarg/1000}%
+                            \pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@wlformatted}%
+                            \edef\@pgfspectra@list@@temp{\@pgfspectra@list@@temp,\pgfspectra@wlformatted}%
+                        \fi%
+                        }%end do
+                \expandafter\@pgfspectra@list@purge \@pgfspectra@list@@temp[@pgfspectra@list@@temp]\relax%
+                \edef\@pgfspectra@list@@{\@pgfspectra@list@@temp}%
+                \else\ifx\pgfspectra@unit\pgfspectra@axisunit@A\relax%
+                % overriding info to write
+                \expandafter\@pgfspectra@nmToA\pgfspectra@begin\relax\edef\pgfspectra@write@begin{\pgfspectra@wlformatted}%
+                \expandafter\@pgfspectra@nmToA\pgfspectra@end\relax\edef\pgfspectra@write@end{\pgfspectra@wlformatted}%
+                \edef\pgfspectra@write@unit{angstroms}%
+                %
+                \edef\@pgfspectra@list@@temp{BEGIN}%
+                \@for\@myarg:=\@pgfspectra@list@@\do{%
+                        \ifpgfspectra@intensity%
+                            \expandafter\pgfspectra@decompose\@myarg\relax%
+                            \expandafter\@pgfspectra@nmToA\pgfspectra@wl@value\relax%
+                            \edef\@pgfspectra@list@@temp{\@pgfspectra@list@@temp,\pgfspectra@wlformatted/\pgfspectra@wl@int}%
+                        \else%
+                            \expandafter\@pgfspectra@nmToA\@myarg\relax%
+                            \edef\@pgfspectra@list@@temp{\@pgfspectra@list@@temp,\pgfspectra@wlformatted}%
+                        \fi%
+                        }%end do
+                \expandafter\@pgfspectra@list@purge \@pgfspectra@list@@temp[@pgfspectra@list@@temp]\relax%
+                \edef\@pgfspectra@list@@{\@pgfspectra@list@@temp}%
+                \fi\fi% UNITS
+            \edef\pgfspectra@data@list{\pgfspectra@data@list\pgfspectra@elt@chemsym(+\pgfspectra@elt@charge):\@pgfspectra@list@@;}%
+            \fi% \ifpgfspectra@cur@elem@exist
+            \advance\pgfspectra@elt@count by1%
+            \fi% \ifx\@pgfspectra@list@@\pgfspectra@BEGIN
+            }%end do
+    % setting element count:
+    \edef\pgfspectra@data@elementcount{\the\pgfspectra@elt@count}%
+%  ----------------------------------------------------------------------------------------------------------
+% data info format: unit,begin,end,int,RS,RSinfo/RSinfowrite
+% append relative intensities text to table/write
+\ifpgfspectra@intensity\edef\pgfspectra@write@int{/relative intensity}\else\edef\pgfspectra@write@int{}\fi%
+% append RS tesxt to table/write
+\ifpgfspectra@redshift\edef\pgfspectra@write@RS{REDSHIFTED }\else\edef\pgfspectra@write@RS{}\fi%
+% do the list and info
+\edef\pgfspectra@data@list{\pgfspectra@data@list}%
+\edef\pgfspectra@data@list@info{\pgfspectra@write@unit,\pgfspectra@write@begin,\pgfspectra@write@end,\pgfspectra@write@int,\pgfspectra@write@RS,\pgfspectra@redshiftinfo/\pgfspectra@write@redshiftinfo}%
+% do the named data list and info
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#1}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax% no user name
+    \edef\pgfspectra@last@dataset{\pgfspectra@data@list}%
+    \edef\pgfspectra@last@dataset@info{\pgfspectra@data@list@info}%
+    \edef\pgfspectra@datanoname@elementcount{\pgfspectra@data@elementcount}%
+\else% user name
+    \expandafter\edef\csname #1\endcsname{\pgfspectra@data@list}%
+    \expandafter\edef\csname #1@info\endcsname{\pgfspectra@data@list@info}%
+\fi%
+%  ----------------------------------------------------------------------------------------------------------
+\fi%\ifx\pgfspectra@element\pgfspectra@wlN@NE
+}% END \pgfspectradata
+%  ----------------------------------------------------------------------------------------------------------
+%
+%  ----------------------------------------------------------------------------------------------------------
+% \pgfspectratable keys
+% title, back color, data back color, text color, width, elements column width
+\pgfkeys{/pgfspectratable/.cd,%
+title/.get=\pgfspectra@table@title,%
+title/.store in=\pgfspectra@table@title,%
+title/.default={\pgfspectra@table@title@firstline\\ wavelength in \pgfspectra@table@unit\pgfspectra@table@info@int},%
+back color/.get=\pgfspectra@table@backcolor,%
+back color/.store in=\pgfspectra@table@backcolor,%
+back color/.default=black!10,%
+data back color/.get=\pgfspectra@table@databackcolor,%
+data back color/.store in=\pgfspectra@table@databackcolor,%
+data back color/.default=white,%
+text color/.get=\pgfspectra@table@textcolor,%
+text color/.store in=\pgfspectra@table@textcolor,%
+text color/.default=black,%
+width/.get=\pgfspectra@table@width,%
+width/.store in=\pgfspectra@table@width,%
+width/.default=\linewidth,%
+elements column width/.get=\pgfspectra@table@elementscolumnwidth,%
+elements column width/.store in=\pgfspectra@table@elementscolumnwidth,%
+elements column width/.default=2.5em%
+}%
+% setting keys with default values
+\pgfkeys{/pgfspectratable/.cd,title,back color,data back color,text color,width,elements column width}%
+%  ----------------------------------------------------------------------------------------------------------
+%
+%  ----------------------------------------------------------------------------------------------------------
+% \pgfspectratable[table options](name(s) of data set(s))
+%           USAGE:
+%           \pgfspectratable
+%           or
+%           \pgfspectratable[keys]
+%           or
+%           \pgfspectratable{mydataH,mydataHe,...}
+%           or
+%           \pgfspectratable[keys]{mydataH,mydataHe,...}
+%  ----------------------------------------------------------------------------------------------------------
+\newif\ifpgspectra@datah@snames%
+\def\pgfspectratable{\@ifnextchar[{\pgfspectra@table}{\pgfspectra@table[]}}%
+\def\pgfspectra@table[#1]{\@ifnextchar\bgroup{\@pgfspectra@table@two[#1]}{\@pgfspectra@table@one[#1]}}%
+\def\@pgfspectra@table@one[#1]{\@pgfspectra@table@two[#1]{}}%
+\def\@pgfspectra@table@two[#1]#2{\ignorespaces%
+% setting keys with default values
+\pgfkeys{/pgfspectratable/.cd,title,back color,data back color,text color,width,elements column width}%
+% process options (key values)
+\pgfkeys{/pgfspectratable/.cd,#1}%
+% check if there are data names
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#2}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\pgspectra@datah@snamesfalse\else\pgspectra@datah@snamestrue\fi%
+% set ELEMENT or ELEMENTS and redshift info in default title
+\ifpgspectra@datah@snames%
+    % get data info
+    \def\pgfsectratable@data@firstname##1,##2\relax{\edef\pgfsectratable@thefirstname{##1}}%
+    \expandafter\pgfsectratable@data@firstname#2,\relax%
+    \edef\pgfsectratable@data@info{\csname\pgfsectratable@thefirstname @info\endcsname}%
+    \expandafter\pgfsectra@data@info\pgfsectratable@data@info\relax%
+    \ifnum\pgfspectra@data@elementcount>1\relax%
+        \def\pgfspectra@table@title@firstline{\pgfspectra@table@info@RS SPECTRAL LINES OF ELEMENTS\pgfspectra@table@info@RSinfo}%
+    \else%
+        \def\pgfspectra@table@title@firstline{\pgfspectra@table@info@RS SPECTRAL LINES OF ELEMENT\pgfspectra@table@info@RSinfo}%
+    \fi%
+\else%
+    \expandafter\pgfsectra@data@info\pgfspectra@last@dataset@info\relax%
+    \ifnum\pgfspectra@datanoname@elementcount>1\relax%
+        \def\pgfspectra@table@title@firstline{\pgfspectra@table@info@RS SPECTRAL LINES OF ELEMENTS\pgfspectra@table@info@RSinfo}%
+    \else%
+        \def\pgfspectra@table@title@firstline{\pgfspectra@table@info@RS SPECTRAL LINES OF ELEMENT\pgfspectra@table@info@RSinfo}%
+    \fi%
+\fi%
+% get and set the unit for default title
+\edef\pgfspectra@testb{\pgfspectra@table@info@unit}%
+\edef\pgfspectra@testc{micrometers}%
+%\ifx\pgfspectra@testa\pgfspectra@testb\relax\edef\pgfspectra@unit{\pgfspectra@axisunit}\fi%
+\ifx\pgfspectra@testb\pgfspectra@testc\relax%
+    \def\pgfspectra@table@unit{$\mu m$}%
+\else\edef\pgfspectra@testc{angstroms}%
+\ifx\pgfspectra@testb\pgfspectra@testc\relax%
+    \def\pgfspectra@table@unit{{\AA}}%
+\else%
+    \def\pgfspectra@table@unit{$nm$}%
+\fi\fi%
+% append relative intensities for default title
+\edef\pgfspectra@table@rel@int{\pgfspectra@table@info@int}%
+% do tthe table
+\begin{tikzpicture}
+    \node[text width={\pgfspectra@table@width-2pt},text centered,below right,inner xsep=0pt,draw=\pgfspectra@table@backcolor,%
+            fill=\pgfspectra@table@backcolor,line width=2pt,text=\pgfspectra@table@textcolor]%
+            (title) at (0,0) {\pgfspectra@table@title};%
+    \pgfspectra@countc=0\relax%
+    \ifpgspectra@datah@snames%
+        \@for\@names:=#2\do{%
+                \edef\pgfspectra@current@dataset{\csname\@names\endcsname}%
+                \expandafter\pgfspectra@table@get@data\pgfspectra@current@dataset\relax%
+                }%end do
+    \else%
+        \relax\expandafter\pgfspectra@table@get@data\pgfspectra@last@dataset\relax%
+    \fi%
+        \coordinate (L0) at ([xshift=\pgfspectra@table@elementscolumnwidth]title.south west);
+        \pgfspectra@countb=0\relax%
+        \foreach \x in {1,...,\pgfspectra@countc}{%
+                \pgfmathparse{-\pgfspectra@table@elementscolumnwidth*\x}\edef\y{\pgfmathresult pt}%
+                \node[text width={\pgfspectra@table@width-\pgfspectra@table@elementscolumnwidth-18pt},align=left,below right,%
+                        inner xsep=8pt,inner ysep=5pt,minimum height=24pt,draw=\pgfspectra@table@backcolor,line width=2pt,%
+                        fill=\pgfspectra@table@databackcolor,text=\pgfspectra@table@textcolor]%
+                    (L\x) at ([yshift=2pt]L\the\pgfspectra@countb.south west)%
+                        {%
+                        \edef\pgfspectra@data@to@node{\csname pgfspectra@table@data@lines@\@roman\x\endcsname}%
+                        \@for\@myarg:=\pgfspectra@data@to@node\do{\@myarg\ }%
+                        };%
+                \edef\pgfspectra@table@element@charge{\csname pgfspectra@table@data@elementcharge@\@roman\x\endcsname}%
+                \pgfmathsetlength{\pgfspectra@dima}{.75*\f@size}%
+                \pgfmathsetlength{\pgfspectra@dimb}{.5*\f@size}%
+                \ifnum\pgfspectra@table@element@charge=0\relax\edef\pgfspectra@the@charge{}\else%
+                \ifnum\pgfspectra@table@element@charge=1\relax\def\pgfspectra@the@charge{\fontsize{\pgfspectra@dima}{\pgfspectra@dima}\selectfont\raisebox{1.1\pgfspectra@dimb}{\fontsize{\pgfspectra@dimb}{\pgfspectra@dimb}\selectfont\raisebox{.5ex}{+}}}\else%
+                \ifnum\pgfspectra@table@element@charge=2\relax\def\pgfspectra@the@charge{\fontsize{\pgfspectra@dima}{\pgfspectra@dima}\selectfont\raisebox{1.1\pgfspectra@dimb}{2\fontsize{\pgfspectra@dimb}{\pgfspectra@dimb}\selectfont\raisebox{.5ex}{+}}}\else%
+                \ifnum\pgfspectra@table@element@charge=3\relax\def\pgfspectra@the@charge{\fontsize{\pgfspectra@dima}{\pgfspectra@dima}\selectfont\raisebox{1.1\pgfspectra@dimb}{3\fontsize{\pgfspectra@dimb}{\pgfspectra@dimb}\selectfont\raisebox{.5ex}{+}}}\else%
+                \ifnum\pgfspectra@table@element@charge=4\relax\def\pgfspectra@the@charge{\fontsize{\pgfspectra@dima}{\pgfspectra@dima}\selectfont\raisebox{1.1\pgfspectra@dimb}{4\fontsize{\pgfspectra@dimb}{\pgfspectra@dimb}\selectfont\raisebox{.5ex}{+}}}\else%
+                \edef\pgfspectra@the@charge{-1}\fi\fi\fi\fi\fi%
+                \fill[\pgfspectra@table@backcolor] (L\x.north west) rectangle ([xshift=-\pgfspectra@table@elementscolumnwidth]L\x.south west)%
+                     node[midway,fill=\pgfspectra@table@backcolor,text=\pgfspectra@table@textcolor]%
+                     {\ifnum\pgfspectra@table@element@charge>0\relax\raisebox{.75\pgfspectra@dimb}{\csname pgfspectra@table@data@element@\@roman\x\endcsname\pgfspectra@the@charge}\else\csname pgfspectra@table@data@element@\@roman\x\endcsname\fi};%
+                \global\advance\pgfspectra@countb by1\relax%
+                }%
+\end{tikzpicture}
+}% END \pgfspectratable
+%  ----------------------------------------------------------------------------------------------------------
+%
+%  ----------------------------------------------------------------------------------------------------------
+% \pgfspectrawrite[filename](name(s) of data set(s))
+%           USAGE:
+%           \pgfspectrawrite
+%           or
+%           \pgfspectrawrite[filename]
+%           or
+%           \pgfspectrawrite{mydataH,mydataHe,...}
+%           or
+%           \pgfspectrawrite[filename]{mydataH,mydataHe,...}
+%  ----------------------------------------------------------------------------------------------------------
+\def\pgfspectrawrite{\@ifnextchar[{\pgfspectra@write}{\pgfspectra@write[]}}%
+\def\pgfspectra@write[#1]{\@ifnextchar\bgroup{\@pgfspectra@write@two[#1]}{\@pgfspectra@write@one[#1]}}%
+\def\@pgfspectra@write@one[#1]{\@pgfspectra@write@two[#1]{}}%
+\def\@pgfspectra@write@two[#1]#2{\ignorespaces%
+% check if there are data names
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#2}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\pgspectra@datah@snamesfalse\else\pgspectra@datah@snamestrue\fi%
+% get data info
+\ifpgspectra@datah@snames
+    \def\pgfsectratable@data@firstname##1,##2\relax{\edef\pgfsectratable@thefirstname{##1}}%
+    \expandafter\pgfsectratable@data@firstname#2,\relax%
+    \edef\pgfsectratable@data@info{\csname\pgfsectratable@thefirstname @info\endcsname}%
+    \expandafter\pgfsectra@data@info\pgfsectratable@data@info\relax%
+\else%
+    \expandafter\pgfsectra@data@info\pgfspectra@last@dataset@info\relax%
+\fi%
+% verifying redshift
+\pgfspectra@redshiftfalse%
+\edef\pgfspectra@test@RS{REDSHIFTED }%
+\ifx\pgfspectra@test@RS\pgfspectra@table@info@RS\relax\pgfspectra@redshifttrue\fi%
+% check if the filename is provided and defining it
+\edef\pgfspectra@testb{#1}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\edef\pgfspectra@filename{spectradata.tex}\else%
+    \def\pgfspectra@ext@error##1.\relax{\edef\pgfspectra@check@file@ext{##1}}%
+    \def\pgfspectra@check@file.ext##1.##2\relax{\edef\pgfspectra@check@file@ext{##2}%
+            \ifx\pgfspectra@testa\pgfspectra@check@file@ext\relax\edef\pgfspectra@filename{##1.tex}\edef\pgfspectra@file@ext{tex}%
+            \else\edef\pgfspectra@check@file@ext@list{tex,csv,txt,dat}\edef\pgfspectra@file@ext{}%
+                \@for\@ext:=\pgfspectra@check@file@ext@list\do{%
+                        \edef\pgfspectra@testb{\@ext.}\ifx\pgfspectra@testb\pgfspectra@check@file@ext\relax\edef\pgfspectra@file@ext{\@ext}\fi%
+                        }%
+                \ifx\pgfspectra@testa\pgfspectra@file@ext\relax%
+                    \edef\pgfspectra@file@ext{tex}%
+                    \expandafter\pgfspectra@ext@error\pgfspectra@check@file@ext\relax%
+                    \PackageError{pgfspectra}{\string\pgfspectrawrite: the file extension you provided ('\pgfspectra@check@file@ext') not allowed, '.tex' will be used...}{}\relax%
+                \fi%
+            \fi%
+            \edef\pgfspectra@filename{##1.\pgfspectra@file@ext}%
+    }%
+    \expandafter\pgfspectra@check@file.ext#1.\relax%
+\fi%
+% write to file
+\immediate\newwrite\pgfspectra@datafile%
+\immediate\openout\pgfspectra@datafile=\pgfspectra@filename%
+\edef\pgfspectra@write@space{ }%
+% changing today format
+\def\pgfspectra@today{\two@digits{\the\day}\space\space\ifcase\month\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi\space\number\year}%
+\edef\pgfspectra@testa{csv}%
+\ifx\pgfspectra@testa\pgfspectra@file@ext\relax% csv
+\immediate\write\pgfspectra@datafile{\@pgfspectra@hash\pgfspectra@write@space Generated by pgf-spectra @ \pgfspectra@today}%
+\ifpgfspectra@redshift%
+\immediate\write\pgfspectra@datafile{\@pgfspectra@hash\pgfspectra@write@space Redshifted spectral lines of element(s) and/or their ion(s) from \pgfspectra@table@info@begin\pgfspectra@write@space to \pgfspectra@table@info@end\pgfspectra@write@space\pgfspectra@table@info@unit}%
+\immediate\write\pgfspectra@datafile{\@pgfspectra@hash\pgfspectra@write@space \pgfspectra@write@info@RSinfo}%
+\else%
+\immediate\write\pgfspectra@datafile{\@pgfspectra@hash\pgfspectra@write@space Spectral lines of element(s) and/or their ion(s) from \pgfspectra@table@info@begin\pgfspectra@write@space to \pgfspectra@table@info@end\pgfspectra@write@space\pgfspectra@table@info@unit}%
+\fi%
+\immediate\write\pgfspectra@datafile{\@pgfspectra@hash\pgfspectra@write@space Data structure:}%
+\immediate\write\pgfspectra@datafile{chemical symbol,charge,lines\pgfspectra@table@info@int}%
+\else% tex,txt,dat
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space Generated by pgf-spectra @ \pgfspectra@today}%
+\ifpgfspectra@redshift%
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space Redshifted spectral lines of element(s) and/or their ion(s) from \pgfspectra@table@info@begin\pgfspectra@write@space to \pgfspectra@table@info@end\pgfspectra@write@space\pgfspectra@table@info@unit}%
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space \pgfspectra@write@info@RSinfo}%
+\else%
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space Spectral lines of element(s) and/or their ion(s) from \pgfspectra@table@info@begin\pgfspectra@write@space to \pgfspectra@table@info@end\pgfspectra@write@space\pgfspectra@table@info@unit}%
+\fi%
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space Data structure:}%
+\immediate\write\pgfspectra@datafile{\@percentchar\pgfspectra@write@space chemical symbol,charge,lines\pgfspectra@table@info@int}%
+\fi% \pgfspectra@file@ext
+\ifpgspectra@datah@snames%
+    \@for\@names:=#2\do{%
+            \edef\pgfspectra@test@tmp{\expandafter\ifx\csname\@names\endcsname\relax\else\csname\@names\endcsname\fi}%
+            \edef\pgfspectra@testa{\pgfspectra@test@tmp}%
+            \edef\pgfspectra@testb{}%
+            \ifx\pgfspectra@testa\pgfspectra@testb\relax%
+                \PackageError{pgfspectra}{\string\pgfspectrawrite: the named data you provided ('\@names') doesn't exist. It will not be written to file...}{}\relax%
+            \else%
+                \edef\pgfspectra@data@contents{\csname\@names\endcsname}%
+                \pgfspectra@countc=0\relax%
+                \expandafter\pgfspectra@table@get@data\pgfspectra@data@contents\relax%
+                \foreach \x in {1,...,\pgfspectra@countc}{%
+                        \edef\pgfspectra@writedata@element@CS{\csname pgfspectra@table@data@element@\@roman\x\endcsname}%
+                        \edef\pgfspectra@writedata@element@charge{\csname pgfspectra@table@data@elementcharge@\@roman\x\endcsname}%
+                        \ifnum\pgfspectra@writedata@element@charge>0\relax\edef\pgfspectra@writedata@element@charge{+\pgfspectra@writedata@element@charge}\fi%
+                        \edef\pgfspectra@writedata@element@lines{\csname pgfspectra@table@data@lines@\@roman\x\endcsname}%
+                        \immediate\write\pgfspectra@datafile{\pgfspectra@writedata@element@CS,\pgfspectra@writedata@element@charge,\pgfspectra@writedata@element@lines}%
+                        }%
+            \fi%
+            }% end do
+\else% no names
+    \ifx\pgfspectra@last@dataset\undefined\relax%
+                \PackageError{pgfspectra}{\string\pgfspectrawrite: no data available! It must be first loaded with \string\pgfspectradata...}{}\relax%
+    \else%
+        \pgfspectra@countc=0\relax%
+        \expandafter\pgfspectra@table@get@data\pgfspectra@last@dataset\relax%
+        \foreach \x in {1,...,\pgfspectra@countc}{%
+                \edef\pgfspectra@writedata@element@CS{\csname pgfspectra@table@data@element@\@roman\x\endcsname}%
+                \edef\pgfspectra@writedata@element@charge{\csname pgfspectra@table@data@elementcharge@\@roman\x\endcsname}%
+                \ifnum\pgfspectra@writedata@element@charge>0\relax\edef\pgfspectra@writedata@element@charge{+\pgfspectra@writedata@element@charge}\fi%
+                \edef\pgfspectra@writedata@element@lines{\csname pgfspectra@table@data@lines@\@roman\x\endcsname}%
+                \immediate\write\pgfspectra@datafile{\pgfspectra@writedata@element@CS,\pgfspectra@writedata@element@charge,\pgfspectra@writedata@element@lines}%
+                }%
+    \fi%
+\fi%
+\immediate\closeout\pgfspectra@datafile%
+}% END \pgfspectrawrite
+%  ----------------------------------------------------------------------------------------------------------
+%
+% ------------------- utils ---------------------------------------
+%
+\def\pgfspectra@table@get@data#1(+#2):#3;#4\relax{%
+\advance\pgfspectra@countc by1\relax%
+\expandafter\edef\csname pgfspectra@table@data@element@\@roman\pgfspectra@countc\endcsname{#1}%
+\expandafter\edef\csname pgfspectra@table@data@elementcharge@\@roman\pgfspectra@countc\endcsname{#2}%
+\expandafter\edef\csname pgfspectra@table@data@lines@\@roman\pgfspectra@countc\endcsname{#3}%
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#4}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\else%
+\expandafter\pgfspectra@table@get@data#4\relax%
+\fi%
+}%
+%
+\def\@pgfspectra@removeduplicates#1\relax{\ignorespaces%
+    \edef\@pgfspectra@list@@{BEGIN}%
+    \edef\@pgfspectra@lastwl{}%
+    \@for\@wlarg:=#1\do{%
+            \edef\@pgfspectra@currentwl{\@wlarg}%
+            \ifx\@pgfspectra@currentwl\@pgfspectra@lastwl\relax\else\edef\@pgfspectra@list@@{\@pgfspectra@list@@,\@wlarg}\fi%
+            \edef\@pgfspectra@lastwl{\@wlarg}%
+            }%end do
+    \expandafter\@pgfspectra@list@purge \@pgfspectra@list@@[@pgfspectra@list@@]\relax%
+}%
+\def\@pgfspectra@nmToA#1\relax{\ignorespaces% multiply by 10 using TeX trickery to overcome the maxdim (16383.99998pt)
+\expandafter\@pgfspectra@nmToA@hasDot#1.\relax%
+\ifnum\@pgfspectra@nmToA@dot=0\relax% no dot: add a zero
+    \edef\pgfspectra@wlformatted{#10}%
+\else% has dot: shift the dot 1 place to the right
+    \expandafter\@pgfspectra@nmToA@shiftDot#1\relax%
+\fi%
+}%
+\def\@pgfspectra@nmToA@hasDot#1.#2\relax{\ignorespaces%
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#2}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\edef\@pgfspectra@nmToA@dot{0}\else\edef\@pgfspectra@nmToA@dot{1}\fi%
+}%
+\def\@pgfspectra@nmToA@shiftDot#1.#2\relax{\ignorespaces%
+\expandafter\@pgfspectra@nmToA@i@ii#2\relax%
+\edef\pgfspectra@wlformatted{#1\@pgfspectra@nmToA@i\@pgfspectra@nmToA@ii}%
+}%
+\def\@pgfspectra@nmToA@i@ii#1#2\relax{\ignorespaces%
+\edef\pgfspectra@testa{}\edef\pgfspectra@testb{#2}%
+\edef\@pgfspectra@nmToA@i{#1}%
+\ifx\pgfspectra@testa\pgfspectra@testb\relax\edef\@pgfspectra@nmToA@ii{}%
+\else\edef\@pgfspectra@nmToA@ii{.#2}\fi%
+}%
+%
+\def\pgfsectra@data@info#1,#2,#3,#4,#5,#6/#7\relax{%
+%unit,begin,end,int,RS,RSinfo,RSinfowrite
+\edef\pgfspectra@table@info@unit{#1}%
+\edef\pgfspectra@table@info@begin{#2}%
+\edef\pgfspectra@table@info@end{#3}%
+\edef\pgfspectra@table@info@int{#4}%
+\edef\pgfspectra@table@info@RS{#5}%
+\edef\pgfsectra@data@info@testa{}\edef\pgfsectra@data@info@testb{#6}%
+\ifx\pgfsectra@data@info@testa\pgfsectra@data@info@testb\relax%
+\def\pgfspectra@table@info@RSinfo{}%
+\def\pgfspectra@write@info@RSinfo{}%
+\else%
+\def\pgfspectra@table@info@RSinfo{{\footnotesize\\ #6}}%
+\def\pgfspectra@write@info@RSinfo{#7}%
+\fi%
+}%
+\makeatother%
+\endinput

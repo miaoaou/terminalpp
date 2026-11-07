@@ -1,0 +1,24 @@
+name limap
+category Package
+revision 44863
+shortdesc Typeset maps and blocks according to the Information Mapping(r) method
+relocated 1
+longdesc The Information Mapping(r) method provides a methodology for
+longdesc structuring and presenting information. It claims to be useful
+longdesc for readers who are more concerned about finding the right
+longdesc information than reading the document as a whole. Thus short,
+longdesc highly structured, and context free pieces of information are
+longdesc used. A LaTeX style and a LaTeX class are provided. The style
+longdesc contains definitions to typeset maps and blocks according to
+longdesc the Information Mapping(r) method. The class provides all
+longdesc definitions to typeset a whole document.
+runfiles size=7
+ RELOC/tex/latex/limap/limap.cls
+ RELOC/tex/latex/limap/limap.sty
+catalogue-contact-home http://gerd-neugebauer.de/software/TeX/limap/
+catalogue-contact-repository https://sourceforge.net/p/gene-tex-lib/svn/HEAD/tree/limap/
+catalogue-ctan /macros/latex/contrib/gene/limap
+catalogue-date 2017-07-21 20:55:15 +0200
+catalogue-license lppl1.3c
+catalogue-topics struc-mkup class article-like report-like book-pub
+catalogue-version 2.2

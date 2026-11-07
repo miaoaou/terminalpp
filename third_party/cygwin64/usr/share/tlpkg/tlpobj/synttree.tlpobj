@@ -1,0 +1,15 @@
+name synttree
+category Package
+revision 16252
+shortdesc Typeset syntactic trees
+relocated 1
+longdesc A package to typeset syntactic trees such as those used in
+longdesc Chomsky's Generative grammar, based on a description of the
+longdesc structure of the tree.
+runfiles size=4
+ RELOC/tex/latex/synttree/synttree.sty
+catalogue-ctan /macros/latex/contrib/synttree
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics tree linguistic
+catalogue-version 1.4.2

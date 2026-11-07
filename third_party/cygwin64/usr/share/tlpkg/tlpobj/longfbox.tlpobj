@@ -1,0 +1,16 @@
+name longfbox
+category Package
+revision 39028
+shortdesc Draw framed boxes with standard CSS attributes that can break over multiple pages
+relocated 1
+longdesc The longfbox package provides framed boxes that can be
+longdesc customized using standard CSS attributes. It was written to
+longdesc support precise rendering of Madoko documents in LaTeX.
+runfiles size=23
+ RELOC/tex/latex/longfbox/longbox.sty
+ RELOC/tex/latex/longfbox/longfbox.sty
+catalogue-ctan /macros/latex/contrib/longfbox
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics boxing decoration
+catalogue-version 1.0

@@ -1,0 +1,15 @@
+name cancel
+category Package
+revision 32508
+shortdesc Place lines through maths formulae
+relocated 1
+longdesc A package to draw diagonal lines ("cancelling" a term) and
+longdesc arrows with limits (cancelling a term "to a value") through
+longdesc parts of maths formulae.
+runfiles size=2
+ RELOC/tex/latex/cancel/cancel.sty
+catalogue-ctan /macros/latex/contrib/cancel
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics maths
+catalogue-version 2.2

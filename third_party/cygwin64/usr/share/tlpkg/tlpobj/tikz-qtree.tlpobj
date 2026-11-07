@@ -1,0 +1,25 @@
+name tikz-qtree
+category Package
+revision 26108
+shortdesc Use existing qtree syntax for trees in TikZ
+relocated 1
+longdesc The package provides a macro for drawing trees with TikZ using
+longdesc the easy syntax of Alexis Dimitriadis' Qtree. It improves on
+longdesc TikZ's standard tree-drawing facility by laying out tree nodes
+longdesc without collisions; it improves on Qtree by adding lots of
+longdesc features from TikZ (for example, edge labels, arrows between
+longdesc nodes); and it improves on pst-qtree in being usable with
+longdesc pdfTeX and XeTeX.
+runfiles size=11
+ RELOC/tex/latex/tikz-qtree/pgfsubpic.sty
+ RELOC/tex/latex/tikz-qtree/pgfsubpic.tex
+ RELOC/tex/latex/tikz-qtree/pgftree.sty
+ RELOC/tex/latex/tikz-qtree/pgftree.tex
+ RELOC/tex/latex/tikz-qtree/tikz-qtree-compat.sty
+ RELOC/tex/latex/tikz-qtree/tikz-qtree.sty
+ RELOC/tex/latex/tikz-qtree/tikz-qtree.tex
+catalogue-ctan /graphics/pgf/contrib/tikz-qtree
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license gpl
+catalogue-topics tree
+catalogue-version 1.2

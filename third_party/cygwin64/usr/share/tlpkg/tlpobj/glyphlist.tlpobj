@@ -1,0 +1,12 @@
+name glyphlist
+category Package
+revision 54074
+shortdesc Adobe Glyph List and TeX extensions
+relocated 1
+longdesc Map between traditional Adobe glyph names and Unicode points,
+longdesc maintained by Adobe. The additional texglyphlist.txt is
+longdesc maintained as part of lcdf-typetools.
+runfiles size=24
+ RELOC/fonts/map/glyphlist/glyphlist.txt
+ RELOC/fonts/map/glyphlist/pdfglyphlist.txt
+ RELOC/fonts/map/glyphlist/texglyphlist.txt

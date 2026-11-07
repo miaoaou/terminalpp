@@ -1,0 +1,20 @@
+name semantic
+category Package
+revision 15878
+shortdesc Help for writing programming language semantics
+relocated 1
+longdesc Eases the typesetting of notation of semantics and compilers.
+longdesc Includes T-diagrams, various derivation symbols and inference
+longdesc trees.
+runfiles size=10
+ RELOC/tex/latex/semantic/infernce.sty
+ RELOC/tex/latex/semantic/ligature.sty
+ RELOC/tex/latex/semantic/reserved.sty
+ RELOC/tex/latex/semantic/semantic.sty
+ RELOC/tex/latex/semantic/shrthand.sty
+ RELOC/tex/latex/semantic/tdiagram.sty
+catalogue-ctan /macros/latex/contrib/semantic
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics comp-sci
+catalogue-version 2.0

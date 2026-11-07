@@ -1,0 +1,20 @@
+name ocr-latex
+category Package
+revision 15878
+shortdesc LaTeX support for ocr fonts
+relocated 1
+longdesc The package supports use of both ocr-a and ocr-b fonts in LaTeX
+longdesc documents.
+runfiles size=8
+ RELOC/tex/latex/ocr-latex/ocr.sty
+ RELOC/tex/latex/ocr-latex/ot1oca.fd
+ RELOC/tex/latex/ocr-latex/ot1ocra.fd
+ RELOC/tex/latex/ocr-latex/ot1ocrb.fd
+ RELOC/tex/latex/ocr-latex/ot1ocrbn.fd
+ RELOC/tex/latex/ocr-latex/ot1ocrbns.fd
+ RELOC/tex/latex/ocr-latex/ot1ocrbo.fd
+ RELOC/tex/latex/ocr-latex/ot1ocrbs.fd
+catalogue-ctan /macros/latex/contrib/ocr-latex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics font-supp

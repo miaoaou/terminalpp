@@ -1,0 +1,21 @@
+name graphicx-psmin
+category Package
+revision 56931
+shortdesc Reduce size of PostScript files by not repeating images
+relocated 1
+longdesc The package is an extension of the standard latex-graphics
+longdesc bundle and provides a way to include repeated PostScript
+longdesc graphics (ps, eps) only once in a PostScript document. This
+longdesc leads to smaller PostScript documents when having, for
+longdesc instance, a logo on every page. The package only works when
+longdesc post-processed with dvips, which should be version 5.95b or
+longdesc later. The difference for a resulting distilled PDF file is
+longdesc minimal (as Ghostscript and Adobe Distiller only include a
+longdesc single copy of each graphics file, anyway).
+runfiles size=2
+ RELOC/tex/latex/graphicx-psmin/graphicx-psmin.sty
+catalogue-also graphics graphicx
+catalogue-ctan /macros/latex/contrib/graphicx-psmin
+catalogue-license lppl
+catalogue-topics graphics-incl
+catalogue-version 1.2

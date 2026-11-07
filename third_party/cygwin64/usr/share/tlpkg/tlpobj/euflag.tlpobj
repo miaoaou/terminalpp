@@ -1,0 +1,15 @@
+name euflag
+category Package
+revision 55265
+shortdesc A command to reproduce the flag of the European Union
+relocated 1
+longdesc This LaTeX package implements a command to reproduce the
+longdesc official flag of the European Union (EU). The flag is
+longdesc reproduced at 1em high based on the current font size, so it
+longdesc can be scaled arbitrarily by changing the font size.
+runfiles size=1
+ RELOC/tex/latex/euflag/euflag.sty
+catalogue-ctan /graphics/euflag
+catalogue-license lppl1.3c
+catalogue-topics graphics
+catalogue-version 0.8

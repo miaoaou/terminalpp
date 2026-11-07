@@ -1,0 +1,20 @@
+name bashful
+category Package
+revision 25597
+shortdesc Invoke bash commands from within LaTeX
+relocated 1
+longdesc The package makes it possible to execute Unix bash shell
+longdesc scripts from within LaTeX. The main application is in writing
+longdesc computer-science texts, in which you want to make sure the
+longdesc programs listed in the document are executed directly from the
+longdesc input. The package may use other Unix shells than bash, but
+longdesc does not work without modification in a Windows environment.
+longdesc The package requires the -shell-escape flag when LaTeX is
+longdesc processing your document.
+runfiles size=5
+ RELOC/tex/latex/bashful/bashful.sty
+catalogue-ctan /macros/latex/contrib/bashful
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics ext-code
+catalogue-version 0.93

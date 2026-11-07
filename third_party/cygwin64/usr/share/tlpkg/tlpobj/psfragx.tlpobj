@@ -1,0 +1,28 @@
+name psfragx
+category Package
+revision 26243
+shortdesc A psfrag eXtension
+relocated 1
+longdesc PSfragX offers a mechanism to embed \psfrag commands, as
+longdesc provided by the psfrag package, into the EPS file itself. Each
+longdesc time a graphic is included, the EPS file is scanned. If some
+longdesc tagged lines are found, they are used to define the psfrag
+longdesc replacements that should be performed automatically. In
+longdesc addition, a similar mechanism holds for overpic objects. These
+longdesc are picture objects superimposed on the included graphic. A
+longdesc similar mechanism is implemented in psfrag itself (but
+longdesc deprecated in the documentation), but psfragx offers much more
+longdesc flexibility. For example, if babel is used, it is possible to
+longdesc define different replacements corresponding to different
+longdesc languages. The replacements to take into account will be
+longdesc selected on the basis of the current language of the document.
+longdesc A Matlab script (LaPrint) is provided, to export an EPS file
+longdesc with psfragx annotations ready embedded.
+runfiles size=4
+ RELOC/tex/latex/psfragx/psfragx.cfg
+ RELOC/tex/latex/psfragx/psfragx.sty
+catalogue-ctan /macros/latex/contrib/psfragx
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-text
+catalogue-version 1.1

@@ -1,0 +1,19 @@
+name prelim2e
+category Package
+revision 57000
+shortdesc Allows the marking of preliminary versions of a document
+relocated 1
+longdesc Puts text below the normal page content (the default text marks
+longdesc the document as draft and puts a timestamp on it). Can be used
+longdesc together with e.g. the vrsion, rcs and rcsinfo packages. Uses
+longdesc the everyshi package and can use the scrtime package from the
+longdesc koma-script bundle.
+runfiles size=1
+ RELOC/tex/latex/prelim2e/prelim2e.sty
+catalogue-also count1to
+catalogue-contact-bugs https://github.com/TeXhackse/prelim2e/issues
+catalogue-contact-repository https://github.com/TeXhackse/prelim2e
+catalogue-ctan /macros/latex/contrib/prelim2e
+catalogue-license lppl1.3c
+catalogue-topics editorial
+catalogue-version 2.00

@@ -1,0 +1,23 @@
+name msg
+category Package
+revision 49578
+shortdesc A package for LaTeX localisation
+relocated 1
+longdesc The package is designed to localise any document class or
+longdesc package. This should be very useful for end-users who could
+longdesc obtain messages in their own preferred language. It is really
+longdesc easy to use by writers of other classes and packages.
+longdesc Volunteers are urged to test the package, report, and even to
+longdesc localise the message file to their own language. Documentation
+longdesc is provided in English.
+runfiles size=10
+ RELOC/tex/latex/msg/french_msg-msg.tex
+ RELOC/tex/latex/msg/german_msg-msg.tex
+ RELOC/tex/latex/msg/msg-msg.tex
+ RELOC/tex/latex/msg/msg.sty
+ RELOC/tex/latex/msg/norsk_msg-msg.tex
+catalogue-ctan /macros/latex/contrib/msg
+catalogue-date 2019-01-02 13:46:13 +0100
+catalogue-license lppl
+catalogue-topics multilingual
+catalogue-version 0.51

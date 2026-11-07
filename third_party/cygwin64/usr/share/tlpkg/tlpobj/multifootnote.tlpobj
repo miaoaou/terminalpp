@@ -1,0 +1,14 @@
+name multifootnote
+category Package
+revision 63456
+shortdesc Multiple numbers for the same footnote
+relocated 1
+longdesc This package provides several commands for generating footnotes
+longdesc with multiple numbers (resp. marks).
+runfiles size=2
+ RELOC/tex/latex/multifootnote/multifootnote.sty
+catalogue-also footmisc
+catalogue-contact-repository https://github.com/Jinwen-XU/multifootnote
+catalogue-ctan /macros/latex/contrib/multifootnote
+catalogue-license lppl1.3c
+catalogue-topics footnote

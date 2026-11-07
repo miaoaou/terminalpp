@@ -1,0 +1,500 @@
+% tkz-obj-eu-triangles.tex
+% Copyright 2024  Alain Matthes
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% This work has the LPPL maintenance status “maintained”.
+% The Current Maintainer of this work is Alain Matthes.
+
+\def\fileversion{5.06c}
+\def\filedate{2024/02/04} 
+\typeout{2024/02/04 5.06c  tkz-obj-eu-triangles.tex} 
+\makeatletter  
+%<--------------------------------------------------------------------------–>
+%                       Triangle Equilateral
+%<--------------------------------------------------------------------------–>
+\def\tkzDefEquilateral(#1,#2){
+\begingroup
+ %\tkzDefMidPoint(#1,#2)
+ \tkzURotateAngle(#1,60)(#2)
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                       Triangle Isosceles Right
+%<--------------------------------------------------------------------------–>
+\def\tkzDefIsoscelesRightTriangle(#1,#2){
+\begingroup
+ \tkzURotateAngle(#1,45)(#2)
+ \pgfnodealias{tkz@a}{tkzPointResult}
+  \tkzUHomo(#1,\tkzSqrTwobyTwo)(tkz@a)
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+\def\tkzDefIsoscelesRightTriangle(#1,#2){%
+\begingroup
+ \tkzURotateAngle(#1,45)(#2)
+ \pgfnodealias{tkz@a}{tkzPointResult}
+ \tkzUHomo(#1,\tkzSqrTwobyTwo)(tkz@a)
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                       Triangle OneTwo
+%<--------------------------------------------------------------------------–>
+\def\tkzDefTwoOne(#1,#2){
+\begingroup
+ \iftkz@swap@tr
+     \tkzDefPointWith[K=-.5](#2,#1)
+  \else
+ \tkzDefPointWith[K=.5](#2,#1)
+   \fi
+ \endgroup
+}
+%<--------------------------------------------------------------------------– 
+%         Pythagore
+%<--------------------------------------------------------------------------– 
+\def\tkzDefPythagore(#1,#2){
+\begingroup
+\iftkz@swap@tr
+ \tkzDefPointWith[K=-.75](#2,#1)
+ \else
+  \tkzDefPointWith[K=.75](#2,#1)
+  \fi
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%     School
+%<--------------------------------------------------------------------------– 
+\def\tkzDefSchoolTriangle(#1,#2){
+\begingroup
+\iftkz@swap@tr
+ \tkzDefPointWith(#2,#1) 
+ \pgfnodealias{tkz@a}{tkzPointResult}
+ \tkzURotateAngle(#1,-30)(#2)
+ \tkzInterLL(#1,tkzPointResult)(#2,tkz@a)
+\else
+ \tkzDefPointWith(#2,#1) 
+ \pgfnodealias{tkz@a}{tkzPointResult}
+ \tkzURotateAngle(#1,30)(#2)
+ \tkzInterLL(#1,tkzPointResult)(#2,tkz@a)
+  \fi
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%   Gold 
+%<--------------------------------------------------------------------------– 
+\def\tkzDefGoldTriangle(#1,#2){
+\begingroup
+ \iftkz@swap@tr
+ \tkzDefPointWith[K=-\tkzInvPhi](#2,#1)
+  \else
+ \tkzDefPointWith[K=\tkzInvPhi](#2,#1)
+   \fi
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%
+%<--------------------------------------------------------------------------– 
+\def\tkzDefEuclideTriangle(#1,#2){
+\begingroup
+ \iftkz@swap@tr
+ \tkzURotateAngle(#1,36)(#2)
+  \else
+ \tkzURotateAngle(#1,-36)(#2)
+   \fi
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%
+%<--------------------------------------------------------------------------– 
+\def\tkzDefGoldenTriangle(#1,#2){
+\begingroup
+ \tkzURotateAngle(#1,72)(#2)
+ \tkzUHomo(#1,\tkzPhi)(tkzPointResult)
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%
+%<--------------------------------------------------------------------------– 
+\def\tkzDefCheopsTriangle(#1,#2){
+\begingroup
+  \tkzDefMidPoint(#1,#2)
+  \tkzDefPointWith[K=-\tkzSqrtPhi](tkzPointResult,#1)
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%
+%<--------------------------------------------------------------------------– 
+\def\tkzDefTwoAnglesTriangle(#1,#2){
+\begingroup
+ \tkzURotateAngle(#1,\tkz@alpha)(#2)
+ \pgfnodealias{tkz@a}{tkzPointResult}
+ \tkzURotateAngle(#2,-\tkz@beta)(#1)
+ \pgfnodealias{tkz@b}{tkzPointResult}
+ \tkzInterLL(#1,tkz@a)(#2,tkz@b)
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%                       Triangles
+%<--------------------------------------------------------------------------–>
+
+\def\tkz@numtr{0}
+\pgfkeys{/deftriangle/.cd,
+      equilateral/.code       = \def\tkz@numtr{0},
+      half/.code              = \def\tkz@numtr{1},
+      two one/.code           = \def\tkz@numtr{1},
+      pythagore/.code         = \def\tkz@numtr{2},
+      pythagoras/.code        = \def\tkz@numtr{2},
+      right/.code             = \def\tkz@numtr{2},
+      egyptian/.code          = \def\tkz@numtr{2},
+      school/.code            = \def\tkz@numtr{3},
+      golden/.code            = \def\tkz@numtr{4},
+      sublime/.code           = \def\tkz@numtr{4},
+      euclid/.code            = \def\tkz@numtr{5},
+      euclide/.code           = \def\tkz@numtr{5},
+      gold/.code              = \def\tkz@numtr{6},
+      cheops/.code            = \def\tkz@numtr{7},
+      two angles/.code  args  = {#1 and #2} { \def\tkz@numtr{8}%
+                                              \def\tkz@alpha{#1}%
+                                              \def\tkz@beta{#2}},
+      isosceles right/.code    = \def\tkz@numtr{9},
+      swap/.is if              =  tkz@swap@tr,
+      swap/.default            =  true,
+      swap                     =  false,
+      equilateral
+} 
+
+\def\tkzDefTriangle{\pgfutil@ifnextchar[{\tkz@DefTriangle}{\tkz@DefTriangle[]}}
+\def\tkz@DefTriangle[#1](#2,#3){% 
+\begingroup  
+\pgfqkeys{/deftriangle}{#1}  
+\ifcase\tkz@numtr%
+  \tkzDefEquilateral(#2,#3)
+  \or% 1 
+  \tkzDefTwoOne(#2,#3)  
+  \or% 2
+  \tkzDefPythagore(#2,#3)
+  \or% 3
+  \tkzDefSchoolTriangle(#2,#3)
+  \or% 4
+  \tkzDefGoldenTriangle(#2,#3)
+  \or% 5
+  \tkzDefEuclideTriangle(#2,#3)
+  \or% 6
+  \tkzDefGoldTriangle(#2,#3) 
+  \or% 7
+  \tkzDefCheopsTriangle(#2,#3)  
+  \or% 8
+  \tkzDefTwoAnglesTriangle(#2,#3)  
+  \or% 9
+  \tkzDefIsoscelesRightTriangle(#2,#3)  
+  \fi    
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%              les triangles sspécifiques
+%<--------------------------------------------------------------------------–>
+
+%<--------------------------------------------------------------------------– 
+\def\tkz@numtspc{0}
+\pgfkeys{/tkzDefSpcTriangle/.cd,
+      in/.code                       = \def\tkz@numtspc{0},
+      incentral/.code                = \def\tkz@numtspc{0},
+      ex/.code                       = \def\tkz@numtspc{1},
+      excentral/.code                = \def\tkz@numtspc{1},
+      extouch/.code                  = \def\tkz@numtspc{2},
+      intouch/.code                  = \def\tkz@numtspc{3},
+      contact/.code                  = \def\tkz@numtspc{3},
+      centroid/.code                 = \def\tkz@numtspc{4},
+      medial/.code                   = \def\tkz@numtspc{4},
+      orthic/.code                   = \def\tkz@numtspc{5},
+      ortho/.code                    = \def\tkz@numtspc{5},
+      feuerbach/.code                = \def\tkz@numtspc{6},
+      euler/.code                    = \def\tkz@numtspc{7},
+      tangential/.code               = \def\tkz@numtspc{8},
+      symmedial/.code                = \def\tkz@numtspc{9},
+      name/.store in                 = \tkz@pttr@name,
+      name                           =  {},
+      centroid,       
+      }     
+\def\tkzDefSpcTriangle{\pgfutil@ifnextchar[{\tkz@DefSpcTriangle}{%
+                                 \tkz@DefSpcTriangle[]}}
+\def\tkz@DefSpcTriangle[#1](#2)#3{% 
+\begingroup  
+\pgfqkeys{/tkzDefSpcTriangle}{#1}  
+\ifcase\tkz@numtspc%
+  \tkzDefIncentralTriangle(#2){#3}
+  \or% 1 
+  \tkzDefExcentralTriangle(#2){#3}  
+  \or% 2
+  \tkzDefExtouchTriangle(#2){#3}  
+  \or% 3
+  \tkzDefIntouchTriangle(#2){#3}  
+  \or% 4
+  \tkzDefCentroidTriangle(#2){#3} 
+  \or% 5
+  \tkzDefOrthicTriangle(#2){#3} 
+  \or% 6
+  \tkzDefFeuerbachTriangle(#2){#3} 
+  \or% 7
+  \tkzDefEulerTriangle(#2){#3}  
+  \or% 8
+  \tkzDefTangentialTriangle(#2){#3}  
+  \or% 8
+  \tkzDefSymmedialTriangle(#2){#3}  
+    \fi    
+\endgroup
+}
+ 
+\pgfkeys{/setuppttr/.is family}
+\def\SetUpPTTR#1{\pgfqkeys{/setuppttr}{#1}}
+\pgfkeys{/setuppttr/.cd,
+   name/.store in   = \tkz@pttr@name,
+   name             = {}
+}
+%<--------------------------------------------------------------------------– 
+%     InCentral
+%<--------------------------------------------------------------------------–
+%<--------------------------------------------------------------------------–>
+\def\@DefIncentralTriangle(#1,#2,#3)(#4,#5){%
+\def\tkz@tmp{#5}%
+    \tkz@recuplast(#3)
+    \tkzDefBisectorLine(#2,#1,\tkz@last)
+    \tkzInterLL(#2,\tkz@last)(#1,tkzPointResult)
+    \pgfnodealias{\tkz@pttr@name#4}{tkzPointResult}
+    \ifx\tkz@tmp\tkz@stop\else\@DefIncentralTriangle(#2,#3)(#5)\fi
+}
+
+\def\tkzDefIncentralTriangle{\pgfutil@ifnextchar[{%
+                     \tkz@DefIncentralTriangle}{%
+                     \tkz@DefIncentralTriangle[]}}
+                     
+\def\tkz@DefIncentralTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \pgfinterruptboundingbox 
+   \@DefIncentralTriangle(#2,#2)(#3,\tkz@stop)
+   \endpgfinterruptboundingbox
+\endgroup
+}
+\let\tkzIncentralTriangle\tkzInExcentralTriangle
+%<--------------------------------------------------------------------------– 
+%     ExCentral
+%<--------------------------------------------------------------------------–
+
+%<--------------------------------------------------------------------------–>
+\def\@DefExcentralTriangle(#1,#2,#3)(#4,#5){%
+  \def\tkz@tmp{#5}%
+  \tkz@recuplast(#3)
+  \tkzDefExCircle(#2,#1,\tkz@last)  
+  \pgfnodealias{\tkz@pttr@name#4}{tkzPointResult}
+  \ifx\tkz@tmp\tkz@stop\else\@DefExcentralTriangle(#2,#3)(#5)\fi
+}
+
+\def\tkzDefExcentralTriangle{\pgfutil@ifnextchar[{%
+         \tkz@DefExcentralTriangle}{%
+         \tkz@DefExcentralTriangle[]}} 
+
+\def\tkz@DefExcentralTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \@DefExcentralTriangle(#2,#2)(#3,\tkz@stop)
+\endgroup
+}
+\let\tkzExcentralTriangle\tkzDefExcentralTriangle
+%<--------------------------------------------------------------------------–>
+% Intouch Triangle
+%<--------------------------------------------------------------------------–>
+\def\@DefIntouchTriangle(#1,#2,#3)(#4,#5){%
+   \def\tkz@tmp{#5}%
+    \tkz@recuplast(#3)
+   \tkzUProjection(#2,\tkz@last)(tkz@pt)
+   \pgfnodealias{\tkz@pttr@name#4}{tkzPointResult}
+    \ifx\tkz@tmp\tkz@stop\else\@DefIntouchTriangle(#2,#3)(#5)\fi
+}
+
+\def\tkzDefIntouchTriangle{\pgfutil@ifnextchar[{%
+                     \tkz@DefIntouchTriangle}{%
+                     \tkz@DefIntouchTriangle[]}}
+                      
+\def\tkz@DefIntouchTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \tkzInCenter(#2) 
+   \pgfnodealias{tkz@pt}{tkzPointResult}
+   \@DefIntouchTriangle(#2,#2)(#3,\tkz@stop)
+\endgroup
+}
+\let\tkzDefContactTriangle\tkzDefIntouchTriangle
+%<--------------------------------------------------------------------------–>
+% Extouch Triangle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefExtouchTriangle{\pgfutil@ifnextchar[{%
+                     \tkz@DefExtouchTriangle}{%
+                     \tkz@DefExtouchTriangle[]}}
+                      
+\def\tkz@DefExtouchTriangle[#1](#2,#3,#4)#5{%
+\begingroup
+   \SetUpPTTR{#1}
+    \foreach \name  [count=\i] in {#5} {%
+         \global\expandafter\edef\csname tkz@point\i\endcsname{\name}
+   }
+   \begingroup
+   \def\tkz@pttr@name{}
+   \tkzDefExcentralTriangle(#2,#3,#4){tkz@a,tkz@b,tkz@c}
+   \endgroup
+   \tkzUProjection(#3,#4)(tkz@a)
+   \pgfnodealias{\tkz@pttr@name\csname tkz@point1\endcsname}{tkzPointResult}
+   \tkzUProjection(#2,#3)(tkz@c)
+   \pgfnodealias{\tkz@pttr@name\csname tkz@point3\endcsname}{tkzPointResult}
+   \tkzUProjection(#2,#4)(tkz@b)
+   \pgfnodealias{\tkz@pttr@name\csname tkz@point2\endcsname}{tkzPointResult}
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%  Feuerbach triangle 
+%<--------------------------------------------------------------------------–>
+\def\tkzDefFeuerbachTriangle{\pgfutil@ifnextchar[{%
+   \tkz@DefFeuerbachTriangle}{\tkz@DefFeuerbachTriangle[]}}
+
+\def\tkz@DefFeuerbachTriangle[#1](#2,#3,#4)#5{%
+\begingroup
+   \SetUpPTTR{#1}
+   \foreach \name  [count=\i] in {#5} {%
+         \global\expandafter\edef\csname tkz@point\i\endcsname{\name}
+        }
+   \tkzDefExCircle(#2,#3,#4) \tkzGetPoints{tkz@b}{tkz@hb}
+   \tkzDefExCircle(#3,#4,#2) \tkzGetPoints{tkz@c}{tkz@hc}
+   \tkzDefExCircle(#4,#2,#3) \tkzGetPoints{tkz@a}{tkz@ha}
+   \tkzInterLC[near](#3,tkz@b)(tkz@b,tkz@hb)
+   \tkzGetFirstPoint{\tkz@pttr@name\csname tkz@point2\endcsname}
+   \tkzInterLC[near](#4,tkz@c)(tkz@c,tkz@hc)
+   \tkzGetFirstPoint{\tkz@pttr@name\csname tkz@point3\endcsname}
+   \tkzInterLC[near](#2,tkz@a)(tkz@a,tkz@ha)
+   \tkzGetFirstPoint{\tkz@pttr@name\csname tkz@point1\endcsname}
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%              Centroid
+%<--------------------------------------------------------------------------–> 
+% The medial triangle or midpoint triangle of a triangle ABC
+\def\@DefCentroidTriangle(#1,#2,#3)(#4,#5){%
+  \def\tkz@tmp{#5}%
+  \tkz@recuplast(#3)
+  \pgfcoordinate{\tkz@pttr@name#4}{%
+  \pgfpointscale{0.5}{%
+  \pgfpointadd{\pgfpointanchor{#2}{center}}%
+               {\pgfpointanchor{\tkz@last}{center}}}
+            }%
+    \ifx\tkz@tmp\tkz@stop\else\@DefCentroidTriangle(#2,#3)(#5)\fi
+     }
+\def\tkzDefCentroidTriangle{\pgfutil@ifnextchar[{\tkz@DefCentroidTriangle}
+                                    {\tkz@DefCentroidTriangle[]}} 
+\def\tkz@DefCentroidTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \@DefCentroidTriangle(#2,#2)(#3,\tkz@stop)
+\endgroup
+}
+\let\tkzDefMedialTriangle\tkzDefCentroidTriangle
+\let\tkzDefMidpointTriangle\tkzDefCentroidTriangle
+%<--------------------------------------------------------------------------–>
+% Orthic Triangle H Ha Hb Hc modif 3.03
+%<--------------------------------------------------------------------------–>
+\def\@DefOrthicTriangle(#1,#2,#3)(#4,#5){%
+    \def\tkz@tmp{#5}%
+    \tkz@recuplast(#3)
+    \tkzUProjection(#2,\tkz@last)(#1) 
+    \pgfnodealias{\tkz@pttr@name#4}{tkzPointResult}
+    \ifx\tkz@tmp\tkz@stop\else\@DefOrthicTriangle(#2,#3)(#5)\fi
+}
+
+\def\tkzDefOrthicTriangle{\pgfutil@ifnextchar[{\tkz@DefOrthicTriangle}
+                                   {\tkz@DefOrthicTriangle[]}} 
+\def\tkz@DefOrthicTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \@DefOrthicTriangle(#2,#2)(#3,\tkz@stop)
+\endgroup
+}
+\let\tkzDefAltitudeTriangle\tkzDefOrthicTriangle
+
+%<--------------------------------------------------------------------------–>
+% The Euler triangle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefEulerTriangle{\pgfutil@ifnextchar[{%
+   \tkz@DefEulerTriangle}{\tkz@DefEulerTriangle[]}}   
+\def\tkz@DefEulerTriangle[#1](#2,#3,#4)#5{%
+\begingroup
+   \SetUpPTTR{#1}
+   \pgfinterruptboundingbox 
+   \tkzOrthoCenter(#2,#3,#4) 
+   \pgfnodealias{tkz@e}{tkzPointResult}
+   \tkzDefMidPoint(#2,tkz@e)
+   \pgfnodealias{tkz@m1}{tkzPointResult}
+   \tkzDefMidPoint(#3,tkz@e)
+   \pgfnodealias{tkz@m2}{tkzPointResult}
+   \tkzDefMidPoint(#4,tkz@e)
+   \pgfnodealias{tkz@m3}{tkzPointResult}
+   \endpgfinterruptboundingbox
+   \foreach \name  [count=\i] in {#5} {%
+   \coordinate (\tkz@pttr@name\name) at (tkz@m\i);
+   }
+\endgroup
+}
+%<--------------------------------------------------------------------------–>
+%  TangentialTriangle
+%<--------------------------------------------------------------------------–>
+\def\tkzDefTangentialTriangle{\pgfutil@ifnextchar[{%
+   \tkz@DefTangentialTriangle}{\tkz@DefTangentialTriangle[]}}  
+\def\tkz@DefTangentialTriangle[#1](#2,#3,#4)#5{%
+\begingroup
+   \SetUpPTTR{#1}
+   \tkzCircumCenter(#2,#3,#4)       
+   \pgfnodealias{tkz@circ}{tkzPointResult}
+   \tkzDefLine[orthogonal=through #2](tkz@circ,#2) 
+   \pgfnodealias{tkz@pta}{tkzPointResult}  
+   \tkzDefLine[orthogonal=through #3](tkz@circ,#3) 
+   \pgfnodealias{tkz@ptb}{tkzPointResult}  
+   \tkzDefLine[orthogonal=through #4](tkz@circ,#4) 
+   \pgfnodealias{tkz@ptc}{tkzPointResult}  
+   \tkzInterLL(#2,tkz@pta)(#3,tkz@ptb) 
+   \pgfnodealias{tkz@tg3}{tkzPointResult}
+   \tkzInterLL(#3,tkz@ptb)(#4,tkz@ptc) 
+   \pgfnodealias{tkz@tg1}{tkzPointResult}   
+   \tkzInterLL(#4,tkz@ptc)(#2,tkz@pta) 
+   \pgfnodealias{tkz@tg2}{tkzPointResult}   
+   \foreach \name  [count=\i] in {#5} {%
+   \coordinate (\tkz@pttr@name\name) at (tkz@tg\i);
+   }
+\endgroup
+}
+%<--------------------------------------------------------------------------– 
+%     tkzDefSymmedianLine
+%<--------------------------------------------------------------------------–
+\def\@DefSymmedialTriangle(#1,#2,#3)(#4,#5){%
+    \def\tkz@tmp{#5}%
+     \tkz@recuplast(#3)
+     \tkzDefSymmedianLine(#2,#1,\tkz@last)
+     \tkzInterLL(#2,\tkz@last)(#1,tkzPointResult)
+     \pgfnodealias{\tkz@pttr@name#4}{tkzPointResult}
+     \ifx\tkz@tmp\tkz@stop\else\@DefSymmedialTriangle(#2,#3)(#5)\fi
+}
+
+\def\tkzDefSymmedialTriangle{\pgfutil@ifnextchar[{%
+                     \tkz@DefSymmedialTriangle}{%
+                     \tkz@DefSymmedialTriangle[]}}
+                     
+\def\tkz@DefSymmedialTriangle[#1](#2)#3{%
+\begingroup
+   \SetUpPTTR{#1}
+   \pgfinterruptboundingbox 
+   \@DefSymmedialTriangle(#2,#2)(#3,\tkz@stop)
+   \endpgfinterruptboundingbox
+\endgroup
+}
+\makeatother
+\endinput

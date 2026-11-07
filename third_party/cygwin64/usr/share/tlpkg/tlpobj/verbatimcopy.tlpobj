@@ -1,0 +1,17 @@
+name verbatimcopy
+category Package
+revision 15878
+shortdesc Make copies of text documents from within LaTeX
+relocated 1
+longdesc This package provides \VerbatimCopy{in}{out} that will enable
+longdesc LaTeX to take a verbatim copy of one text file, and save it
+longdesc under another name. The package provides a means to specify the
+longdesc output directory to be used, but does no checking and may
+longdesc therefore overwrite an important file if used injudiciously.
+runfiles size=2
+ RELOC/tex/latex/verbatimcopy/verbatimcopy.sty
+catalogue-ctan /macros/latex/contrib/verbatimcopy
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics verbatim
+catalogue-version 0.06

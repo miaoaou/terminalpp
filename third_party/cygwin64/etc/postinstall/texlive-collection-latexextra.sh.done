@@ -1,0 +1,11 @@
+/usr/bin/fmtutil-sys --enablefmt dvilualatex-dev/luatex
+/usr/bin/fmtutil-sys --enablefmt latex-dev/pdftex
+/usr/bin/fmtutil-sys --enablefmt lualatex-dev/luahbtex
+/usr/bin/fmtutil-sys --enablefmt pdflatex-dev/pdftex
+if [ ! -f /var/lib/texmf/postinstall/texlive.rebuild_all_fmts ]
+then
+/usr/bin/fmtutil-sys --byfmt dvilualatex-dev
+/usr/bin/fmtutil-sys --byfmt latex-dev
+/usr/bin/fmtutil-sys --byfmt lualatex-dev
+/usr/bin/fmtutil-sys --byfmt pdflatex-dev
+fi

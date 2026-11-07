@@ -1,0 +1,21 @@
+% --------------------------------------------------------------------------
+% Namibia:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{red}{RGB}{186,12,47}
+\definecolor{blue}{RGB}{0,61,165}
+\definecolor{green}{RGB}{0,154,68}
+\definecolor{gold}{RGB}{255,199,44}
+\fill [blue] (0,0)--(0,1)--(\flaglength,1)--cycle;
+\fill [green] (0,0)--(\flaglength,0)--(\flaglength,1)--cycle;
+\begin{scope}
+\clip (0,0) rectangle (\flaglength,1);
+\draw [white, line width=\flagwidth/3] (0,0)--(\flaglength,1);
+\draw [red, line width=\flagwidth/4] (0,0)--(\flaglength,1);
+\end{scope}
+\begin{scope}[shift={(0.3*\stretchfactor,0.725)}]
+\starn{gold}{12}{(0,0)}{1/6}{0.1}{0}
+\fill [blue, even odd rule] (0,0) circle (0.1) (0,0) circle (1/12);
+\end{scope}
+\framecode{}
+\end{flagdescription}

@@ -1,0 +1,17 @@
+name xfrac
+category Package
+revision 69841
+shortdesc Split-level fractions
+relocated 1
+longdesc This package uses the interface defined by LaTeX templates to
+longdesc provide flexible split-level fractions via the \sfrac macro.
+longdesc This is both a demonstration of the power of the template
+longdesc concept and also a useful addition to the available
+longdesc functionality in LaTeX2e.
+runfiles size=4
+ RELOC/tex/latex/xfrac/xfrac.sty
+catalogue-contact-bugs https://github.com/latex3/xfrac/issues
+catalogue-contact-repository https://github.com/latex3/xfrac
+catalogue-ctan /macros/latex/contrib/xfrac
+catalogue-license lppl1.3c
+catalogue-topics maths latex3

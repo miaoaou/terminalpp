@@ -1,0 +1,16 @@
+name efbox
+category Package
+revision 33236
+shortdesc Extension of \fbox, with controllable frames and colours
+relocated 1
+longdesc The package defines the \efbox command, which creates a box
+longdesc just wide enough to hold the text created by its argument. The
+longdesc command optionally puts a (possibly partial) frame around the
+longdesc box, and allows setting the box background colour.
+runfiles size=2
+ RELOC/tex/latex/efbox/efbox.sty
+catalogue-ctan /macros/latex/contrib/efbox
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics boxing
+catalogue-version 1.0

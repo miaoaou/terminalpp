@@ -1,0 +1,373 @@
+% =============================================================================
+% worldflags.sty - Flags of the World with TikZ
+% (c) Wilhelm Haager 2021-05-12
+%  2022-07-09 ... option "variant" added
+% =============================================================================
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{etex}
+\RequirePackage{xkeyval}
+\RequirePackage{graphicx}
+\usetikzlibrary{calc,shadows,shapes,shapes.symbols,positioning,math,decorations.text}
+\definecolor{gridcolor}{rgb}{0.8,0.8,0.8}
+
+% ----------------------------------------------------------------------------
+% Default values
+% ----------------------------------------------------------------------------
+\newdimen\fl@gwidth\fl@gwidth=15mm
+\newdimen\fl@glength\fl@glength=0mm
+\newdimen\fl@gframe\fl@gframe=0.2mm
+\def\fl@gvariant{0} % 2022-07-09
+\def\fl@gstretch{0}
+\def\fr@mecolor{black!60}
+\def\gr@dcolor{black!80}
+\newif\if@mbl@m\@mbl@mtrue
+\newif\if@rid\@ridfalse
+\newif\ifn@@mbl@m\n@@mbl@mtrue
+\def\view@ngle{0}
+\def\hang@ngle{0}
+
+% ----------------------------------------------------------------------------
+% 2 horizontal stripes
+% ----------------------------------------------------------------------------
+\def\wf@hstripesII#1#2{% 3 horizontal stripes
+  \fill [#1] (0,1/2) rectangle (\flaglength,1);
+  \fill [#2] (0,0) rectangle (\flaglength,1/2);}
+
+% ----------------------------------------------------------------------------
+% 3 horizontal stripes
+% ----------------------------------------------------------------------------
+\def\wf@hstripesIII#1#2#3{% 3 horizontal stripes
+  \fill [#1] (0,2/3) rectangle (\flaglength,1);
+  \fill [#2] (0,1/3) rectangle (\flaglength,2/3);
+  \fill [#3] (0,0) rectangle (\flaglength,1/3);}
+
+% ----------------------------------------------------------------------------
+% 4 horizontal stripes
+% ----------------------------------------------------------------------------
+\def\wf@hstripesIV#1#2#3#4{%
+  \fill [#1] (0,3/4) rectangle (\flaglength,1);
+  \fill [#2] (0,1/2) rectangle (\flaglength,3/4);
+  \fill [#3] (0,1/4) rectangle (\flaglength,1/2);
+  \fill [#4] (0,0) rectangle (\flaglength,1/4);}
+
+% ----------------------------------------------------------------------------
+% 5 horizontal stripes
+% ----------------------------------------------------------------------------
+\def\wf@hstripesV#1#2#3#4#5{%
+  \fill [#1] (0,4/5) rectangle (\flaglength,1);
+  \fill [#2] (0,3/5) rectangle (\flaglength,4/5);
+  \fill [#3] (0,2/5) rectangle (\flaglength,3/5);
+  \fill [#4] (0,1/5) rectangle (\flaglength,2/5);
+  \fill [#5] (0,0) rectangle (\flaglength,1/5);}
+
+% ----------------------------------------------------------------------------
+% 6 horizontal stripes
+% ----------------------------------------------------------------------------
+\def\wf@hstripesVI#1#2#3#4#5#6{%
+  \fill [#1] (0,5/6) rectangle (\flaglength,1);
+  \fill [#2] (0,4/6) rectangle (\flaglength,5/6);
+  \fill [#3] (0,3/6) rectangle (\flaglength,4/6);
+  \fill [#4] (0,2/6) rectangle (\flaglength,3/6);
+  \fill [#5] (0,1/6) rectangle (\flaglength,2/6);
+  \fill [#6] (0,0) rectangle (\flaglength,1/6);}
+
+% ----------------------------------------------------------------------------
+% 2 vertical stripes
+% ----------------------------------------------------------------------------
+\def\wf@vstripesII#1#2{% 2 vertical stripes
+  \fill [#1] (0,0) rectangle (0.5\flaglength,1);
+  \fill [#2] (0.5\flaglength,0) rectangle (\flaglength,1);}
+
+% ----------------------------------------------------------------------------
+% 3 vertical stripes
+% ----------------------------------------------------------------------------
+\def\wf@vstripesIII#1#2#3{% 3 vertical stripes
+  \fill [#1] (0,0) rectangle (\flaglength/3,1);
+  \fill [#2] (\flaglength/3,0) rectangle (2\flaglength/3,1);
+  \fill [#3] (2\flaglength/3,0) rectangle (\flaglength,1);}
+
+% ----------------------------------------------------------------------------
+% Vertical bar (width relative to flagWIDTH)
+% ----------------------------------------------------------------------------
+% #1...color, #2...position, #3...width
+\def\wf@vbar#1#2#3{%
+  \fill [#1] (#2,0) ++(-#3/2,0)
+    rectangle ++(#3,1);}
+
+% ----------------------------------------------------------------------------
+% Horizontal bar (width relative to flagwidth)
+% ----------------------------------------------------------------------------
+% #1...color, #2...position, #3...width
+\def\wf@hbar#1#2#3{%
+  \fill [#1] (0,#2) ++(0,-#3/2)
+    rectangle ++(\flaglength,#3);}
+
+% ----------------------------------------------------------------------------
+% Cevron; #1...color, #2...width
+% ----------------------------------------------------------------------------
+\def\wf@chevron#1#2{%
+  \fill [#1] (0,0)--(0,1)--(#2,0.5)--cycle;}
+
+% ----------------------------------------------------------------------------
+% n-pointed-star
+% ----------------------------------------------------------------------------
+% #1...color, #2...points, #3...coordinate, #4...outer radius,
+% #5...inner radius, #6...angle
+\def\wf@starn#1#2#3#4#5#6{%
+  \begin{scope}[shift={#3},rotate=#6]
+  \fill [#1] (90:#4) foreach \n in {1,...,#2}
+  {--(90-180/#2+\n*360/#2:#5)--(90+\n*360/#2:#4)}--cycle;
+  \end{scope}}
+
+% ----------------------------------------------------------------------------
+% 5-pointed-star
+% ----------------------------------------------------------------------------
+% #1...color, #2...coordinate, #3...outer radius, #4...angle
+\def\wf@starV#1#2#3#4{\starn{#1}{5}{#2}{#3}{0.381966*#3}{#4}}
+
+% ----------------------------------------------------------------------------
+% 6-pointed-star
+% ----------------------------------------------------------------------------
+% #1...color, #2...coordinate, #3...outer radius, #4...angle
+\def\wf@starVI#1#2#3#4{\starn{#1}{6}{#2}{#3}{0.57735*#3}{#4}}
+
+% ----------------------------------------------------------------------------
+% Background; #1...color
+% ----------------------------------------------------------------------------
+\def\wf@background#1{%
+    \fill [#1] (0,0) rectangle (\flaglength,\flagwidth);}
+
+% ----------------------------------------------------------------------------
+% Moon
+% ----------------------------------------------------------------------------
+% #1...color, #2...outer coordinates, #3...outer radius,
+% #4 inner coordinates #5...inner radius
+\def\wf@moon#1#2#3#4#5{%
+  \begin{scope}
+    \clip #2 circle (#3);
+    \fill [even odd rule,#1] #2 circle (1.01*#3) #4 circle (#5);
+  \end{scope}}
+
+% ----------------------------------------------------------------------------
+% Natural aspect-ratio of a flag (for internal use)
+% ----------------------------------------------------------------------------
+\def\wf@aspectratio#1{%
+  \ifx\flagstretch\undefined\def\flagstretch{0}\fi
+  \ifx\flaglength\undefined\newdimen\flaglength\flaglength0pt\fi
+  \ifdim\flaglength=0pt\pgfmathparse{\flagwidth/(#1)}\pgfmathsetlength{\flaglength}{\pgfmathresult}\fi
+  \ifdim\flagwidth=0pt\pgfmathparse{\flaglength*(#1)}\pgfmathsetlength{\flagwidth}{\pgfmathresult}\fi
+  \pgfmathparse{(\flaglength/\flagwidth*(#1)-1)*\flagstretch+1}
+  \edef\stretchfactor{\pgfmathresult}}
+
+% ----------------------------------------------------------------------------
+% wf@framecode and wf@gridcode
+% ----------------------------------------------------------------------------
+\def\wf@framecode#1{\end{scope}
+   \ifx\framecolor\undefined\global\def\framecolor{\fr@mecolor}\fi
+   \ifx\flagframe\undefined\newdimen\flagframe\global\flagframe\fl@gframe\fi
+   \ifdim\flagframe>0pt
+     \begin{scope}[\framecolor,line width=\flagframe]
+       \ifx.#1.\draw (0,0) rectangle (\flaglength,\flagwidth);
+       \else#1\fi
+     \end{scope}
+   \fi
+   \begin{scope}}
+\def\wf@gridcode{\ifgrid        % Version 2023-07-03
+   \begin{scope}[x=1mm,y=1mm,black,line width=0.1pt]
+   \draw [\gr@dcolor,opacity=0.15,xstep=1mm,ystep=1mm] (0,0) grid (\flaglength,\flagwidth);
+   \draw [\gr@dcolor,opacity=0.15,xstep=5mm,ystep=5mm] (0,0) grid (\flaglength,\flagwidth);
+   \draw [\gr@dcolor,opacity=0.15,xstep=10mm,ystep=10mm] (0,0) grid (\flaglength,\flagwidth);
+   \end{scope}
+   \fi}
+
+% ----------------------------------------------------------------------------
+% Environment flagdescription
+% ----------------------------------------------------------------------------
+\newenvironment{flagdescription}[1]{%
+%    \begingroup
+    \def\makeifgrid{\newif\ifgrid\if@rid\gridtrue\else\gridfalse\fi}
+    \ifx\flagwidth\undefined\newdimen\flagwidth\flagwidth\fl@gwidth\fi
+    \ifx\ifgrid\undefined\makeifgrid\fi
+    \let\hstripesII=\wf@hstripesII
+    \let\hstripesIII=\wf@hstripesIII
+    \let\hstripesIV=\wf@hstripesIV
+    \let\hstripesV=\wf@hstripesV
+    \let\hstripesVI=\wf@hstripesVI
+    \let\vstripesII=\wf@vstripesII
+    \let\vstripesIII=\wf@vstripesIII
+    \let\starn=\wf@starn
+    \let\starV=\wf@starV
+    \let\starVI=\wf@starVI
+    \let\moon=\wf@moon
+    \let\unionjack=\wf@unionjack
+    \let\hbar=\wf@hbar
+    \let\vbar=\wf@vbar
+    \let\chevron=\wf@chevron
+    \let\framecode=\wf@framecode
+    \let\gridcode=\wf@gridcode
+    \let\background=\wf@background
+    \wf@aspectratio{#1}
+    \ifx\viewangle\undefined\def\viewangle{0}\fi
+    \ifx\hangangle\undefined\def\hangangle{0}\fi
+    \begin{scope}[x=\flagwidth,y=\flagwidth,cm={cos(\viewangle)*cos(\hangangle),
+        -sin(\hangangle),0,1,(0,0)}]
+    \begin{scope}[shift={(-0.5\flaglength,-0.5\flagwidth)}]
+    \begin{scope} % inner scope for clipping
+    \clip (0,0) rectangle (\flaglength,\flagwidth);
+    \coordinate (-0) at (0.5\flaglength,0.5\flagwidth);
+    \coordinate (-nw) at (0,\flagwidth);
+    \coordinate (-w) at (0,0.5\flagwidth);
+    \coordinate (-sw) at (0,0);
+    \coordinate (-n) at (0.5\flaglength,\flagwidth);
+    \coordinate (-s) at (0.5\flaglength,0);
+    \coordinate (-ne) at (\flaglength,\flagwidth);
+    \coordinate (-e) at (\flaglength,0.5\flagwidth);
+    \coordinate (-se) at (\flaglength,0);}
+{\end{scope}\wf@gridcode\end{scope}\end{scope}%\endgroup
+    \global\let\flagvariant\undefined % 2022-07-09
+    \global\let\flagwidth\undefined
+    \global\let\flaglength\undefined
+    \global\let\flagframe\undefined
+    \global\let\flagstretch\undefined
+    \global\let\framecolor\undefined
+    \global\let\ifemblem\undefined
+    \global\let\ifnoemblem\undefined
+    \global\let\ifgrid\undefined
+    \global\let\viewangle\undefined
+    \global\let\hangangle\undefined
+}
+
+% ----------------------------------------------------------------------------
+% Union Jack (neuer Versuch, 12.4.2021)
+% ----------------------------------------------------------------------------
+\def\wf@unionjack#1#2#3#4{%
+  \begin{scope}[cm={1,0,0,1,(#1,#2)}]
+  \newdimen\b\b=#3\advance\b by -#1
+  \newdimen\h\h=#4\advance\h by -#2
+  \newdimen\lwb\lwb=\h\divide \lwb by 3
+  \newdimen\lws\lws=\h\divide \lws by 5
+  \pgfmathparse{atan2(\h,\b)}
+  \edef\winkel{\pgfmathresult}
+  \clip (0,0) rectangle (\b,\h);
+  \fill [blue] (0,0) rectangle (\b,\h);
+  \draw [white,line width=\lws] (0,\h)--(\b,0) (0,0)--(\b,\h);
+  \begin{scope}[rotate around={\winkel:(\b/2,\h/2)}]
+  \draw [red,line width=\lws/3,yshift=\lws/6] (0.5\b,0.5\h)--++(0:0.701\b);
+  \draw [red,line width=\lws/3,yshift=-\lws/6] (0.5\b,0.5\h)--++(180:0.701\b);
+  \end{scope}
+  \begin{scope}[rotate around={-\winkel:(\b/2,\h/2)}]
+  \draw [red,line width=\lws/3,yshift=\lws/6] (0.5\b,0.5\h)--++(0:0.701\b);
+  \draw [red,line width=\lws/3,yshift=-\lws/6] (0.5\b,0.5\h)--++(180:0.701\b);
+  \end{scope}
+  \draw [white,line width=\lwb] (-0.5\b,\h/2)--(1.5\b,\h/2) (\b/2,-\h)--(\b/2,2\h);
+  \draw [red,line width=\lws] (-0.5\b,\h/2)--(1.5\b,\h/2) (\b/2,-\h)--(\b/2,2\h);
+  \end{scope}}
+
+% ----------------------------------------------------------------------------
+% Key Management
+% ----------------------------------------------------------------------------
+\define@key{worldflag}{variant}{\def\flagvariant{#1}} % 2022-07-09
+\define@key{worldflag}{length}{\flaglength#1}
+\define@key{worldflag}{width}{\flagwidth#1}
+\define@key{worldflag}{framewidth}{\flagframe#1}
+\define@key{worldflag}{framecolor}{\def\framecolor{#1}}
+\define@key{worldflag}{emblem}[true]{\emblemtrue\noemblemfalse}
+\define@key{worldflag}{noemblem}[true]{\noemblemtrue\emblemfalse}
+\define@key{worldflag}{emblemdefault}[true]{\noemblemtrue\emblemtrue}
+\define@key{worldflag}{grid}[black!80]{\gridtrue\def\gr@dcolor{#1}}
+\define@key{worldflag}{stretch}[1]{\def\flagstretch{#1}}
+\define@key{worldflag}{turn}[1]{\def\viewangle{#1}}
+\define@key{worldflag}{hang}[1]{\def\hangangle{#1}}
+
+\define@key{flagsdefault}{variant}{\def\fl@gvariant{#1}} % 2022-07-09
+\define@key{flagsdefault}{length}{\fl@glength#1}
+\define@key{flagsdefault}{width}{\fl@gwidth#1}
+\define@key{flagsdefault}{framewidth}{\fl@gframe#1}
+\define@key{flagsdefault}{framecolor}{\def\fr@mecolor{#1}}
+\define@key{flagsdefault}{emblem}[true]{\@mbl@mtrue\n@@mbl@mfalse}
+\define@key{flagsdefault}{noemblem}[true]{\n@@mbl@mtrue\@mbl@mfalse}
+\define@key{flagsdefault}{emblemdefault}[true]{\n@@mbl@mtrue\@mbl@mtrue}
+\define@key{flagsdefault}{grid}[black!80]{\@ridtrue\def\gr@dcolor{#1}}
+\define@key{flagsdefault}{stretch}[1]{\def\fl@gstretch{#1}}
+\define@key{flagsdefault}{turn}[1]{\def\view@ngle{#1}}
+\define@key{flagsdefault}{hang}[1]{\def\hang@ngle{#1}}
+
+% ----------------------------------------------------------------------------
+% flagsdefault - setting default values
+% ----------------------------------------------------------------------------
+\def\flagsdefault{\@ifnextchar[\@flagsdefault{\@flagsdefault[]}}
+\def\@flagsdefault[#1]{\setkeys{flagsdefault}{#1}}
+
+% ----------------------------------------------------------------------------
+% worldflag (as tikzpicture)
+% ----------------------------------------------------------------------------
+\def\worldflag{\@ifnextchar[\@worldflag{\@worldflag[]}}%
+  \def\@worldflag[#1]#2{%
+  \def\framecolor{\fr@mecolor}%
+  \newdimen\flagwidth\flagwidth=\fl@gwidth
+  \newdimen\flaglength\flaglength=\fl@glength
+  \newdimen\flagframe\flagframe=\fl@gframe
+  \def\flagstretch{\fl@gstretch}%
+  \def\flagvariant{\fl@gvariant}%  2022-07-009
+  \newif\ifgrid\if@rid\gridtrue\else\gridfalse\fi
+  \newif\ifemblem\if@mbl@m\emblemtrue\else\emblemfalse\fi
+  \newif\ifnoemblem\ifn@@mbl@m\noemblemtrue\else\noemblemfalse\fi
+  \def\viewangle{0}%
+  \def\hangangle{0}%
+  \setkeys{worldflag}{#1}%
+  \IfFileExists{worldflag_#2.tex}{%
+     \begin{tikzpicture} % [opacity=0.3] % zum Testen
+     \input{worldflag_#2.tex}
+     \end{tikzpicture}}{\relax}
+}
+
+% ----------------------------------------------------------------------------
+% worldflag (as pic)
+% ----------------------------------------------------------------------------
+\tikzset{length/.style={execute at begin scope={\newdimen\flaglength\flaglength=#1}}}
+\tikzset{width/.style={execute at begin scope={\newdimen\flagwidth\flagwidth=#1}}}
+\tikzset{framewidth/.style={execute at begin scope={\newdimen\flagframe\flagframe=#1}}}
+\tikzset{stretch/.style={execute at begin scope={\def\flagstretch{#1}}}}
+\tikzset{framecolor/.style={execute at begin scope={\def\framecolor{#1}}}}
+\tikzset{country/.style={execute at begin scope={\def\country{#1}}}}
+\tikzset{variant/.style={execute at begin scope={\def\flagvariant{#1}}}} % 2022-07-09
+\tikzset{emblem/.style={execute at begin scope={\newif\ifemblem\emblemtrue\newif\ifnoemblem\noemblemfalse}}}
+\tikzset{grid/.style={execute at begin scope={\newif\ifgrid\gridtrue}}}
+\tikzset{noemblem/.style={execute at begin scope={\newif\ifnoemblem\noemblemtrue}}}
+\tikzset{emblemdefault/.style={execute at begin scope={\newif\ifnoemblem\noemblemtrue\newif\ifemblem\emblemtrue}}}
+\tikzset{turn/.style={execute at begin scope={\def\viewangle{#1}}}}
+\tikzset{hang/.style={execute at begin scope={\def\hangangle{#1}}}}
+\tikzset{
+  worldflag/.pic={
+    \ifx\flagwidth\undefined\newdimen\flagwidth\global\flagwidth=\fl@gwidth\fi
+    \ifx\flaglength\undefined\newdimen\flaglength\global\flaglength=\fl@glength\fi
+    \ifx\flagframe\undefined\newdimen\flagframe\global\flagframe=\fl@gframe\fi
+    \ifx\flagstretch\undefined\def\flagstretch{\fl@gstretch}\fi
+    \ifx\flagvariant\undefined\def\flagvariant{\fl@gvariant}\fi  % 2022-07-09
+    \ifx\framecolor\undefined\def\framecolor{\fr@mecolor}\fi
+    \def\makeifgrid{\newif\ifgrid\if@rid\gridtrue\else\gridfalse\fi}
+    \ifx\ifgrid\undefined\makeifgrid\fi
+    \def\makeifemblem{\newif\ifemblem\if@mbl@m\emblemtrue\else\emblemfalse\fi}
+    \ifx\ifemblem\undefined\makeifemblem\fi
+    \def\makeifnoemblem{\newif\ifnoemblem\ifn@@mbl@m\noemblemtrue\else\noemblemfalse\fi}
+    \ifx\ifnoemblem\undefined\makeifnoemblem\fi
+    \ifx\viewangle\undefined\def\viewangle{\view@ngle}\fi
+    \ifx\hangangle\undefined\def\hangangle{\hang@ngle}\fi
+    \IfFileExists{worldflag_\country.tex}{\input{worldflag_\country.tex}}{\relax}
+    }
+}
+
+% ----------------------------------------------------------------------------
+% Colors for Signal Flags
+% ----------------------------------------------------------------------------
+\def\SignalFlagColorDefinitions{%
+%  \definecolor{red}{RGB}{167,41,33}
+  \definecolor{gold}{RGB}{255,230,0}
+%  \definecolor{green}{RGB}{54,103,53}
+%  \definecolor{blue}{RGB}{25,49,83}
+%  \definecolor{white}{RGB}{233,224,210}
+  \definecolor{red}{RGB}{220,0,0}
+  \definecolor{blue}{RGB}{0,0,210}
+}

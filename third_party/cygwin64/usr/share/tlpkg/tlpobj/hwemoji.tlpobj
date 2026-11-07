@@ -1,0 +1,18 @@
+name hwemoji
+category Package
+revision 65001
+shortdesc Unicode emoji support for pdfLaTeX with sequences
+relocated 1
+longdesc This package provides direct support for Unicode emoji in
+longdesc pdfLaTeX, with full access to emoji sequences including but not
+longdesc limited to flag sequences, diversity modifier sequences, and
+longdesc tag sequences. Emojis are displayed through Twemoji digital
+longdesc assets, as licensed under the CC-BY 4.0.
+runfiles size=1883
+ RELOC/tex/latex/hwemoji/hwemoji-assets.pdf
+ RELOC/tex/latex/hwemoji/hwemoji.sty
+catalogue-contact-support mailto:identitysuccessfullyconcealed@gmail.com
+catalogue-ctan /macros/latex/contrib/hwemoji
+catalogue-license lppl1.3c cc-by-4
+catalogue-topics graphics text-symbol
+catalogue-version 1.0

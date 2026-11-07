@@ -1,0 +1,27 @@
+name coloredbelts
+category Package
+revision 68747
+shortdesc Insert colored belts (vectorial format) in documents (to presetn skills, for example)
+relocated 1
+longdesc The package provides command (english and french version) to
+longdesc insert 'colored belts' (in vectorial format) to present skills,
+longdesc for example.
+runfiles size=24
+ RELOC/tex/latex/coloredbelts/coloredbelts.sty
+ RELOC/tex/latex/coloredbelts/judobelt-black.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-blue.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-brown.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-gray.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-green.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-orange.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-pink.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-purple.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-red.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-white.pdf
+ RELOC/tex/latex/coloredbelts/judobelt-yellow.pdf
+catalogue-contact-bugs https://github.com/cpierquet/coloredbelts/issues
+catalogue-contact-repository https://github.com/cpierquet/coloredbelts
+catalogue-ctan /macros/latex/contrib/coloredbelts
+catalogue-license lppl1.3c cc-by-sa-3
+catalogue-topics colour typesetting logo graphics-use
+catalogue-version 0.1.0

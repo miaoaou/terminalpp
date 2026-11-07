@@ -1,0 +1,14 @@
+name cleveref-forward
+category Package
+revision 70176
+shortdesc Forward-referencing functionality for cleveref
+relocated 1
+longdesc This package aims at providing the forward-referencing
+longdesc functionality for the package cleveref. It is derived from the
+longdesc package cleveref-usedon, with several fixes and enhancements.
+runfiles size=10
+ RELOC/tex/latex/cleveref-forward/cleveref-forward.sty
+catalogue-contact-repository https://github.com/Jinwen-XU/cleveref-forward
+catalogue-ctan /macros/latex/contrib/cleveref-forward
+catalogue-license lppl1.3c
+catalogue-topics label-ref expl3

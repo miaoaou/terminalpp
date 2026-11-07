@@ -1,0 +1,20 @@
+name g-brief
+category Package
+revision 50415
+shortdesc Letter document class
+relocated 1
+longdesc Designed for formatting formless letters in German; can also be
+longdesc used for English (by those who can read the documentation).
+longdesc There are LaTeX 2.09 documentstyle and LaTeX 2e class files for
+longdesc both an 'old' and a 'new' version of g-brief.
+runfiles size=11
+ RELOC/tex/latex/g-brief/g-brief.cls
+ RELOC/tex/latex/g-brief/g-brief.sty
+ RELOC/tex/latex/g-brief/g-brief2.cls
+ RELOC/tex/latex/g-brief/g-brief2.sty
+catalogue-also akletter dinbrief scrlttr2 scrletter envlab
+catalogue-ctan /macros/latex/contrib/g-brief
+catalogue-date 2019-03-16 09:49:24 +0100
+catalogue-license lppl1
+catalogue-topics class letter german
+catalogue-version 4.0.3

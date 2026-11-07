@@ -1,0 +1,22 @@
+name pgfmath-xfp
+category Package
+revision 59268
+shortdesc Define pgfmath functions using xfp
+relocated 1
+longdesc This package allows to define pgfmath functions that use the
+longdesc xfp fpu for their calculations. The input arguments are parsed
+longdesc with pgfmath (while the pgf-fpu is locally active), and the
+longdesc results are forwarded to xfp's fpu for the function evaluation.
+longdesc The result of that calculation is then parsed by pgfmath again
+longdesc (with the surrounding settings of pgfmath). This way the
+longdesc functions should be usable in every pgfmath context, though
+longdesc there is some overhead to this approach. The package is only
+longdesc meant as a temporary stopgap until a more dedicated solution is
+longdesc available to use xfp in pgf.
+runfiles size=1
+ RELOC/tex/latex/pgfmath-xfp/pgfmath-xfp.sty
+catalogue-contact-repository https://github.com/Skillmon/ltx_pgfmath-xfp
+catalogue-ctan /macros/latex/contrib/pgfmath-xfp
+catalogue-license lppl1.3c
+catalogue-topics calculation expl3
+catalogue-version 1.0

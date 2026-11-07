@@ -1,0 +1,22 @@
+name advice
+category Package
+revision 69283
+shortdesc Extend commands and environments
+relocated 1
+longdesc Like its namesake from the Emacs world, this cross-format
+longdesc package implements a generic framework for extending the
+longdesc functionality of selected commands and environments. It was
+longdesc developed as an auxiliary package of Memoize. This is why it
+longdesc is, somewhat unconventionally, documented alongside that
+longdesc package. This applies to both the manual and the documented
+longdesc code listing.
+runfiles size=15
+ RELOC/tex/context/third/advice/t-advice.tex
+ RELOC/tex/generic/advice/advice-tikz.code.tex
+ RELOC/tex/latex/advice/advice.sty
+ RELOC/tex/plain/advice/advice.tex
+catalogue-contact-repository https://github.com/sasozivanovic/memoize
+catalogue-ctan /macros/generic/advice
+catalogue-license lppl1.3c
+catalogue-topics macro-def macro-supp macro-gen
+catalogue-version 1.1.0

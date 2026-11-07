@@ -1,0 +1,255 @@
+%%
+%% This is file `zref-clever-spanish.lang',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% zref-clever.dtx  (with options: `lang-spanish')
+%% 
+%% This file was generated from file(s) of the LaTeX package "zref-clever".
+%% 
+%% Copyright (C) 2021-2023  gusbrs
+%% 
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file:
+%% 
+%%    https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by gusbrs.
+%% 
+%% This work consists of the files zref-clever.dtx,
+%%                                 zref-clever.ins,
+%%                                 zref-clever-doc.tex,
+%%                                 zref-clever-code.tex,
+%%                   and the files generated from them.
+%% 
+%% The released version of this package is available from CTAN.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+%% The development version of the package can be found at
+%% 
+%%    https://github.com/gusbrs/zref-clever
+%% 
+%% for those people who are interested.
+%% 
+%% -----------------------------------------------------------------------
+%% 
+namesep  = {\nobreakspace} ,
+pairsep  = {~y\nobreakspace} ,
+listsep  = {,~} ,
+lastsep  = {~y\nobreakspace} ,
+tpairsep = {~y\nobreakspace} ,
+tlistsep = {,~} ,
+tlastsep = {~y\nobreakspace} ,
+notesep  = {~} ,
+rangesep = {~a\nobreakspace} ,
+
+type = book ,
+  gender = m ,
+  Name-sg =  Libro ,
+  name-sg =  libro ,
+  Name-pl =  Libros ,
+  name-pl =  libros ,
+
+type = part ,
+  gender = f ,
+  Name-sg = Parte ,
+  name-sg = parte ,
+  Name-pl = Partes ,
+  name-pl = partes ,
+
+type = chapter ,
+  gender = m ,
+  Name-sg = Capítulo ,
+  name-sg = capítulo ,
+  Name-pl = Capítulos ,
+  name-pl = capítulos ,
+
+type = section ,
+  gender = f ,
+  Name-sg = Sección ,
+  name-sg = sección ,
+  Name-pl = Secciones ,
+  name-pl = secciones ,
+
+type = paragraph ,
+  gender = m ,
+  Name-sg = Párrafo ,
+  name-sg = párrafo ,
+  Name-pl = Párrafos ,
+  name-pl = párrafos ,
+
+type = appendix ,
+  gender = m ,
+  Name-sg = Apéndice ,
+  name-sg = apéndice ,
+  Name-pl = Apéndices ,
+  name-pl = apéndices ,
+
+type = page ,
+  gender = f ,
+  Name-sg = Página ,
+  name-sg = página ,
+  Name-pl = Páginas ,
+  name-pl = páginas ,
+  rangesep = {\textendash} ,
+  rangetopair = false ,
+
+type = line ,
+  gender = f ,
+  Name-sg = Línea ,
+  name-sg = línea ,
+  Name-pl = Líneas ,
+  name-pl = líneas ,
+
+type = figure ,
+  gender = f ,
+  Name-sg = Figura ,
+  name-sg = figura ,
+  Name-pl = Figuras ,
+  name-pl = figuras ,
+
+type = table ,
+  gender = m ,
+  Name-sg = Cuadro ,
+  name-sg = cuadro ,
+  Name-pl = Cuadros ,
+  name-pl = cuadros ,
+
+type = item ,
+  gender = m ,
+  Name-sg = Punto ,
+  name-sg = punto ,
+  Name-pl = Puntos ,
+  name-pl = puntos ,
+
+type = footnote ,
+  gender = f ,
+  Name-sg = Nota ,
+  name-sg = nota ,
+  Name-pl = Notas ,
+  name-pl = notas ,
+
+type = endnote ,
+  gender = f ,
+  Name-sg = Nota ,
+  name-sg = nota ,
+  Name-pl = Notas ,
+  name-pl = notas ,
+
+type = note ,
+  gender = f ,
+  Name-sg = Nota ,
+  name-sg = nota ,
+  Name-pl = Notas ,
+  name-pl = notas ,
+
+type = equation ,
+  gender = f ,
+  Name-sg = Ecuación ,
+  name-sg = ecuación ,
+  Name-pl = Ecuaciones ,
+  name-pl = ecuaciones ,
+  refbounds-first-sg = {,(,),} ,
+  refbounds = {(,,,)} ,
+
+type = theorem ,
+  gender = m ,
+  Name-sg = Teorema ,
+  name-sg = teorema ,
+  Name-pl = Teoremas ,
+  name-pl = teoremas ,
+
+type = lemma ,
+  gender = m ,
+  Name-sg = Lema ,
+  name-sg = lema ,
+  Name-pl = Lemas ,
+  name-pl = lemas ,
+
+type = corollary ,
+  gender = m ,
+  Name-sg = Corolario ,
+  name-sg = corolario ,
+  Name-pl = Corolarios ,
+  name-pl = corolarios ,
+
+type = proposition ,
+  gender = f ,
+  Name-sg = Proposición ,
+  name-sg = proposición ,
+  Name-pl = Proposiciones ,
+  name-pl = proposiciones ,
+
+type = definition ,
+  gender = f ,
+  Name-sg = Definición ,
+  name-sg = definición ,
+  Name-pl = Definiciones ,
+  name-pl = definiciones ,
+
+type = proof ,
+  gender = f ,
+  Name-sg = Demostración ,
+  name-sg = demostración ,
+  Name-pl = Demostraciones ,
+  name-pl = demostraciones ,
+
+type = result ,
+  gender = m ,
+  Name-sg = Resultado ,
+  name-sg = resultado ,
+  Name-pl = Resultados ,
+  name-pl = resultados ,
+
+type = remark ,
+  gender = f ,
+  Name-sg = Observación ,
+  name-sg = observación ,
+  Name-pl = Observaciones ,
+  name-pl = observaciones ,
+
+type = example ,
+  gender = m ,
+  Name-sg = Ejemplo ,
+  name-sg = ejemplo ,
+  Name-pl = Ejemplos ,
+  name-pl = ejemplos ,
+
+type = algorithm ,
+  gender = m ,
+  Name-sg = Algoritmo ,
+  name-sg = algoritmo ,
+  Name-pl = Algoritmos ,
+  name-pl = algoritmos ,
+
+type = listing ,
+  gender = m ,
+  Name-sg = Listado ,
+  name-sg = listado ,
+  Name-pl = Listados ,
+  name-pl = listados ,
+
+type = exercise ,
+  gender = m ,
+  Name-sg = Ejercicio ,
+  name-sg = ejercicio ,
+  Name-pl = Ejercicios ,
+  name-pl = ejercicios ,
+
+type = solution ,
+  gender = f ,
+  Name-sg = Solución ,
+  name-sg = solución ,
+  Name-pl = Soluciones ,
+  name-pl = soluciones ,
+%% 
+%%
+%% End of file `zref-clever-spanish.lang'.

@@ -1,0 +1,5 @@
+auto
+/usr/bin/sphinx-build
+
+/usr/bin/sphinx-build-3.9
+39

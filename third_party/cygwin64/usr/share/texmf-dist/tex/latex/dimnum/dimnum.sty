@@ -1,0 +1,176 @@
+%%
+%% This is file `dimnum.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% dimnum.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2021 by Miguel R. Clemente
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Miguel R. Clemente.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{dimnum}
+    [2021/04/05 v1.0.1 Provides commands for Dimensionless numbers]
+
+
+
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dimnum}
+[2021/04/05 v1.0.1 Provides commands for Dimensionless numbers]
+\RequirePackage{amsmath}
+\RequirePackage{xifthen}
+\let\Pr\relax
+\newif\ifstartedinmathmode
+\newcommand{\newdimnum}[4]{%
+\expandafter\newcommand\csname #1\endcsname[1][]{%
+\ifthenelse{\equal{##1}{}}{%
+\relax\ifmmode\startedinmathmodetrue\else\startedinmathmodefalse\fi%
+\ifstartedinmathmode\operatorname{#2}\else#2\fi}{%
+\ifthenelse{\equal{##1}{s}}{\text{#3}}{%
+\ifthenelse{\equal{##1}{l}}{%
+\ifthenelse{\equal{#4}{}}{\text{#3}}{\text{#3 #4}}}{%
+\ifthenelse{\equal{#4}{}}{\text{#3}}{\text{#3 #4}}}%
+            }%
+        }%
+    }%
+}
+\newdimnum{Ar}{Ar}{Archimedes}{number}
+\newdimnum{At}{A}{Atwood}{number}
+\newdimnum{Ba}{Ba}{Bagnold}{number}
+\newdimnum{Be}{Be}{Bejan}{number}
+\newdimnum{Bm}{Bm}{Bingham}{number}
+\newdimnum{Bi}{Bi}{Biot}{number}
+\newdimnum{Bl}{Bl}{Blake}{number}
+\newdimnum{Bs}{Bs}{Bodenstein}{number}
+\newdimnum{Bo}{Bo}{Bond}{number}
+\newdimnum{Br}{Br}{Brinkman}{number}
+\newdimnum{BK}{\ensuremath{N_{BK}}}{Brownell-Katz}{number}
+\newdimnum{Ca}{Ca}{Capillary}{number}
+\newdimnum{Cau}{C}{Cauchy}{number}
+\newdimnum{Ch}{Q}{Chandrasekhar}{number}
+\newdimnum{CoF}{\ensuremath{C_f}}{Coefficient of Frication}{}
+\newdimnum{Co}{Co}{Condensation}{number}
+\newdimnum{Dah}{Da}{Dahmköhler}{number}
+\newdimnum{Dar}{Da}{Darcy}{number}
+\newdimnum{De}{De}{Dean}{number}
+\newdimnum{Deb}{De}{Deborah}{number}
+\newdimnum{Cd}{\ensuremath{C_d}}{Drag Coefficient}{}
+\newdimnum{Du}{Du}{Dukhin}{number}
+\newdimnum{Ec}{Ec}{Eckert}{number}
+\newdimnum{Ek}{Ek}{Ekman}{number}
+\newdimnum{Ela}{El}{Elasticity}{number}
+\newdimnum{El}{El}{Elenbass}{number}
+\newdimnum{Eo}{Eo}{Eötvös}{number}
+\newdimnum{Er}{Er}{Ericksen}{number}
+\newdimnum{Eu}{Eu}{Euler}{number}
+\newdimnum{Fo}{Fo}{Fourier}{number}
+\newdimnum{Fr}{Fr}{Froude}{number}
+\newdimnum{Ga}{Ga}{Galilei}{number}
+\newdimnum{Go}{G}{Görtier}{number}
+\newdimnum{Gz}{Gz}{Graetz}{number}
+\newdimnum{Gr}{Gr}{Grashof}{number}
+\newdimnum{Ha}{Ha}{Hatta}{number}
+\newdimnum{Hg}{Hg}{Hagen}{number}
+\newdimnum{Ho}{H}{Hodgson}{number}
+\newdimnum{Ir}{Ir}{Iribarren}{number}
+\newdimnum{Ja}{Ja}{Jakob}{number}
+\newdimnum{Ka}{Ka}{Karlovitz}{number}
+\newdimnum{KC}{\ensuremath{K_C}}{Keulegan-Carpenter}{number}
+\newdimnum{Kn}{Kn}{Knudsen}{number}
+\newdimnum{Ku}{Ku}{Kutateladze}{number}
+\newdimnum{La}{La}{Laplace}{number}
+\newdimnum{Le}{Le}{Lewis}{number}
+\newdimnum{Ma}{Ma}{Mach}{number}
+\newdimnum{Mg}{Mg}{Marangoni}{number}
+\newdimnum{Mo}{Mo}{Morton}{number}
+\newdimnum{Nus}{Nu}{Nusselt}{number}
+\newdimnum{Oh}{Oh}{Ohnesorge}{number}
+\newdimnum{Pe}{Pe}{Péclet}{number}
+\newdimnum{pH}{pH}{pH}{}
+\newdimnum{Po}{Po}{Poiseuille}{constant}
+\newdimnum{Pr}{Pr}{Prandtl}{number}
+\newdimnum{Ra}{Ra}{Rayleigh}{number}
+\newdimnum{Rey}{Re}{Reynolds}{number}
+\newdimnum{Ri}{Ri}{Richardson}{number}
+\newdimnum{Ro}{Ro}{Roshko}{number}
+\newdimnum{Ros}{Ro}{Rossby}{number}
+\newdimnum{Rou}{P}{Rouse}{number}
+\newdimnum{Sc}{Sc}{Schmidt}{number}
+\newdimnum{Sh}{Sh}{Sherwood}{number}
+\newdimnum{So}{S}{Sommerfield}{number}
+\newdimnum{St}{St}{Stanton}{number}
+\newdimnum{Ste}{Ste}{Stefan}{number}
+\newdimnum{Stk}{Stk}{Stokes}{number}
+\newdimnum{Sr}{Sr}{Strouhal}{number}
+\newdimnum{Stu}{N}{Stuart}{number}
+\newdimnum{Sv}{Sv}{Svelteness}{}
+\newdimnum{Ta}{Ta}{Taylor}{number}
+\newdimnum{Ur}{U}{Ursell}{number}
+\newdimnum{Va}{Va}{Vadasz}{number}
+\newdimnum{Wa}{Wa}{Wagner}{number}
+\newdimnum{Wea}{Wea}{Weaver flame speed}{number}
+\newdimnum{We}{We}{Weber}{number}
+\newdimnum{Wei}{Wi}{Weissenberg}{number}
+\newdimnum{Ab}{\ensuremath{V}}{Abbe}{number}
+\newdimnum{AC}{\ensuremath{\gamma}}{Activity}{coefficient}
+\newdimnum{Al}{\ensuremath{\alpha}}{Albedo}{}
+\newdimnum{Arr}{\ensuremath{\alpha}}{Arrhenius}{number}
+\newdimnum{AW}{\ensuremath{M}}{Atomic}{weight}
+\newdimnum{Rz}{\ensuremath{R_0}}{Basic reproduction}{number}
+\newdimnum{Blo}{\ensuremath{B_k}}{Blondeau}{number}
+\newdimnum{Jm}{\ensuremath{J_M}}{Chilton-Colburn Momentum J-factor}{}
+\newdimnum{Jh}{\ensuremath{J_H}}{Chilton-Colburn Heat J-factor}{}
+\newdimnum{Jd}{\ensuremath{J_D}}{Chilton-Colburn Mass J-factor}{}
+\newdimnum{CoD}{\ensuremath{R^2}}{Coefficient of Determination}{}
+\newdimnum{CoK}{\ensuremath{\mu_k}}{Coefficient of Kinetic Friction}{}
+\newdimnum{CoS}{\ensuremath{\mu_s}}{Coefficient of Static Friction}{}
+\newdimnum{CoV}{\ensuremath{\frac{\sigma}{\mu}}}{Coefficient of Variation}{}
+\newdimnum{Coh}{\ensuremath{{Coh}}}{Cohesion}{number}
+\newdimnum{CFL}{\ensuremath{C}}{Courant-Friedrich-Levy}{number}
+\newdimnum{Dr}{\ensuremath{\zeta}}{Damping}{ratio}
+\newdimnum{fD}{\ensuremath{f_D}}{Darcy friction}{factor}
+\newdimnum{ExT}{\ensuremath{\Theta_r}}{Excess Temperature}{coefficient}
+\newdimnum{fF}{\ensuremath{f}}{Fanning friction}{factor}
+\newdimnum{Fs}{\ensuremath{\alpha}}{Fine-structure constant}{}
+\newdimnum{FvK}{\ensuremath{\gamma}}{Föppl-von Kármán}{number}
+\newdimnum{Fre}{F}{Fresnel}{number}
+\newdimnum{Hav}{\ensuremath{P_H}}{Havnes}{parameter}
+\newdimnum{He}{He}{Helmholtz}{number}
+\newdimnum{Cl}{\ensuremath{C_L}}{Lift Coefficient}{}
+\newdimnum{LM}{\ensuremath{\chi}}{Lockhart-Martinelli}{parameter}
+\newdimnum{Lu}{S}{Lundquist}{number}
+\newdimnum{Mar}{\ensuremath{\mathcal{M}}}{Markstein}{number}
+\newdimnum{Peel}{\ensuremath{N_P}}{Peel}{number}
+\newdimnum{Pie}{\ensuremath{C}}{Pierce}{parameter}
+\newdimnum{Poi}{\ensuremath{\nu}}{Poisson's}{ratio}
+\newdimnum{Pf}{\ensuremath{{pf}}}{Power}{factor}
+\newdimnum{Pn}{\ensuremath{N_p}}{Power}{number}
+\newdimnum{Cp}{\ensuremath{C_P}}{Pressure Coefficient}{}
+\newdimnum{Rfi}{\ensuremath{n}}{Refractive index}{}
+\newdimnum{Crr}{\ensuremath{C_{rr}}}{Rolling resistance}{coefficient}
+\newdimnum{Shi}{\ensuremath{\tau_*}}{Shield's}{parameter}
+\newdimnum{vtH}{\ensuremath{i}}{Van 't Hoff}{factor}
+\newdimnum{Wal}{\ensuremath{j^*}}{Wallis}{parameter}
+\newdimnum{Wo}{\ensuremath{\alpha}}{Womersley}{number}
+\newdimnum{Zd}{\ensuremath{\beta}}{Zel'dovich}{number}
+\endinput
+%%
+%% End of file `dimnum.sty'.

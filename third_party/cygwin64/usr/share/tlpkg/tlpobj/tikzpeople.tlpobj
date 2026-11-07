@@ -1,0 +1,47 @@
+name tikzpeople
+category Package
+revision 67840
+shortdesc Draw people-shaped nodes in TikZ
+relocated 1
+longdesc This package provides people-shaped nodes in the style of
+longdesc Microsoft Visio clip art, to be used with TikZ. The available,
+longdesc highly customizable, node shapes are: alice, bob, bride,
+longdesc builder, businessman, charlie, chef, conductor, cowboy,
+longdesc criminal, dave, devil, duck, graduate, groom, guard, jester,
+longdesc judge, maininblack, mexican, nun, nurse, physician, pilot,
+longdesc police, priest, sailor, santa, surgeon.
+runfiles size=54
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.alice.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.bob.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.bride.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.builder.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.businessman.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.charlie.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.chef.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.conductor.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.cowboy.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.criminal.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.dave.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.devil.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.duck.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.graduate.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.groom.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.guard.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.jester.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.judge.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.maninblack.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.mexican.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.nun.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.nurse.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.physician.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.pilot.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.police.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.priest.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.sailor.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.santa.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.shape.surgeon.sty
+ RELOC/tex/latex/tikzpeople/tikzpeople.sty
+catalogue-ctan /graphics/pgf/contrib/tikzpeople
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz amusements
+catalogue-version 0.4

@@ -1,0 +1,16 @@
+name ltablex
+category Package
+revision 34923
+shortdesc Table package extensions
+relocated 1
+longdesc Modifies the tabularx environment to combine the features of
+longdesc the tabularx package (auto-sized columns in a fixed width
+longdesc table) with those of the longtable package (multi-page tables).
+runfiles size=2
+ RELOC/tex/latex/ltablex/ltablex.sty
+catalogue-also xltabular
+catalogue-ctan /macros/latex/contrib/ltablex
+catalogue-date 2017-09-28 09:30:00 +0200
+catalogue-license lppl
+catalogue-topics table table-long
+catalogue-version 1.1

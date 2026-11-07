@@ -1,0 +1,13 @@
+name resumemac
+category Package
+revision 15878
+shortdesc Plain TeX macros for resumes
+relocated 1
+longdesc A set of macros is provided, together with an file that offers
+longdesc an example of use.
+runfiles size=2
+ RELOC/tex/plain/resumemac/resumemac.tex
+catalogue-ctan /macros/plain/contrib/resumemac
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics cv plain-ext

@@ -1,0 +1,11 @@
+% --------------------------------------------------------------------------
+% European Union:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{blue}{RGB}{0,20,137}
+\definecolor{gold}{RGB}{255,215,0}
+\fill [blue] (0,0) rectangle (\flaglength,1);
+\foreach \w in{0,30,...,330}
+  {\starV{gold}{($(0.5\flaglength,0.5)+(\w:1/3)$)}{\flagwidth/18}{0}}
+\framecode{}
+\end{flagdescription}

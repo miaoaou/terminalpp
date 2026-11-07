@@ -1,0 +1,15 @@
+name duotenzor
+category Package
+revision 18728
+shortdesc Drawing package for circuit and duotensor diagrams
+relocated 1
+longdesc This is a drawing package for circuit and duotensor diagrams
+longdesc within LaTeX documents. It consists of about eighty commands,
+longdesc calling on TikZ for support.
+runfiles size=10
+ RELOC/tex/latex/duotenzor/duotenzor.sty
+catalogue-ctan /graphics/duotenzor
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram diagram-circ
+catalogue-version 1.00

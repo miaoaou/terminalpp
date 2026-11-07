@@ -1,0 +1,26 @@
+name pdfcomment
+category Package
+revision 49047
+shortdesc A user-friendly interface to pdf annotations
+relocated 1
+longdesc For a long time pdfLaTeX has offered the command \pdfannot for
+longdesc inserting arbitrary PDF annotations. However, the command is
+longdesc presented in a form where additional knowledge of the
+longdesc definition of the PDF format is indispensable. This package is
+longdesc an answer to the - occasional - questions in newsgroups, about
+longdesc how one could use the comment function of Adobe Reader. At
+longdesc least for the writer of LaTeX code, the package offers a
+longdesc convenient and user-friendly means of using \pdfannot to
+longdesc provide comments in PDF files. Since version v1.1,
+longdesc pdfcomment.sty also supports LaTeX - dvips - ps2pdf, LaTeX -
+longdesc dvipdfmx, XeLaTeX and LuaLaTeX. Unfortunately, support of PDF
+longdesc annotations by PDF viewers may vary. The reference viewer for
+longdesc the development of this package is Adobe Reader.
+runfiles size=24
+ RELOC/tex/latex/pdfcomment/pdfcomment.sty
+catalogue-contact-home http://pdfcomment.jklatex.de/
+catalogue-ctan /macros/latex/contrib/pdfcomment
+catalogue-date 2018-11-01 13:19:56 +0100
+catalogue-license lppl1.3
+catalogue-topics pdf-feat
+catalogue-version 2.4a

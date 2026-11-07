@@ -1,0 +1,899 @@
+%%
+%% This is file `xinttrig.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% xint.dtx  (with options: `xinttrig')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from xinttrig.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file xint.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%% ---------------------------------------------------------------
+%% The xint bundle 1.4m 2022/06/10
+%% Copyright (C) 2013-2022 by Jean-Francois Burnol
+%% xinttrig: Trigonometry for the xintexpr package
+%% ---------------------------------------------------------------
+\begingroup\catcode61\catcode48\catcode32=10\relax%
+  \catcode13=5    % ^^M
+  \endlinechar=13 %
+  \catcode123=1   % {
+  \catcode125=2   % }
+  \catcode64=11   % @
+  \catcode35=6    % #
+  \catcode44=12   % ,
+  \catcode46=12   % .
+  \catcode58=12   % :
+  \catcode94=7    % ^
+  \def\empty{}\def\space{ }\newlinechar10
+  \def\z{\endgroup}%
+  \expandafter\let\expandafter\x\csname ver@xinttrig.sty\endcsname
+  \expandafter\let\expandafter\w\csname ver@xintexpr.sty\endcsname
+  \expandafter
+    \ifx\csname PackageWarningNoLine\endcsname\relax
+      \def\y#1#2{\immediate\write128{^^JPackage #1 Warning:^^J%
+                 \space\space\space\space#2.^^J}}%
+    \else
+      \def\y#1#2{\PackageWarningNoLine{#1}{#2}}%
+    \fi
+  \expandafter
+  \ifx\csname numexpr\endcsname\relax
+     \y{xinttrig}{\numexpr not available, aborting input}%
+     \def\z{\endgroup\endinput}%
+  \else
+    \ifx\w\relax % xintexpr.sty not yet loaded.
+        \edef\MsgBrk{^^J\space\space\space\space}%
+        \y{xinttrig}%
+          {\ifx\x\empty
+             xinttrig should not be loaded directly\MessageBreak
+             The correct way is \string\usepackage{xintexpr}.\MessageBreak
+             Will try that now%
+           \else
+             First loading of xinttrig.sty should be via
+             \string\input\space xintexpr.sty\relax\MsgBrk
+             Will try that now%
+           \fi
+          }%
+        \ifx\x\empty
+          \def\z{\endgroup\RequirePackage{xintexpr}\endinput}%
+        \else
+          \def\z{\endgroup\input xintexpr.sty\relax\endinput}%
+        \fi
+    \else
+      \def\z{\endgroup\edef\XINTtrigendinput{\XINTrestorecatcodes\noexpand\endinput}}%
+    \fi
+  \fi
+\z%
+\XINTsetcatcodes%
+\catcode`? 12
+\ifcsname xintlibver@trig\endcsname
+  \expandafter\xint_firstoftwo
+\else
+  \expandafter\xint_secondoftwo
+\fi
+{\immediate\write128{Reloading xinttrig library using Digits=\xinttheDigits.}}%
+{\expandafter\gdef\csname xintlibver@trig\endcsname{2022/06/10 v1.4m}%
+  \XINT_providespackage
+  \ProvidesPackage{xinttrig}%
+  [2022/06/10 v1.4m Trigonometrical functions for xintexpr (JFB)]%
+}%
+\xintFor* #1 in {iDTVtuwxyzX}\do{\xintensuredummy{#1}}%
+\def\xintreloadxinttrig{\input xinttrig.sty }%
+\xintdefvar @twoPi :=
+    float(
+6.2831853071795864769252867665590057683943387987502116419498891846156328125724180
+    ,\XINTdigitsormax+4);%
+\xintdefvar @threePiover2 :=
+    float(
+4.7123889803846898576939650749192543262957540990626587314624168884617246094293135
+    ,\XINTdigitsormax+4);%
+\xintdefvar @Pi :=
+    float(
+3.1415926535897932384626433832795028841971693993751058209749445923078164062862090
+    ,\XINTdigitsormax+4);%
+\xintdefvar @Piover2 :=
+    float(
+1.5707963267948966192313216916397514420985846996875529104874722961539082031431045
+    ,\XINTdigitsormax+4);%
+\xintdefvar @oneDegree :=
+    float(
+0.017453292519943295769236907684886127134428718885417254560971914401710091146034494
+    ,\XINTdigitsormax+4);%
+\xintdefvar @oneRadian :=
+    float(
+57.295779513082320876798154814105170332405472466564321549160243861202847148321553
+    ,\XINTdigitsormax+12);%
+\catcode`~ 12
+\def\XINT_tmpa#1#2#3.#4.%
+{%
+  \let #1#2%
+  \def #2##1##2##3##4%
+      {##2##3{{~expanded{~unexpanded{#4[#3]}~expandafter}~expanded{##1##4}}}}%
+}%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_exec_+_\expandafter\endcsname
+    \csname XINT_flexpr_exec_+\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatAdd_wopt.%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_exec_-_\expandafter\endcsname
+    \csname XINT_flexpr_exec_-\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatSub_wopt.%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_exec_*_\expandafter\endcsname
+    \csname XINT_flexpr_exec_*\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatMul_wopt.%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_exec_/_\expandafter\endcsname
+    \csname XINT_flexpr_exec_/\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatDiv_wopt.%
+\def\XINT_tmpa#1#2#3.#4.%
+{%
+  \let #1#2%
+  \def #2##1##2##3{##1##2{{~expanded{~unexpanded{#4[#3]}~expandafter}##3}}}%
+}%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_sqrfunc\expandafter\endcsname
+    \csname XINT_flexpr_func_sqr\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatSqr_wopt.%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_sqrtfunc\expandafter\endcsname
+    \csname XINT_flexpr_func_sqrt\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatSqrt.%
+\expandafter\XINT_tmpa
+    \csname XINT_flexpr_invfunc\expandafter\endcsname
+    \csname XINT_flexpr_func_inv\expandafter\endcsname
+    \the\numexpr\XINTdigitsormax+4.~XINTinFloatInv_wopt.%
+\catcode`~ 3
+\ifnum\XINTdigits>8
+\edef\XINT_tmpG % 1/3!
+  {1\xintReplicate{\XINTdigitsormax+2}{6}7[\the\numexpr-\XINTdigitsormax-4]}%
+\edef\XINT_tmpH % 1/5!
+  {8\xintReplicate{\XINTdigitsormax+1}{3}[\the\numexpr-\XINTdigitsormax-4]}%
+\edef\XINT_tmpd % 1/5!
+  {8\xintReplicate{\XINTdigitsormax+9}{3}[\the\numexpr-\XINTdigitsormax-12]}%
+\def\XINT_tmpe#1.#2.#3.#4.#5#6#7%
+{%
+\def#5##1\xint:
+{%
+    \expandafter#6\romannumeral0\XINTinfloatS[#2]{##1}\xint:##1\xint:
+}%
+\def#6##1\xint:
+{%
+    \expandafter#7\romannumeral0\xintsub{#4}{\XINTinFloat[#2]{\xintMul{#3}{##1}}}\xint:
+}%
+\def#7##1\xint:##2\xint:
+{%
+    \xintSub{1/1[0]}{\XINTinFloat[#1]{\xintMul{##1}{##2}}}%
+}%
+}%
+\expandafter\XINT_tmpe
+  \the\numexpr\XINTdigitsormax+4\expandafter.%
+  \the\numexpr\XINTdigitsormax+2\expandafter.\expanded{%
+  \XINT_tmpH.% 1/5!
+  \XINT_tmpG.% 1/3!
+  \expandafter}%
+  \csname XINT_SinAux_series_a_iii\expandafter\endcsname
+  \csname XINT_SinAux_series_b\expandafter\endcsname
+  \csname XINT_SinAux_series_c_i\endcsname
+\def\XINT_tmpa #1 #2 #3 #4 #5 #6 #7 #8 %
+{%
+ \def\XINT_tmpb ##1##2##3##4##5%
+ {%
+  \def\XINT_tmpc####1.####2.####3.####4.####5.%
+  {%
+   \def##1########1\xint:
+   {%
+       \expandafter##2%
+       \romannumeral0\XINTinfloatS[####1]{########1}\xint:########1\xint:
+   }%
+   \def##2########1\xint:
+   {%
+       \expandafter##3%
+       \romannumeral0\XINTinfloatS[####2]{########1}\xint:########1\xint:
+   }%
+   \def##3########1\xint:
+   {%
+       \expandafter##4%
+       \romannumeral0\xintsub{####4}{\XINTinFloat[####2]{\xintMul{####3}{########1}}}\xint:
+   }%
+   \def##4########1\xint:########2\xint:
+   {%
+       \expandafter##5%
+       \romannumeral0\xintsub{####5}%
+                             {\XINTinFloat[####1]{\xintMul{########1}{########2}}}\xint:
+   }%
+  }%
+ }%
+ \expandafter\XINT_tmpb
+ \csname XINT_#8Aux_series_a_\romannumeral\numexpr#1-1\expandafter\endcsname
+ \csname XINT_#8Aux_series_a_\romannumeral\numexpr#1\expandafter\endcsname
+ \csname XINT_#8Aux_series_b\expandafter\endcsname
+ \csname XINT_#8Aux_series_c_\romannumeral\numexpr#1-2\expandafter\endcsname
+ \csname XINT_#8Aux_series_c_\romannumeral\numexpr#1-3\endcsname
+ \edef\XINT_tmpd
+   {\XINTinFloat[\XINTdigitsormax-#2+8]{\xintDiv{\XINT_tmpd}{\the\numexpr#5*(#5-1)\relax}}}%
+ \let\XINT_tmpF\XINT_tmpG
+ \let\XINT_tmpG\XINT_tmpH
+ \edef\XINT_tmpH{\XINTinFloat[\XINTdigitsormax-#2]{\XINT_tmpd}}%
+ \expandafter\XINT_tmpc
+ \the\numexpr\XINTdigitsormax-#3\expandafter.%
+ \the\numexpr\XINTdigitsormax-#2\expandafter.\expanded{%
+ \XINT_tmpH.%
+ \XINT_tmpG.%
+ \XINT_tmpF.%
+ }%
+}%
+\XINT_tmpa 4 -1 -2 -4 7 5 3 Sin %
+\ifnum\XINTdigits>3  \XINT_tmpa  5  1 -1 -2  9  7  5 Sin \fi
+\ifnum\XINTdigits>5  \XINT_tmpa  6  3  1 -1 11  9  7 Sin \fi
+\ifnum\XINTdigits>8  \XINT_tmpa  7  6  3  1 13 11  9 Sin \fi
+\ifnum\XINTdigits>11 \XINT_tmpa  8  9  6  3 15 13 11 Sin \fi
+\ifnum\XINTdigits>14 \XINT_tmpa  9 12  9  6 17 15 13 Sin \fi
+\ifnum\XINTdigits>16 \XINT_tmpa 10 14 12  9 19 17 15 Sin \fi
+\ifnum\XINTdigits>19 \XINT_tmpa 11 17 14 12 21 19 17 Sin \fi
+\ifnum\XINTdigits>22 \XINT_tmpa 12 20 17 14 23 21 19 Sin \fi
+\ifnum\XINTdigits>25 \XINT_tmpa 13 23 20 17 25 23 21 Sin \fi
+\ifnum\XINTdigits>28 \XINT_tmpa 14 26 23 20 27 25 23 Sin \fi
+\ifnum\XINTdigits>31 \XINT_tmpa 15 29 26 23 29 27 25 Sin \fi
+\ifnum\XINTdigits>34 \XINT_tmpa 16 32 29 26 31 29 27 Sin \fi
+\ifnum\XINTdigits>37 \XINT_tmpa 17 35 32 29 33 31 29 Sin \fi
+\ifnum\XINTdigits>40 \XINT_tmpa 18 38 35 32 35 33 31 Sin \fi
+\ifnum\XINTdigits>44 \XINT_tmpa 19 42 38 35 37 35 33 Sin \fi
+\ifnum\XINTdigits>47 \XINT_tmpa 20 45 42 38 39 37 35 Sin \fi
+\ifnum\XINTdigits>51 \XINT_tmpa 21 49 45 42 41 39 37 Sin \fi
+\ifnum\XINTdigits>55 \XINT_tmpa 22 53 49 45 43 41 39 Sin \fi
+\ifnum\XINTdigits>58 \XINT_tmpa 23 56 53 49 45 43 41 Sin \fi
+\edef\XINT_tmpd % 1/4!
+  {41\xintReplicate{\XINTdigitsormax+8}{6}7[\the\numexpr-\XINTdigitsormax-12]}%
+\edef\XINT_tmpH % 1/4!
+  {41\xintReplicate{\XINTdigitsormax}{6}7[\the\numexpr-\XINTdigitsormax-4]}%
+\def\XINT_tmpG{5[-1]}% 1/2!
+\expandafter\XINT_tmpe
+  \the\numexpr\XINTdigitsormax+4\expandafter.%
+  \the\numexpr\XINTdigitsormax+3\expandafter.\expanded{%
+  \XINT_tmpH.%
+  \XINT_tmpG.%
+  \expandafter}%
+  \csname XINT_CosAux_series_a_iii\expandafter\endcsname
+  \csname XINT_CosAux_series_b\expandafter\endcsname
+  \csname XINT_CosAux_series_c_i\endcsname
+\XINT_tmpa 4 -2 -3 -4 6 4 2 Cos %
+\ifnum\XINTdigits>2  \XINT_tmpa  5  0 -2 -3  8  6  4 Cos \fi
+\ifnum\XINTdigits>4  \XINT_tmpa  6  2  0 -2 10  8  6 Cos \fi
+\ifnum\XINTdigits>7  \XINT_tmpa  7  5  2  0 12 10  8 Cos \fi
+\ifnum\XINTdigits>9  \XINT_tmpa  8  7  5  2 14 12 10 Cos \fi
+\ifnum\XINTdigits>12 \XINT_tmpa  9 10  7  5 16 14 12 Cos \fi
+\ifnum\XINTdigits>15 \XINT_tmpa 10 13 10  7 18 16 14 Cos \fi
+\ifnum\XINTdigits>18 \XINT_tmpa 11 16 13 10 20 18 16 Cos \fi
+\ifnum\XINTdigits>20 \XINT_tmpa 12 18 16 13 22 20 18 Cos \fi
+\ifnum\XINTdigits>24 \XINT_tmpa 13 22 18 16 24 22 20 Cos \fi
+\ifnum\XINTdigits>27 \XINT_tmpa 14 25 22 18 26 24 22 Cos \fi
+\ifnum\XINTdigits>30 \XINT_tmpa 15 28 25 22 28 26 24 Cos \fi
+\ifnum\XINTdigits>33 \XINT_tmpa 16 31 28 25 30 28 26 Cos \fi
+\ifnum\XINTdigits>36 \XINT_tmpa 17 34 31 28 32 30 28 Cos \fi
+\ifnum\XINTdigits>39 \XINT_tmpa 18 37 34 31 34 32 30 Cos \fi
+\ifnum\XINTdigits>42 \XINT_tmpa 19 40 37 34 36 34 32 Cos \fi
+\ifnum\XINTdigits>45 \XINT_tmpa 20 43 40 37 38 36 34 Cos \fi
+\ifnum\XINTdigits>49 \XINT_tmpa 21 47 43 40 40 38 36 Cos \fi
+\ifnum\XINTdigits>53 \XINT_tmpa 22 51 47 43 42 40 38 Cos \fi
+\ifnum\XINTdigits>57 \XINT_tmpa 23 55 51 47 44 42 40 Cos \fi
+\ifnum\XINTdigits>60 \XINT_tmpa 24 58 55 51 46 44 42 Cos \fi
+\let\XINT_tmpH\xint_undefined\let\XINT_tmpG\xint_undefined\let\XINT_tmpF\xint_undefined
+\let\XINT_tmpd\xint_undefined\let\XINT_tmpe\xint_undefined
+\def\XINT_SinAux_series#1%
+{%
+    \expandafter\XINT_SinAux_series_a_iii
+    \romannumeral0\XINTinfloatS[\XINTdigitsormax+4]{#1}\xint:
+}%
+\def\XINT_CosAux_series#1%
+{%
+    \expandafter\XINT_CosAux_series_a_iii
+    \romannumeral0\XINTinfloatS[\XINTdigitsormax+4]{#1}\xint:
+}%
+\fi % end of \XINTdigits>8
+\ifnum\XINTdigits<9
+\def\XINT_SinAux_series#1%
+{%
+    \the\numexpr\expandafter\XINT_SinAux_b\romannumeral0\xintiround9{#1}.[-9]%
+}%
+\def\XINT_SinAux_b#1.%
+{%
+  ((((((((((((%(\xint_c_x^ix/-210)
+  -4761905*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -156)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -110)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -72)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -42)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -20)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -6)*#1/\xint_c_x^ix+\xint_c_x^ix
+}%
+\def\XINT_CosAux_series#1%
+{%
+    \the\numexpr\expandafter\XINT_CosAux_b\romannumeral0\xintiround9{#1}.[-9]%
+}%
+\def\XINT_CosAux_b#1.%
+{%
+  ((((((((((((((%(\xint_c_x^ix/-240)
+  -4166667*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -182)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -132)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -90)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -56)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -30)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -12)*#1/\xint_c_x^ix+\xint_c_x^ix)/%
+  -2)*#1/\xint_c_x^ix+\xint_c_x^ix
+}%
+\fi
+\def\XINT_flexpr_func_@sin_aux#1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one
+    {\romannumeral`&&@\XINT_SinAux_series#3}}%
+}%
+\def\XINT_flexpr_func_@cos_aux#1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one
+    {\romannumeral`&&@\XINT_CosAux_series#3}}%
+}%
+\xintdeffloatfunc @sin_series(x) := x * @sin_aux(sqr(x));%
+\xintdeffloatfunc @cos_series(x) := @cos_aux(sqr(x));%
+\def\XINT_mod_ccclx_i #1.%
+{%
+    \expandafter\XINT_mod_ccclx_e\the\numexpr
+    \expandafter\XINT_mod_ccclx_j\the\numexpr1\ifcase#1 \or0\or00\else000\fi.%
+}%
+\def\XINT_mod_ccclx_j 1#1.#2.%
+{%
+    (\XINT_mod_ccclx_ja {++}#2#1\XINT_mod_ccclx_jb 0000000\relax
+}%
+\def\XINT_mod_ccclx_ja #1#2#3#4#5#6#7#8#9%
+{%
+    #9+#8+#7+#6+#5+#4+#3+#2\xint_firstoftwo{+\XINT_mod_ccclx_ja{+#9+#8+#7}}{#1}%
+}%
+\def\XINT_mod_ccclx_jb #1\xint_firstoftwo#2#3{#1+0)*280\XINT_mod_ccclx_jc #1#3}%
+\def\XINT_mod_ccclx_jc  +#1+#2+#3#4\relax{+80*(#3+#2+#1)+#3#2#1.}%
+\def\XINT_mod_ccclx_e#1.{\expandafter\XINT_mod_ccclx_z\the\numexpr(#1+180)/360-1.#1.}%
+\def\XINT_mod_ccclx_z#1.#2.{#2-360*#1.}%
+\def\XINT_flexpr_func_@sind_rr #1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one{\romannumeral`&&@\xintSind#3}}%
+}%
+\def\XINT_tmpa #1.{%
+\def\xintSind##1%
+{%
+    \romannumeral`&&@\expandafter\xintsind\romannumeral0\XINTinfloatS[#1]{##1}}%
+}\expandafter\XINT_tmpa\the\numexpr\XINTdigitsormax+12.%
+\def\xintsind #1[#2#3]%
+{%
+    \xint_UDsignfork
+      #2\XINT_sind
+       -\XINT_sind_int
+    \krof#2#3.#1..%
+}%
+\def\XINT_tmpa #1.{%
+\def\XINT_sind ##1.##2.%
+{%
+    \expandafter\XINT_sind_a
+    \romannumeral0\xinttrunc{#1}{##2[##1]}%
+}%
+}\expandafter\XINT_tmpa\the\numexpr\XINTdigitsormax+5.%
+\def\XINT_sind_a{\expandafter\XINT_sind_i\the\numexpr\XINT_mod_ccclx_i0.}%
+\def\XINT_sind_int
+{%
+    \expandafter\XINT_sind_i\the\numexpr\expandafter\XINT_mod_ccclx_i
+}%
+\def\XINT_sind_i #1.%
+{%
+    \ifcase\numexpr#1/90\relax
+       \expandafter\XINT_sind_A
+    \or\expandafter\XINT_sind_B\the\numexpr-90+%
+    \or\expandafter\XINT_sind_C\the\numexpr-180+%
+    \or\expandafter\XINT_sind_D\the\numexpr-270+%
+    \else\expandafter\XINT_sind_E\the\numexpr-360+%
+    \fi#1.%
+}%
+\def\XINT_tmpa #1.#2.{%
+\def\XINT_sind_A##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_sind_B_n-##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_sind_B_p##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_sind_C_n-##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_sind_C_p##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_sind_D_n-##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_sind_D_p##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_sind_E-##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+}\expandafter\XINT_tmpa
+    \the\numexpr\XINTdigitsormax+4\expandafter.%
+    \romannumeral`&&@\xintbarefloateval @oneDegree\relax.%
+\def\XINT_sind_B#1{\xint_UDsignfork#1\XINT_sind_B_n-\XINT_sind_B_p\krof #1}%
+\def\XINT_sind_C#1{\xint_UDsignfork#1\XINT_sind_C_n-\XINT_sind_C_p\krof #1}%
+\def\XINT_sind_D#1{\xint_UDsignfork#1\XINT_sind_D_n-\XINT_sind_D_p\krof #1}%
+\def\XINT_flexpr_func_@cosd_rr #1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one{\romannumeral`&&@\xintCosd#3}}%
+}%
+\def\XINT_tmpa #1.{%
+\def\xintCosd##1%
+{%
+    \romannumeral`&&@\expandafter\xintcosd\romannumeral0\XINTinfloatS[#1]{##1}}%
+}\expandafter\XINT_tmpa\the\numexpr\XINTdigitsormax+12.%
+\def\xintcosd #1[#2#3]%
+{%
+    \xint_UDsignfork
+      #2\XINT_cosd
+       -\XINT_cosd_int
+    \krof#2#3.#1..%
+}%
+\def\XINT_tmpa #1.{%
+\def\XINT_cosd ##1.##2.%
+{%
+    \expandafter\XINT_cosd_a
+    \romannumeral0\xinttrunc{#1}{##2[##1]}%
+}%
+}\expandafter\XINT_tmpa\the\numexpr\XINTdigitsormax+5.%
+\def\XINT_cosd_a{\expandafter\XINT_cosd_i\the\numexpr\XINT_mod_ccclx_i0.}%
+\def\XINT_cosd_int
+{%
+    \expandafter\XINT_cosd_i\the\numexpr\expandafter\XINT_mod_ccclx_i
+}%
+\def\XINT_cosd_i #1.%
+{%
+    \ifcase\numexpr#1/90\relax
+       \expandafter\XINT_cosd_A
+    \or\expandafter\XINT_cosd_B\the\numexpr-90+%
+    \or\expandafter\XINT_cosd_C\the\numexpr-180+%
+    \or\expandafter\XINT_cosd_D\the\numexpr-270+%
+    \else\expandafter\XINT_cosd_E\the\numexpr-360+%
+    \fi#1.%
+}%
+\def\XINT_tmpa#1.#2.{%
+\def\XINT_cosd_A##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_cosd_B_n-##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_cosd_B_p##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_cosd_C_n-##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_cosd_C_p##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_cosd_D_n-##1.##2.%
+{%
+    \xintiiopp\XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+\def\XINT_cosd_D_p##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@sin_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{##1.##2}#2}}%
+}%
+\def\XINT_cosd_E-##1.##2.%
+{%
+    \XINT_expr_unlock\expandafter\XINT_flexpr_userfunc_@cos_series\expandafter
+         {\romannumeral0\XINTinfloat[#1]{\xintMul{\xintSub{##1[0]}{.##2}}#2}}%
+}%
+}\expandafter\XINT_tmpa
+    \the\numexpr\XINTdigitsormax+4\expandafter.%
+    \romannumeral`&&@\xintbarefloateval @oneDegree\relax.%
+\def\XINT_cosd_B#1{\xint_UDsignfork#1\XINT_cosd_B_n-\XINT_cosd_B_p\krof #1}%
+\def\XINT_cosd_C#1{\xint_UDsignfork#1\XINT_cosd_C_n-\XINT_cosd_C_p\krof #1}%
+\def\XINT_cosd_D#1{\xint_UDsignfork#1\XINT_cosd_D_n-\XINT_cosd_D_p\krof #1}%
+\xintdeffloatfunc @sind(x) := (x)??
+                              {(x>=-\ifnum\XINTdigits>8 45\else60\fi)?
+                                {@sin_series(x*@oneDegree)}
+                                {-@sind_rr(-x)}
+                              }
+                              {0e0}
+                              {(x<=\ifnum\XINTdigits>8 45\else60\fi e0)?
+                                {@sin_series(x*@oneDegree)}
+                                {@sind_rr(x)}
+                              }
+                              ;%
+\xintdeffloatfunc @cosd(x) := (x)??
+                              {(x>=-\ifnum\XINTdigits>8 45\else60\fi)?
+                                {@cos_series(x*@oneDegree)}
+                                {@cosd_rr(-x)}
+                              }
+                              {1e0}
+                              {(x<=\ifnum\XINTdigits>8 45\else60\fi e0)?
+                                {@cos_series(x*@oneDegree)}
+                                {@cosd_rr(x)}
+                              }
+                              ;%
+\xintdeffloatfunc @sin(x):= (abs(x)<\ifnum\XINTdigits>8 79e-2\else1e0\fi)?
+                            {@sin_series(x)}
+                            {(x)??
+                              {-@sind_rr(-\xintexpr x*@oneRadian\relax)}
+                              {0}
+                              {@sind_rr(\xintexpr x*@oneRadian\relax)}
+                            }
+                            ;%
+\xintdeffloatfunc @cos(x):= (abs(x)<\ifnum\XINTdigits>8 79e-2\else1e0\fi)?
+                             {@cos_series(x)}
+                             {@cosd_rr(abs(\xintexpr x*@oneRadian\relax))}
+                             ;%
+\xintdeffloatfunc @sinc(x):= (abs(x)<\ifnum\XINTdigits>8 79e-2\else1e0\fi) ?
+                             {@sin_aux(sqr(x))}
+                             {@sind_rr(\xintexpr abs(x)*@oneRadian\relax)/abs(x)}
+                             ;%
+\xintdeffloatfunc @tand(x):= @sind(x)/@cosd(x);%
+\xintdeffloatfunc @cotd(x):= @cosd(x)/@sind(x);%
+\xintdeffloatfunc @tan(x) := (x)??
+                             {(x>-\ifnum\XINTdigits>8 79e-2\else1e0\fi)?
+                               {@sin(x)/@cos(x)}
+                               {-@cotd(\xintexpr9e1+x*@oneRadian\relax)
+                               }
+                             }
+                             {0e0}
+                             {(x<\ifnum\XINTdigits>8 79e-2\else1e0\fi)?
+                               {@sin(x)/@cos(x)}
+                               {@cotd(\xintexpr9e1-x*@oneRadian\relax)}
+                             }
+                             ;%
+\xintdeffloatfunc @cot(x) := (abs(x)<\ifnum\XINTdigits>8 79e-2\else1e0\fi)?
+                              {@cos(x)/@sin(x)}
+                              {(x)??
+                                {-@tand(\xintexpr9e1+x*@oneRadian\relax)}
+                                {0}
+                                {@tand(\xintexpr9e1-x*@oneRadian\relax)}
+                              };%
+\xintdeffloatfunc @sec(x) := inv(@cos(x));%
+\xintdeffloatfunc @csc(x) := inv(@sin(x));%
+\xintdeffloatfunc @secd(x):= inv(@cosd(x));%
+\xintdeffloatfunc @cscd(x):= inv(@sind(x));%
+\expandafter\let\csname XINT_expr_func_@sin_aux\expandafter\endcsname
+                \csname XINT_flexpr_func_@sin_aux\endcsname
+\expandafter\let\csname XINT_expr_func_@cos_aux\expandafter\endcsname
+                \csname XINT_flexpr_func_@cos_aux\endcsname
+\ifnum\XINTdigits>16
+\def\XINT_flexpr_func_@asin_II#1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one
+    {\romannumeral`&&@\XINT_Arcsin_II_a#3}}%
+}%
+\def\XINT_tmpc#1.%
+{%
+\def\XINT_Arcsin_II_a##1%
+{%
+    \expandafter\XINT_Arcsin_II_c_i\romannumeral0\XINTinfloatS[#1]{##1}%
+}%
+\def\XINT_Arcsin_II_c_i##1[##2]%
+{%
+    \xintAdd{1/1[0]}{##1/6[##2]}%
+}%
+}%
+\expandafter\XINT_tmpc\the\numexpr\XINTdigitsormax-14.%
+\fi
+\ifnum\XINTdigits>34
+\def\XINT_tmpc#1.#2.#3.#4.%
+{%
+\def\XINT_Arcsin_II_a##1%
+{%
+    \expandafter\XINT_Arcsin_II_a_iii\romannumeral0\XINTinfloatS[#1]{##1}\xint:
+}%
+\def\XINT_Arcsin_II_a_iii##1\xint:
+{%
+    \expandafter\XINT_Arcsin_II_b\romannumeral0\XINTinfloatS[#2]{##1}\xint:##1\xint:
+}%
+\def\XINT_Arcsin_II_b##1\xint:
+{%
+    \expandafter\XINT_Arcsin_II_c_i
+    \romannumeral0\xintadd{#4}{\XINTinFloat[#2]{\xintMul{#3}{##1}}}\xint:
+}%
+\def\XINT_Arcsin_II_c_i##1\xint:##2\xint:
+{%
+    \xintAdd{1/1[0]}{\XINTinFloat[#1]{\xintMul{##1}{##2}}}%
+}%
+}%
+\expandafter\XINT_tmpc
+  \the\numexpr\XINTdigitsormax-14\expandafter.%
+  \the\numexpr\XINTdigitsormax-32\expandafter.\expanded{%
+  \XINTinFloat[\XINTdigitsormax-32]{3/40[0]}.%
+  \XINTinFloat[\XINTdigitsormax-14]{1/6[0]}.%
+  }%
+\fi
+\ifnum\XINTdigits>52
+\def\XINT_tmpc#1.#2.#3.#4.#5.%
+{%
+\def\XINT_Arcsin_II_a_iii##1\xint:
+{%
+    \expandafter\XINT_Arcsin_II_a_iv\romannumeral0\XINTinfloatS[#1]{##1}\xint:##1\xint:
+}%
+\def\XINT_Arcsin_II_a_iv##1\xint:
+{%
+    \expandafter\XINT_Arcsin_II_b\romannumeral0\XINTinfloatS[#2]{##1}\xint:##1\xint:
+}%
+\def\XINT_Arcsin_II_b##1\xint:
+{%
+    \expandafter\XINT_Arcsin_II_c_ii
+    \romannumeral0\xintadd{#4}{\XINTinfloat[#2]{\xintMul{#3}{##1}}}\xint:
+}%
+\def\XINT_Arcsin_II_c_ii##1\xint:##2\xint:
+{%
+    \expandafter\XINT_Arcsin_II_c_i
+    \romannumeral0\xintadd{#5}{\XINTinFloat[#1]{\xintMul{##1}{##2}}}\xint:
+}%
+}%
+\expandafter\XINT_tmpc
+  \the\numexpr\XINTdigitsormax-32\expandafter.%
+  \the\numexpr\XINTdigitsormax-50\expandafter.\expanded{%
+  \XINTinFloat[\XINTdigitsormax-50]{5/112[0]}.%
+  \XINTinFloat[\XINTdigitsormax-32]{3/40[0]}.%
+  \XINTinFloat[\XINTdigitsormax-14]{1/6[0]}.%
+  }%
+\fi
+\def\XINT_flexpr_func_@asin_I#1#2#3%
+{%
+    \expandafter #1\expandafter #2\expandafter{%
+    \romannumeral`&&@\XINT:NEhook:f:one:from:one
+    {\romannumeral`&&@\XINT_Arcsin_I#3}}%
+}%
+\def\XINT_Arcsin_I#1%
+{%
+    \the\numexpr\expandafter\XINT_Arcsin_Ia\romannumeral0\xintiround9{#1}.%
+}%
+\def\XINT_Arcsin_Ia#1.%
+{%
+  (\expandafter\XINT_Arcsin_Ib\the\numexpr#1*#1/\xint_c_x^ix.)*%
+  #1/\xint_c_x^ix[-9]%
+}%
+\def\XINT_Arcsin_Ib#1.%
+{%((((((((((((((((
+  % 3481/3660)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 3249/3422)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 3025/3192)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 2809/2970)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 2601/2756)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 2401/2550)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 2209/2352)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  % 2025/2162)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+((((((((((((((((((((((((((((((((((((((((((%
+  %(\xint_c_x^ix*1849/1980)*%
+  933838384*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1681/1806)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1521/1640)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1369/1482)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1225/1332)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1089/1190)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  961/1056)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  841/930)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  729/812)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  625/702)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  529/600)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  441/506)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  361/420)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  289/342)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  225/272)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  169/210)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  121/156)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  81/110)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  49/72)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  25/42)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  9/20)*#1/\xint_c_x^ix+\xint_c_x^ix)*%
+  1/6)*#1/\xint_c_x^ix+\xint_c_x^ix
+}%
+\ifnum\XINTdigits>16
+  \xintdeffloatfunc @asin_o(D, T) := T + D*@asin_II(sqr(D));%
+  \xintdeffloatfunc @asin_n(V, T, t, u) :=%
+           @asin_o(\xintexpr t*@cos_aux(V) - u*T*@sin_aux(V)\relax, T);%
+\else
+  \xintdeffloatfunc @asin_n(V, T, t, u) :=%
+                   \xintexpr t*@cos_aux(V) - u*T*@sin_aux(V)\relax + T;%
+\fi
+\xintdeffloatfunc @asin_m(T, t, u) := @asin_n(sqr(T), T, t, u);%
+\xintdeffloatfunc @asin_l(t, u)    := @asin_m(@asin_I(t), t, u);%
+\xintdeffloatfunc @asin_a(t, u) := (t<u)?
+                                   {@asin_l(t, u)}
+                                   {@Piover2 - @asin_l(u, t)}
+                                   ;%
+\xintdeffloatfunc @asind_a(t, u):= (t<u)?
+                                   {@asin_l(t, u) * @oneRadian}
+                                   {9e1 - @asin_l(u, t) * @oneRadian}
+                                   ;%
+\xintdeffloatfunc @asin(t) := (t)??
+                              {-@asin_a(-t, sqrt(1e0-sqr(t)))}
+                              {0e0}
+                              {@asin_a(t, sqrt(1e0-sqr(t)))}
+                              ;%
+\xintdeffloatfunc @asind(t) := (t)??
+                               {-@asind_a(-t, sqrt(1e0-sqr(t)))}
+                               {0e0}
+                               {@asind_a(t, sqrt(1e0-sqr(t)))}
+                               ;%
+\xintdeffloatfunc @acos(t) := @Piover2 - @asin(t);%
+\xintdeffloatfunc @acosd(t):= 9e1 - @asind(t);%
+\xintdeffloatfunc @atan_b(t, w, z):= 5e-1 * (w< 0)?
+                                           {@Pi - @asin_a(2e0*z * t, -w*z)}
+                                           {@asin_a(2e0*z * t, w*z)}
+                                           ;%
+\xintdeffloatfunc @atan_a(t, T) := @atan_b(t, 1e0-T, inv(1e0+T));%
+\xintdeffloatfunc @atan(t):= (t)??
+                             {-@atan_a(-t, sqr(t))}
+                             {0}
+                             {@atan_a(t, sqr(t))}
+                             ;%
+\xintdeffloatfunc @atand_b(t, w, z) := 5e-1 * (w< 0)?
+                                             {18e1 - @asind_a(2e0*z * t, -w*z)}
+                                             {@asind_a(2e0*z * t, w*z)}
+                                             ;%
+\xintdeffloatfunc @atand_a(t, T) := @atand_b(t, 1e0-T, inv(1e0+T));%
+\xintdeffloatfunc @atand(t) := (t)??
+                               {-@atand_a(-t, sqr(t))}
+                               {0}
+                               {@atand_a(t, sqr(t))}
+                               ;%
+\xintdeffloatfunc @Arg(x, y):= (y>x)?
+                               {(y>-x)?
+                                 {@Piover2 - @atan(x/y)}
+                                 {(y<0)?
+                                   {-@Pi + @atan(y/x)}
+                                   {@Pi + @atan(y/x)}
+                                 }
+                               }
+                               {(y>-x)?
+                                 {@atan(y/x)}
+                                 {-@Piover2 + @atan(x/-y)}
+                               }
+                               ;%
+\xintdeffloatfunc @atan2(y,x) := @Arg(x, y);%
+\xintdeffloatfunc @Argd(x, y):= (y>x)?
+                                {(y>-x)?
+                                  {9e1 - @atand(x/y)}
+                                  {(y<0)?
+                                    {-18e1 + @atand(y/x)}
+                                    {18e1 + @atand(y/x)}
+                                  }
+                                }
+                                {(y>-x)?
+                                  {@atand(y/x)}
+                                  {-9e1 + @atand(x/-y)}
+                                }
+                                ;%
+\xintdeffloatfunc @atan2d(y,x) := @Argd(x, y);%
+\xintdeffloatfunc @pArg(x, y):= (y>x)?
+                                {(y>-x)?
+                                  {@Piover2 - @atan(x/y)}
+                                  {@Pi + @atan(y/x)}
+                                }
+                                {(y>-x)?
+                                  {(y<0)?
+                                    {@twoPi + @atan(y/x)}
+                                    {@atan(y/x)}
+                                  }
+                                  {@threePiover2 + @atan(x/-y)}
+                                }
+                                ;%
+\xintdeffloatfunc @pArgd(x, y):=(y>x)?
+                                {(y>-x)?
+                                  {9e1 - @atan(x/y)*@oneRadian}
+                                  {18e1 + @atan(y/x)*@oneRadian}
+                                }
+                                {(y>-x)?
+                                  {(y<0e0)?
+                                    {36e1 + @atan(y/x)*@oneRadian}
+                                    {@atan(y/x)*@oneRadian}
+                                  }
+                                  {27e1 + @atan(x/-y)*@oneRadian}
+                                }
+                                ;%
+\expandafter\let
+    \csname XINT_flexpr_exec_+\expandafter\endcsname
+    \csname XINT_flexpr_exec_+_\endcsname
+\expandafter\let
+    \csname XINT_flexpr_exec_-\expandafter\endcsname
+    \csname XINT_flexpr_exec_-_\endcsname
+\expandafter\let
+    \csname XINT_flexpr_exec_*\expandafter\endcsname
+    \csname XINT_flexpr_exec_*_\endcsname
+\expandafter\let
+    \csname XINT_flexpr_exec_/\expandafter\endcsname
+    \csname XINT_flexpr_exec_/_\endcsname
+\expandafter\let
+    \csname XINT_flexpr_func_sqr\expandafter\endcsname
+    \csname XINT_flexpr_sqrfunc\endcsname
+\expandafter\let
+    \csname XINT_flexpr_func_sqrt\expandafter\endcsname
+    \csname XINT_flexpr_sqrtfunc\endcsname
+\expandafter\let
+    \csname XINT_flexpr_func_inv\expandafter\endcsname
+    \csname XINT_flexpr_invfunc\endcsname
+\edef\XINTinFloatdigitsormax{\noexpand\XINTinFloat[\the\numexpr\XINTdigitsormax]}%
+\edef\XINTinFloatSdigitsormax{\noexpand\XINTinFloatS[\the\numexpr\XINTdigitsormax]}%
+\xintFor #1 in {sin, cos, tan, sec, csc, cot,
+                asin, acos, atan}\do
+{%
+    \xintdeffloatfunc #1(x) := float_dgtormax(@#1(x));%
+    \xintdeffloatfunc #1d(x) := float_dgtormax(@#1d(x));%
+    \xintdeffunc #1(x) := float_dgtormax(\xintfloatexpr @#1(sfloat_dgtormax(x))\relax);%
+    \xintdeffunc #1d(x):= float_dgtormax(\xintfloatexpr @#1d(sfloat_dgtormax(x))\relax);%
+}%
+\xintFor #1 in {Arg, pArg, atan2}\do
+{%
+    \xintdeffloatfunc #1(x, y)  := float_dgtormax(@#1(x, y));%
+    \xintdeffloatfunc #1d(x, y) := float_dgtormax(@#1d(x, y));%
+    \xintdeffunc #1(x, y) :=
+         float_dgtormax(\xintfloatexpr @#1(sfloat_dgtormax(x), sfloat_dgtormax(y))\relax);%
+    \xintdeffunc #1d(x, y):=
+         float_dgtormax(\xintfloatexpr @#1d(sfloat_dgtormax(x), sfloat_dgtormax(y))\relax);%
+}%
+\xintdeffloatfunc sinc(x):= float_dgtormax(@sinc(x));%
+\xintdeffunc      sinc(x):= float_dgtormax(\xintfloatexpr @sinc(sfloat_dgtormax(x))\relax);%
+\expandafter\let\csname XINT_flexpr_func_tg\expandafter\endcsname
+                \csname XINT_flexpr_func_tan\endcsname
+\expandafter\let\csname XINT_flexpr_func_cotg\expandafter\endcsname
+                \csname XINT_flexpr_func_cot\endcsname
+\xintdefvar twoPi := float_dgtormax(@twoPi);%
+\xintdefvar threePiover2 := float_dgtormax(@threePiover2);%
+\xintdefvar Pi := float_dgtormax(@Pi);%
+\xintdefvar Piover2 := float_dgtormax(@Piover2);%
+\xintdefvar oneDegree := float_dgtormax(@oneDegree);%
+\xintdefvar oneRadian := float_dgtormax(@oneRadian);%
+\xintunassignvar{@twoPi}\xintunassignvar{@threePiover2}%
+\xintunassignvar{@Pi}\xintunassignvar{@Piover2}%
+\xintunassignvar{@oneRadian}\xintunassignvar{@oneDegree}%
+\xintFor* #1 in {iDTVtuwxyzX}\do{\xintrestorevariable{#1}}%
+\XINTtrigendinput%
+\endinput
+%%
+%% End of file `xinttrig.sty'.

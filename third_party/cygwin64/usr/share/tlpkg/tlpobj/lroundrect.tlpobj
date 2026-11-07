@@ -1,0 +1,17 @@
+name lroundrect
+category Package
+revision 39804
+shortdesc LaTeX macros for utilizing the roundrect MetaPost routines
+relocated 1
+longdesc This LaTeX package provides ways to use the extremely
+longdesc configurable rounded rectangles of the roundrect MetaPost
+longdesc package with LaTeX. It is chiefly useful for examples, but also
+longdesc has macros for particular types of boxes which are useful on
+longdesc their own.
+runfiles size=2
+ RELOC/tex/latex/lroundrect/lroundrect.sty
+catalogue-ctan /macros/latex/contrib/lroundrect
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics boxing
+catalogue-version 1.0

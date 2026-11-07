@@ -1,0 +1,10 @@
+% --------------------------------------------------------------------------
+% Signal Flag N:
+% --------------------------------------------------------------------------
+\begin{flagdescription}{1}
+\SignalFlagColorDefinitions
+\background{white}
+\foreach \x/\y in {1/0,3/0,0/1,2/1,1/2,3/2,0/3,2/3}
+  {\fill [blue](\x/4*\flaglength,\y/4*\flagwidth) rectangle ++(\flaglength/4,\flagwidth/4);}
+\framecode{}
+\end{flagdescription}

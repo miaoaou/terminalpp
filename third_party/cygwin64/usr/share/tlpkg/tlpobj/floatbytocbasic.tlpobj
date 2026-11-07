@@ -1,0 +1,19 @@
+name floatbytocbasic
+category Package
+revision 67945
+shortdesc An enhancement to package float using package tocbasic
+relocated 1
+longdesc This package adds usage of package tocbasic to package float.
+longdesc This not only improves compatibility with KOMA-Script but also
+longdesc adds several new features to float like optional automatic
+longdesc entries to the table of contents for the lists of new floats,
+longdesc optional numbering of the lists of new floats etc.
+runfiles size=2
+ RELOC/tex/latex/floatbytocbasic/floatbytocbasic.sty
+catalogue-contact-bugs https://github.com/komascript/third-party-enhancements/issues
+catalogue-contact-home https://github.com/komascript/third-party-enhancements
+catalogue-contact-repository https://github.com/komascript/third-party-enhancements/tree/main/floatbytocbasic
+catalogue-ctan /macros/latex/contrib/floatbytocbasic
+catalogue-license lppl1.3c
+catalogue-topics float
+catalogue-version 1.0

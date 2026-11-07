@@ -1,0 +1,69 @@
+name datetime
+category Package
+revision 36650
+shortdesc Change format of \today with commands for current time
+relocated 1
+longdesc Provides various different formats for the text created by the
+longdesc command \today, and also provides commands for displaying the
+longdesc current time (or any given time), in 12-hour, 24-hour or text
+longdesc format. The package overrides babel's date format, having its
+longdesc own library of date formats in different languages. The package
+longdesc requires the fmtcount package. This package is now obsolete and
+longdesc has been replaced by datetime2.
+runfiles size=66
+ RELOC/tex/latex/datetime/datetime-defaults.sty
+ RELOC/tex/latex/datetime/datetime.sty
+ RELOC/tex/latex/datetime/dt-UKenglish.def
+ RELOC/tex/latex/datetime/dt-USenglish.def
+ RELOC/tex/latex/datetime/dt-american.def
+ RELOC/tex/latex/datetime/dt-australian.def
+ RELOC/tex/latex/datetime/dt-austrian.def
+ RELOC/tex/latex/datetime/dt-bahasa.def
+ RELOC/tex/latex/datetime/dt-basque.def
+ RELOC/tex/latex/datetime/dt-breton.def
+ RELOC/tex/latex/datetime/dt-british.def
+ RELOC/tex/latex/datetime/dt-bulgarian.def
+ RELOC/tex/latex/datetime/dt-canadian.def
+ RELOC/tex/latex/datetime/dt-catalan.def
+ RELOC/tex/latex/datetime/dt-croatian.def
+ RELOC/tex/latex/datetime/dt-czech.def
+ RELOC/tex/latex/datetime/dt-danish.def
+ RELOC/tex/latex/datetime/dt-dutch.def
+ RELOC/tex/latex/datetime/dt-esperanto.def
+ RELOC/tex/latex/datetime/dt-estonian.def
+ RELOC/tex/latex/datetime/dt-finnish.def
+ RELOC/tex/latex/datetime/dt-french.def
+ RELOC/tex/latex/datetime/dt-galician.def
+ RELOC/tex/latex/datetime/dt-german.def
+ RELOC/tex/latex/datetime/dt-greek.def
+ RELOC/tex/latex/datetime/dt-hebrew.def
+ RELOC/tex/latex/datetime/dt-icelandic.def
+ RELOC/tex/latex/datetime/dt-irish.def
+ RELOC/tex/latex/datetime/dt-italian.def
+ RELOC/tex/latex/datetime/dt-latin.def
+ RELOC/tex/latex/datetime/dt-lsorbian.def
+ RELOC/tex/latex/datetime/dt-magyar.def
+ RELOC/tex/latex/datetime/dt-naustrian.def
+ RELOC/tex/latex/datetime/dt-newzealand.def
+ RELOC/tex/latex/datetime/dt-ngerman.def
+ RELOC/tex/latex/datetime/dt-norsk.def
+ RELOC/tex/latex/datetime/dt-polish.def
+ RELOC/tex/latex/datetime/dt-portuges.def
+ RELOC/tex/latex/datetime/dt-romanian.def
+ RELOC/tex/latex/datetime/dt-russian.def
+ RELOC/tex/latex/datetime/dt-samin.def
+ RELOC/tex/latex/datetime/dt-scottish.def
+ RELOC/tex/latex/datetime/dt-serbian.def
+ RELOC/tex/latex/datetime/dt-slovak.def
+ RELOC/tex/latex/datetime/dt-slovene.def
+ RELOC/tex/latex/datetime/dt-spanish.def
+ RELOC/tex/latex/datetime/dt-swedish.def
+ RELOC/tex/latex/datetime/dt-turkish.def
+ RELOC/tex/latex/datetime/dt-ukraineb.def
+ RELOC/tex/latex/datetime/dt-usorbian.def
+ RELOC/tex/latex/datetime/dt-welsh.def
+catalogue-ctan /obsolete/macros/latex/contrib/datetime
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual obsolete
+catalogue-version 2.60

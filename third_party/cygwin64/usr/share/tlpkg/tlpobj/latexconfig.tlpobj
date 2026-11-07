@@ -1,0 +1,8 @@
+name latexconfig
+category Package
+revision 68923
+shortdesc configuration files for LaTeX-related formats
+relocated 1
+runfiles size=2
+ RELOC/tex/latex/latexconfig/epstopdf-sys.cfg
+ RELOC/tex/latex/latexconfig/lualatexiniconfig.tex

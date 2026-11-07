@@ -1,0 +1,107 @@
+\def\coolfnversionnumber{1.2.2}
+\ProvidesPackage{coolfn}
+[2023/11/16\coolfnversionnumber\
+ A cool way to format footnotes]
+% This work may be distributed and/or modified under the 
+% conditions of the LaTeX Project Public License, either version 1.3c 
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX 
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Elijah Z Granet
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOOTNOTES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% from https://tex.stackexchange.com/questions/305033/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[bottom]{footmisc}
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% multi paragraph footnotes
+% are inherently pretty bad 
+% but they happen in law
+% so might as well deal with them? so a slight spacing to compensate
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{Parskip}{%
+   \par
+   \parskip=0.25\baselineskip \advance\parskip by 0pt plus 1pt
+   \parindent=\z@
+   \def\@listI{\leftmargin\leftmargini
+      \topsep\z@ \parsep\parskip \itemsep\z@}
+   \let\@listi\@listI
+   \@listi
+   \def\@listii{\leftmargin\leftmarginii
+      \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+      \topsep\z@ \parsep\parskip \itemsep\z@}
+   \def\@listiii{\leftmargin\leftmarginiii
+       \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+       \topsep\z@ \parsep\parskip \itemsep\z@}
+   \partopsep=\z@
+}{\par}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\fnindent}{1em}
+\usepackage{calc}% for maths
+\newlength{\lengtha}
+\setlength{\lengtha}{\textwidth}
+\newlength{\lengthb}%maths again
+\newlength{\lengthc}
+
+\setlength{\lengthc}{\fnindent}
+\setlength{\lengthb}{1.25\lengthc}%parblock
+
+\makeatletter
+\@ifclassloaded{memoir}{
+}{
+\usepackage{hanging}
+}
+\makeatother
+  % for hanging paragraphs
+\renewcommand\footnoterule{}
+% ^ no one wants a rule sep for FN!
+\AtBeginDocument{\flushbottom}
+%^just to be safe 
+\makeatletter
+\long\def\@makefntext#1{\leavevmode
+  \@makefnmark\nobreak
+  #1%
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the magic
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+ \renewcommand{\@makefntext}[1]{%
+\begin{minipage}[t]{\lengthb}%
+\noindent\normalfont%
+\@thefnmark%
+
+\end{minipage}%
+\begin{minipage}[t]{\textwidth-\lengthb}%
+\begin{Parskip}\begin{hangparas}{\lengthc}{1}
+\noindent#1\end{hangparas}\end{Parskip}%
+\end{minipage}%
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%

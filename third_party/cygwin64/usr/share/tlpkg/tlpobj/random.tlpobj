@@ -1,0 +1,16 @@
+name random
+category Package
+revision 54723
+shortdesc Generating "random" numbers in TeX
+relocated 1
+longdesc Generates pseudo-random integers in the range 1 to 2^{31}.
+longdesc Macros are to provide random integers in a given range, or
+longdesc random dimensions which can be used to provide random `real'
+longdesc numbers, are also available.
+runfiles size=2
+ RELOC/tex/generic/random/random.tex
+catalogue-also lcg
+catalogue-ctan /macros/generic/random
+catalogue-license pd
+catalogue-topics calculation random
+catalogue-version 0.2

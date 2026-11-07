@@ -1,0 +1,26 @@
+name lettre
+category Package
+revision 54722
+shortdesc Letters and faxes in French
+relocated 1
+longdesc Developed from the ancestor of the standard letter class, at
+longdesc the Observatoire de Geneve.
+runfiles size=35
+ RELOC/tex/latex/lettre/lettre-USenglish.ldf
+ RELOC/tex/latex/lettre/lettre-amg.cfg
+ RELOC/tex/latex/lettre/lettre-default.cfg
+ RELOC/tex/latex/lettre/lettre-english.ldf
+ RELOC/tex/latex/lettre/lettre-french.ldf
+ RELOC/tex/latex/lettre/lettre-german.ldf
+ RELOC/tex/latex/lettre/lettre-institut.tpl
+ RELOC/tex/latex/lettre/lettre-obs.cfg
+ RELOC/tex/latex/lettre/lettre-romand.ldf
+ RELOC/tex/latex/lettre/lettre-telefax.tpl
+ RELOC/tex/latex/lettre/lettre.cls
+ RELOC/tex/latex/lettre/lettre.tpl
+catalogue-contact-bugs https://puszcza.gnu.org.ua/bugs/?group=latex-lettre
+catalogue-contact-home https://puszcza.gnu.org.ua/projects/latex-lettre
+catalogue-ctan /macros/latex/contrib/lettre
+catalogue-license lppl1.3
+catalogue-topics class letter french
+catalogue-version 3.002

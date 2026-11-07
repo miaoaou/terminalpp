@@ -1,0 +1,13 @@
+name latex-bin.doc
+category TLCore
+revision 70501
+shortdesc doc files of latex-bin
+docfiles size=32
+ texmf-dist/doc/man/man1/dvilualatex.1
+ texmf-dist/doc/man/man1/dvilualatex.man1.pdf
+ texmf-dist/doc/man/man1/latex.1
+ texmf-dist/doc/man/man1/latex.man1.pdf
+ texmf-dist/doc/man/man1/lualatex.1
+ texmf-dist/doc/man/man1/lualatex.man1.pdf
+ texmf-dist/doc/man/man1/pdflatex.1
+ texmf-dist/doc/man/man1/pdflatex.man1.pdf

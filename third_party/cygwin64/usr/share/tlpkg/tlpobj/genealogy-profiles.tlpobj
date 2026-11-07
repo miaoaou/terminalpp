@@ -1,0 +1,17 @@
+name genealogy-profiles
+category Package
+revision 69580
+shortdesc Genealogical profiles for LaTeX
+relocated 1
+longdesc This package enables the presenstation of individual profiles,
+longdesc which may be useful for genealogical or local history
+longdesc treatises. Each profile is typeset using key/value-configurable
+longdesc environments, and a number of macros are provided to enable
+longdesc references and name formatting.
+runfiles size=6
+ RELOC/tex/latex/genealogy-profiles/genealogy-profiles.sty
+catalogue-contact-bugs https://github.com/mikkelee/latex-genprofile/issues
+catalogue-contact-repository https://github.com/mikkelee/latex-genprofile
+catalogue-ctan /macros/latex/contrib/genealogy-profiles
+catalogue-license cc-by-sa-4
+catalogue-topics genealogy humanities expl3

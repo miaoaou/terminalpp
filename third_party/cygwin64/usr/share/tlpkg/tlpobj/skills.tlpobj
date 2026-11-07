@@ -1,0 +1,23 @@
+name skills
+category Package
+revision 56734
+shortdesc Create proficiency tests
+relocated 1
+longdesc This package attempts to make it easy for even a LaTeX novice
+longdesc to prepare proficiency tests, especially in combination with
+longdesc the exam document class. Thus, almost all command names are
+longdesc very similar. After defining skills in the preamble or in an
+longdesc external file, they are declared using labels, and can
+longdesc optionally be set as global skills. A skills table is generated
+longdesc to summarize the evaluated competencies and to allow for
+longdesc writing down the resulting proficiency level. A user's guide
+longdesc attempts to explain all of the possibilities in a readable way,
+longdesc with many examples.
+runfiles size=3
+ RELOC/tex/latex/skills/skills.sty
+catalogue-contact-bugs https://framagit.org/pagiraud/skills/-/issues
+catalogue-contact-repository https://framagit.org/pagiraud/skills
+catalogue-ctan /macros/latex/contrib/skills
+catalogue-license lppl1.3
+catalogue-topics exam
+catalogue-version 1.0.0

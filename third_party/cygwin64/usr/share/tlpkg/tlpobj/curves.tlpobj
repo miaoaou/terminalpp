@@ -1,0 +1,21 @@
+name curves
+category Package
+revision 45255
+shortdesc Curves for LaTeX picture environment
+relocated 1
+longdesc This package draws curves in the standard LaTeX picture
+longdesc environment using parabolas between data points with continuous
+longdesc slope at joins; for circles and arcs, it uses up to 16
+longdesc parabolas. The package can also draw symbols or dash patterns
+longdesc along curves. The package provides facilities equivalent to
+longdesc technical pens with compasses and French curves. Curves consist
+longdesc of short secants drawn by overlapping disks or line-drawing
+longdesc \special commands selected by package options.
+runfiles size=5
+ RELOC/tex/latex/curves/curves.sty
+ RELOC/tex/latex/curves/curvesls.sty
+catalogue-ctan /macros/latex/contrib/curves
+catalogue-date 2017-09-09 11:04:30 +0200
+catalogue-license lppl1.3
+catalogue-topics graphics-in-tex graphics-curve
+catalogue-version 1.55

@@ -1,0 +1,24 @@
+name luamesh
+category Package
+revision 63875
+shortdesc Computes and draws 2D Delaunay triangulation
+relocated 1
+longdesc The package allows to compute and draw 2D Delaunay
+longdesc triangulation. The algorithm is written with lua, and depending
+longdesc upon the choice of the engine, the drawing is done by MetaPost
+longdesc (with luamplib) or by TikZ. The Delaunay triangulation
+longdesc algorithm is the Bowyer and Watson algorithm. Several macros
+longdesc are provided to draw the global mesh, the set of points, or a
+longdesc particular step of the algorithm.
+runfiles size=29
+ RELOC/metapost/luamesh/luamesh.mp
+ RELOC/scripts/luamesh/luamesh-polygon.lua
+ RELOC/scripts/luamesh/luamesh-tex.lua
+ RELOC/scripts/luamesh/luamesh.lua
+ RELOC/tex/lualatex/luamesh/luamesh.sty
+catalogue-contact-home https://plmlab.math.cnrs.fr/mchupin/luamesh
+catalogue-contact-repository https://plmlab.math.cnrs.fr/mchupin/luamesh
+catalogue-ctan /macros/luatex/latex/luamesh
+catalogue-license lppl1.3
+catalogue-topics graphics maths pgf-tikz graphics-mpost luatex
+catalogue-version 0.7

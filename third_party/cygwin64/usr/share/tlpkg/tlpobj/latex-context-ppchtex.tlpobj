@@ -1,0 +1,17 @@
+name latex-context-ppchtex
+category Package
+revision 66687
+shortdesc Legacy stub to allow loading pictex as m-pictex
+relocated 1
+longdesc m-pictex.sty was a wrapper for a ConTeXt module making picTeX
+longdesc more easily usable in classic TeX with no e-TeX extensions.
+longdesc m-pictex.sty is here adjusted to be a stub loading pictex.sty.
+longdesc This has not been needed in LaTeX or ConTeXt for decades, but
+longdesc old documents may be using this name.
+runfiles size=1
+ RELOC/tex/latex/latex-context-ppchtex/m-pictex.sty
+catalogue-contact-repository https://github.com/LaTeX-Package-Repositories/latex-context-ppchtex/
+catalogue-contact-support https://github.com/LaTeX-Package-Repositories/latex-context-ppchtex/issues
+catalogue-ctan /obsolete/macros/latex/contrib/latex-context-ppchtex
+catalogue-license lppl
+catalogue-topics graphics-in-tex graphics-supp obsolete

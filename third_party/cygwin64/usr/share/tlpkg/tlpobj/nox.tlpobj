@@ -1,0 +1,14 @@
+name nox
+category Package
+revision 30991
+shortdesc Adaptable tables
+relocated 1
+longdesc The package allows data, text (including (La)TeX commands or
+longdesc environments) to be formatted into a array which may be split.
+runfiles size=4
+ RELOC/tex/latex/nox/nox.sty
+catalogue-ctan /macros/latex/contrib/nox
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics table-long table
+catalogue-version 1.0

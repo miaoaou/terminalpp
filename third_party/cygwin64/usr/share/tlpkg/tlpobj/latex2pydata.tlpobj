@@ -1,0 +1,19 @@
+name latex2pydata
+category Package
+revision 68919
+shortdesc Write data to file in Python literal format
+relocated 1
+longdesc This package writes data to file using Python literal syntax.
+longdesc The data may be loaded safely in Python using the
+longdesc ast.literal_eval() function or the latex2pydata Python package.
+longdesc The data can also be hashed within LaTeX (mdfivesum) so that it
+longdesc is possible to check for the existence of external cached
+longdesc content generated with the data.
+runfiles size=5
+ RELOC/tex/latex/latex2pydata/latex2pydata.sty
+catalogue-contact-bugs https://github.com/gpoore/latex2pydata_tex/issues
+catalogue-contact-repository https://github.com/gpoore/latex2pydata_tex
+catalogue-ctan /macros/latex/contrib/latex2pydata
+catalogue-license lppl1.3c
+catalogue-topics data-manip
+catalogue-version 0.1

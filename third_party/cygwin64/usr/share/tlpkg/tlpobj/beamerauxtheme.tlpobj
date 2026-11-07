@@ -1,0 +1,20 @@
+name beamerauxtheme
+category Package
+revision 56087
+shortdesc Supplementary outer and inner themes for beamer
+relocated 1
+longdesc This bundle provides a collection of inner and outer themes as
+longdesc supplements to the default themes in the beamer distribution.
+longdesc These themes can be used in combination with existing inner,
+longdesc outer, and color themes.
+runfiles size=6
+ RELOC/tex/latex/beamerauxtheme/beamerinnerthemesimplelines.sty
+ RELOC/tex/latex/beamerauxtheme/beamerouterthemesidebarwithminiframes.sty
+ RELOC/tex/latex/beamerauxtheme/beamerouterthemesplitwithminiframes.sty
+ RELOC/tex/latex/beamerauxtheme/beamerouterthemetwolines.sty
+catalogue-contact-bugs https://github.com/louisstuart96/beamerauxtheme/issues
+catalogue-contact-repository https://github.com/louisstuart96/beamerauxtheme
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerauxtheme
+catalogue-license lppl1.3c
+catalogue-topics presentation
+catalogue-version 1.02a

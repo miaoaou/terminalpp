@@ -1,0 +1,18 @@
+name datetime2-slovak
+category Package
+revision 52281
+shortdesc Slovak language module for the datetime2 package
+relocated 1
+longdesc This module provides the "slovak" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty. This package is
+longdesc currently unmaintained. Please see the README for the procedure
+longdesc to follow if you want to take over the maintenance.
+runfiles size=4
+ RELOC/tex/latex/datetime2-slovak/datetime2-slovak-ascii.ldf
+ RELOC/tex/latex/datetime2-slovak/datetime2-slovak-utf8.ldf
+ RELOC/tex/latex/datetime2-slovak/datetime2-slovak.ldf
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-slovak
+catalogue-date 2019-10-04 19:11:51 +0200
+catalogue-license lppl1.3
+catalogue-topics date-time multilingual
+catalogue-version 1.1

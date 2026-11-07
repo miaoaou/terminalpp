@@ -1,0 +1,21 @@
+name labels
+category Package
+revision 15878
+shortdesc Print sheets of sticky labels
+relocated 1
+longdesc A LaTeX package to print a regular grid of ragged-right labels
+longdesc on a page, suitable for sheets of labels which can be fed
+longdesc through a printer. Macros are provided to allow easy input of
+longdesc names and addresses in a form free of TeX markup. Equally
+longdesc useful is a feature for making multiple copies of a single
+longdesc label, e.g., return address stickers to go with the labels.
+longdesc Rows, columns, borders can all be specified to match the label
+longdesc sheet being used.
+runfiles size=6
+ RELOC/tex/latex/labels/labels.sty
+ RELOC/tex/latex/labels/olabels.sty
+catalogue-ctan /macros/latex/contrib/labels
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics labels
+catalogue-version .13

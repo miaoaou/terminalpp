@@ -1,0 +1,31 @@
+name markdown
+category Package
+revision 70529
+shortdesc Converting and rendering markdown documents inside TeX
+relocated 1
+longdesc The package provides facilities for the conversion of markdown
+longdesc markup to plain TeX. These are provided both in form of a Lua
+longdesc module and in form of plain TeX, LaTeX, and ConTeXt macro
+longdesc packages that enable the direct inclusion of markdown documents
+longdesc inside TeX documents.
+runfiles size=116
+ RELOC/scripts/markdown/markdown-cli.lua
+ RELOC/tex/context/third/markdown/t-markdown.tex
+ RELOC/tex/context/third/markdown/t-markdownthemewitiko_markdown_defaults.tex
+ RELOC/tex/generic/markdown/markdown.tex
+ RELOC/tex/generic/markdown/markdownthemewitiko_markdown_defaults.tex
+ RELOC/tex/generic/markdown/markdownthemewitiko_tilde.tex
+ RELOC/tex/latex/markdown/markdown.sty
+ RELOC/tex/latex/markdown/markdownthemewitiko_dot.sty
+ RELOC/tex/latex/markdown/markdownthemewitiko_graphicx_http.sty
+ RELOC/tex/latex/markdown/markdownthemewitiko_markdown_defaults.sty
+ RELOC/tex/luatex/markdown/markdown-tinyyaml.lua
+ RELOC/tex/luatex/markdown/markdown.lua
+catalogue-contact-announce https://github.com/Witiko/markdown/releases
+catalogue-contact-bugs https://github.com/Witiko/markdown/issues
+catalogue-contact-development https://github.com/Witiko/markdown/pulls
+catalogue-contact-repository https://github.com/Witiko/markdown
+catalogue-ctan /macros/generic/markdown
+catalogue-license lppl1.3c
+catalogue-topics markup
+catalogue-version 3.4.2-0-ga45cf0ed

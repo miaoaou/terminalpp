@@ -1,0 +1,21 @@
+name blkarray
+category Package
+revision 36406
+shortdesc Extended array and tabular
+relocated 1
+longdesc An experimental package which implements an environment,
+longdesc blockarray, that may be used in the same way as the array or
+longdesc tabular environments of standard LaTeX, or their extended
+longdesc versions defined in array. If used in math-mode, blockarray
+longdesc acts like array, otherwise it acts like tabular. The package
+longdesc implements a new method of defining column types, and also
+longdesc block and block* environments, for specifying sub-arrays of the
+longdesc main array. What's more, the \footnote command works inside a
+longdesc blockarray.
+runfiles size=18
+ RELOC/tex/latex/blkarray/blkarray.sty
+catalogue-ctan /macros/latex/contrib/blkarray
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics maths table
+catalogue-version 0.07

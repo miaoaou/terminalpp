@@ -1,0 +1,187 @@
+%%% CURRENCY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nduNewBaseUnit { rigsdaler } {
+	symbol = { Rdl. } ,
+	factor = { 6~mark } ,
+}
+
+\nduNewBaseUnit { rigsbankdaler } {
+	symbol = { Rbdl. } ,
+	factor = { 96~skilling } ,
+}
+
+\nduNewBaseUnit { rigsdaler specie } {
+	symbol = { Rds. } ,
+	factor = { 192~skilling } ,
+}
+
+\nduNewBaseUnit { speciedaler } {
+	symbol = { Spdl. } ,
+	factor = { 84~skilling } ,
+}
+
+\nduNewBaseUnit { sletdaler } {
+	symbol = { Sldl. } ,
+	factor = { 4~mark } ,
+}
+
+\nduNewBaseUnit { ort } {
+	symbol = { O. } ,
+	factor = { 24~skilling } ,
+}
+
+\nduNewBaseUnit { mark } {
+	symbol = { Mk. } ,
+	factor = { 16~skilling } ,
+}
+
+\nduNewBaseUnit { skilling } {
+	symbol = { Sk. } ,
+	factor = { 3~hvid } ,
+}
+
+\nduNewBaseUnit { hvid } {
+	symbol = { Hv. } ,
+	factor = { 4~penning } ,
+}
+
+\nduNewBaseUnit { penning } {
+	symbol = { P. } ,
+}
+
+\nduNewUnitGroup { danish~rigsdaler } {
+	rigsdaler ,
+	mark ,
+	skilling ,
+	hvid ,
+	penning
+}[\rdl]
+
+\nduNewUnitGroup { danish~sletdaler } {
+	sletdaler ,
+	mark ,
+	skilling ,
+	hvid ,
+	penning
+}[\sldl]
+
+\nduNewUnitGroup { danish~rigsbankdaler } {
+	rigsbankdaler ,
+	skilling
+}[\rbdl]
+
+\nduNewUnitGroup { danish~speciedaler } {
+	speciedaler ,
+	skilling
+}[\spdl]
+
+%%%% LENGTH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% https://danmarkshistorien.dk/vis/materiale/oversigt-over-gamle-maal/
+
+\nduNewBaseUnit { mil } {
+	symbol = { M. } ,
+	factor = { 4~fjerdingvej } ,
+}
+
+\nduNewBaseUnit { fjerdingvej } {
+	symbol = { Fjv. } ,
+	factor = { 1000~favn } ,
+}
+
+\nduNewBaseUnit { favn } {
+	symbol = { Fa. } ,
+	factor = { 3~alen } ,
+}
+
+\nduNewBaseUnit { alen } {
+	symbol = { Al. } ,
+	factor = { 2~fod } ,
+}
+
+\nduNewBaseUnit { fod } {
+	symbol = { TODO } ,
+	factor = { 4~håndsbred } ,
+}
+
+\nduNewBaseUnit { håndsbred } {
+	symbol = { TODO } ,
+	factor = { 3~tomme } ,
+}
+
+\nduNewBaseUnit { tomme } {
+	symbol = { TODO } ,
+}
+
+\nduNewUnitGroup { danish~alen } {
+	mil,
+	fjerdingvej,
+	favn,
+	alen,
+	fod,
+	håndsbred,
+	tomme
+}[\alen]
+
+%%%% AREA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nduNewBaseUnit { tønde } {
+	symbol = { Td. } ,
+	factor = { 8~skæppe } ,
+}
+
+\nduNewBaseUnit { skæppe } {
+	symbol = { Sk. } ,
+	factor = { 4~fjerdingkar } ,
+}
+
+\nduNewBaseUnit { fjerdingkar } {
+	symbol = { Fj. } ,
+	factor = { 3~album } ,
+}
+
+\nduNewBaseUnit { album } {
+	symbol = { Alb. } ,
+	factor = { 4~penning } ,
+}
+
+\nduNewUnitGroup { danish~hartkorn } {
+	tønde,
+	skæppe,
+	fjerdingkar,
+	album,
+	penning
+}[\hartkorn]
+
+%%%% WEIGHT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nduNewBaseUnit { skippund } {
+	symbol = { Spd. } ,
+	factor = { 20~lispund } ,
+}
+
+\nduNewBaseUnit { lispund } {
+	symbol = { Lpd. } ,
+	factor = { 16~skålpund } ,
+}
+
+\nduNewBaseUnit { skålpund } {
+	symbol = { Pd. } ,
+}
+
+\nduNewUnitGroup { danish~pund } {
+	skippund,
+	lispund,
+	skålpund
+}
+
+%%%% MUFI INTEGRATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% see https://ctan.org/pkg/unicode-alphabets
+
+\ifcsname mufi\endcsname%
+\nduKeys{
+	units/mark/symbol=\mufi{markflour},
+	units/skilling/symbol=\mufi{schillgerm},
+	units/penning/symbol=\mufi{20B0},
+}
+\fi

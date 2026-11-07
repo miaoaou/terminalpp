@@ -1,0 +1,16 @@
+name timing-diagrams
+category Package
+revision 31491
+shortdesc Draw timing diagrams
+relocated 1
+longdesc The package provides commands to draw and annotate various
+longdesc kinds of timing diagrams, using Tikz. Documentation is sparse,
+longdesc but the source and the examples file should be of some use.
+runfiles size=2
+ RELOC/tex/latex/timing-diagrams/timing-diagrams.sty
+catalogue-also tikz-timing timing
+catalogue-contact-repository https://gitlab.com/tikz-goodies/tikz-goodies
+catalogue-ctan /graphics/pgf/contrib/timing-diagrams
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.3
+catalogue-topics diagram-tmg

@@ -1,0 +1,22 @@
+name dashrule
+category Package
+revision 29579
+shortdesc Draw dashed rules
+relocated 1
+longdesc The dashrule package makes it easy to draw a huge variety of
+longdesc dashed rules (i.e., lines) in LaTeX. dashrule provides a
+longdesc command, \hdashrule, which is a cross between LaTeX's \rule and
+longdesc PostScript's setdash command. \hdashrule draws horizontally
+longdesc dashed rules using the same syntax as \rule, but with an
+longdesc additional, setdash-like parameter that specifies the pattern
+longdesc of dash segments and the space between those segments. Because
+longdesc dashrule's rules are constructed internally using \rule (as
+longdesc opposed to, e.g., PostScript \specials) they are fully
+longdesc compatible with every LaTeX back-end processor.
+runfiles size=1
+ RELOC/tex/latex/dashrule/dashrule.sty
+catalogue-ctan /macros/latex/contrib/dashrule
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics line-patt
+catalogue-version 1.3

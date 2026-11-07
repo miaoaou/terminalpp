@@ -1,0 +1,36 @@
+name texinfo
+category Package
+revision 69809
+shortdesc Texinfo documentation system
+relocated 1
+longdesc Texinfo is the preferred format for documentation in the GNU
+longdesc project; the format may be used to produce online or printed
+longdesc output from a single source. The Texinfo macros may be used to
+longdesc produce printable output using TeX; other programs in the
+longdesc distribution offer online interactive use (with hypertext
+longdesc linkages in some cases). The latest release of the texinfo.tex
+longdesc macros and texi2dvi script may be found in the texinfo-latest
+longdesc package, which are usually newer than the last full release.
+runfiles size=110
+ RELOC/tex/texinfo/texinfo.ini
+ RELOC/tex/texinfo/texinfo.tex
+ RELOC/tex/texinfo/txi-cs.tex
+ RELOC/tex/texinfo/txi-de.tex
+ RELOC/tex/texinfo/txi-en.tex
+ RELOC/tex/texinfo/txi-es.tex
+ RELOC/tex/texinfo/txi-fr.tex
+ RELOC/tex/texinfo/txi-it.tex
+ RELOC/tex/texinfo/txi-nb.tex
+ RELOC/tex/texinfo/txi-nl.tex
+ RELOC/tex/texinfo/txi-nn.tex
+ RELOC/tex/texinfo/txi-pl.tex
+ RELOC/tex/texinfo/txi-pt.tex
+ RELOC/tex/texinfo/txi-ru.tex
+ RELOC/tex/texinfo/txi-sr.tex
+ RELOC/tex/texinfo/txi-tr.tex
+ RELOC/tex/texinfo/txi-uk.tex
+catalogue-contact-home https://www.gnu.org/software/texinfo/
+catalogue-ctan /macros/texinfo/texinfo
+catalogue-license gpl
+catalogue-topics doc-supp format
+catalogue-version 6.8

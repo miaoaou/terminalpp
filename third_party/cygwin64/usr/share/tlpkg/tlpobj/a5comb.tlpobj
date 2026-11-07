@@ -1,0 +1,13 @@
+name a5comb
+category Package
+revision 17020
+shortdesc Support for a5 paper sizes
+relocated 1
+longdesc Superceded by geometry.
+runfiles size=1
+ RELOC/tex/latex/a5comb/a5comb.sty
+catalogue-ctan /macros/latex/contrib/a5comb
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license pd
+catalogue-topics geometry
+catalogue-version 4

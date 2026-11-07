@@ -1,0 +1,19 @@
+name xkeymask
+category Package
+revision 69223
+shortdesc An extension of xkeyval with a mask
+relocated 1
+longdesc This package is an extension of the xkeyval package by Hendri
+longdesc Adriaens that offers macros for hiding certain keys so that
+longdesc they are not used in certain places. The idea is that one first
+longdesc imports the package in the document preamble, and then creates
+longdesc masks use at certain points in the document. The mask can also
+longdesc be queried or cleared at some later point.
+runfiles size=1
+ RELOC/tex/latex/xkeymask/xkeymask.sty
+catalogue-contact-bugs https://github.com/artagnon/xkeymask/issues
+catalogue-contact-repository https://github.com/artagnon/xkeymask
+catalogue-ctan /macros/latex/contrib/xkeymask
+catalogue-license lppl1.3c
+catalogue-topics keyval
+catalogue-version 1.0

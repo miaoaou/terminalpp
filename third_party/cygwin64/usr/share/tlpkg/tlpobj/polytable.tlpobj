@@ -1,0 +1,16 @@
+name polytable
+category Package
+revision 55837
+shortdesc Tabular-like environments with named columns
+relocated 1
+longdesc This package implements a variant of tabular-like environments
+longdesc where columns can be given a name and entries can flexibly be
+longdesc placed between arbitrary columns. Complex alignment-based
+longdesc layouts, for example for program code, are possible. The
+longdesc package depends on lazylist.
+runfiles size=7
+ RELOC/tex/latex/polytable/polytable.sty
+catalogue-ctan /macros/latex/contrib/polytable
+catalogue-license lppl
+catalogue-topics table
+catalogue-version 0.8.6

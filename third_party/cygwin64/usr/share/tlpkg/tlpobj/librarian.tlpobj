@@ -1,0 +1,25 @@
+name librarian
+category Package
+revision 19880
+shortdesc Tools to create bibliographies in TeX
+relocated 1
+longdesc The package extracts information in bib files, makes it
+longdesc available in the current document, and sorts lists of entries
+longdesc according to that information and the user's specifications.
+longdesc Citation and bibliography styles can then be written directly
+longdesc in TeX, without any use of BibTeX. Creating references thus
+longdesc depends entirely on the user's skill in TeX. The package works
+longdesc with all formats that use plain TeX's basic syntactic sugar;
+longdesc the distribution includes a third-party file for ConTeXt and a
+longdesc style file for LaTeX. As an example of use, an Author (Year)
+longdesc style is given in a separate file and explained in the
+longdesc documentation.
+runfiles size=10
+ RELOC/tex/generic/librarian/librarian.sty
+ RELOC/tex/generic/librarian/librarian.tex
+ RELOC/tex/generic/librarian/t-librarian.tex
+catalogue-ctan /macros/generic/librarian
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics biblio
+catalogue-version 1.0

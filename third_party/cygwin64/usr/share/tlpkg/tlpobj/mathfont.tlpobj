@@ -1,0 +1,17 @@
+name mathfont
+category Package
+revision 68241
+shortdesc Use TrueType and OpenType fonts in math mode
+relocated 1
+longdesc The mathfont package adapts unicode text fonts for math mode.
+longdesc The package allows the user to specify a default unicode font
+longdesc for different classes of math symbols, and it provides tools to
+longdesc change the font locally for math alphabet characters. When
+longdesc typesetting with LuaTeX, mathfont adds resizable delimiters,
+longdesc big operators, and a MathConstants table to text fonts.
+runfiles size=36
+ RELOC/tex/latex/mathfont/mathfont.sty
+catalogue-ctan /macros/latex/contrib/mathfont
+catalogue-license lppl1.3c
+catalogue-topics font-mgmt font-use maths
+catalogue-version 2.3

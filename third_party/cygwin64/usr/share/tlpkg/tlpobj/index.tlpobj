@@ -1,0 +1,25 @@
+name index
+category Package
+revision 24099
+shortdesc Extended index for LaTeX including multiple indexes
+relocated 1
+longdesc This is a reimplementation of LaTeX's indexing macros to
+longdesc provide better support for indexing. For example, it supports
+longdesc multiple indexes in a single document and provides a more
+longdesc robust \index command. It supplies short hand notations for the
+longdesc \index command (^{word}) and a * variation of \index
+longdesc (abbreviated _{word}) that prints the word being indexed, as
+longdesc well as creating an index entry for it.
+runfiles size=17
+ RELOC/bibtex/bst/index/xagsm.bst
+ RELOC/bibtex/bst/index/xplain.bst
+ RELOC/makeindex/index/bibref.ist
+ RELOC/tex/latex/index/autind.sty
+ RELOC/tex/latex/index/bibref.sty
+ RELOC/tex/latex/index/index.sty
+catalogue-also splitindex multind
+catalogue-ctan /macros/latex/contrib/index
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics index index-multi
+catalogue-version 4.1beta

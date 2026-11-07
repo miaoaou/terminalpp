@@ -1,0 +1,8 @@
+#Install this package as a python-sphinx alternative.
+PYTHON_SPHINX_VERSION=3.9
+PYTHON_SPHINX_PRIORITY=39
+
+/usr/sbin/alternatives --install /usr/bin/sphinx-apidoc sphinx-apidoc /usr/bin/sphinx-apidoc-3.9 39
+/usr/sbin/alternatives --install /usr/bin/sphinx-autogen sphinx-autogen /usr/bin/sphinx-autogen-3.9 39
+/usr/sbin/alternatives --install /usr/bin/sphinx-build sphinx-build /usr/bin/sphinx-build-3.9 39
+/usr/sbin/alternatives --install /usr/bin/sphinx-quickstart sphinx-quickstart /usr/bin/sphinx-quickstart-3.9 39

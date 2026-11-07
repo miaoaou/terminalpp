@@ -1,0 +1,6 @@
+name getmap.x86_64-cygwin
+category Package
+revision 34971
+shortdesc x86_64-cygwin files of getmap
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/getmapdl

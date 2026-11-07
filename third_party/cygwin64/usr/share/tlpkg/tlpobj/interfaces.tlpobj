@@ -1,0 +1,43 @@
+name interfaces
+category Package
+revision 21474
+shortdesc Set parameters for other packages, conveniently
+relocated 1
+longdesc The package provides a small number of convenient macros that
+longdesc access features in other frequently-used packages, or provide
+longdesc interfaces to other useful facilities such as the pdfTeX
+longdesc \pdfelapsedtime primitive. Most of these macros use pgfkeys to
+longdesc provide a key-value syntax. The package also uses the package
+longdesc scrlfile from the Koma-Script bundle (for controlled loading of
+longdesc other files) and etoolbox. The package is bundled with
+longdesc sub-packages containing actual interfaces: by default, the
+longdesc package loads all available sub-packages, but techniques are
+longdesc provided for the user to select no more than the interfaces
+longdesc needed for a job.
+runfiles size=60
+ RELOC/tex/latex/interfaces/interfaces-LaTeX.sty
+ RELOC/tex/latex/interfaces/interfaces-appendix.sty
+ RELOC/tex/latex/interfaces/interfaces-base.sty
+ RELOC/tex/latex/interfaces/interfaces-bookmark.sty
+ RELOC/tex/latex/interfaces/interfaces-embedfile.sty
+ RELOC/tex/latex/interfaces/interfaces-enumitem.sty
+ RELOC/tex/latex/interfaces/interfaces-environ.sty
+ RELOC/tex/latex/interfaces/interfaces-etoolbox.sty
+ RELOC/tex/latex/interfaces/interfaces-fancyhdr.sty
+ RELOC/tex/latex/interfaces/interfaces-hypbmsec.sty
+ RELOC/tex/latex/interfaces/interfaces-hyperref.sty
+ RELOC/tex/latex/interfaces/interfaces-makecell.sty
+ RELOC/tex/latex/interfaces/interfaces-marks.sty
+ RELOC/tex/latex/interfaces/interfaces-pgfkeys.sty
+ RELOC/tex/latex/interfaces/interfaces-scrlfile.sty
+ RELOC/tex/latex/interfaces/interfaces-tikz.sty
+ RELOC/tex/latex/interfaces/interfaces-titlesec.sty
+ RELOC/tex/latex/interfaces/interfaces-tocloft.sty
+ RELOC/tex/latex/interfaces/interfaces-truncate.sty
+ RELOC/tex/latex/interfaces/interfaces-umrand.sty
+ RELOC/tex/latex/interfaces/interfaces.sty
+catalogue-ctan /macros/latex/contrib/interfaces
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics package-supp
+catalogue-version 3.1

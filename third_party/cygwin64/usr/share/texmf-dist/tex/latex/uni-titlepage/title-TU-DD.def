@@ -1,0 +1,133 @@
+%%
+%% This is file `title-TU-DD.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uni-titlepage.dtx  (with options: `driver,TU-DD')
+%% Copyright (c) 2009-2022 by Markus Kohm <komascript(at)gmx.info>
+%% 
+%% This file was generated from file(s) of uni-titlepage distribution.
+%% 
+%% ----------------------------------------------------------------------
+%% 
+%% This work may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, version 1.3c of the license.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer and author of this work is Markus Kohm.
+%% 
+%% This file may only be distributed together with
+%% the file `uni-titlepage.dtx'.
+%% You may however distribute the file `uni-titlepage.dtx' without this file.
+%% 
+\ProvidesFile{%
+  title%
+  -TU-DD%
+ .def%
+}[%
+2023-11-20 v1.2
+KOMA presents the title page project
+]
+\begingroup
+  \def\PackageNotLoadedError#1{%
+    \GenericError{%
+      (#1)\@spaces\@spaces\@spaces\@spaces
+    }{%
+      File `#1' Error: package `uni-titlepage' hasn't been loaded%
+    }{%
+      This definition file was made to be loaded by package
+      `uni-titlepage'.\MessageBreak
+      You may not use it without package `uni-titlepage'!\MessageBreak
+      See the documentation of package `uni-titlepage' for explanation.%
+    }%
+  }%
+  \ifx\csname uni-titlepage.sty@vers\endcsname\relax
+    \PackageNotLoadedError{%
+      title-TU-DD.def%
+    }%
+  \fi
+\endgroup
+\DefineFamilyMember[%
+  TU-DD%
+]{title}
+\FamilyBoolKey[TU-DD]{title}{blackborder}{blackborder}
+\renewcommand*{\inittitle}{%
+  \ifx\@university\@empty
+    \university{%
+      Technische\nobreakspace Universit\"at\nobreakspace Dresden%
+    }%
+  \fi
+  \ifx\@place\@empty
+    \place{%
+      Dresden%
+    }
+  \fi
+}
+\renewcommand*{\makemaintitle}{%
+  \begin{%
+    fullsizetitle}
+    \setlength{\parskip}{\z@}%
+    \setlength{\parindent}{\z@}%
+    \setlength{\parfillskip}{\z@\@plus 1fil}%
+    \linespread{1}\selectfont
+    \@titlepagefont
+    \rule{0pt}{5mm}\par
+    \ifblackborder
+      \leavevmode\hskip 1cm
+      \setlength{\fboxrule}{1pt}%
+      \expandafter\fbox
+    \else
+      \expandafter\mbox
+    \fi
+    {%
+       \begin{minipage}[t][\dimexpr\textheight-2.5cm\relax][t]{%
+           \dimexpr\linewidth\ifblackborder-3cm\fi\relax}
+        \sffamily
+        \centering
+        \vskip 3cm
+        {\fontsize{28pt}{34pt}\selectfont
+          \strut\ignorespaces\@university\unskip\strut\\}
+        {\fontsize{24pt}{28pt}\selectfont
+          \strut\ignorespaces\@faculty\unskip\strut\\}
+        {\fontsize{20pt}{24pt}\selectfont
+          \strut\ignorespaces\@chair\unskip\strut\\
+          \strut\ignorespaces\@professor\unskip\strut\\
+          \vfill
+          {\bfseries\strut\ignorespaces\@title\unskip\strut\\}
+          \strut\ignorespaces\@subject\unskip\strut\\
+          \vfill
+          \raggedright
+          \hspace*{.25\linewidth}%
+          \strut\ignorespaces\presentedbyname\unskip\strut\\
+          \hspace*{.25\linewidth}\quad
+          \begin{tabular}{@{}l@{}}
+            \strut\ignorespaces\@author\unskip\strut\\
+            \strut\ignorespaces\@discipline\unskip\strut\\
+            \strut\ignorespaces\@matriculationnumber\unskip\strut\\
+          \end{tabular}\\
+          \vskip\baselineskip
+          \hspace*{.25\linewidth}%
+          \strut\ignorespaces\advisorname\unskip:\strut\\
+          \hspace*{.25\linewidth}\quad
+          \begin{tabular}{@{}l@{}}
+            \strut\ignorespaces\usenonemptytitleelement{advisor}\unskip\strut\\
+          \end{tabular}
+          \vskip2\baselineskip
+          \hspace*{.25\linewidth}%
+          \strut\ignorespaces\@place,\nobreakspace\thename\nobreakspace\@date
+          \par}
+        \vspace*{5mm}
+      \end{minipage}
+    }%
+  \end{%
+    fullsizetitle}
+}
+\endinput
+%%
+%% End of file `title-TU-DD.def'.

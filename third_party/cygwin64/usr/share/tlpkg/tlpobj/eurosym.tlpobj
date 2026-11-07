@@ -1,0 +1,46 @@
+name eurosym
+category Package
+revision 17265
+shortdesc Metafont and macros for Euro sign
+relocated 1
+longdesc The European currency symbol for the Euro implemented in
+longdesc Metafont, using the official European Commission dimensions,
+longdesc and providing several shapes (normal, slanted, bold, outline).
+longdesc The package also includes a LaTeX package which defines the
+longdesc macro, pre-compiled tfm files, and documentation.
+execute addMixedMap eurosym.map
+runfiles size=72
+ RELOC/fonts/map/dvips/eurosym/eurosym.map
+ RELOC/fonts/source/public/eurosym/fey.mf
+ RELOC/fonts/source/public/eurosym/feybl10.mf
+ RELOC/fonts/source/public/eurosym/feybo10.mf
+ RELOC/fonts/source/public/eurosym/feybr10.mf
+ RELOC/fonts/source/public/eurosym/feyml10.mf
+ RELOC/fonts/source/public/eurosym/feymo10.mf
+ RELOC/fonts/source/public/eurosym/feymr10.mf
+ RELOC/fonts/tfm/public/eurosym/feybl10.tfm
+ RELOC/fonts/tfm/public/eurosym/feybo10.tfm
+ RELOC/fonts/tfm/public/eurosym/feybr10.tfm
+ RELOC/fonts/tfm/public/eurosym/feyml10.tfm
+ RELOC/fonts/tfm/public/eurosym/feymo10.tfm
+ RELOC/fonts/tfm/public/eurosym/feymr10.tfm
+ RELOC/fonts/type1/public/eurosym/feybl10.pfb
+ RELOC/fonts/type1/public/eurosym/feybo10.pfb
+ RELOC/fonts/type1/public/eurosym/feybr10.pfb
+ RELOC/fonts/type1/public/eurosym/feyml10.pfb
+ RELOC/fonts/type1/public/eurosym/feymo10.pfb
+ RELOC/fonts/type1/public/eurosym/feymr10.pfb
+ RELOC/fonts/type1/public/eurosym/geybl10.pfb
+ RELOC/fonts/type1/public/eurosym/geybo10.pfb
+ RELOC/fonts/type1/public/eurosym/geybr10.pfb
+ RELOC/fonts/type1/public/eurosym/geyml10.pfb
+ RELOC/fonts/type1/public/eurosym/geymo10.pfb
+ RELOC/fonts/type1/public/eurosym/geymr10.pfb
+ RELOC/tex/latex/eurosym/eurosym.sty
+catalogue-also europs marvosym
+catalogue-contact-home http://www.theiling.de/eurosym.html
+catalogue-ctan /fonts/eurosym
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license other-free
+catalogue-topics font font-specialist font-mf
+catalogue-version 1.4-subrfix

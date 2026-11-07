@@ -1,0 +1,137 @@
+\msg_set:nnn{stex}{error/unknownlanguage}{
+  Unknown~language:~#1
+}
+\msg_set:nnn{stex}{warning/nomathhub}{
+  MATHHUB~system~variable~not~found~and~no~
+  \tl_to_str:n{\mathhub}-value~set!^^JUsing~HOME/MathHub.
+}
+\msg_set:nnn{stex}{error/deactivated-macro}{
+  The~\tl_to_str:n{#1}~command~is~only~allowed~in~#2!
+}
+\msg_set:nnn{stex}{error/metagroup/missing}{
+  No~metagroup~by~ID~#1
+}
+\msg_set:nnn{stex}{error/noarchive}{
+  No~archive~#1~found~in~#2
+}
+\msg_set:nnn{stex}{error/notinarchive}{
+  Not~currently~in~an~archive,~but~\tl_to_str:n{#1}~
+  needs~one!
+}
+\msg_set:nnn{stex}{error/nofile}{
+  \tl_to_str:n{#1}~could~not~find~file~#2
+}
+\msg_set:nnn{stex}{error/twofiles}{
+  \tl_to_str:n{#1}~found~two~candidates~for~#2
+}
+\msg_set:nnn{stex}{error/invalid-uri}{
+  Invalid~URI:~#1~(#2)
+}
+\msg_set:nnn{stex}{error/misused-uri}{
+  Misused~URI:~#1
+}
+\msg_set:nnn{stex}{error/invalid-dpath}{
+  Not~a~namespace~URI:~#1
+}
+\msg_set:nnn{stex}{error/extrefmissing}{
+  Missing~in~or~cite~value~for~\detokenize{\extref}!
+}
+\msg_set:nnn{stex}{warning/smsmissing}{
+  .sref~file~#1~doesn't~exist!
+}
+\msg_set:nnn{stex}{warning/smslabelmissing}{
+  No~label~#2~in~.sref~file~#1!
+}
+\msg_set:nnn{stex}{error/unknownmodule}{
+  No~module~#1~found
+}
+\msg_set:nnn{stex}{error/unknownstructure}{
+  No~mathstructure~#1~found
+}
+\msg_set:nnn{stex}{error/syntax}{
+  Syntax~error:~#1
+}
+\msg_set:nnn{stex}{error/siglanguage}{
+  Module~#1~declares~signature~#2,~but~does~not~
+  declare~its~language
+}
+\msg_set:nnn{stex}{warning/deprecated}{
+  #1~is~deprecated;~please~use~#2~instead!
+}
+\msg_set:nnn{stex}{error/conflictingmodules}{
+  Conflicting~imports~for~module~#1
+}
+\msg_set:nnn{stex}{error/misused-importmodule}{
+  Misused~Importmodule~statement:~#1
+}
+\msg_set:nnn{stex}{error/wrongargs}{
+  args~value~in~symbol~declaration~for~#1~
+  needs~to~be~i,~a,~b~or~B,~but~#2~given
+}
+\msg_set:nnn{stex}{error/unknownsymbol}{
+  No~symbol~#1~found!
+}
+\msg_set:nnn{stex}{error/seqlength}{
+  Expected~#1~arguments;~got~#2!
+}
+\msg_set:nnn{stex}{error/unknownnotation}{
+  Unknown~notation~#1~for~#2!
+}
+\msg_set:nnn{stex}{error/nonotation}{
+  Symbol~#1~invoked,~but~has~no~notation#2!
+}
+\msg_set:nnn{stex}{error/notationarg}{
+  Error~in~parsing~notation~#1
+}
+\msg_set:nnn{stex}{error/noop}{
+  Symbol~#1~has~no~operator~notation~for~notation~#2
+}
+\msg_set:nnn{stex}{error/notallowed}{
+  Symbol~invokation~#1~not~allowed~in~notation~component~of~#2
+}
+\msg_set:nnn{stex}{error/doubleargument}{
+  Argument~#1~of~symbol~#2~already~assigned
+}
+\msg_set:nnn{stex}{error/overarity}{
+  Argument~#1~invalid~for~symbol~#2~with~arity~#3
+}
+\msg_set:nnn{stex}{error/notikz}{
+  #1~requires~tikz~to~be~loaded
+}
+\msg_set:nnn{stex}{error/unknownsymbolin}{
+  No~symbol~#1~found~in~#2!
+}
+\msg_set:nnn{stex}{error/symbolalreadydefined}{
+  Symbol~#1~in~#2~already~defined!
+}
+\msg_set:nnn{stex}{error/assocarg}{
+  First~argument~of~#1~needs~to~be~an~a-mode~or~B-mode~argument
+}
+\msg_set:nnn{stex}{error/invalidarg}{
+  Invalid~argument~#1~(already~provided~or~does~not~exist~
+  for~#2)
+}
+\msg_set:nnn{stex}{error/needsdefiniens}{
+  Symbol~#1~needs~to~be~defined~in~#2
+}
+\msg_set:nnn{stex}{error/unknownfield}{
+  mathstructure~(instance)~has~no~component~"#1"
+}
+\msg_set:nnn{stex}{error/unknownfieldass}{
+  mathstructure~has~no~component~"#1";~can~not~assign
+}
+\msg_set:nnn{stex}{error/definiensfor}{
+  \definiens~macro:~unclear~which~symbol~is~being~defined
+}
+\msg_set:nnn{stex}{error/conclusionfor}{
+  \conclusion~macro:~unclear~which~assertion~is~being~concluded
+}
+\msg_set:nnn{stex}{error/nomorphism}{
+  No~morphism~#1~found~in~domain~of~morphism
+}
+\msg_set:nnn{stex}{error/nestedproblem}{
+  Nested~problem;~sproblem~not~allowed~in~another~sproblem
+}
+\str_set:Nn \spfsketchenvautorefname {Proof~sketch}
+\str_set:Nn \sproofautorefname {Proof}
+\str_set:Nn \spfstepautorefname {Proof~step}

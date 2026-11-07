@@ -1,0 +1,16 @@
+name magicwatermark
+category Package
+revision 63656
+shortdesc An easy and flexible way to set watermarks
+relocated 1
+longdesc This package can flexibly set and clear watermarks. It is based
+longdesc on everypage and TikZ, encapsulated by LaTeX3. All watermark
+longdesc content is placed inside a TikZ node in the center of the page.
+runfiles size=2
+ RELOC/tex/latex/magicwatermark/magicwatermark.sty
+catalogue-contact-bugs https://github.com/ljguo1020/magicwatermark/issues
+catalogue-contact-repository https://github.com/ljguo1020/magicwatermark
+catalogue-ctan /macros/latex/contrib/magicwatermark
+catalogue-license lppl1.3c
+catalogue-topics watermark background pgf-tikz expl3
+catalogue-version 1.0.1

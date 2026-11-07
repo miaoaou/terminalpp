@@ -1,0 +1,25 @@
+name actuarialsymbol
+category Package
+revision 67201
+shortdesc Actuarial symbols of life contingencies and financial mathematics
+relocated 1
+longdesc This package provides commands to compose actuarial symbols of
+longdesc life contingencies and financial mathematics characterized by
+longdesc subscripts and superscripts on both sides of a principal
+longdesc symbol. The package also features commands to easily and
+longdesc consistently position precedence numbers above or below
+longdesc statuses in symbols for multiple lives contracts. Since the
+longdesc actuarial notation can get quite involved, the package defines
+longdesc a number of shortcut macros to ease entry of the most common
+longdesc elements. Appendix A of the package documentation lists the
+longdesc commands to typeset a large selection of symbols of life
+longdesc contingencies. This package requires actuarialangle.
+runfiles size=2
+ RELOC/tex/latex/actuarialsymbol/actuarialsymbol.sty
+catalogue-contact-bugs https://gitlab.com/vigou3/actuarialsymbol/-/issues
+catalogue-contact-home https://vigou3.gitlab.io/actuarialsymbol
+catalogue-contact-repository https://gitlab.com/vigou3/actuarialsymbol
+catalogue-ctan /macros/latex/contrib/actuarialsymbol
+catalogue-license lppl1.3c
+catalogue-topics graphics-symb
+catalogue-version 1.1

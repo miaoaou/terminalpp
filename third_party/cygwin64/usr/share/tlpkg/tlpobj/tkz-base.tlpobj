@@ -1,0 +1,33 @@
+name tkz-base
+category Package
+revision 69460
+shortdesc Tools for drawing with a cartesian coordinate system
+relocated 1
+longdesc The bundle is a set of packages, designed to give mathematics
+longdesc teachers (and students) easy access to programming of drawings
+longdesc with TikZ.
+runfiles size=31
+ RELOC/tex/latex/tkz-base/tkz-base.cfg
+ RELOC/tex/latex/tkz-base/tkz-base.sty
+ RELOC/tex/latex/tkz-base/tkz-lib-marks.tex
+ RELOC/tex/latex/tkz-base/tkz-lib-shape.tex
+ RELOC/tex/latex/tkz-base/tkz-obj-axes.tex
+ RELOC/tex/latex/tkz-base/tkz-obj-grids.tex
+ RELOC/tex/latex/tkz-base/tkz-obj-marks.tex
+ RELOC/tex/latex/tkz-base/tkz-obj-points.tex
+ RELOC/tex/latex/tkz-base/tkz-obj-rep.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-BB.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-arith.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-base.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-colors.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-misc.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-modules.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-print.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-text.tex
+ RELOC/tex/latex/tkz-base/tkz-tools-utilities.tex
+catalogue-also pgf
+catalogue-contact-home http://altermundus.fr
+catalogue-ctan /macros/latex/contrib/tkz/tkz-base
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz
+catalogue-version 4.21c

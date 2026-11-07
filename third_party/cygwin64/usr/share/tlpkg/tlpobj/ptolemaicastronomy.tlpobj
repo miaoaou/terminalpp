@@ -1,0 +1,21 @@
+name ptolemaicastronomy
+category Package
+revision 50810
+shortdesc Diagrams of sphere models for variably strict conditionals (Lewis counterfactuals)
+relocated 1
+longdesc David K. Lewis (Counterfactuals, Blackwell 1973) introduced a
+longdesc sphere semantics for counterfactual conditionals. He jokingly
+longdesc referred to the diagrams depicting such sphere models as
+longdesc Ptolemaic astronomy, hence the name of this package. The macros
+longdesc provided in this package aid in the construction of sphere
+longdesc model diagrams in the style of Lewis. The macros all make use
+longdesc of TikZ.
+runfiles size=1
+ RELOC/tex/latex/ptolemaicastronomy/ptolemaicastronomy.sty
+catalogue-contact-bugs https://github.com/rzach/ptolemaic-astronomy/issues
+catalogue-contact-repository https://github.com/rzach/ptolemaic-astronomy
+catalogue-ctan /graphics/pgf/contrib/ptolemaicastronomy
+catalogue-date 2019-04-06 07:05:41 +0200
+catalogue-license lppl1.3c
+catalogue-topics pgf-tikz logic
+catalogue-version 1.0

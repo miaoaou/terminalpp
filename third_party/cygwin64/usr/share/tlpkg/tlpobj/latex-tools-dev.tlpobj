@@ -1,0 +1,62 @@
+name latex-tools-dev
+category Package
+revision 69860
+shortdesc Development pre-release of the LaTeX tools bundle
+relocated 1
+longdesc This is a pre-release version of the standard LaTeX tools
+longdesc bundle. It accompanies the pre-testing kernel code
+longdesc (latex-base-dev), and is intended for testing by knowledgeable
+longdesc users.
+runfiles size=125
+ RELOC/tex/latex-dev/tools/.tex
+ RELOC/tex/latex-dev/tools/afterpage.sty
+ RELOC/tex/latex-dev/tools/array-2016-10-06.sty
+ RELOC/tex/latex-dev/tools/array-2020-02-10.sty
+ RELOC/tex/latex-dev/tools/array-2023-11-01.sty
+ RELOC/tex/latex-dev/tools/array.sty
+ RELOC/tex/latex-dev/tools/bm.sty
+ RELOC/tex/latex-dev/tools/calc.sty
+ RELOC/tex/latex-dev/tools/dcolumn.sty
+ RELOC/tex/latex-dev/tools/delarray.sty
+ RELOC/tex/latex-dev/tools/e.tex
+ RELOC/tex/latex-dev/tools/enumerate.sty
+ RELOC/tex/latex-dev/tools/fontsmpl.sty
+ RELOC/tex/latex-dev/tools/fontsmpl.tex
+ RELOC/tex/latex-dev/tools/ftnright.sty
+ RELOC/tex/latex-dev/tools/h.tex
+ RELOC/tex/latex-dev/tools/hhline.sty
+ RELOC/tex/latex-dev/tools/indentfirst.sty
+ RELOC/tex/latex-dev/tools/layout.sty
+ RELOC/tex/latex-dev/tools/longtable-2020-01-07.sty
+ RELOC/tex/latex-dev/tools/longtable.sty
+ RELOC/tex/latex-dev/tools/multicol-2017-04-11.sty
+ RELOC/tex/latex-dev/tools/multicol-2019-10-01.sty
+ RELOC/tex/latex-dev/tools/multicol.sty
+ RELOC/tex/latex-dev/tools/q.tex
+ RELOC/tex/latex-dev/tools/r.tex
+ RELOC/tex/latex-dev/tools/rawfonts.sty
+ RELOC/tex/latex-dev/tools/s.tex
+ RELOC/tex/latex-dev/tools/shellesc.sty
+ RELOC/tex/latex-dev/tools/showkeys-2014-10-28.sty
+ RELOC/tex/latex-dev/tools/showkeys.sty
+ RELOC/tex/latex-dev/tools/somedefs.sty
+ RELOC/tex/latex-dev/tools/tabularx.sty
+ RELOC/tex/latex-dev/tools/thb.sty
+ RELOC/tex/latex-dev/tools/thc.sty
+ RELOC/tex/latex-dev/tools/thcb.sty
+ RELOC/tex/latex-dev/tools/theorem.sty
+ RELOC/tex/latex-dev/tools/thm.sty
+ RELOC/tex/latex-dev/tools/thmb.sty
+ RELOC/tex/latex-dev/tools/thp.sty
+ RELOC/tex/latex-dev/tools/trace.sty
+ RELOC/tex/latex-dev/tools/varioref-2016-02-16.sty
+ RELOC/tex/latex-dev/tools/varioref.sty
+ RELOC/tex/latex-dev/tools/verbatim.sty
+ RELOC/tex/latex-dev/tools/verbtest.tex
+ RELOC/tex/latex-dev/tools/x.tex
+ RELOC/tex/latex-dev/tools/xr.sty
+ RELOC/tex/latex-dev/tools/xspace.sty
+catalogue-ctan /macros/latex-dev/required/tools
+catalogue-license lppl1.3c
+catalogue-topics collection latex-devel
+catalogue-version 2024-06-01 pre-release 1

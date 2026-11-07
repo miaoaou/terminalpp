@@ -1,0 +1,30 @@
+name circuit-macros
+category Package
+revision 69263
+shortdesc M4 macros for electric circuit diagrams
+relocated 1
+longdesc A set of m4 macros for drawing high-quality electric circuits
+longdesc containing fundamental elements, amplifiers, transistors, and
+longdesc basic logic gates to include in TeX, LaTeX, or similar
+longdesc documents. Some tools and examples for other types of diagrams
+longdesc are also included. The macros can be evaluated to drawing
+longdesc commands in the pic language, which is very easy to understand
+longdesc and which has a good power/complexity ratio. Pic contains
+longdesc elements of a simple programming language, and is well-suited
+longdesc to line drawings requiring parametric or conditional
+longdesc components, fine tuning, significant geometric calculations or
+longdesc repetition, or that are naturally block structured or tree
+longdesc structured. (The m4 and pic processors are readily available
+longdesc for Unix and PC machines.) Alternative output macros can create
+longdesc TeX output to be read by pstricks, TikZ commands for use by the
+longdesc pgf bundle, or SVG.
+runfiles size=1
+ RELOC/tex/latex/circuit-macros/boxdims.sty
+catalogue-also circ circuitikz
+catalogue-contact-bugs https://gitlab.com/aplevich/circuit_macros/-/issues
+catalogue-contact-home https://ece.uwaterloo.ca/~aplevich/Circuit_macros/
+catalogue-contact-repository https://gitlab.com/aplevich/circuit_macros
+catalogue-ctan /graphics/circuit_macros
+catalogue-license lppl1.3c
+catalogue-topics diagram-circ electronic
+catalogue-version 10.5

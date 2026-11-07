@@ -1,0 +1,32 @@
+\defaultfontfeatures[cv04-Book]{%
+  Extension             = {.otf},%
+  SizeFeatures          = {%
+    {%
+      Size              = {-10},%
+      Font              = {NewCMMono08-Book},%
+      ItalicFont        = {NewCMMono08-BookItalic},%
+      BoldFont          = {NewCMMono10-Bold},%
+      BoldItalicFont    = {NewCMMono10-BoldOblique},%
+      SlantedFont       = {NewCMMono08-Book},%
+      BoldSlantedFont   = {NewCMMono10-Bold}%
+    },%
+    {%
+      Size              = {8},%
+      Font              = {NewCMMono08-Book},%
+      ItalicFont        = {NewCMMono08-BookItalic},%
+      BoldFont          = {NewCMMono10-Bold},%
+      BoldItalicFont    = {NewCMMono10-BoldOblique},%
+      SlantedFont       = {NewCMMono08-Book},%
+      BoldSlantedFont   = {NewCMMono10-Bold}%
+   },%
+    {%
+      Size              = {9-},%
+      Font              = {NewCMMono10-Book},%
+      ItalicFont        = {NewCMMono10-BookItalic},%
+      BoldFont          = {NewCMMono10-Bold},%
+      BoldItalicFont    = {NewCMMono10-BoldOblique},%
+      SlantedFont       = {NewCMMono10-Book},%
+      BoldSlantedFont   = {NewCMMono10-Bold}%
+    }%
+  }%
+}

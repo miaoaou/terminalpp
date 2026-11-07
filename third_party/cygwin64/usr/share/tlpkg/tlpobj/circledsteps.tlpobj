@@ -1,0 +1,17 @@
+name circledsteps
+category Package
+revision 67889
+shortdesc Typeset circled numbers
+relocated 1
+longdesc This package generates circled numbers (or other kinds of
+longdesc markers or small text) to mark "steps" in procedures,
+longdesc exercises, and so on.
+runfiles size=2
+ RELOC/tex/latex/circledsteps/circledsteps.sty
+catalogue-also circledtext
+catalogue-contact-home https://github.com/Rmano/circledsteps
+catalogue-contact-support https://github.com/Rmano/circledsteps/issues
+catalogue-ctan /macros/latex/contrib/circledsteps
+catalogue-license lppl1.3c
+catalogue-topics numbers
+catalogue-version 1.3.3

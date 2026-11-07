@@ -1,0 +1,17 @@
+name beamertheme-simpledarkblue
+category Package
+revision 60061
+shortdesc Template for a simple presentation
+relocated 1
+longdesc This is a simple but nice theme for Beamer. Features: simple
+longdesc structure: with page numbers in footer, no side bar, simple
+longdesc colors: using only several foreground and background colors.
+runfiles size=3
+ RELOC/tex/latex/beamertheme-simpledarkblue/beamercolorthemeSimpleDarkBlue.sty
+ RELOC/tex/latex/beamertheme-simpledarkblue/beamerfontthemeSimpleDarkBlue.sty
+ RELOC/tex/latex/beamertheme-simpledarkblue/beamerthemeSimpleDarkBlue.sty
+catalogue-contact-bugs https://github.com/PM25/Simple-Beamer-Theme/issues
+catalogue-contact-repository https://github.com/PM25/Simple-Beamer-Theme
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamertheme-simpledarkblue
+catalogue-license pd
+catalogue-topics presentation

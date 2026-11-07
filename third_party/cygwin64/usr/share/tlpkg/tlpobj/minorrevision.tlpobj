@@ -1,0 +1,21 @@
+name minorrevision
+category Package
+revision 32165
+shortdesc Quote and refer to a manuscript for minor revisions
+relocated 1
+longdesc The package supports those who publish articles in
+longdesc peer-reviewed journals. In the final stages of the review
+longdesc process, the authors typically have to provide an additional
+longdesc document (such as a letter to the editors), in which they
+longdesc provide a list of modifications that they made to the
+longdesc manuscript. The package automatically provides line numbers and
+longdesc quotations from the manuscript, for this letter. The package
+longdesc loads the package lineno, so (in effect) shares lineno's
+longdesc incompatibilities.
+runfiles size=1
+ RELOC/tex/latex/minorrevision/minorrevision.sty
+catalogue-ctan /macros/latex/contrib/minorrevision
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics editorial
+catalogue-version 1.1

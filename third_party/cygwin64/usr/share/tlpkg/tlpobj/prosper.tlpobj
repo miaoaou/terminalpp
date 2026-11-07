@@ -1,0 +1,78 @@
+name prosper
+category Package
+revision 33033
+shortdesc LaTeX class for high quality slides
+relocated 1
+longdesc Prosper is a LaTeX class for writing transparencies. It is
+longdesc written as an extension of the seminar class by Timothy Van
+longdesc Zandt. Prosper offers a friendly environment for creating
+longdesc slides for both presentations with an overhead projector and a
+longdesc video projector. Slides prepared for a presentation with a
+longdesc computer and a video projector may integrate animation effects,
+longdesc incremental display, and so on. Various visual styles are
+longdesc supported (including some that mimic PowerPoint) and others are
+longdesc being contributed.
+runfiles size=199
+ RELOC/tex/latex/prosper/PPRalcatel.sty
+ RELOC/tex/latex/prosper/PPRalienglow.sty
+ RELOC/tex/latex/prosper/PPRautumn.sty
+ RELOC/tex/latex/prosper/PPRazure.sty
+ RELOC/tex/latex/prosper/PPRblends.sty
+ RELOC/tex/latex/prosper/PPRcapsules.sty
+ RELOC/tex/latex/prosper/PPRcontemporain.sty
+ RELOC/tex/latex/prosper/PPRcorners.sty
+ RELOC/tex/latex/prosper/PPRdarkblue.sty
+ RELOC/tex/latex/prosper/PPRdefault.sty
+ RELOC/tex/latex/prosper/PPRframes.sty
+ RELOC/tex/latex/prosper/PPRfyma.sty
+ RELOC/tex/latex/prosper/PPRgyom.sty
+ RELOC/tex/latex/prosper/PPRlignesbleues.sty
+ RELOC/tex/latex/prosper/PPRmancini.sty
+ RELOC/tex/latex/prosper/PPRnuancegris.sty
+ RELOC/tex/latex/prosper/PPRprettybox.sty
+ RELOC/tex/latex/prosper/PPRrico.sty
+ RELOC/tex/latex/prosper/PPRserpaggi.sty
+ RELOC/tex/latex/prosper/PPRthomasd.sty
+ RELOC/tex/latex/prosper/PPRtroispoints.sty
+ RELOC/tex/latex/prosper/PPRwhitecross.sty
+ RELOC/tex/latex/prosper/PPRwinter.sty
+ RELOC/tex/latex/prosper/PPRwj.sty
+ RELOC/tex/latex/prosper/angleHG.ps
+ RELOC/tex/latex/prosper/arrow-glow.ps
+ RELOC/tex/latex/prosper/barre-rico.ps
+ RELOC/tex/latex/prosper/blue-inverted-arrow.ps
+ RELOC/tex/latex/prosper/boule-base.eps
+ RELOC/tex/latex/prosper/boulebleue-fondblanc.eps
+ RELOC/tex/latex/prosper/boulerouge-fondblanc.eps
+ RELOC/tex/latex/prosper/bouleverte-fondblanc.eps
+ RELOC/tex/latex/prosper/bullet-glow.ps
+ RELOC/tex/latex/prosper/compilation.eps
+ RELOC/tex/latex/prosper/degrade-base.eps
+ RELOC/tex/latex/prosper/degrade-blanc-bleu.eps
+ RELOC/tex/latex/prosper/green-bullet-on-blue-wc.ps
+ RELOC/tex/latex/prosper/green-bullet-on-blue.ps
+ RELOC/tex/latex/prosper/green-bullet-on-white.ps
+ RELOC/tex/latex/prosper/green-inverted-arrow.ps
+ RELOC/tex/latex/prosper/gyom.ps
+ RELOC/tex/latex/prosper/prosper-structure.eps
+ RELOC/tex/latex/prosper/prosper.cls
+ RELOC/tex/latex/prosper/red-bullet-on-blue-wc.ps
+ RELOC/tex/latex/prosper/red-bullet-on-blue.ps
+ RELOC/tex/latex/prosper/red-bullet-on-white.ps
+ RELOC/tex/latex/prosper/red-inverted-arrow.ps
+ RELOC/tex/latex/prosper/rico.ps
+ RELOC/tex/latex/prosper/rico_bullet1.ps
+ RELOC/tex/latex/prosper/rico_bullet2.ps
+ RELOC/tex/latex/prosper/rico_bullet3.ps
+ RELOC/tex/latex/prosper/rotation.ps
+ RELOC/tex/latex/prosper/rule-glow.ps
+ RELOC/tex/latex/prosper/yellow-bullet-on-blue-wc.ps
+ RELOC/tex/latex/prosper/yellow-bullet-on-blue.ps
+ RELOC/tex/latex/prosper/yellow-bullet-on-white.ps
+catalogue-also ifmslide ha-prosper
+catalogue-contact-repository http://prosper.sourceforge.net/
+catalogue-ctan /macros/latex/contrib/prosper
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl1.2
+catalogue-topics presentation
+catalogue-version 1.0h

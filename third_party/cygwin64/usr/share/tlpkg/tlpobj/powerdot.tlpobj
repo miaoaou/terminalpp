@@ -1,0 +1,37 @@
+name powerdot
+category Package
+revision 59272
+shortdesc A presentation class
+relocated 1
+longdesc Powerdot is a presentation class for LaTeX that allows for the
+longdesc quick and easy development of professional presentations. It
+longdesc comes with many tools that enhance presentations and aid the
+longdesc presenter. Examples are automatic overlays, personal notes and
+longdesc a handout mode. To view a presentation, DVI, PS or PDF output
+longdesc can be used. A powerful template system is available to easily
+longdesc develop new styles. A LyX layout file is provided.
+runfiles size=50
+ RELOC/tex/latex/powerdot/powerdot-aggie.sty
+ RELOC/tex/latex/powerdot/powerdot-bframe.sty
+ RELOC/tex/latex/powerdot/powerdot-ciment.sty
+ RELOC/tex/latex/powerdot/powerdot-default.ps
+ RELOC/tex/latex/powerdot/powerdot-default.sty
+ RELOC/tex/latex/powerdot/powerdot-elcolors.sty
+ RELOC/tex/latex/powerdot/powerdot-fyma.sty
+ RELOC/tex/latex/powerdot/powerdot-horatio.sty
+ RELOC/tex/latex/powerdot/powerdot-husky.sty
+ RELOC/tex/latex/powerdot/powerdot-ikeda.sty
+ RELOC/tex/latex/powerdot/powerdot-jefka.sty
+ RELOC/tex/latex/powerdot/powerdot-klope.sty
+ RELOC/tex/latex/powerdot/powerdot-paintings.sty
+ RELOC/tex/latex/powerdot/powerdot-pazik.sty
+ RELOC/tex/latex/powerdot/powerdot-sailor.sty
+ RELOC/tex/latex/powerdot/powerdot-simple.sty
+ RELOC/tex/latex/powerdot/powerdot-tycja.sty
+ RELOC/tex/latex/powerdot/powerdot-upen.sty
+ RELOC/tex/latex/powerdot/powerdot.cls
+catalogue-also prosper ha-prosper
+catalogue-ctan /macros/latex/contrib/powerdot
+catalogue-license lppl1.3
+catalogue-topics presentation class
+catalogue-version 1.7

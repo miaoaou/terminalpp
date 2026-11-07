@@ -1,0 +1,19 @@
+name version
+category Package
+revision 21920
+shortdesc Conditionally include text
+relocated 1
+longdesc Defines macros \includeversion{NAME} and \excludeversion{NAME},
+longdesc each of which defines an environment NAME whose text is to be
+longdesc included or excluded from compilation. Although the command
+longdesc syntax is very similar to that of comment, comment.sty is to be
+longdesc preferred to version.sty for documents where significant chunks
+longdesc of text may be excluded.
+runfiles size=2
+ RELOC/tex/latex/version/version.sty
+catalogue-also verbatim versions optional comment
+catalogue-ctan /macros/latex/contrib/version
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics cond-comp
+catalogue-version 2.0

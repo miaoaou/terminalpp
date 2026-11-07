@@ -1,0 +1,20 @@
+name multiexpand
+category Package
+revision 45943
+shortdesc Variations on the primitive command \expandafter
+relocated 1
+longdesc The package provides two user commands; one that performs
+longdesc multiple expansions, and one that does multiple \expandafter
+longdesc operations, in a single macro call. The author suggests that
+longdesc the same effect could be provided by use of the command variant
+longdesc mechanisms of LaTeX 3 (see, for example, the interface
+longdesc documentation of the experimental LaTeX 3 kernel).
+runfiles size=1
+ RELOC/tex/generic/multiexpand/multiexpand.sty
+catalogue-contact-bugs https://github.com/blefloch/latex-multiexpand/issues
+catalogue-contact-repository https://github.com/blefloch/latex-multiexpand
+catalogue-ctan /macros/generic/multiexpand
+catalogue-date 2017-11-29 21:17:19 +0100
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 1.5

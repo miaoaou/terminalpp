@@ -1,0 +1,195 @@
+%% Copyright 2017-2023 Louis Paternault
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Louis Paternault
+%%
+%% This work consists of the files pixelart.sty, pixelart.lua, pixelart.tex.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pixelart}[2023/02/20 v1.0.2 A package to draw pixel-art pictures]
+
+\RequirePackage{iftex}
+\ifluatex
+  % Great!
+\else
+  \PackageError{pixelart}{This package requires LuaTeX}{If you want to draw pixel-art pictures without LuaTeX, you can use either pixelart0 (outdated version of pixelart, bundled with this package), or pxpic}
+\fi
+
+\RequirePackage{luacode}
+\RequirePackage{tikz}
+\usetikzlibrary{patterns}
+
+\luadirect{require("pixelart")}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package options
+\DeclareOption{draft}{\luadirect{pixelart._draft = true}}
+\ProcessOptions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Default style
+\tikzset{pixelart/.style={}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wrappers to Lua functions
+
+\newcommand{\pixelart}[2][]{\luadirect{pixelart.pixelart("\luatexluaescapestring{#2}", "\luatexluaescapestring{#1}")}}
+\newcommand{\tikzpixelart}[3][]{\luadirect{pixelart.tikzpixelart("\luatexluaescapestring{#2}", "\luatexluaescapestring{#3}", "\luatexluaescapestring{#1}")}}
+\newcommand{\newpixelartcolors}[2]{\luadirect{pixelart.newpixelartcolors("\luatexluaescapestring{#1}", "\luatexluaescapestring{#2}")}}
+\newcommand{\renewpixelartcolors}[2]{\luadirect{pixelart.renewpixelartcolors("\luatexluaescapestring{#1}", "\luatexluaescapestring{#2}")}}
+\newcommand{\setpixelartdefault}[1]{\luadirect{pixelart.setpixelartdefault("\luatexluaescapestring{#1}")}}
+\newcommand{\setpixelartdebugon}{\luadirect{pixelart.setpixelartdebug(true)}}
+\newcommand{\setpixelartdebugoff}{\luadirect{pixelart.setpixelartdebug(false)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Logos
+
+\makeatletter
+\newcommand{\pixelartlogo}[1][
+    colors={
+      A=red,
+      B=orange,
+      C=yellow,
+      D=green,
+      E=cyan,
+      F=blue,
+      G=purple,
+      1=red,
+      2={red!50!black},
+      3={pink},
+      4={pink!50!red},
+    },
+    stack,
+  ]{%
+  \begin{tikzpicture}[scale={\f@size/400}]
+    \draw (34, 0) node[opacity=0, anchor=south, inner sep=0pt]{\texttt{Pixel Art}};
+  \tikzpixelart[#1]{(0, 0)}{
+      AAAABB...CC...................FFE...............A...............E...
+      .BA..AB..BC....................FF...12..12.....BBB.............DD...
+      .BB..AA........................GF..13411112...CC.BB............CD...
+      .CB..BA.AAB..BC....DD..EEEFF...GG.1341111112.DC...BB.BA.AAB..BCCCCD.
+      .CCCBB...AA...BB..CC..DD...EF..FG.1341111112.DD...CC..BBA.AB...BC...
+      .DC......BA....BBBC...DDDDEEE..FF.1341111112.EDDDDCC..BB..AA...BB...
+      .DD......BB.....BB....CC.......EF..11111112..EE...DD..CC.......AB...
+      .ED......CB....AAAB...CC.......EE...111112...FE...DD..CC.......AA...
+      .EE......CC...BB..AA..BB...CD..DE....1112....FF...EE..DD.......BA.AA
+      FFEE....DDCC.CB....AA..BBBCC..DDDD....12.....GF...EE.EDDD.......BBA.
+    }
+  \end{tikzpicture}%
+}
+
+\newcommand{\pixelartheart}[1][
+    colors={
+      1=red,
+      2={red!50!black},
+      3={pink},
+      4={pink!50!red},
+    },
+    tikz={
+      scale={\f@size/300},
+      baseline=.1em,
+    },
+    stack,
+  ]{%
+  \pixelart[#1]{
+    ..12..12..
+    .13411112.
+    1341111112
+    1341111112
+    1341111112
+    .11111112.
+    ..111112..
+    ...1112...
+    ....12....
+  }%
+}
+
+\newcommand{\pixelartname}[1][
+    colors={
+      A=red,
+      B=orange,
+      C=yellow,
+      D=green,
+      E=cyan,
+      F=blue,
+      G=purple,
+    },
+    stack,
+  ]{%
+  \begin{tikzpicture}[scale={\f@size/400}]
+    \draw (28, 0) node[opacity=0, anchor=south, inner sep=0pt]{\texttt{PixelArt}};
+  \tikzpixelart[#1]{(0, 0)}{
+      AAAABB...CC...................FFE.....D...............B...
+      .BA..AB..BC....................FF....EDD.............AB...
+      .BB..AA........................GF...EE.ED............AA...
+      .CB..BA.AAB..BC....DD..EEEFF...GG..FF...EE.DD.CCC..BBBAAA.
+      .CCCBB...AA...BB..CC..DD...EF..FG..GF...EE..DDD.CC...BB...
+      .DC......BA....BBBC...DDDDEEE..FF..GGGFFFF..EE..DD...CB...
+      .DD......BB.....BB....CC.......EF..FG...FF..EE.......CC...
+      .ED......CB....AAAB...CC.......EE..FF...GG..FF.......DC...
+      .EE......CC...BB..AA..BB...CD..DE..EF...GG..FF.......DD.CC
+      FFEE....DDCC.CB....AA..BBBCC..DDDD.EE...FF.GGGF.......DDD.
+    }
+  \end{tikzpicture}%
+}
+
+\newcommand{\pixelartlogobw}[1][colors=mono, stack]{%
+  \begin{tikzpicture}[scale={\f@size/400}]
+    \draw (33, 0) node[opacity=0, anchor=south, inner sep=0pt]{\texttt{PixelArt}};
+  \tikzpixelart[#1]{(0, 0)}{
+      111111...11...................111...............1...............1...
+      .11..11..11....................11...11..11.....111.............11...
+      .11..11........................11..11111111...11.11............11...
+      .11..11.111..11....11..11111...11.1111111111.11...11.11.111..111111.
+      .11111...11...11..11..11...11..11.1111111111.11...11..111.11...11...
+      .11......11....1111...1111111..11.1111111111.1111111..11..11...11...
+      .11......11.....11....11.......11..11111111..11...11..11.......11...
+      .11......11....1111...11.......11...111111...11...11..11.......11...
+      .11......11...11..11..11...11..11....1111....11...11..11.......11.11
+      1111....1111.11....11..11111..1111....11.....11...11.1111.......111.
+    }
+  \end{tikzpicture}%
+}
+
+\newcommand{\pixelartheartbw}[1][colors=mono, tikz={scale={\f@size/300}, baseline=.1em}, stack]{%
+  \pixelart[#1]{
+    ..11..11..
+    .11111111.
+    1111111111
+    1111111111
+    1111111111
+    .11111111.
+    ..111111..
+    ...1111...
+    ....11....
+  }%
+}
+
+\newcommand{\pixelartnamebw}[1][colors=mono, stack]{%
+  \begin{tikzpicture}[scale={\f@size/400}]
+    \draw (28, 0) node[opacity=0, anchor=south, inner sep=0pt]{\texttt{PixelArt}};
+  \tikzpixelart[#1]{(0, 0)}{
+      111111...11...................111.....1...............1...
+      .11..11..11....................11....111.............11...
+      .11..11........................11...11.11............11...
+      .11..11.111..11....11..11111...11..11...11.11.111..111111.
+      .11111...11...11..11..11...11..11..11...11..111.11...11...
+      .11......11....1111...1111111..11..1111111..11..11...11...
+      .11......11.....11....11.......11..11...11..11.......11...
+      .11......11....1111...11.......11..11...11..11.......11...
+      .11......11...11..11..11...11..11..11...11..11.......11.11
+      1111....1111.11....11..11111..1111.11...11.1111.......111.
+    }
+  \end{tikzpicture}%
+}
+
+\makeatother

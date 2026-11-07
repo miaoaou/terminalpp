@@ -1,0 +1,21 @@
+name thumbs
+category Package
+revision 33134
+shortdesc Create thumb indexes
+relocated 1
+longdesc The package puts running, customizable thumb marks in the outer
+longdesc margin, moving downward as the chapter number (or whatever
+longdesc shall be marked by the thumb marks) increases. Additionally an
+longdesc overview page/table of thumb marks can be added automatically,
+longdesc which gives the names of the thumbed objects, the page where
+longdesc the object/thumb mark first appears, and the thumb mark itself
+longdesc at its correct position. The thumb marks are useful for large
+longdesc documents (such as reference guides, anthologies, etc.), where
+longdesc a quick and easy way to find (for example) a chapter is needed.
+runfiles size=14
+ RELOC/tex/latex/thumbs/thumbs.sty
+catalogue-ctan /macros/latex/contrib/thumbs
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics layout-page
+catalogue-version 1.0q

@@ -1,0 +1,640 @@
+%%
+%% This is file `phfcc.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% phfcc.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016 by Philippe Faist, philippe.faist@bluewin.ch
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{phfcc}
+    [2021/10/06 v2.0 phfcc package]
+\RequirePackage{xkeyval}
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\RequirePackage{xcolor}
+\def\phfCommentingDefaultStartCmds{}
+\def\phfCommentingDefaultEndCmds{}
+\def\phfCommentingDefaultFont{}
+\def\phfCommentingDefaultSpacing{0pt}
+\def\phfCommentingDefaultBegin{}
+\def\phfCommentingDefaultEnd{}
+\def\phfCommentingDefaultCFont{\normalfont\sffamily}
+\def\phfCommentingDefaultCSpacing{0.2em}
+\def\phfCommentingDefaultCBegin{[\,}
+\def\phfCommentingDefaultCEnd{\,]}
+\def\phfCommentingDefaultRmFont{\small\itshape}%\itshape\notesmaller[0.9]}
+\def\phfCommentingDefaultRmSpacing{.3em}
+\def\phfCommentingDefaultRmBegin{%
+  \mbox{}\vrule height .55ex depth -.45ex width 1.4em\relax\hspace*{0.2em}%
+  \vrule height .55ex depth -.45ex width 0.6em\relax
+  \hspace*{-2em}}
+\def\phfCommentingDefaultRmEnd{%
+  \hspace*{-2em}%
+  \vrule height .55ex depth -.45ex width 0.6em\relax\hspace*{0.2em}%
+  \vrule height .55ex depth -.45ex width 1.4em\relax}
+\def\phfCommentingDefaultIFont{\large\bfseries}
+\def\phfCommentingDefaultISpacing{0.25em}
+\def\phfCommentingDefaultIBegin{!\hspace*{0.1em}!\hspace*{0.1em}!~}
+\def\phfCommentingDefaultIEnd{~!\hspace*{0.1em}!\hspace*{0.1em}!}
+\definecolor{phfcc0}{RGB}{0,148,240} % blue-y
+\definecolor{phfcc1}{RGB}{242,108,13} % orange-brown-y
+\definecolor{phfcc2}{RGB}{65,149,42} % green-y
+\definecolor{phfcc3}{RGB}{128,55,134} % purple-y
+\definecolor{phfcc4}{RGB}{0,129,129} % blue-green-y
+\definecolor{phfcc5}{RGB}{148,7,24} % dark red / burgundy
+\definecolor{phfcc6}{RGB}{160,120,0} % brownish
+\definecolor{phfcc7}{RGB}{35,195,155} % aqua-ish
+\csdef{phf@cc@presetcolor@0}{phfcc0}
+\csdef{phf@cc@presetcolor@1}{phfcc1}
+\csdef{phf@cc@presetcolor@2}{phfcc2}
+\csdef{phf@cc@presetcolor@3}{phfcc3}
+\csdef{phf@cc@presetcolor@4}{phfcc4}
+\csdef{phf@cc@presetcolor@5}{phfcc5}
+\csdef{phf@cc@presetcolor@6}{phfcc6}
+\csdef{phf@cc@presetcolor@7}{phfcc7}
+\def\phf@cc@usedcolors{|}
+\def\phf@cc@nextcolor@#1{%
+  \ifcsname phf@cc@presetcolor@#1\endcsname% try preset
+    \edef\phf@tmp@testxx{%
+      \noexpand\in@{|\csname phf@cc@presetcolor@#1\endcsname|}{\phf@cc@usedcolors}}%
+    \phf@tmp@testxx
+    \ifin@% color already used, try next
+      \expandafter\phf@cc@nextcolor@\expandafter{\the\numexpr#1+1\relax}%
+    \else
+      \def\phf@cc@thecolor{\csname phf@cc@presetcolor@#1\endcsname}% good, use
+    \fi
+  \else% out of colors, fallback to red
+    \def\phf@cc@thecolor{red}%
+  \fi
+}
+\def\phf@cc@getcolor#1{%
+  \edef\phf@tmp@xyz{#1}%
+  \if\relax\detokenize\expandafter{\phf@tmp@xyz}\relax
+    \phf@cc@nextcolor@{0}%
+  \else
+    \edef\phf@cc@thecolor{#1}%
+  \fi}
+\def\phfcc@hook@phfmkccstyle@setstyle@noop#1{}
+\let\phfcc@hook@phfmkccstyle@setstyle\phfcc@hook@phfmkccstyle@setstyle@noop
+\define@cmdkey{phfmkccstyle}{style}{\phfcc@hook@phfmkccstyle@setstyle{#1}}
+
+\define@cmdkey{phfmkcc}{color}{}
+\define@cmdkey{phfmkcc}{initials}{}
+\define@cmdkey{phfmkcc}{formatinitials}{}
+\newtoks\cmdKV@phfmkcc@startcmds
+\newtoks\cmdKV@phfmkcc@endcmds
+\define@key{phfmkcc}{startcmds}{%
+  \cmdKV@phfmkcc@startcmds=\expandafter{\the\cmdKV@phfmkcc@startcmds#1}%
+}
+\define@key{phfmkcc}{endcmds}{%
+  \edef\x{\unexpanded{#1}\the\cmdKV@phfmkcc@endcmds}%
+  \cmdKV@phfmkcc@endcmds=\expandafter{\x}%
+}
+\define@cmdkey{phfmkcc}{font}{}
+\define@cmdkey{phfmkcc}{spacing}{}
+\define@cmdkey{phfmkcc}{begin}{}
+\define@cmdkey{phfmkcc}{end}{}
+\define@cmdkey{phfmkcc}{cfont}{}
+\define@cmdkey{phfmkcc}{cspacing}{}
+\define@cmdkey{phfmkcc}{cbegin}{}
+\define@cmdkey{phfmkcc}{cend}{}
+\define@cmdkey{phfmkcc}{rmfont}{}
+\define@cmdkey{phfmkcc}{rmspacing}{}
+\define@cmdkey{phfmkcc}{rmbegin}{}
+\define@cmdkey{phfmkcc}{rmend}{}
+\define@cmdkey{phfmkcc}{ifont}{}
+\define@cmdkey{phfmkcc}{ispacing}{}
+\define@cmdkey{phfmkcc}{ibegin}{}
+\define@cmdkey{phfmkcc}{iend}{}
+\define@cmdkey{phfmkcc}{groupcmd}{}
+\presetkeys{phfmkcc}{%
+  color={},%
+  initials={},%
+  formatinitials={default},%
+  startcmds={\phfCommentingDefaultStartCmds},%
+  endcmds={\phfCommentingDefaultEndCmds},%
+  font={\phfCommentingDefaultFont},%
+  spacing={\phfCommentingDefaultSpacing},%
+  begin={\phfCommentingDefaultBegin},%
+  end={\phfCommentingDefaultEnd},%
+  cfont={\phfCommentingDefaultCFont},%
+  cspacing={\phfCommentingDefaultCSpacing},%
+  cbegin={\phfCommentingDefaultCBegin},%
+  cend={\phfCommentingDefaultCEnd},%
+  rmfont={\phfCommentingDefaultRmFont},%
+  rmspacing={\phfCommentingDefaultRmSpacing},%
+  rmbegin={\phfCommentingDefaultRmBegin},%
+  rmend={\phfCommentingDefaultRmEnd},%
+  ifont={\phfCommentingDefaultIFont},%
+  ispacing={\phfCommentingDefaultISpacing},%
+  ibegin={\phfCommentingDefaultIBegin},%
+  iend={\phfCommentingDefaultIEnd},%
+  groupcmd={\@firstofone}%
+}{}
+\newcommand\phfDefineCommentingStyle[2]{%
+  \csdef{phfcc@style@#1}{#2}%
+}
+\def\phfcc@default@style{}
+\def\phfcc@hook@phfmkccstyle@setstyle@savestyle#1{%
+  \xdef\phfcc@default@style{#1}%
+}
+\newcommand\phfSetDefaultCommentingStyle[1]{%
+  \let\phfcc@hook@phfmkccstyle@setstyle\phfcc@hook@phfmkccstyle@setstyle@savestyle
+  \setkeys*{phfmkccstyle}{#1}%
+  \let\phfcc@hook@phfmkccstyle@setstyle\phfcc@hook@phfmkccstyle@setstyle@noop
+  \edef\x{\noexpand\presetkeys{phfmkcc}{\expandonce\XKV@rm}{}}%
+  \x
+}
+\newtoks\phfcc@val@expanded@keyval
+\def\phfcc@expandstylekeys#1#2{%
+  \def\phfcc@val@expanded@preexpandstyles{#1}%
+  \phfcc@val@expanded@keyval={#2}%
+  \loop
+    \phfcc@expandstylekeys@once
+    \def\phfcc@val@expanded@preexpandstyles{}%
+  \ifnum\phfcc@val@expanded@needmore=1\repeat
+}
+\def\phfcc@expandstylekeys@once{%
+  \def\cmdKV@phfmkccstyle@style{}
+  \edef\x{\noexpand\setkeys*{phfmkccstyle}{\the\phfcc@val@expanded@keyval}}%
+  \x
+  \if\relax\detokenize\expandafter{\cmdKV@phfmkccstyle@style}\relax
+    \def\phfcc@val@expanded@needmore{0}%
+  \else
+    \def\phfcc@val@expanded@needmore{1}%
+  \fi
+  \def\phfcc@val@fullstylekeyvals{}%
+  \edef\phfcc@tmp@thestylelist{%
+    \phfcc@val@expanded@preexpandstyles,\cmdKV@phfmkccstyle@style}%
+  \@for\phfcc@tmp@next:=\phfcc@tmp@thestylelist \do{%
+      \ifcsname phfcc@style@\phfcc@tmp@next \endcsname
+        \ifcsname phfcc@styleused@\phfcc@tmp@next \endcsname
+          \csname phfcc@styleused@\phfcc@tmp@next \endcsname
+        \fi
+        \edef\phfcc@tmp@stylekeyvals{%
+          \expandafter\expandonce\csname phfcc@style@\phfcc@tmp@next \endcsname}%
+        \edef\phfcc@val@fullstylekeyvals{%
+          \expandonce\phfcc@val@fullstylekeyvals,%
+          \expandonce\phfcc@tmp@stylekeyvals}%
+      \else
+        \if\relax\detokenize\expandafter{\phfcc@tmp@next}\relax
+        \else
+          \PackageError{phfcc}{Requested commenting style `\phfcc@tmp@next' %
+            is not defined}{}%
+        \fi
+      \fi
+    }%
+  \edef\x{\noexpand\phfcc@val@expanded@keyval={%
+      \expandonce\phfcc@val@fullstylekeyvals,%
+      \expandonce\XKV@rm}}%
+  \x
+}
+\gdef\phfcc@styleused@rmstrikethrough{%
+  \RequirePackage{lua-ul}
+  \newunderlinetype\beginPhfccStrikeThrough{%
+    \leaders\vrule height .55ex depth -.45ex}
+  \gdef\phfcc@styleused@rmstrikethrough{}% auto-destruct/only run once
+}
+\def\phfcc@style@rmstrikethrough{%
+  rmfont={\beginPhfccStrikeThrough},
+  rmbegin={},
+  rmend={},
+  rmspacing={2pt}
+}
+\def\phfcc@style@footcomments{%
+  startcmds={\phfcc@collectcommentfootnote},
+  endcmds={\phfcc@endcollectcommentfootnote},
+}
+\def\phfccfootcommenttextstyle{\footnotesize}
+\def\phfcc@collectcommentfootnote{%
+  \if@phfcc@iscomment
+    \expandafter\phfcc@collectfootnote
+  \fi}
+\def\phfcc@endcollectcommentfootnote{%
+  \if@phfcc@iscomment
+    \expandafter\phfcc@endcollectfootnote
+  \fi}
+\def\phfcc@collectfootnote{%
+  \phfcc@startfootnote
+  \insert\footins\bgroup%
+    \reset@font\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+    \@makefntext{%
+      \rule\z@\footnotesep\@finalstrut\strutbox\phfcc@hackrevtex@skippar}%
+    \ignorespaces
+    \footnotesize
+    \color{\phf@cc@val@cur color}%
+    \phfccfootcommenttextstyle
+}
+\def\phfcc@endcollectfootnote{%
+    \unskip
+    \color@endgroup
+  \egroup
+}
+\def\phfcc@startfootnote{%
+  \stepcounter\@mpfn
+  \protected@xdef\@thefnmark{\thempfn}%
+  \phfccfootcommentwrapfnmark{\@footnotemark}%
+}
+\def\phfccfootcommentwrapfnmark#1{%
+  [#1]%
+}
+\def\phfcc@hackrevtex@skippar{%
+  \@ifnextchar\par\@gobble\relax
+}
+\def\phf@cc@formatinitialsstyle@default{\phf@cc@formatinitialsstyle@margin}
+\def\phf@cc@formatinitialsstyle@hide#1{}
+\def\phf@cc@formatinitialsstyle@box#1{%
+  \hspace{0.25em}\relax
+  \raisebox{1pt}{{\fboxsep=1pt\relax\fbox{\phfccformatboxinitials{#1}}}}%
+  \hspace{0.25em}}
+\def\phf@cc@formatinitialsstyle@nobox#1{%
+  \hspace{0.25em}\relax
+  {\phfccformatboxinitials{#1}}%
+  \hspace{0.25em}}
+\def\phfccformatboxinitials#1{%
+  \normalfont\sffamily\tiny#1%
+}
+\def\phf@cc@formatinitialsstyle@footnote#1{%
+  \ifcsname phf@cc@valfmtinitialsfootnote@intlspage@\phf@cc@val@cur @\roman{page}\endcsname
+    % already displayed on this page, don't repeat
+  \else
+    \csgdef{phf@cc@valfmtinitialsfootnote@intlspage@\phf@cc@val@cur @\roman{page}}{1}%
+    \def\phf@cc@tmp@zz{\gdef\@thefnmark{}\@footnotetext}%
+    \expandafter\phf@cc@tmp@zz\expandafter{\expandafter{%
+        \expandafter\color\expandafter{\phf@cc@val@cur color}\phfCCChangesBy{#1}}}%
+  \fi
+}
+\robustify\phf@cc@formatinitialsstyle@footnote
+\def\phfCCChangesBy{Changes by\ }
+\def\phf@cc@formatinitialsstyle@margin#1{%
+  \ifcsname phf@cc@valfmtinitialsmargin@intlspage@\phf@cc@val@cur
+    @\roman{page}\endcsname
+  \else
+    \phf@cc@margin@ifchecks{%
+      \phf@cc@margin@emit{#1}%
+    }%
+  \fi
+}
+\robustify\phf@cc@formatinitialsstyle@margin
+\def\phf@cc@margin@ifchecks#1{%
+  \phf@cc@ififexists{ifmeasuring@}{%
+    \message{Detected first pass in environment, not emitting margin
+      initials label this time.}%
+  }{%
+    \phf@cc@ififexists{if@inlabel}{%
+      \message{Detected comment in latex item label, not emitting margin
+        initials at this time to avoid messing up everything.}%
+    }{%
+      #1%
+    }%
+  }%
+}
+\def\phf@cc@ififexists#1#2#3{%
+  \ifcsname #1\endcsname
+    \def\x{\phf@cc@ififexists@{#1}{#2}{#3}}%
+  \else
+    \def\x{#3}%
+  \fi
+  \x
+}
+\def\phf@cc@ififexists@#1#2#3{%
+  \csname #1\endcsname
+    #2%
+  \else
+    #3%
+  \fi
+}
+\newbox\phf@cc@margin@labelbox
+\newdimen\phf@cc@margin@labelboxhgt
+\def\phf@cc@margin@emit#1{%
+  \setbox\phf@cc@margin@labelbox=\hbox{\strut
+    \expandafter\color\expandafter{\phf@cc@val@cur color}%
+    \fboxsep=1pt\relax
+    \phfccformatmargininitials{#1}}%
+  \phf@cc@margin@labelboxhgt=\ht\phf@cc@margin@labelbox
+  \phf@cc@createmarginnote
+  \csgdef{phf@cc@valfmtinitialsmargin@intlspage@\phf@cc@val@cur%
+    @\roman{page}}{1}%
+}%
+\def\phfccformatmargininitials#1{%
+  \fbox{\normalfont\sffamily\footnotesize #1}%
+}
+\def\phf@cc@createmarginnote{%
+  \marginnote[{\copy\phf@cc@margin@labelbox}]{\copy\phf@cc@margin@labelbox}[%
+    \phf@cc@marginextractvshift]%
+  \phf@cc@savepos
+  \protected@write\@auxout{}{%
+    \string\newphfccmarginnote{%
+      {\@mn@thispage}%
+      {\@mn@atthispage}%
+      {\noexpand\number\phf@cc@lastypos sp}%
+      {\number\phf@cc@margin@labelboxhgt sp}%
+    }%
+  }%
+}
+\ifcsname pdfsavepos\endcsname
+  \let\phf@cc@savepos\pdfsavepos
+  \let\phf@cc@lastypos\pdflastypos
+\else
+  \ifcsname savepos\endcsname
+    \let\phf@cc@savepos\savepos
+    \let\phf@cc@lastypos\lastypos
+  \else
+    \PackageError{phfcc}{Cannot find appropriate \string\pdfsavepos\space
+      command, neither \string\pdfsavepos\space nor\string\savepos\space
+      are defined.}{}
+  \fi
+\fi
+\def\phf@cc@marginextractvshift{%
+  \ifcsname phfccmn@\@mn@thispage.\@mn@atthispage\endcsname
+    \expandafter\expandafter\expandafter\expandafter\expandafter
+    \expandafter\expandafter\@firstofone
+      \expandafter\expandafter\expandafter\@secondoftwo
+        \csname phfccmn@\@mn@thispage.\@mn@atthispage\endcsname
+  \else
+    \z@
+  \fi
+}
+\def\phf@cc@marginlastmarginnoteypos{}
+\newdimen\phf@cc@marginvshift
+\def\newphfccmarginnote#1{\newphfccmarginnote@#1}
+\def\newphfccmarginnote@#1#2#3#4{%
+  \phf@cc@marginvshift=\z@
+    \ifnum#2>0\relax
+      \phf@cc@margin@calculatevshift{#1}{#2}{#3}{#4}%
+    \else\fi
+  \csxdef{phfccmn@#1.#2}{%
+    {{#3}{#4}}{\number\phf@cc@marginvshift sp}%
+  }%
+}
+\newdimen\phfccmargininitialssep
+\phfccmargininitialssep=2\p@
+\newcount\phf@cc@tmp@cntiter
+\def\phf@cc@margin@calculatevshift#1#2#3#4{%
+  \phf@cc@marginvshift=\z@
+  \phf@cc@tmp@cntiter=0
+  \phf@cc@margin@calculatevshift@{#1}{#2}{#3}{#4}%
+}
+\def\phf@cc@margin@calculatevshift@#1#2#3#4{%
+  \ifnum\phf@cc@tmp@cntiter<#2\relax
+    \ifcsname phfccmn@#1.\the\phf@cc@tmp@cntiter\endcsname
+      \expandafter\let\expandafter
+          \phf@cc@tmp\csname phfccmn@#1.\the\phf@cc@tmp@cntiter\endcsname
+      \edef\phf@cc@tmp@otherypos{%
+        \expandafter\expandafter\expandafter\@firstoftwo
+          \expandafter\@firstoftwo \phf@cc@tmp}%
+      \edef\phf@cc@tmp@otherhgt{%
+        \expandafter\expandafter\expandafter\@secondoftwo
+          \expandafter\@firstoftwo \phf@cc@tmp}%
+      \edef\phf@cc@tmp@othervshift{%
+        \expandafter\expandafter\expandafter\@firstofone
+          \expandafter\@secondoftwo \phf@cc@tmp}%
+      \ifdim\dimexpr\phf@cc@tmp@otherypos-\phf@cc@tmp@othervshift
+            >\dimexpr#3-#4-\phf@cc@marginvshift\relax
+        \ifdim\dimexpr\phf@cc@tmp@otherypos-\phf@cc@tmp@otherhgt-\phf@cc@tmp@othervshift
+              <\dimexpr#3-\phf@cc@marginvshift\relax
+          \@tempdima=\dimexpr
+              \phfccmargininitialssep
+              +(#3-\phf@cc@marginvshift)%
+              -(\phf@cc@tmp@otherypos-\phf@cc@tmp@otherhgt-\phf@cc@tmp@othervshift)%
+              \relax
+          %\message{*** phfcc DEBUG: overlap detected of note #1.#2 with
+          %  note #1.\the\phf@cc@tmp@cntiter, increasing vshift of note
+          %  number #2 on page #1 by \the\@tempdima \space ***}%
+          \advance\phf@cc@marginvshift \@tempdima
+          \phf@cc@tmp@cntiter=\z@\relax
+        \else\fi
+      \else\fi
+    \else\fi
+    \advance\phf@cc@tmp@cntiter 1\relax
+    \phf@cc@margin@calculatevshift@{#1}{#2}{#3}{#4}%
+  \fi
+}
+\newcommand\phfMakeCommentingCommand[2][]{%
+  \cmdKV@phfmkcc@startcmds={}%
+  \cmdKV@phfmkcc@endcmds={}%
+  \edef\x{\noexpand\phfcc@expandstylekeys{\phfcc@default@style}{\unexpanded{#1}}}%
+  \x
+  %\setrmkeys{phfmkcc}%
+  \edef\x{\noexpand\setkeys{phfmkcc}{\the\phfcc@val@expanded@keyval}}%
+  \x
+  \phf@cc@getcolor{\cmdKV@phfmkcc@color}%
+  \colorlet{#2color}{\phf@cc@thecolor}%
+  \edef\phf@tmp@xxappcmd{\noexpand\appto\noexpand\phf@cc@usedcolors{\phf@cc@thecolor|}}%
+  \phf@tmp@xxappcmd
+  \colorlet{#2rmcolor}{#2color!70!gray!55!white}%
+  \colorlet{#2rmcolorlink}{blue!40!#2rmcolor}%
+  \edef\phf@tmp@xxx{\cmdKV@phfmkcc@initials}%
+  \if\relax\detokenize\expandafter{\phf@tmp@xxx}\relax
+    \csedef{phf@cc@val@#2@initials}{#2}%
+  \else
+    \csedef{phf@cc@val@#2@initials}{\cmdKV@phfmkcc@initials}%
+  \fi
+  \ifcsname phf@cc@formatinitialsstyle@%
+      \detokenize\expandafter{\cmdKV@phfmkcc@formatinitials}\endcsname%
+    \expandafter\def\expandafter\phf@cc@tmp@xzx\expandafter{%
+      \csname phf@cc@formatinitialsstyle@%
+          \detokenize\expandafter{\cmdKV@phfmkcc@formatinitials}\endcsname}%
+    \csedef{phf@cc@val@#2@formatinitials}{\expandonce\phf@cc@tmp@xzx}%
+  \else
+    \csedef{phf@cc@val@#2@formatinitials}{\expandonce\cmdKV@phfmkcc@formatinitials}%
+  \fi
+  \csedef{phf@cc@val@#2@startcmds}{\the\cmdKV@phfmkcc@startcmds}%
+  \csedef{phf@cc@val@#2@endcmds}{\the\cmdKV@phfmkcc@endcmds}%
+  %\message{***** STARTCMDS ARE \detokenize\expandafter{\the\cmdKV@phfmkcc@startcmds} *****}%
+  %\message{***** ENDCMDS ARE \detokenize\expandafter{\the\cmdKV@phfmkcc@endcmds} *****}%
+  \csedef{phf@cc@val@#2@font}{\expandonce\cmdKV@phfmkcc@font}%
+  \csedef{phf@cc@val@#2@spacing}{\expandonce\cmdKV@phfmkcc@spacing}%
+  \csedef{phf@cc@val@#2@begin}{\expandonce\cmdKV@phfmkcc@begin}%
+  \csedef{phf@cc@val@#2@end}{\expandonce\cmdKV@phfmkcc@end}%
+  \csedef{phf@cc@val@#2@cfont}{\expandonce\cmdKV@phfmkcc@cfont}%
+  \csedef{phf@cc@val@#2@cspacing}{\expandonce\cmdKV@phfmkcc@cspacing}%
+  \csedef{phf@cc@val@#2@cbegin}{\expandonce\cmdKV@phfmkcc@cbegin}%
+  \csedef{phf@cc@val@#2@cend}{\expandonce\cmdKV@phfmkcc@cend}%
+  \csedef{phf@cc@val@#2@rmfont}{\expandonce\cmdKV@phfmkcc@rmfont}%
+  \csedef{phf@cc@val@#2@rmspacing}{\expandonce\cmdKV@phfmkcc@rmspacing}%
+  \csedef{phf@cc@val@#2@rmbegin}{\expandonce\cmdKV@phfmkcc@rmbegin}%
+  \csedef{phf@cc@val@#2@rmend}{\expandonce\cmdKV@phfmkcc@rmend}%
+  \csedef{phf@cc@val@#2@ifont}{\expandonce\cmdKV@phfmkcc@ifont}%
+  \csedef{phf@cc@val@#2@ispacing}{\expandonce\cmdKV@phfmkcc@ispacing}%
+  \csedef{phf@cc@val@#2@ibegin}{\expandonce\cmdKV@phfmkcc@ibegin}%
+  \csedef{phf@cc@val@#2@iend}{\expandonce\cmdKV@phfmkcc@iend}%
+  \csedef{phf@cc@val@#2@groupcmd}{\expandonce\cmdKV@phfmkcc@groupcmd}%
+  \csdef{#2}{\phf@cc@do{#2}}%
+  \expandafter\robustify\csname #2\endcsname%
+  \csdef{end#2}{\phf@cc@end}%
+  \expandafter\robustify\csname end#2\endcsname%
+}
+\newif\ifphf@cc@disabled
+\phf@cc@disabledfalse
+\def\phfDisableCommentingCommands{%
+  \phf@cc@disabledtrue
+}
+\newif\if@phfcc@iscomment
+\newif\if@phfcc@isremoved
+\newif\if@phfcc@isimportant
+\def\phf@cc@begin{%
+  \color{\phf@cc@val@cur color}%
+    \leavevmode% beurk, see above
+  \phf@cc@helper@pushgrpcmds{%
+    \csname phf@cc@val@\phf@cc@val@cur @startcmds\endcsname
+    \hspace{\phf@cc@val@spacing}%
+    \phf@cc@showinitials%
+  }{%
+    \hspace{\phf@cc@val@spacing}%
+    \csname phf@cc@val@\phf@cc@val@cur @endcmds\endcsname
+  }%
+  \if@phfcc@iscomment
+    \if@phfcc@isimportant
+      \phf@cc@helper@pushgrpcmdsX{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @font\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cfont\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @ifont\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cbegin\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @ibegin\endcsname
+      }{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @iend\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cend\endcsname
+      }%
+      \edef\phf@cc@val@spacing{\csname phf@cc@val@\phf@cc@val@cur @ispacing\endcsname}%
+    \else
+      \phf@cc@helper@pushgrpcmdsX{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @font\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cfont\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cbegin\endcsname
+      }{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @cend\endcsname
+      }%
+      \edef\phf@cc@val@spacing{\csname phf@cc@val@\phf@cc@val@cur @cspacing\endcsname}%
+    \fi
+  \else
+    \if@phfcc@isimportant
+      \phf@cc@helper@pushgrpcmdsX{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @font\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @ifont\endcsname
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @ibegin\endcsname
+      }{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @iend\endcsname
+      }%
+      \edef\phf@cc@val@spacing{%
+        \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @ispacing\endcsname%
+      }%
+    \else
+      \if@phfcc@isremoved
+        \phf@cc@helper@pushgrpcmdsX{%
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @font\endcsname
+          \noexpand\color{\phf@cc@val@cur rmcolor}%
+          \noexpand\colorlet{docnotelinkcolor}{\phf@cc@val@cur rmcolorlink}%
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @rmfont\endcsname
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @rmbegin\endcsname
+        }{%
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @rmend\endcsname
+        }%
+        \edef\phf@cc@val@spacing{\csname phf@cc@val@\phf@cc@val@cur @rmspacing\endcsname}%
+      \else
+        \phf@cc@helper@pushgrpcmdsX{%
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @font\endcsname
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @begin\endcsname
+        }{%
+          \expandafter\noexpand\csname phf@cc@val@\phf@cc@val@cur @end\endcsname
+        }%
+        \edef\phf@cc@val@spacing{\csname phf@cc@val@\phf@cc@val@cur @spacing\endcsname}%
+      \fi
+    \fi
+  \fi
+  \phf@cc@val@grpcmds
+}
+\def\phf@cc@helper@pushgrpcmds#1#2{%
+  \appto\phf@cc@val@grpcmds{#1}%
+  \preto\phf@cc@val@grpendcmds{#2}%
+}
+\def\phf@cc@helper@pushgrpcmdsX#1#2{% expands arguments with edef
+  \edef\phfcc@tmp@x{\noexpand\phf@cc@helper@pushgrpcmds{#1}{#2}}%
+  \phfcc@tmp@x
+}
+\def\phf@cc@end{%
+  \phf@cc@val@grpendcmds
+  \endgroup
+}
+\def\phf@cc@showinitials{%
+  \edef\phf@cc@tmpx{%
+    \expandafter\expandonce\csname phf@cc@val@\phf@cc@val@cur @initials\endcsname}%
+  \expandafter\notblank\expandafter{\phf@cc@tmpx}{%
+    \csname phf@cc@val@\phf@cc@val@cur @formatinitials%
+        \expandafter\endcsname\expandafter{\phf@cc@tmpx}}{}%
+}
+\def\phf@cc@do#1{%
+  \ifphf@cc@disabled
+    \PackageError{phfcc}{Commenting commands have been disabled
+      with \string\phfDisableCommentingCommands.}{}%
+  \fi
+  \begingroup
+    \@phfcc@iscommentfalse
+    \@phfcc@isremovedfalse
+    \@phfcc@isimportantfalse
+    \def\phf@cc@val@grpcmds{}%
+    \def\phf@cc@val@grpendcmds{}%
+    \def\phf@cc@val@spacing{0pt}%
+    \edef\phf@cc@val@cur{#1}%
+    \@ifstar\phf@cc@star\phf@cc@nostar%
+}
+\def\phf@cc@nostar{\@ifnextchar!\phf@cc@important\phf@cc@grp}
+\long\def\phf@cc@star{%
+  \@phfcc@isremovedtrue
+  \phf@cc@grp}
+\long\def\phf@cc@important!{%
+  \@phfcc@isimportanttrue
+  \phf@cc@grp}
+\def\phf@cc@grp{%
+  \@ifnextchar[\phf@cc@comment\phf@cc@grpnocomment%]
+}
+\def\phf@cc@grpnocomment{%
+  \@ifnextchar\bgroup{\phf@cc@grpwarg}{\phf@cc@begin}}
+\long\def\phf@cc@grpwarg#1{%
+  \phf@cc@begin
+  \csname phf@cc@val@\phf@cc@val@cur @groupcmd\endcsname
+  {#1}%
+  \phf@cc@end
+}
+\NewDocumentCommand\phf@cc@comment{+O{}}{%
+  \@phfcc@iscommenttrue
+  \phf@cc@begin%
+  #1%
+  \phf@cc@end%
+}
+\SetupKeyvalOptions{
+   family=phfcc,
+   prefix=phfcc@opt@
+}
+\DeclareBoolOption[true]{usemarginnote}
+\ProcessKeyvalOptions*
+\ifphfcc@opt@usemarginnote
+  \RequirePackage{marginnote}
+\fi
+\endinput
+%%
+%% End of file `phfcc.sty'.

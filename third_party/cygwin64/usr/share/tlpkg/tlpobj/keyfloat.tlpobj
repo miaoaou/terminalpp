@@ -1,0 +1,28 @@
+name keyfloat
+category Package
+revision 69399
+shortdesc Provides a key/value interface for generating floats
+relocated 1
+longdesc The keyfloat package provides a key/value user interface for
+longdesc quickly creating figures with a single image each, figures with
+longdesc arbitrary contents, tables, subfloats, rows of floats, floats
+longdesc located [H]ere, floats in the [M]argin, and floats with text
+longdesc [W]rapped around them. Key/value combinations may specify a
+longdesc caption and label, a width proportional to \linewidth, a fixed
+longdesc width and/or height, rotation, scaling, a tight or loose frame,
+longdesc an \arraystretch, a continued float, additional supplemental
+longdesc text, and an artist/author's name with automatic index entry.
+longdesc When used with the tocdata package, the name also appears in
+longdesc the List of Figures. Floats may be placed into a row
+longdesc environment, and are typeset to fit within the given number of
+longdesc columns, continuing to the next row if necessary. Nested
+longdesc sub-rows may be used to generate layouts such as two small
+longdesc figures placed vertically next to one larger figure. Subfloats
+longdesc are supported by two environments.
+runfiles size=10
+ RELOC/tex/latex/keyfloat/keyfloat.sty
+catalogue-contact-bugs https://github.com/bdtc/keyfloat
+catalogue-ctan /macros/latex/contrib/keyfloat
+catalogue-license lppl1.3
+catalogue-topics float
+catalogue-version 2.09

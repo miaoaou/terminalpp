@@ -1,0 +1,10 @@
+name luatex.x86_64-cygwin
+category TLCore
+revision 70560
+shortdesc x86_64-cygwin files of luatex
+binfiles arch=x86_64-cygwin size=1606
+ bin/x86_64-cygwin/cygtexlua53-5.dll
+ bin/x86_64-cygwin/dviluatex
+ bin/x86_64-cygwin/luatex.exe
+ bin/x86_64-cygwin/texlua
+ bin/x86_64-cygwin/texluac

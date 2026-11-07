@@ -1,0 +1,16 @@
+name datax
+category Package
+revision 61772
+shortdesc Import individual data from script files
+relocated 1
+longdesc This LaTeX package uses pgfkeys to retrieve individual data
+longdesc points generated in some script. Analogous to how one might
+longdesc generate graphics in a script and import those graphics into a
+longdesc LaTeX document.
+runfiles size=1
+ RELOC/tex/latex/datax/datax.sty
+catalogue-contact-repository https://github.com/Datax-package/Datax.sty
+catalogue-ctan /macros/latex/contrib/datax
+catalogue-license lppl1.3
+catalogue-topics data-import
+catalogue-version 1.2.0

@@ -1,0 +1,17 @@
+name orcidlink
+category Package
+revision 69253
+shortdesc Insert hyperlinked ORCiD logo
+relocated 1
+longdesc This package provides a command to insert the ORCiD logo, which
+longdesc is hyperlinked to the URL of the researcher whose iD was
+longdesc specified.
+runfiles size=1
+ RELOC/tex/latex/orcidlink/orcidlink.sty
+catalogue-also doi
+catalogue-contact-bugs https://github.com/duetosymmetry/orcidlink-LaTeX-command/issues
+catalogue-contact-repository https://github.com/duetosymmetry/orcidlink-LaTeX-command
+catalogue-ctan /macros/latex/contrib/orcidlink
+catalogue-license lppl1.3c
+catalogue-topics hyper graphics-symb
+catalogue-version 1.0.5

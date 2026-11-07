@@ -1,0 +1,19 @@
+name tikz-dependency
+category Package
+revision 54512
+shortdesc A library for drawing dependency graphs
+relocated 1
+longdesc The package provides a library that draws together existing
+longdesc TikZ facilities to make a comfortable environment for drawing
+longdesc dependency graphs. Basic facilities of the package include a
+longdesc lot of styling facilities, to let you personalize the look and
+longdesc feel of the graphs.
+runfiles size=20
+ RELOC/tex/latex/tikz-dependency/pgfmanual.code.tex
+ RELOC/tex/latex/tikz-dependency/pgfmanual.pdflinks.code.tex
+ RELOC/tex/latex/tikz-dependency/pgfmanual.prettyprinter.code.tex
+ RELOC/tex/latex/tikz-dependency/tikz-dependency.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-dependency
+catalogue-license lppl gpl2
+catalogue-topics linguistic tree pgf-tikz
+catalogue-version 1.2

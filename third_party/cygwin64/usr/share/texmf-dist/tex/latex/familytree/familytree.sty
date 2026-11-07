@@ -1,0 +1,1004 @@
+%%
+%% This is file `familytree.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% familytree.dtx  (with options: `package')
+%% ft-lib.dtx  (with options: `package')
+%% ft-individual.dtx  (with options: `package')
+%% ft-sibling.dtx  (with options: `package')
+%% ft-gens.dtx  (with options: `package')
+%% ft-marriage.dtx  (with options: `package')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from familytree.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file familytree.dtx ft-lib.dtx ft-individual.dtx ft-sibling.dtx ft-gens.dtx ft-marriage.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{familytree}%
+[2022/06/27 v3.1 familytree]
+\RequirePackage{relsize}
+\RequirePackage{xparse}
+\global\newlength{\ft@unit}%
+\@ifundefined{if@tate}{%
+  \global\newif\if@tate%
+  \global\ft@unit=1em%
+}{
+  \global\ft@unit=1zw%
+}%
+\newcommand{\ft@alias}[1]{% ft-less-name
+  \@ifundefined{#1}{%
+    \global\expandafter\expandafter\expandafter%
+      \let\expandafter\expandafter\csname#1\endcsname\expandafter%
+      =\csname ft#1\endcsname%
+  }{%
+    \message{skip alias to ft#1}%
+  }%
+}
+\NewDocumentCommand{\ftymd}{moo}{% year [month] [date]
+  \if@tate%
+  \tatechuyoko{#1}%
+  \IfValueT{#2}{\tatechuyoko{#2}}%
+  \IfValueT{#3}{\tatechuyoko{#3}}%
+  \else%
+  #1%
+  \IfValueT{#2}{\slash#2}%
+  \IfValueT{#3}{\slash#3}%
+  \fi%
+}
+\ft@alias{ymd}
+\newcommand{\ftundef}[1]{%
+  \@for\@temptokena:=#1\do{%
+    \global\expandafter\let\csname\@temptokena\endcsname=\relax%
+    \global\expandafter\let\csname\@temptokena nameCY\endcsname=\relax%
+    \global\expandafter\let\csname\@temptokena mrrgCY\endcsname=\relax%
+    \global\expandafter\let\csname\@temptokena hasmaleline\endcsname%
+      =\relax%
+  }%
+}
+\newif\ifft@box@has@maleline
+\newif\ifft@widest@has@no@maleline
+\newlength{\ft@len}
+\newlength{\ft@width}
+\newlength{\ft@height}
+\newlength{\ft@depth}
+\newlength{\ft@theight}
+\newlength{\ft@x}
+\newlength{\ft@xx}
+\newlength{\ft@y}
+\newlength{\ft@yy}
+\newcommand{\ft@namexdef}[2]{% name value
+  \global\expandafter\edef\csname#1\endcsname{#2}%
+  %\expandafter\xdef\csname#1\endcsname{#2}%
+  \ft@dbgmsg{xdef #1 #2}%
+}
+\newcommand{\ft@namexdefstrip}[2]{% name length
+  \ft@namexdef{#1}{\strip@pt#2}%
+}
+\newcommand{\ft@savenamebox}[2]{% name contents
+  \expandafter\savebox\expandafter{\csname#1\endcsname}{#2}%
+}
+\newcommand{\ft@newnamebox}[2]{% name contents
+  \global\expandafter\newsavebox\expandafter{\csname#1\endcsname}%
+  \ft@savenamebox{#1}{#2}%
+}
+\newcommand{\ft@nameboxsz}[4][]{% [width] name ht-value dp-value
+  \ifx#1\empty\else%
+  \expandafter\wd\csname#2\endcsname=#1%
+  \fi%
+  \expandafter\ht\csname#2\endcsname=#3%
+  \expandafter\dp\csname#2\endcsname=#4%
+  \ft@dbgmsg{#2 box, W \the\wd\@nameuse{#2}, H \the\ht\@nameuse{#2},%
+    D \the\dp\@nameuse{#2}}%
+}
+\newcommand{\ft@boxsz}[3]{% box ht-value dp-value
+  \expandafter\ht#1=#2%
+  \expandafter\dp#1=#3%
+  \ft@dbgmsg{#2 box, W \the\wd#1, H \the\ht#1, D \the\dp#1}%
+}
+\newcommand{\ft@list@append}[3]{% list element
+  \ifx#1\empty%
+  \xdef#1{#2}%
+  \else%
+  \xdef#1{#1,#2}%
+  \fi%
+}
+\iffalse
+\newcommand{\ft@detokenize}[1]{%
+  {%
+    \escapechar=`\ %
+    \catcode`\ =9%
+    %\string#1%
+    \detokenize{#1}%
+  }%
+}
+\fi
+\newif\ifftdbg
+\newcommand{\ft@dbgmsg}[1]{%
+  \ifftdbg%
+    \message{#1}%
+  \fi%
+}
+\newcommand{\ft@dbgframe}[2][0,0]{% [point x,y] width,height
+  \ifftdbg%
+    \put(#1){\framebox(#2){}}%
+  \fi%
+}
+\newcommand{\ft@dbgplot}[2][]{%
+  \ifftdbg%
+    \put(#2){\circle{1}{\tiny#1}}%
+  \fi%
+}%
+\newcommand{\ft@dbgbox}[2][]{% [extra-put] box
+  \ifftdbg%
+    \ft@len=\dimexpr\ht#2 + \dp#2\relax%
+    \begin{picture}(\strip@pt\wd#2,\strip@pt\ht#2)(0,-\strip@pt\dp#2)%
+      \ft@dbgframe[0,-\strip@pt\dp#2]{\strip@pt\wd#2,\strip@pt\ft@len}%
+      %\put(0,0){{\tiny\ft@detokenize{#2}}}%
+      %\put(0,-\strip@pt\dp#2){\usebox{#2}}%
+      \put(0,0){\usebox{#2}}%
+      #1%
+    \end{picture}%
+  \fi%
+}
+\newlength{\ft@cmarkbox@adopted@sep}
+\setlength{\ft@cmarkbox@adopted@sep}{4pt}
+\newlength{\ft@cmarkbox@length}
+\setlength{\ft@cmarkbox@length}{1\ft@unit}
+\newcommand{\ftcmarkboxcfg}[2]{% adopted-sep line-length
+  \ifx#1\empty\else%
+    \setlength{\ft@cmarkbox@adopted@sep}{#1}%
+  \fi%
+  \ifx#2\empty\else%
+    \setlength{\ft@cmarkbox@length}{#2}%
+  \fi%
+}
+\ft@alias{cmarkboxcfg}
+\chardef\fttop=0
+\chardef\ftbiological=1
+\chardef\ftadopted=2
+\chardef\ftblank=3
+\ft@alias{top}
+\ft@alias{biological}
+\ft@alias{adopted}
+\ft@alias{blank}
+\newsavebox{\ft@cmarkbox}
+\newlength{\ft@cmarkW}
+\newlength{\ft@indvdl@nameH}
+\newlength{\ft@indvdl@nameD}
+\newlength{\ft@indvdl@nameCY}
+\newcommand{\ft@do@cmarkdef}[4]{% cmarkbox-name cmark width line-length
+  \ft@savenamebox{#1}{%
+    \edef\@w{\strip@pt#3}%
+    \edef\@h{\strip@pt\ft@indvdl@nameH}%
+    \edef\@l{\strip@pt#4}%
+    \begin{picture}(\@w,\@h)%
+      \ft@dbgframe{\@w,\@h}%
+      \ifcase#2% fttop
+      \or% ftbiological
+        \put(0,\strip@pt\ft@indvdl@nameCY){\line(1,0){\@l}}%
+      \or% ftadopted
+        \ft@y=\dimexpr\ft@indvdl@nameCY%
+          + .5\ft@cmarkbox@adopted@sep\relax%
+        \put(0,\strip@pt\ft@y){\line(1,0){\@l}}%
+        \advance\ft@y -\ft@cmarkbox@adopted@sep%
+        \put(0,\strip@pt\ft@y){\line(1,0){\@l}}%
+      \or% \ftblank
+      \fi%
+    \end{picture}%
+  }%
+  \ft@nameboxsz{#1}{\ft@indvdl@nameH}{\ft@indvdl@nameD}%
+}
+\newcommand{\ft@cmarkdef}[4]{%
+  % cmarkbox-name cmark cmark-xlength cmark-space
+  \ft@savenamebox{#1}{}% empty
+  \ifcase#2% fttop
+  \else%
+    \ft@len=\dimexpr\ft@cmarkbox@length + #3\relax\relax%
+    \ifdim\ft@len>0pt%
+      \ft@do@cmarkdef{#1}{#2}{\dimexpr\ft@len + #4\relax}{\ft@len}%
+    \fi%
+  \fi%
+  \ft@dbgbox{\@nameuse{#1}}%
+}
+\newlength{\ft@optbox@vsp}
+\setlength{\ft@optbox@vsp}{.1\baselineskip}
+\newlength{\ft@optbox@indent}
+\setlength{\ft@optbox@indent}{1.1\ft@unit}
+\newcommand{\ft@optbox@font}{\relsize{-1}}%{\footnotesize}
+\newcommand{\ft@optbox@linestretch}{.75}
+\newcommand{\ftoptboxcfg}[4]{% vsp indent font linestretch
+  \ifx#1\empty\else%
+    \setlength{\ft@optbox@vsp}{#1}%
+  \fi%
+  \ifx#2\empty\else%
+    \setlength{\ft@optbox@indent}{#2}%
+  \fi%
+  \ifx#3\empty\else%
+    \renewcommand{\ft@optbox@font}{#3}%
+  \fi%
+  \ifx#4\empty\else%
+    \renewcommand{\ft@optbox@linestretch}{#4}%
+  \fi%
+}
+\ft@alias{optboxcfg}
+\newcommand{\ftmaleline}{ft@attr0}
+\let\ftfemaleline=\ftmaleline
+\let\ftpatrilineal=\ftmaleline
+\let\ftmatrilineal=\ftmaleline
+\newcommand{\fthaschild}{ft@attr1}
+\newcommand{\ftprivate}{ft@attr2}
+\ft@alias{maleline}
+\ft@alias{femaleline}
+\ft@alias{patrilineal}
+\ft@alias{matrilineal}
+\ft@alias{haschild}
+\ft@alias{private}
+\newcommand{\ft@optlist}[3]{% list box-name option-list
+  \edef\@male{\ftmaleline}%
+  \edef\@hasch{\fthaschild}%
+  \edef\@priv{\ftprivate}%
+  \@for\@temptokena:=#3\do{%
+    \edef\@opt{\@temptokena}%
+    \ft@dbgmsg{\@opt}%
+    \ifx\@opt\@male%
+      \global\ft@malelinetrue%
+      \ft@namexdef{#2hasmaleline}{\ftmaleline}%
+    \else%
+      \ifx\@opt\@hasch%
+        \ft@namexdef{#2haschild}{\fthaschild}%
+      \else%
+        \ifx\@opt\@priv%
+          \ft@namexdef{#2private}{\ftprivate}%
+        \else%
+          \ft@list@append{#1}{\@opt}%
+        \fi%
+      \fi%
+    \fi%
+  }%
+}
+\newsavebox{\ft@optbox}
+\newcommand{\ft@opt}[1]{% option-list
+  \savebox{\ft@optbox}{%
+    \hspace{\ft@cmarkW}%
+    \hspace{\ft@optbox@indent}%
+    \vbox{%
+      \def\baselinestretch{\ft@optbox@linestretch}%
+      \ft@optbox@font%
+      \vspace{\ft@optbox@vsp}%
+      \@for\@temptokena:=#1\do{%
+        \vss%
+        \hbox{\@temptokena}%
+        \setbox\@tempboxa=\hbox{\@temptokena}%
+        \global\ft@depth=\dp\@tempboxa%
+      }%
+    }%
+  }%
+  \ft@len=\dimexpr\ht\ft@optbox + \dp\ft@optbox - \ft@depth\relax%
+  \ft@boxsz{\ft@optbox}{\ft@len}{\ft@depth}%
+  \ft@dbgbox{\ft@optbox}%
+}
+\newlength{\ft@namebox@sp}
+\setlength{\ft@namebox@sp}{.25\ft@unit}
+\newcommand{\ft@namebox@font}{}% empty
+\newlength{\ft@namebox@maleline@sp}
+\setlength{\ft@namebox@maleline@sp}{.25\ft@unit}
+\newlength{\ft@namebox@maleline@length}
+\setlength{\ft@namebox@maleline@length}{1.5\ft@unit}
+\newcommand{\ftnameboxcfg}[4]{% sp font maleline-sp maleline-length
+  \ifx#1\empty\else%
+    \setlength{\ft@namebox@sp}{#1}%
+  \fi%
+  \ifx#2\empty\else%
+    \renewcommand{\ft@namebox@font}{#2}%
+  \fi%
+  \ifx#3\empty\else%
+    \setlength{\ft@namebox@maleline@sp}{#3}%
+  \fi%
+  \ifx#4\empty\else%
+    \setlength{\ft@namebox@maleline@length}{#4}%
+  \fi%
+}
+\ft@alias{nameboxcfg}
+\newif\ifft@maleline
+\newsavebox{\ft@malelinebox}
+\newsavebox{\ft@namebox}
+\newcommand{\ft@name}[3]{% box-name individual-name maleline-xlength
+  \setbox\@tempboxa=\hbox{\ft@namebox@font#2}%
+  \ft@len=\dimexpr\wd\@tempboxa + \ft@cmarkW%
+    + \ft@namebox@maleline@sp\relax%
+  \ft@namexdefstrip{#1nameX}{\ft@len}%
+  %
+  \ft@len=\dimexpr\wd\@tempboxa/2 + \ft@cmarkW\relax%
+  \ft@namexdefstrip{#1nameCX}{\ft@len}%
+  %
+  \def\@nm{\ft@namebox@font#2}%
+  \ifft@maleline%
+    % why are two 'relax'es necessary?
+    \@tempskipb=\dimexpr\ft@namebox@maleline@length%
+      - \ft@cmarkbox@length + #3\relax\relax%
+    \ifdim\@tempskipb>0pt%
+      \ft@cmarkdef{ft@malelinebox}{\ftbiological}{\@tempskipb}{0pt}%
+      \def\@nm{%
+        {\ft@namebox@font#2}%
+        \hspace{\ft@namebox@maleline@sp}%
+        \usebox{\ft@malelinebox}%
+      }%
+    \fi%
+  \fi%
+  \ft@dbgmsg{H \the\ht\@tempboxa, D \the\dp\@tempboxa}%
+  \ft@dbgmsg{H \the\ht\ft@cmarkbox, D \the\dp\ft@cmarkbox}%
+  \savebox{\ft@namebox}{%
+    \usebox{\ft@cmarkbox}%
+    \@nm%
+  }%
+  \ft@boxsz{\ft@namebox}{\ht\@tempboxa}{\dp\@tempboxa}%
+  \ft@dbgbox{\ft@namebox}%
+}
+\newlength{\ft@titlebox@indent}
+\setlength{\ft@titlebox@indent}{-.25\ft@unit}
+\newcommand{\ft@titlebox@font}{\relsize{-2}}%{\scriptsize}
+\newcommand{\ft@titlebox@linestretch}{.25}
+\newlength{\ft@titlebox@vsp}
+\setlength{\ft@titlebox@vsp}{.1\baselineskip}
+\newcommand{\fttitleboxcfg}[4]{% indent font linestretch vsp
+  \ifx#1\empty\else%
+    \setlength{\ft@titlebox@indent}{#1}%
+  \fi%
+  \ifx#2\empty\else%
+    \renewcommand{\ft@titlebox@font}{#2}%
+  \fi%
+  \ifx#3\empty\else%
+    \renewcommand{\ft@titlebox@linestretch}{#3}%
+  \fi%
+  \ifx#4\empty\else%
+    \setlength{\ft@titlebox@vsp}{#4}%
+  \fi%
+}
+\ft@alias{titleboxcfg}
+\newsavebox{\ft@titlebox}
+\newcommand{\ft@title}[1]{% title
+  \ft@len=\dimexpr\ft@cmarkW + \ft@titlebox@indent\relax%
+  \savebox{\ft@titlebox}{%
+    \vbox{%
+      \def\baselinestretch{\ft@titlebox@linestretch}%
+      \ft@titlebox@font%
+      %
+      \setbox\@tempboxa=\hbox{#1}%
+      \ft@dbgmsg{H \the\ht\@tempboxa, D \the\dp\@tempboxa}%
+      \global\ft@depth=\dp\@tempboxa%
+      \hbox{\hspace{\ft@len}#1}%
+      \vspace{\ft@titlebox@vsp}%
+      \global\advance\ft@depth \ft@titlebox@vsp%
+    }%
+  }%
+  \ft@dbgmsg{H \the\ht\ft@titlebox, D \the\dp\ft@titlebox}%
+  \ft@len=\dimexpr\ht\ft@titlebox + \dp\ft@titlebox - \ft@depth\relax%
+  \ft@boxsz{\ft@titlebox}{\ft@len}{\ft@depth}%
+  \ft@dbgbox{\ft@titlebox}%
+}
+\newcommand{\ft@indvdlbox@gen}[4]{%
+  % box-name title individual-name maleline-xlength
+  \ft@width=0pt%
+  \IfValueT{#2}{%
+      \ft@title{#2}%
+      \ft@width=\wd\ft@titlebox%
+  }%
+  \global\@tempswafalse%
+  \ifx\ft@indvdl@opts\empty\else%
+    \global\@tempswatrue%
+    \ft@opt{\ft@indvdl@opts}%
+    \ifdim\ft@width<\wd\ft@optbox%
+      \ft@width=\wd\ft@optbox%
+    \fi%
+  \fi%
+  \ft@name{#1}{#3}{#4}%
+}
+\newcommand{\ft@indvdlbox@calc}[2]{% box-name title
+  \global\ft@width=0pt%
+  \global\ft@height=0pt%
+  \global\ft@depth=0pt%
+  \def\ft@dpri##1{\ft@dbgmsg{##1 W \the\ft@width, H \the\ft@height,%
+      D \the\ft@depth}}%
+  \ft@dpri{h0}%
+  \IfValueT{#2}{%
+    \global\ft@width=\wd\ft@titlebox%
+    \global\ft@height=\dimexpr\ht\ft@titlebox + \dp\ft@titlebox\relax%
+    \ft@dpri{h1}%
+  }%
+  %
+  \global\advance\ft@height \ht\ft@namebox%
+  %
+  % mark this point of the height, to invert it later
+  \ft@y=\dimexpr\ft@height - \ft@indvdl@nameCY\relax%
+  %
+  \ifdim\ft@width<\wd\ft@namebox%
+    \global\ft@width=\wd\ft@namebox%
+  \fi%
+  \if@tempswa%
+    \global\advance\ft@height \dp\ft@namebox%
+  \else%
+    \global\ft@depth=\dp\ft@namebox%
+  \fi%
+  \ft@dpri{h2}%
+  %
+  \if@tempswa%
+    \ifdim\ft@width<\wd\ft@optbox%
+      \global\ft@width=\wd\ft@optbox%
+    \fi%
+    \global\advance\ft@height \ht\ft@optbox%
+    \global\ft@depth=\dp\ft@optbox%
+    \ft@dpri{h3}%
+  \fi%
+  \ft@dpri{h4}%
+  %
+  % invert the y
+  \ft@len=\dimexpr\ft@height - \ft@y\relax%
+  \ft@namexdefstrip{#1nameCY}{\ft@len}%
+}
+\newcommand{\ft@indvdlbox@layout}[2]{% box-name title
+  \ft@newnamebox{#1}{%
+    \edef\@w{\strip@pt\ft@width}%
+    \edef\@h{\strip@pt\ft@height}%
+    \begin{picture}(\@w,\@h)%
+      \ft@dbgframe{\@w,\@h}%
+      \ft@dbgplot{0,\@nameuse{#1nameCY}}%
+      %
+      \IfValueT{#2}{%
+        \advance\ft@height -\dimexpr\ht\ft@titlebox%
+          + \dp\ft@titlebox\relax%
+        \put(0,\strip@pt\ft@height){\usebox{\ft@titlebox}}%
+      }%
+      \advance\ft@height -\ht\ft@namebox%
+      \put(0,\strip@pt\ft@height){\usebox{\ft@namebox}}%
+      \advance\ft@height -\dp\ft@namebox%
+      \if@tempswa%
+        \advance\ft@height -\ht\ft@optbox%
+        \put(0,\strip@pt\ft@height){\usebox{\ft@optbox}}%
+      \fi%
+    \end{picture}%
+  }%
+  % height should hold the original value
+  \ft@nameboxsz{#1}{\ft@height}{\ft@depth}%
+}
+\newcommand{\ft@indvdlbox}[4]{%
+  % box-name title individual-name  maleline-xlength
+  \ft@indvdlbox@gen{#1}{#2}{#3}{#4}%
+  \ft@indvdlbox@calc{#1}{#2}%
+  \ft@indvdlbox@layout{#1}{#2}%
+  %
+  \ft@dbgbox[\ft@dbgplot{0,\@nameuse{#1nameCY}}%
+    \ft@dbgplot{\@nameuse{#1nameCX},\strip@pt\ft@height}%
+    \ft@dbgplot{\@nameuse{#1nameX},\strip@pt\ft@height}%
+  ]{\@nameuse{#1}}%
+}
+\NewDocumentCommand{\ftindvdldef}{O{\ftbiological}momoO{0pt}}{%
+  \setbox\@tempboxa=\hbox{\ft@namebox@font#4}%
+  \global\ft@indvdl@nameH=\ht\@tempboxa%
+  \global\ft@indvdl@nameD=\dp\@tempboxa%
+  \if@tate%
+    \global\ft@indvdl@nameCY%
+      =\dimexpr(\ft@indvdl@nameH - \ft@indvdl@nameD)/2\relax%
+  \else%
+    \@ifundefined{jlreqsetup}{%
+      % not jlreq
+      \global\ft@indvdl@nameCY=\dimexpr(\ft@indvdl@nameH%
+        - \ft@indvdl@nameD) / 2\relax\relax%
+    }{%
+      % jlreq
+      % magic number! depends on font?
+      \global\ft@indvdl@nameCY=\dimexpr\ft@indvdl@nameH/2 - .66pt\relax%
+    }%
+  \fi%
+  \ft@dbgmsg{H \the\ft@indvdl@nameH, D \the\ft@indvdl@nameD,%
+    CY \the\ft@indvdl@nameCY}%
+  %
+  \ft@cmarkdef{ft@cmarkbox}{#1}{0pt}{\ft@namebox@sp}%
+  \ifcase#1% fttop
+    \ft@namexdef{#2hascmark}{#1}%
+  \or% ftbiological
+    \ft@namexdef{#2hascmark}{#1}%
+  \or% ftadopted
+    \ft@namexdef{#2hascmark}{#1}%
+  \fi%
+  \global\ft@cmarkW=\wd\ft@cmarkbox%
+  %
+  \global\ft@malelinefalse%
+  \xdef\ft@indvdl@opts{}%
+  \IfValueT{#5}{%
+    \ft@optlist{\ft@indvdl@opts}{#2}{#5}%
+    \ft@dbgmsg{opt \ft@indvdl@opts}%
+  }%
+  %
+  \ft@indvdlbox{#2}{#3}{#4}{#6}%
+}
+\ft@alias{indvdldef}
+\newcommand{\ftivaldef}[2]{% box-name length
+  \ft@newnamebox{#1}{\vbox to #2{\hsize=1pt}}%
+  \ft@len=#2%
+  \ft@namexdefstrip{#1ival}{\ft@len}% just a flag
+  \divide\ft@len 2%
+  \ft@namexdefstrip{#1nameCY}{\ft@len}%
+}
+\ft@alias{ivaldef}
+\ftivaldef{ftival}{.5\ft@unit}
+\ft@alias{ival}
+\ft@alias{ivalnameCY}
+\ft@alias{ivalival}
+\ftivaldef{ftivali}{1\ft@unit}
+\ft@alias{ivali}
+\ft@alias{ivalinameCY}
+\ft@alias{ivaliival}
+\ftivaldef{ftivalii}{2\ft@unit}
+\ft@alias{ivalii}
+\ft@alias{ivaliinameCY}
+\ft@alias{ivaliiival}
+\newlength{\ft@sblng@vsp}
+\setlength{\ft@sblng@vsp}{.5\baselineskip}%
+\newcommand{\ftsblngboxcfg}[1]{% space-length
+  \global\ft@sblng@vsp=#1%
+}
+\ft@alias{sblngboxcfg}
+\newcommand{\ft@sblng@maleline}[2]{% sibling y
+  \@ifundefined{#1hasmaleline}{}{%
+    \ft@x=\@nameuse{#1nameX}pt\relax%
+    \ifdim\ft@x<\ft@width%
+      \put(\strip@pt\ft@x,\strip@pt#2){%
+        \line(1,0){\strip@pt\dimexpr\ft@width - \ft@x}%
+      }%
+    \fi%
+  }%
+}
+\newlength{\ft@c}
+\newcommand{\ft@sblng@connect}[1]{% box-name
+  %
+  % draw a line to connect all the siblings
+  % length = eldest CY - youngest CY
+  % and calculate nameCY of the box
+  % nameCY = length/2 + youngest CY
+  %
+  \ft@y=\@nameuse{#1\ft@lastcmark nameCY}pt%
+  \ft@dbgplot{1,\strip@pt\ft@y}%
+  \ft@yy=\@nameuse{#1\ft@firstcmark nameCY}pt%
+  \ft@dbgplot{1,\strip@pt\ft@yy}%
+  \ft@len=\dimexpr\ft@yy - \ft@y\relax%
+  %
+  \ft@c=\dimexpr\ft@len/2 + \ft@y\relax%
+  \ft@namexdefstrip{#1nameCY}{\ft@c}%
+  \ft@dbgplot{1,\strip@pt\ft@c}%
+  %
+  \ifnum\@nameuse{\ft@lastcmark hascmark}=\ftadopted%
+    \advance\ft@y -\dimexpr\ft@cmarkbox@adopted@sep/2\relax%
+    \advance\ft@len \dimexpr\ft@cmarkbox@adopted@sep/2\relax%
+  \fi%
+  \ifnum\@nameuse{\ft@firstcmark hascmark}=\ftadopted%
+    \advance\ft@len \dimexpr\ft@cmarkbox@adopted@sep/2\relax%
+  \fi%
+  %
+  \ifdim\ft@len<2pt%
+    %\ft@len=\@nameuse{\ft@firstcmark nameCY}pt\relax%
+  \else%
+    \advance\ft@y -\dimexpr\arrayrulewidth/2\relax%
+    \advance\ft@len \arrayrulewidth%
+    \put(0,\strip@pt\ft@y){\line(0,1){\strip@pt\ft@len}}%
+  \fi%
+}
+\newcommand{\ft@sblng@layout}[2]{% box-name individual-name-list
+  \ft@newnamebox{#1}{%
+    \edef\@w{\strip@pt\ft@width}%
+    \edef\@h{\strip@pt\ft@height}%
+    \begin{picture}(\@w,\@h)%
+      \ft@dbgframe{\@w,\@h}%
+      %
+      \@for\@temptokena:=#2\do{%
+        \edef\ft@sblng@name{\@temptokena}%
+        \ft@dbgmsg{H \the\ft@height,%
+          \ft@sblng@name nameCY \@nameuse{\ft@sblng@name nameCY}pt,%
+          \the\ft@y}%
+        %
+        % calculate the nameCY for each
+        \advance\ft@height -\ht\@nameuse{\ft@sblng@name}%
+        \global\ft@y=\dimexpr\@nameuse{\ft@sblng@name nameCY}pt%
+          + \ft@height\relax%
+        \ft@dbgplot{0,\strip@pt\ft@y}%
+        \ft@namexdefstrip{#1\ft@sblng@name nameCY}{\ft@y}%
+        %
+        % align the malelines
+        \ft@sblng@maleline{\ft@sblng@name}{\ft@y}%
+        %
+        % place the individual boxes
+        \put(0,\strip@pt\ft@height){\usebox{\@nameuse{\ft@sblng@name}}}%
+        \advance\ft@height -\dimexpr\dp\@nameuse{\ft@sblng@name}%
+          + \ft@sblng@vsp\relax%
+      }%
+      %
+      % connect them
+      \ifx\ft@firstcmark\relax\else%
+        \ifx\ft@firstcmark\ft@lastcmark\else%
+          \ft@sblng@connect{#1}%
+        \fi%
+      \fi%
+    \end{picture}%
+  }%
+  % height should hold the original value
+  \ft@nameboxsz{#1}{\ft@height}{\ft@depth}%
+}
+\newcommand{\ftsblngdef}[2]{% box-name comma-separated-individuals
+  %
+  % calculate the size of the box
+  \ft@width=0pt%
+  \ft@height=0pt%
+  \ft@theight=0pt%
+  \ft@box@has@malelinefalse%
+  \@tempswatrue%
+  \let\ft@firstcmark=\relax%
+  \let\ft@lastcmark=\relax%
+  \def\ft@dpri##1{\ft@dbgmsg{##1 W \the\ft@width, H \the\ft@height,%
+      D \the\ft@depth}}%
+  \ft@dpri{h0}%
+  \@for\@temptokena:=#2\do{%
+    \if@tempswa%
+      \xdef\ft@eldest{\@temptokena}%
+      \@tempswafalse%
+    \fi%
+    \xdef\ft@youngest{\@temptokena}%
+    \@ifundefined{ft@firstcmark}{%
+      \@ifundefined{\ft@youngest hascmark}{}{%
+        \global\let\ft@firstcmark=\ft@youngest%
+      }%
+    }{%
+      \@ifundefined{\ft@youngest hascmark}{}{%
+        \global\let\ft@lastcmark=\ft@youngest%
+      }%
+    }%
+    \@ifundefined{\ft@youngest hasmaleline}{}{%
+      \global\ft@box@has@malelinetrue%
+    }%
+    %
+    \setlength{\ft@len}{\wd\@nameuse{\ft@youngest}}%
+    \ifdim\ft@width<\ft@len%
+      \global\ft@width=\ft@len%
+      \@ifundefined{\ft@youngest hasmaleline}{%
+        \global\ft@widest@has@no@malelinetrue%
+      }{%
+        \global\ft@widest@has@no@malelinefalse%
+      }%
+    \fi%
+    \global\advance\ft@theight \dimexpr\ht\@nameuse{\ft@youngest}%
+      + \dp\@nameuse{\ft@youngest} + \ft@sblng@vsp\relax%
+    \ft@dpri{\ft@youngest}%
+  }%
+  \advance\ft@theight -\ft@sblng@vsp%
+  \ft@depth=\dp\@nameuse{\ft@youngest}%
+  \ft@height=\ft@theight%
+  \advance\ft@height -\ft@depth%
+  \ifft@widest@has@no@maleline%
+    \ifft@box@has@maleline%
+      \global\advance\ft@width \dimexpr\ft@namebox@maleline@sp%
+        + \ft@namebox@maleline@length\relax%
+    \fi%
+  \fi%
+  %
+  % layout the all boxes
+  \ft@sblng@layout{#1}{#2}%
+  \ft@dbgbox{\@nameuse{#1}}%
+}
+\ft@alias{sblngdef}
+\def\ft@getpair#1#2#3{% connection-pair parent-box-name
+  \ft@dbgmsg{args #1, #2, #3}%
+  \@ifundefined{#3#1nameCY}{%
+    \@ifundefined{#3#1mrrgCY}{%
+      \xdef\ft@cpoint{#1nameCY}%
+    }{%
+      \xdef\ft@cpoint{#3#1mrrgCY}%
+    }%
+  }{%
+    \xdef\ft@cpoint{#3#1nameCY}%
+  }%
+  \xdef\ft@kids{#2}%
+}
+\newcommand{\ft@calc@xtop}[4]{% name parent cpoint kids
+  % top half of kids
+  \ft@len=\dimexpr\ht\@nameuse{#4} - \@nameuse{#4nameCY}pt\relax\relax%
+  % top half of parent cpoint
+  \@tempskipa=\dimexpr\ht\@nameuse{#2} - \@nameuse{#3}pt\relax\relax%
+  %
+  \ifdim\ft@len<\@tempskipa%
+    \ft@len=0pt%
+  \else%
+    \advance\ft@len -\@tempskipa%
+  \fi%
+  \global#1=\ft@len%
+}
+\newcommand{\ft@calc@xbottom}[4]{% name parent cpoint kids
+  % bottom half of kids
+  \ft@len=\@nameuse{#4nameCY}pt\relax%
+  % bottom half of parent cpoint
+  \@tempskipa=\@nameuse{#3}pt\relax%
+  %
+  \ifdim\ft@len=\@tempskipa%
+    \ft@len=0pt%
+    \global\setlength{\ft@depth}{\dp\@nameuse{#2}}%
+    \ifdim\ft@depth<\dp\@nameuse{#4}%
+      \global\setlength{\ft@depth}{\dp\@nameuse{#4}}%
+    \fi%
+  \else%
+    \ifdim\ft@len<\@tempskipa%
+      \ft@len=0pt%
+      \global\setlength{\ft@depth}{\dp\@nameuse{#2}}%
+    \else%
+      \advance\ft@len -\@tempskipa%
+      \global\setlength{\ft@depth}{\dp\@nameuse{#4}}%
+    \fi%
+  \fi%
+  \global#1=\ft@len%
+}
+\newlength{\ft@xtop}
+\newlength{\ft@xbottom}
+\newcommand{\ft@gens@size}[2]{% parent-box connect-pair-list
+  \@tempswatrue%
+  \ft@width=0pt%
+  \@for\@temptokena:=#2\do{%
+    \expandafter\ft@getpair\@temptokena{#1}%
+    \ft@dbgmsg{\ft@cpoint and \ft@kids}%
+    \if@tempswa%
+      \ft@calc@xtop{\ft@xtop}{#1}{\ft@cpoint}{\ft@kids}%
+      \@tempswafalse%
+    \fi%
+    \setlength{\ft@len}{\wd\@nameuse{\ft@kids}}%
+    \ifdim\ft@width<\ft@len%
+      \global\ft@width=\ft@len%
+    \fi%
+  }%
+  \ft@calc@xbottom{\ft@xbottom}{#1}{\ft@cpoint}{\ft@kids}%
+  \ft@dbgmsg{xtop \the\ft@xtop, xbottom \the\ft@xbottom}%
+  %
+  \ft@x=\dimexpr\wd\@nameuse{#1}% - \ft@cmarkbox@length\relax%
+  \ft@dbgmsg{x \the\ft@x}%
+  \advance\ft@width \ft@x%
+  \ft@dbgmsg{w \the\ft@width}%
+  \ft@height=\dimexpr\ht\@nameuse{#1} + \ft@xtop + \ft@xbottom\relax%
+  \ft@dbgmsg{kids H \the\ht\@nameuse{\ft@kids}}%
+  \ft@dbgmsg{H \strip@pt\ft@height, D \strip@pt\ft@depth}%
+}
+\newcommand{\ft@gens@layout}[3]{%
+  % box-name parent-box-name {{parent-name} {child-name}, ...}
+  \ft@newnamebox{#1}{%
+    \edef\@w{\strip@pt\ft@width}%
+    \edef\@h{\strip@pt\ft@height}%
+    \begin{picture}(\@w,\@h)%
+      \ft@dbgframe{\@w,\@h}%
+      %
+      \ft@y=\ft@xbottom%
+      \ft@dbgplot{0,\strip@pt\ft@y}%
+      \put(0,\strip@pt\ft@y){\usebox{\@nameuse{#2}}}%
+      \advance\ft@y \@nameuse{#2nameCY}pt%
+      \ft@namexdefstrip{#1nameCY}{\ft@y}%
+      %\ft@namexdefstrip{#1#2nameCY}{\ft@y}%
+      %
+      \@for\@temptokena:=#3\do{%%
+        \expandafter\ft@getpair\@temptokena{#2}%
+        \ft@dbgmsg{\ft@cpoint and \ft@kids}%
+        %
+        \ft@y=\dimexpr\ft@xbottom + \@nameuse{\ft@cpoint}pt\relax%
+        \ft@dbgmsg{parent cpoint \the\ft@y}%
+        \ft@dbgplot{\strip@pt\ft@x,\strip@pt\ft@y}%
+        %
+        \advance\ft@y  -\@nameuse{\ft@kids nameCY}pt%
+        \ft@dbgmsg{final child y \the\ft@y}%
+        \put(\strip@pt\ft@x,\strip@pt\ft@y){%
+          \usebox{\@nameuse{\ft@kids}}}%
+        \ft@namexdefstrip{#1\ft@kids Y}{\ft@y}%
+      }%
+    \end{picture}%
+  }%
+}
+\newcommand{\ftgensdef}[3]{%
+  % box-name parent-box-name {{parent-name} {child-name}, ...}
+  %
+  % calculate the size of the new box
+  \ft@gens@size{#2}{#3}%
+  %
+  % draw them all
+  \ft@gens@layout{#1}{#2}{#3}%
+  %
+  \@ifundefined{#2hascmark}{}{%
+    \ft@namexdef{#1hascmark}{\@nameuse{#2hascmark}}%
+  }%
+  \ft@nameboxsz{#1}{\ft@height}{\ft@depth}%
+}
+\ft@alias{gensdef}
+\newcommand{\ftpcdef}[3]{% box-name parent-box-name child-box-name
+  \ftgensdef{#1}{#2}{{#2}{#3}}%
+}
+\ft@alias{pcdef}
+\newlength{\ft@mrrgline@sep}
+\setlength{\ft@mrrgline@sep}{4pt}
+\newlength{\ft@mrrgline@sp}
+\setlength{\ft@mrrgline@sp}{.5\ft@unit}
+\newlength{\ft@mrrgline@length}
+\setlength{\ft@mrrgline@length}{1.5\ft@unit}
+\newcommand{\ftmrrgboxcfg}[3]{% sep space length
+  \ifx#1\empty\else%
+    \setlength{\ft@mrrgline@sep}{#1}%
+  \fi%
+  \ifx#2\empty\else%
+    \setlength{\ft@mrrgline@sp}{#2}%
+  \fi%
+  \ifx#3\empty\else%
+    \setlength{\ft@mrrgline@length}{#3}%
+  \fi%
+}
+\ft@alias{mrrgboxcfg}
+\newcommand{\ft@mrrg@parse}[1]{% spouse-list
+  \global\ft@height=0pt%
+  \global\ft@width=0pt%
+  \global\ft@box@has@malelinefalse%
+  \@for\@temptokena:=#1\do{%
+    \ifx\@temptokena\empty\else%
+      \xdef\ft@spouse{\@temptokena}%
+      \@ifundefined{\@temptokena ival}{%
+        \@ifundefined{\ft@spouse haschild}{}{%
+          \global\ft@box@has@malelinetrue%
+        }%
+        \setlength{\ft@len}{\wd\@nameuse{\ft@spouse}}%
+        \ifdim\ft@width<\ft@len%
+          \global\ft@width=\ft@len%
+        \fi%
+        \ft@dbgmsg{\ft@spouse, W \the\wd\@nameuse{\ft@spouse},%
+          H \the\ht\@nameuse{\ft@spouse},%
+          D \the\dp\@nameuse{\ft@spouse}}%
+        \global\advance\ft@height \dimexpr\ft@mrrgline@length%
+          + 2\ft@mrrgline@sp\relax%
+        \ft@dbgmsg{\ft@spouse, H \the\ft@height}%
+      }{}%
+      \global\advance\ft@height \dimexpr\ht\@nameuse{\ft@spouse}%
+        + \dp\@nameuse{\ft@spouse}\relax%
+      \ft@dbgmsg{\ft@spouse, h H \the\ft@height}%
+    \fi%
+  }%
+  %
+  \ifft@box@has@maleline%
+    \global\advance\ft@width \ft@namebox@maleline@length%
+  \fi%
+  %
+  \global\ft@depth=\dp\@nameuse{\ft@spouse}%
+  \global\advance\ft@height \dimexpr -2\ft@mrrgline@sp%
+    - \ft@mrrgline@length - \ft@depth\relax%
+  \ft@dbgmsg{final H \the\ft@height, D \the\ft@depth}%
+}
+\newlength{\ft@mrrg@chlen}
+\newcommand{\ft@mrrg@line}[5]{% box-name spouse cx sp length
+  \ft@x=#3%
+  \global\advance\ft@height -#4%
+  \@tempskipb=\dimexpr\ft@mrrgline@sep/2\relax%
+  \edef\@y{\strip@pt\ft@height}%
+  \@ifundefined{#2private}{%
+    \ft@len=#5\relax%
+    \edef\@l{\strip@pt\ft@len}%
+    \put(\strip@pt\dimexpr\ft@x - \@tempskipb, \@y){\line(0,-1){\@l}}%
+    \put(\strip@pt\dimexpr\ft@x + \@tempskipb, \@y){\line(0,-1){\@l}}%
+  }{%
+    % this divisor should match the delta_y for multiput
+    \ft@len=#5\relax%
+    \ft@len=\dimexpr\ft@len/2 + .5pt\relax%
+    \@tempcnta=\dimexpr\ft@len/65536\relax%
+    \multiput(\strip@pt\dimexpr\ft@x - \@tempskipb, \@y)%
+      (0,-2){\@tempcnta}{\line(0,-1){.5}}%
+    \multiput(\strip@pt\dimexpr\ft@x + \@tempskipb, \@y)%
+      (0,-2){\@tempcnta}{\line(0,-1){.5}}%
+  }%
+  \@ifundefined{#2haschild}{}{%
+    \ft@len=#5\relax%
+    \ft@y=\dimexpr\ft@height - \ft@len/2\relax%
+    \put(\strip@pt\dimexpr\ft@x + \@tempskipb,\strip@pt\ft@y)%
+        {\line(1,0){\strip@pt\ft@mrrg@chlen}}%
+    \ft@dbgplot{\strip@pt\ft@x,\strip@pt\ft@y}%
+    \ft@namexdefstrip{#1#2mrrgCY}{\ft@y}%
+  }%
+  \ft@len=#5\relax%
+  \@tempskipa=#4\relax%
+  \global\advance\ft@height \dimexpr -\ft@len - \@tempskipa\relax%
+  \ft@dbgmsg{line #2 H \the\ft@height}%
+}
+\newcommand{\ft@mrrg@name}[2]{% box-name individual-name
+  \global\advance\ft@height -\ht\@nameuse{#2}%
+  \put(0,\strip@pt\ft@height){\usebox{\@nameuse{#2}}}%
+  \ft@dbgframe[0,\strip@pt\ft@height]%
+              {\strip@pt\wd\@nameuse{#2},\strip@pt\ht\@nameuse{#2}}%
+  %
+  \@ifundefined{#2hasmaleline}{}{%
+    \ft@x=\@nameuse{#2nameX}pt%
+    \ft@y=\dimexpr\ft@height + \@nameuse{#2nameCY}pt\relax%
+    \ft@len=\dimexpr\ft@width - \@nameuse{#2nameX}pt%
+      %- \ft@namebox@maleline@sp%
+      \relax%
+    \put(\strip@pt\ft@x,\strip@pt\ft@y){\line(1,0){\strip@pt\ft@len}}%
+    \ft@namexdefstrip{#1#2nameCY}{\ft@y}%
+  }%
+  %
+  \@ifundefined{#2hascmark}{}{%
+    \ft@len=\dimexpr\ft@height + \@nameuse{#2nameCY}pt\relax%
+    \ft@namexdefstrip{#1#2nameCY}{\ft@len}%
+    \ft@dbgplot{0,\strip@pt\ft@len}%
+  }%
+  \global\advance\ft@height -\dp\@nameuse{#2}%
+  \ft@dbgmsg{name #2 H \the\ft@height}%
+}
+\newlength{\ft@mrrg@ival}
+\newcommand{\ft@mrrg@spouse}[2]{% box-name list
+  \global\ft@mrrg@ival=0pt%
+  \@for\@temptokena:=#2\do{%
+    \@ifundefined{\@temptokena ival}{%
+      \@tempskipa=\dimexpr\ft@mrrgline@length + \ft@mrrg@ival\relax%
+      \if@tempswa%
+        \ft@mrrg@name{#1}{\@temptokena}%
+        \ft@mrrg@line{#1}{\@temptokena}{\ft@xx}{\ft@mrrgline@sp}%
+                     {\@tempskipa}%
+      \else%
+        \ft@mrrg@line{#1}{\@temptokena}{\ft@xx}{\ft@mrrgline@sp}%
+                     {\@tempskipa}%
+        \ft@mrrg@name{#1}{\@temptokena}%
+      \fi%
+      \global\ft@mrrg@ival=0pt%
+    }{%
+      \global\advance\ft@mrrg@ival%
+        \dimexpr\ht\@nameuse{\@temptokena}%
+        + \dp\@nameuse{\@temptokena}\relax%
+    }%
+  }%
+}
+\NewDocumentCommand{\ftmrrgdef}{mmmmO{0pt}}{%
+  % box-name spouse-listA oneself spouse-listB [xline]
+  \ft@xx=\@nameuse{#3nameCX}pt\relax%
+  \ft@mrrg@parse{#2,#3,#4}%
+  %
+  \advance\ft@width #5%
+  \global\ft@mrrg@chlen=\dimexpr\ft@width - \ft@xx%
+    - \ft@mrrgline@sep/2\relax%
+  %
+  \ft@theight=\ft@height%
+  \ft@newnamebox{#1}{%
+    \edef\@w{\strip@pt\ft@width}%
+    \edef\@h{\strip@pt\ft@height}%
+    \begin{picture}(\@w,\@h)%
+      \ft@dbgframe{\@w,\@h}%
+      %
+      \ifx#2\@nil\else%
+        \@tempswatrue%
+        \ft@mrrg@spouse{#1}{#2}%
+      \fi%
+      %
+      \ft@mrrg@name{#1}{#3}%
+      \@ifundefined{#1#3nameCY}{}{%
+        \ft@len=\@nameuse{#1#3nameCY}pt\relax%
+        \ft@dbgplot{1,\strip@pt\ft@len}%
+        \ft@namexdefstrip{#1nameCY}{\ft@len}%
+      }%
+      \@ifundefined{#3hascmark}{}{%
+        \ft@namexdef{#1hascmark}{\@nameuse{#3hascmark}}%
+      }%
+      %
+      \ifx#4\empty\else%
+        \@tempswafalse%
+        \ft@mrrg@spouse{#1}{#4}%
+      \fi%
+    \end{picture}%
+  }%
+  \ft@nameboxsz{#1}{\ft@theight}{\ft@depth}%
+}
+\ft@alias{mrrgdef}
+\endinput
+%%
+%% End of file `familytree.sty'.

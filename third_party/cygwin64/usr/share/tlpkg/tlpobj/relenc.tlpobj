@@ -1,0 +1,22 @@
+name relenc
+category Package
+revision 22050
+shortdesc A "relaxed" font encoding
+relocated 1
+longdesc LaTeX package providing a relaxed font encoding to make
+longdesc available to a font designer more slots for insertion of
+longdesc ligatures and accented characters.
+runfiles size=17
+ RELOC/fonts/tfm/public/relenc/zcmr8d.tfm
+ RELOC/fonts/tfm/public/relenc/zcmra.tfm
+ RELOC/fonts/vf/public/relenc/zcmr8d.vf
+ RELOC/fonts/vf/public/relenc/zcmra.vf
+ RELOC/tex/latex/relenc/2sidedoc.sty
+ RELOC/tex/latex/relenc/ecsubzcm.sty
+ RELOC/tex/latex/relenc/relenc.sty
+ RELOC/tex/latex/relenc/t1renc.def
+ RELOC/tex/latex/relenc/t1rzcm.fd
+catalogue-ctan /macros/latex/contrib/relenc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1
+catalogue-topics font-devel

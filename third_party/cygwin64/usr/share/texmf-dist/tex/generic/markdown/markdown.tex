@@ -1,0 +1,3284 @@
+%%
+%% This is file `markdown.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% markdown.dtx  (with options: `tex')
+%% 
+%% Copyright (C) 2016-2024 Vít Starý Novotný
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Vít Starý Novotný.
+%% 
+%% Send bug reports, requests for additions and questions
+%% either to the GitHub issue tracker at
+%% 
+%%   https://github.com/Witiko/markdown/issues
+%% 
+%% or to the e-mail address <witiko@mail.muni.cz>.
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\ifx\ExplSyntaxOn\undefined
+  \input expl3-generic
+\fi
+\ExplSyntaxOn
+\seq_new:N \g__markdown_lua_options_seq
+\prop_new:N \g__markdown_lua_option_types_prop
+\prop_new:N \g__markdown_default_lua_options_prop
+\seq_new:N \g__markdown_option_layers_seq
+\tl_const:Nn \c__markdown_option_layer_lua_tl { lua }
+\seq_gput_right:NV \g__markdown_option_layers_seq \c__markdown_option_layer_lua_tl
+\cs_new:Nn
+  \__markdown_add_lua_option:nnn
+  {
+    \__markdown_add_option:Vnnn
+      \c__markdown_option_layer_lua_tl
+      { #1 }
+      { #2 }
+      { #3 }
+  }
+\cs_new:Nn
+  \__markdown_add_option:nnnn
+  {
+    \seq_gput_right:cn
+      { g__markdown_ #1 _options_seq }
+      { #2 }
+    \prop_gput:cnn
+      { g__markdown_ #1 _option_types_prop }
+      { #2 }
+      { #3 }
+    \prop_gput:cnn
+      { g__markdown_default_ #1 _options_prop }
+      { #2 }
+      { #4 }
+    \__markdown_typecheck_option:n
+      { #2 }
+  }
+\cs_generate_variant:Nn
+  \__markdown_add_option:nnnn
+  { Vnnn }
+\tl_const:Nn \c__markdown_option_value_true_tl  { true  }
+\tl_const:Nn \c__markdown_option_value_false_tl { false }
+\cs_new:Nn \__markdown_typecheck_option:n
+  {
+    \__markdown_get_option_type:nN
+      { #1 }
+      \l_tmpa_tl
+    \str_case_e:Vn
+      \l_tmpa_tl
+      {
+        { \c__markdown_option_type_boolean_tl }
+          {
+            \__markdown_get_option_value:nN
+              { #1 }
+              \l_tmpa_tl
+            \bool_if:nF
+              {
+                \str_if_eq_p:VV
+                  \l_tmpa_tl
+                  \c__markdown_option_value_true_tl ||
+                \str_if_eq_p:VV
+                  \l_tmpa_tl
+                  \c__markdown_option_value_false_tl
+              }
+              {
+                \msg_error:nnnV
+                  { markdown }
+                  { failed-typecheck-for-boolean-option }
+                  { #1 }
+                  \l_tmpa_tl
+              }
+          }
+      }
+  }
+\msg_new:nnn
+  { markdown }
+  { failed-typecheck-for-boolean-option }
+  {
+    Option~#1~has~value~#2,~
+    but~a~boolean~(true~or~false)~was~expected.
+  }
+\cs_generate_variant:Nn
+  \str_case_e:nn
+  { Vn }
+\cs_generate_variant:Nn
+  \msg_error:nnnn
+  { nnnV }
+\seq_new:N \g__markdown_option_types_seq
+\tl_const:Nn \c__markdown_option_type_clist_tl { clist }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_clist_tl
+\tl_const:Nn \c__markdown_option_type_counter_tl { counter }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_counter_tl
+\tl_const:Nn \c__markdown_option_type_boolean_tl { boolean }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_boolean_tl
+\tl_const:Nn \c__markdown_option_type_number_tl  { number  }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_number_tl
+\tl_const:Nn \c__markdown_option_type_path_tl    { path    }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_path_tl
+\tl_const:Nn \c__markdown_option_type_slice_tl   { slice   }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_slice_tl
+\tl_const:Nn \c__markdown_option_type_string_tl  { string  }
+\seq_gput_right:NV \g__markdown_option_types_seq \c__markdown_option_type_string_tl
+\cs_new:Nn
+  \__markdown_get_option_type:nN
+  {
+    \bool_set_false:N
+      \l_tmpa_bool
+    \seq_map_inline:Nn
+      \g__markdown_option_layers_seq
+      {
+        \prop_get:cnNT
+          { g__markdown_ ##1 _option_types_prop }
+          { #1 }
+          \l_tmpa_tl
+          {
+            \bool_set_true:N
+              \l_tmpa_bool
+            \seq_map_break:
+          }
+      }
+    \bool_if:nF
+      \l_tmpa_bool
+      {
+        \msg_error:nnn
+          { markdown }
+          { undefined-option }
+          { #1 }
+      }
+    \seq_if_in:NVF
+      \g__markdown_option_types_seq
+      \l_tmpa_tl
+      {
+        \msg_error:nnnV
+          { markdown }
+          { unknown-option-type }
+          { #1 }
+          \l_tmpa_tl
+      }
+    \tl_set_eq:NN
+      #2
+      \l_tmpa_tl
+  }
+\msg_new:nnn
+  { markdown }
+  { unknown-option-type }
+  {
+    Option~#1~has~unknown~type~#2.
+  }
+\msg_new:nnn
+  { markdown }
+  { undefined-option }
+  {
+    Option~#1~is~undefined.
+  }
+\cs_new:Nn
+  \__markdown_get_default_option_value:nN
+  {
+    \bool_set_false:N
+      \l_tmpa_bool
+    \seq_map_inline:Nn
+      \g__markdown_option_layers_seq
+      {
+        \prop_get:cnNT
+          { g__markdown_default_ ##1 _options_prop }
+          { #1 }
+          #2
+          {
+            \bool_set_true:N
+              \l_tmpa_bool
+            \seq_map_break:
+          }
+      }
+    \bool_if:nF
+      \l_tmpa_bool
+      {
+        \msg_error:nnn
+          { markdown }
+          { undefined-option }
+          { #1 }
+      }
+  }
+\cs_new:Nn
+  \__markdown_get_option_value:nN
+  {
+    \__markdown_option_tl_to_csname:nN
+      { #1 }
+      \l_tmpa_tl
+    \cs_if_free:cTF
+      { \l_tmpa_tl }
+      {
+        \__markdown_get_default_option_value:nN
+          { #1 }
+          #2
+      }
+      {
+        \__markdown_get_option_type:nN
+          { #1 }
+          \l_tmpa_tl
+        \str_if_eq:NNTF
+          \c__markdown_option_type_counter_tl
+          \l_tmpa_tl
+          {
+            \__markdown_option_tl_to_csname:nN
+              { #1 }
+              \l_tmpa_tl
+            \tl_set:Nx
+              #2
+              { \the \cs:w \l_tmpa_tl \cs_end: }
+          }
+          {
+            \__markdown_option_tl_to_csname:nN
+              { #1 }
+              \l_tmpa_tl
+            \tl_set:Nv
+              #2
+              { \l_tmpa_tl }
+          }
+      }
+  }
+\cs_new:Nn \__markdown_option_tl_to_csname:nN
+  {
+    \tl_set:Nn
+      \l_tmpa_tl
+      { \str_uppercase:n { #1 } }
+    \tl_set:Nx
+      #2
+      {
+        markdownOption
+        \tl_head:f { \l_tmpa_tl }
+        \tl_tail:n { #1 }
+      }
+  }
+\cs_new:Nn \__markdown_with_various_cases:nn
+  {
+    \seq_clear:N
+      \l_tmpa_seq
+    \seq_map_inline:Nn
+      \g__markdown_cases_seq
+      {
+        \tl_set:Nn
+          \l_tmpa_tl
+          { #1 }
+        \use:c { ##1 }
+          \l_tmpa_tl
+        \seq_put_right:NV
+          \l_tmpa_seq
+          \l_tmpa_tl
+      }
+    \seq_map_inline:Nn
+      \l_tmpa_seq
+      { #2 }
+  }
+\cs_new:Nn \__markdown_with_various_cases_break:
+  {
+    \seq_map_break:
+  }
+\seq_new:N \g__markdown_cases_seq
+\cs_new:Nn \__markdown_camel_case:N
+  {
+    \regex_replace_all:nnN
+      { _ ([a-z]) }
+      { \c { str_uppercase:n } \cB\{ \1 \cE\} }
+      #1
+    \tl_set:Nx
+      #1
+      { #1 }
+  }
+\seq_gput_right:Nn \g__markdown_cases_seq { __markdown_camel_case:N }
+\cs_new:Nn \__markdown_snake_case:N
+  {
+    \regex_replace_all:nnN
+      { ([a-z])([A-Z]) }
+      { \1 _ \c { str_lowercase:n } \cB\{ \2 \cE\} }
+      #1
+    \tl_set:Nx
+      #1
+      { #1 }
+  }
+\seq_gput_right:Nn \g__markdown_cases_seq { __markdown_snake_case:N }
+\__markdown_add_lua_option:nnn
+  { eagerCache }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { singletonCache }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { cacheDir }
+  { path }
+  { \markdownOptionOutputDir / _markdown_\jobname }
+\__markdown_add_lua_option:nnn
+  { contentBlocksLanguageMap }
+  { path }
+  { markdown-languages.json }
+\__markdown_add_lua_option:nnn
+  { debugExtensionsFileName }
+  { path }
+  { \markdownOptionOutputDir / \jobname .debug-extensions.json }
+\__markdown_add_lua_option:nnn
+  { frozenCacheFileName }
+  { path }
+  { \markdownOptionCacheDir / frozenCache.tex }
+\__markdown_add_lua_option:nnn
+  { autoIdentifiers }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { blankBeforeBlockquote }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { blankBeforeCodeFence }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { blankBeforeDivFence }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { blankBeforeHeading }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { blankBeforeList }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { bracketedSpans }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { breakableBlockquotes }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { citationNbsps }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { citations }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { codeSpans }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { contentBlocks }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { contentLevel }
+  { string }
+  { block }
+\__markdown_add_lua_option:nnn
+  { debugExtensions }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { definitionLists }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { expectJekyllData }
+  { boolean }
+  { false }
+\cs_generate_variant:Nn
+  \__markdown_add_lua_option:nnn
+  { nnV }
+\__markdown_add_lua_option:nnV
+  { extensions }
+  { clist }
+  \c_empty_clist
+\__markdown_add_lua_option:nnn
+  { fancyLists }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { fencedCode }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { fencedCodeAttributes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { fencedDivs }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { finalizeCache }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { frozenCacheCounter }
+  { counter }
+  { 0 }
+\__markdown_add_lua_option:nnn
+  { gfmAutoIdentifiers }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { hashEnumerators }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { headerAttributes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { html }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { hybrid }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { inlineCodeAttributes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { inlineNotes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { jekyllData }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { linkAttributes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { lineBlocks }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { mark }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { notes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { pipeTables }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { preserveTabs }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { rawAttribute }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { relativeReferences }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { shiftHeadings }
+  { number }
+  { 0 }
+\__markdown_add_lua_option:nnn
+  { slice }
+  { slice }
+  { ^~$ }
+\__markdown_add_lua_option:nnn
+  { smartEllipses }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { startNumber }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { strikeThrough }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { stripIndent }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { subscripts }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { superscripts }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { tableAttributes }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { tableCaptions }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { taskLists }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { texComments }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { texMathDollars }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { texMathDoubleBackslash }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { texMathSingleBackslash }
+  { boolean }
+  { false }
+\__markdown_add_lua_option:nnn
+  { tightLists }
+  { boolean }
+  { true }
+\__markdown_add_lua_option:nnn
+  { underscores }
+  { boolean }
+  { true }
+\ExplSyntaxOff
+\def\markdownLastModified{2024-03-09}%
+\def\markdownVersion{3.4.2-0-ga45cf0ed}%
+\let\markdownBegin\relax
+\let\markdownEnd\relax
+\let\markdownInput\relax
+\let\markdownEscape\relax
+\ExplSyntaxOn
+\tl_const:Nn \c__markdown_option_layer_plain_tex_tl { plain_tex }
+\cs_generate_variant:Nn
+  \tl_const:Nn
+  { NV }
+\tl_if_exist:NF
+  \c__markdown_top_layer_tl
+  {
+    \tl_const:NV
+      \c__markdown_top_layer_tl
+      \c__markdown_option_layer_plain_tex_tl
+  }
+\seq_new:N \g__markdown_plain_tex_options_seq
+\prop_new:N \g__markdown_plain_tex_option_types_prop
+\prop_new:N \g__markdown_default_plain_tex_options_prop
+\seq_gput_right:NV \g__markdown_option_layers_seq \c__markdown_option_layer_plain_tex_tl
+\cs_new:Nn
+  \__markdown_add_plain_tex_option:nnn
+  {
+    \__markdown_add_option:Vnnn
+      \c__markdown_option_layer_plain_tex_tl
+      { #1 }
+      { #2 }
+      { #3 }
+  }
+\cs_new:Nn
+  \__markdown_setup:n
+  {
+    \keys_set:nn
+      { markdown/options }
+      { #1 }
+  }
+\cs_gset_eq:NN
+  \markdownSetup
+  \__markdown_setup:n
+\prg_new_conditional:Nnn
+  \__markdown_if_option:n
+  { TF, T, F }
+  {
+    \__markdown_get_option_type:nN
+      { #1 }
+      \l_tmpa_tl
+    \str_if_eq:NNF
+      \l_tmpa_tl
+      \c__markdown_option_type_boolean_tl
+      {
+        \msg_error:nnxx
+          { markdown }
+          { expected-boolean-option }
+          { #1 }
+          { \l_tmpa_tl }
+      }
+    \__markdown_get_option_value:nN
+      { #1 }
+      \l_tmpa_tl
+    \str_if_eq:NNTF
+      \l_tmpa_tl
+      \c__markdown_option_value_true_tl
+      { \prg_return_true: }
+      { \prg_return_false: }
+  }
+\msg_new:nnn
+  { markdown }
+  { expected-boolean-option }
+  {
+    Option~#1~has~type~#2,~
+    but~a~boolean~was~expected.
+  }
+\let\markdownIfOption=\__markdown_if_option:nTF
+\__markdown_add_plain_tex_option:nnn
+  { frozenCache }
+  { boolean }
+  { false }
+\__markdown_add_plain_tex_option:nnn
+  { inputTempFileName }
+  { path }
+  { \jobname.markdown.in }
+\cs_generate_variant:Nn
+  \__markdown_add_plain_tex_option:nnn
+  { nnV }
+\ExplSyntaxOff
+\input lt3luabridge.tex
+\ExplSyntaxOn
+\bool_if:nTF
+  {
+    \cs_if_exist_p:N
+      \luabridge_tl_set:Nn &&
+    (
+      \int_compare_p:nNn
+        { \g_luabridge_method_int }
+        =
+        { \c_luabridge_method_directlua_int } ||
+      \sys_if_shell_unrestricted_p:
+    )
+  }
+  {
+    \luabridge_tl_set:Nn
+      \l_tmpa_tl
+      { print(os.getenv("TEXMF_OUTPUT_DIRECTORY") or ".") }
+  }
+  {
+    \tl_set:Nn
+      \l_tmpa_tl
+      { . }
+  }
+\__markdown_add_plain_tex_option:nnV
+  { outputDir }
+  { path }
+  \l_tmpa_tl
+\__markdown_add_plain_tex_option:nnn
+  { plain }
+  { boolean }
+  { false }
+\__markdown_add_plain_tex_option:nnn
+  { noDefaults }
+  { boolean }
+  { false }
+\seq_gput_right:Nn
+  \g__markdown_plain_tex_options_seq
+  { stripPercentSigns }
+\prop_gput:Nnn
+  \g__markdown_plain_tex_option_types_prop
+  { stripPercentSigns }
+  { boolean }
+\prop_gput:Nnx
+  \g__markdown_default_plain_tex_options_prop
+  { stripPercentSigns }
+  { false }
+\cs_new:Nn
+  \__markdown_define_option_commands_and_keyvals:
+  {
+    \seq_map_inline:Nn
+      \g__markdown_option_layers_seq
+      {
+        \seq_map_inline:cn
+          { g__markdown_ ##1 _options_seq }
+          {
+              \__markdown_define_option_command:n
+                { ####1 }
+              \__markdown_with_various_cases:nn
+                { ####1 }
+                {
+                  \__markdown_define_option_keyval:nnn
+                    { ##1 }
+                    { ####1 }
+                    { ########1 }
+                }
+          }
+      }
+  }
+\cs_new:Nn
+  \__markdown_define_option_command:n
+  {
+    \__markdown_option_tl_to_csname:nN
+      { #1 }
+      \l_tmpa_tl
+    \cs_if_exist:cF
+      { \l_tmpa_tl }
+      {
+        \__markdown_get_default_option_value:nN
+          { #1 }
+          \l_tmpa_tl
+        \__markdown_set_option_value:nV
+          { #1 }
+          \l_tmpa_tl
+      }
+  }
+\cs_new:Nn
+  \__markdown_set_option_value:nn
+  {
+    \__markdown_define_option:n
+      { #1 }
+    \__markdown_get_option_type:nN
+      { #1 }
+      \l_tmpa_tl
+    \str_if_eq:NNTF
+      \c__markdown_option_type_counter_tl
+      \l_tmpa_tl
+      {
+        \__markdown_option_tl_to_csname:nN
+          { #1 }
+          \l_tmpa_tl
+        \int_gset:cn
+          { \l_tmpa_tl }
+          { #2 }
+      }
+      {
+        \__markdown_option_tl_to_csname:nN
+          { #1 }
+          \l_tmpa_tl
+        \cs_set:cpn
+          { \l_tmpa_tl }
+          { #2 }
+      }
+  }
+\cs_generate_variant:Nn
+  \__markdown_set_option_value:nn
+  { nV }
+\cs_new:Nn
+  \__markdown_define_option:n
+  {
+    \__markdown_option_tl_to_csname:nN
+      { #1 }
+      \l_tmpa_tl
+    \cs_if_free:cT
+      { \l_tmpa_tl }
+      {
+        \__markdown_get_option_type:nN
+          { #1 }
+          \l_tmpb_tl
+        \str_if_eq:NNT
+          \c__markdown_option_type_counter_tl
+          \l_tmpb_tl
+          {
+            \__markdown_option_tl_to_csname:nN
+              { #1 }
+              \l_tmpa_tl
+            \int_new:c
+              { \l_tmpa_tl }
+          }
+      }
+  }
+\cs_new:Nn
+  \__markdown_define_option_keyval:nnn
+  {
+    \prop_get:cnN
+      { g__markdown_ #1 _option_types_prop }
+      { #2 }
+      \l_tmpa_tl
+    \str_if_eq:VVTF
+      \l_tmpa_tl
+      \c__markdown_option_type_boolean_tl
+      {
+        \keys_define:nn
+          { markdown/options }
+          {
+            #3 .code:n = {
+              \tl_set:Nx
+                \l_tmpa_tl
+                {
+                  \str_case:nnF
+                    { ##1 }
+                    {
+                      { yes } { true }
+                      { no } { false }
+                    }
+                    { ##1 }
+                }
+              \__markdown_set_option_value:nV
+                { #2 }
+                \l_tmpa_tl
+            },
+            #3 .default:n = { true },
+          }
+      }
+      {
+        \keys_define:nn
+          { markdown/options }
+          {
+            #3 .code:n = {
+              \__markdown_set_option_value:nn
+                { #2 }
+                { ##1 }
+            },
+          }
+      }
+    \str_if_eq:VVT
+      \l_tmpa_tl
+      \c__markdown_option_type_clist_tl
+      {
+        \tl_set:Nn
+          \l_tmpa_tl
+          { #3 }
+        \tl_reverse:N
+          \l_tmpa_tl
+        \str_if_eq:enF
+          {
+            \tl_head:V
+              \l_tmpa_tl
+          }
+          { s }
+          {
+            \msg_error:nnn
+              { markdown }
+              { malformed-name-for-clist-option }
+              { #3 }
+          }
+        \tl_set:Nx
+          \l_tmpa_tl
+          {
+            \tl_tail:V
+              \l_tmpa_tl
+          }
+        \tl_reverse:N
+          \l_tmpa_tl
+        \tl_put_right:Nn
+          \l_tmpa_tl
+          {
+            .code:n = {
+              \__markdown_get_option_value:nN
+                { #2 }
+                \l_tmpa_tl
+              \clist_set:NV
+                \l_tmpa_clist
+                { \l_tmpa_tl, { ##1 } }
+              \__markdown_set_option_value:nV
+                { #2 }
+                \l_tmpa_clist
+            }
+          }
+        \keys_define:nV
+          { markdown/options }
+          \l_tmpa_tl
+      }
+  }
+\cs_generate_variant:Nn
+  \clist_set:Nn
+  { NV }
+\cs_generate_variant:Nn
+  \keys_define:nn
+  { nV }
+\cs_generate_variant:Nn
+  \__markdown_set_option_value:nn
+  { nV }
+\prg_generate_conditional_variant:Nnn
+  \str_if_eq:nn
+  { en }
+  { F }
+\msg_new:nnn
+  { markdown }
+  { malformed-name-for-clist-option }
+  {
+    Clist~option~name~#1~does~not~end~with~-s.
+  }
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_plain_tex_tl
+  {
+    \__markdown_define_option_commands_and_keyvals:
+  }
+\keys_define:nn
+  { markdown/options }
+  {
+    theme .code:n = {
+      \__markdown_set_theme:n
+        { #1 }
+    },
+    import .code:n = {
+      \tl_set:Nn
+        \l_tmpa_tl
+        { #1 }
+      \tl_replace_all:NnV
+        \l_tmpa_tl
+        { / }
+        \c_backslash_str
+      \keys_set:nV
+        { markdown/options/import }
+        \l_tmpa_tl
+    },
+  }
+\seq_new:N
+  \g__markdown_themes_seq
+\tl_new:N
+  \g__markdown_current_theme_tl
+\tl_gset:Nn
+  \g__markdown_current_theme_tl
+  { }
+\seq_gput_right:NV
+  \g__markdown_themes_seq
+  \g__markdown_current_theme_tl
+\cs_new:Nn
+  \__markdown_set_theme:n
+  {
+    \str_if_in:nnF
+      { #1 }
+      { / }
+      {
+        \msg_error:nnn
+          { markdown }
+          { unqualified-theme-name }
+          { #1 }
+      }
+    \str_if_in:nnT
+      { #1 }
+      { _ }
+      {
+        \msg_error:nnn
+          { markdown }
+          { underscores-in-theme-name }
+          { #1 }
+      }
+    \str_set:Nn
+      \l_tmpa_str
+      { #1 }
+    \str_replace_all:Nnn
+      \l_tmpa_str
+      { / }
+      { _ }
+    \tl_gset:Nn
+      \g__markdown_current_theme_tl
+      { #1 / }
+    \seq_gput_right:NV
+      \g__markdown_themes_seq
+      \g__markdown_current_theme_tl
+    \__markdown_load_theme:nV
+      { #1 }
+      \l_tmpa_str
+    \seq_gpop_right:NN
+      \g__markdown_themes_seq
+      \l_tmpa_tl
+    \seq_get_right:NN
+      \g__markdown_themes_seq
+      \l_tmpa_tl
+    \tl_gset:NV
+      \g__markdown_current_theme_tl
+      \l_tmpa_tl
+  }
+\msg_new:nnnn
+  { markdown }
+  { unqualified-theme-name }
+  { Won't~load~theme~with~unqualified~name~#1 }
+  { Theme~names~must~contain~at~least~one~forward~slash }
+\msg_new:nnnn
+  { markdown }
+  { underscores-in-theme-name }
+  { Won't~load~theme~with~an~underscore~in~its~name~#1 }
+  { Theme~names~must~not~contain~underscores~in~their~names }
+\cs_generate_variant:Nn
+  \tl_replace_all:Nnn
+  { NnV }
+\prop_new:N
+  \g__markdown_snippets_prop
+\cs_new:Nn
+  \__markdown_setup_snippet:nn
+  {
+    \tl_if_empty:nT
+      { #1 }
+      {
+        \msg_error:nnn
+          { markdown }
+          { empty-snippet-name }
+          { #1 }
+      }
+    \tl_set:NV
+      \l_tmpa_tl
+      \g__markdown_current_theme_tl
+    \tl_put_right:Nn
+      \l_tmpa_tl
+      { #1 }
+    \__markdown_if_snippet_exists:nT
+      { #1 }
+      {
+        \msg_warning:nnV
+          { markdown }
+          { redefined-snippet }
+          \l_tmpa_tl
+      }
+    \prop_gput:NVn
+      \g__markdown_snippets_prop
+      \l_tmpa_tl
+      { #2 }
+  }
+\cs_gset_eq:NN
+  \markdownSetupSnippet
+  \__markdown_setup_snippet:nn
+\msg_new:nnnn
+  { markdown }
+  { empty-snippet-name }
+  { Empty~snippet~name~#1 }
+  { Pick~a~non-empty~name~for~your~snippet }
+\msg_new:nnn
+  { markdown }
+  { redefined-snippet }
+  { Redefined~snippet~#1 }
+\prg_new_conditional:Nnn
+  \__markdown_if_snippet_exists:n
+  { TF, T, F }
+  {
+    \tl_set:NV
+      \l_tmpa_tl
+      \g__markdown_current_theme_tl
+    \tl_put_right:Nn
+      \l_tmpa_tl
+      { #1 }
+    \prop_get:NVNTF
+      \g__markdown_snippets_prop
+      \l_tmpa_tl
+      \l_tmpb_tl
+      { \prg_return_true: }
+      { \prg_return_false: }
+  }
+\cs_gset_eq:NN
+  \markdownIfSnippetExists
+  \__markdown_if_snippet_exists:nTF
+\keys_define:nn
+  { markdown/options }
+  {
+    snippet .code:n = {
+      \tl_set:NV
+        \l_tmpa_tl
+        \g__markdown_current_theme_tl
+      \tl_put_right:Nn
+        \l_tmpa_tl
+        { #1 }
+      \__markdown_if_snippet_exists:nTF
+        { #1 }
+        {
+          \prop_get:NVN
+            \g__markdown_snippets_prop
+            \l_tmpa_tl
+            \l_tmpb_tl
+          \__markdown_setup:V
+            \l_tmpb_tl
+        }
+        {
+          \msg_error:nnV
+            { markdown }
+            { undefined-snippet }
+            \l_tmpa_tl
+        }
+    }
+  }
+\msg_new:nnn
+  { markdown }
+  { undefined-snippet }
+  { Can't~invoke~undefined~snippet~#1 }
+\cs_generate_variant:Nn
+  \__markdown_setup:n
+  { V }
+\tl_new:N
+  \l__markdown_import_current_theme_tl
+\keys_define:nn
+  { markdown/options/import }
+  {
+    unknown .default:n = {},
+    unknown .code:n = {
+      \tl_set_eq:NN
+        \l__markdown_import_current_theme_tl
+        \l_keys_key_str
+      \tl_replace_all:NVn
+        \l__markdown_import_current_theme_tl
+        \c_backslash_str
+        { / }
+      \clist_map_inline:nn
+        { #1 }
+        {
+          \regex_extract_once:nnNTF
+            { ^(.*?)\s+as\s+(.*?)$ }
+            { ##1 }
+            \l_tmpa_seq
+            {
+              \seq_pop:NN
+                \l_tmpa_seq
+                \l_tmpa_tl
+              \seq_pop:NN
+                \l_tmpa_seq
+                \l_tmpa_tl
+              \seq_pop:NN
+                \l_tmpa_seq
+                \l_tmpb_tl
+            }
+            {
+              \tl_set:Nn
+                \l_tmpa_tl
+                { ##1 }
+              \tl_set:Nn
+                \l_tmpb_tl
+                { ##1 }
+            }
+          \tl_put_left:Nn
+            \l_tmpa_tl
+            { / }
+          \tl_put_left:NV
+            \l_tmpa_tl
+            \l__markdown_import_current_theme_tl
+          \__markdown_setup_snippet:Vx
+            \l_tmpb_tl
+            { snippet = { \l_tmpa_tl } }
+        }
+      \__markdown_set_theme:V
+        \l__markdown_import_current_theme_tl
+    },
+  }
+\cs_generate_variant:Nn
+  \tl_replace_all:Nnn
+  { NVn }
+\cs_generate_variant:Nn
+  \__markdown_set_theme:n
+  { V }
+\cs_generate_variant:Nn
+  \__markdown_setup_snippet:nn
+  { Vx }
+\ExplSyntaxOn
+\seq_new:N \g__markdown_renderers_seq
+\prop_new:N \g__markdown_renderer_arities_prop
+\ExplSyntaxOff
+\def\markdownRendererAttributeIdentifier{%
+  \markdownRendererAttributeIdentifierPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { attributeIdentifier }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { attributeIdentifier }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererAttributeClassName{%
+  \markdownRendererAttributeClassNamePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { attributeClassName }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { attributeClassName }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererAttributeKeyValue{%
+  \markdownRendererAttributeKeyValuePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { attributeKeyValue }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { attributeKeyValue }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererBlockQuoteBegin{%
+  \markdownRendererBlockQuoteBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { blockQuoteBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { blockQuoteBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererBlockQuoteEnd{%
+  \markdownRendererBlockQuoteEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { blockQuoteEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { blockQuoteEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererBracketedSpanAttributeContextBegin{%
+  \markdownRendererBracketedSpanAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { bracketedSpanAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { bracketedSpanAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererBracketedSpanAttributeContextEnd{%
+  \markdownRendererBracketedSpanAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { bracketedSpanAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { bracketedSpanAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlBegin{%
+  \markdownRendererUlBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlBeginTight{%
+  \markdownRendererUlBeginTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulBeginTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulBeginTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlItem{%
+  \markdownRendererUlItemPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulItem }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulItem }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlItemEnd{%
+  \markdownRendererUlItemEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulItemEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulItemEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlEnd{%
+  \markdownRendererUlEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUlEndTight{%
+  \markdownRendererUlEndTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ulEndTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ulEndTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererCite{%
+  \markdownRendererCitePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { cite }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { cite }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererTextCite{%
+  \markdownRendererTextCitePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { textCite }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { textCite }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererInputVerbatim{%
+  \markdownRendererInputVerbatimPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inputVerbatim }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inputVerbatim }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererInputFencedCode{%
+  \markdownRendererInputFencedCodePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inputFencedCode }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inputFencedCode }
+  { 3 }
+\ExplSyntaxOff
+\def\markdownRendererCodeSpan{%
+  \markdownRendererCodeSpanPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { codeSpan }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { codeSpan }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererCodeSpanAttributeContextBegin{%
+  \markdownRendererCodeSpanAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { codeSpanAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { codeSpanAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererCodeSpanAttributeContextEnd{%
+  \markdownRendererCodeSpanAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { codeSpanAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { codeSpanAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererContentBlock{%
+  \markdownRendererContentBlockPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { contentBlock }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { contentBlock }
+  { 4 }
+\ExplSyntaxOff
+\def\markdownRendererContentBlockOnlineImage{%
+  \markdownRendererContentBlockOnlineImagePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { contentBlockOnlineImage }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { contentBlockOnlineImage }
+  { 4 }
+\ExplSyntaxOff
+\def\markdownRendererContentBlockCode{%
+  \markdownRendererContentBlockCodePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { contentBlockCode }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { contentBlockCode }
+  { 5 }
+\ExplSyntaxOff
+\def\markdownRendererDlBegin{%
+  \markdownRendererDlBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlBeginTight{%
+  \markdownRendererDlBeginTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlBeginTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlBeginTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlItem{%
+  \markdownRendererDlItemPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlItem }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlItem }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererDlItemEnd{%
+  \markdownRendererDlItemEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlItemEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlItemEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlDefinitionBegin{%
+  \markdownRendererDlDefinitionBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlDefinitionBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlDefinitionBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlDefinitionEnd{%
+  \markdownRendererDlDefinitionEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlDefinitionEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlDefinitionEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlEnd{%
+  \markdownRendererDlEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDlEndTight{%
+  \markdownRendererDlEndTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dlEndTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dlEndTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererEllipsis{%
+  \markdownRendererEllipsisPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ellipsis }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ellipsis }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererEmphasis{%
+  \markdownRendererEmphasisPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { emphasis }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { emphasis }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererStrongEmphasis{%
+  \markdownRendererStrongEmphasisPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { strongEmphasis }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { strongEmphasis }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererFencedCodeAttributeContextBegin{%
+  \markdownRendererFencedCodeAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fencedCodeAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fencedCodeAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFencedCodeAttributeContextEnd{%
+  \markdownRendererFencedCodeAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fencedCodeAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fencedCodeAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFencedDivAttributeContextBegin{%
+  \markdownRendererFencedDivAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fencedDivAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fencedDivAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFencedDivAttributeContextEnd{%
+  \markdownRendererFencedDivAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fencedDivAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fencedDivAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHeaderAttributeContextBegin{%
+  \markdownRendererHeaderAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headerAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headerAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHeaderAttributeContextEnd{%
+  \markdownRendererHeaderAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headerAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headerAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingOne{%
+  \markdownRendererHeadingOnePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingOne }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingOne }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingTwo{%
+  \markdownRendererHeadingTwoPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingTwo }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingTwo }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingThree{%
+  \markdownRendererHeadingThreePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingThree }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingThree }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingFour{%
+  \markdownRendererHeadingFourPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingFour }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingFour }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingFive{%
+  \markdownRendererHeadingFivePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingFive }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingFive }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererHeadingSix{%
+  \markdownRendererHeadingSixPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { headingSix }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { headingSix }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererInlineHtmlComment{%
+  \markdownRendererInlineHtmlCommentPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inlineHtmlComment }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inlineHtmlComment }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererInlineHtmlTag{%
+  \markdownRendererInlineHtmlTagPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inlineHtmlTag }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inlineHtmlTag }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererInputBlockHtmlElement{%
+  \markdownRendererInputBlockHtmlElementPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inputBlockHtmlElement }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inputBlockHtmlElement }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererImage{%
+  \markdownRendererImagePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { image }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { image }
+  { 4 }
+\ExplSyntaxOff
+\def\markdownRendererImageAttributeContextBegin{%
+  \markdownRendererImageAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { imageAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { imageAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererImageAttributeContextEnd{%
+  \markdownRendererImageAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { imageAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { imageAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererInterblockSeparator{%
+  \markdownRendererInterblockSeparatorPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { interblockSeparator }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { interblockSeparator }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererParagraphSeparator{%
+  \markdownRendererParagraphSeparatorPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { paragraphSeparator }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { paragraphSeparator }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererLineBlockBegin{%
+  \markdownRendererLineBlockBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { lineBlockBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { lineBlockBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererLineBlockEnd{%
+  \markdownRendererLineBlockEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { lineBlockEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { lineBlockEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererSoftLineBreak{%
+  \markdownRendererSoftLineBreakPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { softLineBreak }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { softLineBreak }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHardLineBreak{%
+  \markdownRendererHardLineBreakPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { hardLineBreak }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { hardLineBreak }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererLink{%
+  \markdownRendererLinkPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { link }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { link }
+  { 4 }
+\ExplSyntaxOff
+\def\markdownRendererLinkAttributeContextBegin{%
+  \markdownRendererLinkAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { linkAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { linkAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererLinkAttributeContextEnd{%
+  \markdownRendererLinkAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { linkAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { linkAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererMark{%
+  \markdownRendererMarkPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { mark }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { mark }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererDocumentBegin{%
+  \markdownRendererDocumentBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { documentBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { documentBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDocumentEnd{%
+  \markdownRendererDocumentEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { documentEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { documentEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererNbsp{%
+  \markdownRendererNbspPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { nbsp }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { nbsp }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererNote{%
+  \markdownRendererNotePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { note }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { note }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererOlBegin{%
+  \markdownRendererOlBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererOlBeginTight{%
+  \markdownRendererOlBeginTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olBeginTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olBeginTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlBegin{%
+  \markdownRendererFancyOlBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlBegin }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlBeginTight{%
+  \markdownRendererFancyOlBeginTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlBeginTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlBeginTight }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererOlItem{%
+  \markdownRendererOlItemPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olItem }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olItem }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererOlItemEnd{%
+  \markdownRendererOlItemEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olItemEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olItemEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererOlItemWithNumber{%
+  \markdownRendererOlItemWithNumberPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olItemWithNumber }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olItemWithNumber }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlItem{%
+  \markdownRendererFancyOlItemPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlItem }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlItem }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlItemEnd{%
+  \markdownRendererFancyOlItemEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlItemEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlItemEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlItemWithNumber{%
+  \markdownRendererFancyOlItemWithNumberPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlItemWithNumber }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlItemWithNumber }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererOlEnd{%
+  \markdownRendererOlEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererOlEndTight{%
+  \markdownRendererOlEndTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { olEndTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { olEndTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlEnd{%
+  \markdownRendererFancyOlEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererFancyOlEndTight{%
+  \markdownRendererFancyOlEndTightPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { fancyOlEndTight }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { fancyOlEndTight }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererInputRawInline{%
+  \markdownRendererInputRawInlinePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inputRawInline }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inputRawInline }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererInputRawBlock{%
+  \markdownRendererInputRawBlockPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inputRawBlock }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inputRawBlock }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererSectionBegin{%
+  \markdownRendererSectionBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { sectionBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { sectionBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererSectionEnd{%
+  \markdownRendererSectionEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { sectionEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { sectionEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererReplacementCharacter{%
+  \markdownRendererReplacementCharacterPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { replacementCharacter }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { replacementCharacter }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererLeftBrace{%
+  \markdownRendererLeftBracePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { leftBrace }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { leftBrace }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererRightBrace{%
+  \markdownRendererRightBracePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { rightBrace }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { rightBrace }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererDollarSign{%
+  \markdownRendererDollarSignPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { dollarSign }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { dollarSign }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererPercentSign{%
+  \markdownRendererPercentSignPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { percentSign }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { percentSign }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererAmpersand{%
+  \markdownRendererAmpersandPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { ampersand }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { ampersand }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUnderscore{%
+  \markdownRendererUnderscorePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { underscore }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { underscore }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHash{%
+  \markdownRendererHashPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { hash }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { hash }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererCircumflex{%
+  \markdownRendererCircumflexPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { circumflex }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { circumflex }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererBackslash{%
+  \markdownRendererBackslashPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { backslash }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { backslash }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererTilde{%
+  \markdownRendererTildePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { tilde }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { tilde }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererPipe{%
+  \markdownRendererPipePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { pipe }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { pipe }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererStrikeThrough{%
+  \markdownRendererStrikeThroughPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { strikeThrough }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { strikeThrough }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererSubscript{%
+  \markdownRendererSubscriptPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { subscript }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { subscript }
+  { 1 }
+\def\markdownRendererSuperscript{%
+  \markdownRendererSuperscriptPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { superscript }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { superscript }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererTableAttributeContextBegin{%
+  \markdownRendererTableAttributeContextBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { tableAttributeContextBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { tableAttributeContextBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererTableAttributeContextEnd{%
+  \markdownRendererTableAttributeContextEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { tableAttributeContextEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { tableAttributeContextEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererTable{%
+  \markdownRendererTablePrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { table }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { table }
+  { 3 }
+\ExplSyntaxOff
+\def\markdownRendererInlineMath{%
+  \markdownRendererInlineMathPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { inlineMath }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { inlineMath }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererDisplayMath{%
+  \markdownRendererDisplayMathPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { displayMath }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { displayMath }
+  { 1 }
+\ExplSyntaxOff
+\def\markdownRendererThematicBreak{%
+  \markdownRendererThematicBreakPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { thematicBreak }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { thematicBreak }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererTickedBox{%
+  \markdownRendererTickedBoxPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { tickedBox }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { tickedBox }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererHalfTickedBox{%
+  \markdownRendererHalfTickedBoxPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { halfTickedBox }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { halfTickedBox }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererUntickedBox{%
+  \markdownRendererUntickedBoxPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { untickedBox }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { untickedBox }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataBegin{%
+  \markdownRendererJekyllDataBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataBegin }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataEnd{%
+  \markdownRendererJekyllDataEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataMappingBegin{%
+  \markdownRendererJekyllDataMappingBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataMappingBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataMappingBegin }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataMappingEnd{%
+  \markdownRendererJekyllDataMappingEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataMappingEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataMappingEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataSequenceBegin{%
+  \markdownRendererJekyllDataSequenceBeginPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataSequenceBegin }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataSequenceBegin }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataSequenceEnd{%
+  \markdownRendererJekyllDataSequenceEndPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataSequenceEnd }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataSequenceEnd }
+  { 0 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataBoolean{%
+  \markdownRendererJekyllDataBooleanPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataBoolean }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataBoolean }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataNumber{%
+  \markdownRendererJekyllDataNumberPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataNumber }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataNumber }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataString{%
+  \markdownRendererJekyllDataStringPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataString }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataString }
+  { 2 }
+\ExplSyntaxOff
+\def\markdownRendererJekyllDataEmpty{%
+  \markdownRendererJekyllDataEmptyPrototype}%
+\ExplSyntaxOn
+\seq_gput_right:Nn
+  \g__markdown_renderers_seq
+  { jekyllDataEmpty }
+\prop_gput:Nnn
+  \g__markdown_renderer_arities_prop
+  { jekyllDataEmpty }
+  { 1 }
+\cs_new:Nn \__markdown_define_renderers:
+  {
+    \seq_map_function:NN
+      \g__markdown_renderers_seq
+      \__markdown_define_renderer:n
+  }
+\cs_new:Nn \__markdown_define_renderer:n
+  {
+    \__markdown_renderer_tl_to_csname:nN
+      { #1 }
+      \l_tmpa_tl
+    \prop_get:NnN
+      \g__markdown_renderer_arities_prop
+      { #1 }
+      \l_tmpb_tl
+    \__markdown_define_renderer:ncV
+      { #1 }
+      { \l_tmpa_tl }
+      \l_tmpb_tl
+  }
+\cs_new:Nn \__markdown_renderer_tl_to_csname:nN
+  {
+    \tl_set:Nn
+      \l_tmpa_tl
+      { \str_uppercase:n { #1 } }
+    \tl_set:Nx
+      #2
+      {
+        markdownRenderer
+        \tl_head:f { \l_tmpa_tl }
+        \tl_tail:n { #1 }
+      }
+  }
+\tl_new:N
+  \l__markdown_renderer_definition_tl
+\cs_new:Nn \__markdown_define_renderer:nNn
+  {
+    \keys_define:nn
+      { markdown/options/renderers }
+      {
+        #1 .code:n = {
+          \tl_set:Nn
+            \l__markdown_renderer_definition_tl
+            { ##1 }
+          \regex_replace_all:nnN
+            { \cP\#0 }
+            { #1 }
+            \l__markdown_renderer_definition_tl
+          \cs_generate_from_arg_count:NNnV
+            #2
+            \cs_set:Npn
+            { #3 }
+            \l__markdown_renderer_definition_tl
+        },
+      }
+  }
+\cs_generate_variant:Nn
+  \__markdown_define_renderer:nNn
+  { ncV }
+\cs_generate_variant:Nn
+  \cs_generate_from_arg_count:NNnn
+  { NNnV }
+\keys_define:nn
+  { markdown/options }
+  {
+    renderers .code:n = {
+      \keys_set:nn
+        { markdown/options/renderers }
+        { #1 }
+    },
+  }
+\prop_new:N
+  \g__markdown_glob_cache_prop
+\tl_new:N
+  \l__markdown_current_glob_tl
+\cs_new:Nn
+  \__markdown_glob_seq:nnN
+  {
+    \tl_set:Nn
+      \l__markdown_current_glob_tl
+      { ^ #1 $ }
+    \prop_get:NeNTF
+      \g__markdown_glob_cache_prop
+      { #2 / \l__markdown_current_glob_tl }
+      \l_tmpa_clist
+      {
+        \seq_set_from_clist:NN
+          #3
+          \l_tmpa_clist
+      }
+      {
+        \seq_clear:N
+          #3
+        \regex_replace_all:nnN
+          { \* }
+          { .* }
+          \l__markdown_current_glob_tl
+        \regex_set:NV
+          \l_tmpa_regex
+          \l__markdown_current_glob_tl
+        \seq_map_inline:cn
+          { #2 }
+          {
+            \regex_match:NnT
+              \l_tmpa_regex
+              { ##1 }
+              {
+                \seq_put_right:Nn
+                  #3
+                  { ##1 }
+              }
+          }
+        \clist_set_from_seq:NN
+          \l_tmpa_clist
+          #3
+        \prop_gput:NeV
+          \g__markdown_glob_cache_prop
+          { #2 / \l__markdown_current_glob_tl }
+          \l_tmpa_clist
+      }
+  }
+\prg_generate_conditional_variant:Nnn
+  \prop_get:NnN
+  { NeN }
+  { TF }
+\cs_generate_variant:Nn
+  \regex_set:Nn
+  { NV }
+\cs_generate_variant:Nn
+  \prop_gput:Nnn
+  { NeV }
+\seq_new:N
+  \l__markdown_renderer_glob_results_seq
+\keys_define:nn
+  { markdown/options/renderers }
+  {
+    unknown .code:n = {
+      \__markdown_glob_seq:VnN
+        \l_keys_key_str
+        { g__markdown_renderers_seq }
+        \l__markdown_renderer_glob_results_seq
+      \seq_if_empty:NTF
+        \l__markdown_renderer_glob_results_seq
+        {
+          \msg_error:nnV
+            { markdown }
+            { undefined-renderer }
+            \l_keys_key_str
+        }
+        {
+          \tl_set:Nn
+            \l__markdown_renderer_definition_tl
+            { #1 }
+          \seq_map_inline:Nn
+            \l__markdown_renderer_glob_results_seq
+            {
+              \__markdown_renderer_tl_to_csname:nN
+                { ##1 }
+                \l_tmpa_tl
+              \prop_get:NnN
+                \g__markdown_renderer_arities_prop
+                { ##1 }
+                \l_tmpb_tl
+              \int_set:Nn
+                \l_tmpa_int
+                \l_tmpb_tl
+              \tl_set:NV
+                \l_tmpb_tl
+                \l__markdown_renderer_definition_tl
+              \regex_replace_all:nnN
+                { \cP\#0 }
+                { ##1 }
+                \l_tmpb_tl
+              \cs_generate_from_arg_count:cNVV
+                { \l_tmpa_tl }
+                \cs_set:Npn
+                \l_tmpa_int
+                \l_tmpb_tl
+            }
+        }
+    },
+  }
+\msg_new:nnn
+  { markdown }
+  { undefined-renderer }
+  {
+    Renderer~#1~is~undefined.
+  }
+\cs_generate_variant:Nn
+  \__markdown_glob_seq:nnN
+  { VnN }
+\cs_generate_variant:Nn
+  \cs_generate_from_arg_count:NNnn
+  { cNVV }
+\cs_generate_variant:Nn
+  \msg_error:nnn
+  { nnV }
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_plain_tex_tl
+  {
+    \__markdown_define_renderers:
+  }
+\keys_define:nn
+  { markdown/jekyllData }
+  { }
+\__markdown_with_various_cases:nn
+  { jekyllDataRenderers }
+  {
+    \keys_define:nn
+      { markdown/options }
+      {
+        #1 .code:n = {
+          \tl_set:Nn
+            \l_tmpa_tl
+            { ##1 }
+          \tl_replace_all:NnV
+            \l_tmpa_tl
+            { / }
+            \c_backslash_str
+          \keys_set:nV
+            { markdown/options/jekyll-data-renderers }
+            \l_tmpa_tl
+        },
+      }
+  }
+\keys_define:nn
+  { markdown/options/jekyll-data-renderers }
+  {
+    unknown .code:n = {
+      \tl_set_eq:NN
+        \l_tmpa_tl
+        \l_keys_key_str
+      \tl_replace_all:NVn
+        \l_tmpa_tl
+        \c_backslash_str
+        { / }
+      \tl_put_right:Nn
+        \l_tmpa_tl
+        {
+          .code:n = { #1 }
+        }
+      \keys_define:nV
+        { markdown/jekyllData }
+        \l_tmpa_tl
+    }
+  }
+\cs_generate_variant:Nn
+  \keys_define:nn
+  { nV }
+\cs_new:Nn \__markdown_define_renderer_prototypes:
+  {
+    \seq_map_function:NN
+      \g__markdown_renderers_seq
+      \__markdown_define_renderer_prototype:n
+  }
+\cs_new:Nn \__markdown_define_renderer_prototype:n
+  {
+    \__markdown_renderer_prototype_tl_to_csname:nN
+      { #1 }
+      \l_tmpa_tl
+    \prop_get:NnN
+      \g__markdown_renderer_arities_prop
+      { #1 }
+      \l_tmpb_tl
+    \__markdown_define_renderer_prototype:ncV
+      { #1 }
+      { \l_tmpa_tl }
+      \l_tmpb_tl
+  }
+\cs_new:Nn \__markdown_renderer_prototype_tl_to_csname:nN
+  {
+    \tl_set:Nn
+      \l_tmpa_tl
+      { \str_uppercase:n { #1 } }
+    \tl_set:Nx
+      #2
+      {
+        markdownRenderer
+        \tl_head:f { \l_tmpa_tl }
+        \tl_tail:n { #1 }
+        Prototype
+      }
+  }
+\tl_new:N
+  \l__markdown_renderer_prototype_definition_tl
+\cs_new:Nn \__markdown_define_renderer_prototype:nNn
+  {
+    \keys_define:nn
+      { markdown/options/renderer-prototypes }
+      {
+        #1 .code:n = {
+          \tl_set:Nn
+            \l__markdown_renderer_prototype_definition_tl
+            { ##1 }
+          \regex_replace_all:nnN
+            { \cP\#0 }
+            { #1 }
+            \l__markdown_renderer_prototype_definition_tl
+          \cs_generate_from_arg_count:NNnV
+            #2
+            \cs_set:Npn
+            { #3 }
+            \l__markdown_renderer_prototype_definition_tl
+        },
+      }
+    \cs_if_free:NT
+      #2
+      {
+        \cs_generate_from_arg_count:NNnn
+          #2
+          \cs_set:Npn
+          { #3 }
+          { }
+      }
+  }
+\cs_generate_variant:Nn
+  \__markdown_define_renderer_prototype:nNn
+  { ncV }
+\seq_new:N
+  \l__markdown_renderer_prototype_glob_results_seq
+\keys_define:nn
+  { markdown/options/renderer-prototypes }
+  {
+    unknown .code:n = {
+      \__markdown_glob_seq:VnN
+        \l_keys_key_str
+        { g__markdown_renderers_seq }
+        \l__markdown_renderer_prototype_glob_results_seq
+      \seq_if_empty:NTF
+        \l__markdown_renderer_prototype_glob_results_seq
+        {
+          \msg_error:nnV
+            { markdown }
+            { undefined-renderer-prototype }
+            \l_keys_key_str
+        }
+        {
+          \tl_set:Nn
+            \l__markdown_renderer_prototype_definition_tl
+            { #1 }
+          \seq_map_inline:Nn
+            \l__markdown_renderer_prototype_glob_results_seq
+            {
+              \__markdown_renderer_prototype_tl_to_csname:nN
+                { ##1 }
+                \l_tmpa_tl
+              \prop_get:NnN
+                \g__markdown_renderer_arities_prop
+                { ##1 }
+                \l_tmpb_tl
+              \int_set:Nn
+                \l_tmpa_int
+                \l_tmpb_tl
+              \tl_set:NV
+                \l_tmpb_tl
+                \l__markdown_renderer_prototype_definition_tl
+              \regex_replace_all:nnN
+                { \cP\#0 }
+                { ##1 }
+                \l_tmpb_tl
+              \cs_generate_from_arg_count:cNVV
+                { \l_tmpa_tl }
+                \cs_set:Npn
+                \l_tmpa_int
+                \l_tmpb_tl
+            }
+        }
+    },
+  }
+\msg_new:nnn
+  { markdown }
+  { undefined-renderer-prototype }
+  {
+    Renderer~prototype~#1~is~undefined.
+  }
+\__markdown_with_various_cases:nn
+  { rendererPrototypes }
+  {
+    \keys_define:nn
+      { markdown/options }
+      {
+        #1 .code:n = {
+          \keys_set:nn
+            { markdown/options/renderer-prototypes }
+            { ##1 }
+        },
+      }
+  }
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_plain_tex_tl
+  {
+    \__markdown_define_renderer_prototypes:
+  }
+\ExplSyntaxOff
+\let\markdownMakeOther\relax
+\let\markdownReadAndConvert\relax
+\begingroup
+  \catcode`\|=0\catcode`\\=12%
+  |gdef|markdownBegin{%
+    |markdownReadAndConvert{\markdownEnd}%
+                           {|markdownEnd}}%
+|endgroup
+\ExplSyntaxOn
+\keys_define:nn
+  { markdown/options }
+  {
+    code .code:n = { #1 },
+  }
+\cs_if_free:NT
+  \markdownInfo
+  {
+    \cs_new:Npn
+      \markdownInfo #1
+      {
+        \msg_info:nne
+          { markdown }
+          { generic-message }
+          { #1 }
+      }
+  }
+\cs_if_free:NT
+  \markdownWarning
+  {
+    \cs_new:Npn
+      \markdownWarning #1
+      {
+        \msg_warning:nne
+          { markdown }
+          { generic-message }
+          { #1 }
+      }
+  }
+\cs_if_free:NT
+  \markdownError
+  {
+    \cs_new:Npn
+      \markdownError #1 #2
+      {
+        \msg_error:nnee
+          { markdown }
+          { generic-message-with-help-text }
+          { #1 }
+          { #2 }
+      }
+  }
+\msg_new:nnn
+  { markdown }
+  { generic-message }
+  { #1 }
+\msg_new:nnnn
+  { markdown }
+  { generic-message-with-help-text }
+  { #1 }
+  { #2 }
+\cs_generate_variant:Nn
+  \msg_info:nnn
+  { nne }
+\cs_generate_variant:Nn
+  \msg_warning:nnn
+  { nne }
+\cs_generate_variant:Nn
+  \msg_error:nnnn
+  { nnee }
+\prop_new:N \g__markdown_plain_tex_loaded_themes_linenos_prop
+\cs_new:Nn
+  \__markdown_plain_tex_load_theme:nn
+  {
+    \prop_get:NnNTF
+      \g__markdown_plain_tex_loaded_themes_linenos_prop
+      { #1 }
+      \l_tmpa_tl
+      {
+        \msg_warning:nnnV
+          { markdown }
+          { repeatedly-loaded-plain-tex-theme }
+          { #1 }
+          \l_tmpa_tl
+      }
+      {
+        \msg_info:nnn
+          { markdown }
+          { loading-plain-tex-theme }
+          { #1 }
+        \prop_gput:Nnx
+          \g__markdown_plain_tex_loaded_themes_linenos_prop
+          { #1 }
+          { \tex_the:D \tex_inputlineno:D }
+        \file_input:n
+          { markdown theme #2 }
+      }
+  }
+\msg_new:nnn
+  { markdown }
+  { loading-plain-tex-theme }
+  { Loading~plain~TeX~Markdown~theme~#1 }
+\msg_new:nnn
+  { markdown }
+  { repeatedly-loaded-plain-tex-theme }
+  {
+    Plain~TeX~Markdown~theme~#1~was~previously~
+    loaded~on~line~#2,~not~loading~it~again
+  }
+\cs_generate_variant:Nn
+  \prop_gput:Nnn
+  { Nnx }
+\cs_gset_eq:NN
+  \__markdown_load_theme:nn
+  \__markdown_plain_tex_load_theme:nn
+\cs_generate_variant:Nn
+  \__markdown_load_theme:nn
+  { nV }
+\cs_new:Npn
+  \markdownLoadPlainTeXTheme
+  {
+    \tl_set:NV
+      \l_tmpa_tl
+      \g__markdown_current_theme_tl
+    \tl_reverse:N
+      \l_tmpa_tl
+    \tl_set:Ne
+      \l_tmpb_tl
+      {
+        \tl_tail:V
+          \l_tmpa_tl
+      }
+    \tl_reverse:N
+      \l_tmpb_tl
+    \str_set:NV
+      \l_tmpa_str
+      \l_tmpb_tl
+    \str_replace_all:Nnn
+      \l_tmpa_str
+      { / }
+      { _ }
+    \__markdown_plain_tex_load_theme:VV
+      \l_tmpb_tl
+      \l_tmpa_str
+  }
+\cs_generate_variant:Nn
+  \tl_set:Nn
+  { Ne }
+\cs_generate_variant:Nn
+  \__markdown_plain_tex_load_theme:nn
+  { VV }
+\str_if_eq:VVT
+  \c__markdown_top_layer_tl
+  \c__markdown_option_layer_plain_tex_tl
+  {
+    \ExplSyntaxOff
+    \__markdown_if_option:nF
+      { noDefaults }
+      {
+        \__markdown_setup:n
+          {theme = witiko/markdown/defaults}
+      }
+    \ExplSyntaxOn
+  }
+\tl_new:N \g__markdown_formatted_lua_options_tl
+\cs_new:Nn \__markdown_format_lua_options:
+  {
+    \tl_gclear:N
+      \g__markdown_formatted_lua_options_tl
+    \seq_map_function:NN
+      \g__markdown_lua_options_seq
+      \__markdown_format_lua_option:n
+  }
+\cs_new:Nn \__markdown_format_lua_option:n
+  {
+    \__markdown_typecheck_option:n
+      { #1 }
+    \__markdown_get_option_type:nN
+      { #1 }
+      \l_tmpa_tl
+    \bool_case_true:nF
+      {
+        {
+          \str_if_eq_p:VV
+            \l_tmpa_tl
+            \c__markdown_option_type_boolean_tl ||
+          \str_if_eq_p:VV
+            \l_tmpa_tl
+            \c__markdown_option_type_number_tl ||
+          \str_if_eq_p:VV
+            \l_tmpa_tl
+            \c__markdown_option_type_counter_tl
+        }
+          {
+            \__markdown_get_option_value:nN
+              { #1 }
+              \l_tmpa_tl
+            \tl_gput_right:Nx
+              \g__markdown_formatted_lua_options_tl
+              { #1~=~  \l_tmpa_tl   ,~ }
+          }
+        {
+          \str_if_eq_p:VV
+            \l_tmpa_tl
+            \c__markdown_option_type_clist_tl
+        }
+          {
+            \__markdown_get_option_value:nN
+              { #1 }
+              \l_tmpa_tl
+            \tl_gput_right:Nx
+              \g__markdown_formatted_lua_options_tl
+              { #1~=~\c_left_brace_str }
+            \clist_map_inline:Vn
+              \l_tmpa_tl
+              {
+                \tl_gput_right:Nx
+                  \g__markdown_formatted_lua_options_tl
+                  { "##1" ,~ }
+              }
+            \tl_gput_right:Nx
+              \g__markdown_formatted_lua_options_tl
+              { \c_right_brace_str ,~ }
+          }
+      }
+      {
+        \__markdown_get_option_value:nN
+          { #1 }
+          \l_tmpa_tl
+        \tl_gput_right:Nx
+          \g__markdown_formatted_lua_options_tl
+          { #1~=~ " \l_tmpa_tl " ,~ }
+      }
+  }
+\cs_generate_variant:Nn
+  \clist_map_inline:nn
+  { Vn }
+\let\markdownPrepareLuaOptions=\__markdown_format_lua_options:
+\def\markdownLuaOptions{{ \g__markdown_formatted_lua_options_tl }}
+\ExplSyntaxOff
+\def\markdownPrepare{%
+  local lfs = require("lfs")
+  local cacheDir = "\markdownOptionCacheDir"
+  if not lfs.isdir(cacheDir) then
+    assert(lfs.mkdir(cacheDir))
+  end
+  local md = require("markdown")
+  local convert = md.new(\markdownLuaOptions)
+}%
+\def\markdownCleanup{%
+  lfs.rmdir(cacheDir)
+}%
+\csname newread\endcsname\markdownInputFileStream
+\csname newwrite\endcsname\markdownOutputFileStream
+\begingroup
+  \catcode`\^^I=12%
+  \gdef\markdownReadAndConvertTab{^^I}%
+\endgroup
+\begingroup
+  \catcode`\^^M=13%
+  \catcode`\^^I=13%
+  \catcode`|=0%
+  \catcode`\\=12%
+  |catcode`@=14%
+  |catcode`|%=12@
+  |gdef|markdownReadAndConvert#1#2{@
+    |begingroup@
+    |markdownIfOption{frozenCache}{}{@
+      |immediate|openout|markdownOutputFileStream@
+        |markdownOptionInputTempFileName|relax@
+      |markdownInfo{Buffering markdown input into the temporary @
+        input file "|markdownOptionInputTempFileName" and scanning @
+        for the closing token sequence "#1"}@
+    }@
+    |def|do##1{|catcode`##1=12}|dospecials@
+    |catcode`| =12@
+    |markdownMakeOther@
+    |def|markdownReadAndConvertStripPercentSign##1{@
+      |markdownIfOption{stripPercentSigns}{@
+        |if##1%@
+          |expandafter|expandafter|expandafter@
+            |markdownReadAndConvertProcessLine@
+        |else@
+          |expandafter|expandafter|expandafter@
+            |markdownReadAndConvertProcessLine@
+            |expandafter|expandafter|expandafter##1@
+        |fi@
+      }{@
+        |expandafter@
+          |markdownReadAndConvertProcessLine@
+          |expandafter##1@
+      }@
+    }@
+    |def|markdownReadAndConvertProcessLine##1#1##2#1##3|relax{@
+      |ifx|relax##3|relax@
+        |markdownIfOption{frozenCache}{}{@
+          |immediate|write|markdownOutputFileStream{##1}@
+        }@
+      |else@
+        |def^^M{@
+          |markdownInfo{The ending token sequence was found}@
+          |markdownIfOption{frozenCache}{}{@
+            |immediate|closeout|markdownOutputFileStream@
+          }@
+          |endgroup@
+          |markdownInput{@
+            |markdownOptionOutputDir@
+            /|markdownOptionInputTempFileName@
+          }@
+          #2}@
+      |fi@
+      ^^M}@
+    |catcode`|^^I=13@
+    |def^^I{|markdownReadAndConvertTab}@
+    |catcode`|^^M=13@
+    |def^^M##1^^M{@
+      |def^^M####1^^M{@
+        |markdownReadAndConvertStripPercentSign####1#1#1|relax}@
+      ^^M}@
+    ^^M}@
+|endgroup
+\ExplSyntaxOn
+\cs_new:Npn
+  \markdownLuaExecute
+  #1
+  {
+    \int_compare:nNnT
+      { \g_luabridge_method_int }
+      =
+      { \c_luabridge_method_shell_int }
+      {
+        \sys_if_shell_unrestricted:F
+          {
+            \sys_if_shell:TF
+              {
+                \msg_error:nn
+                  { markdown }
+                  { restricted-shell-access }
+              }
+              {
+                \msg_error:nn
+                  { markdown }
+                  { disabled-shell-access }
+              }
+          }
+      }
+    \luabridge_now:e
+      { #1 }
+  }
+\cs_generate_variant:Nn
+  \msg_new:nnnn
+  { nnnV }
+\tl_set:Nn
+  \l_tmpa_tl
+  {
+    You~may~need~to~run~TeX~with~the~--shell-escape~or~the~
+    --enable-write18~flag,~or~write~shell_escape=t~in~the~
+    texmf.cnf~file.
+  }
+\msg_new:nnnV
+  { markdown }
+  { restricted-shell-access }
+  { Shell~escape~is~restricted }
+  \l_tmpa_tl
+\msg_new:nnnV
+  { markdown }
+  { disabled-shell-access }
+  { Shell~escape~is~disabled }
+  \l_tmpa_tl
+\ExplSyntaxOff
+\begingroup
+  \catcode`|=0%
+  \catcode`\\=12%
+  \catcode`|&=6%
+  |gdef|markdownInput#1{%
+    |begingroup
+    |catcode`|%=12
+    |catcode`|#=12
+    |markdownIfOption{frozenCache}{%
+      |ifnum|markdownOptionFrozenCacheCounter=0|relax
+        |markdownInfo{Reading frozen cache from
+          "|markdownOptionFrozenCacheFileName"}%
+        |input|markdownOptionFrozenCacheFileName|relax
+      |fi
+      |markdownInfo{Including markdown document number
+        "|the|markdownOptionFrozenCacheCounter" from frozen cache}%
+      |csname markdownFrozenCache|the|markdownOptionFrozenCacheCounter|endcsname
+      |global|advance|markdownOptionFrozenCacheCounter by 1|relax
+    }{%
+      |markdownInfo{Including markdown document "&1"}%
+      |openin|markdownInputFileStream&1
+      |closein|markdownInputFileStream
+      |markdownPrepareLuaOptions
+      |markdownLuaExecute{%
+        |markdownPrepare
+        local file = assert(io.open("&1", "r"),
+          [[Could not open file "&1" for reading]])
+        local input = assert(file:read("*a"))
+        assert(file:close())
+        print(convert(input))
+        |markdownCleanup}%
+      |markdownIfOption{finalizeCache}{%
+        |global|advance|markdownOptionFrozenCacheCounter by 1|relax}{}%
+    }%
+    |endgroup
+  }%
+|endgroup
+\gdef\markdownEscape#1{%
+  \catcode`\%=14\relax
+  \catcode`\#=6\relax
+  \input #1\relax
+  \catcode`\%=12\relax
+  \catcode`\#=12\relax
+}%
+\endinput
+%%
+%% End of file `markdown.tex'.

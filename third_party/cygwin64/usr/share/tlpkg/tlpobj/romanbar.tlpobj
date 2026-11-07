@@ -1,0 +1,17 @@
+name romanbar
+category Package
+revision 25005
+shortdesc Write roman number with "bars"
+relocated 1
+longdesc 'Bars', in the present context, are lines above and below text
+longdesc that abut with the text. Barred roman numerals are sometimes
+longdesc found in publications. The package provides a function that
+longdesc prints barred roman numerals (converting arabic numerals if
+longdesc necessary). The package also provides a predicate \ifnumeric.
+runfiles size=2
+ RELOC/tex/latex/romanbar/romanbar.sty
+catalogue-ctan /macros/latex/contrib/romanbar
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics numbers
+catalogue-version 1.0f

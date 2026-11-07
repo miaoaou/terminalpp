@@ -1,0 +1,22 @@
+name mfirstuc
+category Package
+revision 64743
+shortdesc Uppercase the first letter of a word
+relocated 1
+longdesc The package provides commands \makefirstuc that uppercases the
+longdesc first letter in its argument (with a check for a semantic
+longdesc markup command at the start of the argument), and \xmakefirstuc
+longdesc which expands the argument before uppercasing. It also provides
+longdesc \capitalisewords{phrase} which applies \makefirstuc to each
+longdesc word in the phrase, where the words are separated by regular
+longdesc spaces. (Exceptions can be made for words that shouldn't be
+longdesc converted.)
+runfiles size=11
+ RELOC/scripts/mfirstuc/mfirstuc.l2h
+ RELOC/tex/latex/mfirstuc/mfirstuc-2021-10-15.sty
+ RELOC/tex/latex/mfirstuc/mfirstuc-english.sty
+ RELOC/tex/latex/mfirstuc/mfirstuc.sty
+catalogue-ctan /macros/latex/contrib/mfirstuc
+catalogue-license lppl1.3
+catalogue-topics text-manip macro-supp
+catalogue-version 2.08

@@ -1,0 +1,16 @@
+name glossaries-irish
+category Package
+revision 35665
+shortdesc Irish language module for glossaries package
+relocated 1
+longdesc Irish language module for glossariesr package.
+runfiles size=3
+ RELOC/tex/latex/glossaries-irish/glossaries-irish-noenc.ldf
+ RELOC/tex/latex/glossaries-irish/glossaries-irish-utf8.ldf
+ RELOC/tex/latex/glossaries-irish/glossaries-irish.ldf
+catalogue-also glossaries
+catalogue-ctan /macros/latex/contrib/glossaries-irish
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics glossary irish-gaelic
+catalogue-version 1.0

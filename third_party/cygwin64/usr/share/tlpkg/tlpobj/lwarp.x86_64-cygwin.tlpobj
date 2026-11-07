@@ -1,0 +1,6 @@
+name lwarp.x86_64-cygwin
+category Package
+revision 43292
+shortdesc x86_64-cygwin files of lwarp
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/lwarpmk

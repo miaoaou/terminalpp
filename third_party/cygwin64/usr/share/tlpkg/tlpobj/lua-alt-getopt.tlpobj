@@ -1,0 +1,16 @@
+name lua-alt-getopt
+category Package
+revision 56414
+shortdesc Process application arguments the same way as getopt_long
+relocated 1
+longdesc lua_altgetopt is a MIT-licensed module for Lua, for processing
+longdesc application arguments in the same way as BSD/GNU getopt_long(3)
+longdesc functions do. This module is made available for lua script
+longdesc writers to have consistent command line parsing routines.
+runfiles size=1
+ RELOC/scripts/lua-alt-getopt/alt_getopt.lua
+catalogue-contact-repository https://github.com/cheusov/lua-alt-getopt
+catalogue-ctan /support/lualibs/lua-alt-getopt
+catalogue-license mit
+catalogue-topics lua-supp
+catalogue-version 0.7.0

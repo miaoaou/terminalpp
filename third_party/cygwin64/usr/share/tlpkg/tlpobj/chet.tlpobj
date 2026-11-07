@@ -1,0 +1,15 @@
+name chet
+category Package
+revision 45081
+shortdesc LaTeX layout inspired by harvmac
+relocated 1
+longdesc The package aims to streamline the work of typesetting, and to
+longdesc provide the look and feel of harvmac for readers.
+runfiles size=7
+ RELOC/bibtex/bst/chet/chetref.bst
+ RELOC/tex/latex/chet/chet.sty
+catalogue-ctan /macros/latex/contrib/chet
+catalogue-date 2017-08-19 23:16:49 +0200
+catalogue-license lppl1.3
+catalogue-topics layout
+catalogue-version 2.2

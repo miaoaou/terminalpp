@@ -1,0 +1,15 @@
+name diagmac2
+category Package
+revision 15878
+shortdesc Diagram macros, using pict2e
+relocated 1
+longdesc This is a development of the long-established diagmac package,
+longdesc using pict2e so that the restrictions on line direction are
+longdesc removed.
+runfiles size=11
+ RELOC/tex/latex/diagmac2/diagmac2.sty
+catalogue-ctan /macros/latex/contrib/diagmac2
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics diagram-comm graphics-in-tex
+catalogue-version 2.1

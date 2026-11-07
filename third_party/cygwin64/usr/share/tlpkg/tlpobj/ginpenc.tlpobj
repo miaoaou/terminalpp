@@ -1,0 +1,34 @@
+name ginpenc
+category Package
+revision 24980
+shortdesc Modification of inputenc for German
+relocated 1
+longdesc If the inputenc is used and German umlauts are input directly,
+longdesc they are converted to the LICR representation \"a (etc.). This
+longdesc breaks the sort algorithm of makeindex, for instance. Ginpenc
+longdesc converts umlauts and the sharp-s to the short forms defined by
+longdesc babel, e.g., "a instead, if the text is typeset in German.
+runfiles size=18
+ RELOC/tex/latex/ginpenc/ansinew.gie
+ RELOC/tex/latex/ginpenc/applemac.gie
+ RELOC/tex/latex/ginpenc/ascii.gie
+ RELOC/tex/latex/ginpenc/cp1250.gie
+ RELOC/tex/latex/ginpenc/cp1252.gie
+ RELOC/tex/latex/ginpenc/cp437.gie
+ RELOC/tex/latex/ginpenc/cp437de.gie
+ RELOC/tex/latex/ginpenc/cp850.gie
+ RELOC/tex/latex/ginpenc/cp852.gie
+ RELOC/tex/latex/ginpenc/cp865.gie
+ RELOC/tex/latex/ginpenc/decmulti.gie
+ RELOC/tex/latex/ginpenc/ginpenc.sty
+ RELOC/tex/latex/ginpenc/latin1.gie
+ RELOC/tex/latex/ginpenc/latin2.gie
+ RELOC/tex/latex/ginpenc/latin3.gie
+ RELOC/tex/latex/ginpenc/latin5.gie
+ RELOC/tex/latex/ginpenc/latin9.gie
+ RELOC/tex/latex/ginpenc/next.gie
+catalogue-ctan /macros/latex/contrib/ginpenc
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics inputenc
+catalogue-version 1.0

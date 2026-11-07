@@ -1,0 +1,16 @@
+name isotope
+category Package
+revision 23711
+shortdesc A package for typesetting isotopes
+relocated 1
+longdesc The package provides a command \isotope for setting the atomic
+longdesc weight and atomic number indications of isotopes. (The naive
+longdesc way of doing the job with (La)TeX mathematics commands produces
+longdesc an unsatisfactory result.)
+runfiles size=1
+ RELOC/tex/latex/isotope/isotope.sty
+catalogue-ctan /macros/latex/contrib/isotope
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics subsup-pos physics
+catalogue-version 0.3

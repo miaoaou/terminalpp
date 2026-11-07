@@ -1,0 +1,83 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-spectra package -----------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\def\pgfspectra@library@rainbow@loaded{}%
+\message{pgf-spectra rainbow library loaded!}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% provide the macro
+%       \pgfspectrarainbow<[tikz options]><(rainbow options)>{radius}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pgfspectrarainbow[<tikz options>](<rainbow fade>,<rainbow start>,<rainbow knock out>,<rainbow background>,<rainbow transparency>){radius}
+% tikz options -> color, opacity,scope fading
+% rainbow clip -> applies a scope fading in clipped region
+% ...
+\pgfkeys{/pgfspectra/.cd,%
+rainbow fade/.get=\pgfspectra@rainbowfade,%
+rainbow fade/.store in=\pgfspectra@rainbowfade,%
+rainbow fade/.default={},%
+rainbow start/.get=\pgfspectra@rainbow@start,%
+rainbow start/.store in=\pgfspectra@rainbow@start,%
+rainbow start/.default=.6,% -> 60%
+rainbow knock out/.get=\pgfspectra@rainbow@KO,%
+rainbow knock out/.store in=\pgfspectra@rainbow@KO,%
+rainbow knock out/.default=.4,% -> 40%
+rainbow background/.get=\pgfspectra@rainbowback,%
+rainbow background/.store in=\pgfspectra@rainbowback,%
+rainbow background/.default=white,%
+rainbow transparency/.get=\pgfspectra@rainbowtransp,%
+rainbow transparency/.store in=\pgfspectra@rainbowtransp,%
+rainbow transparency/.default=0}% -> 0%
+%
+\def\pgfspectrarainbow{\ignorespaces\@ifnextchar[\pgf@spectrarainbow{\pgf@spectrarainbow[]}}%
+\def\pgf@spectrarainbow[#1]{\ignorespaces\@ifnextchar({\pgf@spectra@rainbow{#1}}{\pgf@spectra@rainbow{#1}()}}%
+%
+\def\pgf@spectra@rainbow#1(#2)#3{\ignorespaces%
+\pgfkeys{/pgfspectra/.cd,rainbow fade,rainbow start,rainbow knock out,rainbow background,rainbow transparency}%
+\pgfkeys{/pgfspectra/.cd,#2}%
+\pgfmathparse{100-\pgfspectra@rainbowtransp*100}\edef\pgfspectra@rainbow@transp{\pgfmathresult}%
+\pgfmathparse{\pgfspectra@rainbowtransp*100}\edef\pgfspectra@rainbow@transp@w{\pgfmathresult}%
+\edef\pgfspectra@rainbowend{.8875cm}\pgfmathparse{\pgfspectra@rainbow@start*\pgfspectra@rainbowend/1cm}\edef\pgfspectra@rainbowstart{\pgfmathresult cm}%
+\pgfmathparse{\pgfspectra@rainbow@KO*#3/1cm}\edef\pgfspectra@rainbowKO{\pgfmathresult cm}%%\edef\pgfspectra@rainbowKO{\pgfspectra@rainbow@KO cm}%
+\ifdim\pgfspectra@rainbowstart<\pgfspectra@rainbowend\relax%
+\ifdim\pgfspectra@rainbowstart<.0175cm\relax\edef\pgfspectra@rainbowstart{.0175cm}\fi% ensuring there is no error in radial shading
+\pgfkeys{/pgf/number format/.cd,fixed,precision=3,set thousands separator={},assume math mode=true}%
+\pgfmathparse{\pgfspectra@rainbowstart-1/50*(\pgfspectra@rainbowend-\pgfspectra@rainbowstart)}%
+\pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@rainbowresult}%
+\edef\rO{\pgfspectra@rainbowresult pt}%
+\@for\n:={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,%
+21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,%
+38,39,40,41,42,43,44,45,46,47,48,49,50,51}\do{%
+%\pgfmathparse{380+(\n-1)*8}\edef\pgfspectra@currentwl{\pgfmathresult}%
+\pgfmathparse{372+8*\n}\edef\pgfspectra@currentwl{\pgfmathresult}%
+\wlcolor{\pgfspectra@currentwl}%
+\edef\pgfspectra@colorname{wlshcol\@Roman\n}\relax\colorlet{\pgfspectra@colorname}{wlcolor!100!transparent!\pgfspectra@rainbow@transp}%
+\pgfmathparse{\pgfspectra@rainbowstart+1/50*(\n-1)*(\pgfspectra@rainbowend-\pgfspectra@rainbowstart)}%
+\pgfmathprintnumberto{\pgfmathresult}{\pgfspectra@rainbowresult}%
+\expandafter\edef\csname r\@Roman\n\endcsname{\pgfspectra@rainbowresult pt}%
+}%
+\pgfdeclareradialshading{pgfspectrarainbow}{\pgfpoint{0pt}{0pt}}{%
+color(0cm)=(\pgfspectra@rainbowback!\pgfspectra@rainbow@transp@w!white);color(4/5*\rO)=(\pgfspectra@rainbowback!\pgfspectra@rainbow@transp@w!white!50);color(\rO)=(white);%
+color(\rI)=(wlshcolI);color(\rII)=(wlshcolII);color(\rIII)=(wlshcolIII);color(\rIV)=(wlshcolIV);color(\rV)=(wlshcolV);color(\rVI)=(wlshcolVI);color(\rVII)=(wlshcolVII);color(\rVIII)=(wlshcolVIII);color(\rIX)=(wlshcolIX);color(\rX)=(wlshcolX);%
+color(\rXI)=(wlshcolXI);color(\rXII)=(wlshcolXII);color(\rXIII)=(wlshcolXIII);color(\rXIV)=(wlshcolXIV);color(\rXV)=(wlshcolXV);color(\rXVI)=(wlshcolXVI);color(\rXVII)=(wlshcolXVII);color(\rXVIII)=(wlshcolXVIII);color(\rXIX)=(wlshcolXIX);color(\rXX)=(wlshcolXX);%
+color(\rXXI)=(wlshcolXXI);color(\rXXII)=(wlshcolXXII);color(\rXXIII)=(wlshcolXXIII);color(\rXXIV)=(wlshcolXXIV);color(\rXXV)=(wlshcolXXV);color(\rXXVI)=(wlshcolXXVI);color(\rXXVII)=(wlshcolXXVII);color(\rXXVIII)=(wlshcolXXVIII);color(\rXXIX)=(wlshcolXXIX);color(\rXXX)=(wlshcolXXX);%
+color(\rXXXI)=(wlshcolXXXI);color(\rXXXII)=(wlshcolXXXII);color(\rXXXIII)=(wlshcolXXXIII);color(\rXXXIV)=(wlshcolXXXIV);color(\rXXXV)=(wlshcolXXXV);color(\rXXXVI)=(wlshcolXXXVI);color(\rXXXVII)=(wlshcolXXXVII);color(\rXXXVIII)=(wlshcolXXXVIII);color(\rXXXIX)=(wlshcolXXXIX);color(\rXL)=(wlshcolXL);%
+color(\rXLI)=(wlshcolXLI);color(\rXLII)=(wlshcolXLII);color(\rXLIII)=(wlshcolXLIII);color(\rXLIV)=(wlshcolXLIV);color(\rXLV)=(wlshcolXLV);color(\rXLVI)=(wlshcolXLVI);color(\rXLVII)=(wlshcolXLVII);color(\rXLVIII)=(wlshcolXLVIII);color(\rXLIX)=(wlshcolXLIX);color(\rL)=(wlshcolL);color(\rLI)=(wlshcolLI);%
+color(.95cm)=(wlshcolLI)%
+}%
+\ifx\pgfspectra@rainbowfade\@empty\relax%
+\tikz{\clip(-#3,\pgfspectra@rainbowKO) rectangle ++(2*#3,#3-\pgfspectra@rainbowKO);%
+\fill[#1,shading=pgfspectrarainbow] (0,0) circle(#3);}%
+\else%
+\tikz{\clip[scope fading=\pgfspectra@rainbowfade] (-#3,\pgfspectra@rainbowKO) rectangle ++(2*#3,#3-\pgfspectra@rainbowKO);%
+\fill[shading=pgfspectrarainbow,\pgfspectra@rainbowback,#1] (0,0) circle(#3);}%
+\fi%
+\else\PackageError{pgf-spectra}{invalid 'rainbow start' value (rainbow start=\pgfspectra@rainbow@start). The rainbow start should be greater or equal then 0 and lower then 1.}{Don't forget that 'rainbow start' value is the fraction from witch the  colors begin, relative to the center of a circle with radius 1...}%
+\fi
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatother%
+\endinput

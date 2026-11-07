@@ -1,0 +1,16 @@
+name hitreport
+category Package
+revision 58357
+shortdesc Harbin Institute of Technology Report LaTeX Template
+relocated 1
+longdesc This package provides an assignment and experiment report
+longdesc template free of configuration designed for undergraduates on
+longdesc the three campuses of Harbin Institute of Technology.
+runfiles size=11
+ RELOC/tex/latex/hitreport/hitreport.cls
+catalogue-contact-bugs https://github.com/DemerzelSun12/hitreport/issues
+catalogue-contact-repository https://github.com/DemerzelSun12/hitreport
+catalogue-ctan /macros/latex/contrib/hitreport
+catalogue-license lppl1.3c
+catalogue-topics chinese class report-like doc-templ
+catalogue-version 1.0.0

@@ -1,0 +1,17 @@
+name komacv
+category Package
+revision 57721
+shortdesc Typesetting a beautiful CV with various style options
+relocated 1
+longdesc The class simplifies the creation of beautiful CV. The user may
+longdesc choose between different styles, and may adjust settings to
+longdesc tune the output.
+runfiles size=12
+ RELOC/tex/latex/komacv/komacv-casual.sty
+ RELOC/tex/latex/komacv/komacv-classic.sty
+ RELOC/tex/latex/komacv/komacv-oldstyle.sty
+ RELOC/tex/latex/komacv/komacv.cls
+catalogue-ctan /macros/latex/contrib/komacv
+catalogue-license lppl1.3
+catalogue-topics cv class
+catalogue-version 1.1.2

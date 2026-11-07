@@ -1,0 +1,16 @@
+name knowledge
+category Package
+revision 70594
+shortdesc Displaying, hyperlinking, and indexing notions in a document
+relocated 1
+longdesc The package offers a systematic way to handle
+longdesc notions/concepts/terms throughout a document. It helps building
+longdesc an index. In combination with hyperref it makes it easy to have
+longdesc every reference of a concept linked to its introduction. It
+longdesc also offers simple notations.
+runfiles size=35
+ RELOC/tex/latex/knowledge/knowledge.sty
+catalogue-ctan /macros/latex/contrib/knowledge
+catalogue-license lppl1.2
+catalogue-topics index label-ref expl3
+catalogue-version 1.29

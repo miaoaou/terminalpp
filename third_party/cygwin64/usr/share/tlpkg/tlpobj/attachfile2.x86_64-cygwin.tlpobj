@@ -1,0 +1,6 @@
+name attachfile2.x86_64-cygwin
+category Package
+revision 52909
+shortdesc x86_64-cygwin files of attachfile2
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/pdfatfi

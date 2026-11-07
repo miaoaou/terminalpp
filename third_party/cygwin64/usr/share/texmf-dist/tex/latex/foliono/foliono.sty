@@ -1,0 +1,526 @@
+%% foliono.sty
+%% Copyright 2021 Tommi Syrjänen 
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Tommi Syrjänen 
+%
+% See file MANIFEST-Foliono.txt to a list of files that make up this
+% work.
+\ProvidesPackage{foliono}[2021/03/25 Folio numbering]
+
+%% We need 'calc' to compute the size of a half quire
+\RequirePackage{calc}
+
+\makeatletter
+
+%% First the definitions for conditionals
+
+%% A conditional to check if the quire number should be capitalized,
+%% defaults to true
+\newif\ifFoliono@capitalizeQuireNumber
+\Foliono@capitalizeQuireNumbertrue
+
+%% A conditional to check if all folios in a quire have folio numbers
+%% or if the first page has only quire number. Defaults to true
+\newif\ifFolioNo@skipFirstFolioNumber
+\FolioNo@skipFirstFolioNumberfalse
+
+
+%% A conditional to check if we want to skip the latter half of folio
+%% numbers of a quire
+\newif\ifFolioNo@useSheetNumbering
+\FolioNo@useSheetNumberingfalse
+
+%% A condition to check if we want to print only first half + 1 folio
+%% numbers in a quire Defaults to false
+\newif\ifFolioNo@onlyFirstHalf
+\FolioNo@onlyFirstHalffalse
+
+
+%% A conditional for showing only the quire number and not folio
+%% within the quire. Defaults to false
+\newif\ifFolioNo@showOnlyQuireNumber
+\FolioNo@showOnlyQuireNumberfalse
+
+%% A condition to check whether we want label references to include
+%% 'r' and 'v' to denote the 'recto' and 'verso' sides of the folio.
+%% This defaults to false. You probably shouldn't use this without the
+%% following conditional
+\newif\ifFolioNo@ShowSideInLabels
+\FolioNo@ShowSideInLabelsfalse
+
+%% A condition to check whether we use arabic or roman numbers for
+%% folio counter
+\newif\ifFolioNo@UseArabicNumbers
+\FolioNo@UseArabicNumbersfalse
+
+%% A condition to check if we want to leave quire numbers off
+%% altogheter. Defaults to false
+\newif\ifFolioNo@noQuires
+\FolioNo@noQuiresfalse
+
+%% A condition to check if we want to use all letters for quire
+%% numbers instead of skipping over 'i' and 'u'.  Default 'true'
+\newif\ifFolioNo@skipQuires
+\FolioNo@skipQuirestrue
+
+
+
+%% Option: show only the quire number and that only in the first page
+%% of the quire
+\DeclareOption{OnlyQuire}{\FolioNo@showOnlyQuireNumbertrue}
+
+%% Option: show only the folio number and leave the quire number out
+\DeclareOption{NoQuires}{\FolioNo@noQuirestrue}
+
+%% Option: use all letters as quire numbers
+\DeclareOption{AllQuires}{\FolioNo@skipQuiresfalse}
+
+%% Show only the quire number on the first folio of the quire and both
+%% quire and folio counters on other folios.
+\DeclareOption{SkipFirst}{\FolioNo@skipFirstFolioNumbertrue}
+
+%% Leave out the folio number completely from the end half of the
+%% quire 
+\DeclareOption{SkipEnd}{\FolioNo@onlyFirstHalftrue}
+
+%% Show only folio numbers of the first half of a quire
+\DeclareOption{SheetNumbers}{\FolioNo@useSheetNumberingtrue}
+
+%% Format the quire number in lower case instead of upper case 
+\DeclareOption{LowerCase}{\Foliono@capitalizeQuireNumberfalse}
+
+%% Show folio sides 'r' and 'v'in labels.
+\DeclareOption{ShowSides}{\FolioNo@ShowSideInLabelstrue}
+
+%% Format folio counter as arabic numbers instead of roman.
+\DeclareOption{ArabicNumbers}{\FolioNo@UseArabicNumberstrue}
+\ProcessOptions*{}
+
+%%% User-visible commands
+
+%% The command to place the folio number at place, this should be
+%% placed in header or footer. Note that this also handles increasing
+%% the folio number so this should be run exactly once per page (the
+%% command inserts the number only on odd pages)
+\newcommand{\folionumber}{\foliono@formatFolioNumber}
+
+%% This writes a new label to the .aux file with the current folio number
+\newcommand{\folionolabel}[1]{%
+  \protected@write\@auxout{}{\string \newlabel {#1}{{\foliono@createFolioLabel{}}{}}}}%
+
+%% This writes a new label to the .aux file complete with stylized
+%% formatting. NOTE! It is very easy to get strange errors with
+%% macros that are read back from .aux file
+\newcommand{\folionolabelwithstyles}[1]{%
+  \protected@write\@auxout{}{\string \newlabel {#1}{{\currentfoliowithstyles}{}}}}%
+
+
+%% This writes its argument to the index file with the folio number as
+%% the page
+\newcommand{\folionoindex}[1]{%
+  \protected@write\@indexfile{}{%
+    \string\indexentry{#1}{\foliono@createFolioLabel{}}}
+}
+
+%% This writes its argument to the index file with completely
+%% formatted and styled folionumber as the page. NOTE! It is very easy
+%% to get strange errors with macros that are read back from index file
+\newcommand{\folionoindexwithstyles}[1]{%
+  \protected@write\@indexfile{}{%
+    \string\indexentry{#1}{\currentfoliowithstyles}}}
+
+%% This sets the font that is used to set the folio number. This
+%% should be a name of a font that is then accessed with fontspec.
+\newcommand{\folionofont}[1]{%
+  \gdef\foliono@font{#1}}
+
+
+%% This sets the font size for the folio number. Note that this is
+%% used only if the font is also set 
+\newcommand{\folionofontsize}[1]{%
+  \setcounter{foliono@fontSize}{#1}}
+
+%% This sets the font color. Note that this is used only if the font
+%% is also set.
+\newcommand{\folionofontcolor}[1]{%
+  \gdef\foliono@fontColor{#1}}
+
+
+%% The folio number style defaults to empty if folionumber font is not selected,
+%% otherwise use the defined font and style. This is user-visible so
+%% that it can be redefined easier. 
+\newcommand{\folionostyle}[1]{%
+  \ifx\foliono@font\empty%
+  #1%
+  \else%
+  % Otherwise set the font number and size 
+  \begingroup%
+  \fontsize{\value{foliono@fontSize}}{\value{foliono@fontSize}}\fontspec[Color=\foliono@fontColor]{\foliono@font}#1%
+  \endgroup%
+  \fi%
+}
+
+%% The quire number style also defaults to empty if folionumber font
+%% is not selected and otherwise uses the defined font. This and
+%% folionostyle are separate so that they can be set separately if
+%% desired. 
+\newcommand{\quirenostyle}[1]{%
+  \ifx\foliono@font\empty%
+  #1%
+  \else%
+  % Otherwise set the font number and size 
+  \begingroup%
+  \fontsize{\value{foliono@fontSize}}{\value{foliono@fontSize}}\fontspec[Color=\foliono@fontColor]{\foliono@font}#1%
+  \endgroup%
+  \fi%
+}
+
+
+
+%% Set how many folios there are in a quire. Each folio is two modern
+%% pages. Each quire should have an even number of folios or printing
+%% the quires will be challenging.
+\newcommand{\folionoquirefolios}[1]{%
+  \setcounter{foliono@foliosPerQuire}{#1}%
+  \setcounter{foliono@foliosPerHalfQuire}{#1/2}%
+  \setcounter{foliono@foliosPerHalfQuirePlusOne}{#1/2+1}%
+}
+
+%% Returns the current folio number as a string without styling. This
+%% returns the actual quire and folio numbers even if they are not
+%% printed on the page. The only exception is that the quire number is
+%% left out if 'NoQuires' option is set. 
+\newcommand{\currentfolio}{%
+  \ifFolioNo@noQuires%
+  \foliono@getUnformattedFolioCounter%
+  \else%
+  \foliono@getUnformattedQuireCounter{} % space intentional
+  \foliono@getUnformattedFolioCounter%
+  \fi%
+}
+
+
+%% Returns the current folio number as string without styling as with
+%% '\currentfolio' but this adds the folio side suffix to it
+\newcommand{\currentfoliowithsides}{%
+  \currentfolio%
+  \ifFolioNo@UseArabicNumbers\relax\else{\hbox{ }}\fi%
+  \foliono@folioSide%
+}
+
+
+%% Returns the current folio number formatted like it would be printed
+%% on the page (if it has it). 
+\newcommand{\currentfoliowithstyles}{%
+  \foliono@alwaysCreateFormattedFolioLabel%
+}
+
+
+%% Manually set the folio number. The firts argument is the quire
+%% number and the second argument is the folio number
+\newcommand{\setfoliono}[2]{
+  \setcounter{foliono@quireCounter}{#1}%
+  \setcounter{foliono@folioCounter}{#2}%
+  \foliono@setFolioSide%
+}
+
+%% Manually move to the next folio number
+\newcommand{\stepfolio}{%
+  \foliono@stepFolio%
+  \foliono@setFolioSide%
+}
+
+%% Add a prefix before the quire number when typeset on the page (not
+%% included in labels)
+\newcommand{\quirenoprefix}[1]{%
+  \gdef\foliono@quirePrefix{#1}
+}
+
+%% Add a suffix after the quire number when typeset on page (not
+%% included in labels)
+\newcommand{\quirenosuffix}[1]{%
+  \gdef\foliono@quireSuffix{#1}
+}
+
+
+%% Add a prefix before the folio number when typeset on page (not
+%% included in labels)
+\newcommand{\folionoprefix}[1]{%
+  \gdef\foliono@folioPrefix{#1}
+}
+
+%% Add a suffix after the folio number when typeset on page (not
+%% included in labels)
+\newcommand{\folionosuffix}[1]{%
+  \gdef\foliono@folioSuffix{#1}
+}
+
+%% The separator that is put between the quire and folio numbers. This
+%% defaults to a single space. (Not included in labels)
+\newcommand{\folionoseparator}[1]{%
+  \gdef\foliono@separator{#1}
+}
+
+
+%% Internal workings that should not concern the end user start here
+
+%% the counter for folios per quire, half quire, and half quire plus one
+\newcounter{foliono@foliosPerQuire}
+\newcounter{foliono@foliosPerHalfQuire}
+\newcounter{foliono@foliosPerHalfQuirePlusOne}
+
+%% Default value: 8 folios 
+\setcounter{foliono@foliosPerQuire}{8}
+\setcounter{foliono@foliosPerHalfQuire}{4}
+\setcounter{foliono@foliosPerHalfQuirePlusOne}{5}
+
+%% The font size, default value 10
+\newcounter{foliono@fontSize}
+\setcounter{foliono@fontSize}{10}
+
+
+%% The quirrent quire number
+\newcounter{foliono@quireCounter}
+\setcounter{foliono@quireCounter}{1}
+
+%% The current folio number inside the current quire.
+\newcounter{foliono@folioCounter}
+\setcounter{foliono@folioCounter}{1}
+
+% The default color is black
+\newcommand{\foliono@fontColor}{000000}
+
+
+
+
+%% This creates the label that is written to .aux file when folioLabel
+%% is used. 
+\newcommand{\foliono@createFolioLabel}{%
+  \ifFolioNo@ShowSideInLabels%
+  \currentfoliowithsides%
+  \else%
+  \currentfolio%
+  \fi%
+}
+
+
+%% The font name defaults to empty
+\gdef\foliono@font{}
+
+\newcount\halfpages
+%% This command creates the next folio number. 
+\newcommand{\foliono@stepFolio}{%
+  % Increase the folio counter
+  \stepcounter{foliono@folioCounter}%
+  % If we pass the last page of the quire, move to the next quire. We
+  % don't do the reset if quires are not used 
+  \ifFolioNo@noQuires\else%
+  \ifnum\value{foliono@folioCounter}>\value{foliono@foliosPerQuire}%
+  \setcounter{foliono@folioCounter}{1}%
+  \stepcounter{foliono@quireCounter}%
+  % Skip 'i' and 'u' quire numbers because 'i' and 'j' are two forms
+  % of the same letter and similarly 'u' and 'v'.
+  \ifFolioNo@skipQuires%
+  \ifnum\value{foliono@quireCounter}=9\stepcounter{foliono@quireCounter}\fi%
+  \ifnum\value{foliono@quireCounter}=21\stepcounter{foliono@quireCounter}\fi%
+  \fi\fi\fi%
+}
+
+
+
+
+
+%% Create the folio label formatted for adding to the page
+\newcommand{\foliono@createFormattedFolioLabel}{%
+  \quirenostyle{%
+    \foliono@getQuireCounter%
+  }%
+  \folionostyle{\foliono@separator}%
+  \folionostyle{%
+    \foliono@getFolioCounter%
+  }%
+}
+
+
+%% Create complete formatted folio label even if we are on page that
+%% will not get a printed folio number
+\newcommand{\foliono@alwaysCreateFormattedFolioLabel}{%
+  %% However, skip the quire counter if it is not in use 
+  \ifFolioNo@noQuires\else%
+  \quirenostyle{%
+    \foliono@getFormattedQuireCounter%
+  }%
+  \quirenostyle{\foliono@separator}%
+  \fi%
+  \folionostyle{%
+    \foliono@getFormattedFolioCounter%
+  }%
+}
+
+%% This function returns which side of the folio we are currently
+%% processing. This starts as 'r' for recto and
+%% '\foliono@formatFolioNumber' will toggle it between 'r' and 'v'.
+\gdef\foliono@folioSide{r}
+
+%% The default settings for the prefix, suffix and separator commands 
+\gdef\foliono@quirePrefix{}
+\gdef\foliono@quireSuffix{}
+\gdef\foliono@folioPrefix{}
+\gdef\foliono@folioSuffix{}
+\gdef\foliono@separator{\hbox{ }}
+
+
+%% The main function for folio numbering. This should be called at
+%% least for each even odd page but it should be called also for even
+%% pages if folio side labeling is turned on. This should not be
+%% called multiple times per page as this also increases the counters. 
+\newcommand{\foliono@formatFolioNumber}{%
+  % Folio number is placed only on odd pages
+  \ifodd\thepage%
+  % First format the folio label and then step to next folio with
+  % counter
+  \foliono@createFormattedFolioLabel%
+  \foliono@stepFolio%
+  \fi%
+  % Set also folio side
+  \foliono@setFolioSide%
+}
+
+%% Set the folio side to either 'r' or 'v' based on whether we are on
+%% an odd or even page
+\newcommand{\foliono@setFolioSide}{%
+  \ifodd\thepage%
+  \gdef\foliono@folioSide{r}%
+  \else%
+  \gdef\foliono@folioSide{v}%
+  \fi%
+}
+  
+
+%% Function that formats the folio counter when are printing it. It is
+%% formatted either as roman or arabic numbers
+\newcommand{\foliono@getFormattedFolioCounter}{%
+  \begingroup%
+  \foliono@folioPrefix%
+  \ifFolioNo@UseArabicNumbers%
+  \arabic{foliono@folioCounter}%
+  \else%
+  \roman{foliono@folioCounter}%
+  \fi%
+  \foliono@folioSuffix%
+  \endgroup%
+}
+
+%% Function that returns the folio counter without prefix or suffix
+\newcommand{\foliono@getUnformattedFolioCounter}{%
+  \ifFolioNo@UseArabicNumbers%
+  \arabic{foliono@folioCounter}%
+  \else%
+  \roman{foliono@folioCounter}%
+  \fi%
+}
+
+
+
+%% Function that formats the quire counter when are printing it. It is
+%% formatted either as upper or lower case
+\newcommand{\foliono@getFormattedQuireCounter}{%
+  \begingroup%
+  \foliono@quirePrefix%
+  \ifFoliono@capitalizeQuireNumber%
+  \Alph{foliono@quireCounter}%
+  \else%
+  \alph{foliono@quireCounter}%
+  \fi%
+  \foliono@quireSuffix%
+  \endgroup%
+}
+
+
+%% Function that returns the quire counter without prefix or suffix
+\newcommand{\foliono@getUnformattedQuireCounter}{%
+  \ifFoliono@capitalizeQuireNumber%
+  \Alph{foliono@quireCounter}%
+  \else%
+  \alph{foliono@quireCounter}%
+  \fi%
+}
+
+
+\newif\ifFoliono@showThisFolioCounter
+\Foliono@showThisFolioCountertrue
+%% Function that determines wheter we want to print the folio counter
+%% in this case and then calls '\foliono@getFormattedFolioCounter' to
+%% get the representation of the counter.
+\newcommand{\foliono@getFolioCounter}{%
+  \relax%
+  % If the first is skipped and we are looking at it, skip
+  \ifFolioNo@skipFirstFolioNumber% 
+    \ifnum\value{foliono@folioCounter}=1%
+      \relax\Foliono@showThisFolioCounterfalse%
+    \fi%
+  \fi%
+  % With sheet numbering skip the latter half of the quire
+  \ifFolioNo@useSheetNumbering%
+    \ifnum\value{foliono@folioCounter}>\value{foliono@foliosPerHalfQuire}%
+      \relax\Foliono@showThisFolioCounterfalse%
+    \fi%
+  \fi%
+  %% Check if we should skip the last folio number completely
+  \ifFolioNo@onlyFirstHalf%
+  \ifnum\value{foliono@folioCounter}>\value{foliono@foliosPerHalfQuirePlusOne}%
+  \relax\Foliono@showThisFolioCounterfalse%
+  \fi\fi%
+  % If only quire number is shown, remove the folio number
+  \ifFolioNo@showOnlyQuireNumber%
+    \Foliono@showThisFolioCounterfalse%
+  \fi%
+  % Show the counter if not skipped
+  \ifFoliono@showThisFolioCounter%
+    \foliono@getFormattedFolioCounter%
+  \fi%
+}
+
+%% Function that returns the quire counter string without styling.
+%% This first checks if we want to show it at all, and then returns it
+%% either as a lower or upper case capital
+\newif\ifFoliono@showThisQuireCounter
+\Foliono@showThisQuireCountertrue
+\newcommand{\foliono@getQuireCounter}{%
+  \relax%
+  % If quire numbers are not used, skip
+  \ifFolioNo@noQuires%
+  \Foliono@showThisQuireCounterfalse%
+  \fi%
+  %% When only quire numbers are shown, show it only on the first page
+  %% of quire. 
+  \ifFolioNo@showOnlyQuireNumber%
+  \ifnum\value{foliono@folioCounter}>1%
+  \relax\Foliono@showThisQuireCounterfalse%
+  \fi\fi%
+  %% Check if we show half+1 and 
+  \ifFolioNo@onlyFirstHalf%
+  \ifnum\value{foliono@folioCounter}>\value{foliono@foliosPerHalfQuirePlusOne}%
+  \relax\Foliono@showThisQuireCounterfalse%
+  \fi\fi%
+  %% If sheet numbering is in use, hide the number from
+  %% the second half of the quire
+  \ifFolioNo@useSheetNumbering%
+  \ifnum\value{foliono@folioCounter}>\value{foliono@foliosPerHalfQuire}%
+  \relax\Foliono@showThisQuireCounterfalse%%
+  \fi\fi%
+  \ifFoliono@showThisQuireCounter%
+  \relax\foliono@getFormattedQuireCounter%
+  \fi%
+}
+
+\makeatother

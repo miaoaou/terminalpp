@@ -1,0 +1,17 @@
+name makeshape
+category Package
+revision 28973
+shortdesc Declare new PGF shapes
+relocated 1
+longdesc The package simplifies production of custom shapes with correct
+longdesc anchor borders, in PGF/TikZ; the only requirement is a PGF path
+longdesc describing the anchor border. The package also provides macros
+longdesc that help with the management of shape parameters, and the
+longdesc definition of anchor points.
+runfiles size=2
+ RELOC/tex/latex/makeshape/makeshape.sty
+catalogue-ctan /graphics/pgf/contrib/makeshape
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz
+catalogue-version 2.1

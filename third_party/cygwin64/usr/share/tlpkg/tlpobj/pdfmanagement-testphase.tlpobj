@@ -1,0 +1,38 @@
+name pdfmanagement-testphase
+category Package
+revision 70303
+shortdesc LaTeX PDF management testphase bundle
+relocated 1
+longdesc This is a temporary package, which is used during a test phase
+longdesc to load the new PDF management code of LaTeX. The new PDF
+longdesc management code offers backend-independent interfaces to
+longdesc central PDF dictionaries, tools to create annotations, form
+longdesc Xobjects, to embed files, and to handle PDF standards. The code
+longdesc is provided, during a testphase, as an independent package to
+longdesc allow users and package authors to safely test the code. At a
+longdesc later stage it will be integrated into the LaTeX kernel (or in
+longdesc parts into permanent support packages), and the current
+longdesc testphase bundle will be removed.
+runfiles size=107
+ RELOC/tex/latex/pdfmanagement-testphase/color-ltx.sty
+ RELOC/tex/latex/pdfmanagement-testphase/colorspace-patches-tmp-ltx.sty
+ RELOC/tex/latex/pdfmanagement-testphase/hgeneric-testphase.def
+ RELOC/tex/latex/pdfmanagement-testphase/hyperref-colorschemes.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-dvipdfmx.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-dvips.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-dvisvgm.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-luatex.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-pdftex.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase-xetex.def
+ RELOC/tex/latex/pdfmanagement-testphase/l3backend-testphase.lua
+ RELOC/tex/latex/pdfmanagement-testphase/l3pdffield-testphase.sty
+ RELOC/tex/latex/pdfmanagement-testphase/pdfmanagement-firstaid.sty
+ RELOC/tex/latex/pdfmanagement-testphase/pdfmanagement-testphase.ltx
+ RELOC/tex/latex/pdfmanagement-testphase/pdfmanagement-testphase.sty
+ RELOC/tex/latex/pdfmanagement-testphase/xcolor-patches-tmp-ltx.sty
+catalogue-contact-bugs https://github.com/latex3/pdfresources/issues
+catalogue-contact-repository https://github.com/latex3/pdfresources
+catalogue-ctan /macros/latex/contrib/pdfmanagement-testphase
+catalogue-license lppl1.3c
+catalogue-topics latex-devel pdf-feat
+catalogue-version 0.96f

@@ -1,0 +1,16 @@
+name multibbl
+category Package
+revision 15878
+shortdesc Multiple bibliographies
+relocated 1
+longdesc The package multibbl redefines the standard bibliographic
+longdesc commands so that one can generate multiple reference sections.
+longdesc Each section has it own auxiliary file (for use with BibTeX)
+longdesc and title.
+runfiles size=1
+ RELOC/tex/latex/multibbl/multibbl.sty
+catalogue-ctan /macros/latex/contrib/multibbl
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics bibtex-multi bibtex-supp
+catalogue-version 1.1

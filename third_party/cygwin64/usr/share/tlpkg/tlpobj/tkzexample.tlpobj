@@ -1,0 +1,14 @@
+name tkzexample
+category Package
+revision 63908
+shortdesc Package for the documentation of all tkz-* packages
+relocated 1
+longdesc This package is needed to compile the documentation of all
+longdesc tkz-* packages (like tkz-euclide).
+runfiles size=4
+ RELOC/tex/latex/tkzexample/tkzexample.sty
+catalogue-also tkz-doc
+catalogue-ctan /macros/latex/contrib/tkz/tkzexample
+catalogue-license lppl1.3
+catalogue-topics doc-supp macro-demo
+catalogue-version 1.45c

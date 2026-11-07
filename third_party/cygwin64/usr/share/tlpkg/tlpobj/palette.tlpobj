@@ -1,0 +1,21 @@
+name palette
+category Package
+revision 60119
+shortdesc Create palettes for colors and symbols that can be swapped in
+relocated 1
+longdesc The package `palette` contains two files: `colorpalette.sty`
+longdesc and `symbolpalette`. One deals with colors and the other deals
+longdesc with symbols; the implementation is quite similar. With this
+longdesc package you can create themes. Each of these themes have a set
+longdesc of colors, and you can create palettes based on this theme with
+longdesc specific color values for each of the theme's color slots. The
+longdesc active palette for each theme can be swapped in to make
+longdesc experimenting with colors easier or give users choices as to
+longdesc which theme they pick.
+runfiles size=2
+ RELOC/tex/latex/palette/colorpalette.sty
+ RELOC/tex/latex/palette/symbolpalette.sty
+catalogue-ctan /macros/latex/contrib/palette
+catalogue-license lppl1.3
+catalogue-topics colour
+catalogue-version 1.1.0

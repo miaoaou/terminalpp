@@ -1,0 +1,6 @@
+name pygmentex.x86_64-cygwin
+category Package
+revision 34996
+shortdesc x86_64-cygwin files of pygmentex
+binfiles arch=x86_64-cygwin size=1
+ bin/x86_64-cygwin/pygmentex

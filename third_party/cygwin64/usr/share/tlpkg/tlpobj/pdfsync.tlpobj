@@ -1,0 +1,17 @@
+name pdfsync
+category Package
+revision 20373
+shortdesc Provide links between source and PDF
+relocated 1
+longdesc The package runs with pdfTeX or XeTeX, and creates an auxiliary
+longdesc file with geometrical information to permit references back and
+longdesc forth between source and PDF, assuming a conforming editor and
+longdesc PDF viewer.
+runfiles size=3
+ RELOC/tex/latex/pdfsync/pdfsync.sty
+catalogue-also vpe
+catalogue-contact-repository http://itexmac.sourceforge.net/pdfsync.html
+catalogue-ctan /macros/latex/contrib/pdfsync
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl
+catalogue-topics debug-supp

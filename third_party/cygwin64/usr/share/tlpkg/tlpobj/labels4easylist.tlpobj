@@ -1,0 +1,16 @@
+name labels4easylist
+category Package
+revision 51124
+shortdesc Add reference labels to easylist items
+relocated 1
+longdesc This package provides the \itemLabel macro for adding
+longdesc configurable reference labels to easylist items.
+runfiles size=1
+ RELOC/tex/latex/labels4easylist/labels4easylist.sty
+catalogue-contact-bugs https://bitbucket.org/OpCode-eu-org/latex-libs/issues
+catalogue-contact-repository https://bitbucket.org/OpCode-eu-org/latex-libs/
+catalogue-ctan /macros/latex/contrib/labels4easylist
+catalogue-date 2019-05-14 08:51:33 +0200
+catalogue-license mit
+catalogue-topics list
+catalogue-version 1.0

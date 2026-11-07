@@ -1,0 +1,19 @@
+name yaletter
+category Package
+revision 42830
+shortdesc Extremely flexible macros for letters, envelopes, and label sheets
+relocated 1
+longdesc The yaletter class provides extremely configurable macros for
+longdesc typesetting letters in any conceivable style. It provides
+longdesc facilities for maintaining easily-accessible databases of
+longdesc letterheads and addresses for repeat use. It further provides
+longdesc easy macros for envelopes and for label sheets. Finally, it
+longdesc provides some nice defaults for a few of the more common styles
+longdesc and sizes.
+runfiles size=5
+ RELOC/tex/latex/yaletter/yaletter.cls
+catalogue-ctan /macros/latex/contrib/yaletter
+catalogue-date 2017-01-03 05:00:21 +0100
+catalogue-license lppl1.3
+catalogue-topics letter
+catalogue-version 1.1

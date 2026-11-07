@@ -1,0 +1,40 @@
+name wasy
+category Package
+revision 53533
+shortdesc The wasy fonts (Waldi symbol fonts)
+relocated 1
+longdesc This font contains all lasy characters (by L.Lamport, copyright
+longdesc notice in lasychr.mf), and a lot more symbols. Provided are the
+longdesc Metafont files for 5-10pt, and bold and slanted 10pt fonts,
+longdesc together with a .tex and .pdf documentation, and a file for
+longdesc using the fonts in a PLAIN-TeX document. Type-1 fonts by
+longdesc Michael Sharpe and Taco Hoekwater are available as separate
+longdesc package wasy-type1. Support under LaTeX is provided by Axel
+longdesc Kielhorn's wasysym package.
+runfiles size=50
+ RELOC/fonts/source/public/wasy/lasychr.mf
+ RELOC/fonts/source/public/wasy/rsym.mf
+ RELOC/fonts/source/public/wasy/wasy10.mf
+ RELOC/fonts/source/public/wasy/wasy5.mf
+ RELOC/fonts/source/public/wasy/wasy6.mf
+ RELOC/fonts/source/public/wasy/wasy7.mf
+ RELOC/fonts/source/public/wasy/wasy8.mf
+ RELOC/fonts/source/public/wasy/wasy9.mf
+ RELOC/fonts/source/public/wasy/wasyb10.mf
+ RELOC/fonts/source/public/wasy/wasychr.mf
+ RELOC/fonts/source/public/wasy/wasysl10.mf
+ RELOC/fonts/tfm/public/wasy/wasy10.tfm
+ RELOC/fonts/tfm/public/wasy/wasy5.tfm
+ RELOC/fonts/tfm/public/wasy/wasy6.tfm
+ RELOC/fonts/tfm/public/wasy/wasy7.tfm
+ RELOC/fonts/tfm/public/wasy/wasy8.tfm
+ RELOC/fonts/tfm/public/wasy/wasy9.tfm
+ RELOC/fonts/tfm/public/wasy/wasyb10.tfm
+ RELOC/fonts/tfm/public/wasy/wasysl10.tfm
+ RELOC/tex/plain/wasy/wasyfont.tex
+catalogue-alias wasy2
+catalogue-also wasy-type1 wasysym
+catalogue-ctan /fonts/wasy
+catalogue-license pd
+catalogue-topics font font-mf font-symbol
+catalogue-version 2.5

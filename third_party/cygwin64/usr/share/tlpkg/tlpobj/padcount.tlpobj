@@ -1,0 +1,18 @@
+name padcount
+category Package
+revision 47621
+shortdesc Pad numbers with arbitrary characters
+relocated 1
+longdesc This package provides some simple macros which will pad numbers
+longdesc (or, indeed, any expanded token) with your choice of character
+longdesc (defaulting to "0") to your choice of number of places
+longdesc (defaults to "2"). This works not only on arabic numerals, but
+longdesc on any expanded list of tokens passed to it. This makes it
+longdesc suitable for, among other things, counters of all kinds.
+runfiles size=1
+ RELOC/tex/latex/padcount/padcount.sty
+catalogue-ctan /macros/latex/contrib/padcount
+catalogue-date 2018-05-07 04:39:01 +0200
+catalogue-license lppl1.3c
+catalogue-topics numbers
+catalogue-version 1.0

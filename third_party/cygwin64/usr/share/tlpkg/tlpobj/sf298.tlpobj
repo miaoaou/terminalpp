@@ -1,0 +1,16 @@
+name sf298
+category Package
+revision 41653
+shortdesc Standard form 298
+relocated 1
+longdesc A LaTeX package for generating a completed standard form 298
+longdesc (Rev. 8-98) as prescribed by ANSI Std. Z39.18 for report
+longdesc documentation as part of a document delivered, for instance, on
+longdesc a U.S. government contract.
+runfiles size=7
+ RELOC/tex/latex/sf298/sf298.sty
+catalogue-ctan /macros/latex/contrib/sf298
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl1.2
+catalogue-topics report-like
+catalogue-version 1.3

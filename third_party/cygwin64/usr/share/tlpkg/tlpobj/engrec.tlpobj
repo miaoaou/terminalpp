@@ -1,0 +1,18 @@
+name engrec
+category Package
+revision 15878
+shortdesc Enumerate with lower- or uppercase Greek letters
+relocated 1
+longdesc This package provides two macros \engrec and \EnGrec to convert
+longdesc number arguments to lower case or upper case greek letters.
+longdesc They have the syntax of \alph, i.e. \engrec{a_counter},
+longdesc \EnGrec{a_counter}. Options are provided to work with the
+longdesc upgreek and fourier packages. Requires amstext.
+runfiles size=2
+ RELOC/tex/latex/engrec/engrec.sty
+catalogue-also greekctr
+catalogue-ctan /macros/latex/contrib/engrec
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics list list-enum greek
+catalogue-version 1.1

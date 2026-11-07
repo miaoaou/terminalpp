@@ -1,0 +1,24 @@
+name tikzposter
+category Package
+revision 32732
+shortdesc Create scientific posters using TikZ
+relocated 1
+longdesc A document class provides a simple way of using TikZ for
+longdesc generating posters. Several formatting options are available,
+longdesc and spacing and layout of the poster is to a large extent
+longdesc automated.
+runfiles size=25
+ RELOC/tex/latex/tikzposter/tikzposter.cls
+ RELOC/tex/latex/tikzposter/tikzposterBackgroundstyles.tex
+ RELOC/tex/latex/tikzposter/tikzposterBlockstyles.tex
+ RELOC/tex/latex/tikzposter/tikzposterColorpalettes.tex
+ RELOC/tex/latex/tikzposter/tikzposterColorstyles.tex
+ RELOC/tex/latex/tikzposter/tikzposterInnerblockstyles.tex
+ RELOC/tex/latex/tikzposter/tikzposterLayoutthemes.tex
+ RELOC/tex/latex/tikzposter/tikzposterNotestyles.tex
+ RELOC/tex/latex/tikzposter/tikzposterTitlestyles.tex
+catalogue-ctan /graphics/pgf/contrib/tikzposter
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.2
+catalogue-topics poster class
+catalogue-version 2.0

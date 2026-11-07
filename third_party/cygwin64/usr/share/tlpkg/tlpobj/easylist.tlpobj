@@ -1,0 +1,18 @@
+name easylist
+category Package
+revision 32661
+shortdesc Lists using a single active character
+relocated 1
+longdesc This package allows you to create lists of numbered items (as
+longdesc in Wittgenstein's 'Tractatus') with a single active character
+longdesc as the only command. A variety of parameters are available to
+longdesc configure the appearance of the list; lists may be nested
+longdesc (effectively to unlimited depth).
+runfiles size=8
+ RELOC/tex/latex/easylist/easylist.sty
+catalogue-contact-home http://paulisambert.free.fr/
+catalogue-ctan /macros/latex/contrib/easylist
+catalogue-date 2017-04-18 05:31:40 +0200
+catalogue-license lppl
+catalogue-topics list
+catalogue-version 1.3

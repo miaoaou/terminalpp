@@ -1,0 +1,15 @@
+name totalcount
+category Package
+revision 67201
+shortdesc Commands for typesetting total values of counters
+relocated 1
+longdesc This LaTeX package offers commands for typesetting total values
+longdesc of counters.
+runfiles size=1
+ RELOC/tex/latex/totalcount/totalcount.sty
+catalogue-contact-bugs https://gitlab.com/axelsommerfeldt/totalcount/-/issues
+catalogue-contact-repository https://gitlab.com/axelsommerfeldt/totalcount
+catalogue-ctan /macros/latex/contrib/totalcount
+catalogue-license lppl1.3
+catalogue-topics counter-mgmt
+catalogue-version 1.0a

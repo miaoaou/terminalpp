@@ -1,0 +1,26 @@
+name accsupp
+category Package
+revision 53052
+shortdesc Better accessibility support for PDF files
+relocated 1
+longdesc Since PDF 1.5 portions of a page can be marked for better
+longdesc accessibility support. For example, replacement texts or
+longdesc expansions of abbreviations can be provided. This package
+longdesc starts with providing a minimal low-level interface for
+longdesc programmers; its status is experimental. Support necessary for
+longdesc the package was added to the "distill" capabilities of
+longdesc Ghostscript with version 9.15 of Ghostscript; the dvips is only
+longdesc available with that version (or later).
+runfiles size=6
+ RELOC/tex/latex/accsupp/accsupp-dvipdfm.def
+ RELOC/tex/latex/accsupp/accsupp-dvips.def
+ RELOC/tex/latex/accsupp/accsupp-luatex.def
+ RELOC/tex/latex/accsupp/accsupp-pdftex.def
+ RELOC/tex/latex/accsupp/accsupp.sty
+catalogue-contact-bugs https://github.com/ho-tex/accsupp/issues
+catalogue-contact-repository https://github.com/ho-tex/accsupp
+catalogue-ctan /macros/latex/contrib/accsupp
+catalogue-date 2019-12-05 22:18:32 +0100
+catalogue-license lppl1.3c
+catalogue-topics accessible pdf-feat
+catalogue-version 0.6

@@ -1,0 +1,18 @@
+name flexipage
+category Package
+revision 66614
+shortdesc Flexible page geometry with marginalia
+relocated 1
+longdesc This package allows easy page layout if marginalia is required.
+longdesc Mid document changes are possible such as: new marginal width,
+longdesc full width text, and landscape text without marginal. Partners
+longdesc well with the package sidenotesplus. The package also aids the
+longdesc layout for book printing, allowing for binding corrections and
+longdesc adding page bleed, if required.
+runfiles size=4
+ RELOC/tex/latex/flexipage/flexipage.sty
+catalogue-contact-repository https://github.com/anton-vrba/flexipage
+catalogue-ctan /macros/latex/contrib/flexipage
+catalogue-license lppl1.3c
+catalogue-topics marginal
+catalogue-version 1.02

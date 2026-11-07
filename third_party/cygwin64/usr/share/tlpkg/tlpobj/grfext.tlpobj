@@ -1,0 +1,17 @@
+name grfext
+category Package
+revision 53024
+shortdesc Manipulate the graphics package's list of extensions
+relocated 1
+longdesc This package provides macros for adding to, and reordering the
+longdesc list of graphics file extensions recognised by package
+longdesc graphics.
+runfiles size=2
+ RELOC/tex/latex/grfext/grfext.sty
+catalogue-contact-bugs https://github.com/ho-tex/grfext/issues
+catalogue-contact-repository https://github.com/ho-tex/grfext
+catalogue-ctan /macros/latex/contrib/grfext
+catalogue-date 2019-12-04 05:44:37 +0100
+catalogue-license lppl1.3
+catalogue-topics graphics-supp
+catalogue-version 1.3

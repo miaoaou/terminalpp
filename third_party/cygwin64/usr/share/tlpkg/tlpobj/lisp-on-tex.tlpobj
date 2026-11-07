@@ -1,0 +1,25 @@
+name lisp-on-tex
+category Package
+revision 38722
+shortdesc Execute LISP code in a LaTeX document
+relocated 1
+longdesc The package provides a LISP interpreter written using TeX
+longdesc macros; it is provided as a LaTeX package. The interpreter
+longdesc static scoping, dynamic typing, and eager evaluation.
+runfiles size=22
+ RELOC/tex/latex/lisp-on-tex/lisp-arith.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-gc.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-latexutil.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-mod-fpnum.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-mod-l3regex.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-on-tex.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-prim.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-read.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-simple-alloc.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-string.sty
+ RELOC/tex/latex/lisp-on-tex/lisp-util.sty
+catalogue-ctan /macros/latex/contrib/lisp-on-tex
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license bsd
+catalogue-topics exec-foreign
+catalogue-version 2.0

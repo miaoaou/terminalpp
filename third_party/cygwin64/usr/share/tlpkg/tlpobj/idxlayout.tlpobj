@@ -1,0 +1,18 @@
+name idxlayout
+category Package
+revision 25821
+shortdesc Configurable index layout, responsive to KOMA-Script and memoir
+relocated 1
+longdesc The idxlayout package offers a key-value interface to configure
+longdesc index layout parameters, e.g. allowing for three-column indexes
+longdesc or for "parent" items and their affiliated subitems being
+longdesc typeset as a single paragraph. The package is responsive to the
+longdesc index-related options and commands of the KOMA-Script and
+longdesc memoir classes.
+runfiles size=2
+ RELOC/tex/latex/idxlayout/idxlayout.sty
+catalogue-ctan /macros/latex/contrib/idxlayout
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics index
+catalogue-version 0.4d

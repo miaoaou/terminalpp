@@ -1,0 +1,63 @@
+name circuitikz
+category Package
+revision 69757
+shortdesc Draw electrical networks with TikZ
+relocated 1
+longdesc The package provides a set of macros for naturally typesetting
+longdesc electrical and (somewhat less naturally, perhaps) electronic
+longdesc networks. It is designed as a tool that is easy to use, with a
+longdesc lean syntax, native to LaTeX, and directly supporting PDF
+longdesc output format. It has therefore been based on the very
+longdesc impressive PGF/TikZ package.
+runfiles size=3394
+ RELOC/tex/context/third/circuitikz/t-circuitikz-0.8.3.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-0.9.3.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-0.9.6.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-1.0.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-1.1.2.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-1.2.7.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz-1.4.6.tex
+ RELOC/tex/context/third/circuitikz/t-circuitikz.tex
+ RELOC/tex/generic/circuitikz/ctikzstyle-example.tex
+ RELOC/tex/generic/circuitikz/ctikzstyle-legacy.tex
+ RELOC/tex/generic/circuitikz/ctikzstyle-romano.tex
+ RELOC/tex/generic/circuitikz/pgfcirc.defines.tex
+ RELOC/tex/generic/circuitikz/pgfcircbipoles.tex
+ RELOC/tex/generic/circuitikz/pgfcirccurrent.tex
+ RELOC/tex/generic/circuitikz/pgfcircflow.tex
+ RELOC/tex/generic/circuitikz/pgfcirclabel.tex
+ RELOC/tex/generic/circuitikz/pgfcircmonopoles.tex
+ RELOC/tex/generic/circuitikz/pgfcircmultipoles.tex
+ RELOC/tex/generic/circuitikz/pgfcircpath.tex
+ RELOC/tex/generic/circuitikz/pgfcircquadpoles.tex
+ RELOC/tex/generic/circuitikz/pgfcircshapes.tex
+ RELOC/tex/generic/circuitikz/pgfcirctripoles.tex
+ RELOC/tex/generic/circuitikz/pgfcircutils.tex
+ RELOC/tex/generic/circuitikz/pgfcircvoltage.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.4-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.4.sty
+ RELOC/tex/latex/circuitikz/circuitikz-0.6-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.6.sty
+ RELOC/tex/latex/circuitikz/circuitikz-0.7-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.7.sty
+ RELOC/tex/latex/circuitikz/circuitikz-0.8.3-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.8.3.sty
+ RELOC/tex/latex/circuitikz/circuitikz-0.9.3-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.9.3.sty
+ RELOC/tex/latex/circuitikz/circuitikz-0.9.6-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-0.9.6.sty
+ RELOC/tex/latex/circuitikz/circuitikz-1.0-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-1.0.sty
+ RELOC/tex/latex/circuitikz/circuitikz-1.1.2-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-1.1.2.sty
+ RELOC/tex/latex/circuitikz/circuitikz-1.2.7-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-1.2.7.sty
+ RELOC/tex/latex/circuitikz/circuitikz-1.4.6-body.tex
+ RELOC/tex/latex/circuitikz/circuitikz-1.4.6.sty
+ RELOC/tex/latex/circuitikz/circuitikz.sty
+catalogue-contact-bugs https://github.com/circuitikz/circuitikz/issues
+catalogue-contact-repository https://github.com/circuitikz/circuitikz
+catalogue-ctan /graphics/pgf/contrib/circuitikz
+catalogue-license lppl gpl
+catalogue-topics graphics diagram-circ pgf-tikz electronic
+catalogue-version 1.6.7

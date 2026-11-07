@@ -1,0 +1,390 @@
+% --------------------------------------------------------------------------------------------------
+% subfile of pgf-PeriodicTable package ----------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+% Macros for building the cells of all elements --------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+%% USER MACRO
+% --------------------------------------------------------------------------------------------------
+% auxiliary macro to construct the layout of each cell in the Periodic Table of Elements
+% \pgfPTbuildcell(<lines>,<columns>)[<entries>]
+% or
+% \pgfPTbuildcellstyle{name}(<lines>,<columns>)[<entries>]
+% each entry is constructed according to the structure <line>|<line_i>-<line_f>;<column>|<column_i>-<column_f>;<what>
+% OUTPUT:
+% \pgfPT@cellcontents -> a comma separated list.
+% --------------------------------------------------------------------------------------------------
+% Each entry stores the following data: (contents::csstring::coordinate+wd+ht)
+% The coordinate corresponds to the right upper corner "x+y"
+% \global\pgfPT@cellcontentssize -> size of the list
+% Example of use (the default layout for each cell in the Periodic table):
+%   -------------
+%   | 1 | 2 | 3 |  line 1
+%   -------------
+%   | 1 | 2 | 3 |  line 2
+%   -------------
+%   | 1 | 2 | 3 |  line 3
+%   -------------
+%   | 1 | 2 | 3 |  line 4
+%   -------------
+%   | 1 | 2 | 3 |  line 5
+% \pgfPTbuildcell(5,3)[% 5 lines x 3 columns
+%        (1;1-2;z),(1;3;radio),% line 1; the atomic number spreads over column 1 and 2
+%        (2-3;2;cs),(4;2;name),% lines 2 and 3, line 4
+%        (5;2;ar)% line 5
+%        ]%
+% -------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifpgfPT@to\pgfPT@tofalse%
+\newif\ifpgfPT@dot\pgfPT@dotfalse%
+\newif\ifpgfPT@unnamedcell\pgfPT@unnamedcelltrue%
+\newdimen\pgfPT@cell@collumnwd\pgfPT@cell@collumnwd=0pt%
+\newdimen\pgfPT@cell@lineht\pgfPT@cell@lineht=0pt%
+\newdimen\pgfPT@tmpx\pgfPT@tmpx=0pt%
+\newdimen\pgfPT@tmpy\pgfPT@tmpy=0pt%
+\newdimen\pgfPT@tmpwd\pgfPT@tmpwd=0pt%
+\newdimen\pgfPT@tmpht\pgfPT@tmpht=0pt%
+\newcount\pgfPT@cellcontentssize\pgfPT@cellcontentssize=0%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\pgfPTbuildcellstyle#1(#2,#3)[#4]{\pgfPT@unnamedcellfalse\relax%
+\pgfPTbuildcell(#2,#3)[#4]%
+\expandafter\edef\csname pgfPT@cellcontents@#1\endcsname{\pgfPT@cellcontents}%
+\expandafter\edef\csname ppfPT@thebuildcellcom@#1\endcsname{\textbackslash pgfPTbuildcell(\detokenize{#2},\detokenize{#3})\%\par[\detokenize{#4}]}%
+\expandafter\edef\csname pgfPT@nlinhas@#1\endcsname{#2}%
+\expandafter\edef\csname pgfPT@ncolunas@#1\endcsname{#3}%
+\pgfPT@unnamedcelltrue\relax%
+}%
+\def\pgfPT@builtincellstyle#1(#2,#3)[#4]{\pgfPT@unnamedcellfalse\relax%
+\pgfPTbuildcell(#2,#3)[#4]%
+\expandafter\edef\csname pgfPT@cellcontents@#1\endcsname{\pgfPT@cellcontents}%
+\expandafter\edef\csname ppfPT@thebuildcellcom@#1\endcsname{\textbackslash pgfPTbuildcell(\detokenize{#2},\detokenize{#3})\%\par[\detokenize{#4}]}%
+\expandafter\edef\csname pgfPT@nlinhas@#1\endcsname{#2}%
+\expandafter\edef\csname pgfPT@ncolunas@#1\endcsname{#3}%
+\pgfPT@unnamedcelltrue\relax%
+\global\let\pgfPT@cellcontents\undefined\relax
+}%
+% the macro code
+%        \pgfPTbuildcell(<lines>,<columns>)[<entries>]
+%
+\def\pgfPTbuildcell(#1,#2)[#3]{%
+\ifpgfPT@unnamedcell\gdef\ppfPT@thebuildcellcom{\textbackslash pgfPTbuildcell(\detokenize{#1},\detokenize{#2})\%\par[\detokenize{#3}]}\fi%
+\gdef\pgfPT@numlinhas{#1}\gdef\pgfPT@numcolunas{#2}%
+\pgfPT@cellcontentssize=0%
+\xdef\pgfPT@cellcontents{}% vanishes list contents
+\pgfmathsetlength{\pgfPT@cell@collumnwd}{\pgfPTcellwd/#2}%
+\pgfmathsetlength{\pgfPT@cell@lineht}{\pgfPTcellht/#1}%
+\global\pgfPT@cell@lineht=\pgfPT@cell@lineht%
+\global\pgfPT@cell@collumnwd=\pgfPT@cell@collumnwd%
+\expandafter\pgfPTg@bblespaces#3\relax%
+\@for\@tmp:=\pgfPT@listn@spaces\do{\expandafter\pgfPT@buildcellcontents\@tmp\relax}%
+\ifpgfPT@unnamedcell\global\let\pgfPT@cellcontents@unnamed\pgfPT@cellcontents\relax\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@buildcellcontents(<line>|<line_i>-<line_f>;<column>|<column_i>-<column_f>;<what>)
+% verifies if 'what' is valid and calls addcellentry
+% NOTE: in validation the \pgfPT@csstring is defined and stores the 'csname' string corresponding to <what>
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@buildcellcontents(#1;#2;#3){%
+\pgfPT@validate@cell@content{#3}%
+\ifpgfPT@found% valid entry
+\global\advance\pgfPT@cellcontentssize by1\relax%
+\pgfPT@addcellentry#1;#2;#3.\relax%
+\fi% \ifpgfPT@found
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@addcellentry<line>|<line_i>-<line_f>;<column>|<column_i>-<column_f>;<what>.
+% checks if the 1st entry is a single line (<line>) or multiple line (<line_i>-<line_f>)
+% in both cases computes the height of the entry (<what>)
+% checks if the 1st entry is a single column (<column>) or multiple column (<column_i>-<column_f>)
+% in both cases computes the width of the entry (<what>)
+% OUTPUT:
+% appends the entry to the \pgfPT@cellcontents with
+%                               what::x+y+wd+ht
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@addcellentry#1;#2;#3.{%
+\pgfPT@find@to#1\relax%
+\ifpgfPT@to%
+\pgfPT@decomposeentry(#1)%
+\pgfmathsetlength{\pgfPT@tmpy}{(\pgfPT@firstentry-1)*\pgfPT@cell@lineht}%
+\expandafter\pgfPT@find@dot\pgfPT@secondentry\relax%
+\ifpgfPT@dot%
+\pgfmathsetlength{\pgfPT@tmpht}{(\pgfPT@secondentry-\pgfPT@firstentry)*\pgfPT@cell@lineht}%
+\else%
+\pgfmathsetlength{\pgfPT@tmpht}{(\pgfPT@secondentry-\pgfPT@firstentry+1)*\pgfPT@cell@lineht}%
+\fi%
+\else%
+\pgfmathsetlength{\pgfPT@tmpy}{(#1-1)*\pgfPT@cell@lineht}%
+\pgfmathsetlength{\pgfPT@tmpht}{\pgfPT@cell@lineht}%
+\fi\relax%
+\pgfPT@find@to#2\relax%
+\ifpgfPT@to%
+\pgfPT@decomposeentry(#2)%
+\pgfmathsetlength{\pgfPT@tmpx}{(\pgfPT@firstentry-1)*\pgfPT@cell@collumnwd}%
+\expandafter\pgfPT@find@dot\pgfPT@secondentry\relax%
+\ifpgfPT@dot%
+\pgfmathsetlength{\pgfPT@tmpwd}{(\pgfPT@secondentry-\pgfPT@firstentry)*\pgfPT@cell@collumnwd}%
+\else%
+\pgfmathsetlength{\pgfPT@tmpwd}{(\pgfPT@secondentry-\pgfPT@firstentry+1)*\pgfPT@cell@collumnwd}%
+\fi%
+\else%
+\pgfmathsetlength{\pgfPT@tmpx}{(#2-1)*\pgfPT@cell@collumnwd}%
+\pgfmathsetlength{\pgfPT@tmpwd}{\pgfPT@cell@collumnwd}%
+\fi\relax%
+% add to list:
+\edef\pgfPT@testa{#3}%
+\ifx\pgfPT@acronym@Arstar\pgfPT@testa\relax\edef\pgfPT@testa{Arstar}\fi%
+\ifnum\pgfPT@cellcontentssize=1\relax%
+\xdef\pgfPT@cellcontents{\pgfPT@testa::\the\pgfPT@tmpx+\the\pgfPT@tmpy+\the\pgfPT@tmpwd+\the\pgfPT@tmpht}\relax%
+\else%
+\xdef\pgfPT@cellcontents{\pgfPT@cellcontents,\pgfPT@testa::\the\pgfPT@tmpx+\the\pgfPT@tmpy+\the\pgfPT@tmpwd+\the\pgfPT@tmpht}\relax%
+\fi%
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@decomposeentry(i-f)
+% OUTPUT:
+%       \pgfPT@firstentry(i) & \pgfPT@secondentry(f)
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@decomposeentry(#1-#2){%
+\edef\pgfPT@firstentry{#1}\edef\pgfPT@secondentry{#2}\relax%
+}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@find@to{token list}
+% inspects if the token list contains the character '-'
+% OUTPUT:
+%       true or false (via \ifpgfPT@to)
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@find@to#1#2\relax{%
+\edef\pgfPT@teststr{#1}\edef\pgfPT@teststrX{#2}%
+\ifx\pgfPT@teststr\pgfPT@to\global\pgfPT@totrue\else\global\pgfPT@tofalse\fi\relax%
+\ifpgfPT@to\relax\else\ifx\pgfPT@teststrX\@empty\relax\else\pgfPT@find@to#2\relax\fi\fi%
+}%
+\def\pgfPT@to{-}%
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@find@dot{token list}
+% inspects if the token list contains the character '.'
+% OUTPUT:
+%       true or false (via \ifpgfPT@dot)
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@find@dot#1#2\relax{%
+\edef\pgfPT@teststr{#1}\edef\pgfPT@teststrX{#2}%
+\ifx\pgfPT@teststr\pgfPT@dot\global\pgfPT@dottrue\else\global\pgfPT@dotfalse\fi\relax%
+\ifpgfPT@dot\relax\else\ifx\pgfPT@teststrX\@empty\relax\else\pgfPT@find@dot#2\relax\fi\fi%
+}%
+\def\pgfPT@dot{.}%
+% --------------------------------------------------------------------------------------------------
+% USER MACRO -----------------------------------------------------------------------------------
+% auxiliary macro to graphical preview the layout of each cell
+% in the Periodic Table of Elements
+% --------------------------------------------------------------------------------------------------
+% \pgfPT@
+% OUTPUT:
+%       the graphical cell with the <what> labels
+% --------------------------------------------------------------------------------------------------
+\def\pgfPTpreviewcellstyle{\@ifnextchar[\pgfPT@previewcellstyle{\pgfPT@previewcellstyle[1]}}%
+\def\pgfPT@previewcellstyle[#1]#2{%
+\edef\pgfPT@preview@cellcontents{\csname pgfPT@cellcontents@#2\endcsname}%
+\def\pgfPT@builtin{0}\edef\pgfPT@tempa{#2}\relax%
+\@for\pgfPT@tmp:=\pgfPT@builtincells@names\do{\edef\pgfPT@tempb{\pgfPT@tmp}\ifx\pgfPT@tempa\pgfPT@tempb\relax\def\pgfPT@builtin{1}\fi}%
+\ifnum\pgfPT@builtin=1\relax\textit{Built-in style}\else\textit{User style}\fi\ \textbf{#2}\relax%
+\if\pgfPT@preview@cellcontents\@empty\relax%
+\textit{ doesn't exist!}%
+\else%
+\edef\pgfPT@numlinhas{\csname pgfPT@nlinhas@#2\endcsname}%
+\edef\pgfPT@numcolunas{\csname pgfPT@ncolunas@#2\endcsname}%
+\pgfmathsetlength{\pgfPT@cell@lineht}{\pgfPTcellht/\pgfPT@numlinhas}%
+\global\pgfPT@cell@lineht=\pgfPT@cell@lineht%
+\\ [2pt]The build command:\\ \textcolor{green!70!black}{\footnotesize\csname ppfPT@thebuildcellcom@#2\endcsname}\\ \pgfPTpreviewcell[#1]%
+\fi%
+}%
+\def\pgfPTpreviewcell{\@ifnextchar[\pgfPT@previewcell{\pgfPT@previewcell[1]}}%
+\def\pgfPT@previewcell[#1]{%
+\ifx\undefined\pgfPT@preview@cellcontents\relax%
+\ifx\undefined\pgfPT@cellcontents\relax\textbf{Using default cell}%
+\pgfPT@make@defaultcell\relax%
+\edef\pgfPT@preview@cellcontents{\csname pgfPT@cellcontents@unnamed\endcsname}%
+\\ [2pt]The build command:\\ \textcolor{green!70!black}{\footnotesize\ppfPT@thebuildcellcom}\\ %
+\else\textbf{Using the last cell built}%
+\edef\pgfPT@preview@cellcontents{\csname pgfPT@cellcontents@unnamed\endcsname}%
+\\ [2pt]The build command:\\ \textcolor{green!70!black}{\footnotesize\ppfPT@thebuildcellcom}\\ %
+\fi\fi%
+\makebox[\linewidth][c]{%
+\begin{tikzpicture}[scale=#1]%
+\pgfmathsetlength{\pgfPT@tmpht}{.5*#1*\pgfPT@cell@lineht}%
+\draw[fill=black!5] (0,0) rectangle (\pgfPTcellwd,-\pgfPTcellht) node[below left,font=\fontsize{\pgfPT@tmpht}{\pgfPT@tmpht}\selectfont,inner xsep=0pt] {scale #1:1};%
+\foreach \data in \pgfPT@preview@cellcontents{%
+\expandafter\pgfPT@previewcell@getdata\data\relax%
+\draw[blue,fill=blue!10] (\pgfPT@previewcell@data@x,-\pgfPT@previewcell@data@y) rectangle ++(\pgfPT@previewcell@data@wd,-\pgfPT@previewcell@data@ht);%
+\node[font=\fontsize{\pgfPT@tmpht}{\pgfPT@tmpht}\selectfont,anchor=north,below,minimum height=#1*\pgfPT@previewcell@data@ht,inner sep=0pt] %
+at (\pgfPT@previewcell@data@x+.5*\pgfPT@previewcell@data@wd,-\pgfPT@previewcell@data@y)%-.5*\pgfPT@previewcell@data@ht) %
+{\pgfPT@previewcell@data@what};%
+}%
+\draw[xstep=\pgfPT@cell@collumnwd,ystep=\pgfPT@cell@lineht,orange,densely dotted,very thin] (0,0) grid (\pgfPTcellwd,-\pgfPTcellht);
+\foreach \linha in {1,...,\pgfPT@numlinhas}{\node[left,font=\fontsize{\pgfPT@tmpht}{\pgfPT@tmpht}\selectfont,blue] %
+at (0,.5*\pgfPT@cell@lineht-\pgfPT@cell@lineht*\linha) {\linha};}
+\foreach \coluna in {1,...,\pgfPT@numcolunas}{\node[below,font=\fontsize{\pgfPT@tmpht}{\pgfPT@tmpht}\selectfont,red] %
+at (-.5*\pgfPT@cell@collumnwd+\pgfPT@cell@collumnwd*\coluna,\pgfPT@cell@lineht) {\coluna};}
+\end{tikzpicture}%
+}%\fi
+\let\pgfPT@preview@cellcontents\undefined\relax%
+}%
+\def\pgfPT@previewcell@getdata#1::#2+#3+#4+#5\relax{%
+\xdef\pgfPT@previewcell@data@what{#1}%
+\xdef\pgfPT@previewcell@data@x{#2}%
+\xdef\pgfPT@previewcell@data@y{#3}%
+\xdef\pgfPT@previewcell@data@wd{#4}%
+\xdef\pgfPT@previewcell@data@ht{#5}%
+}%
+% internal macro -> pgfPT@make@defaultcell --------------------------------------------------
+% if the user doesn´t set the layout of each cell then the default layout is build --------------
+\def\pgfPT@make@defaultcell{%
+%\pgfPT@defaultcelltrue%
+\pgfPTbuildcell(5,3)[(1;1-2;Z),(1;3;radio),(2-3;1.5-3.5;CS),(4;1-3;name),(5;1-3;Ar)]\relax%
+}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@validate@cell@content#1{%
+\global\pgfPT@foundfalse%
+\foreach \pgfPTacronym in \pgfPT@contents@acronyms{%
+\edef\pgfPT@testa{#1}\edef\pgfPT@testb{\pgfPTacronym}%
+\ifx\pgfPT@acronym@Arstar\pgfPT@testa\relax\edef\pgfPT@testa{Arstar}\fi%
+\ifx\pgfPT@testa\pgfPT@testb\relax\global\pgfPT@foundtrue%
+\breakforeach\fi}%
+}%
+% --------------------------------------------------------------------------------------------------
+% validates the contents of the cell to buid and stores the csname of that content.
+% -------------- Valid «acronyms» are: --->
+% Z -> Atomic Number
+% name -> Element Name
+% CS -> Chemical Symbol
+% Ar -> Relative Atomic Mass
+% Arstar -> Standard Relative Atomic Mass
+% radio -> Radioactivity
+% R -> Atomic Radius (Empirycal)
+% Rcov -> Covalente Radius
+% Rion -> Ionic Radius
+% Ei -> First Ionization Energy
+% eneg -> Electronegativity (Pauling)
+% eaff -> Electroaffinity
+% O -> Oxidation States
+% Tmelt -> Melting Point (Kelvin)
+% TmeltC -> Melting Point (degrees Celsius)
+% Tboil -> Boiling Point (Kelvin)
+% TboilC -> Boiling Point (degrees Celsius)
+% eDist -> Electron Distribuition
+% eConfign -> Electronic Configuration (increasing n)
+% eConfignl -> Electronic Configuration (increasing n+l)
+% d -> Density
+% Cp -> Specific heat capacity (25ºC, 100kPa)
+% kT -> Thermal Condutivity (25ºC)
+% ls -> Lattice Structure
+% lsa -> Lattice constant: a
+% lsb -> Lattice constant: b
+% lsc -> Lattice constant: c
+% lsca -> Lattice c/a ratio:
+% DiscY -> Discover Year
+% DiscC -> Discover Country
+% spectra: Visible range spectral lines
+\def\pgfPT@acronym@Arstar{Ar*}%
+\def\pgfPT@contents@acronyms{Z,name,CS,Ar,Arstar,radio,R,Rcov,Rion,Ei,eneg,eaff,O,Tmelt,TmeltC,Tboil,TboilC,eDist,eConfign,eConfignl,d,Cp,kT,ls,lsa,lsb,lsc,lsca,DiscY,DiscC,spectra}%
+% --------------------------------------------------------------------------------------------------
+% internal macro -> \pgfPT@loadcell[cell style name]
+% INPUT:
+%       value of key 'cell style', built via \pgfPTbuildcellstyle[name]
+%       if 'cell style' is empty last cell builded via \pgfPTbuildcell is used or if none cell is yet
+%       builded then the default cell is called
+% --------------------------------------------------------------------------------------------------
+% necessary if's to use the data in the cell, e.g., \ifpgfPT@name (is true)
+% loads the contents to \pgfPT@name@x \pgfPT@name@ \pgfPT@name@wd \pgfPT@name@ht{} (via \let...)
+\newif\ifpgfPT@Z\pgfPT@Zfalse%
+\newif\ifpgfPT@name\pgfPT@namefalse%
+\newif\ifpgfPT@CS\pgfPT@CSfalse%
+\newif\ifpgfPT@Ar\pgfPT@Arfalse%
+\newif\ifpgfPT@Arstar\pgfPT@Arstarfalse%
+\newif\ifpgfPT@radio\pgfPT@radiofalse%
+\newif\ifpgfPT@R\pgfPT@Rfalse%
+\newif\ifpgfPT@Rcov\pgfPT@Rcovfalse%
+\newif\ifpgfPT@Rion\pgfPT@Rionfalse%
+\newif\ifpgfPT@Ei\pgfPT@Eifalse%
+\newif\ifpgfPT@eneg\pgfPT@enegfalse%
+\newif\ifpgfPT@eaff\pgfPT@eafffalse%
+\newif\ifpgfPT@O\pgfPT@Ofalse%
+\newif\ifpgfPT@Tmelt\pgfPT@Tmeltfalse%
+\newif\ifpgfPT@TmeltC\pgfPT@TmeltCfalse%
+\newif\ifpgfPT@Tboil\pgfPT@Tboilfalse%
+\newif\ifpgfPT@TboilC\pgfPT@TboilCfalse%
+\newif\ifpgfPT@eDist\pgfPT@eDistfalse%
+\newif\ifpgfPT@eConfign\pgfPT@eConfignfalse%
+\newif\ifpgfPT@eConfignl\pgfPT@eConfignlfalse%
+\newif\ifpgfPT@d\pgfPT@dfalse%
+\newif\ifpgfPT@Cp\pgfPT@Cpfalse%
+\newif\ifpgfPT@kT\pgfPT@kTfalse%
+\newif\ifpgfPT@ls\pgfPT@lsfalse%
+\newif\ifpgfPT@lsa\pgfPT@lsafalse%
+\newif\ifpgfPT@lsb\pgfPT@lsbfalse%
+\newif\ifpgfPT@lsc\pgfPT@lscfalse%
+\newif\ifpgfPT@lsca\pgfPT@lscafalse%
+\newif\ifpgfPT@DiscY\pgfPT@DiscYfalse%
+\newif\ifpgfPT@DiscC\pgfPT@DiscCfalse%
+\newif\ifpgfPT@spectra\pgfPT@spectrafalse%
+%\newif\ifpgfPT@DiscBy\pgfPT@DiscByfalse%
+% --------------------------------------------------------------------------------------------------
+%\def\loadcell#1{Loading cell data\\ --\ #1\ -- CONTENTS\pgfPT@loadcell[#1]% DEBUG
+%\@for\@tmp:=\pgfPT@load@cellcontents\do{\\ \@tmp}}% DEBUG
+% --------------------------------------------------------------------------------------------------
+\def\pgfPT@loadcell[#1]{\ignorespaces%
+\edef\pgfPT@testa{#1}%
+\ifx\pgfPT@testa\empty\relax%
+    \ifx\undefined\pgfPT@cellcontents\relax\pgfPT@make@defaultcell\relax%
+    \else%
+        \ifx\undefined\pgfPT@cellcontents@unnamed\relax\pgfPT@make@defaultcell\relax\fi%
+    \fi%
+    \edef\pgfPT@load@cellcontents{\pgfPT@cellcontents@unnamed}%
+\else% cell style is provided
+    \expandafter\ifx\csname pgfPT@cellcontents@#1\endcsname\relax% Testing if macro pgfPT@cellcontents@<name> is defined (if not expands to \relax..)
+        \PackageError{pgfPT}{Invalid name '#1' for 'cell style'. Last known style will be used...}%
+        \edef\pgfPT@load@cellcontents{\pgfPT@cellcontents}%
+    \else% cell style name is OK...
+        \edef\pgfPT@load@cellcontents{\csname pgfPT@cellcontents@#1\endcsname}%
+    \fi%
+\fi%
+% Setting all if<what>'s to false:
+\@for\@pgfPT@tmp:=\pgfPT@contents@acronyms\do{%
+\expandafter\csname pgfPT@\@pgfPT@tmp false\endcsname\relax}%
+% Setting the data to the macros:
+% x -> \pgfPT@<what>@x
+% y -> \pgfPT@<what>@y
+% wd -> \pgfPT@<what>@wd
+% ht -> \pgfPT@<what>@ht
+% and turning the if<what> to true
+% what -> \@pgfPT@<what>rtue
+    \ifdim\pgfPTcellwd=34pt\relax%
+        \xdef\pgfPT@loadcell@scaleX{1}%
+    \else%
+        \pgfmathparse{\pgfPTcellwd/34pt}\xdef\pgfPT@loadcell@scaleX{\pgfmathresult}%
+    \fi%
+    \xdef\pgfPT@loadcell@wd{\pgfPTcellwd}%
+    \ifdim\pgfPTcellwd=38.25pt\relax%
+        \xdef\pgfPT@loadcell@scaleY{1}%
+    \else%
+        \pgfmathparse{\pgfPTcellht/38.25pt}\xdef\pgfPT@loadcell@scaleY{\pgfmathresult}%
+    \fi%
+    \xdef\pgfPT@loadcell@ht{\pgfPTcellht}%
+\xdef\pgfPT@legend@content{}\relax%
+\@for\@pgfPT@tmp:=\pgfPT@load@cellcontents\do{%
+% loading the current entry of cell contents to get <what>,x,y,wd,ht
+\expandafter\pgfPT@previewcell@getdata\@pgfPT@tmp\relax%
+\xdef\pgfPT@legend@content{\pgfPT@legend@content,\pgfPT@previewcell@data@what}\relax%
+\pgfmathparse{\pgfPT@loadcell@scaleX*\pgfPT@previewcell@data@x}%
+\expandafter\xdef\csname pgfPT@data@\pgfPT@previewcell@data@what @x\endcsname{\pgfmathresult pt}%
+\pgfmathparse{\pgfPT@loadcell@scaleY*\pgfPT@previewcell@data@y}%
+\expandafter\xdef\csname pgfPT@data@\pgfPT@previewcell@data@what @y\endcsname{\pgfmathresult pt}%
+\pgfmathparse{\pgfPT@loadcell@scaleX*\pgfPT@previewcell@data@wd}%
+\expandafter\xdef\csname pgfPT@data@\pgfPT@previewcell@data@what @wd\endcsname{\pgfmathresult pt}%
+\pgfmathparse{\pgfPT@loadcell@scaleY*\pgfPT@previewcell@data@ht}%
+\expandafter\xdef\csname pgfPT@data@\pgfPT@previewcell@data@what @ht\endcsname{\pgfmathresult pt}%
+\expandafter\csname pgfPT@\pgfPT@previewcell@data@what true\endcsname\relax%
+}%end do
+\expandafter\@pgfPT@rem@initcomma\pgfPT@legend@content\relax%
+}% end load cell
+\def\@pgfPT@rem@initcomma,#1\relax{\xdef\pgfPT@legend@content{#1}\relax}%
+% --------------------------------------------------------------------------------------------------
+\def\pgfPTresetcell{\global\let\pgfPT@cellcontents\undefined\relax}%
+\endinput

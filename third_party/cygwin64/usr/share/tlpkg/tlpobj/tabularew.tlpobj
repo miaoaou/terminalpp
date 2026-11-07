@@ -1,0 +1,15 @@
+name tabularew
+category Package
+revision 15878
+shortdesc A variation on the tabular environment
+relocated 1
+longdesc The package offers a modification of the tabular environment,
+longdesc which deals with the problem of column heads that are
+longdesc significantly wider than the body of the column.
+runfiles size=2
+ RELOC/tex/latex/tabularew/tabularew.sty
+catalogue-ctan /macros/latex/contrib/tabularew
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics table
+catalogue-version 0.1

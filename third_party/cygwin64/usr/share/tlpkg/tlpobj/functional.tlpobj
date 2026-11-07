@@ -1,0 +1,24 @@
+name functional
+category Package
+revision 69908
+shortdesc Provide an intuitive functional programming interface for LaTeX2
+relocated 1
+longdesc This package provides an intuitive functional programming
+longdesc interface for LaTeX2, which is an alternative choice to expl3
+longdesc or LuaTeX, if you want to do programming in LaTeX. Although
+longdesc there are functions in LaTeX3 programming layer (expl3), the
+longdesc evaluation of them is from outside to inside. With this
+longdesc package, the evaluation of functions is from inside to outside,
+longdesc which is the same as other programming languages such as Lua.
+longdesc In this way, it is rather easy to debug code too.
+runfiles size=21
+ RELOC/tex/latex/functional/functional.sty
+catalogue-contact-announce https://github.com/lvjr/functional/wiki/ChangeLog
+catalogue-contact-bugs https://github.com/lvjr/functional/issues
+catalogue-contact-home https://github.com/lvjr/functional/wiki
+catalogue-contact-repository https://github.com/lvjr/functional
+catalogue-contact-support https://github.com/lvjr/functional/discussions
+catalogue-ctan /macros/latex/contrib/functional
+catalogue-license lppl1.3c
+catalogue-topics macro-supp latex3 expl3
+catalogue-version 2024A

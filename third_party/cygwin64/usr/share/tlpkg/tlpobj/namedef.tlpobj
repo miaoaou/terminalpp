@@ -1,0 +1,22 @@
+name namedef
+category Package
+revision 55881
+shortdesc TeX definitions with named parameters
+relocated 1
+longdesc This package provides a prefix \named to be used in TeX
+longdesc definitions so that parameters can be identified by their name
+longdesc rather than by number, giving parameters a semantic rather than
+longdesc syntactic meaning, making it easy to understand long
+longdesc definitions. A usual definition reads: \def\SayHello#1{Hello,
+longdesc #1!} but with namedef you can replace #1 by, say, #[person]:
+longdesc \named\def\SayHello#[person]{Hello, #[person]!} and \named will
+longdesc figure out the numbering of the parameters for you.
+depend l3kernel
+runfiles size=4
+ RELOC/tex/generic/namedef/namedef.sty
+catalogue-contact-bugs https://github.com/PhelypeOleinik/namedef/issues
+catalogue-contact-repository https://github.com/PhelypeOleinik/namedef
+catalogue-ctan /macros/generic/namedef
+catalogue-license lppl1.3c
+catalogue-topics macro-def macro-gen expl3
+catalogue-version 1.0

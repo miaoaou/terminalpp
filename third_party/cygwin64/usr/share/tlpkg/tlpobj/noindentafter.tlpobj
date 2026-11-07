@@ -1,0 +1,16 @@
+name noindentafter
+category Package
+revision 59195
+shortdesc Prevent paragraph indentation after environments or macros
+relocated 1
+longdesc The package, as the name suggests, supplies tools to
+longdesc automatically suppress indentations in following paragraphs,
+longdesc specifically those following a particular macro or environment.
+runfiles size=1
+ RELOC/tex/latex/noindentafter/noindentafter.sty
+catalogue-contact-bugs https://github.com/mrpiggi/noindentafter/issues
+catalogue-contact-repository https://github.com/mrpiggi/noindentafter
+catalogue-ctan /macros/latex/contrib/noindentafter
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 1.00

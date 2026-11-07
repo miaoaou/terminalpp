@@ -1,0 +1,22 @@
+name fetchcls
+category Package
+revision 45245
+shortdesc Fetch the current class name
+relocated 1
+longdesc With standard LaTeX you are able to check for the class in use
+longdesc invoking the kernel command \@ifclassloaded. However, doing so
+longdesc you cannot get the explicit class name, unless you want to loop
+longdesc over every possible class name until \@ifclassloaded returns
+longdesc true -- don't do that! With the help of the present package you
+longdesc can obtain the name of the current class with significantly
+longdesc less effort. Just load the package as usual:
+longdesc \usepackage{fetchcls}; then, the control sequence \classname
+longdesc will hold the name you were looking for.
+runfiles size=1
+ RELOC/tex/latex/fetchcls/fetchcls.sty
+catalogue-contact-repository https://github.com/giannotr/fetchcls
+catalogue-ctan /macros/latex/contrib/fetchcls
+catalogue-date 2017-09-10 06:11:36 +0200
+catalogue-license lppl1.3c
+catalogue-topics macro-supp
+catalogue-version 1.0

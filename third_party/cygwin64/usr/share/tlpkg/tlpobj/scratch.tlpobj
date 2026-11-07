@@ -1,0 +1,18 @@
+name scratch
+category Package
+revision 66655
+shortdesc Draw programs like "scratch"
+relocated 1
+longdesc This package is now obsolete. From now on, scratch at
+longdesc scratch.mit.edu is now version3 with a new design. Please, use
+longdesc the "scratch3" package to draw blocks with the new design. This
+longdesc package permits to draw program charts in the style of the
+longdesc scatch project (scratch.mit.edu). It depends on the other LaTeX
+longdesc packages TikZ and simplekv.
+runfiles size=13
+ RELOC/tex/latex/scratch/scratch.sty
+catalogue-also tikzcodeblocks
+catalogue-ctan /obsolete/macros/latex/contrib/scratch
+catalogue-license lppl1.3c
+catalogue-topics games pgf-tikz obsolete
+catalogue-version 0.41

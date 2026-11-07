@@ -1,0 +1,523 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+% =============================
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{tikz-mirror-lens}[2023-01-08 Custom Package for drawing spherical mirrors and lens -- FHZ -- Version 1.0.2]
+
+\RequirePackage{amsmath}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{math}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.markings}
+
+% =======================================================
+% Variables
+% f: focus of the mirror or lens
+% p: position along x axis of the object
+% pp: position along x axis of the object
+% o: object height
+% i: image height
+% ymirror: mirror height
+% epsilon: absolute distance between p and f
+% yM: height of the mirror
+% xL: Left extension of X axis
+% xR: Right extension of X axis
+% (x_C,y_C): Coordinates of the localization of displayed data
+% arrows: optional argument to change arrows density
+% =======================================================
+
+
+% =======================================================
+% Summary of main commands
+% -- Mirrors
+%\mirrorSphGauss[arrows]{f}{p}{o}{epsilon}
+%\mirrorSphGaussCoord[arrows]{f}{p}{o}{epsilon}
+%\mirrorSphGaussFixed[arrows]{f}{p}{o}{epsilon}{yM}{xL}{xR}
+%\mirrorSphGaussFixedCoord[arrows]{f}{p}{o}{epsilon}{yM}{xL}{xR}{(x_C,y_C)}
+% -- Lens
+%\lensSphGauss[arrows]{f}{p}{o}{epsilon}
+%\lensSphGaussCoord[arrows]{f}{p}{o}{epsilon}
+%\lensSphGaussFixed[arrows]{f}{p}{o}{epsilon}{yM}{xL}{xR}
+%\lensSphGaussFixedCoord[arrows]{f}{p}{o}{epsilon}{yM}{xL}{xR}{(x_C,y_C)}
+% =======================================================
+
+% =======================================================
+% Mirrors and Lens -- Math
+% =======================================================
+% Summary of commands
+% \mirrorMath{f}{p}{o}{epsilon}{ymirror}
+% \lensMath{f}{p}{o}{epsilon}{ymirror}
+% \lensMathL{f}{p}{o}{epsilon}{ymirror}
+
+% =======================================================
+\newcommand{\mirrorMath}[5]{
+  % Define mirror and object
+  \tikzmath{\f = #1; \v = 0; \c = 2*\f;}
+  \tikzmath{\p = #2; \o = #3;}
+  % Calculate image
+  \tikzmath{
+    if (abs(\p - \f) >= #4) then {
+      \pp = \p*\f/(\p-\f);
+      \i = -(\pp/\p)*\o;
+    } else {
+      \pp = 0;
+      \i = 0;
+    };
+  }
+  % Mirror size, math as parameter
+  \tikzmath{\ymirror = #5;}
+}
+\newcommand{\lensMath}[5]{
+  % f > 0 convergente, f < 0 divergente
+  % Define lens and object
+  \tikzmath{\f = #1; \v = 0; \a = 2*\f;}
+  \tikzmath{\p = #2; \o = #3;}
+  % Calculate image
+  \tikzmath{
+    if (abs(\p - \f) >= #4) then {
+      \pp = \p*(\f)/(\f-(\p));
+      \i = (\pp/\p)*\o;
+    } else {
+      \pp = 0;
+      \i = 0;
+    };
+  }
+  % Lens size, math as parameter
+  \tikzmath{\ymirror = #5;}
+}
+\newcommand{\lensMathL}[5]{
+  % f > 0 convergente, f < 0 divergente
+  % Define lens and object
+  \tikzmath{\f = #1; \v = 0; \a = 2*\f;}
+  \tikzmath{\p = #2; \o = #3;}
+  % Calculate image
+  \tikzmath{
+    if (abs(\p + \f) >= #4) then {
+      \pp = \p*\f/(\p+\f);
+      \i = (\pp/\p)*\o;
+    } else {
+      \pp = 0;
+      \i = 0;
+    };
+  }
+  % Lens size, math as parameter
+  \tikzmath{\ymirror = #5;}
+}
+% *******************************************************
+
+% =======================================================
+% Mirrors and Lens -- base
+% =======================================================
+% Summary of commands
+% \mirrorLensObjIma{p}{pp}{o}{i}
+% \mirrorLensCoord{p}{pp}{o}{i}{f}{x}
+% =======================================================
+\newcommand{\mirrorLensObjIma}[4]{
+  \begin{scope}[-stealth]
+    \draw[green!50!black] (#1,0) node[above right]{$p$} -- ++(0,#3) node[above left]{$o$} coordinate(O);
+    \tikzmath{
+      if (#2 != 0) then {
+        {
+          \draw[green] (#2,0)  node[below left]{$p^{\prime}$} -- ++(0,#4)  node[below left]{$i$};
+        };
+      };
+    }
+  \end{scope}
+}
+\newcommand{\mirrorLensCoord}[6]{
+  \begin{scope}
+    \node[right] at #6 {
+      $\begin{aligned}
+        f              & = #5      \\
+        (p,o)          & = (#1,#3) \\
+        (p^{\prime},i) & = (#2,#4)
+      \end{aligned}$
+    };
+  \end{scope}
+}
+% *******************************************************
+
+% =======================================================
+% Mirrors -- base
+% =======================================================
+% Summary of commands
+% \mirrorBase{f}{ymirror}{minEixoX}{maxEixoX}
+% \mirrorPts{v}{f}{c}
+% \mirrorRays[arrow]{p}{pp}{o}{i}
+% =======================================================
+\newcommand{\mirrorBase}[4]{
+  \begin{scope}
+    \draw[dashed, extended line=15pt] (#3,0) -- (#4,0);
+    \foreach \ys in {1,-1}{
+      \begin{scope}[yscale=\ys]
+        \draw[blue] (0,0) -- ++(0,#2) arc (0:-sign(#1)*90:{-sign(#1)*0.5});
+        \foreach \x/\y in {0/0.05,0.05/0.20,0.15/0.35,0.45/0.5}{
+          \draw[blue] ({sign(#1)*\x},#2+\y) -- ++({-0.5},0);
+        }
+      \end{scope}
+    }
+  \end{scope}
+}
+\newcommand{\mirrorPts}[3]{
+  \begin{scope}[red]
+    \fill (#1,0) coordinate(V) circle(0.05) node[below left]{$V$};
+    \fill (#2,0) coordinate(F) circle(0.05) node[below]{$f$};
+    \fill (#3,0) coordinate(C) circle(0.05) node[below]{$c$};
+  \end{scope}
+}
+\newcommand{\mirrorRays}[5][60]{
+  \begin{scope}[thick,extended line=25pt]
+    \tikzmath{
+      if (#3 != 0) then {
+        {
+          \draw[arrDec={#1},cyan] (#2,#4) -- (0,#4) -- (F) -- (#3,#5);
+          \draw[arrDec={#1-10},magenta] (O) -- (F) -- (0,#5) -- (#3,#5);
+          \draw[arrDec={#1-10},violet,dotted] (O) -- (V) -- (#3,#5);
+        };
+      } else {
+        {
+          \draw[arrDec={#1},cyan] (#2,#4) -- (0,#4) -- (F);
+          \draw[arrDec={#1-10},violet,dotted] (O) -- (V) -- (#2,-#4);
+        };
+      };
+    }
+  \end{scope}
+}
+% *******************************************************
+
+% =======================================================
+% Lens - Base
+% =======================================================
+% Summary of commands
+% \lensBase{f}{ymirror}{minEixoX}{maxEixoX}
+% \lensPts{v}{f}{a}
+% \lensRays[arrows]{p}{pp}{o}{i}
+% =======================================================
+\newcommand{\lensBase}[4]{
+  \begin{scope}
+    \draw[dashed, extended line=15pt] (#3,0) -- (#4,0);
+    \foreach \ys in {1,-1}{
+      \begin{scope}[yscale=\ys]
+        \draw[blue] (0,0) -- ++(0,#2);% arc (0:-sign(\f)*90:{-sign(\f)*0.5});
+        \draw[blue, fill=white] (0,#2) -- ++(0.25,0) -- ++(-0.25,{sign(#1)*0.25}) -- ++(-0.25,{-sign(#1)*0.25}) -- cycle;
+      \end{scope}
+    }
+  \end{scope}
+}
+\newcommand{\lensPts}[3]{
+  \begin{scope}[red]
+    \fill (#1,0) coordinate(V) circle(0.05) node[below left]{$V$};
+    \fill (#2,0) coordinate(F) circle(0.05) node[below]{$f_o$};
+    \fill (#3,0) coordinate(C) circle(0.05) node[below]{$A_0$};
+    \fill (-#2,0) coordinate(Fi) circle(0.05) node[below]{$f_i$};
+    \fill (-#3,0) coordinate(Ci) circle(0.05) node[below]{$A_i$};
+  \end{scope}
+}
+\newcommand{\lensRays}[5][60]{
+  \begin{scope}[thick,extended line=25pt]
+    \tikzmath{
+      if (#3 != 0) then {
+        {
+          \draw[arrDec={#1},cyan] (#2,#4) -- (0,#4) -- (Fi) -- (#3,#5);
+          \draw[arrDec={#1-10},magenta] (O) -- (F) -- (0,#5) -- (#3,#5);
+          \draw[arrDec={#1-10},violet,dotted] (O) -- (V) -- (#3,#5);
+        };
+      } else {
+        {
+          \draw[arrDec={#1},cyan] (#2,#4) -- (0,#4) -- (Fi);
+          \draw[arrDec={#1-10},violet,dotted] (O) -- (V) -- (-#2,-#4);
+        };
+      };
+    }
+  \end{scope}
+}
+% *******************************************************
+
+% =======================================================
+% Mirrors
+% =======================================================
+\newcommand{\mirrorSphGauss}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \mirrorMath{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+    % Mirror, Notable points, Object and image, Notable Rays, Coordinates
+    \mirrorBase{\f}{\ymirror}{{min(\v,\pp,\c)}}{{max(\c+0.5,\p,\pp)}}
+    \mirrorPts{\v}{\f}{\c}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \mirrorRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\mirrorSphGaussCoord}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+          mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+          },
+        postaction={decorate},
+        },
+      arrDec/.default=20,
+      extended line/.style={shorten >=-#1,shorten <=-#1},
+      extended line/.default=1cm
+      ]
+      % Math
+      \mirrorMath{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+      % Mirror, Notable points, Object and image, Notable Rays, Coordinates
+      \mirrorBase{\f}{\ymirror}{{min(\v,\pp,\c)}}{{max(\c+0.5,\p,\pp)}}
+      \mirrorPts{\v}{\f}{\c}
+      \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+      \mirrorRays[#1]{\p}{\pp}{\o}{\i}
+      \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{({max(\c+0.5,\p,\pp)+1},-1)}
+      \end{tikzpicture}
+    }
+\newcommand{\mirrorSphGaussFixed}[8][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \mirrorMath{#2}{#3}{#4}{#5}{#6}
+    % Mirror, Notable points, Object and image, Notable Rays, Coordinates
+    \mirrorBase{\f}{\ymirror}{#7}{#8}
+    \mirrorPts{\v}{\f}{\c}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \mirrorRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\mirrorSphGaussFixedCoord}[9][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \mirrorMath{#2}{#3}{#4}{#5}{#6}
+    % Mirror, Notable points, Object and image, Notable Rays, Coordinates
+    \mirrorBase{\f}{\ymirror}{#7}{#8}
+    \mirrorPts{\v}{\f}{\c}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \mirrorRays[#1]{\p}{\pp}{\o}{\i}
+    \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{#9}
+  \end{tikzpicture}
+}
+% *******************************************************
+
+% =======================================================
+% Lens
+% =======================================================
+\newcommand{\lensSphGauss}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMath{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{{min(\v,\pp,\a)}}{{max(\a+0.5,\p,\pp)}}
+    \lensPts{\v}{\f}{\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussCoord}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+        },
+        postaction={decorate},
+        },
+        arrDec/.default=20,
+        extended line/.style={shorten >=-#1,shorten <=-#1},
+        extended line/.default=1cm
+        ]
+    % Math
+    \lensMath{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{{min(\v,\pp,\a)}}{{max(\a+0.5,\p,\pp)}}
+    \lensPts{\v}{\f}{\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+    \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{({max(\a+0.5,\p,\pp)+1},-1)}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussFixed}[8][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMath{#2}{#3}{#4}{#5}{#6}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{#7}{#8}
+    \lensPts{\v}{\f}{\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussFixedCoord}[9][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMath{#2}{#3}{#4}{#5}{#6}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{#7}{#8}
+    \lensPts{\v}{\f}{\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+    \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{#9}
+  \end{tikzpicture}
+}
+% *******************************************************
+
+% =======================================================
+% Lens - L
+% =======================================================
+\newcommand{\lensSphGaussL}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMathL{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{{min(\v,\p,\pp,\a,-\a)}}{{max(\v,\p,\pp,\a,-\a)}}
+    \lensPts{\v}{-\f}{-\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussLCoord}[5][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMathL{#2}{#3}{#4}{#5}{max(abs(\o),abs(\i)) + 0.5}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{{min(\v,\p,\pp,\a,-\a)}}{{max(\v,\p,\pp,\a,-\a)}}
+    \lensPts{\v}{-\f}{-\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+    \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{({max(\v,\p,\pp,\a,-\a)},-1)}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussLFixed}[8][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMathL{#2}{#3}{#4}{#5}{#6}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{#7}{#8}
+    \lensPts{\v}{-\f}{-\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+  \end{tikzpicture}
+}
+\newcommand{\lensSphGaussLFixedCoord}[9][60]{
+  \begin{tikzpicture}[very thick,
+    arrDec/.style={
+      decoration={
+        markings,
+        mark= between positions 0.1 and 0.99 step #1pt with {\arrow{latex}}
+      },
+      postaction={decorate},
+    },
+    arrDec/.default=20,
+    extended line/.style={shorten >=-#1,shorten <=-#1},
+    extended line/.default=1cm
+    ]
+    % Math
+    \lensMathL{#2}{#3}{#4}{#5}{#6}
+    % Lens, Notable points, Object and image, Notable Rays, Coordinates.
+    \lensBase{\f}{\ymirror}{#7}{#8}
+    \lensPts{\v}{-\f}{-\a}
+    \mirrorLensObjIma{\p}{\pp}{\o}{\i}
+    \lensRays[#1]{\p}{\pp}{\o}{\i}
+    \mirrorLensCoord{\p}{\pp}{\o}{\i}{\f}{#9}
+  \end{tikzpicture}
+}
+% *******************************************************
+
+\endinput

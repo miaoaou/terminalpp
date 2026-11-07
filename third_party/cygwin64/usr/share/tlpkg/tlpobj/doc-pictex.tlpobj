@@ -1,0 +1,12 @@
+name doc-pictex
+category Package
+revision 24927
+shortdesc A summary list of PicTeX documentation
+relocated 1
+longdesc A summary of available resources providing (or merely
+longdesc discussing) documentation of PicTeX.
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /info/pictex/Doc-PiCTeX.txt
+catalogue-date 2017-05-05 20:39:25 +0200
+catalogue-license other-free
+catalogue-topics doc-mgmt

@@ -1,0 +1,28 @@
+name kerntest
+category Package
+revision 15878
+shortdesc Print tables and generate control files to adjust kernings
+relocated 1
+longdesc This class makes it easy to generate tables that show many
+longdesc different kerning pairs of an arbitrary font, usable by LaTeX.
+longdesc It shows the kerning values that are used in the font by
+longdesc default. In addition, this class enables the user to alter the
+longdesc kernings and to observe the results. Kerning pairs can be
+longdesc defined for groups of similar glyphs at the same time. An mtx
+longdesc file is generated automatically. The mtx file may then be
+longdesc loaded by fontinst to introduce the user-made kernings into the
+longdesc virtual font for later use in LaTeX.
+runfiles size=22
+ RELOC/tex/latex/kerntest/kerntest.cls
+ RELOC/tex/latex/kerntest/ly1mtx.clo
+ RELOC/tex/latex/kerntest/ot1mtx.clo
+ RELOC/tex/latex/kerntest/t1cmr-1200.fd
+ RELOC/tex/latex/kerntest/t1mtx.clo
+ RELOC/tex/latex/kerntest/t2amtx.clo
+ RELOC/tex/latex/kerntest/t2bmtx.clo
+ RELOC/tex/latex/kerntest/ts1mtx.clo
+catalogue-ctan /macros/latex/contrib/kerntest
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics font-devel
+catalogue-version 1.32

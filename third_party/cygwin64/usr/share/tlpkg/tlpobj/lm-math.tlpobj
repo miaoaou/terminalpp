@@ -1,0 +1,15 @@
+name lm-math
+category Package
+revision 67718
+shortdesc OpenType maths fonts for Latin Modern
+relocated 1
+longdesc Latin Modern Math is a maths companion for the Latin Modern
+longdesc family of fonts, in OpenType format. For use with LuaLaTeX or
+longdesc XeLaTeX, support is available from the unicode-math package.
+runfiles size=180
+ RELOC/fonts/opentype/public/lm-math/latinmodern-math.otf
+catalogue-contact-home https://www.gust.org.pl/projects/e-foundry/latin-modern
+catalogue-ctan /fonts/lm-math
+catalogue-license gfl
+catalogue-topics font font-maths font-otf
+catalogue-version 1.959

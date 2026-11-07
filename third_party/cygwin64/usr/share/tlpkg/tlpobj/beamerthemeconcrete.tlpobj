@@ -1,0 +1,21 @@
+name beamerthemeconcrete
+category Package
+revision 69528
+shortdesc A collection of flat beamer themes
+relocated 1
+longdesc The concrete bundle provides a collection of flat beamer themes
+longdesc for making LaTeX presentations, especially for academic and
+longdesc scientific presentations.
+runfiles size=36
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecbernoulli.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecdirichlet.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecfermat.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecgauss.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemeclagrange.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecmobius.sty
+ RELOC/tex/latex/beamerthemeconcrete/beamerthemecriemann.sty
+catalogue-contact-repository https://github.com/lvjr/concrete
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/beamerthemeconcrete
+catalogue-license lppl1.3c
+catalogue-topics presentation
+catalogue-version 2024B

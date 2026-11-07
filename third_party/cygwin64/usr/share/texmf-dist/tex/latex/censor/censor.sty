@@ -1,0 +1,267 @@
+% censor.sty
+\def\censorversionnumber{4.3}
+\def\censorversiondate{2023/06/05}
+\ProvidesPackage{censor}
+[\censorversiondate\ \censorversionnumber\
+ Provides capability for redaction of sensitive information]
+%
+% This work may be distributed and/or modified under the 
+% conditions of the LaTeX Project Public License, either version 1.3 
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX 
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Steven B. Segletes.
+
+\usepackage{pbox}
+
+\newlength\censorruledepth
+\newlength\censorruleheight
+\newif\ifcensor
+
+\censorruledepth=-0.3ex% -0.3ex DEFAULT
+\censorruleheight=2.1ex%  2.1ex DEFAULT
+\def\censordot{\censor{.}}% versus \def\censordot{.}%
+\censortrue% DEFAULT
+
+\newcommand\censorrule[1]{\protect\rule[\censorruledepth]{#1}{\censorruleheight}}
+
+\DeclareRobustCommand\censor{\@ifstar{\@cenlen}{\@cenword}}
+  \newcommand\@cenlen[1]{\censorrule{#1 ex}}
+  \newcommand\@cenword[1]{\censorrule{\widthofpbox{#1}}}
+
+\newcommand\un@censor{\@ifstar{\un@cenlen}{\un@cenword}}
+  \newcommand\un@cenlen[1]{\protect\underline{\hspace{#1 ex}}}
+  \newcommand\un@cenword[1]{#1}
+
+\newcommand\StopCensoring{%
+           \censorfalse%
+           \let\censor\un@censor%
+           \let\censorbox\un@censorbox%
+           \renewcommand\censpace{ }%
+}
+\newcommand\RestartCensoring{%
+           \censortrue%
+           \renewcommand\censor{\@ifstar{\@cenlen}{\@cenword}}%
+           \renewcommand\censorbox{\@ifstar{\censor@dim}{\censor@box}}%
+           \let\censpace\sv@censpace%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tokcycle}[2021/03/10]
+
+
+\def\@dump#1{\if\relax\detokenize\expandafter{#1}\relax\else
+  \addcytoks[1]{\expandafter\censor\expandafter{#1}}\fi\def#1{}}
+\def\@append#1#2{\tc@defx#1{#1#2}}
+
+\def\censpace{%
+  \leaders\hrule height \dimexpr\censorruleheight+\censorruledepth\relax
+    depth -\censorruledepth
+  \hskip\fontdimen2\font plus \fontdimen3\font minus \fontdimen4\font
+  \mbox{}}
+\let\sv@censpace\censpace
+
+\long\def\blackout#1{\protect\blackoutenv#1\endblackoutenv}
+\long\def\xblackout#1{\protect\xblackoutenv#1\endxblackoutenv}
+
+\newif\ifexpandarg
+
+\xtokcycleenvironment\blackoutenv
+  {\ifx.##1\@dump\censored@word\addcytoks[1]{\censordot}\else
+    \ifnum\catcode`##1=3\relax\@dump\censored@word\addcytoks{##1}\else
+    \ifnum\catcode`##1=4\relax\@dump\censored@word\addcytoks{##1}\else
+    \ifnum\catcode`##1=7\relax\@dump\censored@word\addcytoks{##1}\else 
+    \ifnum\catcode`##1=8\relax\@dump\censored@word\addcytoks{##1}\else
+    \@append\censored@word{##1}%
+    \tcpeek\@next\ifx\@next\@tcEscapeptr\@dump\censored@word\fi
+    \fi\fi\fi\fi\fi}
+  {\tctestifcon\ifexpandarg{\expandafter\processtoks\expandafter
+    {\expanded{##1}}\@dump\censored@word}{\groupedcytoks{\processtoks{##1}%
+    \@dump\censored@word}}\expandargfalse}
+  {\tctestifx{~##1}{\@append\censored@word{##1}}%
+    {\tctestifx{\expanded##1}{\@dump\censored@word\expandargtrue}%
+    {\test@chars{##1}\if@char\if@mathgreek
+    \@append\censored@word{\ensuremath{##1}}\else
+    \@append\censored@word{##1}\fi\else
+    \test@accents{##1}\if@accent\@append\censored@word{##1}\tcpop\tc@popped
+    \expandafter\@append\expandafter\censored@word\expandafter{\tc@popped}%
+    \else\@dump\censored@word\addcytoks{##1}\fi\fi}}}
+  {\@dump\censored@word\addcytoks{##1}}  
+  {\stripgroupingtrue\def\censored@word{}\sloppy}
+  {\@dump\censored@word}
+
+\xtokcycleenvironment\xblackoutenv
+  {\ifx.##1\@dump\censored@word\addcytoks[1]{\censordot}\else
+    \ifnum\catcode`##1=3\relax\@dump\censored@word\addcytoks{##1}\else
+    \ifnum\catcode`##1=4\relax\@dump\censored@word\addcytoks{##1}\else
+    \ifnum\catcode`##1=7\relax\@dump\censored@word\addcytoks{##1}\else 
+    \ifnum\catcode`##1=8\relax\@dump\censored@word\addcytoks{##1}\else
+    \@append\censored@word{##1}%
+    \tcpeek\@next\ifx\@next\@tcEscapeptr\@dump\censored@word\fi
+    \fi\fi\fi\fi\fi}
+  {\tctestifcon\ifexpandarg{\expandafter\processtoks\expandafter
+    {\expanded{##1}}\@dump\censored@word}{\groupedcytoks{\processtoks{##1}%
+    \@dump\censored@word}}\expandargfalse}
+  {\tctestifx{~##1}{\@append\censored@word{##1}}%
+    {\tctestifx{\expanded##1}{\@dump\censored@word\expandargtrue}%
+    {\test@chars{##1}\if@char\if@mathgreek
+    \@append\censored@word{\ensuremath{##1}}\else
+    \@append\censored@word{##1}\fi\else
+    \test@accents{##1}\if@accent\@append\censored@word{##1}\tcpop\tc@popped
+    \expandafter\@append\expandafter\censored@word\expandafter{\tc@popped}%
+    \else\@dump\censored@word\addcytoks{##1}\fi\fi}}}
+  {\@dump\censored@word\addcytoks{\ccenspace}}  
+  {\stripgroupingtrue\def\censored@word{}\sloppy}
+  {\@dump\censored@word}
+
+\newcommand\ccenspace{\ifhmode\ifmmode\else\censpace\fi\fi}
+
+\newif\if@char
+\newif\if@mathgreek
+\newif\if@accent
+
+\newcommand\test@chars[1]{\@charfalse\@mathgreekfalse
+  \ifx\$#1\@chartrue\else
+  \ifx\&#1\@chartrue\else
+  \ifx\##1\@chartrue\else
+  \ifx\%#1\@chartrue\else
+  \ifx\_#1\@chartrue\else
+  \ifx\o#1\@chartrue\else
+  \ifx\O#1\@chartrue\else
+  \ifx\oe#1\@chartrue\else
+  \ifx\OE#1\@chartrue\else
+  \ifx\aa#1\@chartrue\else
+  \ifx\AA#1\@chartrue\else
+  \ifx\ae#1\@chartrue\else
+  \ifx\AE#1\@chartrue\else
+  \ifx\l#1\@chartrue\else
+  \ifx\L#1\@chartrue\else
+  \ifcensormathgreek\test@mathgreek{#1}\if@mathgreek\@chartrue\fi\fi%
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+
+\newcommand\test@mathgreek[1]{%
+  \ifx\alpha#1\@mathgreektrue\else
+  \ifx\beta#1\@mathgreektrue\else
+  \ifx\gamma#1\@mathgreektrue\else
+  \ifx\delta#1\@mathgreektrue\else
+  \ifx\epsilon#1\@mathgreektrue\else
+  \ifx\varepsilon#1\@mathgreektrue\else
+  \ifx\zeta#1\@mathgreektrue\else
+  \ifx\eta#1\@mathgreektrue\else
+  \ifx\theta#1\@mathgreektrue\else
+  \ifx\vartheta#1\@mathgreektrue\else
+  \ifx\iota#1\@mathgreektrue\else
+  \ifx\kappa#1\@mathgreektrue\else
+  \ifx\lambda#1\@mathgreektrue\else
+  \ifx\mu#1\@mathgreektrue\else
+  \ifx\nu#1\@mathgreektrue\else
+  \ifx\xi#1\@mathgreektrue\else
+  \ifx\pi#1\@mathgreektrue\else
+  \ifx\varpi#1\@mathgreektrue\else
+  \ifx\rho#1\@mathgreektrue\else
+  \ifx\varrho#1\@mathgreektrue\else
+  \ifx\sigma#1\@mathgreektrue\else
+  \ifx\varsigma#1\@mathgreektrue\else
+  \ifx\tau#1\@mathgreektrue\else
+  \ifx\upsilon#1\@mathgreektrue\else
+  \ifx\phi#1\@mathgreektrue\else
+  \ifx\varphi#1\@mathgreektrue\else
+  \ifx\chi#1\@mathgreektrue\else
+  \ifx\psi#1\@mathgreektrue\else
+  \ifx\omega#1\@mathgreektrue\else
+  \ifx\Gamma#1\@mathgreektrue\else
+  \ifx\Delta#1\@mathgreektrue\else
+  \ifx\Theta#1\@mathgreektrue\else
+  \ifx\Lambda#1\@mathgreektrue\else
+  \ifx\Xi#1\@mathgreektrue\else
+  \ifx\Pi#1\@mathgreektrue\else
+  \ifx\Sigma#1\@mathgreektrue\else
+  \ifx\Upsilon#1\@mathgreektrue\else
+  \ifx\Phi#1\@mathgreektrue\else
+  \ifx\Psi#1\@mathgreektrue\else
+  \ifx\Omega#1\@mathgreektrue
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+
+\newcommand\test@accents[1]{\@accentfalse
+  \ifx\`#1\@accenttrue\else
+  \ifx\=#1\@accenttrue\else
+  \ifx\'#1\@accenttrue\else
+  \ifx\.#1\@accenttrue\else
+  \ifx\^#1\@accenttrue\else
+  \ifx\"#1\@accenttrue\else
+  \ifx\u#1\@accenttrue\else
+  \ifx\d#1\@accenttrue\else
+  \ifx\v#1\@accenttrue\else
+  \ifx\b#1\@accenttrue\else
+  \ifx\H#1\@accenttrue\else
+  \ifx\t#1\@accenttrue\else
+  \ifx\~#1\@accenttrue\else
+  \ifx\c#1\@accenttrue
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+
+
+\newif\ifcensormathgreek
+
+\censormathgreektrue
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareRobustCommand\censorbox{\@ifstar{\censor@dim}{\censor@box}}
+  \newcommand\censor@dim[4][]{{#1%
+                      \rule[-#4\baselineskip]{#2ex}{#3\baselineskip}}}
+  \newcommand\censor@box[2][]{#1\setbox0\hbox{#2}%
+                      \rule[-\the\dp0]{\the\wd0}{\the\ht0+\the\dp0}}
+
+\newcommand\un@censorbox{\@ifstar{\un@censor@dim}{\un@censor@box}}
+  \newcommand\un@censor@dim[4][]{{#1%
+                      \fbox{\rule[-#4\baselineskip]{0ex}{#3\baselineskip}
+                      \rule{#2ex}{0ex}}}}
+  \newcommand\un@censor@box[2][]{#1#2}
+
+\endinput
+
+VERSION:
+1.00 - Initial release
+2.00 - Added \blackout
+2.10 - Allowed \blackout to cross paragraph boundaries with use of
+       \bpar. Stopped censoring periods, in order to preserve
+       end-of-sentence spacing, which differs from inter-word spacing.
+3.00 - \censorbox introduced to handle figures, tables, etc.
+3.10 - Made \blackout work with \par in argument.  Introduced 
+       \xblackout
+3.20 - Specify depth/height of censor rule.  Introduced \def\censordot{}
+3.21 - Fixed bug regarding \xblackout rules remaining after a
+       \StopCensoring
+3.22 - changed `\if to \ifx in definition of \bl@t, to handle macros like \%
+4.0  - Recast \blackout and \xblackout in terms of tokcycle environments
+     - Introduced \blackoutenv...\endblackoutenv and 
+       \xblackoutenv...\endxblackoutenv
+4.1  - Added automatic support for censoring character macros such as \$, 
+       etc. and character accents such as \', etc. See \test@chars and 
+       \test@accents for details.
+     - Fixed bug in which \expanded arguments remained inside a TeX group
+4.2  - Extended capability (via switch) to autocensor Greek math (see 
+       \test@mathgreek).  
+     - In (x)blackout macros/environments, auto-intercepts catcode 3,4,7 
+       and 8 characters and passes them through unchanged, to help facilitate 
+       general censoring of math and tabular content.
+     - Switched \censpace, used in \xblackout, to a leader rather than a
+       lapped rule, which allows automatically for glue associated with
+       \fontdim.
+     - Made \censor and \censorbox robust, which will allow censoring 
+       to occur across, for example, section headers, tocs, etc.
+     - Revisited the documentation, bringing it up to date.
+4.3  - Introduced \ifcensor condition, default true, set false via
+       \StopCensoring and set true via \RestartCensoring.  Thus, the current
+       state of censoring can be determined by the user.
+

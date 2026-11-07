@@ -1,0 +1,13 @@
+name concprog
+category Package
+revision 18791
+shortdesc Concert programmes
+relocated 1
+longdesc A class which provides the necessary macros to prepare a
+longdesc (classical) concert programme; a sample is provided.
+runfiles size=4
+ RELOC/tex/latex/concprog/ConcProg.cls
+catalogue-ctan /macros/latex/contrib/concprog
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics advert

@@ -1,0 +1,14 @@
+name kastrup
+category Package
+revision 15878
+catalogue binhex
+shortdesc Convert numbers into binary, octal and hexadecimal
+relocated 1
+longdesc Provides expandable macros for both fixed-width and
+longdesc minimum-width numbers to bases 2, 4, 8 and 16.
+runfiles size=1
+ RELOC/tex/generic/kastrup/binhex.tex
+catalogue-ctan /macros/generic/kastrup
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license other-free
+catalogue-topics numbers

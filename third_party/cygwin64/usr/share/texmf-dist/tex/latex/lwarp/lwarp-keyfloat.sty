@@ -1,0 +1,274 @@
+%%
+%% This is file `lwarp-keyfloat.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lwarp.dtx  (with options: `keyfloat')
+%% This is a generated file.
+%% Copyright 2016-2022 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+
+
+\LWR@ProvidesPackagePass{keyfloat}[2019/09/23]
+
+\IfPackageAtLeastTF{keyfloat}{2019/09/23}{\relax}{
+    \PackageError{lwarp-keyfloat}
+    {%
+        The keyfloat package is out of date.\MessageBreak
+        Update to keyfloat v2.01 2019/09/23 or later%
+    }
+    {%
+        Please update the keyfloat package.  It's worth it!%
+    }
+}
+
+\AtBeginDocument{
+
+\providecommand*{\KFLT@LWR@hook@boxouter}{}
+
+\renewcommand*{\KFLT@LWR@hook@boxouter}{%
+    \ifbool{KFLT@keywrap}{%
+    }{%
+        \ifnumequal{\value{KFLT@keyfloatdepth}}{0}{%
+            \setlength{\linewidth}{6in}%
+            \setlength{\textwidth}{6in}%
+            \setlength{\textheight}{9in}%
+        }{}%
+    }%
+    \normalcolor%
+}
+\LetLtxMacro\KFLT@LWR@hook@keysubfloats\KFLT@LWR@hook@boxouter
+\let\KFLT@LWR@hook@keyfloatsminipage\relax
+\let\endKFLT@LWR@hook@keyfloatsminipage\relax
+\newenvironment*{KFLT@LWR@hook@keyfloatsminipage}[1]{}{}
+\LetLtxMacro\KFLT@LWR@hook@keyfloats\KFLT@LWR@hook@boxouter
+
+\VerifyCommand[lwarp][keyfloat]{\KFLT@maybeendfloatrow}{ABD652AC104E3CF79D66B92BC7E4E2D7}
+
+\renewcommand*{\KFLT@maybeendfloatrow}{%
+    \ifnumless{\value{KFLT@thiscol}}{\value{KFLT@numcols}}%
+        {}% thiscol < numcols
+        {% >=
+            \defcounter{KFLT@thiscol}{0}%
+        }%
+}%
+
+\VerifyCommand[lwarp][keyfloat]{\KFLT@trackrows}{17F751691BBEDD3459F494B072DC2F11}
+
+\renewcommand{\KFLT@trackrows}%
+{%
+    \ifboolexpr{%
+        test {\ifnumgreater{\value{KFLT@keyfloatdepth}}{0}} or%
+        bool{KFLT@inkeysubfloats}%
+    }%
+    {% nested
+        \KFLT@maybestartfloatrow%
+        \ifnumgreater{\value{KFLT@thiscol}}{1}%
+            {%
+            }%
+            {}%
+    }% nested
+    {}% not nested
+}
+\VerifyCommand[lwarp][keyfloat]{\KFLT@onefigureimage}{C14A907612A43563404BEEC3F9FB10A8}
+
+\RenewDocumentCommand{\KFLT@onefigureimage}{m}
+{%
+\LWR@traceinfo{KFLT@onefigureimage}%
+\ifthenelse{\NOT\equal{\KFLT@lw}{}}%
+    {%
+        \ifdimgreater{\KFLT@h}{0pt}%
+        {%
+            \KFLT@frame{%
+                \includegraphics%
+                [%
+                    scale=\KFLT@s,%
+                    width=\KFLT@imagewidth,%
+                    height=\KFLT@h,%
+                    \KFLT@keepaspectratio,%
+                ]{#1}%
+            }%
+        }%
+        {%
+            \KFLT@frame{\includegraphics%
+            [scale=\KFLT@s,width=\KFLT@imagewidth]{#1}}%
+        }%
+    }%
+    {% not linewidth
+        \ifthenelse{\dimtest{\KFLT@w}{>}{0pt}}%
+        {% width is given
+            \ifthenelse{\dimtest{\KFLT@h}{>}{0pt}}%
+            {% w and h
+                \KFLT@frame{\includegraphics[%
+                    scale=\KFLT@s,%
+                    width=\KFLT@imagewidth,%
+                    height=\KFLT@h,%
+                    \KFLT@keepaspectratio,%
+                ]{#1}}%
+            }% w and h
+            {% only w
+                \KFLT@frame{\includegraphics%
+                [scale=\KFLT@s,width=\KFLT@imagewidth]{#1}}%
+            }% only w
+        }% width is given
+        {% width is not given
+            \ifthenelse{\dimtest{\KFLT@h}{>}{0pt}}%
+            {%
+                \KFLT@frame{\includegraphics%
+                [scale=\KFLT@s,height=\KFLT@h]{#1}}%
+            }%
+            {%
+                \KFLT@frame{\includegraphics%
+                [scale=\KFLT@s]{#1}}%
+            }%
+        }% width is not given
+    }% not linewidth
+\LWR@traceinfo{KFLT@onefigureimage: done}%
+}
+\VerifyEnvironment[lwarp][keyfloat]{KFLT@boxinner}
+    {44BA9E3F4EA1B3E533F47377BA47F145}{590DE3AADA8DF85EF6E1589B41F0D4F6}
+
+\RenewDocumentEnvironment{KFLT@boxinner}{}
+{%
+    \LWR@traceinfo{KFLT@boxinner}%
+    \LWR@stoppars%
+    \minipagefullwidth%
+    \ifboolexpr{bool{KFLT@ft} or bool{KFLT@f}}{%
+        \fminipage{\KFLT@imagewidth}%
+    }{%
+        \minipage{\KFLT@imagewidth}%
+    }%
+}
+{%
+    \ifboolexpr{bool{KFLT@ft} or bool{KFLT@f}}{%
+        \endfminipage%
+    }{%
+        \endminipage%
+    }%
+    \LWR@startpars%
+    \LWR@traceinfo{KFLT@boxinner: done}%
+}
+
+\newcommand*{\LWR@KFLT@settextalign}[1]{%
+    \def\LWR@KFLT@textalign{justify}%
+    \ifcsstring{KFLT@#1textalign}{\centering}%
+        {\def\LWR@KFLT@textalign{center}}%
+        {}%
+    \ifcsstring{KFLT@#1textalign}{\raggedleft}%
+        {\def\LWR@KFLT@textalign{right}}%
+        {}%
+    \ifcsstring{KFLT@#1textalign}{\raggedright}%
+        {\def\LWR@KFLT@textalign{left}}%
+        {}%
+}
+
+\VerifyCommand[lwarp][keyfloat]{\KFLT@addtext}{C086CC818525A9B03EDEACC02609A3BE}
+
+\renewcommand{\KFLT@addtext}[1]
+{%
+    \ifcsempty{KFLT@#1t}%
+    {}% no text
+    {% text to add
+        {% local
+        \addvspace{\smallskipamount}%
+        \LWR@KFLT@settextalign{#1}%
+        \begin{BlockClass}[text-align:\LWR@KFLT@textalign]{floatnotes}%
+        \setlength{\parskip}{1.5ex}%
+        \setlength{\parindent}{0em}%
+        \csuse{KFLT@#1t}%
+        \end{BlockClass}%
+        }% local
+    }% text to add
+}
+
+\IfPackageLoadedTF{tocdata}
+{}
+{% tocdata not loaded
+
+    \newcommand*{\LWR@KFLT@setnamealign}[1]{%
+        \def\LWR@KFLT@textalign{justify}%
+        \ifstrequal{#1}{\centering}%
+            {\def\LWR@KFLT@textalign{center}}%
+            {}%
+        \ifstrequal{#1}{\raggedleft}%
+            {\def\LWR@KFLT@textalign{right}}%
+            {}%
+        \ifstrequal{#1}{\raggedright}%
+            {\def\LWR@KFLT@textalign{left}}%
+            {}%
+    }
+
+    \VerifyCommand[lwarp][keyfloat]{\KFLT@@addartisttext}{35968ED08D9BE09FF1B45E1E40AFE9A7}
+
+    \renewcommand*{\KFLT@@addartisttext}[3]{%
+        \LWR@KFLT@setnamealign{#3}%
+        \begin{BlockClass}[text-align:\LWR@KFLT@textalign]{floatnotes}%
+        \footnotesize\textsc{%
+            \KFLT@optionalname{\csuse{KFLT@#1a#2p}}%
+            \KFLT@optionalname{\csuse{KFLT@#1a#2f}}%
+            \csuse{KFLT@#1a#2l}%
+            \csuse{KFLT@#1a#2s}%
+        }%
+        \end{BlockClass}
+    }
+
+}% tocdata not loaded
+
+\DeclareDocumentEnvironment{KFLT@marginfloat}{O{-1.2ex} m}
+{%
+    \uselengthunit{PT}%
+    \LWR@BlockClassWP%
+        {float:right; width:2in; margin:10pt}%
+        {}%
+        (note)%
+        {marginblock}%
+    \renewcommand*{\@captype}{#2}%
+    \minipage{1.2\LWR@usersmarginparwidth}%
+    \setlength{\marginparwidth}{.95\LWR@usersmarginparwidth}%
+}
+{%
+    \endminipage%
+    \endLWR@BlockClassWP%
+}
+
+\DeclareDocumentEnvironment{marginfigure}{o}
+    {\begin{KFLT@marginfloat}{figure}}
+    {\end{KFLT@marginfloat}}
+
+\DeclareDocumentEnvironment{margintable}{o}
+    {\begin{KFLT@marginfloat}{table}}
+    {\end{KFLT@marginfloat}}
+
+\DeclareDocumentEnvironment{keywrap}{m +m}
+{%
+    \begin{LWR@setvirtualpage}*
+    \setlength{\LWR@templengthone}{#1}%
+    \begin{LWR@BlockClassWP}%
+        {%
+            float:right; width:\LWR@printlength{\LWR@templengthone};  % extra space
+            margin:10pt%
+        }%
+        {}%
+        (note)%
+        {marginblock}%
+    \setlength{\linewidth}{.95\LWR@templengthone}%
+    \booltrue{KFLT@keywrap}%
+    #2%
+    \end{LWR@BlockClassWP}%
+    \end{LWR@setvirtualpage}%
+}
+{}
+}% AtBeginDocument
+
+
+\endinput
+%%
+%% End of file `lwarp-keyfloat.sty'.

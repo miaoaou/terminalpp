@@ -1,0 +1,14 @@
+name signchart
+category Package
+revision 39707
+shortdesc Create beautifully typeset sign charts
+relocated 1
+longdesc The package allows users to easily typeset beautiful looking
+longdesc sign charts directly into their (La)TeX document.
+runfiles size=1
+ RELOC/tex/latex/signchart/signchart.sty
+catalogue-ctan /macros/latex/contrib/signchart
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics maths
+catalogue-version 1.01

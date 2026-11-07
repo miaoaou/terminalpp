@@ -1,0 +1,17 @@
+name ppr-prv
+category Package
+revision 15878
+shortdesc Prosper preview
+relocated 1
+longdesc This class is used with LaTeX presentations using the prosper
+longdesc class. ppr-prv stands for 'Prosper Preview'. The aim of this
+longdesc class is to produce a printable version of the slides written
+longdesc with Prosper, with two slides per page.
+runfiles size=7
+ RELOC/tex/latex/ppr-prv/HAP-ppr-prv.def
+ RELOC/tex/latex/ppr-prv/ppr-prv.cls
+catalogue-ctan /macros/latex/contrib/ppr-prv
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics presentation
+catalogue-version 0.13c

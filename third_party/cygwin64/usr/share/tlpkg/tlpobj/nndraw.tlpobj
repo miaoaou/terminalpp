@@ -1,0 +1,16 @@
+name nndraw
+category Package
+revision 59674
+shortdesc Draw neural networks
+relocated 1
+longdesc With this package you can create fully connected neural
+longdesc networks in a simple and efficient way.
+runfiles size=2
+ RELOC/tex/latex/nndraw/nndraw.sty
+catalogue-also neuralnetwork
+catalogue-contact-bugs https://github.com/carloscdias/nndraw/issues
+catalogue-contact-home https://github.com/carloscdias/nndraw
+catalogue-ctan /graphics/pgf/contrib/nndraw
+catalogue-license lppl1.3
+catalogue-topics diagram
+catalogue-version 1.0

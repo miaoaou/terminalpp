@@ -1,0 +1,12 @@
+name visualpstricks
+category Package
+revision 39799
+shortdesc Visual help for PSTricks based on images with minimum text
+relocated 1
+longdesc Visual help for PSTricks based on images with minimum text. One
+longdesc image per command or per parameter.
+catalogue-ctan /info/visualpstricks
+catalogue-date 2016-10-27 20:26:18 +0200
+catalogue-license gpl
+catalogue-topics pstricks graphics-in-tex graphics-doc french-doc
+catalogue-version 2.3

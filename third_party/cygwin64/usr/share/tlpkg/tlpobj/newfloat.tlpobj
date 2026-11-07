@@ -1,0 +1,22 @@
+name newfloat
+category Package
+revision 68434
+shortdesc Define new floating environments
+relocated 1
+longdesc The package offers the command \DeclareFloatingEnvironment,
+longdesc which the user may use to define new floating environments
+longdesc which behave like the LaTeX standard foating environments
+longdesc figure and table.
+runfiles size=22
+ RELOC/tex/latex/newfloat/newfloat.sty
+ RELOC/tex/latex/newfloat/newfloat_v1.0.sty
+ RELOC/tex/latex/newfloat/newfloat_v1.1.sty
+catalogue-also float
+catalogue-contact-bugs https://gitlab.com/axelsommerfeldt/newfloat/-/issues
+catalogue-contact-home https://gitlab.com/axelsommerfeldt/newfloat
+catalogue-contact-repository https://gitlab.com/axelsommerfeldt/newfloat/tree/master
+catalogue-contact-support https://gitlab.com/axelsommerfeldt/newfloat/-/issues
+catalogue-ctan /macros/latex/contrib/newfloat
+catalogue-license lppl1.3
+catalogue-topics float
+catalogue-version 1.2

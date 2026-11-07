@@ -1,0 +1,17 @@
+name versonotes
+category Package
+revision 69249
+shortdesc Display brief notes on verso pages
+relocated 1
+longdesc This package allows you to place notes on the verso pages of an
+longdesc otherwise single-sided document. If, in the run of text, you
+longdesc include a call to the macro \versonote{This is a remark}, then
+longdesc that text will be placed on the opposite (ie, 'verso') page,
+longdesc lined up with the macro call.
+runfiles size=2
+ RELOC/tex/latex/versonotes/versonotes.sty
+catalogue-contact-home https://nxg.me.uk/dist/versonotes/
+catalogue-ctan /macros/latex/contrib/versonotes
+catalogue-license lppl1.3
+catalogue-topics notes
+catalogue-version 0.5

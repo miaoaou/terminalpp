@@ -1,0 +1,17 @@
+name newvbtm
+category Package
+revision 23996
+shortdesc Define your own verbatim-like environment
+relocated 1
+longdesc Defines general purpose macro named \newverbatim to define your
+longdesc own verbatim-like environment. It also has a supplementary
+longdesc style file varvbtm.sty to provide set of macros for variants of
+longdesc verbatim, such as tab emulation.
+runfiles size=3
+ RELOC/tex/latex/newvbtm/newvbtm.sty
+ RELOC/tex/latex/newvbtm/varvbtm.sty
+catalogue-ctan /macros/latex/contrib/newvbtm
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics verbatim listing
+catalogue-version 1.1

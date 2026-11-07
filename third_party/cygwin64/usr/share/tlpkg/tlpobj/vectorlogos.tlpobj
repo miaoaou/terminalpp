@@ -1,0 +1,27 @@
+name vectorlogos
+category Package
+revision 69010
+shortdesc Vectorial logos (GeoGebra, Emacs, Scratch, ...) with 'inline' support
+relocated 1
+longdesc With this package you can insert vectorial logos of some
+longdesc 'classic' software. The format of the logos is pdf. The package
+longdesc provides macros to insert them inline, with automatic height
+longdesc and alignment.
+runfiles size=32
+ RELOC/tex/latex/vectorlogos/vectorlogo-emacs-alt.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-emacs.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-geogebra-icon.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-geogebra.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-scratch-alt.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-scratch-cat.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-scratch.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-texmaker-alt.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-texmaker.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogo-texstudio.pdf
+ RELOC/tex/latex/vectorlogos/vectorlogos.sty
+catalogue-contact-bugs https://github.com/cpierquet/vectorlogos/issues
+catalogue-contact-repository https://github.com/cpierquet/vectorlogos
+catalogue-ctan /macros/latex/contrib/vectorlogos
+catalogue-license lppl1.3c cc-by-3 cc-by-4 other-free
+catalogue-topics logo
+catalogue-version 0.1.2

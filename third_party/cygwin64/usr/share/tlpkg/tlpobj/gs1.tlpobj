@@ -1,0 +1,14 @@
+name gs1
+category Package
+revision 59620
+shortdesc Typeset EAN barcodes using TeX rules, only
+relocated 1
+longdesc The (LaTeX3) package typesets EAN-8 and EAN-13 barcodes, using
+longdesc the facilities of the rule-D package.
+runfiles size=4
+ RELOC/tex/latex/gs1/GS1.sty
+ RELOC/tex/latex/gs1/rule-D.sty
+catalogue-ctan /macros/latex/contrib/gs1
+catalogue-license lppl1.3c
+catalogue-topics barcode expl3
+catalogue-version 23

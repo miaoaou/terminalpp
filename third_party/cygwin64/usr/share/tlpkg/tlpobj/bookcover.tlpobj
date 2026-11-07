@@ -1,0 +1,12 @@
+name bookcover
+category Package
+revision 65394
+shortdesc A class for book covers and dust jackets
+relocated 1
+longdesc This class helps typesetting book covers and dust jackets.
+runfiles size=13
+ RELOC/tex/latex/bookcover/bookcover.cls
+catalogue-ctan /macros/latex/contrib/bookcover
+catalogue-license lppl1.2
+catalogue-topics class covers
+catalogue-version 3.5

@@ -1,0 +1,19 @@
+name examz
+category Package
+revision 67303
+shortdesc Randomized exams with multiple versions
+relocated 1
+longdesc The 'examz' document class builds on the 'exam' document class
+longdesc that was developed by Philip S. Hirschhorn. An author may use
+longdesc the class exactly as the 'exam' class, but there are also
+longdesc additional features. The document class facilitates the writing
+longdesc of questions with random elements, the creation of multiple
+longdesc versions of an exam, and the use of separate files as question
+longdesc banks.
+runfiles size=2
+ RELOC/tex/latex/examz/examz.cls
+catalogue-contact-repository https://github.com/roguewhistler/examz
+catalogue-ctan /macros/latex/contrib/examz
+catalogue-license lppl1.3c
+catalogue-topics exam class
+catalogue-version 1.0.0

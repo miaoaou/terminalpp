@@ -1,0 +1,17 @@
+name filedate
+category Package
+revision 29529
+shortdesc Access and compare info and modification dates
+relocated 1
+longdesc The package provides basic access to the date of a LaTeX source
+longdesc file according to its \Provides... entry (the "info date") as
+longdesc well as to its modification date according to \pdffilemoddate
+longdesc if the latter is available.
+runfiles size=6
+ RELOC/tex/latex/filedate/filedate.RLS
+ RELOC/tex/latex/filedate/filedate.sty
+catalogue-contact-support http://www.webdesign-bu.de/uwe_lueck/contact.html
+catalogue-ctan /macros/latex/contrib/filedate
+catalogue-date 2017-05-06 08:10:03 +0200
+catalogue-license lppl
+catalogue-topics file-mgmt date-time

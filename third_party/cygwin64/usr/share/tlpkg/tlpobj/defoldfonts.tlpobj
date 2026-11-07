@@ -1,0 +1,17 @@
+name defoldfonts
+category Package
+revision 68234
+shortdesc Define old font commands
+relocated 1
+longdesc In 1994, with LaTeX2e, the old font commands \rm, \sf, \tt,
+longdesc \bf, \it, \sl, and \sc became obsolete. This package defines
+longdesc them, and also the deprecated KOMA-Script command \sfb.
+runfiles size=1
+ RELOC/tex/latex/defoldfonts/defoldfonts.sty
+catalogue-contact-bugs https://github.com/komascript/defoldfonts/issues
+catalogue-contact-home https://github.com/komascript/defoldfonts
+catalogue-contact-repository https://github.com/komascript/defoldfonts.git
+catalogue-ctan /macros/latex/contrib/defoldfonts
+catalogue-license lppl1.3c
+catalogue-topics font-supp
+catalogue-version 1.0

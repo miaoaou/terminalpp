@@ -1,0 +1,22 @@
+name tikz-palattice
+category Package
+revision 43442
+shortdesc Draw particle accelerator lattices with TikZ
+relocated 1
+longdesc This package allows for drawing a map of a particle accelerator
+longdesc just by giving a list of elements -- similar to lattice files
+longdesc for simulation software. The package includes 12 common element
+longdesc types like dipoles, quadrupoles, cavities, or screens, as well
+longdesc as automatic labels with element names, a legend, a rule, and
+longdesc an environment to fade out parts of the accelerator. The
+longdesc coordinate of any element can be saved and used for custom TikZ
+longdesc drawings or annotations. Thereby, lattices can be connected to
+longdesc draw injection/extraction or even a complete accelerator
+longdesc facility.
+runfiles size=6
+ RELOC/tex/latex/tikz-palattice/tikz-palattice.sty
+catalogue-ctan /graphics/pgf/contrib/tikz-palattice
+catalogue-date 2017-03-09 14:14:05 +0100
+catalogue-license lppl1.3
+catalogue-topics pgf-tikz
+catalogue-version 2.3

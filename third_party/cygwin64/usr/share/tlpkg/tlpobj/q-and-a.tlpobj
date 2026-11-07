@@ -1,0 +1,18 @@
+name q-and-a
+category Package
+revision 69164
+shortdesc Typesetting Q&A-style conversation made easier
+relocated 1
+longdesc Q-and-A is a LaTeX document class for you to typeset Q&A-style
+longdesc conversation. It turns simple pure text Q&A dialog into a
+longdesc carefully designed document. Notably, it features two themes,
+longdesc ChatGPT-light and ChatGPT-dark, enabling you to format your Q&A
+longdesc dialog in a way that closely resembles the interface of
+longdesc ChatGPT.
+depend einfart
+runfiles size=13
+ RELOC/tex/latex/q-and-a/Q-and-A.cls
+catalogue-contact-repository https://github.com/Jinwen-XU/Q-and-A
+catalogue-ctan /macros/latex/contrib/q-and-a
+catalogue-license lppl1.3c
+catalogue-topics class article-like multilingual expl3

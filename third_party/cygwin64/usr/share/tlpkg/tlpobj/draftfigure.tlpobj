@@ -1,0 +1,20 @@
+name draftfigure
+category Package
+revision 44854
+shortdesc Replace figures with a white box and additional features
+relocated 1
+longdesc With this package you can control the outcome of a figure which
+longdesc is set to draft and modify the display with various options.
+runfiles size=1
+ RELOC/tex/latex/draftfigure/draftfigure.sty
+catalogue-contact-announce https://github.com/LukasCBossert/draftfigure
+catalogue-contact-bugs https://github.com/LukasCBossert/draftfigure/issues
+catalogue-contact-development https://github.com/LukasCBossert/draftfigure
+catalogue-contact-home https://github.com/LukasCBossert/draftfigure/
+catalogue-contact-repository https://github.com/LukasCBossert/draftfigure
+catalogue-contact-support https://github.com/LukasCBossert/draftfigure
+catalogue-ctan /macros/latex/contrib/draftfigure
+catalogue-date 2018-01-07 14:52:23 +0100
+catalogue-license lppl1.3
+catalogue-topics comp-supp editorial layout
+catalogue-version 0.2

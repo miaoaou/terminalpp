@@ -1,0 +1,16 @@
+name bearwear
+category Package
+revision 54826
+shortdesc Shirts to dress TikZbears
+relocated 1
+longdesc The package offers tools to create shirts for TikZbears from
+longdesc the TikZlings package.
+runfiles size=2
+ RELOC/tex/latex/bearwear/bearwear.sty
+catalogue-also tikzlings
+catalogue-contact-repository https://github.com/u-fischer/bearwear
+catalogue-contact-support https://github.com/u-fischer/bearwear/issues
+catalogue-ctan /macros/latex/contrib/bearwear
+catalogue-license lppl1.3c
+catalogue-topics amusements graphics pgf-tikz
+catalogue-version 0.2

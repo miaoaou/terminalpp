@@ -1,0 +1,19 @@
+name embedfile
+category Package
+revision 65528
+shortdesc Embed files into PDF
+relocated 1
+longdesc This package embeds files in a PDF document, using the PDF
+longdesc format's embedding operation (note the contrast with the attach
+longdesc operation used by the attachfile and attachfile2 packages).
+longdesc Currently only pdfTeX >=1.30, in PDF mode, is supported.
+runfiles size=7
+ RELOC/tex/generic/embedfile/embedfile.sty
+ RELOC/tex/latex/embedfile/dtx-attach.sty
+catalogue-also attachfile attachfile2
+catalogue-contact-bugs https://github.com/ho-tex/embedfile/issues
+catalogue-contact-repository https://github.com/ho-tex/embedfile
+catalogue-ctan /macros/latex/contrib/embedfile
+catalogue-license lppl1.3c
+catalogue-topics pdf-feat
+catalogue-version 2.12

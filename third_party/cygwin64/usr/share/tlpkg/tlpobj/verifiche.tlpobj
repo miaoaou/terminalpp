@@ -1,0 +1,16 @@
+name verifiche
+category Package
+revision 69726
+shortdesc A LaTeX package to typeset (Italian) high school tests
+relocated 1
+longdesc The purpose of this package is to manage the exercises for a
+longdesc test, their points, levels of difficulty, and solutions. Some
+longdesc typical formats of exercises are already implemented: Plain
+longdesc exercise "Complete the Text" "True or false" Closed questions
+longdesc Open questions "Find the error"
+runfiles size=6
+ RELOC/tex/latex/verifiche/verifiche.sty
+catalogue-ctan /macros/latex/contrib/verifiche
+catalogue-license lppl1.3
+catalogue-topics exam exercise
+catalogue-version 7.1

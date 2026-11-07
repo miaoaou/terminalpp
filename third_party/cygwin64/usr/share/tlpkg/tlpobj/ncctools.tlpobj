@@ -1,0 +1,53 @@
+name ncctools
+category Package
+revision 51810
+shortdesc A collection of general packages for LaTeX
+relocated 1
+longdesc The NCCtools bundle contains many packages for general use
+longdesc under LaTeX; many are also used by NCC LaTeX. The bundle
+longdesc includes tools for: executing commands after a package is
+longdesc loaded; watermarks; counter manipulation (dynamic counters,
+longdesc changing counter numbering with another counter); improvements
+longdesc to the description environment; hyphenation of compound words;
+longdesc new levels of footnotes; space-filling patterns; "poor man's"
+longdesc Black Board Bold symbols; alignment of the content of a box;
+longdesc use comma as decimal separator; boxes with their own crop
+longdesc marks; page cropmarks; improvements to fancy headers; float
+longdesc "styles", mini floats, side floats; manually marked footnotes;
+longdesc extension of amsmath; control of paragraph skip; an envelope to
+longdesc the graphicx package; dashed and multiple rules; alternative
+longdesc techniques for declarations of sections, captions, and
+longdesc toc-entries; generalised text-stretching; generation of new
+longdesc theorem-like environments; control of the text area; centred
+longdesc page layouts; and un-numbered top-level section.
+runfiles size=43
+ RELOC/tex/latex/ncctools/afterpackage.sty
+ RELOC/tex/latex/ncctools/dcounter.sty
+ RELOC/tex/latex/ncctools/desclist.sty
+ RELOC/tex/latex/ncctools/extdash.sty
+ RELOC/tex/latex/ncctools/manyfoot.sty
+ RELOC/tex/latex/ncctools/mboxfill.sty
+ RELOC/tex/latex/ncctools/nccbbb.sty
+ RELOC/tex/latex/ncctools/nccboxes.sty
+ RELOC/tex/latex/ncctools/ncccomma.sty
+ RELOC/tex/latex/ncctools/ncccropbox.sty
+ RELOC/tex/latex/ncctools/ncccropmark.sty
+ RELOC/tex/latex/ncctools/nccfancyhdr.sty
+ RELOC/tex/latex/ncctools/nccfloats.sty
+ RELOC/tex/latex/ncctools/nccfoots.sty
+ RELOC/tex/latex/ncctools/nccmath.sty
+ RELOC/tex/latex/ncctools/nccparskip.sty
+ RELOC/tex/latex/ncctools/nccpic.sty
+ RELOC/tex/latex/ncctools/nccrules.sty
+ RELOC/tex/latex/ncctools/nccsect.sty
+ RELOC/tex/latex/ncctools/nccstretch.sty
+ RELOC/tex/latex/ncctools/nccthm.sty
+ RELOC/tex/latex/ncctools/textarea.sty
+ RELOC/tex/latex/ncctools/tocenter.sty
+ RELOC/tex/latex/ncctools/topsection.sty
+ RELOC/tex/latex/ncctools/watermark.sty
+catalogue-ctan /macros/latex/contrib/ncctools
+catalogue-date 2019-08-03 11:40:31 +0200
+catalogue-license lppl
+catalogue-topics collection
+catalogue-version 3.5.3

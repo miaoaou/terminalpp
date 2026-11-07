@@ -1,0 +1,20 @@
+name notebeamer
+category Package
+revision 68871
+shortdesc A template for printing presentations on notepaper
+relocated 1
+longdesc This template provides an easy way to put Beamer presentations
+longdesc on note paper and quickly produce notebooks. It is optimized
+longdesc for Goodnotes' default paper size.
+runfiles size=5
+ RELOC/tex/latex/notebeamer/notebeamer.cls
+catalogue-contact-announce https://qm.qq.com/q/RGFmHwBecC
+catalogue-contact-bugs https://github.com/xiamyphys/NoteBeamer/issues
+catalogue-contact-development https://github.com/xiamyphys
+catalogue-contact-home https://github.com/xiamyphys/NoteBeamer
+catalogue-contact-repository https://github.com/xiamyphys/NoteBeamer
+catalogue-contact-support https://qm.qq.com/q/RGFmHwBecC
+catalogue-ctan /macros/latex/contrib/notebeamer
+catalogue-license lppl1.3c
+catalogue-topics notes presentation class doc-templ pgf-tikz
+catalogue-version 2.3a

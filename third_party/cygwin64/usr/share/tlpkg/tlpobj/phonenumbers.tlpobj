@@ -1,0 +1,27 @@
+name phonenumbers
+category Package
+revision 63774
+shortdesc Typesetting telephone numbers with LaTeX
+relocated 1
+longdesc The phonenumbers package makes it possible to typeset telephone
+longdesc numbers according to different national conventions. German,
+longdesc Austrian, French, British and North American phone numbers are
+longdesc supported. Phone numbers from other countries are supported
+longdesc rudimentarily. The user can select from various formatting
+longdesc options, including the additional output of the country calling
+longdesc code. The package is able to check if a phone number is valid
+longdesc according to the national rules. It also allows to link phone
+longdesc numbers using the hyperref package.
+runfiles size=167
+ RELOC/tex/latex/phonenumbers/phonenumbers-AT.def
+ RELOC/tex/latex/phonenumbers/phonenumbers-DE.def
+ RELOC/tex/latex/phonenumbers/phonenumbers-FR.def
+ RELOC/tex/latex/phonenumbers/phonenumbers-UK.def
+ RELOC/tex/latex/phonenumbers/phonenumbers-US.def
+ RELOC/tex/latex/phonenumbers/phonenumbers.sty
+catalogue-contact-bugs https://github.com/wehro/phonenumbers/issues
+catalogue-contact-repository https://github.com/wehro/phonenumbers
+catalogue-ctan /macros/latex/contrib/phonenumbers
+catalogue-license lppl1.3
+catalogue-topics addr-list numbers expl3
+catalogue-version 2.5

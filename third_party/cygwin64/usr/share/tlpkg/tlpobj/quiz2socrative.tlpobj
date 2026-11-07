@@ -1,0 +1,19 @@
+name quiz2socrative
+category Package
+revision 52276
+shortdesc Prepare questions for socrative quizzes
+relocated 1
+longdesc This is a LaTeX package for preparing multiple choice,
+longdesc true/false, and short answer questions. Its main purpose is to
+longdesc offer a tool to easily insert rather complicated mathematical
+longdesc material in socrative quizzes (see https://socrative.com). The
+longdesc package requires the following other LaTeX packages: calc,
+longdesc etoolbox, graphicx, ifthen, listofitems, moresize, TikZ,
+longdesc pgfmath, xcolor, and xparse.
+runfiles size=2
+ RELOC/tex/latex/quiz2socrative/quiz2socrative.sty
+catalogue-ctan /macros/latex/contrib/quiz2socrative
+catalogue-date 2019-10-03 09:32:09 +0200
+catalogue-license lppl1.3c
+catalogue-topics exam
+catalogue-version 1.0

@@ -1,0 +1,26 @@
+% --------------------------------------------------------------------------
+% Italy - Piemont (2023-07-05)
+% --------------------------------------------------------------------------
+\begin{flagdescription}{2/3}
+\definecolor{blue}{RGB}{0,64,155}
+\definecolor{red}{RGB}{212,0,28}
+\background{white}
+
+\background{red}
+\hbar{white}{\flagwidth/2}{\flagwidth/5}
+\vbar{white}{\flaglength/2}{\flagwidth/5}
+\fill [blue,even odd rule] (0,0) rectangle (\flaglength,\flagwidth)
+      (\flagwidth/15,\flagwidth/15) rectangle
+      (\flaglength-\flagwidth/15,\flagwidth-\flagwidth/15);
+\begin{scope}[xshift=0.5\flaglength]
+\fill [blue] (-0.3*\stretchfactor-0.04,0.75)--(-0.3*\stretchfactor,0.867)
+--(0.3*\stretchfactor,0.867)--(0.3*\stretchfactor+0.04,0.75)
+--(0.3*\stretchfactor-0.08,0.75)--(0.3*\stretchfactor-0.04,0.825)
+--(0.034,0.825)--(0.065,0.75)--(-0.065,0.75)--(-0.034,0.825)
+--(-0.3*\stretchfactor+0.04,0.825)--(-0.3*\stretchfactor+0.08,0.75)--cycle;
+\end{scope}
+\framecode{}
+\end{flagdescription}
+
+
+

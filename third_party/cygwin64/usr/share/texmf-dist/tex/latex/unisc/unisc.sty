@@ -1,0 +1,274 @@
+%%
+%% This is file `unisc.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% unisc.dtx  (with options: `package')
+%% ----------------------------------------------------------
+%% Package:     unisc
+%% Version:     v0.2 (29 April, 2022)
+%% Author:      निरंजन
+%% Description: Unicode small caps with Lua/XeLaTeX.
+%% Repository:  https://puszcza.gnu.org.ua/projects/unisc
+%% License:     GPLv3+, GFDLv1.3+
+%% ----------------------------------------------------------
+%% 
+%% LaTeX Package unisc v0.2
+%% Copyright © 2022 निरंजन
+%% 
+%% This program is free software: you can redistribute it
+%% and/or modify it under the terms of the GNU General Public
+%% License as published by the Free Software Foundation, either
+%% version 3 of the License, or (at your option) any later
+%% version.
+%% 
+%% This program is distributed in the hope that it will be
+%% useful, but WITHOUT ANY WARRANTY; without even the implied
+%% warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+%% PURPOSE. See the GNU General Public License for more
+%% details.
+%% 
+%% You should have received a copy of the GNU General Public
+%% License along with this program. If not, see
+%% <https://www.gnu.org/licenses/>.
+%% 
+%% The current maintainer of this work is निरंजन.
+%% 
+%% This work consists of the files unisc.dtx
+%%                                 unisc.ins
+%% and the derived file            unisc.sty.
+%% ----------------------------------------------------------
+\def\uniscname{unisc}
+\def\uniscversion{0.2}
+\def\uniscdate{2022-04-29}
+\def\uniscdescription{%
+  Unicode small caps with Xe/LuaLaTeX.%
+}
+
+
+\ProvidesPackage{unisc}[2022/04/29 v0.2
+Unicode small caps with Lua/XeLaTeX.]
+\RequirePackage{pgfparser}
+\RequirePackage{xpatch}
+\NewCommandCopy\oldtextsc\textsc
+\NewCommandCopy\oldscshape\scshape
+\xpatchcmd{\oldtextsc}{\scshape}{\oldscshape}{}{\ERROR}
+\xpatchcmd{\oldtextsc}{\scshape}{\oldscshape}{}{\ERROR}
+\protected\long\def\unisc@output#1{%
+  \xdef\unisc@outputcontainer{%
+    \unexpanded\expandafter{%
+      \unisc@outputcontainer\unexpanded{#1}%
+    }%
+  }%
+}
+\protected\long\def\unisc@outputexpanded#1{%
+  \xdef\unisc@outputcontainer{%
+    \unexpanded\expandafter{\unisc@outputcontainer#1%
+    }%
+  }%
+}
+\providecommand\@gobbletwo[2]{}
+\pgfparserdefunknown{scparser}{initial}{%
+  \let\unisc@initiated\@empty
+  \pgfparserswitch{initiated}%
+  \pgfparserreinsert
+}
+\pgfparserset{scparser/silent=true}
+\pgfparserdefunknown{scparser}{all}{%
+  \expandafter\unisc@output\expandafter{\pgfparserletter}%
+}
+\newcommand*\unisc@bgroup{\expandafter{\iffalse}\fi}
+\newcommand*\unisc@egroup{\iffalse{\fi}}
+\pgfparserdef{scparser}{all}\begingroup
+  {\begingroup\unisc@outputexpanded\begingroup}
+\pgfparserdef{scparser}{all}\endgroup
+  {\unisc@checkend\endgroup}
+\pgfparserdef{scparser}{all}{\meaning\bgroup}{%
+  \unisc@bgroup\unisc@outputexpanded\unisc@bgroup
+}
+\pgfparserdef{scparser}{all}{\meaning\egroup}
+  {\unisc@checkend\unisc@egroup}
+\newcommand\unisc@savedefinition[1]
+  {\unexpanded{\def#1}{\unexpanded\expandafter{#1}}}
+\protected\def\unisc@checkend#1{%
+  \expanded{%
+    \unexpanded{#1}%
+    \unexpanded{\ifdefined\unisc@initiated}%
+    \unisc@savedefinition\pgfparserstate
+    \unexpanded{\unisc@outputexpanded#1}%
+    \unexpanded{\else}%
+    \unexpanded{\pgfparserswitch{final}}%
+    \unisc@savedefinition\pgfparser@current
+    \unisc@savedefinition\pgfparser@usersname
+    \unexpanded{\fi}%
+  }%
+}
+%% LATIN LETTER SMALL CAPITAL A
+\pgfparserdef{scparser}{initiated}a%
+  {\unisc@outputexpanded{\symbol{"1D00}}}
+\pgfparserdef{scparser}{initiated}A%
+  {\unisc@outputexpanded{\symbol{"1D00}}}
+%% LATIN LETTER SMALL CAPITAL B
+\pgfparserdef{scparser}{initiated}b%
+  {\unisc@outputexpanded{\symbol{"0299}}}
+\pgfparserdef{scparser}{initiated}B%
+  {\unisc@outputexpanded{\symbol{"0299}}}
+%% LATIN LETTER SMALL CAPITAL C
+\pgfparserdef{scparser}{initiated}c%
+  {\unisc@outputexpanded{\symbol{"1D04}}}
+\pgfparserdef{scparser}{initiated}C%
+  {\unisc@outputexpanded{\symbol{"1D04}}}
+%% LATIN LETTER SMALL CAPITAL D
+\pgfparserdef{scparser}{initiated}d%
+  {\unisc@outputexpanded{\symbol{"1D05}}}
+\pgfparserdef{scparser}{initiated}D%
+  {\unisc@outputexpanded{\symbol{"1D05}}}
+%% LATIN LETTER SMALL CAPITAL E
+\pgfparserdef{scparser}{initiated}e%
+  {\unisc@outputexpanded{\symbol{"1D07}}}
+\pgfparserdef{scparser}{initiated}E%
+  {\unisc@outputexpanded{\symbol{"1D07}}}
+%% LATIN LETTER SMALL CAPITAL F
+\pgfparserdef{scparser}{initiated}f%
+  {\unisc@outputexpanded{\symbol{"A730}}}
+\pgfparserdef{scparser}{initiated}F%
+  {\unisc@outputexpanded{\symbol{"A730}}}
+%% LATIN LETTER SMALL CAPITAL G
+\pgfparserdef{scparser}{initiated}g%
+  {\unisc@outputexpanded{\symbol{"0262}}}
+\pgfparserdef{scparser}{initiated}G%
+  {\unisc@outputexpanded{\symbol{"0262}}}
+%% LATIN LETTER SMALL CAPITAL H
+\pgfparserdef{scparser}{initiated}h%
+  {\unisc@outputexpanded{\symbol{"029C}}}
+\pgfparserdef{scparser}{initiated}H%
+  {\unisc@outputexpanded{\symbol{"029C}}}
+%% LATIN LETTER SMALL CAPITAL I
+\pgfparserdef{scparser}{initiated}i%
+  {\unisc@outputexpanded{\symbol{"026A}}}
+\pgfparserdef{scparser}{initiated}I%
+  {\unisc@outputexpanded{\symbol{"026A}}}
+%% LATIN LETTER SMALL CAPITAL J
+\pgfparserdef{scparser}{initiated}j%
+  {\unisc@outputexpanded{\symbol{"1D0A}}}
+\pgfparserdef{scparser}{initiated}J%
+  {\unisc@outputexpanded{\symbol{"1D0A}}}
+%% LATIN LETTER SMALL CAPITAL K
+\pgfparserdef{scparser}{initiated}k%
+  {\unisc@outputexpanded{\symbol{"1D0B}}}
+\pgfparserdef{scparser}{initiated}K%
+  {\unisc@outputexpanded{\symbol{"1D0B}}}
+%% LATIN LETTER SMALL CAPITAL L
+\pgfparserdef{scparser}{initiated}l%
+  {\unisc@outputexpanded{\symbol{"029F}}}
+\pgfparserdef{scparser}{initiated}L%
+  {\unisc@outputexpanded{\symbol{"029F}}}
+%% LATIN LETTER SMALL CAPITAL M
+\pgfparserdef{scparser}{initiated}m%
+  {\unisc@outputexpanded{\symbol{"1D0D}}}
+\pgfparserdef{scparser}{initiated}M%
+  {\unisc@outputexpanded{\symbol{"1D0D}}}
+%% LATIN LETTER SMALL CAPITAL N
+\pgfparserdef{scparser}{initiated}n%
+  {\unisc@outputexpanded{\symbol{"0274}}}
+\pgfparserdef{scparser}{initiated}N%
+  {\unisc@outputexpanded{\symbol{"0274}}}
+%% LATIN LETTER SMALL CAPITAL O
+\pgfparserdef{scparser}{initiated}o%
+  {\unisc@outputexpanded{\symbol{"1D0F}}}
+\pgfparserdef{scparser}{initiated}O%
+  {\unisc@outputexpanded{\symbol{"1D0F}}}
+%% LATIN LETTER SMALL CAPITAL P
+\pgfparserdef{scparser}{initiated}p%
+  {\unisc@outputexpanded{\symbol{"1D18}}}
+\pgfparserdef{scparser}{initiated}P%
+  {\unisc@outputexpanded{\symbol{"1D18}}}
+%% LATIN LETTER SMALL CAPITAL Q
+\pgfparserdef{scparser}{initiated}q%
+  {\unisc@outputexpanded{\symbol{"A7AF}}}
+\pgfparserdef{scparser}{initiated}Q%
+  {\unisc@outputexpanded{\symbol{"A7AF}}}
+%% LATIN LETTER SMALL CAPITAL R
+\pgfparserdef{scparser}{initiated}r%
+  {\unisc@outputexpanded{\symbol{"0280}}}
+\pgfparserdef{scparser}{initiated}R%
+  {\unisc@outputexpanded{\symbol{"0280}}}
+%% LATIN LETTER SMALL CAPITAL S
+\pgfparserdef{scparser}{initiated}s%
+  {\unisc@outputexpanded{\symbol{"A731}}}
+\pgfparserdef{scparser}{initiated}S%
+  {\unisc@outputexpanded{\symbol{"A731}}}
+%% LATIN LETTER SMALL CAPITAL T
+\pgfparserdef{scparser}{initiated}t%
+  {\unisc@outputexpanded{\symbol{"1D1B}}}
+\pgfparserdef{scparser}{initiated}T%
+  {\unisc@outputexpanded{\symbol{"1D1B}}}
+%% LATIN LETTER SMALL CAPITAL U
+\pgfparserdef{scparser}{initiated}u%
+  {\unisc@outputexpanded{\symbol{"1D1C}}}
+\pgfparserdef{scparser}{initiated}U%
+  {\unisc@outputexpanded{\symbol{"1D1C}}}
+%% LATIN LETTER SMALL CAPITAL V
+\pgfparserdef{scparser}{initiated}v%
+  {\unisc@outputexpanded{\symbol{"1D20}}}
+\pgfparserdef{scparser}{initiated}V%
+  {\unisc@outputexpanded{\symbol{"1D20}}}
+%% LATIN LETTER SMALL CAPITAL W
+\pgfparserdef{scparser}{initiated}w%
+  {\unisc@outputexpanded{\symbol{"1D21}}}
+\pgfparserdef{scparser}{initiated}W%
+  {\unisc@outputexpanded{\symbol{"1D21}}}
+%% LATIN LETTER X
+\pgfparserdef{scparser}{initiated}x{%
+  \unisc@outputexpanded{\symbol{"0078}}%
+  \PackageWarning{unisc}{%
+    You have used the unsupported character `x' with the\MessageBreak
+    \string\textsc\space or \string\scshape\space command%
+  }%
+}
+\pgfparserdef{scparser}{initiated}X{%
+  \unisc@outputexpanded{\symbol{"0078}}%
+  \PackageWarning{unisc}{%
+    You have used the unsupported character `X' in the\MessageBreak
+    argument of \string\textsc
+  }%
+}
+%% No Unicode number for small capital x as of now.
+%% \textsc{X} == \textsc{x} for size-consistency.
+%% LATIN LETTER SMALL CAPITAL Y
+\pgfparserdef{scparser}{initiated}y%
+  {\unisc@outputexpanded{\symbol{"028F}}}
+\pgfparserdef{scparser}{initiated}Y%
+  {\unisc@outputexpanded{\symbol{"028F}}}
+%% LATIN LETTER SMALL CAPITAL Z
+\pgfparserdef{scparser}{initiated}z%
+  {\unisc@outputexpanded{\symbol{"1D22}}}
+\pgfparserdef{scparser}{initiated}Z%
+  {\unisc@outputexpanded{\symbol{"1D22}}}
+%% BLANK SPACE
+\pgfparserdef{scparser}{initiated}{blank space}%
+  {\unisc@outputexpanded{ }}
+%% END OF INPUT CHARACTERS
+\pgfparserdeffinal{scparser}%
+  {\expanded{\unisc@outputcontainer}}
+\AddToHook{begindocument/end}{%
+  \RenewDocumentCommand\scshape{  }{%
+    \ifdefined\unisc@initiated
+      \PackageError{unisc}{Nested use not allowed}{%
+        \string\unisc@initiated\space already defined,
+        this shouldn't happen. Aborting.%
+      }%
+      \expandafter\@gobbletwo
+    \else
+      \global\let\unisc@outputcontainer\@empty
+    \fi
+    \pgfparserparse{scparser}%
+  }
+  \RenewDocumentCommand\textsc{ m }{%
+    \begingroup\scshape #1\endgroup
+  }%
+}
+\endinput
+%%
+%% End of file `unisc.sty'.

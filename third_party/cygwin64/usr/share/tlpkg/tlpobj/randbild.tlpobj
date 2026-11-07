@@ -1,0 +1,16 @@
+name randbild
+category Package
+revision 15878
+shortdesc Marginal pictures
+relocated 1
+longdesc Provides environments randbild to draw small marginal plots
+longdesc (using the packages pstricks and pst-plot), and randbildbasis
+longdesc (the same, only without the automatically drawn coordinate
+longdesc system).
+runfiles size=1
+ RELOC/tex/latex/randbild/randbild.sty
+catalogue-ctan /macros/latex/contrib/randbild
+catalogue-date 2018-09-15 13:56:20 +0200
+catalogue-license lppl
+catalogue-topics graphics-use
+catalogue-version 0.2

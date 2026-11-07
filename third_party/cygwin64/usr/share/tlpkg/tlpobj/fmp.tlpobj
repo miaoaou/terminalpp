@@ -1,0 +1,11 @@
+name fmp
+category Package
+revision 15878
+shortdesc Include Functional MetaPost in LaTeX
+relocated 1
+runfiles size=2
+ RELOC/tex/latex/fmp/fmp.sty
+catalogue-ctan /macros/latex/contrib/fmp
+catalogue-date 2016-06-18 16:48:54 +0200
+catalogue-license lppl
+catalogue-topics graphics-inline

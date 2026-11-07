@@ -1,0 +1,23 @@
+name emarks
+category Package
+revision 24504
+shortdesc Named mark registers with e-TeX
+relocated 1
+longdesc E-TeX provides 32 768 mark registers; using this facility is
+longdesc far more comfortable than LaTeX tricks with \markright,
+longdesc \markboth, \leftmark and \rightmark. The package provides two
+longdesc commands for marking: \marksthe and \marksthecs, which have *
+longdesc forms which disable expansion; new mark registers are allocated
+longdesc as needed. Syntax is closely modelled on the \marks primitive.
+longdesc Four commands are provided for retrieving the marks registers'
+longdesc content: \thefirstmarks, \thebotmarks, thetopmarks and
+longdesc \getthemarks; and the command \ifmarksequal is available for
+longdesc comparing the content of marks registers. The package requires
+longdesc an e-TeX-enabled engine, and the etex package.
+runfiles size=1
+ RELOC/tex/latex/emarks/emarks.sty
+catalogue-ctan /macros/latex/contrib/emarks
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1.3
+catalogue-topics typesetting
+catalogue-version 1.0

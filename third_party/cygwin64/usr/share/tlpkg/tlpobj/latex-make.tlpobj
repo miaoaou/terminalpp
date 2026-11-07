@@ -1,0 +1,33 @@
+name latex-make
+category Package
+revision 60874
+shortdesc Easy compiling of complex (and simple) LaTeX documents
+relocated 1
+longdesc This package provides several tools that aim to simplify the
+longdesc compilation of LaTeX documents: LaTeX.mk: a Makefile snippet to
+longdesc help compiling LaTeX documents in DVI, PDF, PS, ... format.
+longdesc Dependencies are automatically tracked: one should be able to
+longdesc compile documents with a one-line Makefile containing 'include
+longdesc LaTeX.mk'. Complex documents (with multiple bibliographies,
+longdesc indexes, glossaries, ...) should be correctly managed.
+longdesc figlatex.sty: a LaTeX package to easily insert xfig figures
+longdesc (with \includegraphics{file.fig}). It can interact with
+longdesc LaTeX.mk so that the latter automatically invokes transfig if
+longdesc needed. And various helper tools for LaTeX.mk This package
+longdesc requires GNUmake (>= 3.81).
+runfiles size=16
+ RELOC/scripts/latex-make/figdepth.py
+ RELOC/scripts/latex-make/gensubfig.py
+ RELOC/scripts/latex-make/latexfilter.py
+ RELOC/scripts/latex-make/svg2dev.py
+ RELOC/scripts/latex-make/svgdepth.py
+ RELOC/tex/latex/latex-make/figlatex.cfg
+ RELOC/tex/latex/latex-make/figlatex.sty
+ RELOC/tex/latex/latex-make/pdfswitch.sty
+ RELOC/tex/latex/latex-make/texdepends.sty
+ RELOC/tex/latex/latex-make/texgraphicx.sty
+catalogue-contact-repository https://gitlab.inria.fr/latex-utils/latex-make
+catalogue-ctan /support/latex-make
+catalogue-license gpl
+catalogue-topics compilation
+catalogue-version 2.4.3

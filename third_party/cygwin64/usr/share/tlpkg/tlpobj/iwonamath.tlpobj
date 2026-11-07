@@ -1,0 +1,40 @@
+name iwonamath
+category Package
+revision 68144
+shortdesc LaTeX support for scaled Iwona math fonts
+relocated 1
+longdesc This package provides an interface to the Iwona math fonts by
+longdesc Janusz Marian Nowacki. It allows to use Iwona as math
+longdesc complement for sans serif fonts without native math. The
+longdesc package allows font scaling, the choice of light and condensed
+longdesc versions, and the creation of multiple math versions.
+runfiles size=23
+ RELOC/tex/latex/iwonamath/iwonamath.sty
+ RELOC/tex/latex/iwonamath/omliwonamath.fd
+ RELOC/tex/latex/iwonamath/omliwonamathc.fd
+ RELOC/tex/latex/iwonamath/omliwonamathl.fd
+ RELOC/tex/latex/iwonamath/omliwonamathlc.fd
+ RELOC/tex/latex/iwonamath/omsiwonamath.fd
+ RELOC/tex/latex/iwonamath/omsiwonamathc.fd
+ RELOC/tex/latex/iwonamath/omsiwonamathcmsy.fd
+ RELOC/tex/latex/iwonamath/omsiwonamathl.fd
+ RELOC/tex/latex/iwonamath/omsiwonamathlc.fd
+ RELOC/tex/latex/iwonamath/omxiwonamath.fd
+ RELOC/tex/latex/iwonamath/omxiwonamathc.fd
+ RELOC/tex/latex/iwonamath/omxiwonamathl.fd
+ RELOC/tex/latex/iwonamath/omxiwonamathlc.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamath.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathc.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathcm.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathl.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathlc.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathlcm.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathlm.fd
+ RELOC/tex/latex/iwonamath/ot1iwonamathm.fd
+catalogue-contact-bugs https://github.com/borisveytsman/iwonamath/issues
+catalogue-contact-development https://github.com/borisveytsman/iwonamath/pulls
+catalogue-contact-repository https://github.com/borisveytsman/iwonamath
+catalogue-ctan /macros/latex/contrib/iwonamath
+catalogue-license lppl1.3c
+catalogue-topics font-supp-maths expl3
+catalogue-version 1.0

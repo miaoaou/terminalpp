@@ -1,0 +1,17 @@
+name fancyref
+category Package
+revision 15878
+shortdesc A LaTeX package for fancy cross-referencing
+relocated 1
+longdesc Provides fancy cross-referencing support, based on the
+longdesc package's reference commands (\fref and \Fref) that recognise
+longdesc what sort of object is being referenced. So, for example, the
+longdesc label for a \section would be expected to be of the form
+longdesc 'sec:foo': the package would recognise the 'sec:' part.
+runfiles size=4
+ RELOC/tex/latex/fancyref/fancyref.sty
+catalogue-ctan /macros/latex/contrib/fancyref
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license gpl
+catalogue-topics label-ref
+catalogue-version 0.9c

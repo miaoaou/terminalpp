@@ -1,0 +1,21 @@
+name datetime2-german
+category Package
+revision 67201
+shortdesc German language module for the datetime2 package
+relocated 1
+longdesc This module provides the "german" style that can be set using
+longdesc \DTMsetstyle provided by datetime2.sty.
+runfiles size=11
+ RELOC/tex/latex/datetime2-german/datetime2-de-AT.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-de-CH.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-de-DE.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-german-base-ascii.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-german-base-utf8.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-german-base.ldf
+ RELOC/tex/latex/datetime2-german/datetime2-german.ldf
+catalogue-contact-bugs https://gitlab.com/SFr682k/datetime2-german/-/issues
+catalogue-contact-repository https://gitlab.com/SFr682k/datetime2-german
+catalogue-ctan /macros/latex/contrib/datetime2-contrib/datetime2-german
+catalogue-license lppl1.3c
+catalogue-topics date-time multilingual
+catalogue-version 3.0

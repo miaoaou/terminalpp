@@ -1,0 +1,35 @@
+name realhats
+category Package
+revision 66924
+shortdesc Put real hats on symbols instead of ^
+relocated 1
+longdesc This LaTeX package makes \hat put real hats on symbols. The
+longdesc package depends on amsmath, calc, graphicx, ifthen, lcg, and
+longdesc stackengine.
+runfiles size=493
+ RELOC/tex/latex/realhats/hats/realhats-ash.pdf
+ RELOC/tex/latex/realhats/hats/realhats-beret.pdf
+ RELOC/tex/latex/realhats/hats/realhats-birthday.pdf
+ RELOC/tex/latex/realhats/hats/realhats-cowboy.pdf
+ RELOC/tex/latex/realhats/hats/realhats-crown.pdf
+ RELOC/tex/latex/realhats/hats/realhats-dunce.pdf
+ RELOC/tex/latex/realhats/hats/realhats-fez.pdf
+ RELOC/tex/latex/realhats/hats/realhats-mortarboard.pdf
+ RELOC/tex/latex/realhats/hats/realhats-policeman.pdf
+ RELOC/tex/latex/realhats/hats/realhats-santa.pdf
+ RELOC/tex/latex/realhats/hats/realhats-scottish.pdf
+ RELOC/tex/latex/realhats/hats/realhats-sombrero.pdf
+ RELOC/tex/latex/realhats/hats/realhats-tile-blue.pdf
+ RELOC/tex/latex/realhats/hats/realhats-tile-gray.pdf
+ RELOC/tex/latex/realhats/hats/realhats-tile-light-blue.pdf
+ RELOC/tex/latex/realhats/hats/realhats-tile-white.pdf
+ RELOC/tex/latex/realhats/hats/realhats-tophat.pdf
+ RELOC/tex/latex/realhats/hats/realhats-witch.pdf
+ RELOC/tex/latex/realhats/realhats.sty
+catalogue-contact-bugs https://github.com/mscroggs/realhats/issues
+catalogue-contact-home http://www.realhats.xyz
+catalogue-contact-repository https://github.com/mscroggs/realhats
+catalogue-ctan /macros/latex/contrib/realhats
+catalogue-license mit
+catalogue-topics amusements graphics graphics-incl
+catalogue-version 7.1

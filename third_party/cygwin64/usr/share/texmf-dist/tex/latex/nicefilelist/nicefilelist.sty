@@ -1,0 +1,564 @@
+\NeedsTeXFormat{LaTeX2e}[1994/12/01]% Option autolength needs 2022-11-01!
+\ProvidesPackage{nicefilelist}[2023/02/13 v0.9b
+                               more file list alignment (UL)]
+%% Copyright (C) 2012 Uwe Lück (deceased June 2020)
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    https://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005-12-01 or later.
+%%
+%%
+%%
+%%
+%% === Alignment Settings        ===
+%% \label{sec:templates}
+%% We use the \ctanpkgref{monofill} package for alignment of plain text:
+\RequirePackage{monofill}[2012/10/29]
+%% See its documentation for details.
+%% %% <- added 2012/10/29 ->
+%% The `[wrap]' option provided by 'nicefilelist' v0.7 requires
+%% 'monofill' v0.2 as of 2012-10-29.
+%%
+%% We support three alignment ``fields" according to the terminology of \pkg{monofill}.
+%% Their ids are |f-base| for base file-names, |f-ext| for file-name extensions,
+%% % |f-date| for the revision date,
+%% and |f-version| for the revision version id of a file
+%% %, the latter two
+%% as read from `\ProvidesFile', `\ProvidesPackage',
+%% or `\ProvidesClass' command in the file.
+%% Initial settings for them are following.
+%% For modifying them, load 'nicefilelist.sty',
+%% then type your own settings, then issue `\listfiles'
+%% or load 'myfilist.sty'.
+\MFfieldtemplate{f-base}{nicefilelist}
+\MFfieldtemplate{f-ext}{tex}
+\MFfieldtemplate{f-version}{v0.11a}
+%%
+%% |\NFLspaceI|, |\NFLspaceII|, and |\NFLspaceIII|
+%% determine the space between the four
+%% columns for names, dates, versions, and ``captions":
+\newcommand*{\NFLspaceI}  { \space}
+\newcommand*{\NFLspaceII} { \space}
+\newcommand*{\NFLspaceIII}{ }
+%%
+%% === Failure Displays          ===
+%% \label{sec:fail}                 %% was failure 2012/10/29
+%% |\NFLnodate| is displayed in place of a file date if it seems
+%% not to be given (configurable):
+\newcommand*{\NFLnodate}{ -- \space-- --}
+%% |\NFLnoversion| likewise---however, for alignment,
+%% each wanted space must be specified as `\space'
+%% (not just a code blank space).
+%% It may need adjustment (by `\renewcommand') when
+%% `\MFfieldtemplate{f-version}' is modified:
+\newcommand*{\NFLnoversion}{\space--}
+%% |\NFLnotfound| is for files with wrong or no
+%% \cs{Provides.\empty..} command:
+\newcommand*{\NFLnotfound}{ * NOT FOUND *}
+%%
+%% === Package Options           ===
+%% \label{sec:opt}
+%% v0.4 offers package option |[r]| that allows strings with `r' %% |...| 2012/10/30
+%% in place of `v', for ``release." `\NFL@v@digit''s definition
+%% therefore depends ... we use |\@listfiles| for a ``message"
+%% there. For the original restricted functionality, it expands
+%% to |\NFL@false|.
+\def\@listfiles{\noexpand\NFL@false}
+%% Package option `[r]' carries out another test instead.
+%% See the accompanying file `SrcFILEs.txt' to see the effect.
+%% TO DO: update example!?
+\DeclareOption{r}{%
+  \def\@listfiles{%
+    {\noexpand\NFL@ifx@kbl##1r%
+        {\noexpand\NFL@digits##2\noexpand\@nnil}%
+        \noexpand\NFL@false}%
+  }%
+}
+%% v0.7 offers package option |[wrap]| for automatic wrapping within %% |...| 2012/10/30
+%% the "captions" column, based on Will Robertson's and Kevin Godby's
+%% \ctanpkgref{hardwrap} package. The difference between this option
+%% and the functionality without is controlled by the macro
+%% `\NFL@filerow'.
+%% %% 2012/10/30:
+%% \emph{Without} it expands to `\typeout'
+\newcommand*{\NFL@filerow}{\typeout}
+%% ---`\let' doesn't work with 'myfilist''s redefinition of
+%% `\typeout'.
+%% \emph{With} `[wrap]', `\NFL@filerow' applies 'hardwrap''s
+%% `\HardWrap':
+\newif\ifNFLwrap%
+\DeclareOption{wrap}{%
+  \NFLwraptrue%
+  \renewcommand*{\NFL@filerow}[1]{%
+    \HardWrap\typeout\hw@maxprintline\relax{^^J%
+      \MFrightinfield\space{f-base} %
+      \MFleftinfield \space{f-ext}%
+      \NFLspaceI\@spaces\space\@spaces\space \NFLspaceII
+      \MFrightinfield\space{f-version}\NFLspaceIII}{%
+      #1}}%
+%% Alignment of file-names with 'hardwrap' seems to need
+  \renewcommand*{\MFfillelement}{\MFotherspace}
+%% from \ctanpkgref{monofill} v0.2.             %% was `monospace' 2012/12/12
+}
+%% The display width is controlled by 'hardwrap''s counter
+%% `|\hw@maxprintline|'. Unless 'hardwrap' finds something special,
+%% its content is 79, corresponding to a display width of
+%% 80~characters (I~believe---counting the leftmost character
+%% as~\qtd{0}, as~editors like to~do). You can choose a different
+%% content value <max-char-col> by 'hardwrap''s
+%% \[|\setmaxprintline{<max-char-col>}|\]
+%%
+%% \noindent v0.9a offers package option |[autolength]| %% |...| 2023-01-08
+%% for automatic setting of lengths of base file-name, extension, and version.
+\newif\ifNFLautolength
+
+\DeclareOption{autolength}{% v0.9a 2023-01-08
+%% We just measure the respective length and write it into the .aux file
+%% for use in the next compilation run.
+%% The \ctanpkgref{xstring} package requires e-\TeX. |\AddToHook{enddocument/afterlastpage}|
+%% ensures that the nicefilelist package still works when |\AtEndDocument| would be gone.
+%% The |\ver@@|-fix for the file-list was introduced 2022. Thus instead of \LaTeX{} format
+%% version 1994/12/01 option [autolength] requires format-version 2022-11-01 or newer.
+%% (2018 might be sufficient, but testing was only done with a current format.)
+  \@ifl@t@r\fmtversion{2022/11/01}{
+    % would have understood
+    % \IfFormatAtLeastTF{2022-11-01}{<true code>}{<false code>}
+    \NFLautolengthtrue
+    }{\PackageError{nicefilelist}{%
+         Option autolength needs newer LaTeX format%
+       }{Needed LaTeX format version: 2022-11-01 or newer.\MessageBreak%
+         Found  LaTeX format version: \fmtversion.\MessageBreak%
+         To use option autolength update your TeX distribution.%
+       }
+     }
+  }
+
+\ProcessOptions
+
+%% The next `\if' is to check whether `[wrap]' has been demanded
+%% and 'hardwrap' is needed:
+\ifNFLwrap\RequirePackage{hardwrap}\fi
+
+\ifNFLautolength
+  \RequirePackage{xstring}[2023-01-14]% v1.85 String manipulations (CT); needs e-TeX
+  \AddToHook{enddocument/afterlastpage}{%
+    \xdef\NFLbaselengthmax{nicefilelist}%
+    \xdef\NFLextlengthmax{sty}%
+    \xdef\NFLversionlengthmax{v0.9b}%
+    \xdef\NFLcaptionlengthmax{more file list alignment (UL)}%
+    \xdef\NFLbaselengthtmp{0}%
+    \xdef\NFLextlengthtmp{0}%
+    \xdef\NFLversionlengthtmp{0}%
+    \xdef\NFLcaptionlengthtmp{0}%
+    \xdef\NFLtotallengthtmp{0}%
+    \@for\@currname:=\@filelist\do{%
+      % This starts the loop through the list of files.
+      \filename@parse\@currname%
+      \edef\filename@ext{\ifx\filename@ext\relax tex\else\filename@ext\fi}%
+      \StrLen{\filename@base}[\NFLbaselengthcurrent]%
+      \ifnum \NFLbaselengthcurrent > \NFLbaselengthtmp \relax%
+        {\xdef\NFLbaselengthtmp{\NFLbaselengthcurrent}%
+         \xdef\NFLbaselengthmax{\filename@base}%
+        }%
+      \fi%
+      \StrLen{\filename@ext}[\NFLextlengthcurrent]%
+      \ifnum \NFLextlengthcurrent > \NFLextlengthtmp \relax%
+        {\xdef\NFLextlengthtmp{\NFLextlengthcurrent}%
+         \xdef\NFLextlengthmax{\filename@ext}%
+        }%
+      \fi%
+      \expandafter\let\expandafter\@NFLtempb\csname ver@\filename@base.\filename@ext\endcsname%
+      \StrBetween[1,2]{\@NFLtempb}{ }{ }[\@NFLtempc]%
+      % assuming date space version space description
+      \IfBeginWith{\@NFLtempc}{v}{%
+        % fails if version omitted and description starts with v - evil!
+        \xdef\filename@version{\@NFLtempc}}{%
+        % else: empty or unusual format
+        % Packages that \relax their \ver@... (e.g., fontenc)
+        % can use \ver@@... to store the version information instead:
+        \expandafter\let\expandafter\@NFLtempd\csname ver@@\filename@base.\filename@ext\endcsname%
+        \StrBetween[1,2]{\@NFLtempd}{ }{ }[\@NFLtempc]%
+        % assuming date space version space description again
+        \IfBeginWith{\@NFLtempc}{v}{\xdef\filename@version{\@NFLtempc}%
+         }{% else: no usual version found
+           \xdef\filename@version{}%
+          }%
+        }%
+      \StrLen{\filename@version}[\NFLversionlengthcurrent]%
+      \ifnum \NFLversionlengthcurrent > \NFLversionlengthtmp \relax%
+        {\xdef\NFLversionlengthtmp{\NFLversionlengthcurrent}%
+         \xdef\NFLversionlengthmax{\filename@version}%
+        }%
+      \fi%
+      \ifx\filename@version\empty\relax%
+        \StrBehind[1]{\@NFLtempb}{ }[\@NFLtempc]%
+      \else%
+        \StrBehind[2]{\@NFLtempb}{ }[\@NFLtempc]%
+      \fi%
+      \StrLen{\@NFLtempc}[\NFLcaptionlengthcurrent]%
+      \ifnum \NFLcaptionlengthcurrent > \NFLcaptionlengthtmp \relax%
+        {\xdef\NFLcaptionlengthtmp{\NFLcaptionlengthcurrent}%
+         \xdef\NFLcaptionlengthmax{\@NFLtempc}%
+        }%
+      \fi%
+      }%
+    \message{^^J^^J%
+      ******************************************************************************^^J%
+      Package nicefilelist Info:^^J}%
+    \@ifundefined{hw@maxprintline}{%
+      \IfPackageLoadedTF{hardwrap}{%
+        \message{\space\string\hw@maxprintline\space unknown.^^J}%
+        }{\message{\space\string\hw@maxprintline\space %
+            unknown because not loading the hardwrap package.^^J}%
+         }%
+      \message{\space Now guessing it to be 79.}%
+      \global\newcount\hw@maxprintline%
+      \hw@maxprintline=79\relax% the default value
+      }{% was already defined by hardwrap package or manually
+       }%
+    \StrLen{\NFLbaselengthmax .\NFLextlengthmax\NFLspaceI %
+      yyyy-mm-dd\NFLspaceII \NFLversionlengthmax \NFLspaceIII %
+      \NFLcaptionlengthmax}[\@NFLtempc]%
+    \message{%
+      Longest base file-name: \NFLbaselengthmax\space - %
+       \NFLbaselengthtmp\space characters^^J%
+      Longest file extension: \NFLextlengthmax\space - %
+       \NFLextlengthtmp\space characters^^J%
+      Longest file version: \space\space\NFLversionlengthmax\space - %
+       \NFLversionlengthtmp\space characters^^J%
+      Longest file caption: \space\space\NFLcaptionlengthmax\space - %
+       \NFLcaptionlengthtmp\space characters^^J%
+      Total length of^^J%
+       base-filename.extension\string\NFLspaceI\space date%
+        \string\NFLspaceII\space version\string\NFLspaceIII\space %
+        caption:^^J
+       \@NFLtempc\space characters^^J%
+      Linewidth: \the\hw@maxprintline\space characters^^J%
+      }%
+%% There exists ``beamercolorthememetropolis-highcontrast.sty''.
+    \ifnum \@NFLtempc > \the\hw@maxprintline\relax%
+      \IfPackageLoadedTF{hardwrap}{%
+         \xdef\roomforcaption{%
+           \the\numexpr(\the\hw@maxprintline-(\@NFLtempc-\NFLcaptionlengthtmp))\relax}%
+         \ifnum\numexpr(2*\roomforcaption) < \NFLcaptionlengthtmp\relax%
+           \xdef\NFLmaybe{%
+            \the\numexpr(\NFLbaselengthtmp+(2*\roomforcaption-\NFLcaptionlengthtmp)+1)\relax}%
+           \gdef\NFLbaselengthmaybe{}%
+           \newcounter{NFLcounter}%
+           \loop%
+             \xdef\NFLbaselengthmaybe{A\NFLbaselengthmaybe}%
+             \addtocounter{NFLcounter}{1}%
+             \ifnum\value{NFLcounter}<\NFLmaybe%
+           \repeat%
+           \message{Warning:^^J%
+                    Caption needs more than two lines, %
+                    wrapping was not implemented for this.^^J%
+                    Maybe set the lengths for base file-name, %
+                    -extension, and -version manually^^J%
+                    or increase the max_print_line.^^J%
+                    Instead of using option autolength, after^^J%
+                    \string\usepackage[<options>]{nicefilelist}^^J%
+                    try adding^^J%
+                    \string\MFfieldtemplate{f-base}{\NFLbaselengthmaybe}^^J%
+                    \string\MFfieldtemplate{f-ext}{\NFLextlengthmax}^^J%
+                    \string\MFfieldtemplate{f-version}{\NFLversionlengthmax}^^J%
+                    and recompile twice - %
+                    or look for the second longest file name^^J%
+                    and use that for \string\MFfieldtemplate{f-base}.^^J}%
+         \fi%
+       }{\message{Warning:^^J%
+                  File information does not always fit into a single %
+                  line; this might look ugly.^^J%
+                  Maybe set the lengths for base file-name, %
+                  -extension, and -version manually^^J%
+                  or increase the max_print_line.^^J}%
+        }%
+    \fi%
+    \message{%
+    ******************************************************************************^^J^^J}%
+    \if@filesw%
+      \immediate\write\@auxout{\string\IfPackageLoadedTF{nicefilelist}{\string\relax}{%
+                           \string\newcommand\string\MFfieldtemplate[2]{\string\relax}}}%
+      \immediate\write\@auxout{\string\MFfieldtemplate{f-base}{\NFLbaselengthmax}}%
+      \immediate\write\@auxout{\string\MFfieldtemplate{f-ext}{\NFLextlengthmax}}%
+      \immediate\write\@auxout{\string\MFfieldtemplate{f-version}{\NFLversionlengthmax}}%
+    \fi%
+    }
+\fi
+%% === Safe Tests                === %% below options 2012/10/29
+%% \label{sec:safe}
+%% For fairly safe tests, we brief{}ly use an exotic version of `Q'
+%% (similarly to \ctanpkgref{ifmptarg} and \ctanpkgref{url}):
+\catcode`\Q=7 \let\NFL@criterion=Q \catcode`\Q=11
+%% %% 2012/03/27:
+%% It appears to me that expandable tests like the ones employed here
+%% never are perfectly safe; you only can say that it is safe with a
+%% source meeting certain conditions. \ctanpkgref{fifinddo} originally
+%% was made for ``plain text," to be read from files without assigning
+%% \TeX's special category codes. \emph{Here} we assume that the source
+%% (text in \cs{Provides.\empty..} arguments) will never contain such a
+%% ``funny `Q'".
+%%
+%% === Redefining \cs{listfiles} ===
+%% Similarly to original \LaTeX, |\listfiles| carries almost everything
+%% that is needed for the file list only. 2012-10-29: little point
+%% in this, perhaps, in that the package should be loaded when
+%% running `\listfiles' is intended---TO-DO. Or maybe it is loaded
+%% \emph{just in case?}
+\renewcommand*{\listfiles}{%
+  \let\listfiles\relax
+%% ---this clears memory. Now \LaTeX\ doesn't collect file names for
+%% &\listfiles when &\@listfiles is undefined, therefore
+%   \let\@listfiles\relax
+%% % although we don't use it.
+%% % (TO-DO use it in place of some `\NFL@'...?)
+%% ... postponed for future version...
+%% \vskip\smallskipamount\noindent
+%% |\@dofilelist| is executed by the standard \LaTeX\ `\enddocument'
+%% macro or by `\ListInfos' from the \ctanpkgref{myfilist} package.
+  \def\@dofilelist{%
+%% ``Title:"
+     \typeout{^^J           %% trick 2012/03/29
+              \MFrightinfield{*File Lis}{f-base}t*}%
+     \@for\@currname:=\@filelist\do{%
+%% This starts the loop through the list of files
+       \filename@parse\@currname
+       \edef\filename@ext{%
+          \ifx\filename@ext\relax tex\else\filename@ext\fi}%
+%% Like \LaTeX's &\reserved@b:
+       \expandafter\let\expandafter\@tempb
+            \csname ver@\filename@base.\filename@ext\endcsname
+%% Packages that |\relax| their |\ver@|... (e.g., fontenc) %% v0.9a 2023-01-08
+%% can use |\ver@@|... to store the version information instead:
+       \ifx\@tempb\relax%
+         \expandafter\let\expandafter\@tempb
+            \csname ver@@\filename@base.\filename@ext\endcsname
+       \fi%
+%% According to `source2e.pdf', &\filename@area may be a directory.
+%% Trying support of this, it seems to be a new feature with v0.2
+%% --- not tested, TO-DO!
+       \edef\@tempa{\filename@area\filename@base}%
+%% Actually I would like to be able to do even the file-name parsing
+%% in an expandable way --- for all systems, `texsys.cfg'?! TO-DO
+       \NFL@filerow{%
+%% Now all parsing and checking must be expandable.
+         \NFL@make@macro@arg\MFrightinfield\@tempa      {f-base}.%
+         \NFL@make@macro@arg\MFleftinfield \filename@ext{f-ext}%
+         \NFLspaceI
+         \NFL@ifx@kbl\@tempb\relax\NFLnotfound{%
+           \NFL@make@macro@arg\NFL@space@split\@tempb
+                                              \NFL@maybe@three
+                                              \NFL@date@or@rest
+         }%
+       }%
+     }%
+%% The line of stars:
+     \typeout{                        %% trick v 2012/03/29
+              \MFrightinfield{********}{f-base}***^^J}%
+%% TO-DO or more stars as with 'longnamefilelist'?
+  }%
+%% This finishes the definition of `\@dofilelist'.
+%% % The definitions of macros called from `\@dofilelist' are following.
+%% \[|\NFL@make@macro@arg<cmd-1><cmd-2>|\] results in
+%% `<cmd-1>{<t-list>}' where <t-list> is the one-step expansion of
+%% <cmd-2>:
+  \def\NFL@make@macro@arg##1##2{\expandafter##1\expandafter{##2}}%
+%% |\NFL@space@split{<token-list>}{<spaced>}{<unspaced>}|
+%% passes prefix and suffix as arguments to <spaced>
+%% if a space token is within <token-list>, otherwise
+%% <unspaced> gets the original <token-list> as single
+%% argument. The latter is useful here where <token-list>
+%% becomes visible only by an &\expandafter.
+%% The following construction is discussed more generally
+%% in the \ctanpkgref{bitelist} package.
+  \def\NFL@space@split##1{%
+    \NFL@return@space@split##1\@nil: \NFL@criterion\@nil\@nil@{##1}}%
+%% `\NFL@return@spaces@split' essentially has \emph{three} parameters
+%% delimited by ` ', `\@nil', and `\@nil' again.
+  \def\NFL@return@space@split##1 ##2\@nil##3\@nil@##4##5##6{%
+    \NFL@ifx@kbl\NFL@criterion{##2}%
+%% If #2 is empty, `\NFL@ifx@kbl' (as of v0.3) compares
+%% `\NFL@criterion' (criterion indicating ``unspaced") with
+%% `\expandafter'. This only happens when the space is the last thing
+%% in <token-list>, and `<spaced>' is chosen correctly.
+    {##6{##4}}{##5{##1}{##2}}}%
+%% |\NFL@ifx@kbl{<token>}{<maybe-token>}{<ifx>}{<unlessx>}|
+%% as of v0.3  should save some tokens, in some longer run,
+%% especially if we want to add nestings---{}%
+%% cf.~\file{source2e.pdf} for ``Kabelschacht".
+  \def\NFL@ifx@kbl##1##2{%
+    \ifx##1##2\expandafter  \@firstoftwo
+      \else   \expandafter \@secondoftwo \fi}%
+%% Dealing with |\NFL@date@or@rest{<token-list>}| before `\NFL@maybe@three':
+  \def\NFL@date@or@rest##1{%
+    \NFL@if@dateS{##1}{##1}{%
+      \NFL@if@dateD{##1}{##1}{\NFL@no@date@version##1}%
+      }%
+    }%
+%% |\NFL@if@dateS{<token-list>}{<yes>}{<no>}| ... slashes
+  \def\NFL@if@dateS##1{\NFL@slashes##1\NFL@xi xyzxyzxyzx\@nil}%
+%% |\NFL@slashes| checks that there are slashes at the expected places:
+  \def\NFL@slashes##1##2##3##4##5##6##7##8{%
+    \NFL@ifx@kbl##5/%
+      {\NFL@ifx@kbl##8/\NFL@ten@only\NFL@false}%
+      \NFL@false
+%% This especially happens when <token-list> is empty.
+%% Digit candidates back:
+    {##1##2##3##4##6##7}}%
+%% Since 2017-03-08 \LaTeX\ accepts dates formatted as
+%% yyyy-mm-dd instead of yyyy/mm/dd.
+%% Currently both formats are valid.
+%% Therefore the nicefilelist package needs to
+%% also accept ``-" (dash) instead of ``/" (slash) as separator.
+  \def\NFL@if@dateD##1{\NFL@dashes##1\NFL@xi xyzxyzxyzx\@nil}%
+  \def\NFL@dashes##1##2##3##4##5##6##7##8{%
+    \NFL@ifx@kbl##5-%
+      {\NFL@ifx@kbl##8-\NFL@ten@only\NFL@false}%
+      \NFL@false
+    {##1##2##3##4##6##7}}%
+%% If the word is a date, we now have taken 6 of the 8 digits.
+%% \[|\NFL@ten@only{<digits>}<digit><digit>Q|\]
+%% takes the two remaining and then a thing that should be `Q'
+%% in the funny sense of Sec.~\ref{sec:safe}.
+  \def\NFL@ten@only##1##2##3##4{%
+    \NFL@ifx@kbl\NFL@xi##4\NFL@digits\NFL@false
+%% Finally checking digits:
+    ##1##2##3\@nnil}%
+%% |\NFL@digits<token>| is a loop through single tokens:
+  \def\NFL@digits##1{%
+    \NFL@ifx@kbl##1\@nnil\NFL@true{%
+      \NFL@if@digit@code##1<0\NFL@false{%
+        \NFL@if@digit@code##1>9\NFL@false\NFL@digits
+      }%
+    }%
+  }%
+%% |\NFL@if@digit@code<char-1><relation><char-2><fits><bad>|:
+  \def\NFL@if@digit@code##1##2##3{%
+    \ifnum`##1##2`##3 \expandafter  \@firstoftwo
+      \else           \expandafter \@secondoftwo \fi}%
+%% |\NFL@false| skips further candidates and dummies and chooses <no>:
+  \def\NFL@false##1\@nil{\@secondoftwo}%
+%% |\NFL@true| skips further candidates and dummies and chooses <yes>:
+  \def\NFL@true##1\@nil{\@firstoftwo}%
+%% We don't support version without date, therefore run
+%% |\NFL@no@date@version| as soon as we find that the file info
+%% does not start with a date:
+  \def\NFL@no@date@version{%
+    \NFLnodate\NFLspaceII\NFLnoversion@\NFLspaceIII}%
+%% |\NFLnoversion@| adds filler to &\NFLnoversion:
+  \def\NFLnoversion@{%
+    \NFL@make@macro@arg\NFL@place@version\NFLnoversion}%
+%% |\NFL@maybe@three{<word-1>}{<rest>}| looks whether <word-1>
+%% is a date. If it is, it is written to screen, and then we look
+%% if <rest> contains a version id. Otherwise ```<word-1>_<rest>'"
+%% is considered a ``caption" only.
+  \def\NFL@maybe@three##1##2{%
+    \NFL@if@dateS{##1}%
+                 {##1\NFLspaceII
+                  \NFL@space@split{##2}%
+                                  \NFL@maybe@version@rest
+                                  \NFL@version@or@rest}%
+                 {\NFL@if@dateD{##1}%
+                               {##1\NFLspaceII
+                                \NFL@space@split{##2}%
+                                                \NFL@maybe@version@rest
+                                                \NFL@version@or@rest}%
+                 {\NFL@no@date@version##1 ##2}}}%
+%% |\NFL@version@or@rest{<token-list>}|:
+  \def\NFL@version@or@rest##1{%
+    \NFL@if@version{##1}%
+                   {\NFL@place@version{##1}}%
+                   {\NFLnoversion@\NFLspaceIII##1}}%
+%% |\NFL@if@version{<token-list>}{<yes>}{<no>}|:
+  \def\NFL@if@version##1{\NFL@v@digit##1xy\@nil}%
+%% TO-DO: At applications you see how some tokens could be saved.
+%% On the other hand, the macros are more transparent in the
+%% present way.
+%% \vskip\smallskipamount\noindent
+%% |\NFL@v@digit{<t1>}{<t2>}{<rest>}| checks whether the first thing
+%% is a `v' and the second a digit---unless package option `[r]'
+%% was chosen. v0.4 uses `\edef' for choosing:
+  \edef\NFL@v@digit##1##2##3\@nil{%
+    \noexpand\NFL@ifx@kbl##1v%
+        {\noexpand\NFL@digits##2\noexpand\@nnil}%
+%% |\@listfiles| will either expand to the original `\NFL@false'
+%% or to a test on `r':
+        \@listfiles
+    \noexpand\@nil}%
+  \let\@listfiles\relax
+%% |\NFL@place@version{<token-list>}| adds filler to version id:
+  \def\NFL@place@version##1{\MFleftinfield{##1}{f-version}}%
+%% |\NFL@maybe@version@rest{<list-1>}{<list-2>}|:
+  \def\NFL@maybe@version@rest##1##2{%
+    \NFL@if@version{##1}%
+                   {\NFL@place@version{##1}\NFLspaceIII##2}%
+                   {\NFLnoversion@\NFLspaceIII##1 ##2}}%
+}
+%% === Shorthand for 'myfilist'  ===
+%% \[|\MaxBaseEmptyList{<longest-name>}[<read-again-files>]|\]
+%% (v0.5) or
+%% \[|\MaxBaseEmptyList*[<read-again-files>]|\]
+%% (v0.6) as described in Section~\ref{sec:short}:
+\newcommand*{\MaxBaseEmptyList}{%
+    \@ifstar{\maxBaseEmptyList{abcdabcd}}\maxBaseEmptyList}
+\newcommand*{\maxBaseEmptyList}[1]{%
+    \MFfieldtemplate{f-base}{#1}%
+    \RequirePackage{myfilist}\EmptyFileList}
+%% So |\maxBaseEmptyList| is like former `\MaxBaseEmptyList'
+%% without expecting a star---available to users.
+%%
+%% === Leaving the Package File  ===
+\endinput
+%%
+%% === VERSION HISTORY ===
+
+v0.1   2012/03/20   started
+       2012/03/22   almost ready
+       2012/03/23   debugging; \NFLspaceI etc.;
+                    documentation completed
+v0.2   2012/03/24   file info processed by \typeout - start
+       2012/03/25   trying, debugging
+       2012/03/26   continued; \NFL@place@version, \NFLnoversion@;
+                    works, reordered; another fix about Q -> \@empty
+       2012/03/27   undone the latter, explained; improved remarks on
+                    \@listfiles
+       2012/03/29   alignment of title/stars with base<11
+v0.30  2012/05/18f. \NFL@ifx@kbl in \NFL@return@space@split
+       2012/05/20   all \ifx reimplemented, old code kept
+       STORED INTERNALLY
+v0.31  2012/05/20   removing old code - STORED INTERNALLY
+v0.32  2012/05/20   removing \NFL@xpxpxp; replacing \NFL@after@false
+                    by \NFL@ifnum@kbl, keeping old code
+       STORED INTERNALLY
+v0.33  2012/05/20   removing old code; added 3 %s
+       STORED INTERNALLY
+v0.4   2012/05/20   option [r]
+v0.5   2012/09/30   \MaxBaseEmptyList
+v0.6   2012/10/03   \MaxBaseEmptyLists first arg. only optional
+       2012/10/11   ... bad with 2nd opt. arg., *
+v0.7   2012/10/13   "updating" date in \Provides...!
+       2012/10/28   \HardWrap first try
+       2012/10/29   \HardWrap newline material -> [wrap]
+                    sec:test below sec:opt, mentioning `url'
+       2012/10/30   correcting \NFL@filerow without wrapping,
+                    doc.: |...| in sec:opt
+v0.7a  2012/12/12   doc. monospace -> monofill; archived at:
+                    https://web.archive.org/web/20221205210517/
+                     https://mirror.mwt.me/ctan/install/macros/
+                     latex/contrib/nicefilelist.tds.zip
+v0.8a  2022/12/05   Accepting also dashes instead of slashes in date
+                    (one-time fix by H.-Martin Münch); archived at:
+                    https://web.archive.org/web/20230106193203/
+                      https://mirror.mwt.me/ctan/install/macros/
+                      latex/contrib/nicefilelist.tds.zip
+v0.9a  2023/01/08   now also regarding |ver@@| for version;
+                    new option [autolength] (using .aux file)
+                    (one-time fix by H.-Martin Münch)
+v0.9b  2023/02/13   bug-fix: file extension missed when |\input|
+                    (one-time fix by H.-Martin Münch)

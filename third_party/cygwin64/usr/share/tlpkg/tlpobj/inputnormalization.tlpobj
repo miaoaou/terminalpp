@@ -1,0 +1,16 @@
+name inputnormalization
+category Package
+revision 59850
+shortdesc Wrapper for XeTeX's and LuaTeX's input normalization
+relocated 1
+longdesc This package provides a cross engine interface to normalizing
+longdesc input before it's read by TeX. It is based on XeTeX's
+longdesc \XeTeXinputnormalization primitive and lua-uni-algos for
+longdesc LuaTeX.
+runfiles size=1
+ RELOC/tex/latex/inputnormalization/inputnormalization.sty
+catalogue-contact-repository https://github.com/zauguin/inputnormalization
+catalogue-ctan /macros/unicodetex/generic/inputnormalization
+catalogue-license lppl1.3
+catalogue-topics unicode luatex xetex
+catalogue-version 0.2

@@ -1,0 +1,21 @@
+name fink
+category Package
+revision 24329
+shortdesc The LaTeX2e File Name Keeper
+relocated 1
+longdesc This package "looks over your shoulder" and keeps track of
+longdesc files \input'ed (the LaTeX way) or \include'ed in your
+longdesc document. You then have permanent access to the name of the
+longdesc file currently being processed through the macro \finkfile.
+longdesc FiNK also comes with support for AUC-TeX. As of version 2.2.1,
+longdesc FiNK has been deprecated and is not maintained anymore. People
+longdesc interested in FiNK's functionality are invited to use a package
+longdesc named currfile instead.
+runfiles size=2
+ RELOC/tex/latex/fink/fink.sty
+catalogue-also currfile
+catalogue-ctan /macros/latex/contrib/fink
+catalogue-date 2018-01-06 12:14:59 +0100
+catalogue-license lppl
+catalogue-topics doc-tool
+catalogue-version 2.2.1

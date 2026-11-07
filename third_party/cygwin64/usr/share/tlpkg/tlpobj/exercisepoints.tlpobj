@@ -1,0 +1,23 @@
+name exercisepoints
+category Package
+revision 49590
+shortdesc A LaTeX package to count exercises and points
+relocated 1
+longdesc The package can be used to facilitate exercise counting and
+longdesc exercise point counting in a LaTeX-document. It counts the
+longdesc number of exercises and it sums all the points of the exercises
+longdesc in a document. Especially for exams it is also common to have
+longdesc an overview of all exercises and their maximal points. This is
+longdesc also supported by this package by providing a macro to retrieve
+longdesc the points of each exercise.
+runfiles size=3
+ RELOC/tex/latex/exercisepoints/exercisepoints.sty
+catalogue-contact-bugs https://github.com/henningkerstan/exercisepoints/issues
+catalogue-contact-development https://github.com/henningkerstan/exercisepoints
+catalogue-contact-home https://github.com/henningkerstan/exercisepoints
+catalogue-contact-repository https://github.com/henningkerstan/exercisepoints
+catalogue-ctan /macros/latex/contrib/exercisepoints
+catalogue-date 2019-01-05 05:03:15 +0100
+catalogue-license lppl1.3
+catalogue-topics exercise
+catalogue-version 1.2.3

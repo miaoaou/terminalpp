@@ -1,0 +1,559 @@
+%
+%  Haim Bar      haim.bar@uconn.edu
+%  HaiYing Wang  haiying.wang@uconn.edu
+%
+%  This package is based on an ongoing work by Haim Bar and HaiYing Wang, and comments and questions are welcome!
+
+\ProvidesPackage{runcode}[2024/01/12 runcode v2.3]
+
+\def \langs {}
+
+\newif\ifruncode
+% Change to \runcodefalse if you want to suspend code execution
+\runcodetrue
+\DeclareOption{run}{\runcodetrue}
+\DeclareOption{cache}{\runcodefalse}
+
+% to control whether \inln will get the result from the program(R, Python, etc.)
+% or get it from cache (if available), then we define the following. The default
+% is true (to run any \inln command in the tex file)
+\newif\ifinlnrun
+% Change to \inlnrunfalse if you want to get the results from cache for all
+% \inln instances in the tex file (if cache is not available, it will be executed
+% even if this variable is set to false)
+\inlnruntrue
+
+% Choose the package for code typesetting. The default is minted.
+% The other two options are listings and fvextra. For backward compatibility,
+% it is possible to use nominted, in which case fvextra is used.
+\newif\ifminted
+\mintedtrue
+\DeclareOption{nominted}{\mintedfalse} 
+\DeclareOption{minted}{\mintedtrue\fvextrafalse\listingsfalse}
+
+\newif\iflistings
+\listingsfalse
+\DeclareOption{listings}{\listingstrue\mintedfalse\fvextrafalse}
+
+\newif\iffvextra
+\fvextrafalse
+\DeclareOption{fvextra}{\fvextratrue\mintedfalse\listingsfalse}
+
+
+\newif\ifreducedspace
+\reducedspacefalse
+\DeclareOption{reducedspace}{\reducedspacetrue}
+
+
+% Some editors terminate all child processes after LaTeX compiling such as Emacs with Auctex. For this case, use the nohup option. It set the variable notnohup to be false, and the server will not be terminated by the parent process.
+\newif\ifnotnohup
+\notnohuptrue
+\DeclareOption{nohup}{\notnohupfalse}
+
+\newcounter{portNo}
+\setcounter{portNo}{65430}
+
+\NewDocumentCommand{\InitLang}{m}{
+    % Create a configuration file for the server for the language provided
+    % in the argument, if it does not exist, and add to the serverslist.txt file.
+    \IfFileExists{#1.config}{}{
+      \newwrite\tempfile
+      \immediate\openout\tempfile=#1.config
+      \immediate\write\tempfile{[SERVERCONFIG]}
+      \immediate\write\tempfile{PORT = \theportNo}
+      \immediate\write\tempfile{DEBUGFILE = #1debug.txt}
+      \immediate\write\tempfile{PIPETIMEOUT = 60}
+      \immediate\closeout\tempfile
+      \edef\langs{\langs#1_}
+      \stepcounter{portNo}
+    }
+    % Start the server. Need to run just once. Can comment out after the first
+    % compilation, but remember to terminate the server
+    \ifnotnohup
+    {\immediate\write18{python3 -c 'from talk2stat.talk2stat import server,client; server("./","#1") if not client("./","#1","``` ```") else print("server is already running")'}}
+    \else
+    {\immediate\write18{nohup python3 -c 'from talk2stat.talk2stat import server,client; server("./","#1") if not client("./","#1","``` ```") else print("server is already running")' &}}
+    \fi
+}
+
+\DeclareOption{R}{
+  \InitLang{R}
+}
+
+\DeclareOption{julia}{
+  \InitLang{julia}
+}
+
+\DeclareOption{matlab}{
+  \InitLang{matlab}
+}
+
+\DeclareOption{python}{
+  \InitLang{python}
+}
+
+
+\DeclareOption{stopserver}{
+  \AtEndDocument{
+    \IfFileExists{serverslist.txt}{
+      \newread\file
+      \openin\file=serverslist.txt
+      \immediate\readline\file to\lang
+      \closein\file
+      \StrCount{\lang}{\detokenize{_}}[\langNo]
+      \newcounter{x}
+      \forloop{x}{0}{\value{x} < \langNo}{
+        \StrBefore{\lang}{\detokenize{_}}[\curlang]
+        \StrBehind{\lang}{\detokenize{_}}[\lang]
+          %% stop the server when the pdf compilation is done.
+        \IfFileExists{\curlang.config}{
+          \immediate\write18{python3 -c 'from talk2stat.talk2stat import client; client("./","\curlang","QUIT")'}
+        }{}
+      }
+    }{}
+  }
+}
+
+\ProcessOptions*
+
+\usepackage{etoolbox}
+\usepackage{morewrites}               % allow more than 16 \write
+\usepackage[many]{tcolorbox}            % to put boxes around text
+\tcbset{colframe=blue!25,colback=blue!10} % default colors for box output
+\usepackage{xcolor}               % for highlighting
+\usepackage{inputenc}
+\usepackage{textgreek}
+% \usepackage{filecontents}
+\usepackage{xifthen}
+\usepackage{xparse}
+\usepackage{xstring}
+\usepackage{forloop}
+
+%%%% check if \langs is empty !!
+\ifdefempty{\langs}{}{
+  \newwrite\outfile
+  \immediate\openout\outfile=serverslist.txt
+  \immediate\write\outfile{\langs}
+  \immediate\closeout\outfile}
+{}
+
+% Use minted by default; but the user can change to listings or fvextra.
+\ifminted
+\usepackage[cache=false]{minted}
+\setminted{fontsize=\footnotesize,breaklines=true} % minted default
+\else
+\iflistings
+\usepackage{listings}
+\lstset{escapeinside=`',columns=fixed, extendedchars=true, basicstyle=\ttfamily\small, frame = lines}
+\else
+\usepackage{fvextra}
+\fvset{fontsize=\footnotesize, breaklines}
+\fi
+\fi
+
+\newcommand{\generated}{generated}
+\immediate\write18{mkdir -p \generated}
+
+\definecolor{bg}{rgb}{0.95,0.95,0.95} % code block background color
+
+\newcounter{codelisting}
+\renewcommand{\thecodelisting}{\arabic{codelisting}}
+\newenvironment{codelisting}[1][]{
+ \par\vspace{\baselineskip}\noindent
+  \refstepcounter{codelisting}
+  \begin{ttfamily}
+   \noindent \textbf{Listing~\thecodelisting. #1}
+}
+{
+ \end{ttfamily}
+  \noindent\ignorespacesafterend
+ }  
+
+% counter for code output temporary file names
+\newcounter{codeOutput}
+\setcounter{codeOutput}{0}
+
+% a command to set the temporary file name for code output
+\newcommand{\setvalue}[2]{
+    \ifdefined #1
+        \renewcommand{#1}{#2}
+    \else
+        \newcommand{#1}{#2}
+    \fi
+}
+\setvalue{\tmpname}{} % initialize with a blank
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \showCode prints the source code, using minted or listings for a pretty layout
+% Arg #1 is the programming language,
+% Arg #2 is the source file name,
+% Args #3 and #4 are the first and last line to show (optional).
+
+\NewDocumentCommand{\showCode}{m m O{} O{}}{% \-\\
+  \IfFileExists{#2}{
+    \ifthenelse{\isempty{#3}}{
+    \ifminted
+    \inputminted{#1}{#2}
+    \ifreducedspace
+      \vspace{-\medskipamount}
+      \vspace{-\baselineskip}
+    \fi
+    \else
+      \iflistings
+        \lstinputlisting[language=#1]{#2}
+      \else
+    \VerbatimInput{#2}
+    \fi
+    \fi
+  }{
+    \ifminted
+    \inputminted[firstline=#3, lastline=#4, firstnumber=1]{#1}{#2}
+    \ifreducedspace
+      \vspace{-\medskipamount}
+      \vspace{-\baselineskip}
+    \fi
+    \else
+      \iflistings
+      \lstinputlisting[language=#1,firstline=#3, lastline=#4]{#2}
+      \else
+    \VerbatimInput[firstline=#3, lastline=#4, firstnumber=1]{#2}
+    \fi
+    \fi
+  } 
+  }{
+    \textcolor{red}{\textbf{showCode: File #2 does not exist!}}
+  }
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \runExtCode runs an external code.
+% Arg #1 is the executable program,
+% Arg #2 is the source file name,
+% Arg #3 is the output file name (optional - if not given, the counter 
+%        codeOutput is used).
+% Arg #4 controls when to run the code (optional - if not given, it listens
+%        to \runcode; run = force the code to run; cache or anything else =
+%        use cache. If the output file does not exist, override the cache option and run the code)
+\NewDocumentCommand{\runExtCode}{m m m O{}}{
+  \IfFileExists{#2}{
+  \stepcounter{codeOutput}
+  \ifthenelse{\isempty{#3}}
+    { \setvalue{\tmpname}{\generated/\jobname_tmp\thecodeOutput.tex} }
+    { \setvalue{\tmpname}{\generated/#3.tex} }
+  % toggle \runcode above if you want to enable/disable code execution
+    \ifthenelse{\isempty{#4}}
+      { \ifruncode
+        \immediate\write18{#1 #2 > \tmpname }
+        \fi
+      }{
+        \ifstrequal{#4}{run}{\immediate\write18{#1 #2 > \tmpname }}{}
+      }
+      \IfFileExists{\tmpname}{}{\immediate\write18{#1 #2 > \tmpname }}
+  }{
+    \textcolor{red}{\textbf{runExtCode: File #2 does not exist!}}
+  }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includeOutput[Arg #1]{Arg #2} is used to embed the output from executed code.
+% Arg #1 is the output file name (optional - if not given, the counter 
+%        codeOutput is used).
+% Arg #2 is the optional type output with default "vbox"
+%         (vbox = verbatim in a box, tex = pure latex, or inline)
+
+\NewDocumentCommand{\includeOutput}{m O{vbox}}{\-
+  \ifthenelse{\isempty{#1}}
+  {\setvalue{\tmpname}{\generated/\jobname_tmp\thecodeOutput.tex}}
+  {\unskip\setvalue{\tmpname}{\generated/#1.tex}\unskip}\unskip
+  % even if the code is not executed, but we ran it before, we can use a 
+  % cached version if it exists.
+  \IfFileExists{\tmpname}
+  {
+    \ifstrequal{#2}{vbox}
+    {\begin{tcolorbox}
+        \ifminted\unskip
+          \inputminted{text}{\tmpname}\unskip
+        \else\iflistings\unskip
+          \lstinputlisting{\tmpname}\unskip
+        \else\unskip
+        \VerbatimInput{\tmpname}\unskip
+        \fi
+        \fi
+      \end{tcolorbox}}
+    {\unskip\ifstrequal{#2}{inline}
+      {\unskip\input{\tmpname}\unskip}
+      {\input{\tmpname}}}}
+  % if code execution disabled, and no cache:
+  {\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+      \textbf{Output file \tmpname~ not found}. Check the file name (it may be that the file name was given with the suffix .tex. If so, remove it). If the file name is correct the problem may be because code execution is disabled and no cache is available. If so, force the code to run again (using the [run] option).
+    \end{tcolorbox}}}
+
+
+\NewDocumentCommand{\checkZeroBytes}{m}{
+  \immediate\write18{python3 -c 'import os; print("**ZERO BYTES IN OUTPUT**", file=open("#1", "a")) if os.path.getsize("#1") == 0 else True'}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \writeChunk writes a selected chunk from  source code as a .txt file.
+% Arg #1 is the source file name,
+% Arg #2 is the chunk identifier
+% Args #3 and #4 are the beginning and end markings of a chunk (optional).
+
+\NewDocumentCommand{\writeChunk}{m m O{label===} O{===end}} {
+  \IfFileExists{#1}{
+    \endlinechar=-1
+    \def\printcode{0} % don't print until we see the begin-block string
+    \newread\file
+    \openin\file=#1
+    \newwrite\outfile
+    \immediate\openout\outfile=\generated/#1-#2.txt
+    \loop\unless\ifeof\file
+      \immediate\readline\file to\fileline
+      \ifnum\printcode=1
+        \IfSubStr{\fileline}{\detokenize{#4}}{
+          \renewcommand{\printcode}{-1}}{\immediate\write\outfile{\fileline}}
+      \fi
+      \IfSubStr{\fileline}{\detokenize{#3}}{
+          \StrBehind{\fileline}{\detokenize{#3}}[\chunkname]
+          \IfStrEq*{\detokenize{#2}}{\chunkname}{\renewcommand{\printcode}{1}}{}
+      }
+      {}
+    \repeat
+    \closein\file
+    \immediate\closeout\outfile
+    \endlinechar=13
+    \ifnum\printcode=0
+      \textcolor{red}{\textbf{Label #2 not found in #1}}
+    \fi
+  }{\textcolor{red}{\textbf{Source file #1 not found}}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \showChunk prints a selected chunk from  source code, using minted or listings for a pretty layout.
+% The chunk is identified in the source code by two strings that define the beginning and end of the chunk.
+% The default beginning is label===<name> where <name> should be a unique user-defined chunk ID.
+% The default end marker is ===end
+% In the code, these markers should appear after a comment character, so that the code will run. 
+% Arg #1 is the programming language,
+% Arg #2 is the source file name,
+% Args #3 is the chunk identifier
+% Args #4 and #5 are the beginning and end markings of a chunk (optional).
+
+\NewDocumentCommand{\showChunk}{m m m O{label===} O{===end}}{
+  \IfFileExists{#2}{
+    \writeChunk{#2}{#3}[#4][#5]
+    \IfFileExists{\generated/#2-#3.txt}{\showCode{#1}{\generated/#2-#3.txt}}
+    {\textcolor{red}{\textbf{Label #3 not found in #2}}}
+  }{\textcolor{red}{\textbf{Source file #2 not found}}}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \inln{Arg #1}{Arg #2}[Arg #3][Arg #4] is used to execute short source code
+% and embed resulting output.
+% Arg #1 is the executable program;
+% Arg #2 is the source code;
+% Arg #3 is the output file name (optional). 
+% Arg #4 is the type output (if skipped or with empty value the default type is
+%        inline; vbox = verbatim in a box); If you append  .cache to the argument
+%.       AND the output file in Arg#3 exists, then \inln will use the cached result;
+
+\NewDocumentCommand{\inln}{m m O{} O{inline}}{\-
+    \unskip
+    \ifthenelse{\isempty{#3}}
+    {\stepcounter{codeOutput}\unskip\unskip\setvalue{\tmpname}{\generated/\jobname_inln\thecodeOutput}\unskip\unskip\unskip}
+    {\unskip\setvalue{\tmpname}{\generated/#3}\unskip\unskip\unskip}
+    \unskip\unskip\unskip    
+    \IfFileExists{\tmpname.tex}{\IfEndWith{#4}{cache}{\inlnrunfalse}{\inlnruntrue}}{\inlnruntrue}
+  \ifinlnrun
+  \ifruncode % cache mode - don't try to run the code, just get the previous results
+    \IfBeginWith{#2}{```}{\ifruncode\immediate\write18{#1 > \tmpname.tex}\unskip\fi}
+    {\newwrite\tempfile
+      \immediate\openout\tempfile=\tmpname.txt
+      \immediate\write\tempfile{\detokenize{#2}}
+      \immediate\closeout\tempfile
+      \ifruncode
+      \immediate\write18{#1 \tmpname.txt > \tmpname.tex}\unskip
+    \fi}
+  \fi 
+  \fi% end cache mode
+  \unskip\unskip\unskip  
+  \IfFileExists{\tmpname.tex}
+  {\checkZeroBytes{\tmpname.tex}\unskip
+    \IfBeginWith{#4}{vbox}
+        {\begin{tcolorbox}
+        \ifminted\unskip
+          \inputminted{text}{\tmpname.tex}\unskip
+        \else\unskip\iflistings\unskip
+          \lstinputlisting{\tmpname.tex}\unskip
+        \else\unskip
+        \VerbatimInput{\tmpname.tex}\unskip
+        \fi
+        \fi
+      \end{tcolorbox}}
+    {\unskip{\input{\tmpname.tex}}\unskip}}
+    {\textcolor{red}{\textbf{Output file \tmpname~ not found}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Extended and language-specific commands:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \runCodeIncOut: runs an external code and embeds the output.
+% Arg #1 is the executable program,
+% Arg #2 is the source file name,
+% Arg #3 controls when to run the code (optional - if not given, it listens
+%        to \runcode; run = force the code to run; cache or anything else =
+%        use cache). The same functionality as that of Arg #4 of \runExtCode.
+% Arg #4 is the output file name (optional - if not given, the counter 
+%        codeOutput is used). The same functionality as that of Arg #4 of
+%        \runExtCode.
+% Arg #5 is the optional type output with default "vbox"
+%        (vbox = verbatim in a box, tex = pure latex, or inline)
+%        The same functionality as that of Arg #2 of \includeOutput.
+
+\NewDocumentCommand{\runCodeIncOut}{m m O{} O{} O{vbox}}{
+  \runExtCode{#1}{#2}{#4}[#3]
+  \includeOutput{#4}[#5]
+}
+
+\newcommand{\runcmd}[2]
+{python3 -c 'from talk2stat.talk2stat import client; client("./","#1",#2)'}
+
+% a generic LANG - it will be used as a template for other languages
+\newcommand{\LANG}{LANG}
+\newcommand{\LANGcmd}{LANGcmd}
+
+\expandafter\NewDocumentCommand\csname run\LANG\endcsname
+{O{} m m O{}}
+{\ifthenelse{\isempty{#1}}
+  {\runExtCode{\runcmd{\LANGcmd}{"#2"}}{#2}{#3}[#4]}
+  {\runExtCode{#1}{#2}{#3}[#4]}
+}
+
+\expandafter\NewDocumentCommand\csname run\LANG IncOut\endcsname
+{O{} m O{} O{} O{vbox}}
+{\ifthenelse{\isempty{#1}}
+  {\runCodeIncOut{\runcmd{\LANGcmd}{"#2"}}{#2}[#3][#4][#5]}
+  {\runCodeIncOut{#1}{#2}[#3][#4][#5]}
+}
+
+\expandafter\NewDocumentCommand\csname inln\LANG\endcsname
+{O{} m O{} O{inline}}
+{\ifthenelse{\isempty{#1}}
+  {\IfBeginWith{#2}{```}
+    {\inln{\runcmd{\LANGcmd}{r"""\detokenize{#2}"""}}{#2}[#3][#4]}
+    {\inln{\runcmd{\LANGcmd}{"\tmpname.txt"}}{#2}[#3][#4]}
+  }
+  {\inln{#1}{#2}[#3][#4]}
+  \unskip\unskip\unskip
+}
+
+\expandafter\NewDocumentCommand\csname run\LANG Chunk\endcsname
+{O{} m m O{} O{} O{vbox}}
+{\IfFileExists{\generated/#2-#3.txt}{}{\writeChunk{#2}{#3}}
+  {\csname run\LANG IncOut\endcsname[#1]{\generated/#2-#3.txt}[#4][#2-#3][#6]}
+}
+
+% R
+\NewDocumentCommand{\runR}{O{} m m O{}}
+{{\renewcommand{\LANGcmd}{R}\runLANG[#1]{#2}{#3}[#4]}}
+
+\NewDocumentCommand{\runRIncOut}{O{} m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{R}\runLANGIncOut[#1]{#2}[#3][#4][#5]}}
+
+\NewDocumentCommand{\inlnR}{O{} m O{} O{inline}}
+{{\renewcommand{\LANGcmd}{R}\inlnLANG[#1]{#2}[#3][#4]}}
+
+\NewDocumentCommand{\runRChunk}{O{} m m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{R}\runLANGChunk[#1]{#2}{#3}[#4][#5][#6]}}
+
+% Julia
+\NewDocumentCommand{\runJulia}{O{} m m O{}}
+{{\renewcommand{\LANGcmd}{julia}\runLANG[#1]{#2}{#3}[#4]}}
+
+\NewDocumentCommand{\runJuliaIncOut}{O{} m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{julia}\runLANGIncOut[#1]{#2}[#3][#4][#5]}}
+
+\NewDocumentCommand{\inlnJulia}{O{} m O{} O{inline}}
+{{\renewcommand{\LANGcmd}{julia}\inlnLANG[#1]{#2}[#3][#4]}}
+
+\NewDocumentCommand{\runJuliaChunk}{O{} m m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{julia}\runLANGChunk[#1]{#2}{#3}[#4][#5][#6]}}
+
+
+% Matlab
+\NewDocumentCommand{\runMatLab}{O{} m m O{}}
+{{\renewcommand{\LANGcmd}{matlab}\runLANG[#1]{#2}{#3}[#4]}}
+
+\NewDocumentCommand{\runMatLabIncOut}{O{} m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{matlab}\runLANGIncOut[#1]{#2}[#3][#4][#5]}}
+
+\NewDocumentCommand{\inlnMatLab}{O{} m O{} O{inline}}
+{{\renewcommand{\LANGcmd}{matlab}\inlnLANG[#1]{#2}[#3][#4]}}
+
+\NewDocumentCommand{\runMatLabChunk}{O{} m m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{matlab}\runLANGChunk[#1]{#2}{#3}[#4][#5][#6]}}
+
+
+% Python
+\NewDocumentCommand{\runPython}{O{} m m O{}}
+{{\renewcommand{\LANGcmd}{python}\runLANG[#1]{#2}{#3}[#4]}}
+
+\NewDocumentCommand{\runPythonIncOut}{O{} m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{python}\runLANGIncOut[#1]{#2}[#3][#4][#5]}}
+
+\NewDocumentCommand{\inlnPython}{O{} m O{} O{inline}}
+{{\renewcommand{\LANGcmd}{python}\inlnLANG[#1]{#2}[#3][#4]}}
+
+\NewDocumentCommand{\runPythonChunk}{O{} m m O{} O{} O{vbox}}
+{{\renewcommand{\LANGcmd}{python}\runLANGChunk[#1]{#2}{#3}[#4][#5][#6]}}
+
+
+%%%%%%%%
+% For Python batch mode, implement saving and restoring session
+% Arg #1 is the source file name,
+% Arg #2 is the output file name
+
+\NewDocumentCommand{\runPythonBatch}{m m}{%\-\\
+   \stepcounter{codeOutput}
+   \ifthenelse{\isempty{#2}} % set the output file name
+        { \setvalue{\tmpname}{\generated/\jobname_tmp\thecodeOutput.tex} }
+        { \setvalue{\tmpname}{\generated/#2.tex} }
+
+   \IfFileExists{#1}{
+     \ifruncode
+          \newwrite\tempfile
+          \immediate\openout\tempfile=\generated/\jobname_#1
+          \immediate\write\tempfile{import dill}
+          \immediate\write\tempfile{from os.path import exists}
+          \immediate\write\tempfile{if exists('\generated/session'):}
+          \immediate\write\tempfile{    dill.load_session('\generated/session')}
+          \immediate\write\tempfile{}
+          \newread\infile
+          \openin\infile=#1
+          \begingroup\endlinechar=-1
+          \loop\unless\ifeof\infile
+             \read\infile to\fileline  % Read one line and store it into \fileline
+             \immediate\write\tempfile{\unexpanded\expandafter{\fileline}}  % print the content to copy.txt
+          \repeat
+          \endgroup
+          \closein\infile
+          \immediate\write\tempfile{dill.dump_session('\generated/session')}
+          \immediate\write\tempfile{}
+          \immediate\closeout\tempfile
+          \immediate\write18{python3  \generated/\jobname_#1 > \tmpname}
+       \fi
+     }
+     {
+        \immediate\write18{cat /dev/null > \tmpname}
+        \textcolor{red}{\textbf{runPythonBatch: File #1 does not exist!}}
+     }
+}
+
+
+\endinput

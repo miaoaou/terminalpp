@@ -1,0 +1,13 @@
+name pdfpagediff
+category Package
+revision 37946
+shortdesc Find difference between two PDF's
+relocated 1
+longdesc Find difference between two PDF's
+runfiles size=2
+ RELOC/tex/latex/pdfpagediff/pdfpagediff.sty
+catalogue-ctan /macros/latex/contrib/pdfpagediff
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl1
+catalogue-topics pdf-view pdfprocess
+catalogue-version 1.4

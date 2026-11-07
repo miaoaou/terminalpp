@@ -1,0 +1,533 @@
+%%
+%% This is file `phfqit.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% phfqit.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016 by Philippe Faist, philippe.faist@bluewin.ch
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{phfqit}
+    [2021/10/08 v4.1 phfqit package]
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{dsfont}
+\RequirePackage{mathrsfs}
+\RequirePackage{mathtools}
+\RequirePackage{xparse}
+\RequirePackage{xkeyval}
+\RequirePackage{kvoptions}
+\newcommand{\Hs}{\mathscr{H}}
+\newcommand{\Ident}{\mathds{1}}
+\def\IdentProc{%
+  \phfqit@parsesizearg\phfqit@IdentProc@maybeA%
+}
+\newcommand\phfqit@IdentProc@maybeA[1][]{%
+  \def\phfqit@IdentProc@val@A{#1}%
+  \phfqit@IdentProc@maybeB%
+}
+\newcommand\phfqit@IdentProc@maybeB[1][]{%
+  \def\phfqit@IdentProc@val@B{#1}%
+  \phfqit@IdentProc@arg%
+}
+\def\phfqit@IdentProc@arg#1{%
+  \def\phfqit@IdentProc@val@arg{#1}%
+  \edef\@tmp@args{%
+    {\expandonce{\phfqit@IdentProc@val@A}}%
+    {\expandonce{\phfqit@IdentProc@val@B}}%
+    {\expandonce{\phfqit@IdentProc@val@arg}}%
+  }%
+  \expandafter\phfqit@IdentProc@do\@tmp@args%
+}
+\def\phfqit@IdentProc@do#1#2#3{%
+  \operatorname{id}_{#1\notblank{#2}{\to #2}{}}%
+  \notblank{#3}{\expandafter\phfqitParens\phfqit@val@sizearg{#3}}{}%
+}
+\edef\phfqit@def@hat{\detokenize{^}}
+\expandafter\def\expandafter\phfqit@ee@gobblehat\phfqit@def@hat{%
+  \phfqitExpPowerExpression}
+\def\phfqitExpPowerExpression#1{e^{#1}}
+\def\ee#1{\expandafter\phfqit@ee@gobblehat\detokenize{#1}}
+\robustify\phfqitExpPowerExpression
+\robustify\ee
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\linspan}{span}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\diag}{diag}
+\let\phfqit@Re\Re
+\DeclareMathOperator{\phfqit@Realpart}{Re}%
+\let\phfqit@Im\Im
+\DeclareMathOperator{\phfqit@Imagpart}{Im}%
+\DeclareMathOperator{\poly}{poly}
+\newcommand\bit[1]{\texttt{#1}}
+\newcommand\bitstring[1]{\phfqit@bitstring{#1}}
+\def\phfqit@bitstring#1{%
+  \begingroup%
+  \setlength{\phfqit@len@bit}{\maxof{\widthof{\bit{0}}}{\widthof{\bit{1}}}}%
+  \phfqitBitstringFormat{\phfqit@bitstring@#1\phfqit@END}%
+  \endgroup%
+}
+\def\phfqit@bitstring@#1#2\phfqit@END{%
+  \makebox[\phfqit@len@bit][c]{\phfqitBitstringFormatBit{#1}}%
+  \if\relax\detokenize\expandafter{#2}\relax%
+  \else%
+    \phfqitBitstringSep\phfqit@bitstring@#2\phfqit@END%
+  \fi%
+}
+\newlength\phfqit@len@bit
+\newcommand\phfqitBitstringSep{\hspace{0.3ex}}
+\newcommand\phfqitBitstringFormat[1]{\ensuremath{\underline{\overline{#1}}}}
+\def\phfqitBitstringFormatBit{\bit}
+\DeclareRobustCommand\gate[1]{\ifmmode\textsc{\lowercase{#1}}%
+  \else{\rmfamily\textsc{\lowercase{#1}}}\fi}
+\newcommand{\AND}{\gate{And}}
+\newcommand{\XOR}{\gate{Xor}}
+\newcommand{\CNOT}{\gate{C-Not}}
+\newcommand{\NOT}{\gate{Not}}
+\newcommand{\NOOP}{\gate{No-Op}}
+\def\uu(#1){\phfqitLieAlgebra{u}{#1}}
+\def\UU(#1){\phfqitLieGroup{U}{#1}}
+\def\su(#1){\phfqitLieAlgebra{su}{#1}}
+\def\SU(#1){\phfqitLieGroup{SU}{#1}}
+\def\so(#1){\phfqitLieAlgebra{so}{#1}}
+\def\SO(#1){\phfqitLieGroup{SO}{#1}}
+\def\slalg(#1){\phfqitLieAlgebra{sl}{#1}} % \sl is "slanted font" in TeX
+\def\SL(#1){\phfqitLieGroup{SL}{#1}}
+\def\GL(#1){\phfqitLieGroup{GL}{#1}}
+\def\SN(#1){\phfqitDiscreteGroup{S}{#1}}
+\newcommand\phfqitLieAlgebra[2]{\mathfrak{#1}({#2})}
+\newcommand\phfqitLieGroup[2]{\mathrm{#1}({#2})}
+\newcommand\phfqitDiscreteGroup[2]{\mathrm{#1}_{#2}}
+\def\phfqit@parsesizearg#1{%
+  \begingroup%
+  \mathcode`\`="0060\relax%
+  \gdef\phfqit@val@sizearg{}%
+  \def\phfqit@tmp@contwithsize{\phfqit@parsesizearg@withsize{#1}}%
+  \@ifnextchar`{\phfqit@tmp@contwithsize}{\endgroup#1}%
+}
+\def\phfqit@parsesizearg@withsize#1`#2{%
+  \def\phfqit@tmp@x{#2}%
+  \def\phfqit@tmp@star{*}%
+  \ifx\phfqit@tmp@x\phfqit@tmp@star%
+    \gdef\phfqit@val@sizearg{*}%
+    \def\phfqit@tmp@cont{\endgroup#1}%
+    \expandafter\phfqit@tmp@cont%
+  \else%
+    \gdef\phfqit@val@sizearg{[#2]}%
+    \def\phfqit@tmp@cont{\endgroup#1}%
+    \expandafter\phfqit@tmp@cont%
+  \fi%
+}
+\def\phfqitDeclarePairedDelimiterXWithAltSizing{%
+  \phfqitDeclareMathtoolsPairedDelimiterCmdWithAltSizing\DeclarePairedDelimiterX
+}
+\def\phfqitDeclarePairedDelimiterXPPWithAltSizing{%
+  \phfqitDeclareMathtoolsPairedDelimiterCmdWithAltSizing\DeclarePairedDelimiterXPP
+}
+\def\phfqitDeclareMathtoolsPairedDelimiterCmdWithAltSizing#1#2{%
+  \begingroup
+    \escapechar=-1\relax
+    \xdef\phfqit@tmp@thecmd{%
+      \expandafter\noexpand\csname phfqit@paireddelim@def@\string#2\endcsname}%
+  \endgroup
+  \edef\x{%
+    \noexpand\phfqit@paireddelim@parsesizearg{\expandonce\phfqit@tmp@thecmd}%
+  }%
+  \expandafter\DeclareRobustCommand\expandafter#2\expandafter{\x}%
+  \expandafter#1\phfqit@tmp@thecmd
+}
+\def\phfqit@paireddelim@parsesizearg#1{%
+  \phfqit@parsesizearg{\expandafter#1\phfqit@val@sizearg}%
+}
+\def\phfqitKetsBarSpace{\mkern 1.5mu\relax}
+\def\phfqitKetsRLAngleSpace{\mkern -1.8mu\relax}
+\phfqitDeclarePairedDelimiterXWithAltSizing\ket[1]{\lvert}{\rangle}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\bra[1]{\langle}{\rvert}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\braket[2]{\langle}{\rangle}{%
+  {#1}\phfqitKetsBarSpace\delimsize\vert\phfqitKetsBarSpace{#2}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\ketbra[2]{\lvert}{\rvert}{%
+  {#1}\delimsize\rangle\phfqitKetsRLAngleSpace\delimsize\langle{#2}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\proj[1]{\lvert}{\rvert}{%
+  {#1}\delimsize\rangle\phfqitKetsRLAngleSpace\delimsize\langle{#1}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\matrixel[3]{\langle}{\rangle}{%
+  {#1}\phfqitKetsBarSpace\delimsize\vert\phfqitKetsBarSpace{#2}%
+  \phfqitKetsBarSpace\delimsize\vert\phfqitKetsBarSpace{#3}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\dmatrixel[2]{\langle}{\rangle}{%
+  {#1}\phfqitKetsBarSpace\delimsize\vert\phfqitKetsBarSpace{#2}%
+  \phfqitKetsBarSpace\delimsize\vert\phfqitKetsBarSpace{#1}%
+}
+\def\phfqitKetsBeforeCommaSpace{}
+\def\phfqitKetsAfterCommaSpace{\mkern 1.5mu\relax}
+\phfqitDeclarePairedDelimiterXWithAltSizing\innerprod[2]{\langle}{\rangle}{%
+  {#1}\phfqitKetsBeforeCommaSpace,\phfqitKetsAfterCommaSpace{#2}%
+}
+\def\phfqitOKetsBarSpace{\phfqitKetsBarSpace}
+\def\phfqitOKetsRLAngleSpace{\phfqitKetsRLAngleSpace}
+\phfqitDeclarePairedDelimiterXWithAltSizing\oket[1]{\lvert}{\rrangle}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\obra[1]{\llangle}{\rvert}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\obraket[2]{\llangle}{\rrangle}{%
+  {#1}\phfqitOKetsBarSpace\delimsize\vert\phfqitOKetsBarSpace{#2}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\oketbra[2]{\lvert}{\rvert}{%
+  {#1}\delimsize\rrangle\phfqitOKetsRLAngleSpace\delimsize\llangle{#2}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\oproj[1]{\lvert}{\rvert}{%
+  {#1}\delimsize\rrangle\phfqitOKetsRLAngleSpace\delimsize\llangle{#1}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\omatrixel[3]{\llangle}{\rrangle}{%
+  {#1}\phfqitOKetsBarSpace\delimsize\vert\phfqitOKetsBarSpace{#2}%
+  \phfqitOKetsBarSpace\delimsize\vert\phfqitOKetsBarSpace{#3}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\odmatrixel[2]{\llangle}{\rrangle}{%
+  {#1}\phfqitOKetsBarSpace\delimsize\vert\phfqitOKetsBarSpace{#2}%
+  \phfqitOKetsBarSpace\delimsize\vert\phfqitOKetsBarSpace{#1}%
+}
+\phfqitDeclarePairedDelimiterXWithAltSizing\abs[1]{\lvert}{\rvert}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\avg[1]{\langle}{\rangle}{{#1}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\norm[1]{\lVert}{\rVert}{{#1}}
+\def\phfqitDefineNorm#1#2#3{%
+  \phfqitDeclarePairedDelimiterXPPWithAltSizing#1[1]{#2}{\lVert}{\rVert}{#3}{{##1}}%
+}
+\def\phfqit@insideinterval#1#2{{#1\mathclose{},\mathopen{}#2}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\intervalc[2]{[}{]}{%
+  \phfqit@insideinterval{#1}{#2}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\intervalo[2]{]}{[}{%
+  \phfqit@insideinterval{#1}{#2}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\intervalco[2]{[}{[}{%
+  \phfqit@insideinterval{#1}{#2}}
+\phfqitDeclarePairedDelimiterXWithAltSizing\intervaloc[2]{]}{]}{%
+  \phfqit@insideinterval{#1}{#2}}
+\DeclarePairedDelimiterX\phfqitParens[1]{(}{)}{#1}
+\DeclarePairedDelimiterX\phfqitSquareBrackets[1]{[}{]}{#1}
+\DeclarePairedDelimiterX\phfqitCurlyBrackets[1]{\{}{\}}{#1}
+\newcommand\QitObject[1]{%
+  \begingroup%
+    \preto\QitObjectDone{\endgroup}%
+    \QitObjectInit%
+    \csname QitObj@reg@#1@initdefs\endcsname%
+%%\message{DEBUG: \detokenize{\QitObject{#1}}}%
+    \def\QitObj@args{}%
+    \def\qitobjParseDone{\QitObj@proceedToRender{#1}}%
+    \def\qitobjDone{\QitObjectDone}%
+    \csname QitObj@reg@#1@parse\endcsname%
+}
+\def\DefineQitObject#1#2#3{%
+  \DefineTunedQitObject{#1}{#2}{#3}{}{}%
+}%
+\def\DefineTunedQitObject#1#2#3#4#5{%
+  \csdef{#1}{\QitObject{#1}#4}%
+  \expandafter\robustify\csname #1\endcsname%
+  \cslet{QitObj@reg@#1@parse}#2%
+  \cslet{QitObj@reg@#1@render}#3%
+  \csdef{QitObj@reg@#1@initdefs}{#5}%
+}
+\def\qitobjAddArg#1{%
+  \appto\QitObj@args{{#1}}%
+}
+\def\qitobjAddArgx#1{%
+  \expandafter\qitobjAddArg\expandafter{#1}%
+}
+\def\qitobjParseDone{}
+\def\qitobjDone{}
+\def\QitObjectDone{}
+\def\QitObjectInit{}
+\def\QitObj@proceedToRender#1{%
+%%\message{DEBUG: Rendering #1|\detokenize\expandafter{\QitObj@args}|}%
+  \expandafter\def\expandafter\x\expandafter{%
+    \csname QitObj@reg@#1@render\endcsname}%
+  \expandafter\x\QitObj@args%
+}
+\def\HbaseParse#1#2{%
+  \qitobjAddArg{#1}%
+  \qitobjAddArg{#2}%
+  \phfqit@parsesizearg\HbaseParse@%
+}
+\newcommand\HbaseParse@[1][]{%
+  \qitobjAddArgx{\phfqit@val@sizearg}%
+  \qitobjAddArg{#1}%
+  \HbaseParse@@%
+}
+\newcommand\HbaseParse@@[2][]{%
+  \qitobjAddArg{#1}%
+  \qitobjAddArg{#2}%
+  \HbaseParse@@@%
+}
+\newcommand\HbaseParse@@@[1][]{%
+  \qitobjAddArg{#1}%
+  \qitobjParseDone%
+}
+\def\HbaseRender#1#2#3#4#5#6#7{%
+%%\message{DEBUG: HbaseRender\detokenize{{#1}{#2}{#3}{#4}{#5}{#6}{#7}}}%
+  \HbaseRenderSym{#1}_{\HbaseRenderSub{#2}}^{\HbaseRenderSup{#5}}
+  \notblank{#4#6#7}{%
+    \HbaseRenderContents{#3}{#6}{#7}%
+    \HbaseRenderTail{#4}%
+  }{}%
+  \qitobjDone%
+}
+\def\HbaseRenderSym#1{#1}%
+\def\HbaseRenderSub#1{#1}%
+\def\HbaseRenderSup#1{#1}%
+\def\HbaseRenderTail#1{_{#1}}%
+\newtoks\Hbase@tmp@toks
+\def\Hbase@addtoks#1\@Hbase@END@ADD@TOKS{%
+  \Hbase@tmp@toks=\expandafter{\the\Hbase@tmp@toks#1}}%
+\def\HbaseRenderContents#1#2#3{%
+    \Hbase@tmp@toks={#2}%
+    \notblank{#3}{%
+      \Hbase@addtoks\mathclose{}\,\delimsize\vert\,\mathopen{}%
+          #3%
+          \@Hbase@END@ADD@TOKS%
+    }{}%
+    \edef\tmp@args{\unexpanded{#1}{\the\Hbase@tmp@toks}}%
+    \expandafter\HbaseRenderContentsInnerParens\tmp@args%
+}
+\def\HbaseRenderContentsInnerParens{\phfqitParens}
+\DefineQitObject{Hbase}{\HbaseParse}{\HbaseRender}
+\def\HfnbaseParse#1#2#3{%
+  \qitobjAddArg{#1}% H-sym
+  \qitobjAddArg{#2}% sub
+  \phfqit@parsesizearg{\HfnbaseParse@{#3}}%
+}
+\NewDocumentCommand{\HfnbaseParse@}{mr()}{%
+  \qitobjAddArgx{\phfqit@val@sizearg}% size-arg
+  \qitobjAddArg{}% state
+  \qitobjAddArg{#1}% epsilon
+  \qitobjAddArg{#2}% system--main arg
+  \qitobjAddArg{}% cond system
+%%\message{DEBUG: Hfnbase args are |\detokenize\expandafter{\QitObj@args}|}%
+  \qitobjParseDone%
+}
+\DefineQitObject{Hfnbase}{\HfnbaseParse}{\HbaseRender}
+\def\DbaseParse#1{%
+  \qitobjAddArg{#1}% D-sym
+  \def\DbaseParse@val@sub{}%
+  \def\DbaseParse@val@sup{}%
+  \DbaseParse@%
+}
+\def\DbaseParse@{%
+  \@ifnextchar_{\DbaseParse@parsesub}{\DbaseParse@@}%
+}
+\def\DbaseParse@@{%
+  \@ifnextchar^{\DbaseParse@parsesup}{\DbaseParse@@@}%
+}
+\def\DbaseParse@parsesub_#1{%
+  \appto\DbaseParse@val@sub{#1}%
+  \DbaseParse@% return to maybe parsing other sub/superscripts
+}
+\def\DbaseParse@parsesup^#1{%
+  \appto\DbaseParse@val@sup{#1}%
+  \DbaseParse@% return to maybe parsing other sub/superscripts
+}
+\def\DbaseParse@@@{%
+  \qitobjAddArgx\DbaseParse@val@sub%
+  \qitobjAddArgx\DbaseParse@val@sup%
+  \phfqit@parsesizearg\DbaseParse@rest%
+}
+\def\DbaseParse@rest#1#2{%
+  \qitobjAddArgx\phfqit@val@sizearg%
+  \qitobjAddArg{#1}% rho
+  \qitobjAddArg{#2}% Gamma
+  \qitobjParseDone%
+}
+\def\DbaseRender#1#2#3#4#5#6{%
+%%\message{DEBUG: DbaseRender\detokenize{{#1}{#2}{#3}{#4}{#5}{#6}}}%
+  \DbaseRenderSym{#1}_{\DbaseRenderSub{#2}}^{\DbaseRenderSup{#3}}
+  \notblank{#5#6}{%
+    \DbaseRenderContents{#4}{#5}{#6}%
+  }{}%
+  \qitobjDone%
+}
+\def\DbaseRenderSym#1{#1}%
+\def\DbaseRenderSub#1{#1}%
+\def\DbaseRenderSup#1{#1}%
+\newtoks\Dbase@tmp@toks
+\def\Dbase@addtoks#1\@Dbase@END@ADD@TOKS{%
+  \Dbase@tmp@toks=\expandafter{\the\Dbase@tmp@toks#1}}%
+\def\DbaseRenderContents#1#2#3{%
+    \Dbase@tmp@toks={#2}%
+    \notblank{#3}{%
+      \Dbase@addtoks\mathclose{}\,\delimsize\Vert\,\mathopen{}%
+          #3%
+          \@Dbase@END@ADD@TOKS%
+    }{}%
+    \edef\tmp@args{\unexpanded{#1}{\the\Dbase@tmp@toks}}%
+    \expandafter\DbaseRenderContentsInnerParens\tmp@args%
+}
+\def\DbaseRenderContentsInnerParens{\phfqitParens}
+\DefineQitObject{Dbase}{\DbaseParse}{\DbaseRender}
+\def\DCohbaseParse#1{%
+  \qitobjAddArg{#1}% D-sym
+  \DCohbaseParse@%
+}
+\newcommand\DCohbaseParse@[1][]{%
+  \qitobjAddArg{#1}% epsilon
+  \phfqit@parsesizearg\DCohbaseParse@rest%
+}
+\def\DCohbaseParse@rest#1#2#3#4#5{%
+  % rho, X, X', \Gamma_X, \Gamma_{X'}
+  \qitobjAddArgx\phfqit@val@sizearg%
+  \DCohbaseParse@parserhosub#1\DCohbaseParse@ENDSTATE{#2}{#3}%
+  \qitobjAddArg{#2}%
+  \qitobjAddArg{#3}%
+  \qitobjAddArg{#4}%
+  \qitobjAddArg{#5}%
+  \qitobjParseDone%
+}
+\def\DCohbaseParse@parserhosub{%
+  \@ifnextchar*\DCohbaseParse@parserhosub@nosub%
+  \DCohbaseParse@parserhosub@wsub%
+}
+\def\DCohbaseParse@parserhosub@nosub*#1\DCohbaseParse@ENDSTATE#2#3{%
+  \qitobjAddArg{#1}% rho
+}
+\def\DCohbaseParse@parserhosub@wsub#1\DCohbaseParse@ENDSTATE#2#3{%
+  \qitobjAddArg{#1_{\begingroup\let\emptysystem\relax%
+      \DCohbaseStateSubscripts{#2}{#3}\endgroup}}% all this for "rho" arg
+}
+\def\DCohbaseStateSubscripts#1#2{%
+  #2#1%
+}
+\def\DCohbaseRender#1#2#3#4#5#6#7#8{%
+  %
+%%\message{DEBUG: DCohbaseRender here, args are |\detokenize{{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}|.}}
+  %
+  \DCohbaseRenderSym{#1}%
+  _{\DCohbaseRenderSystems{#5}{#6}}%
+  ^{\DCohbaseRenderSup{#2}}%
+  \notblank{#4#7#8}{%
+    \DCohbaseRenderContents{#3}{#4}{#7}{#8}%
+  }{}%
+  \qitobjDone%
+}
+\def\DCohbaseRenderSym#1{#1}%
+\def\DCohbaseRenderSystems#1#2{#1\to #2}%
+\def\DCohbaseRenderSup#1{#1}%
+\newtoks\DCohbase@tmp@toks
+\def\DCohbase@addtoks#1\@DCohbase@END@ADD@TOKS{%
+  \DCohbase@tmp@toks=\expandafter{\the\DCohbase@tmp@toks#1}}%
+\def\DCohbaseRenderContents#1#2#3#4{%
+    \DCohbase@tmp@toks={#2}%
+    \notblank{#3}{%
+      \DCohbase@addtoks\mathclose{}\,\delimsize\Vert\,\mathopen{}%
+          #3\@DCohbase@END@ADD@TOKS%
+        \notblank{#4}{%
+          \DCohbase@addtoks\mathclose{},\mathopen{}%
+              #4\@DCohbase@END@ADD@TOKS%
+        }{}%
+    }{%
+        \notblank{#4}{%
+          \PackageWarning{phfqit}{Value `#4' ignored because previous parameter
+            was blank}%
+        }{}%
+      }
+    \edef\tmp@args{\unexpanded{#1}{\the\DCohbase@tmp@toks}}%
+    \expandafter\DCohbaseRenderContentsInnerParens\tmp@args%
+}
+\def\DCohbaseRenderContentsInnerParens{\phfqitParens}
+\DefineQitObject{DCohbase}{\DCohbaseParse}{\DCohbaseRender}
+\def\HSym{H}
+\newcommand\DSym{D}
+\newcommand\DCSym{\bar\DSym}
+\def\emptysystem{\ensuremath{\emptyset}}
+\def\DCohxRefSystemName#1{R_{#1}}
+\def\DCohxStateSubscripts#1#2{#2\DCohxRefSystemName{#1}}
+\let\@HHbase\Hbase
+\let\@DDbase\Dbase
+\let\HHSym\HSym
+\let\DDSym\DSym
+\SetupKeyvalOptions{
+   family=phfqit,
+   prefix=phfqit@opt@
+}
+\DeclareStringOption[stdset]{qitobjdef}
+\DeclareBoolOption[true]{llanglefrommnsymbolfonts}
+\DeclareBoolOption[true]{newReIm}
+\ProcessKeyvalOptions*
+\ifphfqit@opt@newReIm
+  \renewcommand{\Re}{\phfqit@Realpart}
+  \renewcommand{\Im}{\phfqit@Imagpart}
+\fi
+\ifphfqit@opt@llanglefrommnsymbolfonts
+  \DeclareFontFamily{OMX}{MnSymbolE}{}
+  \DeclareSymbolFont{phfqit@MnLargeSymbols}{OMX}{MnSymbolE}{m}{n}
+  \SetSymbolFont{phfqit@MnLargeSymbols}{bold}{OMX}{MnSymbolE}{b}{n}
+  \DeclareFontShape{OMX}{MnSymbolE}{m}{n}{
+      <-6>  MnSymbolE5
+     <6-7>  MnSymbolE6
+     <7-8>  MnSymbolE7
+     <8-9>  MnSymbolE8
+     <9-10> MnSymbolE9
+    <10-12> MnSymbolE10
+    <12->   MnSymbolE12
+  }{}
+  \DeclareFontShape{OMX}{MnSymbolE}{b}{n}{
+      <-6>  MnSymbolE-Bold5
+     <6-7>  MnSymbolE-Bold6
+     <7-8>  MnSymbolE-Bold7
+     <8-9>  MnSymbolE-Bold8
+     <9-10> MnSymbolE-Bold9
+    <10-12> MnSymbolE-Bold10
+    <12->   MnSymbolE-Bold12
+  }{}
+  \let\llangle\@undefined
+  \let\rrangle\@undefined
+  \DeclareMathDelimiter{\llangle}{\mathopen}%
+                       {phfqit@MnLargeSymbols}{'164}{phfqit@MnLargeSymbols}{'164}
+  \DeclareMathDelimiter{\rrangle}{\mathclose}%
+                       {phfqit@MnLargeSymbols}{'171}{phfqit@MnLargeSymbols}{'171}
+\fi
+\def\phfqit@tmp@str@none{none}
+\def\phfqit@tmp@str@stdset{stdset}
+\ifx\phfqit@opt@qitobjdef\phfqit@tmp@str@none%
+\else\ifx\phfqit@opt@qitobjdef\phfqit@tmp@str@stdset%
+\def\HH{\Hbase{\HSym}{}}
+\def\Hzero{\Hbase{\HSym}{\mathrm{max},0}}
+\def\Hmin{\Hbase{\HSym}{\mathrm{min}}}
+\def\Hmaxf{\Hbase{\HSym}{\mathrm{max}}}
+\def\Hfn{\Hfnbase{\HSym}{}{}}
+\let\Hfunc\Hfn% backwards compatibility
+\def\DD{\Dbase{\DSym}}
+\newcommand\Dminz[1][]{\Dbase{\DSym}_{\mathrm{min,0}}^{#1}}
+\newcommand\Dminf[1][]{\Dbase{\DSym}_{\mathrm{min}}^{#1}}
+\newcommand\Dmax[1][]{\Dbase{\DSym}_{\mathrm{max}}^{#1}}
+\newcommand\Dr[1][]{\Dbase{\DSym}_{\mathrm{r}}^{#1}}
+\newcommand\DHyp[1][\eta]{\Dbase{\DSym}_{\mathrm{H}}^{#1}}
+\newcommand\Dhyp[1][\eta]{\Dbase{\DSym}_{\mathrm{h}}^{#1}}
+\DefineTunedQitObject{DCoh}{\DCohbaseParse}{\DCohbaseRender}{{\DCSym}}{}
+\DefineTunedQitObject{DCohx}{\DCohbaseParse}{\DCohbaseRender}%
+{{\DCSym}}{%
+  \let\DCohbaseStateSubscripts\DCohxStateSubscripts%
+}
+\else
+\PackageError{phfqit}{Invalid value `\phfqit@opt@qitobjdef' specified for
+  package option `qitobjdef'.  Please specify one of `stdset' (the default) or
+  `none'}{You specified an invalid value to the `qitobjdef' package option of
+  the `phfqit' package.}
+\fi
+\fi
+\endinput
+%%
+%% End of file `phfqit.sty'.

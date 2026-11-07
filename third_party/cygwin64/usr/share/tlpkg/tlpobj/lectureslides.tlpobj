@@ -1,0 +1,14 @@
+name lectureslides
+category Package
+revision 62292
+shortdesc Combine single PDF files into one file
+relocated 1
+longdesc This package makes it easy to combine and index individual PDF
+longdesc files into one large PDF file.
+runfiles size=1
+ RELOC/tex/latex/lectureslides/lectureslides.sty
+catalogue-also pdfjam pdfpages
+catalogue-ctan /macros/latex/contrib/lectureslides
+catalogue-license cc-by-4
+catalogue-topics pdfprocess
+catalogue-version 1.0

@@ -1,0 +1,19 @@
+name circularglyphs
+category Package
+revision 68476
+shortdesc A circular glyphs alphabet
+relocated 1
+longdesc Circular Glyphs is a graphic alphabet of substitution based on
+longdesc a geometric construction using circles and arcs on a grid. The
+longdesc designs are all based on circular arcs, divided into four
+longdesc quadrants. It is inspired by Star Trek and used by the Bynar
+longdesc and Borg cultures depicted there.
+runfiles size=5
+ RELOC/tex/latex/circularglyphs/circularglyphs.sty
+catalogue-also fundus-startrek
+catalogue-contact-bugs https://github.com/cpierquet/circularglyphs/issues
+catalogue-contact-repository https://github.com/cpierquet/circularglyphs
+catalogue-ctan /graphics/pgf/contrib/circularglyphs
+catalogue-license lppl1.3c other-free
+catalogue-topics font pgf-tikz
+catalogue-version 0.1.1

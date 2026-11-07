@@ -1,0 +1,19 @@
+name moloch
+category Package
+revision 70491
+shortdesc Beamer based on Metropolis theme
+relocated 1
+longdesc Moloch is a fork of the Metropolis Theme which fixes some
+longdesc outstanding issues of this theme.
+runfiles size=8
+ RELOC/tex/latex/moloch/beamercolorthememoloch.sty
+ RELOC/tex/latex/moloch/beamerfontthememoloch.sty
+ RELOC/tex/latex/moloch/beamerinnerthememoloch.sty
+ RELOC/tex/latex/moloch/beamerouterthememoloch.sty
+ RELOC/tex/latex/moloch/beamerthememoloch.sty
+catalogue-contact-repository https://github.com/jolars/moloch
+catalogue-contact-support https://github.com/jolars/moloch/discussions
+catalogue-ctan /macros/latex/contrib/beamer-contrib/themes/moloch
+catalogue-license cc-by-sa-4
+catalogue-topics presentation
+catalogue-version 0.3.0

@@ -1,0 +1,21 @@
+name asyfig
+category Package
+revision 17512
+shortdesc Commands for using Asymptote figures
+relocated 1
+longdesc The package provides a means of reading Asymptote figures from
+longdesc separate files, rather than within the document, as is standard
+longdesc in the asymptote package, which is provided as part of the
+longdesc Asymptote bundle. The asymptote way can prove cumbersome in a
+longdesc large document; the present package allows the user to process
+longdesc one picture at a time, in simple test documents, and then to
+longdesc migrate (with no fuss) to their use in the target document.
+runfiles size=3
+ RELOC/tex/latex/asyfig/asyalign.sty
+ RELOC/tex/latex/asyfig/asyfig.sty
+ RELOC/tex/latex/asyfig/asyprocess.sty
+catalogue-ctan /macros/latex/contrib/asyfig
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics graphics-use
+catalogue-version 0.1c

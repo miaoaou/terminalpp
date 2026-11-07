@@ -1,0 +1,26 @@
+name stealcaps
+category Package
+revision 64967
+shortdesc "Steal" small capitals
+relocated 1
+longdesc This little package is mainly meant to be used when there is a
+longdesc (TrueType or OpenType) font that does not provide real small
+longdesc capitals. As a workaround, this package helps to borrow, or
+longdesc "steal", the small capitals from another font. This might also
+longdesc be useful in the rare case that someone does not like the
+longdesc present small capitals, and wants to change them, or likes
+longdesc those from another font better. To achieve the borrowing, one
+longdesc only needs to load the package and specify the name of the
+longdesc target font via the from option. Package dependencies: pgfopts,
+longdesc iftex, fontspec.
+runfiles size=1
+ RELOC/tex/latex/stealcaps/stealcaps.sty
+catalogue-contact-announce https://github.com/giannotr/stealcaps/discussions/2
+catalogue-contact-bugs https://github.com/giannotr/stealcaps/issues
+catalogue-contact-development https://github.com/giannotr/stealcaps/pulls
+catalogue-contact-repository https://github.com/giannotr/stealcaps.git
+catalogue-contact-support https://github.com/giannotr/stealcaps/discussions/1
+catalogue-ctan /macros/latex/contrib/stealcaps
+catalogue-license lppl1.3c
+catalogue-topics font-supp font-use
+catalogue-version 1.1

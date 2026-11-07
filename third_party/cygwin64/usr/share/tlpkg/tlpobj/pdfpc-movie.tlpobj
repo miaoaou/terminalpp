@@ -1,0 +1,20 @@
+name pdfpc-movie
+category Package
+revision 67201
+shortdesc Pdfpc viewer-compatible hyperlinks to movies
+relocated 1
+longdesc This LaTeX2e package provides a command \pdfpcmovie for
+longdesc embedding (hyperlinking) movies in a way compatible with the
+longdesc PDF Presenter Console (pdfpc), a GPL2-licensed multi-monitor
+longdesc PDF presentation viewer application available on GitHub and
+longdesc shipped with some LINUX distributions such as Debian, Fedora,
+longdesc and Arch. The package depends on etoolbox, hyperref, and
+longdesc pgfkeys.
+runfiles size=2
+ RELOC/tex/latex/pdfpc-movie/pdfpc-movie.sty
+catalogue-contact-bugs https://gitlab.com/SFr682k/pdfpc-movie/-/issues
+catalogue-contact-repository https://gitlab.com/SFr682k/pdfpc-movie
+catalogue-ctan /macros/latex/contrib/pdfpc-movie
+catalogue-license lppl1.3c
+catalogue-topics pdf-view multimedia presentation
+catalogue-version 1.0

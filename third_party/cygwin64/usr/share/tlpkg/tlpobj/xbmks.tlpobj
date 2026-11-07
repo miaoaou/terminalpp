@@ -1,0 +1,21 @@
+name xbmks
+category Package
+revision 53448
+shortdesc Create a cross-document bookmark tree
+relocated 1
+longdesc The package defines the concept of a document bundle, which is
+longdesc a collection of documents that are to be built separately, but
+longdesc have a common bookmark tree. The only options are driver
+longdesc options, these are dvips (Acrobat Distiller or ps2pdf these can
+longdesc be used as the PDF creator), pdfLaTeX (and LuaLaTeX, which is
+longdesc treated the same as pdfLaTeX), and XeLaTeX. The package
+longdesc auto-detects pdfLaTeX and XeLaTeX, and dvips is the default, so
+longdesc there is actually no need to pass the driver option.
+runfiles size=5
+ RELOC/tex/latex/xbmks/xbmks-pdfmark.def
+ RELOC/tex/latex/xbmks/xbmks-pdftex.def
+ RELOC/tex/latex/xbmks/xbmks-xetex.def
+ RELOC/tex/latex/xbmks/xbmks.sty
+catalogue-ctan /macros/latex/contrib/xbmks
+catalogue-license lppl1.2
+catalogue-topics pdfprocess adobe-distiller

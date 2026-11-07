@@ -1,0 +1,15 @@
+name childdoc
+category Package
+revision 49543
+shortdesc Directly compile \include'd child documents
+relocated 1
+longdesc This LaTeX2e package enables the direct compilation of document
+longdesc sections included by \include to individual files.
+runfiles size=1
+ RELOC/tex/latex/childdoc/childdoc.def
+catalogue-also subfiles
+catalogue-ctan /macros/latex/contrib/childdoc
+catalogue-date 2018-12-30 17:14:03 +0100
+catalogue-license lppl1.3
+catalogue-topics subdocs
+catalogue-version 2.0

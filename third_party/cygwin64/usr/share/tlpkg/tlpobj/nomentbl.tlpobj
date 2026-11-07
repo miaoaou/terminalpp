@@ -1,0 +1,16 @@
+name nomentbl
+category Package
+revision 16549
+shortdesc Nomenclature typeset in a longtable
+relocated 1
+longdesc Nomentbl typeset nomenclatures in a longtable instead of the
+longdesc makeindex style of nomencl. A nomenclature entry may have three
+longdesc arguments: Symbol, description and physical unit.
+runfiles size=3
+ RELOC/makeindex/nomentbl/nomentbl.ist
+ RELOC/tex/latex/nomentbl/nomentbl.sty
+catalogue-ctan /macros/latex/contrib/nomentbl
+catalogue-date 2016-06-24 19:18:15 +0200
+catalogue-license lppl
+catalogue-topics glossary
+catalogue-version 0.4

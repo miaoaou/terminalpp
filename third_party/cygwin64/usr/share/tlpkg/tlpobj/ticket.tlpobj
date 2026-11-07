@@ -1,0 +1,32 @@
+name ticket
+category Package
+revision 42280
+shortdesc Make labels, visiting-cards, pins with LaTeX
+relocated 1
+longdesc Provides an easy to handle interface to produce visiting cards,
+longdesc labels for your files, stickers, pins and other stuff for your
+longdesc office, conferences etc. All you need is a definition of your
+longdesc 'ticket' included in a ticket definition file and the two
+longdesc commands \ticketdefault and \ticket.
+runfiles size=18
+ RELOC/tex/latex/ticket/aj8414.tdf
+ RELOC/tex/latex/ticket/dura5222.tdf
+ RELOC/tex/latex/ticket/flashCard.tdf
+ RELOC/tex/latex/ticket/freepin.tdf
+ RELOC/tex/latex/ticket/freepin2.tdf
+ RELOC/tex/latex/ticket/freepin3.tdf
+ RELOC/tex/latex/ticket/he4432.tdf
+ RELOC/tex/latex/ticket/invite.tdf
+ RELOC/tex/latex/ticket/lz1680.tdf
+ RELOC/tex/latex/ticket/lz1681.tdf
+ RELOC/tex/latex/ticket/lz1685.tdf
+ RELOC/tex/latex/ticket/rex23184237.tdf
+ RELOC/tex/latex/ticket/ticket.sty
+ RELOC/tex/latex/ticket/zw32010.tdf
+ RELOC/tex/latex/ticket/zw3424.tdf
+ RELOC/tex/latex/ticket/zw4752.tdf
+catalogue-ctan /macros/latex/contrib/ticket
+catalogue-date 2016-10-11 17:37:14 +0200
+catalogue-license lppl1.3
+catalogue-topics labels
+catalogue-version 0.4d

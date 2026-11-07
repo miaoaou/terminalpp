@@ -1,0 +1,14 @@
+name svgcolor
+category Package
+revision 15878
+shortdesc Define SVG named colours
+relocated 1
+longdesc The package defines the W3C Scalable Vector Graphics (SVG)
+longdesc colour names for use with both the color and PSTricks packages.
+runfiles size=4
+ RELOC/tex/latex/svgcolor/svgcolor.sty
+catalogue-ctan /macros/latex/contrib/svgcolor
+catalogue-date 2018-09-15 14:10:32 +0200
+catalogue-license lppl
+catalogue-topics colour
+catalogue-version 1.0
