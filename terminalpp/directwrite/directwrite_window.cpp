@@ -5,6 +5,12 @@
 
 namespace tpp {
 
+    namespace {
+
+        constexpr wchar_t DropDownPopupClassName[] = L"terminalpp.custom.dropdown.popup";
+
+    } // namespace
+
     LRESULT CALLBACK DirectWriteWindow::CaptionButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassId, DWORD_PTR refData) {
         DirectWriteWindow * window = reinterpret_cast<DirectWriteWindow*>(refData);
         int const id = GetDlgCtrlID(hWnd);
@@ -71,62 +77,341 @@ namespace tpp {
     void DirectWriteWindow::showDropDownMenu() {
         if (dropDownItems_.empty() || dropDownButton_ == nullptr)
             return;
-
-        HMENU menu = CreatePopupMenu();
-        if (menu == nullptr)
+        if (dropDownMenuActive_)
             return;
 
-        std::vector<std::function<void()>> actions;
-        std::function<void(HMENU, std::vector<Window::TabBarMenuItem> const &)> appendItems;
-        appendItems = [&](HMENU parent, std::vector<Window::TabBarMenuItem> const & items) {
-            for (Window::TabBarMenuItem const & item : items) {
-                utf16_string title = UTF8toUTF16(item.title);
-                if (!item.children.empty()) {
-                    HMENU submenu = CreatePopupMenu();
-                    if (submenu == nullptr)
-                        continue;
-                    appendItems(submenu, item.children);
-                    AppendMenuW(parent, MF_POPUP | MF_STRING, reinterpret_cast<UINT_PTR>(submenu), title.c_str());
-                } else {
-                    UINT flags = MF_STRING;
-                    if (!item.enabled || !item.activate)
-                        flags |= MF_GRAYED;
-                    UINT const id = DropDownMenuItemId + static_cast<UINT>(actions.size());
-                    AppendMenuW(parent, flags, id, title.c_str());
-                    actions.push_back(item.activate);
-                }
-            }
-        };
-        appendItems(menu, dropDownItems_);
+        HINSTANCE const instance = DirectWriteApplication::Instance()->hInstance_;
+        WNDCLASSEXW windowClass{};
+        windowClass.cbSize = sizeof(windowClass);
+        if (!GetClassInfoExW(instance, DropDownPopupClassName, &windowClass)) {
+            windowClass.style = CS_DBLCLKS;
+            windowClass.lpfnWndProc = DropDownPopupProc;
+            windowClass.hInstance = instance;
+            windowClass.hCursor = LoadCursorW(nullptr, IDC_ARROW);
+            windowClass.lpszClassName = DropDownPopupClassName;
+            if (!RegisterClassExW(&windowClass))
+                return;
+        }
 
+        int const scale = std::max(1, static_cast<int>(dpiFactor_ * 100));
+        int const rowHeight = MulDiv(30, scale, 100);
+        int const width = dropDownPopupWidth(dropDownItems_, 68);
+        int const height = rowHeight * static_cast<int>(dropDownItems_.size());
         RECT buttonRect{};
         GetWindowRect(dropDownButton_, &buttonRect);
-        SetForegroundWindow(hWnd_);
-        dropDownMenuActive_ = true;
-        UINT const selected = TrackPopupMenu(
-            menu, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD,
-            buttonRect.left, buttonRect.bottom, 0, hWnd_, nullptr);
-        dropDownMenuActive_ = false;
-        if (selected == 0) {
-            // Windows may deliver the outside click after TrackPopupMenu has
-            // returned. Keep the one-shot guard alive briefly so it can catch
-            // that delayed click; an immediate clear message can overtake it.
-            suppressNextMenuDismissClick_ = true;
-            SetTimer(hWnd_, MenuDismissClearTimerId, 750, nullptr);
-        }
-        DestroyMenu(menu);
-        PostMessageW(hWnd_, WM_NULL, 0, 0);
+        int x = buttonRect.left;
+        int y = buttonRect.bottom;
+        RECT workArea{};
+        MONITORINFO monitorInfo{sizeof(monitorInfo)};
+        if (GetMonitorInfoW(MonitorFromRect(&buttonRect, MONITOR_DEFAULTTONEAREST), &monitorInfo))
+            workArea = monitorInfo.rcWork;
+        else
+            SystemParametersInfoW(SPI_GETWORKAREA, 0, &workArea, 0);
+        if (y + height > static_cast<int>(workArea.bottom))
+            y = std::max(static_cast<int>(workArea.top), static_cast<int>(buttonRect.top) - height);
+        x = std::max(static_cast<int>(workArea.left), std::min(x, static_cast<int>(workArea.right) - width));
 
-        if (selected >= DropDownMenuItemId) {
-            size_t const index = selected - DropDownMenuItemId;
-            if (index < actions.size() && actions[index])
-                actions[index]();
+        dropDownMenuActive_ = true;
+        hoveredDropDownRootItem_ = -1;
+        hoveredDropDownChildItem_ = -1;
+        dropDownPopup_ = CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_TOPMOST | WS_EX_NOACTIVATE,
+            DropDownPopupClassName, L"", WS_POPUP, x, y, width, height,
+            hWnd_, nullptr, instance, this);
+        if (dropDownPopup_ == nullptr) {
+            dropDownMenuActive_ = false;
+            return;
         }
+        ShowWindow(dropDownPopup_, SW_SHOWNOACTIVATE);
+        SetWindowPos(dropDownPopup_, HWND_TOPMOST, x, y, width, height,
+            SWP_NOACTIVATE | SWP_SHOWWINDOW);
+        SetCapture(dropDownPopup_);
         SetFocus(hWnd_);
+        InvalidateRect(dropDownPopup_, nullptr, FALSE);
+    }
+
+    int DirectWriteWindow::dropDownPopupWidth(std::vector<Window::TabBarMenuItem> const & items, int padding) const {
+        int const scale = std::max(1, static_cast<int>(dpiFactor_ * 100));
+        HDC dc = GetDC(hWnd_);
+        if (dc == nullptr)
+            return MulDiv(padding + 120, scale, 100);
+        HFONT font = CreateFontW(-MulDiv(12, scale, 100), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+            DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
+        HGDIOBJ oldFont = SelectObject(dc, font);
+        int widest = 0;
+        for (Window::TabBarMenuItem const & item : items) {
+            utf16_string const title = UTF8toUTF16(item.title);
+            SIZE extent{};
+            GetTextExtentPoint32W(dc, title.c_str(), static_cast<int>(title.size()), &extent);
+            widest = std::max(widest, static_cast<int>(extent.cx));
+        }
+        SelectObject(dc, oldFont);
+        DeleteObject(font);
+        ReleaseDC(hWnd_, dc);
+        return widest + MulDiv(padding, scale, 100);
+    }
+
+    void DirectWriteWindow::showDropDownSubmenu(size_t itemIndex) {
+        if (dropDownPopup_ == nullptr || itemIndex >= dropDownItems_.size() ||
+            dropDownItems_[itemIndex].children.empty() ||
+            (dropDownSubmenuPopup_ != nullptr && hoveredDropDownRootItem_ == static_cast<int>(itemIndex)))
+            return;
+        if (dropDownSubmenuPopup_ != nullptr && hoveredDropDownRootItem_ >= 0 &&
+            hoveredDropDownRootItem_ < static_cast<int>(dropDownItems_.size())) {
+            DestroyWindow(dropDownSubmenuPopup_);
+            dropDownSubmenuPopup_ = nullptr;
+        }
+        hoveredDropDownRootItem_ = static_cast<int>(itemIndex);
+        hoveredDropDownChildItem_ = -1;
+
+        RECT rootRect{};
+        GetWindowRect(dropDownPopup_, &rootRect);
+        int const scale = std::max(1, static_cast<int>(dpiFactor_ * 100));
+        int const rowHeight = MulDiv(30, scale, 100);
+        int const width = dropDownPopupWidth(dropDownItems_[itemIndex].children, 50);
+        int const height = rowHeight * static_cast<int>(dropDownItems_[itemIndex].children.size());
+        int x = rootRect.right;
+        int y = rootRect.top + rowHeight * static_cast<int>(itemIndex);
+        RECT workArea{};
+        MONITORINFO monitorInfo{sizeof(monitorInfo)};
+        if (GetMonitorInfoW(MonitorFromRect(&rootRect, MONITOR_DEFAULTTONEAREST), &monitorInfo))
+            workArea = monitorInfo.rcWork;
+        else
+            SystemParametersInfoW(SPI_GETWORKAREA, 0, &workArea, 0);
+        if (x + width > static_cast<int>(workArea.right))
+            x = static_cast<int>(rootRect.left) - width;
+        if (y + height > static_cast<int>(workArea.bottom))
+            y = static_cast<int>(workArea.bottom) - height;
+        y = std::max(static_cast<int>(workArea.top), y);
+
+        dropDownSubmenuPopup_ = CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_TOPMOST | WS_EX_NOACTIVATE,
+            DropDownPopupClassName, L"", WS_POPUP, x, y, width, height,
+            hWnd_, nullptr, DirectWriteApplication::Instance()->hInstance_, this);
+        if (dropDownSubmenuPopup_ != nullptr) {
+            ShowWindow(dropDownSubmenuPopup_, SW_SHOWNOACTIVATE);
+            SetWindowPos(dropDownSubmenuPopup_, HWND_TOPMOST, x, y, width, height,
+                SWP_NOACTIVATE | SWP_SHOWWINDOW);
+            InvalidateRect(dropDownSubmenuPopup_, nullptr, FALSE);
+        }
+        InvalidateRect(dropDownPopup_, nullptr, FALSE);
+    }
+
+    void DirectWriteWindow::dismissDropDownMenu() {
+        HWND const root = dropDownPopup_;
+        HWND const child = dropDownSubmenuPopup_;
+        dropDownPopup_ = nullptr;
+        dropDownSubmenuPopup_ = nullptr;
+        dropDownMenuActive_ = false;
+        hoveredDropDownRootItem_ = -1;
+        hoveredDropDownChildItem_ = -1;
+        if (GetCapture() == root)
+            ReleaseCapture();
+        if (child != nullptr)
+            DestroyWindow(child);
+        if (root != nullptr)
+            DestroyWindow(root);
+        if (IsWindow(hWnd_))
+            SetFocus(hWnd_);
+    }
+
+    void DirectWriteWindow::updateDropDownMenuHover(POINT screenPoint) {
+        auto const rowAt = [this, screenPoint](HWND popup, size_t count) -> int {
+            if (popup == nullptr)
+                return -1;
+            RECT rect{};
+            GetWindowRect(popup, &rect);
+            if (!PtInRect(&rect, screenPoint))
+                return -1;
+            int const rowHeight = MulDiv(30, std::max(1, static_cast<int>(dpiFactor_ * 100)), 100);
+            int const index = (screenPoint.y - rect.top) / std::max(1, rowHeight);
+            return index >= 0 && index < static_cast<int>(count) ? index : -1;
+        };
+
+        int const rootIndex = rowAt(dropDownPopup_, dropDownItems_.size());
+        if (rootIndex >= 0) {
+            if (hoveredDropDownRootItem_ != rootIndex) {
+                hoveredDropDownRootItem_ = rootIndex;
+                InvalidateRect(dropDownPopup_, nullptr, FALSE);
+            }
+            if (!dropDownItems_[rootIndex].children.empty())
+                showDropDownSubmenu(static_cast<size_t>(rootIndex));
+            else if (dropDownSubmenuPopup_ != nullptr) {
+                DestroyWindow(dropDownSubmenuPopup_);
+                dropDownSubmenuPopup_ = nullptr;
+                hoveredDropDownRootItem_ = rootIndex;
+                InvalidateRect(dropDownPopup_, nullptr, FALSE);
+            }
+            return;
+        }
+
+        if (dropDownSubmenuPopup_ != nullptr) {
+            int const childIndex = rowAt(dropDownSubmenuPopup_,
+                dropDownItems_[hoveredDropDownRootItem_].children.size());
+            if (childIndex >= 0 && hoveredDropDownChildItem_ != childIndex) {
+                hoveredDropDownChildItem_ = childIndex;
+                InvalidateRect(dropDownSubmenuPopup_, nullptr, FALSE);
+            }
+        }
+    }
+
+    void DirectWriteWindow::activateDropDownMenuAt(POINT screenPoint) {
+        auto const rowAt = [this, screenPoint](HWND popup, size_t count) -> int {
+            if (popup == nullptr)
+                return -1;
+            RECT rect{};
+            GetWindowRect(popup, &rect);
+            if (!PtInRect(&rect, screenPoint))
+                return -1;
+            int const rowHeight = MulDiv(30, std::max(1, static_cast<int>(dpiFactor_ * 100)), 100);
+            int const index = (screenPoint.y - rect.top) / std::max(1, rowHeight);
+            return index >= 0 && index < static_cast<int>(count) ? index : -1;
+        };
+
+        int const rootIndex = rowAt(dropDownPopup_, dropDownItems_.size());
+        if (rootIndex >= 0 && !dropDownItems_[rootIndex].children.empty()) {
+            showDropDownSubmenu(static_cast<size_t>(rootIndex));
+            return;
+        }
+        std::function<void()> action;
+        if (rootIndex >= 0) {
+            action = dropDownItems_[rootIndex].activate;
+        } else if (dropDownSubmenuPopup_ != nullptr && hoveredDropDownRootItem_ >= 0) {
+            auto const & children = dropDownItems_[hoveredDropDownRootItem_].children;
+            int const childIndex = rowAt(dropDownSubmenuPopup_, children.size());
+            if (childIndex >= 0)
+                action = children[childIndex].activate;
+        }
+        dismissDropDownMenu();
+        if (action)
+            action();
+    }
+
+    void DirectWriteWindow::drawDropDownMenu(HWND popup, HDC dc) {
+        if (popup == nullptr || dc == nullptr)
+            return;
+        RECT client{};
+        GetClientRect(popup, &client);
+        HBRUSH background = CreateSolidBrush(RGB(43, 43, 43));
+        FillRect(dc, &client, background);
+        DeleteObject(background);
+
+        bool const isChild = popup == dropDownSubmenuPopup_;
+        std::vector<Window::TabBarMenuItem> const * items = &dropDownItems_;
+        int hover = hoveredDropDownRootItem_;
+        if (isChild && hover >= 0 && hover < static_cast<int>(dropDownItems_.size())) {
+            items = &dropDownItems_[hover].children;
+            hover = hoveredDropDownChildItem_;
+        }
+
+        int const scale = std::max(1, static_cast<int>(dpiFactor_ * 100));
+        auto const px = [scale](int value) { return MulDiv(value, scale, 100); };
+        int const rowHeight = px(30);
+        HFONT font = CreateFontW(-px(12), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+            DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
+        HGDIOBJ oldFont = SelectObject(dc, font);
+        int const oldBkMode = SetBkMode(dc, TRANSPARENT);
+        for (size_t i = 0; i < items->size(); ++i) {
+            RECT row{0, static_cast<LONG>(i) * rowHeight, client.right, static_cast<LONG>(i + 1) * rowHeight};
+            if (static_cast<int>(i) == hover) {
+                HBRUSH highlight = CreateSolidBrush(RGB(68, 68, 68));
+                FillRect(dc, &row, highlight);
+                DeleteObject(highlight);
+            }
+            Window::TabBarMenuItem const & item = (*items)[i];
+            bool const enabled = item.enabled && (item.activate || !item.children.empty());
+            int const iconSize = px(12);
+            RECT icon{px(8), row.top + (rowHeight - iconSize) / 2, px(8) + iconSize, row.top + (rowHeight + iconSize) / 2};
+            HBRUSH iconBrush = CreateSolidBrush(enabled ? RGB(55, 117, 190) : RGB(76, 76, 76));
+            HPEN iconPen = CreatePen(PS_SOLID, 1, enabled ? RGB(55, 117, 190) : RGB(76, 76, 76));
+            HGDIOBJ oldBrush = SelectObject(dc, iconBrush);
+            HGDIOBJ oldPen = SelectObject(dc, iconPen);
+            RoundRect(dc, icon.left, icon.top, icon.right, icon.bottom, px(4), px(4));
+            SelectObject(dc, oldPen);
+            SelectObject(dc, oldBrush);
+            DeleteObject(iconPen);
+            DeleteObject(iconBrush);
+            SetTextColor(dc, enabled ? RGB(245, 245, 245) : RGB(145, 145, 145));
+            DrawTextW(dc, L">_", 2, &icon, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+
+            RECT label = row;
+            label.left = px(34);
+            label.right -= item.children.empty() ? px(8) : px(26);
+            utf16_string const title = UTF8toUTF16(item.title);
+            DrawTextW(dc, title.c_str(), static_cast<int>(title.size()), &label,
+                DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+            if (!item.children.empty()) {
+                RECT chevron = row;
+                chevron.left = chevron.right - px(20);
+                DrawTextW(dc, L">", 1, &chevron, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+            }
+        }
+        SetBkMode(dc, oldBkMode);
+        SelectObject(dc, oldFont);
+        DeleteObject(font);
+    }
+
+    LRESULT CALLBACK DirectWriteWindow::DropDownPopupProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+        DirectWriteWindow * window = reinterpret_cast<DirectWriteWindow*>(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
+        if (message == WM_NCCREATE) {
+            auto const * create = reinterpret_cast<CREATESTRUCTW const *>(lParam);
+            window = static_cast<DirectWriteWindow*>(create->lpCreateParams);
+            SetWindowLongPtrW(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(window));
+        }
+        if (window == nullptr)
+            return DefWindowProcW(hwnd, message, wParam, lParam);
+        switch (message) {
+            case WM_MOUSEACTIVATE:
+                return MA_NOACTIVATE;
+            case WM_ERASEBKGND:
+                return 1;
+            case WM_PAINT: {
+                PAINTSTRUCT paint{};
+                HDC dc = BeginPaint(hwnd, &paint);
+                window->drawDropDownMenu(hwnd, dc);
+                EndPaint(hwnd, &paint);
+                return 0;
+            }
+            case WM_MOUSEMOVE: {
+                POINT point{};
+                GetCursorPos(&point);
+                window->updateDropDownMenuHover(point);
+                return 0;
+            }
+            case WM_LBUTTONUP: {
+                POINT point{};
+                GetCursorPos(&point);
+                window->activateDropDownMenuAt(point);
+                return 0;
+            }
+            case WM_KEYDOWN:
+                if (wParam == VK_ESCAPE) {
+                    window->dismissDropDownMenu();
+                    return 0;
+                }
+                break;
+            case WM_CAPTURECHANGED:
+                if (hwnd == window->dropDownPopup_ && window->dropDownMenuActive_ &&
+                    reinterpret_cast<HWND>(lParam) != window->dropDownPopup_)
+                    window->dismissDropDownMenu();
+                return 0;
+            case WM_NCDESTROY:
+                if (hwnd == window->dropDownSubmenuPopup_)
+                    window->dropDownSubmenuPopup_ = nullptr;
+                if (hwnd == window->dropDownPopup_) {
+                    window->dropDownPopup_ = nullptr;
+                    window->dropDownMenuActive_ = false;
+                }
+                SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
+                break;
+        }
+        return DefWindowProcW(hwnd, message, wParam, lParam);
     }
 
     void DirectWriteWindow::setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu, std::vector<Window::TabBarMenuItem> dropDownItems) {
         UI_THREAD_ONLY;
+        if (dropDownMenuActive_)
+            dismissDropDownMenu();
         addTabAction_ = std::move(addTab);
         showMenuAction_ = std::move(showMenu);
         dropDownItems_ = std::move(dropDownItems);
@@ -521,6 +806,10 @@ namespace tpp {
 
 	LRESULT CALLBACK DirectWriteWindow::EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         DirectWriteWindow * window = GetWindowForHandle(hWnd);
+        if (window != nullptr && window->dropDownMenuActive_ && msg == WM_KEYDOWN && wParam == VK_ESCAPE) {
+            window->dismissDropDownMenu();
+            return 0;
+        }
         if (window != nullptr && msg == WM_MOUSEACTIVATE &&
             (window->dropDownMenuActive_ || window->suppressNextMenuDismissClick_)) {
             // A click on the owner while TrackPopupMenu is active can first

@@ -304,6 +304,12 @@ namespace tpp {
 
         HWND createTitleButton(int id);
         void showDropDownMenu();
+        void showDropDownSubmenu(size_t itemIndex);
+        void dismissDropDownMenu();
+        void updateDropDownMenuHover(POINT screenPoint);
+        void activateDropDownMenuAt(POINT screenPoint);
+        int dropDownPopupWidth(std::vector<Window::TabBarMenuItem> const & items, int padding) const;
+        void drawDropDownMenu(HWND popup, HDC dc);
 
         void layoutCaptionControls(bool reflowTabs = true) {
             RECT client{};
@@ -385,12 +391,12 @@ namespace tpp {
         void invalidateTitleButton(int id);
 
         void drawTitleBarItem(DRAWITEMSTRUCT * draw);
+        static LRESULT CALLBACK DropDownPopupProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
         static constexpr int CaptionButtonId = 0x5A10;
         static constexpr int MenuButtonId = 0x5A20;
         static constexpr int AddTabButtonId = 0x5A21;
         static constexpr int DropDownButtonId = 0x5A22;
-        static constexpr int DropDownMenuItemId = 0x5A30;
         static constexpr UINT_PTR MenuDismissClearTimerId = 0x5A34;
         static constexpr int TabButtonId = 0x5B00;
         struct TabButton {
@@ -403,6 +409,10 @@ namespace tpp {
         HWND dropDownButton_ = nullptr;
         std::vector<TabButton> tabButtons_;
         std::vector<Window::TabBarMenuItem> dropDownItems_;
+        HWND dropDownPopup_ = nullptr;
+        HWND dropDownSubmenuPopup_ = nullptr;
+        int hoveredDropDownRootItem_ = -1;
+        int hoveredDropDownChildItem_ = -1;
         std::function<void()> addTabAction_;
         std::function<void()> showMenuAction_;
         bool dropDownMenuActive_ = false;
