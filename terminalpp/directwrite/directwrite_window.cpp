@@ -11,71 +11,39 @@ namespace tpp {
 
     } // namespace
 
-    LRESULT CALLBACK DirectWriteWindow::CaptionButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassId, DWORD_PTR refData) {
-        DirectWriteWindow * window = reinterpret_cast<DirectWriteWindow*>(refData);
-        int const id = GetDlgCtrlID(hWnd);
-        if (window != nullptr) {
-            if (msg == WM_MOUSEMOVE) {
-                if (window->hoveredButtonId_ != id) {
-                    int const previous = window->hoveredButtonId_;
-                    window->hoveredButtonId_ = id;
-                    window->invalidateTitleButton(previous);
-                    InvalidateRect(hWnd, nullptr, FALSE);
-                }
-                int closeHoverId = -1;
-                if (id >= TabButtonId && id < TabButtonId + static_cast<int>(window->tabButtons_.size())) {
-                    RECT rect{};
-                    GetClientRect(hWnd, &rect);
-                    if (GET_X_LPARAM(lParam) >= rect.right - static_cast<int>(46 * window->dpiFactor_))
-                        closeHoverId = id;
-                }
-                if (window->hoveredCloseButtonId_ != closeHoverId) {
-                    int const previousClose = window->hoveredCloseButtonId_;
-                    window->hoveredCloseButtonId_ = closeHoverId;
-                    window->invalidateTitleButton(previousClose);
-                    window->invalidateTitleButton(closeHoverId);
-                }
-                TRACKMOUSEEVENT track{};
-                track.cbSize = sizeof(track);
-                track.dwFlags = TME_LEAVE;
-                track.hwndTrack = hWnd;
-                TrackMouseEvent(&track);
-            } else if (msg == WM_MOUSELEAVE) {
-                if (window->hoveredButtonId_ == id) {
-                    window->hoveredButtonId_ = -1;
-                    window->invalidateTitleButton(id);
-                }
-                if (window->hoveredCloseButtonId_ == id) {
-                    window->hoveredCloseButtonId_ = -1;
-                    window->invalidateTitleButton(id);
-                }
-            } else if (msg == WM_LBUTTONUP && id >= TabButtonId && id < TabButtonId + static_cast<int>(window->tabButtons_.size())) {
-                RECT rect{};
-                GetClientRect(hWnd, &rect);
-                if (GET_X_LPARAM(lParam) >= rect.right - static_cast<int>(46 * window->dpiFactor_)) {
-                    PostMessageW(window->hWnd_, WM_APP + 0x33, static_cast<WPARAM>(id), 0);
-                    return 0;
-                }
-            } else if (msg == WM_NCDESTROY) {
-                RemoveWindowSubclass(hWnd, CaptionButtonProc, subclassId);
-            }
+    int DirectWriteWindow::titleBarControlAt(POINT clientPoint) const {
+        auto contains = [clientPoint](RECT const & rect) {
+            return PtInRect(&rect, clientPoint) != FALSE;
+        };
+        for (int i = 0; i < 3; ++i) {
+            if (contains(captionButtonRects_[i]))
+                return CaptionButtonId + i;
         }
-        MARK_AS_UNUSED(wParam);
-        return DefSubclassProc(hWnd, msg, wParam, lParam);
+        if (contains(menuButtonRect_))
+            return MenuButtonId;
+        if (contains(addTabButtonRect_))
+            return AddTabButtonId;
+        if (contains(dropDownButtonRect_))
+            return DropDownButtonId;
+        for (size_t i = 0; i < tabButtons_.size(); ++i) {
+            if (i < tabButtonRects_.size() && contains(tabButtonRects_[i]))
+                return TabButtonId + static_cast<int>(i);
+        }
+        return -1;
     }
 
-    HWND DirectWriteWindow::createTitleButton(int id) {
-        HWND button = CreateWindowExW(0, L"BUTTON", L"", WS_CHILD | BS_OWNERDRAW,
-            0, 0, 1, captionControlHeight(), hWnd_,
-            reinterpret_cast<HMENU>(static_cast<INT_PTR>(id)),
-            DirectWriteApplication::Instance()->hInstance_, nullptr);
-        if (button != nullptr)
-            SetWindowSubclass(button, CaptionButtonProc, 1, reinterpret_cast<DWORD_PTR>(this));
-        return button;
+    bool DirectWriteWindow::titleBarCloseAt(int id, POINT clientPoint) const {
+        if (id < TabButtonId || id >= TabButtonId + static_cast<int>(tabButtons_.size()))
+            return false;
+        size_t const index = static_cast<size_t>(id - TabButtonId);
+        if (index >= tabButtonRects_.size())
+            return false;
+        RECT const & rect = tabButtonRects_[index];
+        return clientPoint.x >= rect.right - static_cast<int>(46 * dpiFactor_);
     }
 
     void DirectWriteWindow::showDropDownMenu() {
-        if (dropDownItems_.empty() || dropDownButton_ == nullptr)
+        if (dropDownItems_.empty())
             return;
         if (dropDownMenuActive_)
             return;
@@ -97,8 +65,8 @@ namespace tpp {
         int const rowHeight = MulDiv(30, scale, 100);
         int const width = dropDownPopupWidth(dropDownItems_, 68);
         int const height = rowHeight * static_cast<int>(dropDownItems_.size());
-        RECT buttonRect{};
-        GetWindowRect(dropDownButton_, &buttonRect);
+        RECT buttonRect = dropDownButtonRect_;
+        MapWindowPoints(hWnd_, nullptr, reinterpret_cast<POINT*>(&buttonRect), 2);
         int x = buttonRect.left;
         int y = buttonRect.bottom;
         RECT workArea{};
@@ -420,162 +388,174 @@ namespace tpp {
         for (size_t i = 0; i < sharedCount; ++i)
             tabButtons_[i].item = std::move(tabs[i]);
 
-        while (tabButtons_.size() > tabs.size()) {
-            TabButton & tab = tabButtons_.back();
-            if (tab.hWnd != nullptr) {
-                RemoveWindowSubclass(tab.hWnd, CaptionButtonProc, 1);
-                DestroyWindow(tab.hWnd);
-            }
-            tabButtons_.pop_back();
-        }
+        tabButtons_.resize(tabs.size());
 
         for (size_t i = sharedCount; i < tabs.size(); ++i) {
-            TabButton tab;
-            tab.item = std::move(tabs[i]);
-            tab.hWnd = createTitleButton(TabButtonId + static_cast<int>(i));
-            tabButtons_.push_back(std::move(tab));
+            tabButtons_[i].item = std::move(tabs[i]);
         }
 
         layoutCaptionControls(!IsZoomed(hWnd_));
-        for (TabButton const & tab : tabButtons_) {
-            if (tab.hWnd != nullptr)
-                InvalidateRect(tab.hWnd, nullptr, FALSE);
-        }
+        RECT titleBar{0, 0, sizePx_.width(), captionControlHeight()};
+        InvalidateRect(hWnd_, &titleBar, FALSE);
     }
 
     void DirectWriteWindow::invalidateTitleButton(int id) {
-        if (id < 0)
-            return;
+        MARK_AS_UNUSED(id);
+        RECT titleBar{0, 0, sizePx_.width(), captionControlHeight()};
+        InvalidateRect(hWnd_, &titleBar, FALSE);
+    }
+
+    void DirectWriteWindow::activateTitleBarControl(int id) {
         if (id >= CaptionButtonId && id < CaptionButtonId + 3) {
-            InvalidateRect(captionButtons_[id - CaptionButtonId], nullptr, FALSE);
+            switch (id - CaptionButtonId) {
+                case 0: minimize(); break;
+                case 1: toggleMaximized(); break;
+                case 2: requestClose(); break;
+            }
         } else if (id == MenuButtonId) {
-            InvalidateRect(menuButton_, nullptr, FALSE);
+            if (showMenuAction_)
+                showMenuAction_();
         } else if (id == AddTabButtonId) {
-            InvalidateRect(addTabButton_, nullptr, FALSE);
+            if (addTabAction_)
+                addTabAction_();
         } else if (id == DropDownButtonId) {
-            InvalidateRect(dropDownButton_, nullptr, FALSE);
+            showDropDownMenu();
         } else if (id >= TabButtonId && id < TabButtonId + static_cast<int>(tabButtons_.size())) {
-            InvalidateRect(tabButtons_[id - TabButtonId].hWnd, nullptr, FALSE);
+            auto activate = tabButtons_[id - TabButtonId].item.activate;
+            if (activate)
+                activate();
         }
     }
 
-    void DirectWriteWindow::drawTitleBarItem(DRAWITEMSTRUCT * draw) {
-        int const id = static_cast<int>(draw->CtlID);
-        bool const hot = (draw->itemState & ODS_HOTLIGHT) != 0 || hoveredButtonId_ == id;
-        bool const pressed = (draw->itemState & ODS_SELECTED) != 0;
-        COLORREF const barColor = RGB(43, 43, 43);
-        COLORREF const hoverColor = RGB(62, 62, 62);
-        COLORREF background = barColor;
-        HBRUSH brush = nullptr;
-        HPEN pen = nullptr;
-        HFONT font = CreateFontW(-static_cast<int>(14 * dpiFactor_), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
-        HGDIOBJ oldFont = SelectObject(draw->hDC, font);
-        SetBkMode(draw->hDC, TRANSPARENT);
-        SetTextColor(draw->hDC, RGB(240, 240, 240));
+    void DirectWriteWindow::drawCaptionBar() {
+        if (sizePx_.width() <= 0)
+            return;
 
-        if (id >= CaptionButtonId && id < CaptionButtonId + 3) {
-            int const index = id - CaptionButtonId;
-            background = hot || pressed ? (index == 2 ? RGB(196, 43, 28) : hoverColor) : barColor;
-            brush = CreateSolidBrush(background);
-            FillRect(draw->hDC, &draw->rcItem, brush);
-            DeleteObject(brush);
-            wchar_t const* glyphs[] = {L"—", L"□", L"×"};
-            DrawTextW(draw->hDC, glyphs[index], 1, &draw->rcItem, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-        } else if (id == MenuButtonId || id == AddTabButtonId || id == DropDownButtonId) {
-            if (hot || pressed) {
-                brush = CreateSolidBrush(hoverColor);
-                FillRect(draw->hDC, &draw->rcItem, brush);
-                DeleteObject(brush);
-            } else {
-                brush = CreateSolidBrush(barColor);
-                FillRect(draw->hDC, &draw->rcItem, brush);
-                DeleteObject(brush);
-            }
-            if (id == MenuButtonId) {
-                int const cx = (draw->rcItem.left + draw->rcItem.right) / 2;
-                int const cy = (draw->rcItem.top + draw->rcItem.bottom) / 2;
-                pen = CreatePen(PS_SOLID, 1, RGB(230, 230, 230));
-                HGDIOBJ oldPen = SelectObject(draw->hDC, pen);
-                for (int line = -1; line <= 1; ++line) {
-                    MoveToEx(draw->hDC, cx - 7, cy + line * 4, nullptr);
-                    LineTo(draw->hDC, cx + 7, cy + line * 4);
+        auto const color = [](int r, int g, int b) {
+            return D2D1::ColorF(r / 255.0f, g / 255.0f, b / 255.0f);
+        };
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> bar;
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> hover;
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> active;
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> foreground;
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> closeHover;
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> closeButton;
+        if (FAILED(rt_->CreateSolidColorBrush(color(43, 43, 43), &bar)) ||
+            FAILED(rt_->CreateSolidColorBrush(color(62, 62, 62), &hover)) ||
+            FAILED(rt_->CreateSolidColorBrush(color(12, 12, 12), &active)) ||
+            FAILED(rt_->CreateSolidColorBrush(color(240, 240, 240), &foreground)) ||
+            FAILED(rt_->CreateSolidColorBrush(color(68, 68, 68), &closeHover)) ||
+            FAILED(rt_->CreateSolidColorBrush(color(196, 43, 28), &closeButton)))
+            return;
+
+        Microsoft::WRL::ComPtr<IDWriteTextFormat> format;
+        if (FAILED(DirectWriteApplication::Instance()->dwFactory_->CreateTextFormat(
+            L"Segoe UI", nullptr, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL,
+            DWRITE_FONT_STRETCH_NORMAL, 14.0f, L"",
+            &format)))
+            return;
+        format->SetWordWrapping(DWRITE_WORD_WRAPPING_NO_WRAP);
+        format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+
+        auto const toRect = [this](RECT const & rect) {
+            FLOAT const scale = static_cast<FLOAT>(dpiFactor_);
+            return D2D1::RectF(static_cast<FLOAT>(rect.left) / scale, static_cast<FLOAT>(rect.top) / scale,
+                static_cast<FLOAT>(rect.right) / scale, static_cast<FLOAT>(rect.bottom) / scale);
+        };
+        auto const fill = [this, &toRect](RECT const & rect, ID2D1Brush * brush) {
+            rt_->FillRectangle(toRect(rect), brush);
+        };
+        auto drawText = [this, &format, &foreground, &toRect](std::wstring const & text, RECT rect, DWRITE_TEXT_ALIGNMENT alignment) {
+            format->SetTextAlignment(alignment);
+            rt_->DrawText(text.c_str(), static_cast<UINT32>(text.size()), format.Get(), toRect(rect), foreground.Get(),
+                D2D1_DRAW_TEXT_OPTIONS_CLIP, DWRITE_MEASURING_MODE_NATURAL);
+        };
+
+        RECT const clientBar{0, 0, sizePx_.width(), captionControlHeight()};
+        fill(clientBar, bar.Get());
+
+        auto drawButton = [&](RECT const & rect, int id) {
+            bool const isHot = hoveredButtonId_ == id;
+            bool const isPressed = pressedButtonId_ == id;
+            ID2D1Brush * const buttonBackground = isHot || isPressed ? hover.Get() : bar.Get();
+            if (id >= CaptionButtonId && id < CaptionButtonId + 3) {
+                int const index = id - CaptionButtonId;
+                if (index == 2 && (isHot || isPressed))
+                    fill(rect, closeButton.Get());
+                else
+                    fill(rect, buttonBackground);
+                FLOAT const scale = static_cast<FLOAT>(dpiFactor_);
+                FLOAT const cx = static_cast<FLOAT>((rect.left + rect.right) / 2) / scale;
+                FLOAT const cy = static_cast<FLOAT>((rect.top + rect.bottom) / 2) / scale;
+                if (index == 0) {
+                    rt_->DrawLine(D2D1::Point2F(cx - 6, cy), D2D1::Point2F(cx + 6, cy), foreground.Get(), 1.0f);
+                } else if (index == 1) {
+                    D2D1_RECT_F box = D2D1::RectF(cx - 5, cy - 5, cx + 5, cy + 5);
+                    rt_->DrawRectangle(box, foreground.Get(), 1.0f);
+                } else {
+                    rt_->DrawLine(D2D1::Point2F(cx - 4, cy - 4), D2D1::Point2F(cx + 4, cy + 4), foreground.Get(), 1.2f);
+                    rt_->DrawLine(D2D1::Point2F(cx + 4, cy - 4), D2D1::Point2F(cx - 4, cy + 4), foreground.Get(), 1.2f);
                 }
-                SelectObject(draw->hDC, oldPen);
-                DeleteObject(pen);
-            } else if (id == AddTabButtonId) {
-                DrawTextW(draw->hDC, L"+", 1, &draw->rcItem, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-            } else {
-                int const cx = (draw->rcItem.left + draw->rcItem.right) / 2;
-                int const cy = (draw->rcItem.top + draw->rcItem.bottom) / 2;
-                pen = CreatePen(PS_SOLID, std::max(1, static_cast<int>(dpiFactor_)), RGB(220, 220, 220));
-                HGDIOBJ oldPen = SelectObject(draw->hDC, pen);
-                MoveToEx(draw->hDC, cx - 3, cy - 1, nullptr);
-                LineTo(draw->hDC, cx, cy + 2);
-                LineTo(draw->hDC, cx + 3, cy - 1);
-                SelectObject(draw->hDC, oldPen);
-                DeleteObject(pen);
+                return;
             }
-        } else if (id >= TabButtonId && id < TabButtonId + static_cast<int>(tabButtons_.size())) {
-            TabButton const & tab = tabButtons_[id - TabButtonId];
-            brush = CreateSolidBrush(barColor);
-            FillRect(draw->hDC, &draw->rcItem, brush);
-            DeleteObject(brush);
-            if (tab.item.active) {
-                RECT active = draw->rcItem;
-                active.left += 3;
-                active.right -= 3;
-                active.top += std::max(3, static_cast<int>(active.bottom - active.top) / 5);
-                brush = CreateSolidBrush(RGB(12, 12, 12));
-                pen = CreatePen(PS_SOLID, 1, RGB(12, 12, 12));
-                HGDIOBJ oldBrush = SelectObject(draw->hDC, brush);
-                HGDIOBJ oldPen = SelectObject(draw->hDC, pen);
-                Rectangle(draw->hDC, active.left, active.top, active.right, active.bottom);
-                SelectObject(draw->hDC, oldPen);
-                SelectObject(draw->hDC, oldBrush);
-                DeleteObject(pen);
-                DeleteObject(brush);
-            } else if (hot) {
-                RECT hover = draw->rcItem;
-                hover.left += 3;
-                hover.right -= 3;
-                hover.top += std::max(3, static_cast<int>(hover.bottom - hover.top) / 5);
-                brush = CreateSolidBrush(RGB(55, 55, 55));
-                pen = CreatePen(PS_SOLID, 1, RGB(55, 55, 55));
-                HGDIOBJ oldBrush = SelectObject(draw->hDC, brush);
-                HGDIOBJ oldPen = SelectObject(draw->hDC, pen);
-                Rectangle(draw->hDC, hover.left, hover.top, hover.right, hover.bottom);
-                SelectObject(draw->hDC, oldPen);
-                SelectObject(draw->hDC, oldBrush);
-                DeleteObject(pen);
-                DeleteObject(brush);
+
+            if (id == MenuButtonId || id == AddTabButtonId || id == DropDownButtonId) {
+                fill(rect, buttonBackground);
+                FLOAT const scale = static_cast<FLOAT>(dpiFactor_);
+                FLOAT const cx = static_cast<FLOAT>((rect.left + rect.right) / 2) / scale;
+                FLOAT const cy = static_cast<FLOAT>((rect.top + rect.bottom) / 2) / scale;
+                FLOAT const stroke = 1.0f;
+                if (id == MenuButtonId) {
+                    for (int line = -1; line <= 1; ++line)
+                        rt_->DrawLine(D2D1::Point2F(cx - 7, cy + line * 4), D2D1::Point2F(cx + 7, cy + line * 4), foreground.Get(), stroke);
+                } else if (id == AddTabButtonId) {
+                    drawText(L"+", rect, DWRITE_TEXT_ALIGNMENT_CENTER);
+                } else {
+                    rt_->DrawLine(D2D1::Point2F(cx - 3, cy - 1), D2D1::Point2F(cx, cy + 2), foreground.Get(), stroke);
+                    rt_->DrawLine(D2D1::Point2F(cx, cy + 2), D2D1::Point2F(cx + 3, cy - 1), foreground.Get(), stroke);
+                }
+                return;
             }
-            RECT label = draw->rcItem;
-            label.left += static_cast<int>(44 * dpiFactor_);
-            label.right -= static_cast<int>(48 * dpiFactor_);
-            utf16_string title = UTF8toUTF16(tab.item.title);
-            DrawTextW(draw->hDC, title.c_str(), static_cast<int>(title.size()), &label, DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS);
-            if (tab.item.active || hot) {
-                RECT closeRect = draw->rcItem;
-                closeRect.right -= static_cast<int>(5 * dpiFactor_);
-                closeRect.left = closeRect.right - static_cast<int>(40 * dpiFactor_);
+
+            if (id < TabButtonId || id >= TabButtonId + static_cast<int>(tabButtons_.size()))
+                return;
+            size_t const index = static_cast<size_t>(id - TabButtonId);
+            Window::TabBarItem const & tab = tabButtons_[index].item;
+            fill(rect, bar.Get());
+            if (tab.active || isHot) {
+                RECT surface = rect;
+                surface.left += 3;
+                surface.right -= 3;
+                surface.top += std::max(3L, (surface.bottom - surface.top) / 5);
+                fill(surface, tab.active ? active.Get() : hover.Get());
+            }
+            RECT label = rect;
+            label.left += static_cast<LONG>(44 * dpiFactor_);
+            label.right -= static_cast<LONG>(48 * dpiFactor_);
+            drawText(UTF8toUTF16(tab.title), label, DWRITE_TEXT_ALIGNMENT_LEADING);
+            if (tab.active || isHot) {
+                RECT closeRect = rect;
+                closeRect.left = closeRect.right - static_cast<LONG>(40 * dpiFactor_);
+                closeRect.right -= static_cast<LONG>(5 * dpiFactor_);
                 if (hoveredCloseButtonId_ == id) {
-                    RECT closeHover = draw->rcItem;
-                    closeHover.left = closeHover.right - static_cast<int>(40 * dpiFactor_);
-                    closeHover.right -= static_cast<int>(12 * dpiFactor_);
-                    closeHover.top += static_cast<int>(8 * dpiFactor_);
-                    closeHover.bottom -= static_cast<int>(8 * dpiFactor_);
-                    brush = CreateSolidBrush(RGB(68, 68, 68));
-                    FillRect(draw->hDC, &closeHover, brush);
-                    DeleteObject(brush);
+                    RECT close = rect;
+                    close.left = close.right - static_cast<LONG>(40 * dpiFactor_);
+                    close.right -= static_cast<LONG>(12 * dpiFactor_);
+                    close.top += static_cast<LONG>(8 * dpiFactor_);
+                    close.bottom -= static_cast<LONG>(8 * dpiFactor_);
+                    fill(close, closeHover.Get());
                 }
-                SetTextColor(draw->hDC, RGB(230, 230, 230));
-                DrawTextW(draw->hDC, L"×", 1, &closeRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+                drawText(L"×", closeRect, DWRITE_TEXT_ALIGNMENT_CENTER);
             }
-        }
+        };
 
-        SelectObject(draw->hDC, oldFont);
-        DeleteObject(font);
+        for (int i = 0; i < 3; ++i)
+            drawButton(captionButtonRects_[i], CaptionButtonId + i);
+        drawButton(menuButtonRect_, MenuButtonId);
+        for (size_t i = 0; i < tabButtons_.size() && i < tabButtonRects_.size(); ++i)
+            drawButton(tabButtonRects_[i], TabButtonId + static_cast<int>(i));
+        drawButton(addTabButtonRect_, AddTabButtonId);
+        drawButton(dropDownButtonRect_, DropDownButtonId);
     }
 
     void DirectWriteWindow::setTitle(std::string const & value) {
@@ -636,14 +616,9 @@ namespace tpp {
                     SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER |
                     SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
             }
-            for (HWND button : captionButtons_)
-                ShowWindow(button, value ? SW_HIDE : SW_SHOWNOACTIVATE);
-            ShowWindow(menuButton_, value ? SW_HIDE : SW_SHOWNOACTIVATE);
-            ShowWindow(addTabButton_, value ? SW_HIDE : SW_SHOWNOACTIVATE);
-            ShowWindow(dropDownButton_, value ? SW_HIDE : SW_SHOWNOACTIVATE);
-            for (TabButton const & tab : tabButtons_)
-                ShowWindow(tab.hWnd, value ? SW_HIDE : SW_SHOWNOACTIVATE);
             RendererWindow::setFullscreen(value);
+            RECT titleBar{0, 0, sizePx_.width(), captionControlHeight()};
+            InvalidateRect(hWnd_, &titleBar, FALSE);
         }
     }
 
@@ -709,7 +684,8 @@ namespace tpp {
         mouseLeaveTracked_{false} {
         // determine the system DPI and adjust the desired window size in pixels accordingly (larger text settings will increase the real window size in pixels)
         dpiFactor_ = GetDpiForSystem() / 96.0;
-        sizePx_ = sizePx_ * dpiFactor_;
+        Size const terminalSizePx = sizePx_ * dpiFactor_;
+        sizePx_ = Size{terminalSizePx.width(), terminalSizePx.height() + captionControlHeight()};
         // create the window with given title
         utf16_string t = UTF8toUTF16(title);
         windowedStyle_ = WS_POPUP | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN;
@@ -901,6 +877,8 @@ namespace tpp {
 					break;
 				POINT cursor{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
 				ScreenToClient(hWnd, &cursor);
+				if (cursor.y < window->captionControlHeight() && window->titleBarControlAt(cursor) >= 0)
+					return HTCLIENT;
 				RECT client{};
 				GetClientRect(hWnd, &client);
 				int const edge = std::max(6, GetSystemMetrics(SM_CXSIZEFRAME));
@@ -916,19 +894,22 @@ namespace tpp {
 				if (right) return HTRIGHT;
 				if (top) return HTTOP;
 				if (bottom) return HTBOTTOM;
+				if (cursor.y < window->captionControlHeight())
+					return window->titleBarControlAt(cursor) >= 0 ? HTCLIENT : HTCAPTION;
 				break;
 			}
 			case WM_ENTERSIZEMOVE:
 				if (window != nullptr) {
 					window->interactiveResize_ = true;
-					window->setCaptionControlsRedraw(false);
 				}
 				break;
 			case WM_EXITSIZEMOVE:
 				if (window != nullptr) {
 					window->interactiveResize_ = false;
+					RECT client{};
+					GetClientRect(hWnd, &client);
+					window->windowResized(client.right, client.bottom);
 					window->layoutCaptionControls(!IsZoomed(hWnd));
-					window->setCaptionControlsRedraw(true);
 				}
 				break;
 			/* Called when the window is resized interactively by the user. Makes sure that the window size snaps to discrete terminal sizes. 
@@ -969,8 +950,7 @@ namespace tpp {
 				if (wParam == SIZE_MINIMIZED)
 					break;
 				if (window != nullptr) {
-					if (!window->interactiveResize_)
-						window->layoutCaptionControls(!IsZoomed(hWnd));
+					window->layoutCaptionControls(window->interactiveResize_ ? false : !IsZoomed(hWnd));
 					RECT rect;
 					GetClientRect(hWnd, &rect);
 					window->windowResized(rect.right, rect.bottom);
@@ -986,14 +966,6 @@ namespace tpp {
 			case WM_PAINT: {
 				ASSERT(window != nullptr) << "Attempt to paint unknown window";
 				window->repaint();
-				break;
-			}
-			case WM_DRAWITEM: {
-				DRAWITEMSTRUCT* draw = reinterpret_cast<DRAWITEMSTRUCT*>(lParam);
-				if (draw != nullptr && window != nullptr) {
-					window->drawTitleBarItem(draw);
-					return TRUE;
-				}
 				break;
 			}
 			case WM_APP + 0x33:
@@ -1088,11 +1060,44 @@ namespace tpp {
 			 */
 #define MOUSE_X static_cast<int>(lParam & 0xffff)
 #define MOUSE_Y static_cast<int>((lParam >> 16) & 0xffff)
-			case WM_LBUTTONDOWN:
+			case WM_LBUTTONDOWN: {
+				POINT const point{MOUSE_X, MOUSE_Y};
+				int const titleItem = window->fullscreen() ? -1 : window->titleBarControlAt(point);
+				if (titleItem >= 0) {
+					window->pressedButtonId_ = titleItem;
+					SetCapture(hWnd);
+					window->invalidateTitleButton(titleItem);
+					return 0;
+				}
 				window->mouseDown(window->pixelsToCoords(Point{MOUSE_X, MOUSE_Y}), MouseButton::Left);
 				break;
-			case WM_LBUTTONUP:
+			}
+			case WM_LBUTTONUP: {
+				if (window->pressedButtonId_ >= 0) {
+					int const pressed = window->pressedButtonId_;
+					POINT const point{MOUSE_X, MOUSE_Y};
+					int const released = window->titleBarControlAt(point);
+					window->pressedButtonId_ = -1;
+					if (GetCapture() == hWnd)
+						ReleaseCapture();
+					window->invalidateTitleButton(pressed);
+					if (pressed == released) {
+						if (window->titleBarCloseAt(pressed, point))
+							PostMessageW(hWnd, WM_APP + 0x33, static_cast<WPARAM>(pressed), 0);
+						else
+							window->activateTitleBarControl(pressed);
+					}
+					return 0;
+				}
 				window->mouseUp(window->pixelsToCoords(Point{MOUSE_X, MOUSE_Y}), MouseButton::Left);
+				break;
+			}
+			case WM_CAPTURECHANGED:
+				if (window->pressedButtonId_ >= 0) {
+					int const previous = window->pressedButtonId_;
+					window->pressedButtonId_ = -1;
+					window->invalidateTitleButton(previous);
+				}
 				break;
 			case WM_RBUTTONDOWN:
 				window->mouseDown(window->pixelsToCoords(Point{MOUSE_X, MOUSE_Y}), MouseButton::Right);
@@ -1114,19 +1119,53 @@ namespace tpp {
 				window->mouseWheel(window->pixelsToCoords(Point{pos.x, pos.y}), GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA);
 				break;
 			}
-			case WM_MOUSEMOVE:
-				window->mouseMove(window->pixelsToCoords(Point{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)}));
+			case WM_MOUSEMOVE: {
+				POINT const point{GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
+				if (!window->fullscreen() && point.y < window->captionControlHeight()) {
+					int const hover = window->titleBarControlAt(point);
+					int const closeHover = window->titleBarCloseAt(hover, point) ? hover : -1;
+					if (window->hoveredButtonId_ != hover || window->hoveredCloseButtonId_ != closeHover) {
+						window->hoveredButtonId_ = hover;
+						window->hoveredCloseButtonId_ = closeHover;
+						window->invalidateTitleButton(hover);
+					}
+					TRACKMOUSEEVENT track{};
+					track.cbSize = sizeof(track);
+					track.dwFlags = TME_LEAVE;
+					track.hwndTrack = hWnd;
+					TrackMouseEvent(&track);
+					SetCursor(LoadCursorW(nullptr, IDC_ARROW));
+					return 0;
+				}
+				if (window->hoveredButtonId_ != -1 || window->hoveredCloseButtonId_ != -1) {
+					window->hoveredButtonId_ = -1;
+					window->hoveredCloseButtonId_ = -1;
+					window->invalidateTitleButton(0);
+				}
+				if (window->pressedButtonId_ >= 0)
+					return 0;
+				window->mouseMove(window->pixelsToCoords(Point{point.x, point.y}));
 				break;
+			}
 			/* Triggered when mouse leaves the window. There
  			 */
 			case WM_MOUSELEAVE:
+				if (window->hoveredButtonId_ != -1 || window->hoveredCloseButtonId_ != -1) {
+					window->hoveredButtonId_ = -1;
+					window->hoveredCloseButtonId_ = -1;
+					window->invalidateTitleButton(0);
+				}
                 window->mouseOut();
 				break;
             /** When mouse is moved, the cursor is always reset to the window's default cursor, so to keep the cursor set by the application, we must make sure to set it each time the setcursor message is received. 
              */
             case WM_SETCURSOR: 
                 if (LOWORD(lParam) == HTCLIENT) {
-                    SetCursor(window->mouseCursor_);
+                    POINT point{};
+                    GetCursorPos(&point);
+                    ScreenToClient(hWnd, &point);
+                    SetCursor(!window->fullscreen() && point.y < window->captionControlHeight()
+                        ? LoadCursorW(nullptr, IDC_ARROW) : window->mouseCursor_);
                     return TRUE;
                 }
                 break;            

@@ -47,9 +47,8 @@ namespace tpp {
             } else {
                 ShowWindow(hWnd_, SW_MAXIMIZE);
             }
-            // The owner-drawn caption buttons are child HWNDs and take focus on
-            // click. Return focus to the renderer so terminal keyboard input
-            // keeps working after maximize/restore.
+            // Return focus to the renderer after maximize/restore so terminal
+            // keyboard input remains available.
             SetFocus(hWnd_);
         }
 
@@ -86,26 +85,36 @@ namespace tpp {
 
         void windowResized(int width, int height) override {
             ASSERT(rt_ != nullptr);
-            D2D1_SIZE_U size = D2D1::SizeU(width, height);
-            rt_->Resize(size);
-
-            // redo the window's window resized here as we need to adjust the col & row size based on the dpiFactor
-            if (width != sizePx_.width() || height != sizePx_.height()) {
-                sizePx_ = Size{width, height};
-                // tell the renderer to resize 
-                resizePx(Size{width, height});
-                repaintImmediately();
+            if (width == sizePx_.width() && height == sizePx_.height()) {
+                if (!interactiveResize_)
+                    repaintImmediately();
+                return;
             }
+
+            // The terminal and title bar share one HWND render target, so each
+            // resize presents one complete frame instead of synchronizing
+            // several independently repainted child windows.
+            rt_->Resize(D2D1::SizeU(width, height));
+            sizePx_ = Size{width, height};
+            // Adjust terminal rows and columns using the current DPI scale.
+            resizePx(Size{width, height});
+            if (interactiveResize_)
+                InvalidateRect(hWnd_, nullptr, FALSE);
+            else
+                repaintImmediately();
         }
  
         void resizePx(Size sizePx) override {
+            int const captionHeight = fullscreen() ? 0 : captionControlHeight();
             resize(Size{
                 static_cast<int>(sizePx.width() / dpiFactor_ / cellSize_.width()),
-                static_cast<int>(sizePx.height() / dpiFactor_ / cellSize_.height())
+                static_cast<int>(std::max(0, sizePx.height() - captionHeight) / dpiFactor_ / cellSize_.height())
             });
         }
 
         Point pixelsToCoords(Point xy) {
+            if (!fullscreen())
+                xy.setY(xy.y() - captionControlHeight());
             return RendererWindow::pixelsToCoords(xy / dpiFactor_);
         }
 
@@ -255,29 +264,40 @@ namespace tpp {
 
         void finalizeDraw() {
             changeBackgroundColor(backgroundColor());
-            if (sizePx_.width() % cellSize_.width() != 0) {
+            FLOAT const contentTop = captionContentOffset();
+            FLOAT const targetWidth = static_cast<FLOAT>(sizePx_.width() / dpiFactor_);
+            FLOAT const targetHeight = static_cast<FLOAT>(sizePx_.height() / dpiFactor_);
+            int const contentWidth = static_cast<int>(targetWidth);
+            int const contentHeight = static_cast<int>(targetHeight - contentTop);
+            if (contentWidth % cellSize_.width() != 0) {
                 D2D1_RECT_F rect = D2D1::RectF(
                     static_cast<FLOAT>(width() * cellSize_.width()),
-                    static_cast<FLOAT>(0),
-                    static_cast<FLOAT>(sizePx_.width()),
-                    static_cast<FLOAT>(sizePx_.height())
+                    contentTop,
+                    targetWidth,
+                    targetHeight
                 );
     			rt_->FillRectangle(rect, bg_.Get());
             }
-            if (sizePx_.height() % cellSize_.height() != 0) {
+            if (contentHeight % cellSize_.height() != 0) {
                 D2D1_RECT_F rect = D2D1::RectF(
                     static_cast<FLOAT>(0),
-                    static_cast<FLOAT>(height() * cellSize_.height()),
-                    static_cast<FLOAT>(sizePx_.width()),
-                    static_cast<FLOAT>(sizePx_.height())
+                    contentTop + static_cast<FLOAT>(height() * cellSize_.height()),
+                    targetWidth,
+                    targetHeight
                 );
     			rt_->FillRectangle(rect, bg_.Get());
             }
+            if (!fullscreen())
+                drawCaptionBar();
             rt_->EndDraw();
         }
 
         int captionControlHeight() const {
-            return std::max(42, static_cast<int>(cellSize_.height() * dpiFactor_ * 2));
+            return std::max(42, static_cast<int>(cellSize_.height() * dpiFactor_));
+        }
+
+        float captionContentOffset() const {
+            return fullscreen() ? 0.0f : static_cast<float>(captionControlHeight() / dpiFactor_);
         }
 
         int captionControlWidth() const {
@@ -285,41 +305,13 @@ namespace tpp {
         }
 
         void createCaptionControls() {
-            wchar_t const * labels[] = {L"", L"", L""};
-            for (int i = 0; i < 3; ++i) {
-                captionButtons_[i] = CreateWindowExW(
-                    0, L"BUTTON", labels[i],
-                    WS_CHILD | WS_VISIBLE | BS_OWNERDRAW,
-                    0, 0, captionControlWidth(), captionControlHeight(), hWnd_,
-                    reinterpret_cast<HMENU>(static_cast<INT_PTR>(CaptionButtonId + i)),
-                    DirectWriteApplication::Instance()->hInstance_, nullptr);
-                if (captionButtons_[i] != nullptr)
-                    SetWindowSubclass(captionButtons_[i], CaptionButtonProc, 1, reinterpret_cast<DWORD_PTR>(this));
-            }
-            menuButton_ = createTitleButton(MenuButtonId);
-            addTabButton_ = createTitleButton(AddTabButtonId);
-            dropDownButton_ = createTitleButton(DropDownButtonId);
             layoutCaptionControls();
         }
 
-        void setCaptionControlsRedraw(bool enabled) {
-            auto setRedraw = [enabled](HWND control) {
-                if (control != nullptr) {
-                    SendMessageW(control, WM_SETREDRAW, enabled, 0);
-                    if (enabled)
-                        RedrawWindow(control, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
-                }
-            };
-            for (HWND button : captionButtons_)
-                setRedraw(button);
-            setRedraw(menuButton_);
-            for (TabButton const & tab : tabButtons_)
-                setRedraw(tab.hWnd);
-            setRedraw(addTabButton_);
-            setRedraw(dropDownButton_);
-        }
-
-        HWND createTitleButton(int id);
+        int titleBarControlAt(POINT clientPoint) const;
+        bool titleBarCloseAt(int id, POINT clientPoint) const;
+        void drawCaptionBar();
+        void activateTitleBarControl(int id);
         void showDropDownMenu();
         void showDropDownSubmenu(size_t itemIndex);
         void dismissDropDownMenu();
@@ -334,50 +326,12 @@ namespace tpp {
             int const width = captionControlWidth();
             int const left = client.right - 3 * width;
             int const height = captionControlHeight();
-            HDWP batch = BeginDeferWindowPos(static_cast<int>(6 + tabButtons_.size()));
-            std::vector<HWND> changedButtons;
-            std::vector<RECT> dirtyRects;
-            auto includeDirty = [&dirtyRects](RECT const & rect) { dirtyRects.push_back(rect); };
-            auto place = [this, &batch, &changedButtons, &includeDirty, height](HWND button, int x, int buttonWidth) {
-                if (button == nullptr)
-                    return;
-                RECT previous{};
-                bool const hadPrevious = GetWindowRect(button, &previous) != FALSE;
-                if (hadPrevious) {
-                    MapWindowPoints(nullptr, hWnd_, reinterpret_cast<POINT*>(&previous), 2);
-                    if (IsWindowVisible(button) && previous.left == x && previous.top == 0 &&
-                        previous.right - previous.left == buttonWidth && previous.bottom - previous.top == height)
-                        return;
-                    includeDirty(previous);
-                }
-                includeDirty(RECT{x, 0, x + buttonWidth, height});
-                UINT const flags = SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | SWP_NOREDRAW;
-                bool const sizeChanged = !hadPrevious || previous.right - previous.left != buttonWidth ||
-                    previous.bottom - previous.top != height;
-                if (sizeChanged)
-                    changedButtons.push_back(button);
-                if (batch != nullptr) {
-                    HDWP next = DeferWindowPos(batch, button, nullptr, x, 0, buttonWidth, height, flags);
-                    if (next != nullptr) {
-                        batch = next;
-                        return;
-                    }
-                    batch = nullptr;
-                }
-                SetWindowPos(button, nullptr, x, 0, buttonWidth, height, flags);
-            };
-            for (int i = 0; i < 3; ++i) {
-                if (captionButtons_[i] != nullptr)
-                    place(captionButtons_[i], left + i * width, width);
-            }
             int const menuWidth = static_cast<int>(47 * dpiFactor_);
             int const addWidth = static_cast<int>(48 * dpiFactor_);
             int const dropDownWidth = static_cast<int>(26 * dpiFactor_);
             int x = 0;
-            if (menuButton_ != nullptr) {
-                place(menuButton_, x, menuWidth);
-                x += menuWidth;
-            }
+            menuButtonRect_ = RECT{x, 0, x + menuWidth, height};
+            x += menuWidth;
             if (tabButtons_.empty()) {
                 tabButtonWidth_ = 0;
             } else if (reflowTabs || tabButtonWidth_ == 0) {
@@ -387,31 +341,23 @@ namespace tpp {
                     std::max(static_cast<int>(96 * dpiFactor_), tabSpace / static_cast<int>(tabButtons_.size())));
             }
             int const tabWidth = tabButtonWidth_;
-            for (TabButton & tab : tabButtons_) {
-                if (tab.hWnd != nullptr)
-                    place(tab.hWnd, x, tabWidth);
+            tabButtonRects_.resize(tabButtons_.size());
+            for (size_t i = 0; i < tabButtons_.size(); ++i) {
+                tabButtonRects_[i] = RECT{x, 0, x + tabWidth, height};
                 x += tabWidth;
             }
-            if (addTabButton_ != nullptr) {
-                place(addTabButton_, x, addWidth);
-                x += addWidth;
-            }
-            if (dropDownButton_ != nullptr)
-                place(dropDownButton_, x, dropDownWidth);
+            addTabButtonRect_ = RECT{x, 0, x + addWidth, height};
+            x += addWidth;
+            dropDownButtonRect_ = RECT{x, 0, x + dropDownWidth, height};
+            for (int i = 0; i < 3; ++i)
+                captionButtonRects_[i] = RECT{left + i * width, 0, left + (i + 1) * width, height};
 
-            if (batch != nullptr)
-                EndDeferWindowPos(batch);
-
-            for (HWND button : changedButtons)
-                InvalidateRect(button, nullptr, FALSE);
-            if (!interactiveResize_)
-                for (RECT const & rect : dirtyRects)
-                    InvalidateRect(hWnd_, &rect, FALSE);
+            RECT const titleBarRect{0, 0, client.right, height};
+            InvalidateRect(hWnd_, &titleBarRect, FALSE);
         }
 
         void invalidateTitleButton(int id);
 
-        void drawTitleBarItem(DRAWITEMSTRUCT * draw);
         static LRESULT CALLBACK DropDownPopupProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
         static constexpr int CaptionButtonId = 0x5A10;
@@ -421,13 +367,13 @@ namespace tpp {
         static constexpr UINT_PTR MenuDismissClearTimerId = 0x5A34;
         static constexpr int TabButtonId = 0x5B00;
         struct TabButton {
-            HWND hWnd = nullptr;
             Window::TabBarItem item;
         };
-        HWND captionButtons_[3]{};
-        HWND menuButton_ = nullptr;
-        HWND addTabButton_ = nullptr;
-        HWND dropDownButton_ = nullptr;
+        RECT captionButtonRects_[3]{};
+        RECT menuButtonRect_{};
+        RECT addTabButtonRect_{};
+        RECT dropDownButtonRect_{};
+        std::vector<RECT> tabButtonRects_;
         std::vector<TabButton> tabButtons_;
         std::vector<Window::TabBarMenuItem> dropDownItems_;
         HWND dropDownPopup_ = nullptr;
@@ -441,10 +387,9 @@ namespace tpp {
         bool suppressMenuDismissMouseUp_ = false;
         bool suppressNextMenuDismissClick_ = false;
         int hoveredButtonId_ = -1;
+        int pressedButtonId_ = -1;
         int hoveredCloseButtonId_ = -1;
         int tabButtonWidth_ = 0;
-
-        static LRESULT CALLBACK CaptionButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassId, DWORD_PTR refData);
 
         void initializeGlyphRun(int col, int row) {
             glyphRun_.glyphCount = 0;
@@ -516,16 +461,16 @@ namespace tpp {
             // get the glyph run rectange
 			D2D1_RECT_F rect = D2D1::RectF(
 				static_cast<FLOAT>(glyphRunCol_ * cellSize_.width()),
-				static_cast<FLOAT>((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height()),
+                static_cast<FLOAT>((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height() + captionContentOffset()),
 				static_cast<FLOAT>((glyphRunCol_ + glyphRun_.glyphCount * state_.font().width()) * cellSize_.width()),
-				static_cast<FLOAT>((glyphRunRow_ + 1) * cellSize_.height())
+                static_cast<FLOAT>((glyphRunRow_ + 1) * cellSize_.height() + captionContentOffset())
 			);
             // fill it with the background
 			rt_->FillRectangle(rect, bg_.Get());
             // determine the originl and draw the glyph run
             D2D1_POINT_2F origin = D2D1::Point2F(
                 static_cast<float>(glyphRunCol_* cellSize_.width() + font_->offset().x()),
-                ((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height() + font_->ascent()) + font_->offset().y());
+                ((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height() + font_->ascent()) + font_->offset().y() + captionContentOffset());
             if (!state_.font().blink() || BlinkVisible()) {
                 rt_->DrawGlyphRun(origin, &glyphRun_, fg_.Get());
                 // see if there are any attributes to be drawn 
@@ -550,7 +495,7 @@ namespace tpp {
          */
         void drawBorder(int col, int row, Border const & border, int widthThin, int widthThick) {
             float fLeft = static_cast<float>(col * cellSize_.width());
-            float fTop = static_cast<float>(row * cellSize_.height());
+            float fTop = static_cast<float>(row * cellSize_.height()) + captionContentOffset();
             float widthTop = static_cast<float>(border.top() == Border::Kind::None ? 0 : (border.top() == Border::Kind::Thick ? widthThick : widthThin));
             float widthLeft = static_cast<float>(border.left() == Border::Kind::None ? 0 : (border.left() == Border::Kind::Thick ? widthThick : widthThin));
             float widthBottom = static_cast<float>(border.bottom() == Border::Kind::None ? 0 : (border.bottom() == Border::Kind::Thick ? widthThick : widthThin));

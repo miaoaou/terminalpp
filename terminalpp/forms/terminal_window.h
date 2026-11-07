@@ -19,20 +19,6 @@
 
 namespace tpp {
 
-    class TitleBarPanel : public ui::Panel {
-    public:
-        explicit TitleBarPanel(ui::Layout * layout = nullptr) {
-            if (layout != nullptr)
-                setLayout(layout);
-            setMouseCursor(ui::MouseCursor::Arrow);
-        }
-
-    protected:
-        void paint(ui::Canvas & canvas) override {
-            ui::Panel::paint(canvas);
-        }
-    };
-
     /** New Version Dialog.
      */
     class NewVersionDialog : public ui::Dialog::Cancel {
@@ -122,24 +108,6 @@ namespace tpp {
             main_->setLayout(new Layout::Column{VerticalAlign::Top});
 #if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
             main_->setBackground(Color::Black);
-            tabBar_ = new TitleBarPanel{new Layout::Row{HorizontalAlign::Left}};
-            tabBar_->setHeightHint(SizeHint::Manual());
-            tabBar_->resize(Size{80, 2});
-            tabBar_->setBackground(titleBarColor());
-
-            dragArea_ = new TitleBarPanel{};
-            dragArea_->setWidthHint(SizeHint::AutoLayout());
-            dragArea_->setHeightHint(SizeHint::Manual());
-            dragArea_->resize(Size{1, 2});
-            dragArea_->onMouseDown.setHandler([this](ui::MouseButtonEvent::Payload & e) {
-                if (e->button == MouseButton::Left) {
-                    e.stop();
-                    window_->startWindowDrag();
-                }
-            });
-
-            tabBar_->attach(dragArea_);
-            main_->attach(tabBar_);
 #endif
             main_->attach(pager_);
             setContents(main_);
@@ -358,10 +326,6 @@ namespace tpp {
             };
             window_->setTabBar(std::move(tabs), [this]() { createNewTab(); }, [this]() { createNewTab(); }, std::move(dropDownItems));
 #endif
-        }
-
-        static Color titleBarColor() {
-            return Color{43, 43, 43};
         }
 
         void createNewTab() {
@@ -627,8 +591,6 @@ namespace tpp {
         ui::Pager * pager_;
 
 #if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
-        TitleBarPanel * tabBar_ = nullptr;
-        ui::Panel * dragArea_ = nullptr;
         unsigned nextTabNumber_ = 1;
 #endif
 
