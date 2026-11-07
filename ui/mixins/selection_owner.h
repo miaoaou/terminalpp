@@ -141,13 +141,21 @@ namespace ui {
         void paintSelection(Canvas & canvas, Color background) {
             if (selection_.empty())
                 return;
-            if (selection_.start().y() + 1 == selection_.end().y()) {
-                canvas.fill(Rect{selection_.start(), selection_.end()}, background);
 
-            } else {
-                canvas.fill(Rect{selection_.start(), Point{canvas.width(), selection_.start().y() + 1}}, background);
-                canvas.fill(Rect{Point{0, selection_.start().y() + 1}, Size{canvas.width(), selection_.end().y() - selection_.start().y() - 2}}, background);
-                canvas.fill(Rect{Point{0, selection_.end().y() - 1}, selection_.end()}, background);
+            float const lightness = (0.2126f * background.r + 0.7152f * background.g + 0.0722f * background.b) / 255.0f;
+            Color const foreground = lightness >= 0.5f ? Color::Black : Color::White;
+            Point const start = selection_.start();
+            Point const end = selection_.end();
+            Rect const visible = canvas.visibleRect();
+            for (int y = start.y(); y < end.y(); ++y) {
+                int const left = y == start.y() ? start.x() : 0;
+                int const right = y == end.y() - 1 ? end.x() : canvas.width();
+                Rect const row = Rect{Point{left, y}, Point{right, y + 1}} & visible;
+                for (int x = row.left(); x < row.right(); ++x) {
+                    Canvas::Cell & cell = canvas.at(Point{x, y});
+                    cell.setBg(background);
+                    cell.setFg(foreground);
+                }
             }
         }
 
@@ -253,9 +261,8 @@ namespace ui {
     protected:
 
         void paint(Canvas & canvas) override {
-            // TODO get the selection color from style
             if (! selection_.empty())
-                paintSelection(canvas, Color::Blue.withAlpha(64));
+                paintSelection(canvas, Color{204, 204, 204});
         }
 
         void keyDown(KeyEvent::Payload & e) override {
