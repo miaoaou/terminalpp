@@ -110,14 +110,21 @@ elseif(ARCH_UNIX)
 endif()
 
 if(ARCH_WINDOWS)
-    add_custom_command(TARGET terminalpp POST_BUILD
+    if(CMAKE_CONFIGURATION_TYPES)
+        set(TERMINALPP_CYGWIN_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/cygwin64")
+    else()
+        set(TERMINALPP_CYGWIN_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/cygwin64")
+    endif()
+
+    add_custom_target(terminalpp_cygwin_runtime
         COMMAND "${CMAKE_COMMAND}"
             "-DSOURCE_DIR=${CMAKE_SOURCE_DIR}/third_party/cygwin64"
-            "-DDEST_DIR=$<TARGET_FILE_DIR:terminalpp>/cygwin64"
+            "-DDEST_DIR=${TERMINALPP_CYGWIN_DESTINATION}"
             -P "${CMAKE_SOURCE_DIR}/scripts/copy_cygwin_runtime.cmake"
         COMMENT "Copying bundled Cygwin runtime beside terminalpp.exe"
         VERBATIM
     )
+    add_dependencies(terminalpp terminalpp_cygwin_runtime)
 endif()
 
 if(RENDERER_NATIVE OR RENDERER_QT)

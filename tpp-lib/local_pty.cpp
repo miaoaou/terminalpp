@@ -23,7 +23,7 @@ namespace tpp {
 
     namespace {
 
-        std::wstring bundledCygwinBinPath() {
+        std::wstring bundledCygwinPathPrefix() {
             std::vector<wchar_t> executablePath(MAX_PATH);
             DWORD pathLength = 0;
 
@@ -53,10 +53,15 @@ namespace tpp {
             if (dllAttributes == INVALID_FILE_ATTRIBUTES || (dllAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
                 return {};
 
+            auto const compatibilityMarker = executable + L"\\cygwin64\\compat\\.terminalpp-cygwin-compat-ready";
+            auto const markerAttributes = GetFileAttributesW(compatibilityMarker.c_str());
+            if (markerAttributes != INVALID_FILE_ATTRIBUTES && (markerAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+                return executable + L"\\cygwin64\\compat;" + binPath;
+
             return binPath;
         }
 
-        std::vector<wchar_t> childEnvironmentWithPathFirst(std::wstring const & firstPath) {
+        std::vector<wchar_t> childEnvironmentWithPathFirst(std::wstring const & pathPrefix) {
             std::vector<wchar_t> environmentBlock;
             LPWCH environment = GetEnvironmentStringsW();
             if (environment == nullptr)
@@ -74,7 +79,7 @@ namespace tpp {
                     entry[4] == L'=';
 
                 if (isPath) {
-                    entry.insert(5, firstPath + L";");
+                    entry.insert(5, pathPrefix + L";");
                     pathFound = true;
                 }
 
@@ -85,7 +90,7 @@ namespace tpp {
             FreeEnvironmentStringsW(environment);
 
             if (!pathFound) {
-                auto const pathEntry = std::wstring{L"PATH="} + firstPath;
+                auto const pathEntry = std::wstring{L"PATH="} + pathPrefix;
                 environmentBlock.insert(environmentBlock.end(), pathEntry.begin(), pathEntry.end());
                 environmentBlock.push_back(L'\0');
             }
@@ -175,8 +180,8 @@ namespace tpp {
             // finally, create the process with given commandline
             utf16_string cmd = UTF8toUTF16(command_.toString());
             utf16_string path = UTF8toUTF16(command_.workingDirectory());
-            auto const cygwinBin = bundledCygwinBinPath();
-            auto environmentBlock = cygwinBin.empty() ? std::vector<wchar_t>{} : childEnvironmentWithPathFirst(cygwinBin);
+            auto const cygwinPath = bundledCygwinPathPrefix();
+            auto environmentBlock = cygwinPath.empty() ? std::vector<wchar_t>{} : childEnvironmentWithPathFirst(cygwinPath);
             DWORD creationFlags = EXTENDED_STARTUPINFO_PRESENT;
             if (!environmentBlock.empty())
                 creationFlags |= CREATE_UNICODE_ENVIRONMENT;

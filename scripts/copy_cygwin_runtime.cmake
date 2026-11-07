@@ -6,14 +6,27 @@ if(NOT EXISTS "${SOURCE_DIR}/bin/cygwin1.dll")
     message(FATAL_ERROR "The bundled Cygwin runtime is missing: ${SOURCE_DIR}")
 endif()
 
-set(runtime_stamp "${DEST_DIR}/.terminalpp-cygwin-runtime")
-# The runtime is large; avoid copying it again on every relink. Remove the
-# output stamp when refreshing the bundled Cygwin files.
-if(EXISTS "${runtime_stamp}" AND EXISTS "${DEST_DIR}/bin/cygwin1.dll")
-    return()
+find_program(POWERSHELL_EXECUTABLE NAMES pwsh powershell)
+if(NOT POWERSHELL_EXECUTABLE)
+    message(FATAL_ERROR "PowerShell is required to prepare the bundled Cygwin runtime")
 endif()
 
-file(MAKE_DIRECTORY "${DEST_DIR}")
-file(COPY "${SOURCE_DIR}/" DESTINATION "${DEST_DIR}")
-file(MAKE_DIRECTORY "${DEST_DIR}/dev" "${DEST_DIR}/home" "${DEST_DIR}/tmp")
-file(WRITE "${runtime_stamp}" "Bundled Cygwin runtime copied by terminalpp CMake build.\n")
+execute_process(
+    COMMAND "${POWERSHELL_EXECUTABLE}"
+        -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass
+        -File "${CMAKE_CURRENT_LIST_DIR}/prepare_cygwin_runtime.ps1"
+        -SourceRoot "${SOURCE_DIR}"
+        -DestinationRoot "${DEST_DIR}"
+    RESULT_VARIABLE prepare_result
+    OUTPUT_VARIABLE prepare_output
+    ERROR_VARIABLE prepare_error
+)
+
+if(NOT prepare_result EQUAL 0)
+    message(FATAL_ERROR "Preparing the bundled Cygwin runtime failed: ${prepare_error}")
+endif()
+
+if(NOT prepare_output STREQUAL "")
+    string(STRIP "${prepare_output}" prepare_output)
+    message(STATUS "${prepare_output}")
+endif()
