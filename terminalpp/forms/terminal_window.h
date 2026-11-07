@@ -12,6 +12,9 @@
 
 #include "../config.h"
 #include "../window.h"
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+#include "../tab_control_server.h"
+#endif
 
 #include "about_box.h"
 
@@ -119,6 +122,15 @@ namespace tpp {
             pager_->onPageChange.setHandler(&TerminalWindow::activeSessionChanged, this);
 
             window_->setRoot(this);
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+            controlServer_.reset(new TabControlServer(
+                [this](std::function<void()> event) {
+                    schedule(std::move(event));
+                },
+                [this](JSON const & request) {
+                    return handleControlRequest(request);
+                }));
+#endif
             loadSSHHistory();
             versionChecker_ = std::thread{[this](){
                 std::string channel = Config::Instance().version.checkChannel();
@@ -139,6 +151,9 @@ namespace tpp {
         }
 
         ~TerminalWindow() override {
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+            controlServer_.reset();
+#endif
             versionChecker_.join();
             delete remoteFiles_;
         }
@@ -191,6 +206,10 @@ namespace tpp {
         void loadSSHHistory();
         void recordSSHHost(std::string const & host);
         void launchSSHHost(std::string const & host);
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+        JSON handleControlRequest(JSON const & request);
+        JSON tabSnapshot(SessionInfo const & session, size_t index) const;
+#endif
 
         /** Global hotkeys handling.
          */
@@ -658,6 +677,9 @@ namespace tpp {
         unsigned nextSSHSessionId_ = 1;
 
         SessionInfo * activeSession_ = nullptr;
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+        std::unique_ptr<TabControlServer> controlServer_;
+#endif
         unsigned activeNotifications_ = 0;
 
         RemoteFiles * remoteFiles_;

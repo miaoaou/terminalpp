@@ -1,6 +1,7 @@
 #include "terminal_window.h"
 
 #include <fstream>
+#include <stdexcept>
 
 #include "helpers/filesystem.h"
 
@@ -41,6 +42,80 @@ namespace {
 namespace tpp {
 
     using namespace ui;
+
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+    JSON TerminalWindow::tabSnapshot(SessionInfo const & session, size_t index) const {
+        std::vector<std::string> rows = session.terminal->textRows();
+        std::string text;
+        for (size_t row = 0; row < rows.size(); ++row) {
+            if (row != 0)
+                text.push_back('\n');
+            text += rows[row];
+        }
+
+        JSON result = JSON::Object();
+        result.add("id", JSON{static_cast<int>(index)});
+        result.add("title", JSON{session.tabTitle.empty() ? session.title : session.tabTitle});
+        result.add("terminal_title", JSON{session.title});
+        result.add("active", JSON{activeSession_ == &session});
+        result.add("text", JSON{text});
+        JSON rowList = JSON::Array();
+        for (std::string const & row : rows)
+            rowList.add(JSON{row});
+        result.add("rows", std::move(rowList));
+        return result;
+    }
+
+    JSON TerminalWindow::handleControlRequest(JSON const & request) {
+        if (request.kind() != JSON::Kind::Object || !request.hasKey("op") || request["op"].kind() != JSON::Kind::String)
+            throw std::runtime_error("Request must contain a string 'op'");
+
+        std::string const & operation = request["op"].toString();
+        if (operation == "list_tabs" || operation == "read_all") {
+            JSON tabs = JSON::Array();
+            for (size_t index = 0; index < sessionOrder_.size(); ++index)
+                tabs.add(tabSnapshot(*sessionInfo(sessionOrder_[index]), index));
+            JSON result = JSON::Object();
+            result.add("tabs", std::move(tabs));
+            return result;
+        }
+
+        if (!request.hasKey("id") || request["id"].kind() != JSON::Kind::Integer)
+            throw std::runtime_error("Request must contain an integer 'id'");
+        unsigned const index = request["id"].toUnsigned();
+        if (index >= sessionOrder_.size())
+            throw std::runtime_error("No tab exists with that id");
+
+        SessionInfo * session = sessionInfo(sessionOrder_[index]);
+        if (operation == "read_tab")
+            return tabSnapshot(*session, index);
+
+        if (operation == "send_text") {
+            if (!request.hasKey("text") || request["text"].kind() != JSON::Kind::String)
+                throw std::runtime_error("Request must contain a string 'text'");
+            bool enter = false;
+            if (request.hasKey("enter")) {
+                if (request["enter"].kind() != JSON::Kind::Boolean)
+                    throw std::runtime_error("'enter' must be a boolean");
+                enter = request["enter"].toBool();
+            }
+            std::string const & text = request["text"].toString();
+            if (!text.empty())
+                session->terminal->pasteContents(text);
+            if (enter)
+                session->terminal->pasteContents("\r");
+
+            JSON result = JSON::Object();
+            result.add("id", JSON{static_cast<int>(index)});
+            result.add("sent", JSON{true});
+            result.add("bytes", JSON{static_cast<int>(text.size())});
+            result.add("enter", JSON{enter});
+            return result;
+        }
+
+        throw std::runtime_error("Unknown operation: " + operation);
+    }
+#endif
 
     void TerminalWindow::newSession(Config::sessions_entry const & session) {
         Config const & config = Config::Instance();

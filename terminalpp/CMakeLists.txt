@@ -127,6 +127,27 @@ if(ARCH_WINDOWS)
     add_dependencies(terminalpp terminalpp_cygwin_runtime)
 endif()
 
+if(ARCH_WINDOWS AND RENDERER_NATIVE)
+    if(CMAKE_CONFIGURATION_TYPES)
+        set(TERMINALPP_PYTHON_CLIENT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>")
+    else()
+        set(TERMINALPP_PYTHON_CLIENT_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+    endif()
+
+    add_custom_target(terminalpp_python_client
+        COMMAND "${CMAKE_COMMAND}" -E make_directory "${TERMINALPP_PYTHON_CLIENT_DESTINATION}"
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+            "${CMAKE_SOURCE_DIR}/scripts/terminalpp_control.py"
+            "${TERMINALPP_PYTHON_CLIENT_DESTINATION}/terminalpp_control.py"
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+            "${CMAKE_SOURCE_DIR}/scripts/demo_terminalpp_control.py"
+            "${TERMINALPP_PYTHON_CLIENT_DESTINATION}/demo_terminalpp_control.py"
+        COMMENT "Copying the Python terminal control files beside terminalpp.exe"
+        VERBATIM
+    )
+    add_dependencies(terminalpp terminalpp_python_client)
+endif()
+
 if(RENDERER_NATIVE OR RENDERER_QT)
     # On all platforms, terminalpp links against the ui and terminal libraries from the root folder.
     target_link_libraries(terminalpp ${TPP_LINK_LIBRARIES})

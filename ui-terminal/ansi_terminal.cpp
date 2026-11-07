@@ -66,6 +66,40 @@ namespace ui {
         delete stateBackup_;
     }
 
+    std::vector<std::string> AnsiTerminal::textRows() const {
+        std::lock_guard<PriorityLock> g{bufferLock_};
+        std::vector<std::string> rows;
+        rows.reserve((alternateMode_ ? 0 : historyRows_.size()) + static_cast<size_t>(state_->buffer.height()));
+
+        auto appendRow = [&rows](Cell const * cells, int count) {
+            int end = count;
+            while (end > 0 && cells[end - 1].codepoint() == ' ')
+                --end;
+
+            std::string text;
+            for (int col = 0; col < end; ++col) {
+                char32_t codepoint = cells[col].codepoint();
+                if (codepoint == 0)
+                    continue;
+                if (codepoint < 0x20 && codepoint != '\t')
+                    codepoint = ' ';
+                Char character{codepoint};
+                text.append(character.toCharPtr(), character.size());
+            }
+            rows.push_back(std::move(text));
+        };
+
+        if (!alternateMode_) {
+            for (auto const & row : historyRows_)
+                appendRow(row.second, row.first);
+        }
+        for (int row = 0; row < state_->buffer.height(); ++row) {
+            Cell const * cells = &static_cast<Buffer const &>(state_->buffer).at(Point{0, row});
+            appendRow(cells, state_->buffer.width());
+        }
+        return rows;
+    }
+
     // Widget
 
     void AnsiTerminal::paint(Canvas & canvas) {

@@ -537,6 +537,9 @@ namespace ui {
             return static_cast<int>(historyRows_.size());
         }
 
+        /** Returns the terminal's retained history and current screen as UTF-8 text rows. */
+        std::vector<std::string> textRows() const;
+
         int maxHistoryRows() const {
             return maxHistoryRows_;
         }
