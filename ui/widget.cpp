@@ -77,6 +77,7 @@ namespace ui {
         // then detach from the renderer first
         if (renderer_ != nullptr)
             renderer_->detachTree(child);
+        child->parent_ = nullptr;
         // and finally relayout itself
         relayout();
     }

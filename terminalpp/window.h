@@ -1,8 +1,10 @@
 #pragma once
 
 #include <algorithm>
+#include <functional>
 #include <thread>
 #include <mutex>
+#include <vector>
 
 #include "helpers/time.h"
 
@@ -22,6 +24,13 @@ namespace tpp {
 
     class Window : public Renderer {
     public:
+        struct TabBarItem {
+            std::string title;
+            bool active = false;
+            std::function<void()> activate;
+            std::function<void()> close;
+        };
+
         /** Determines the icon of the renderer's window where appropriate. 
          
             Instead of specifying the actual icon, which is left to the actual renderers being used, the icon specifies the meaning of the icon.
@@ -39,6 +48,21 @@ namespace tpp {
         virtual void setTitle(std::string const & value) {
             if (value != title_)
                 title_ = value;
+        }
+
+        virtual void minimize() {
+        }
+
+        virtual void toggleMaximized() {
+        }
+
+        virtual void startWindowDrag() {
+        }
+
+        virtual void setTabBar(std::vector<TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu) {
+            MARK_AS_UNUSED(tabs);
+            MARK_AS_UNUSED(addTab);
+            MARK_AS_UNUSED(showMenu);
         }
 
         Icon icon() const {

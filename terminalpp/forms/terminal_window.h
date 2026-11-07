@@ -15,7 +15,23 @@
 
 #include "about_box.h"
 
+#include <algorithm>
+
 namespace tpp {
+
+    class TitleBarPanel : public ui::Panel {
+    public:
+        explicit TitleBarPanel(ui::Layout * layout = nullptr) {
+            if (layout != nullptr)
+                setLayout(layout);
+            setMouseCursor(ui::MouseCursor::Arrow);
+        }
+
+    protected:
+        void paint(ui::Canvas & canvas) override {
+            ui::Panel::paint(canvas);
+        }
+    };
 
     /** New Version Dialog.
      */
@@ -104,7 +120,27 @@ namespace tpp {
             window_->onKeyDown.setHandler(&TerminalWindow::windowKeyDown, this);
 
             main_->setLayout(new Layout::Column{VerticalAlign::Top});
-            main_->setBackground(Color::Red);
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+            main_->setBackground(Color::Black);
+            tabBar_ = new TitleBarPanel{new Layout::Row{HorizontalAlign::Left}};
+            tabBar_->setHeightHint(SizeHint::Manual());
+            tabBar_->resize(Size{80, 2});
+            tabBar_->setBackground(titleBarColor());
+
+            dragArea_ = new TitleBarPanel{};
+            dragArea_->setWidthHint(SizeHint::AutoLayout());
+            dragArea_->setHeightHint(SizeHint::Manual());
+            dragArea_->resize(Size{1, 2});
+            dragArea_->onMouseDown.setHandler([this](ui::MouseButtonEvent::Payload & e) {
+                if (e->button == MouseButton::Left) {
+                    e.stop();
+                    window_->startWindowDrag();
+                }
+            });
+
+            tabBar_->attach(dragArea_);
+            main_->attach(tabBar_);
+#endif
             main_->attach(pager_);
             setContents(main_);
 
@@ -145,6 +181,7 @@ namespace tpp {
         public:
             std::string name;
             std::string title;
+            std::string tabTitle;
             AnsiTerminal * terminal = nullptr;
             bool terminateOnKeyPress = false;
             /** If true, the current session has an active notification.
@@ -186,6 +223,14 @@ namespace tpp {
                 window_->setFullscreen(! window_->fullscreen());
             } else if (*e == SHORTCUT_SETTINGS) {
                 Application::Instance()->openLocalFile(Config::GetSettingsFile(), /* edit = */ true);
+            } else if (*e == SHORTCUT_NEW_TAB) {
+                createNewTab();
+            } else if (*e == SHORTCUT_CLOSE_TAB && activeSession_ != nullptr) {
+                closeSession(activeSession_);
+            } else if (*e == SHORTCUT_NEXT_TAB) {
+                cycleTab(1);
+            } else if (*e == SHORTCUT_PREVIOUS_TAB) {
+                cycleTab(-1);
             } else if (*e == SHORTCUT_ZOOM_IN || *e == SHORTCUT_ZOOM_IN_ALT) {
                 if (window_->zoom() < 10) 
                     window_->setZoom(window_->zoom() * 1.25);
@@ -200,6 +245,66 @@ namespace tpp {
             e.stop();
         }
 
+        void updateTabs() {
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+            std::vector<tpp::Window::TabBarItem> tabs;
+            tabs.reserve(sessionOrder_.size());
+            for (AnsiTerminal * terminal : sessionOrder_) {
+                SessionInfo * session = sessionInfo(terminal);
+                tpp::Window::TabBarItem tab;
+                tab.title = session->tabTitle;
+                tab.active = session == activeSession_;
+                tab.activate = [this, terminal]() {
+                    pager_->setActivePage(terminal);
+                    window_->setKeyboardFocus(terminal);
+                };
+                tab.close = [this, terminal]() {
+                    auto found = sessions_.find(terminal);
+                    if (found != sessions_.end())
+                        closeSession(found->second);
+                };
+                tabs.push_back(std::move(tab));
+            }
+            window_->setTabBar(std::move(tabs), [this]() { createNewTab(); }, [this]() { createNewTab(); });
+#endif
+        }
+
+        static Color titleBarColor() {
+            return Color{43, 43, 43};
+        }
+
+        void createNewTab() {
+            Config const & config = Config::Instance();
+            std::string const sessionName = activeSession_ == nullptr ? config.defaultSession() : activeSession_->name;
+            newSession(config.sessionByName(sessionName));
+        }
+
+        void selectTab(size_t index) {
+            if (index >= sessionOrder_.size())
+                return;
+            AnsiTerminal * terminal = sessionOrder_[index];
+            pager_->setActivePage(terminal);
+            window_->setKeyboardFocus(terminal);
+        }
+
+        void closeTab(size_t index) {
+            if (index >= sessionOrder_.size())
+                return;
+            closeSession(sessionInfo(sessionOrder_[index]));
+        }
+
+        void cycleTab(int direction) {
+            if (sessionOrder_.size() < 2 || activeSession_ == nullptr)
+                return;
+            auto current = std::find(sessionOrder_.begin(), sessionOrder_.end(), activeSession_->terminal);
+            if (current == sessionOrder_.end())
+                return;
+            int index = static_cast<int>(current - sessionOrder_.begin());
+            int const count = static_cast<int>(sessionOrder_.size());
+            index = (index + direction + count) % count;
+            selectTab(static_cast<size_t>(index));
+        }
+
         SessionInfo * sessionInfo(Widget * terminal) {
             AnsiTerminal * t = dynamic_cast<AnsiTerminal*>(terminal);
             ASSERT(t != nullptr);
@@ -212,21 +317,26 @@ namespace tpp {
             UI_THREAD_ONLY;
             if (session->pendingPaste != nullptr)
                 session->pendingPaste->dismiss(session->pendingPaste->btnCancel());
+            sessionOrder_.erase(std::remove(sessionOrder_.begin(), sessionOrder_.end(), session->terminal), sessionOrder_.end());
             sessions_.erase(session->terminal);
             pager_->removePage(session->terminal);
             delete session;
             // if this was the last session, close the window
-            if (sessions_.empty())
+            if (sessions_.empty()) {
+                updateTabs();
                 window_->requestClose();
+                return;
+            }
             // otherwise focus the active session instead
             // TODO do we want this always, or should we actually check if the remove session was focused first?
-            else
-                window_->setKeyboardFocus(pager_->activePage());
+            window_->setKeyboardFocus(pager_->activePage());
+            updateTabs();
         }
 
         void sessionTitleChanged(ui::StringEvent::Payload & e) {
             SessionInfo * si = sessionInfo(e.sender());
             si->title = *e;
+            updateTabs();
             if (activeSession_ == si)
                 window_->setTitle(*e);
         }
@@ -262,9 +372,11 @@ namespace tpp {
 
         void activeSessionChanged(ui::Event<Widget*>::Payload & e) {
             activeSession_ = *e == nullptr ? nullptr : sessionInfo(*e);
+            updateTabs();
             // set own background to the session's terminal background so that it propagates to the window's background
             if (activeSession_ != nullptr) {
                 setBackground(activeSession_->terminal->palette().defaultBackground());
+                window_->setTitle(activeSession_->title);
             }
         }
 
@@ -272,14 +384,16 @@ namespace tpp {
             SessionInfo * si = sessionInfo(e.sender());
             window_->setIcon(tpp::Window::Icon::Notification);
             si->title = STR("Terminated, exit code " << *e);
+            updateTabs();
             if (activeSession_ == si)
                 window_->setTitle(si->title);
             Config const & config = Config::Instance();
             if (! config.renderer.window.waitAfterPtyTerminated()) {
-                closeSession(activeSession_);
+                closeSession(si);
             } else {
-                window_->setKeyboardFocus(this);
-                activeSession_->terminateOnKeyPress = true;
+                if (activeSession_ == si)
+                    window_->setKeyboardFocus(this);
+                si->terminateOnKeyPress = true;
             }
         }
 
@@ -403,7 +517,14 @@ namespace tpp {
         ui::Panel * main_;
         ui::Pager * pager_;
 
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+        TitleBarPanel * tabBar_ = nullptr;
+        ui::Panel * dragArea_ = nullptr;
+        unsigned nextTabNumber_ = 1;
+#endif
+
         std::unordered_map<AnsiTerminal *, SessionInfo *> sessions_;
+        std::vector<AnsiTerminal *> sessionOrder_;
 
         SessionInfo * activeSession_ = nullptr;
         unsigned activeNotifications_ = 0;

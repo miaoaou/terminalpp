@@ -51,6 +51,10 @@ constexpr size_t DEFAULT_BLINK_SPEED = 500;
 // alternate zoom shortcuts like in browsers
 #define SHORTCUT_ZOOM_IN_ALT (Key::Equals + Key::Ctrl + Key::Shift)
 #define SHORTCUT_ZOOM_OUT_ALT (Key::Minus + Key::Ctrl + Key::Shift)
+#define SHORTCUT_NEW_TAB (Key::T + Key::Ctrl + Key::Shift)
+#define SHORTCUT_CLOSE_TAB (Key::W + Key::Ctrl + Key::Shift)
+#define SHORTCUT_NEXT_TAB (Key::Tab + Key::Ctrl)
+#define SHORTCUT_PREVIOUS_TAB (Key::Tab + Key::Ctrl + Key::Shift)
 
 #define SHORTCUT_PASTE (Key::V + Key::Ctrl + Key::Shift)
 #define SHORTCUT_COPY (Key::C + Key::Ctrl + Key::Shift)

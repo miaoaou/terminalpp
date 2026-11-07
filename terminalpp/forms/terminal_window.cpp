@@ -35,7 +35,11 @@ namespace tpp {
         si->terminal->setActiveHyperlinkStyle(config.renderer.hyperlinks.active());
         // register the session and set it as active page
         AnsiTerminal * t = si->terminal;
+#if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
+        si->tabTitle = STR("Tab" << nextTabNumber_++);
+#endif
         sessions_.insert(std::make_pair(t, si.release()));
+        sessionOrder_.push_back(t);
         pager_->setActivePage(t);
         window_->setKeyboardFocus(t);
         // add terminal events (so that they are called only *after* the session is registered)
@@ -48,6 +52,7 @@ namespace tpp {
         t->onKeyDown.setHandler(&TerminalWindow::terminalKeyDown, this);
         t->onHyperlinkOpen.setHandler(&TerminalWindow::hyperlinkOpen, this);
         t->onHyperlinkCopy.setHandler(&TerminalWindow::hyperlinkCopy, this);
+        updateTabs();
     }
 
 } // namespace tpp

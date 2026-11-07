@@ -1,11 +1,14 @@
 #pragma once
 #if (defined ARCH_WINDOWS && defined RENDERER_NATIVE)
 
+#include <algorithm>
 #include <unordered_map>
 
 #include "helpers/time.h"
 
 #include "../window.h"
+#include <commctrl.h>
+#pragma comment(lib, "comctl32.lib")
 
 #include "directwrite_font.h"
 
@@ -29,6 +32,18 @@ namespace tpp {
         void setIcon(Window::Icon icon) override;
 
         void setFullscreen(bool value = true) override;
+
+        void minimize() override {
+            ShowWindow(hWnd_, SW_MINIMIZE);
+        }
+
+        void toggleMaximized() override {
+            ShowWindow(hWnd_, IsZoomed(hWnd_) ? SW_RESTORE : SW_MAXIMIZE);
+        }
+
+        void startWindowDrag() override;
+
+        void setTabBar(std::vector<Window::TabBarItem> tabs, std::function<void()> addTab, std::function<void()> showMenu) override;
 
         void show(bool value = true) override {
             if (value)
@@ -242,6 +257,129 @@ namespace tpp {
             rt_->EndDraw();
         }
 
+        int captionControlHeight() const {
+            return std::max(42, static_cast<int>(cellSize_.height() * dpiFactor_ * 2));
+        }
+
+        int captionControlWidth() const {
+            return std::max(46, static_cast<int>(GetSystemMetrics(SM_CXSIZE) * dpiFactor_));
+        }
+
+        void createCaptionControls() {
+            wchar_t const * labels[] = {L"", L"", L""};
+            for (int i = 0; i < 3; ++i) {
+                captionButtons_[i] = CreateWindowExW(
+                    0, L"BUTTON", labels[i],
+                    WS_CHILD | WS_VISIBLE | BS_OWNERDRAW,
+                    0, 0, captionControlWidth(), captionControlHeight(), hWnd_,
+                    reinterpret_cast<HMENU>(static_cast<INT_PTR>(CaptionButtonId + i)),
+                    DirectWriteApplication::Instance()->hInstance_, nullptr);
+                if (captionButtons_[i] != nullptr)
+                    SetWindowSubclass(captionButtons_[i], CaptionButtonProc, 1, reinterpret_cast<DWORD_PTR>(this));
+            }
+            menuButton_ = createTitleButton(MenuButtonId);
+            addTabButton_ = createTitleButton(AddTabButtonId);
+            dropDownButton_ = createTitleButton(DropDownButtonId);
+            layoutCaptionControls();
+        }
+
+        HWND createTitleButton(int id);
+
+        void layoutCaptionControls() {
+            RECT client{};
+            GetClientRect(hWnd_, &client);
+            int const width = captionControlWidth();
+            int const left = client.right - 3 * width;
+            int const height = captionControlHeight();
+            HDWP batch = BeginDeferWindowPos(static_cast<int>(6 + tabButtons_.size()));
+            auto place = [this, &batch, height](HWND button, int x, int buttonWidth) {
+                if (button == nullptr)
+                    return;
+                UINT const flags = SWP_NOZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | SWP_NOREDRAW;
+                if (batch != nullptr) {
+                    HDWP next = DeferWindowPos(batch, button, nullptr, x, 0, buttonWidth, height, flags);
+                    if (next != nullptr) {
+                        batch = next;
+                        return;
+                    }
+                    batch = nullptr;
+                }
+                SetWindowPos(button, nullptr, x, 0, buttonWidth, height, flags);
+            };
+            for (int i = 0; i < 3; ++i) {
+                if (captionButtons_[i] != nullptr)
+                    place(captionButtons_[i], left + i * width, width);
+            }
+            int const menuWidth = static_cast<int>(47 * dpiFactor_);
+            int const addWidth = static_cast<int>(48 * dpiFactor_);
+            int const dropDownWidth = static_cast<int>(52 * dpiFactor_);
+            int x = 0;
+            if (menuButton_ != nullptr) {
+                place(menuButton_, x, menuWidth);
+                x += menuWidth;
+            }
+            int const tabSpace = std::max(0, static_cast<int>(client.right) - (3 * width) - x - addWidth - dropDownWidth);
+            int const tabWidth = tabButtons_.empty() ? 0 : std::min(
+                static_cast<int>(200 * dpiFactor_),
+                std::max(static_cast<int>(96 * dpiFactor_), tabSpace / static_cast<int>(tabButtons_.size())));
+            for (TabButton & tab : tabButtons_) {
+                if (tab.hWnd != nullptr)
+                    place(tab.hWnd, x, tabWidth);
+                x += tabWidth;
+            }
+            if (addTabButton_ != nullptr) {
+                place(addTabButton_, x, addWidth);
+                x += addWidth;
+            }
+            if (dropDownButton_ != nullptr)
+                place(dropDownButton_, x, dropDownWidth);
+
+            if (batch != nullptr)
+                EndDeferWindowPos(batch);
+
+            for (HWND button : captionButtons_) {
+                if (button != nullptr)
+                    InvalidateRect(button, nullptr, FALSE);
+            }
+            if (menuButton_ != nullptr)
+                InvalidateRect(menuButton_, nullptr, FALSE);
+            for (TabButton const & tab : tabButtons_) {
+                if (tab.hWnd != nullptr)
+                    InvalidateRect(tab.hWnd, nullptr, FALSE);
+            }
+            if (addTabButton_ != nullptr)
+                InvalidateRect(addTabButton_, nullptr, FALSE);
+            if (dropDownButton_ != nullptr)
+                InvalidateRect(dropDownButton_, nullptr, FALSE);
+            RECT dirty{0, 0, x, height};
+            InvalidateRect(hWnd_, &dirty, FALSE);
+        }
+
+        void invalidateTitleButton(int id);
+
+        void drawTitleBarItem(DRAWITEMSTRUCT * draw);
+
+        static constexpr int CaptionButtonId = 0x5A10;
+        static constexpr int MenuButtonId = 0x5A20;
+        static constexpr int AddTabButtonId = 0x5A21;
+        static constexpr int DropDownButtonId = 0x5A22;
+        static constexpr int TabButtonId = 0x5B00;
+        struct TabButton {
+            HWND hWnd = nullptr;
+            Window::TabBarItem item;
+        };
+        HWND captionButtons_[3]{};
+        HWND menuButton_ = nullptr;
+        HWND addTabButton_ = nullptr;
+        HWND dropDownButton_ = nullptr;
+        std::vector<TabButton> tabButtons_;
+        std::function<void()> addTabAction_;
+        std::function<void()> showMenuAction_;
+        int hoveredButtonId_ = -1;
+        int hoveredCloseButtonId_ = -1;
+
+        static LRESULT CALLBACK CaptionButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassId, DWORD_PTR refData);
+
         void initializeGlyphRun(int col, int row) {
             glyphRun_.glyphCount = 0;
             glyphRunCol_ = col;
@@ -420,6 +558,7 @@ namespace tpp {
 	    static Key GetKey(unsigned vk);
 
         static LRESULT CALLBACK EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+        DWORD windowedStyle_ = 0;
 
     }; // tpp::DirectWriteWindow
 

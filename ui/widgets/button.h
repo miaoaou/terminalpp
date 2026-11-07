@@ -26,7 +26,7 @@ namespace ui {
         virtual void setText(std::string const & value) {
             if (text_ != value) {
                 text_ = value;
-                repaint();
+                relayout();
             }
         }
         //@}
