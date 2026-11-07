@@ -352,7 +352,7 @@ namespace tpp {
             }
             int const menuWidth = static_cast<int>(47 * dpiFactor_);
             int const addWidth = static_cast<int>(48 * dpiFactor_);
-            int const dropDownWidth = static_cast<int>(52 * dpiFactor_);
+            int const dropDownWidth = static_cast<int>(26 * dpiFactor_);
             int x = 0;
             if (menuButton_ != nullptr) {
                 place(menuButton_, x, menuWidth);

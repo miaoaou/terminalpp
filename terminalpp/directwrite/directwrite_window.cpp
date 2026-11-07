@@ -476,7 +476,7 @@ namespace tpp {
 
         if (id >= CaptionButtonId && id < CaptionButtonId + 3) {
             int const index = id - CaptionButtonId;
-            background = hot || pressed ? (index == 2 && pressed ? RGB(196, 43, 28) : hoverColor) : barColor;
+            background = hot || pressed ? (index == 2 ? RGB(196, 43, 28) : hoverColor) : barColor;
             brush = CreateSolidBrush(background);
             FillRect(draw->hDC, &draw->rcItem, brush);
             DeleteObject(brush);
@@ -506,7 +506,7 @@ namespace tpp {
             } else if (id == AddTabButtonId) {
                 DrawTextW(draw->hDC, L"+", 1, &draw->rcItem, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
             } else {
-                int const cx = draw->rcItem.left + static_cast<int>(16 * dpiFactor_);
+                int const cx = (draw->rcItem.left + draw->rcItem.right) / 2;
                 int const cy = (draw->rcItem.top + draw->rcItem.bottom) / 2;
                 pen = CreatePen(PS_SOLID, std::max(1, static_cast<int>(dpiFactor_)), RGB(220, 220, 220));
                 HGDIOBJ oldPen = SelectObject(draw->hDC, pen);

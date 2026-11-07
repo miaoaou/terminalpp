@@ -1879,7 +1879,8 @@ namespace ui {
 		result[3] =	Color::DarkYellow;
 		result[4] =	Color::DarkBlue;
 		result[5] =	Color::DarkMagenta;
-		result[6] =	Color::DarkCyan;
+        // Match Windows Terminal's default Campbell cyan used by PowerShell prompts.
+        result[6] = Color(58, 150, 221);
 		result[7] =	Color::Gray;
 		result[8] =	Color::DarkGray;
 		result[9] =	Color::Red;
