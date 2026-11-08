@@ -88,6 +88,12 @@ namespace tpp {
 
     protected:
 
+        void render(Rect const & rect) override {
+            RendererWindow::render(rect);
+            if (updateImeCaretPosition() && !imeComposing_)
+                updateImeCandidatePosition();
+        }
+
         void windowResized(int width, int height) override {
             ASSERT(rt_ != nullptr);
             if (width == sizePx_.width() && height == sizePx_.height()) {
@@ -568,6 +574,11 @@ namespace tpp {
         bool pixelWindowSize_ = false;
         bool interactiveResizeChanged_ = false;
         bool windowSizeSavePending_ = false;
+        bool imeComposing_ = false;
+        bool imeCaretCreated_ = false;
+        bool imeCaretPositionValid_ = false;
+        bool settingImeCandidatePosition_ = false;
+        POINT imeCaretPosition_{};
 
 		/* Direct X structures. */
 		Microsoft::WRL::ComPtr<ID2D1HwndRenderTarget> rt_;
@@ -596,6 +607,9 @@ namespace tpp {
         void scheduleWindowSizeSave();
         void saveWindowSize();
         void flushWindowSizeSave();
+        bool updateImeCaretPosition();
+        void updateImeCandidatePosition();
+        void updateImePosition();
 
         static LRESULT CALLBACK EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
         DWORD windowedStyle_ = 0;

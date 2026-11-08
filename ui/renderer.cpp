@@ -305,6 +305,14 @@ namespace ui {
         }
     }
 
+    void Renderer::imeChar(Char c) {
+        ASSERT(focusIn_);
+        if (!focusIn_)
+            return;
+        keyDownFocus_ = keyboardFocus_;
+        keyChar(c);
+    }
+
     // Mouse Input
 
     void Renderer::mouseIn() {

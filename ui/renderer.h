@@ -342,6 +342,10 @@ namespace ui {
 
         virtual void keyChar(Char c);
 
+        /** Dispatches a character committed by an input method, which may not
+            have a matching key-down event. */
+        void imeChar(Char c);
+
         /** Returns the cutrrently active modifiers. 
          */
         Key modifiers() const {

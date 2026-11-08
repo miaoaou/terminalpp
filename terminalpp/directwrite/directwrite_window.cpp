@@ -2,8 +2,11 @@
 #include "directwrite_window.h"
 
 #include "directwrite_font.h"
+#include <imm.h>
 #include <shellapi.h>
+#include <cmath>
 #pragma comment(lib, "shell32.lib")
+#pragma comment(lib, "imm32.lib")
 
 namespace tpp {
 
@@ -916,15 +919,59 @@ namespace tpp {
             /** Window gains keyboard focus. 
 			 */
 			case WM_SETFOCUS:
-				if (window != nullptr)
-    				window->focusIn();
+				if (window != nullptr) {
+					window->focusIn();
+					LONG const caretHeight = std::max<LONG>(1, static_cast<LONG>(std::lround(
+						window->cellSize_.height() * window->dpiFactor_)));
+					window->imeCaretCreated_ = CreateCaret(hWnd, nullptr, 1, caretHeight) != FALSE;
+					window->imeCaretPositionValid_ = false;
+					window->updateImePosition();
+				}
 				break;
 			/** Window loses keyboard focus. 
 			 */
 			case WM_KILLFOCUS:
-				if (window != nullptr)
+				if (window != nullptr) {
+					window->imeComposing_ = false;
+					if (window->imeCaretCreated_) {
+						DestroyCaret();
+						window->imeCaretCreated_ = false;
+					}
     				window->focusOut();
+				}
 				break;
+			case WM_IME_STARTCOMPOSITION: {
+				if (window != nullptr)
+					window->imeComposing_ = true;
+				LRESULT const result = DefWindowProc(hWnd, msg, wParam, lParam);
+				if (window != nullptr)
+					window->updateImePosition();
+				return result;
+			}
+			case WM_IME_ENDCOMPOSITION:
+				if (window != nullptr)
+					window->imeComposing_ = false;
+				break;
+			case WM_IME_NOTIFY: {
+				if (window != nullptr && !window->settingImeCandidatePosition_ &&
+					(wParam == IMN_OPENCANDIDATE ||
+					 wParam == IMN_CHANGECANDIDATE ||
+					 wParam == IMN_SETCANDIDATEPOS))
+					window->updateImePosition();
+				return DefWindowProc(hWnd, msg, wParam, lParam);
+			}
+			case WM_IME_CHAR:
+				if (window != nullptr) {
+					window->imeChar(Char{static_cast<char32_t>(wParam)});
+					return 0;
+				}
+				break;
+			case WM_IME_COMPOSITION: {
+				LRESULT const result = DefWindowProc(hWnd, msg, wParam, lParam);
+				if (window != nullptr && (lParam & GCS_COMPSTR) != 0)
+					window->updateImePosition();
+				return result;
+			}
 			case WM_NCHITTEST: {
 				if (window == nullptr || window->fullscreen())
 					break;
@@ -1134,8 +1181,13 @@ namespace tpp {
 				}
 			    break;
 			case WM_CHAR:
-				if (wParam >= 0x20)
-					window->keyChar(Char{static_cast<char32_t>(wParam)});
+				if (wParam >= 0x20 && window != nullptr) {
+					Char const character{static_cast<char32_t>(wParam)};
+					if (window->imeComposing_)
+						window->imeChar(character);
+					else
+						window->keyChar(character);
+				}
 				break;
 			/* Processes special key events.
 			
@@ -1143,6 +1195,8 @@ namespace tpp {
 			 */
 			case WM_SYSKEYDOWN:
 			case WM_KEYDOWN: {
+				if (window != nullptr && window->imeComposing_)
+					break;
 				Key k = GetKey(static_cast<unsigned>(wParam));
 				if (k != Key::Invalid)
 					window->keyDown(k);
@@ -1156,6 +1210,8 @@ namespace tpp {
 			 */
 			case WM_SYSKEYUP:
 			case WM_KEYUP: {
+				if (window != nullptr && window->imeComposing_)
+					break;
 				Key k = GetKey(static_cast<unsigned>(wParam));
 				window->keyUp(k);
 				break;
@@ -1313,6 +1369,66 @@ namespace tpp {
         KillTimer(hWnd_, WindowSizeSaveTimerId);
         windowSizeSavePending_ = false;
         saveWindowSize();
+    }
+
+    bool DirectWriteWindow::updateImeCaretPosition() {
+        if (!imeCaretCreated_)
+            return false;
+
+        Point const cursor = buffer().cursorPosition();
+        FLOAT const scale = static_cast<FLOAT>(dpiFactor_);
+        POINT const position{
+            static_cast<LONG>(std::lround((contentLeftOffset() + cursor.x() * cellSize_.width()) * scale)),
+            static_cast<LONG>(std::lround((captionContentOffset() + cursor.y() * cellSize_.height()) * scale))
+        };
+        if (imeCaretPositionValid_ && position.x == imeCaretPosition_.x && position.y == imeCaretPosition_.y)
+            return false;
+
+        SetCaretPos(position.x, position.y);
+        imeCaretPosition_ = position;
+        imeCaretPositionValid_ = true;
+        return true;
+    }
+
+    void DirectWriteWindow::updateImeCandidatePosition() {
+        if (settingImeCandidatePosition_)
+            return;
+
+        settingImeCandidatePosition_ = true;
+        HIMC const inputContext = ImmGetContext(hWnd_);
+        if (inputContext == nullptr) {
+            settingImeCandidatePosition_ = false;
+            return;
+        }
+
+        Point const cursor = buffer().cursorPosition();
+        FLOAT const scale = static_cast<FLOAT>(dpiFactor_);
+        LONG const x = static_cast<LONG>(std::lround(
+            (contentLeftOffset() + cursor.x() * cellSize_.width()) * scale));
+        LONG const top = static_cast<LONG>(std::lround(
+            (captionContentOffset() + cursor.y() * cellSize_.height()) * scale));
+        LONG const cellWidth = static_cast<LONG>(std::lround(cellSize_.width() * scale));
+        LONG const cellHeight = static_cast<LONG>(std::lround(cellSize_.height() * scale));
+
+        COMPOSITIONFORM composition{};
+        composition.dwStyle = CFS_FORCE_POSITION;
+        composition.ptCurrentPos = POINT{x, top};
+        ImmSetCompositionWindow(inputContext, &composition);
+
+        CANDIDATEFORM candidate{};
+        candidate.dwIndex = 0;
+        candidate.dwStyle = CFS_EXCLUDE;
+        candidate.ptCurrentPos = POINT{x, top + cellHeight};
+        candidate.rcArea = RECT{x, top, x + cellWidth, top + cellHeight};
+        ImmSetCandidateWindow(inputContext, &candidate);
+
+        ImmReleaseContext(hWnd_, inputContext);
+        settingImeCandidatePosition_ = false;
+    }
+
+    void DirectWriteWindow::updateImePosition() {
+        updateImeCaretPosition();
+        updateImeCandidatePosition();
     }
 
 } // namespace tpp
