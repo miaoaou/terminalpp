@@ -77,14 +77,15 @@ namespace ui {
                 --end;
 
             std::string text;
-            for (int col = 0; col < end; ++col) {
+            for (int col = 0; col < end; ) {
                 char32_t codepoint = cells[col].codepoint();
-                if (codepoint == 0)
-                    continue;
-                if (codepoint < 0x20 && codepoint != '\t')
-                    codepoint = ' ';
-                Char character{codepoint};
-                text.append(character.toCharPtr(), character.size());
+                if (codepoint != 0) {
+                    if (codepoint < 0x20 && codepoint != '\t')
+                        codepoint = ' ';
+                    Char character{codepoint};
+                    text.append(character.toCharPtr(), character.size());
+                }
+                col += std::max(1, cells[col].font().width());
             }
             rows.push_back(std::move(text));
         };
@@ -761,23 +762,38 @@ namespace ui {
         if (detectHyperlinks_)
             detectHyperlink(codepoint);
         updateCursorPosition();
+        int const columnWidth = Char::ColumnWidth(codepoint);
+        Font glyphFont = state_->cell.font();
+        if (columnWidth == 2 && !glyphFont.doubleWidth())
+            glyphFont.setDoubleWidth(true);
+        int glyphCellWidth = glyphFont.width();
+        if (glyphCellWidth > state_->buffer.width()) {
+            glyphFont.setSize(1).setDoubleWidth(false);
+            glyphCellWidth = 1;
+        }
+        // A wide glyph must start on a row with enough cells. Otherwise the
+        // renderer's column advance would overlap it with the end of the line.
+        if (cursorPosition().x() + glyphCellWidth > state_->buffer.width()) {
+            setCursorPosition(Point{state_->buffer.width(), cursorPosition().y()});
+            updateCursorPosition();
+        }
+        Point const glyphStart = cursorPosition();
         // set the cell according to the codepoint and current settings. If there is an active hyperlink, the hyperlink is first attached to the cell and then new cell is added to the hyperlink fallback
-        Cell & cell = state_->buffer.at(cursorPosition());
+        Cell & cell = state_->buffer.at(glyphStart);
         cell = state_->cell;
         // attach hyperlink special object, of one is active
         if (inProgressHyperlink_ != nullptr)
             cell.attachSpecialObject(inProgressHyperlink_);
-        cell.setCodepoint(codepoint);
-        // what's left is to deal with corner cases, such as larger fonts & double width characters
-        int columnWidth = Char::ColumnWidth(codepoint);
-        // if the character's column width is 2 and current font is not double width, update to double width font
-        if (columnWidth == 2 && ! cell.font().doubleWidth()) {
-            //columnWidth = 1;
-            cell.font().setDoubleWidth(true);
-        }
+        cell.setCodepoint(codepoint).setFont(glyphFont);
 
-        // advance cursor's column
-        setCursorPosition(cursorPosition() + Point{1, 0});
+        Font continuationFont = glyphFont;
+        continuationFont.setSize(1).setDoubleWidth(false);
+        for (int offset = 1; offset < glyphCellWidth; ++offset) {
+            Cell & continuation = state_->buffer.at(glyphStart + Point{offset, 0});
+            continuation = cell;
+            continuation.setCodepoint(0).setFont(continuationFont);
+        }
+        setCursorPosition(glyphStart + Point{glyphCellWidth, 0});
 
 
         // TODO do double width & height characters properly for the per-line
@@ -858,6 +874,9 @@ namespace ui {
         } else {
             setCursorPosition(cursorPosition() - Point{1, 0});
         }
+        if (cursorPosition().x() > 0 && state_->buffer.at(cursorPosition()).codepoint() == 0 &&
+            state_->buffer.at(cursorPosition() - Point{1, 0}).font().width() > 1)
+            setCursorPosition(cursorPosition() - Point{1, 0});
     }
 
     size_t AnsiTerminal::parseEscapeSequence(char const * buffer, char const * bufferEnd) {

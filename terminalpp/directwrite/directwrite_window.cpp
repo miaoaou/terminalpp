@@ -13,6 +13,18 @@ namespace tpp {
         constexpr LONG MinimumWindowWidth = 600;
         constexpr LONG MinimumWindowHeight = 400;
 
+        std::string wideToUtf8(wchar_t const * text, int length) {
+            if (length <= 0)
+                return {};
+            int const byteCount = WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, text, length, nullptr, 0, nullptr, nullptr);
+            if (byteCount <= 0)
+                return {};
+            std::string result(static_cast<size_t>(byteCount), '\0');
+            int const converted = WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, text, length, result.data(), byteCount, nullptr, nullptr);
+            if (converted != byteCount)
+                return {};
+            return result;
+        }
     } // namespace
 
     int DirectWriteWindow::titleBarControlAt(POINT clientPoint) const {
@@ -994,8 +1006,11 @@ namespace tpp {
 				for (UINT i = 0; i < fileCount; ++i) {
 					UINT const pathLength = DragQueryFileW(drop, i, nullptr, 0);
 					std::vector<wchar_t> path(pathLength + 1);
-					if (DragQueryFileW(drop, i, path.data(), pathLength + 1) == pathLength)
-						paths.push_back(UTF16toUTF8(path.data()));
+					if (DragQueryFileW(drop, i, path.data(), pathLength + 1) == pathLength) {
+						std::string const utf8Path = wideToUtf8(path.data(), static_cast<int>(pathLength));
+						if (!utf8Path.empty())
+							paths.push_back(utf8Path);
+					}
 				}
 				DragFinish(drop);
 				if (window != nullptr && droppedInClient &&

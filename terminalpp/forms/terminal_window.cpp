@@ -36,6 +36,52 @@ namespace {
         std::wstring previous_;
         bool hadPrevious_ = false;
     };
+
+    void configurePowerShellUtf8(Command & command) {
+        std::string executable = command.command();
+        std::transform(executable.begin(), executable.end(), executable.begin(), [](unsigned char c) {
+            return static_cast<char>(std::tolower(c));
+        });
+        size_t const separator = executable.find_last_of("\\/");
+        if (separator != std::string::npos)
+            executable.erase(0, separator + 1);
+        if (executable != "pwsh.exe" && executable != "pwsh" &&
+            executable != "powershell.exe" && executable != "powershell")
+            return;
+
+        std::vector<std::string> args = command.args();
+        auto hasSwitch = [&args](std::initializer_list<char const *> switches) {
+            for (std::string const & arg : args) {
+                std::string lower = arg;
+                std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) {
+                    return static_cast<char>(std::tolower(c));
+                });
+                for (char const * option : switches) {
+                    if (lower == option)
+                        return true;
+                }
+            }
+            return false;
+        };
+
+        // PowerShell's own command line or script may depend on its existing
+        // startup semantics. For an interactive shell, add an initialization
+        // command before the first prompt so ConPTY UTF-8 input is decoded as
+        // UTF-8 even when Windows' active console code page is legacy.
+        if (hasSwitch({"-command", "-c", "-file", "-f", "-encodedcommand", "-e"}))
+            return;
+        if (!hasSwitch({"-nologo"}))
+            args.push_back("-NoLogo");
+        if (!hasSwitch({"-noexit"}))
+            args.push_back("-NoExit");
+        args.push_back("-Command");
+        args.push_back(
+            "$utf8 = [System.Text.UTF8Encoding]::new($false); "
+            "[Console]::InputEncoding = $utf8; "
+            "[Console]::OutputEncoding = $utf8; "
+            "$OutputEncoding = $utf8");
+        command.setArgs(args);
+    }
 }
 #endif
 
@@ -130,6 +176,7 @@ namespace tpp {
         std::transform(executable.begin(), executable.end(), executable.begin(), [](unsigned char c) {
             return static_cast<char>(std::tolower(c));
         });
+        configurePowerShellUtf8(cmd);
         std::unique_ptr<ScopedPowerShellUpdateCheck> updateCheck;
         if (executable.find("pwsh") != std::string::npos)
             updateCheck.reset(new ScopedPowerShellUpdateCheck{});

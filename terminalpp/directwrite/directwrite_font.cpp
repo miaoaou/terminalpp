@@ -15,14 +15,19 @@ namespace tpp {
                 unsigned low = cp & 0x3ff; // lower 10 bits
                 c_[0] = static_cast<wchar_t>(high + 0xd800);
                 c_[1] = static_cast<wchar_t>(low + 0xdc00);
+                textLength_ = 2;
             }
+        }
+
+        UINT32 length() const {
+            return textLength_;
         }
 
         // IDWriteTextAnalysisSource methods
         virtual HRESULT STDMETHODCALLTYPE GetTextAtPosition(UINT32 textPosition, WCHAR const ** textString, UINT32* textLength) override {
-            if (textPosition == 0) {
-                *textString = c_;
-                *textLength = 1; // TODO true for surrogate pairs UTF16?
+            if (textPosition < textLength_) {
+                *textString = c_ + textPosition;
+                *textLength = textLength_ - textPosition;
             } else {
                 *textString = nullptr;
                 *textLength = 0;
@@ -31,10 +36,13 @@ namespace tpp {
         }
 
         virtual HRESULT STDMETHODCALLTYPE GetTextBeforePosition(UINT32 textPosition, WCHAR const** textString, _Out_ UINT32* textLength) override {
-            ASSERT(textPosition == 0);
-            MARK_AS_UNUSED(textPosition);
-            *textString = nullptr;  
-            *textLength = 0;
+            if (textPosition > 0 && textPosition <= textLength_) {
+                *textString = c_;
+                *textLength = textPosition;
+            } else {
+                *textString = nullptr;
+                *textLength = 0;
+            }
             return S_OK;
         }
 
@@ -44,23 +52,20 @@ namespace tpp {
         }
 
         virtual HRESULT STDMETHODCALLTYPE GetLocaleName(UINT32 textPosition, UINT32* textLength, WCHAR const** localeName) override {
-            MARK_AS_UNUSED(textPosition);
-            ASSERT(textPosition == 0);
             *localeName = DirectWriteApplication::Instance()->localeName_;
-            *textLength = 0;
+            *textLength = textPosition < textLength_ ? textLength_ - textPosition : 0;
             return S_OK;
         }
 
         virtual HRESULT STDMETHODCALLTYPE GetNumberSubstitution(UINT32 textPosition, UINT32* textLength, IDWriteNumberSubstitution ** numberSubstitution) override {
-            MARK_AS_UNUSED(textPosition);
-            ASSERT(textPosition == 0);
             *numberSubstitution = nullptr;
-            *textLength = 0;
+            *textLength = textPosition < textLength_ ? textLength_ - textPosition : 0;
             return S_OK;
         }
     private:
         /* UTF16 encoded codepoint to be analyzed. */
-        wchar_t c_[2];
+        wchar_t c_[2]{};
+        UINT32 textLength_{1};
 
     }; // DirectWriteFont::TextAnalysis
 
@@ -93,7 +98,13 @@ namespace tpp {
     }
 
     DirectWriteFont::DirectWriteFont(DirectWriteFont const & base, char32_t codepoint):
-        Font<DirectWriteFont>{base.font_, base.fontSize_} {
+        // fontSize_ already includes the ui::Font width/height multipliers.
+        // Pass the unscaled cell size here because FontMetrics applies those
+        // multipliers again when constructing the fallback font.
+        Font<DirectWriteFont>{base.font_, ui::Size{
+            base.fontSize_.width() / base.font_.width(),
+            base.fontSize_.height() / base.font_.height()
+        }} {
         DirectWriteApplication * app = DirectWriteApplication::Instance();
         TextAnalysis ta(codepoint);
         UINT32 mappedLength;
@@ -103,7 +114,7 @@ namespace tpp {
         app->fontFallback_->MapCharacters(
             &ta, // IDWriteTextAnalysisSource
             0, // text position
-            1, // text length -- how about surrogate pairs?
+            ta.length(), // UTF-16 code units (two for supplementary codepoints)
             app->systemFontCollection_.Get(), // base font collection
             fname.c_str(), // base family name
             font_.bold() ? DWRITE_FONT_WEIGHT_BOLD : DWRITE_FONT_WEIGHT_REGULAR, // base weight
