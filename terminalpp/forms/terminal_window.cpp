@@ -301,46 +301,158 @@ namespace tpp {
         return target.find_first_of(" \r\n\t") == std::string::npos;
     }
 
-    void TerminalWindow::eraseLastInputCharacter(std::string & line) {
-        if (line.empty())
-            return;
-        size_t position = line.size() - 1;
-        while (position > 0 && (static_cast<unsigned char>(line[position]) & 0xC0) == 0x80)
-            --position;
-        line.erase(position);
-    }
-
     void TerminalWindow::submitInputLine(SessionInfo & session) {
         if (session.pendingSSHTarget.empty()) {
             session.pendingSSHCommand = session.inputLine;
             parseSSHCommand(session.inputLine, session.pendingSSHTarget);
             if (!session.pendingSSHTarget.empty()) {
                 session.pendingSSHOutput.clear();
-                session.pendingSSHWasAlreadySaved = std::find(sshHosts_.begin(), sshHosts_.end(), session.pendingSSHTarget) != sshHosts_.end();
-                recordSSHHost(session.pendingSSHTarget);
             }
         }
+        // Discard any partial prompt redraws. The submitted input line, or a
+        // complete echoed command line for scripted input, is authoritative.
+        session.sshCommandOutputBuffer.clear();
         session.inputLine.clear();
+        session.inputCursorPosition = 0;
+        session.inputEscapeSequence.clear();
     }
 
     void TerminalWindow::discardPendingSSH(SessionInfo & session) {
-        if (!session.pendingSSHTarget.empty() && !session.pendingSSHWasAlreadySaved) {
-            auto found = std::find(sshHosts_.begin(), sshHosts_.end(), session.pendingSSHTarget);
-            if (found != sshHosts_.end()) {
-                sshHosts_.erase(found);
-                Config::Instance().setSSHHosts(sshHosts_);
-                updateTabs();
-            }
-        }
         session.pendingSSHTarget.clear();
         session.pendingSSHCommand.clear();
         session.pendingSSHOutput.clear();
-        session.pendingSSHWasAlreadySaved = false;
+        session.sshCommandOutputBuffer.clear();
     }
 
     void TerminalWindow::observeTerminalInput(SessionInfo & session, std::string const & contents) {
         bool previousWasCR = false;
+        auto erasePreviousCharacter = [&session]() {
+            if (session.inputCursorPosition == 0)
+                return;
+            size_t start = session.inputCursorPosition - 1;
+            while (start > 0 && (static_cast<unsigned char>(session.inputLine[start]) & 0xC0) == 0x80)
+                --start;
+            session.inputLine.erase(start, session.inputCursorPosition - start);
+            session.inputCursorPosition = start;
+        };
+        auto eraseNextCharacter = [&session]() {
+            if (session.inputCursorPosition >= session.inputLine.size())
+                return;
+            size_t end = session.inputCursorPosition + 1;
+            while (end < session.inputLine.size() && (static_cast<unsigned char>(session.inputLine[end]) & 0xC0) == 0x80)
+                ++end;
+            session.inputLine.erase(session.inputCursorPosition, end - session.inputCursorPosition);
+        };
+        auto movePreviousCharacter = [&session]() {
+            if (session.inputCursorPosition == 0)
+                return;
+            --session.inputCursorPosition;
+            while (session.inputCursorPosition > 0 &&
+                   (static_cast<unsigned char>(session.inputLine[session.inputCursorPosition]) & 0xC0) == 0x80)
+                --session.inputCursorPosition;
+        };
+        auto moveNextCharacter = [&session]() {
+            if (session.inputCursorPosition >= session.inputLine.size())
+                return;
+            ++session.inputCursorPosition;
+            while (session.inputCursorPosition < session.inputLine.size() &&
+                   (static_cast<unsigned char>(session.inputLine[session.inputCursorPosition]) & 0xC0) == 0x80)
+                ++session.inputCursorPosition;
+        };
+        auto moveWordLeft = [&session]() {
+            while (session.inputCursorPosition > 0 &&
+                   std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition - 1])))
+                --session.inputCursorPosition;
+            while (session.inputCursorPosition > 0 &&
+                   !std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition - 1])))
+                --session.inputCursorPosition;
+        };
+        auto moveWordRight = [&session]() {
+            while (session.inputCursorPosition < session.inputLine.size() &&
+                   !std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition])))
+                ++session.inputCursorPosition;
+            while (session.inputCursorPosition < session.inputLine.size() &&
+                   std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition])))
+                ++session.inputCursorPosition;
+        };
+        auto handleEscapeSequence = [&session, &eraseNextCharacter, &movePreviousCharacter, &moveNextCharacter, &moveWordLeft, &moveWordRight](std::string const & sequence) {
+            if (sequence.size() < 2 || sequence[0] != '\x1b')
+                return;
+            if (sequence[1] == '[' && sequence.size() >= 3) {
+                char const command = sequence.back();
+                std::string const parameters = sequence.substr(2, sequence.size() - 3);
+                bool const control = parameters.find(";5") != std::string::npos;
+                switch (command) {
+                    case 'D':
+                        if (control)
+                            moveWordLeft();
+                        else
+                            movePreviousCharacter();
+                        break;
+                    case 'C':
+                        if (control)
+                            moveWordRight();
+                        else
+                            moveNextCharacter();
+                        break;
+                    case 'H':
+                        session.inputCursorPosition = 0;
+                        break;
+                    case 'F':
+                        session.inputCursorPosition = session.inputLine.size();
+                        break;
+                    case '~':
+                        if (parameters == "1" || parameters == "7")
+                            session.inputCursorPosition = 0;
+                        else if (parameters == "4" || parameters == "8")
+                            session.inputCursorPosition = session.inputLine.size();
+                        else if (parameters == "3")
+                            eraseNextCharacter();
+                        break;
+                    default:
+                        break;
+                }
+            } else if (sequence[1] == 'O' && sequence.size() == 3) {
+                switch (sequence[2]) {
+                    case 'D': movePreviousCharacter(); break;
+                    case 'C': moveNextCharacter(); break;
+                    case 'H': session.inputCursorPosition = 0; break;
+                    case 'F': session.inputCursorPosition = session.inputLine.size(); break;
+                    default: break;
+                }
+            } else if (sequence == "\x1b" "b") {
+                moveWordLeft();
+            } else if (sequence == "\x1b" "f") {
+                moveWordRight();
+            }
+        };
+
         for (unsigned char c : contents) {
+            if (!session.inputEscapeSequence.empty()) {
+                if (c == 0x1b) {
+                    session.inputEscapeSequence.assign(1, '\x1b');
+                    previousWasCR = false;
+                    continue;
+                }
+                if (c == '\r' || c == '\n' || c == 0x03) {
+                    session.inputEscapeSequence.clear();
+                } else {
+                    session.inputEscapeSequence.push_back(static_cast<char>(c));
+                    if (session.inputEscapeSequence.size() == 2 && c != '[' && c != 'O') {
+                        handleEscapeSequence(session.inputEscapeSequence);
+                        session.inputEscapeSequence.clear();
+                    } else if (session.inputEscapeSequence.size() == 3 && session.inputEscapeSequence[1] == 'O') {
+                        handleEscapeSequence(session.inputEscapeSequence);
+                        session.inputEscapeSequence.clear();
+                    } else if (session.inputEscapeSequence.size() > 2 && session.inputEscapeSequence[1] == '[' &&
+                               c >= '@' && c <= '~') {
+                        handleEscapeSequence(session.inputEscapeSequence);
+                        session.inputEscapeSequence.clear();
+                    }
+                    previousWasCR = false;
+                    continue;
+                }
+            }
             if (c == '\r' || c == '\n') {
                 if (!(c == '\n' && previousWasCR))
                     submitInputLine(session);
@@ -348,18 +460,42 @@ namespace tpp {
             } else if (c == 0x03) {
                 if (!session.pendingSSHTarget.empty())
                     discardPendingSSH(session);
-                else
+                else {
                     session.inputLine.clear();
+                    session.inputCursorPosition = 0;
+                }
                 previousWasCR = false;
             } else {
                 previousWasCR = false;
-                if (c == '\b' || c == 0x7f) {
+                if (c == '\x1b') {
+                    session.inputEscapeSequence.assign(1, '\x1b');
+                } else if (c == '\b' || c == 0x7f) {
                     if (session.pendingSSHTarget.empty())
-                        eraseLastInputCharacter(session.inputLine);
-                } else if (c == 0x1b) {
-                    session.inputLine.clear();
-                } else if (c >= 0x20 && session.pendingSSHTarget.empty())
-                    session.inputLine.push_back(static_cast<char>(c));
+                        erasePreviousCharacter();
+                } else if (session.pendingSSHTarget.empty()) {
+                    if (c == 0x01)
+                        session.inputCursorPosition = 0;
+                    else if (c == 0x05)
+                        session.inputCursorPosition = session.inputLine.size();
+                    else if (c == 0x04)
+                        eraseNextCharacter();
+                    else if (c == 0x0b)
+                        session.inputLine.erase(session.inputCursorPosition);
+                    else if (c == 0x15) {
+                        session.inputLine.erase(0, session.inputCursorPosition);
+                        session.inputCursorPosition = 0;
+                    } else if (c == 0x17) {
+                        while (session.inputCursorPosition > 0 &&
+                               std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition - 1])))
+                            erasePreviousCharacter();
+                        while (session.inputCursorPosition > 0 &&
+                               !std::isspace(static_cast<unsigned char>(session.inputLine[session.inputCursorPosition - 1])))
+                            erasePreviousCharacter();
+                    } else if (c >= 0x20) {
+                        session.inputLine.insert(session.inputCursorPosition, 1, static_cast<char>(c));
+                        ++session.inputCursorPosition;
+                    }
+                }
             }
         }
     }
@@ -367,35 +503,57 @@ namespace tpp {
     void TerminalWindow::processSSHOutput(SessionInfo * session, std::string const & output) {
         if (session == nullptr)
             return;
-        if (session->pendingSSHTarget.empty()) {
-            std::string lowerOutput = output;
-            std::transform(lowerOutput.begin(), lowerOutput.end(), lowerOutput.begin(), [](unsigned char c) {
-                return static_cast<char>(std::tolower(c));
-            });
-            for (std::string const & marker : {std::string("ssh "), std::string("ssh.exe ")}) {
-                size_t position = lowerOutput.find(marker);
-                while (position != std::string::npos) {
-                    if (position == 0 || std::isspace(static_cast<unsigned char>(output[position - 1])) || output[position - 1] == '>') {
-                        std::string target;
-                        std::string const command = output.substr(position);
-                        if (parseSSHCommand(command, target)) {
-                            session->pendingSSHCommand = command;
-                            session->pendingSSHTarget = std::move(target);
-                            session->pendingSSHOutput.clear();
-                            session->pendingSSHWasAlreadySaved = std::find(sshHosts_.begin(), sshHosts_.end(), session->pendingSSHTarget) != sshHosts_.end();
-                            recordSSHHost(session->pendingSSHTarget);
-                            break;
-                        }
-                    }
-                    position = lowerOutput.find(marker, position + marker.size());
-                }
-                if (!session->pendingSSHTarget.empty())
+        bool detectedFromOutput = false;
+        if (session->pendingSSHTarget.empty() && session->inputLine.empty()) {
+            session->sshCommandOutputBuffer += output;
+            if (session->sshCommandOutputBuffer.size() > 32768)
+                session->sshCommandOutputBuffer.erase(0, session->sshCommandOutputBuffer.size() - 16384);
+
+            while (true) {
+                size_t const lineEnd = session->sshCommandOutputBuffer.find_first_of("\r\n");
+                if (lineEnd == std::string::npos)
                     break;
+                std::string line = session->sshCommandOutputBuffer.substr(0, lineEnd);
+                size_t consumed = lineEnd + 1;
+                if (session->sshCommandOutputBuffer[lineEnd] == '\r' && consumed < session->sshCommandOutputBuffer.size() &&
+                    session->sshCommandOutputBuffer[consumed] == '\n')
+                    ++consumed;
+
+                std::string lowerLine = line;
+                std::transform(lowerLine.begin(), lowerLine.end(), lowerLine.begin(), [](unsigned char c) {
+                    return static_cast<char>(std::tolower(c));
+                });
+                bool foundCommand = false;
+                for (std::string const & marker : {std::string("ssh "), std::string("ssh.exe ")}) {
+                    size_t position = lowerLine.find(marker);
+                    while (position != std::string::npos) {
+                        if (position == 0 || std::isspace(static_cast<unsigned char>(line[position - 1])) || line[position - 1] == '>') {
+                            std::string target;
+                            std::string const command = line.substr(position);
+                            if (parseSSHCommand(command, target)) {
+                                session->pendingSSHCommand = command;
+                                session->pendingSSHTarget = std::move(target);
+                                session->pendingSSHOutput = session->sshCommandOutputBuffer;
+                                session->sshCommandOutputBuffer.clear();
+                                detectedFromOutput = true;
+                                foundCommand = true;
+                                break;
+                            }
+                        }
+                        position = lowerLine.find(marker, position + marker.size());
+                    }
+                    if (foundCommand)
+                        break;
+                }
+                if (foundCommand)
+                    break;
+                session->sshCommandOutputBuffer.erase(0, consumed);
             }
         }
         if (session->pendingSSHTarget.empty())
             return;
-        session->pendingSSHOutput += output;
+        if (!detectedFromOutput)
+            session->pendingSSHOutput += output;
         if (session->pendingSSHOutput.size() > 32768)
             session->pendingSSHOutput.erase(0, session->pendingSSHOutput.size() - 16384);
 
@@ -430,7 +588,7 @@ namespace tpp {
             session->pendingSSHTarget.clear();
             session->pendingSSHCommand.clear();
             session->pendingSSHOutput.clear();
-            session->pendingSSHWasAlreadySaved = false;
+            session->sshCommandOutputBuffer.clear();
             return;
         }
 
@@ -483,7 +641,7 @@ namespace tpp {
         session->pendingSSHTarget.clear();
         session->pendingSSHCommand.clear();
         session->pendingSSHOutput.clear();
-        session->pendingSSHWasAlreadySaved = false;
+        session->sshCommandOutputBuffer.clear();
         recordSSHHost(host);
     }
 

@@ -74,6 +74,7 @@ namespace tpp {
         }
 
         void close() override {
+            flushWindowSizeSave();
             RendererWindow::close();
             DestroyWindow(hWnd_);
         }
@@ -110,13 +111,19 @@ namespace tpp {
  
         void resizePx(Size sizePx) override {
             int const captionHeight = fullscreen() ? 0 : captionControlHeight();
+            double const availableWidth = sizePx.width() / dpiFactor_ - contentLeftOffset();
             resize(Size{
-                static_cast<int>(sizePx.width() / dpiFactor_ / cellSize_.width()),
+                static_cast<int>(std::max(0.0, availableWidth / cellSize_.width())),
                 static_cast<int>(std::max(0, sizePx.height() - captionHeight) / dpiFactor_ / cellSize_.height())
             });
         }
 
         Point pixelsToCoords(Point xy) {
+            int const leftOffsetPx = static_cast<int>(contentLeftOffset() * dpiFactor_);
+            if (xy.x() >= 0 && xy.x() < leftOffsetPx)
+                xy.setX(0);
+            else
+                xy.setX(xy.x() - leftOffsetPx);
             if (!fullscreen())
                 xy.setY(xy.y() - captionControlHeight());
             return RendererWindow::pixelsToCoords(xy / dpiFactor_);
@@ -271,11 +278,17 @@ namespace tpp {
             FLOAT const contentTop = captionContentOffset();
             FLOAT const targetWidth = static_cast<FLOAT>(sizePx_.width() / dpiFactor_);
             FLOAT const targetHeight = static_cast<FLOAT>(sizePx_.height() / dpiFactor_);
-            int const contentWidth = static_cast<int>(targetWidth);
+            FLOAT const leftOffset = contentLeftOffset();
+            FLOAT const availableWidth = targetWidth - leftOffset;
+            int const contentWidth = static_cast<int>(availableWidth);
             int const contentHeight = static_cast<int>(targetHeight - contentTop);
+            if (leftOffset > 0) {
+                D2D1_RECT_F leftMargin = D2D1::RectF(0, contentTop, leftOffset, targetHeight);
+                rt_->FillRectangle(leftMargin, bg_.Get());
+            }
             if (contentWidth % cellSize_.width() != 0) {
                 D2D1_RECT_F rect = D2D1::RectF(
-                    static_cast<FLOAT>(width() * cellSize_.width()),
+                    leftOffset + static_cast<FLOAT>(width() * cellSize_.width()),
                     contentTop,
                     targetWidth,
                     targetHeight
@@ -302,6 +315,10 @@ namespace tpp {
 
         float captionContentOffset() const {
             return fullscreen() ? 0.0f : static_cast<float>(captionControlHeight() / dpiFactor_);
+        }
+
+        float contentLeftOffset() const {
+            return static_cast<float>(cellSize_.width());
         }
 
         int captionControlWidth() const {
@@ -465,16 +482,16 @@ namespace tpp {
                 return;
             // get the glyph run rectange
 			D2D1_RECT_F rect = D2D1::RectF(
-				static_cast<FLOAT>(glyphRunCol_ * cellSize_.width()),
+                contentLeftOffset() + static_cast<FLOAT>(glyphRunCol_ * cellSize_.width()),
                 static_cast<FLOAT>((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height() + captionContentOffset()),
-				static_cast<FLOAT>((glyphRunCol_ + glyphRun_.glyphCount * state_.font().width()) * cellSize_.width()),
+                contentLeftOffset() + static_cast<FLOAT>((glyphRunCol_ + glyphRun_.glyphCount * state_.font().width()) * cellSize_.width()),
                 static_cast<FLOAT>((glyphRunRow_ + 1) * cellSize_.height() + captionContentOffset())
 			);
             // fill it with the background
 			rt_->FillRectangle(rect, bg_.Get());
             // determine the originl and draw the glyph run
             D2D1_POINT_2F origin = D2D1::Point2F(
-                static_cast<float>(glyphRunCol_* cellSize_.width() + font_->offset().x()),
+                contentLeftOffset() + static_cast<float>(glyphRunCol_* cellSize_.width() + font_->offset().x()),
                 ((glyphRunRow_ + 1 - state_.font().height()) * cellSize_.height() + font_->ascent()) + font_->offset().y() + captionContentOffset());
             if (!state_.font().blink() || BlinkVisible()) {
                 rt_->DrawGlyphRun(origin, &glyphRun_, fg_.Get());
@@ -499,7 +516,7 @@ namespace tpp {
         /** Draws the borders of a single cell. 
          */
         void drawBorder(int col, int row, Border const & border, int widthThin, int widthThick) {
-            float fLeft = static_cast<float>(col * cellSize_.width());
+            float fLeft = contentLeftOffset() + static_cast<float>(col * cellSize_.width());
             float fTop = static_cast<float>(row * cellSize_.height()) + captionContentOffset();
             float widthTop = static_cast<float>(border.top() == Border::Kind::None ? 0 : (border.top() == Border::Kind::Thick ? widthThick : widthThin));
             float widthLeft = static_cast<float>(border.left() == Border::Kind::None ? 0 : (border.left() == Border::Kind::Thick ? widthThick : widthThin));
@@ -548,6 +565,9 @@ namespace tpp {
         /* Dimensions of the window frame so that we can the window client area can be calculated. */
         unsigned frameWidth_;
         unsigned frameHeight_;
+        bool pixelWindowSize_ = false;
+        bool interactiveResizeChanged_ = false;
+        bool windowSizeSavePending_ = false;
 
 		/* Direct X structures. */
 		Microsoft::WRL::ComPtr<ID2D1HwndRenderTarget> rt_;
@@ -572,6 +592,10 @@ namespace tpp {
         HCURSOR mouseCursor_;
 
 	    static Key GetKey(unsigned vk);
+
+        void scheduleWindowSizeSave();
+        void saveWindowSize();
+        void flushWindowSizeSave();
 
         static LRESULT CALLBACK EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
         DWORD windowedStyle_ = 0;

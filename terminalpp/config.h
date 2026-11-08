@@ -417,6 +417,18 @@ namespace tpp {
                     unsigned
                 );
                 CONFIG_PROPERTY(
+                    width,
+                    "Width of the non-maximized window in pixels.",
+                    JSON{800},
+                    unsigned
+                );
+                CONFIG_PROPERTY(
+                    height,
+                    "Height of the non-maximized window in pixels.",
+                    JSON{600},
+                    unsigned
+                );
+                CONFIG_PROPERTY(
                     fullscreen,
                     "Determines the behavior of the session when the attached command terminates.",
                     JSON{false},

@@ -7,6 +7,7 @@
 // caused by including "config.h" here. Thus must stay in sync
 // with the original definition until the issue is resolved.
 #define SHORTCUT_COPY (Key::C + Key::Ctrl + Key::Shift)
+#define SHORTCUT_COPY_SELECTION (Key::C + Key::Ctrl)
 
 namespace ui {
 
@@ -266,7 +267,7 @@ namespace ui {
         }
 
         void keyDown(KeyEvent::Payload & e) override {
-            if (*e == SHORTCUT_COPY && ! selection_.empty()) {
+            if ((*e == SHORTCUT_COPY || *e == SHORTCUT_COPY_SELECTION) && ! selection_.empty()) {
                 setClipboard(getSelectionContents());
                 clearSelection();
                 e.stop();

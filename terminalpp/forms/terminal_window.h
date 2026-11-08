@@ -170,10 +170,12 @@ namespace tpp {
             AnsiTerminal * terminal = nullptr;
             bool terminateOnKeyPress = false;
             std::string inputLine;
+            size_t inputCursorPosition = 0;
+            std::string inputEscapeSequence;
             std::string pendingSSHCommand;
             std::string pendingSSHTarget;
             std::string pendingSSHOutput;
-            bool pendingSSHWasAlreadySaved = false;
+            std::string sshCommandOutputBuffer;
             /** If true, the current session has an active notification.
              */
             bool notification = false;
@@ -198,7 +200,6 @@ namespace tpp {
         }
 
         static bool parseSSHCommand(std::string const & line, std::string & target);
-        static void eraseLastInputCharacter(std::string & line);
         void submitInputLine(SessionInfo & session);
         void observeTerminalInput(SessionInfo & session, std::string const & contents);
         void processSSHOutput(SessionInfo * session, std::string const & output);

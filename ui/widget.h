@@ -140,7 +140,7 @@ namespace ui {
          */
         Widget * getMouseTarget(Point coords) {
             for (Widget * child : children_)
-                if (child->rect_.contains(coords))
+                if (child->visible() && child->rect_.contains(coords))
                     return child->getMouseTarget(child->toWidgetCoordinates(toRendererCoordinates(coords)));
             return this;
         }

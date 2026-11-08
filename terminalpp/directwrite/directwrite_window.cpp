@@ -12,6 +12,8 @@ namespace tpp {
         constexpr wchar_t DropDownPopupClassName[] = L"terminalpp.custom.dropdown.popup";
         constexpr LONG MinimumWindowWidth = 600;
         constexpr LONG MinimumWindowHeight = 400;
+        constexpr UINT_PTR WindowSizeSaveTimerId = 0x5A35;
+        constexpr UINT WindowSizeSaveDelayMs = 15000;
 
         std::string wideToUtf8(wchar_t const * text, int length) {
             if (length <= 0)
@@ -25,6 +27,7 @@ namespace tpp {
                 return {};
             return result;
         }
+
     } // namespace
 
     int DirectWriteWindow::titleBarControlAt(POINT clientPoint) const {
@@ -700,8 +703,20 @@ namespace tpp {
         mouseLeaveTracked_{false} {
         // determine the system DPI and adjust the desired window size in pixels accordingly (larger text settings will increase the real window size in pixels)
         dpiFactor_ = GetDpiForSystem() / 96.0;
-        Size const terminalSizePx = sizePx_ * dpiFactor_;
-        sizePx_ = Size{terminalSizePx.width(), terminalSizePx.height() + captionControlHeight()};
+        auto const & windowConfig = Config::Instance().renderer.window;
+        if (windowConfig.width.updated() || windowConfig.height.updated()) {
+            sizePx_ = Size{
+                static_cast<int>(std::max<unsigned>(windowConfig.width(), MinimumWindowWidth)),
+                static_cast<int>(std::max<unsigned>(windowConfig.height(), MinimumWindowHeight))
+            };
+            pixelWindowSize_ = true;
+        } else if (cols == 80 && rows == 25) {
+            sizePx_ = Size{800, 600};
+            pixelWindowSize_ = true;
+        } else {
+            Size const terminalSizePx = sizePx_ * dpiFactor_;
+            sizePx_ = Size{terminalSizePx.width(), terminalSizePx.height() + captionControlHeight()};
+        }
         // create the window with given title
         utf16_string t = UTF8toUTF16(title);
         windowedStyle_ = WS_POPUP | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN;
@@ -750,8 +765,15 @@ namespace tpp {
         )));
         ZeroMemory(&glyphRun_, sizeof(DWRITE_GLYPH_RUN));
 
-        // create the glyph run buffer and size it appropriately
-        updateDirectWriteStructures(width());
+        // Match the terminal grid to the configured pixel dimensions now.
+        // The window may already have its saved size before the first WM_SIZE
+        // is delivered, so waiting for a resize message can leave the buffer
+        // at the default 80x25 dimensions while the HWND is larger.
+        resizePx(sizePx_);
+        // Create the glyph run buffer after the initial resize. resize() above
+        // allocates it when the width changed from the default grid.
+        if (glyphIndices_ == nullptr)
+            updateDirectWriteStructures(width());
 
         // register the window
         RegisterWindowHandle(this, hWnd_);  
@@ -824,6 +846,12 @@ namespace tpp {
             window->suppressNextMenuDismissClick_ = false;
             return 0;
         }
+        if (window != nullptr && msg == WM_TIMER && wParam == WindowSizeSaveTimerId) {
+            KillTimer(hWnd, WindowSizeSaveTimerId);
+            window->windowSizeSavePending_ = false;
+            window->saveWindowSize();
+            return 0;
+        }
         if (window != nullptr && window->suppressNextMenuDismissClick_ && msg == WM_LBUTTONDOWN) {
             window->suppressNextMenuDismissClick_ = false;
             KillTimer(hWnd, MenuDismissClearTimerId);
@@ -861,7 +889,9 @@ namespace tpp {
 				if (fw != 0 || fh != 0) {
 					window->frameWidth_ = fw;
 					window->frameHeight_ = fh;
-					SetWindowPos(hWnd, HWND_TOP, cs.x, cs.y, cs.cx + fw, cs.cy + fh, SWP_NOZORDER | SWP_NOACTIVATE);
+					int const width = window->pixelWindowSize_ ? cs.cx : cs.cx + fw;
+					int const height = window->pixelWindowSize_ ? cs.cy : cs.cy + fh;
+					SetWindowPos(hWnd, HWND_TOP, cs.x, cs.y, width, height, SWP_NOZORDER | SWP_NOACTIVATE);
 				}
 				break;
 			}
@@ -924,15 +954,21 @@ namespace tpp {
 			case WM_ENTERSIZEMOVE:
 				if (window != nullptr) {
 					window->interactiveResize_ = true;
+					window->interactiveResizeChanged_ = false;
 				}
 				break;
 			case WM_EXITSIZEMOVE:
 				if (window != nullptr) {
-					window->interactiveResize_ = false;
 					RECT client{};
 					GetClientRect(hWnd, &client);
+					bool const resized = window->interactiveResizeChanged_ ||
+						client.right != window->sizePx_.width() || client.bottom != window->sizePx_.height();
+					window->interactiveResize_ = false;
+					window->interactiveResizeChanged_ = false;
 					window->windowResized(client.right, client.bottom);
 					window->layoutCaptionControls(!IsZoomed(hWnd));
+					if (resized)
+						window->scheduleWindowSizeSave();
 				}
 				break;
 			/* Called when the window is resized interactively by the user. Makes sure that the window size snaps to discrete terminal sizes. 
@@ -992,6 +1028,11 @@ namespace tpp {
 					window->layoutCaptionControls(window->interactiveResize_ ? false : !IsZoomed(hWnd));
 					RECT rect;
 					GetClientRect(hWnd, &rect);
+					if (window->interactiveResize_ &&
+						(rect.right != window->sizePx_.width() || rect.bottom != window->sizePx_.height())) {
+						window->interactiveResizeChanged_ = true;
+						window->scheduleWindowSizeSave();
+					}
 					window->windowResized(rect.right, rect.bottom);
 				}
 				break;
@@ -1039,6 +1080,7 @@ namespace tpp {
 							close();
 					}
 				}
+
 				return 0;
 			case WM_COMMAND:
 				if (HIWORD(wParam) == BN_CLICKED && window != nullptr) {
@@ -1235,6 +1277,43 @@ namespace tpp {
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
 
+    void DirectWriteWindow::scheduleWindowSizeSave() {
+        KillTimer(hWnd_, WindowSizeSaveTimerId);
+        windowSizeSavePending_ = SetTimer(hWnd_, WindowSizeSaveTimerId, WindowSizeSaveDelayMs, nullptr) != 0;
+    }
+
+    void DirectWriteWindow::saveWindowSize() {
+        WINDOWPLACEMENT placement{sizeof(placement)};
+        RECT bounds{};
+        if (GetWindowPlacement(hWnd_, &placement) &&
+            (IsZoomed(hWnd_) || IsIconic(hWnd_))) {
+            bounds = placement.rcNormalPosition;
+        } else if (!GetWindowRect(hWnd_, &bounds)) {
+            return;
+        }
+
+        try {
+            Config & config = Config::Instance();
+            JSON windowSettings = JSON::Object();
+            windowSettings.add("width", JSON{static_cast<unsigned>(bounds.right - bounds.left)});
+            windowSettings.add("height", JSON{static_cast<unsigned>(bounds.bottom - bounds.top)});
+            JSON rendererSettings = JSON::Object();
+            rendererSettings.add("window", std::move(windowSettings));
+            // Mark the containing configuration objects updated so serialization includes the new size.
+            config.renderer.set(rendererSettings);
+            config.save();
+        } catch (std::exception const & e) {
+            LOG() << "Unable to save terminal window size: " << e.what();
+        }
+    }
+
+    void DirectWriteWindow::flushWindowSizeSave() {
+        if (!windowSizeSavePending_)
+            return;
+        KillTimer(hWnd_, WindowSizeSaveTimerId);
+        windowSizeSavePending_ = false;
+        saveWindowSize();
+    }
 
 } // namespace tpp
 
